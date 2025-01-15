@@ -1,12 +1,25 @@
+@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --white: #fff;
+  --textSec: #b5b5b5;
+  --complimnty: #97b00f;
+  --secondary: #4f8f92;
+  --primary: #2c3e50;
+  --linear1: linear-gradient(to right, #307040 0%, #74b243 45.5%, #96b032 80%);
+  --linear2: #000;
+  --background: #171717;
 }
 
 @media (prefers-color-scheme: dark) {
+  /* same as light mode */
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --white: #fff;
+    --complimnty: #97b00f;
+    --secondary: #4f8f92;
+    --primary: #2c3e50;
+    --linear1: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+    --linear2: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+    --background: #171717;
   }
 }
 
@@ -14,14 +27,19 @@ html,
 body {
   max-width: 100vw;
   overflow-x: hidden;
+  scroll-behavior: smooth;
 }
 
 body {
-  color: var(--foreground);
+  color: var(--white);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: var(--monta);
+  direction: ltr; /* Default to LTR */
+}
+
+[lang="ar"] {
+  direction: rtl;
+  text-align: right;
 }
 
 * {
@@ -33,6 +51,26 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+.rtl {
+  direction: rtl;
+  text-align: right;
+}
+
+.rtl h1,
+.rtl h2,
+.rtl h3,
+.rtl h4,
+.rtl h5,
+.rtl h6,
+.rtl a,
+.rtl p {
+  text-align: right;
+}
+
+.rtl .container {
+  display: flex;
+  flex-direction: row-reverse;
 }
 
 @media (prefers-color-scheme: dark) {

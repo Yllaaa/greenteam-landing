@@ -4,27 +4,22 @@ import { getMessages } from "next-intl/server";
 // import Footer from "@/components/zFooter/Footer";
 // import Navbar from "@/components/aaaNavbar/Navbar";
 
-
 export default async function RootLayout({
   children,
-  params: { locale: locale },
+  params,
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
+  const { locale } = await params;
   // Fetch messages server-side
-  const messages = await getMessages(locale as any);
+  const messages = await getMessages((await locale) as any);
   return (
-    <section lang="en">
+    <section lang={locale} className={locale === "ar" ? "rtl" : ""}>
       <NextIntlClientProvider messages={messages}>
-       
-        <header>
-          {/* <Navbar /> */}
-        </header>
+        <header>{/* <Navbar /> */}</header>
         <div>{children}</div>
-        <div>
-          {/* <Footer /> */}
-        </div>
+        <div>{/* <Footer /> */}</div>
       </NextIntlClientProvider>
     </section>
   );
