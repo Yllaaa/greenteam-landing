@@ -6,11 +6,14 @@ import { getMessages } from "next-intl/server";
 
 export default async function RootLayout({
   children,
-  params: { locale: locale },
+  params,
 }: {
   children: React.ReactNode;
-  params: { locale: string };
+  params: Promise<{ locale: string }>;
 }) {
+  // Await the params
+  const { locale } = await params;
+
   // Fetch messages server-side
   const messages = await getMessages(locale as any);
   return (
