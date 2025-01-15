@@ -11,11 +11,14 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  const { locale } = await params;
+  // No need to await params
+  const { locale } = params;
+
   // Fetch messages server-side
-  const messages = await getMessages((await locale) as any);
+  const messages = await getMessages(locale as any);
+
   return (
-    <section lang="en" className={locale === "ar" ? "rtl" : ""}>
+    <section lang={locale} className={locale === "ar" ? "rtl" : ""}>
       <NextIntlClientProvider messages={messages}>
         <header>{/* <Navbar /> */}</header>
         <div>{children}</div>
