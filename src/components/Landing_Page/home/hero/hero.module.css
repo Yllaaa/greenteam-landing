@@ -166,11 +166,21 @@ align-self: flex-end;
 }
 
 @media screen and (max-width: 1250px) {
- 
+ .logo{
+    width: 300px;
+    height: 315px;
+ }
   .logo img {
     width: 300px;
     height: 315px;
   }
+  .logoText{
+    transform: translateX(-15%);
+    -webkit-transform: translateX(-15%);
+    -moz-transform: translateX(-15%);
+    -ms-transform: translateX(-15%);
+    -o-transform: translateX(-15%);
+}
 }
 
 @media screen and (max-width: 1024px) {
@@ -240,6 +250,7 @@ align-self: flex-end;
     height: 315px;
     top: auto;
     right: auto;
+    align-self: center;
   }
   .logo img {
     width: 300px;
