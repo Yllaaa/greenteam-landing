@@ -18,7 +18,7 @@ function Hero() {
   return (
     <>
       <div className={styles.container}>
-      <div className={styles.logo}>
+        <div className={styles.logo}>
           <Image src={logo} alt="logo" />
         </div>
         <div className={styles.header}>
@@ -33,9 +33,7 @@ function Hero() {
         <div className={styles.text}>
           <p>Be part of the sustentable community.</p>
         </div>
-        
         <div className={styles.userOverWorld}></div>
-        
         <div className={styles.logoText}>
           <h4>The conscient</h4>
           <h4>social net.</h4>
@@ -48,7 +46,9 @@ function Hero() {
             Login with Google
             <Image src={googleIcon} alt="googleIcon" />
           </button>
-          <Link className={styles.register} href={`/${locale}/register`}>Register</Link>
+          <Link className={styles.register} href={`/${locale}/register`}>
+            Register
+          </Link>
         </div>
       </div>
     </>

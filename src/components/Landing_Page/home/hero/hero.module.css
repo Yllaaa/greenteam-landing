@@ -1,22 +1,23 @@
 .container {
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, min-content);
   align-items: center;
   height: fit-content;
   min-height: 819px;
   width: 100%;
   overflow: hidden;
   z-index: 10;
+  align-content: center;
 }
 .header {
-  position: absolute;
+  grid-column: 1 / 7;
+  grid-row: 1 / 2;
   max-width: 604px;
   height: fit-content;
   min-height: 160px;
-  top: 222px;
-  left: 104px;
+align-self: flex-end;
 }
 .header h2 {
   font-size: 56px;
@@ -37,11 +38,12 @@
   min-height: 106px;
 }
 .text {
-  position: absolute;
+  grid-column: 1 / 7;
+  grid-row: 2 / 3;
   width: 462px;
   height: 29px;
-  top: 398px;
-  left: 104px;
+  /* top: 398px;
+  left: 104px; */
 }
 .text p {
   font-size: 23.56px;
@@ -51,23 +53,29 @@
   color: #b5b5b5;
 }
 .logo {
-  position: absolute;
+  grid-column: 8 / 13;
+  grid-row: 1 / 3;
   width: 350px;
   height: 365px;
-  top: 171px;
-  right: 106px;
+  justify-self: flex-end;
 }
 .logo img {
   width: 350px;
   height: 365px;
 }
 .logoText {
-  position: absolute;
+  grid-column: 8 / 13;
+  grid-row: 3 / 4;
   width: 228px;
   height: fit-content;
   min-height: 120px;
-  top: 568px;
-  right: 167px;
+  justify-self: flex-end;
+  margin-top: 32px;
+  transform: translateX(-25%);
+  -webkit-transform: translateX(-25%);
+  -moz-transform: translateX(-25%);
+  -ms-transform: translateX(-25%);
+  -o-transform: translateX(-25%);
 }
 .logoText h4 {
   font-size: 30px;
@@ -80,16 +88,15 @@
   -webkit-text-fill-color: transparent;
 }
 .buttonContainer {
-  position: absolute;
+  grid-column: 1 / 7;
+  grid-row: 3 / 4;
   width: 45.72%;
   max-width: 658.5px;
   height: 57px;
-  top: 487px;
-  left: 104px;
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 16px;
+  align-self: flex-start;
 }
 .buttonContainer .download {
   width: 100%;
@@ -159,26 +166,10 @@
 }
 
 @media screen and (max-width: 1250px) {
-  .header {
-    left: 40px;
-  }
-  .text {
-    left: 40px;
-  }
-
-  .logo {
-    right: 40px;
-  }
+ 
   .logo img {
     width: 300px;
     height: 315px;
-  }
-  .logoText {
-    top: 520px;
-    right: 130px;
-  }
-  .buttonContainer {
-    left: 40px;
   }
 }
 
@@ -197,15 +188,14 @@
   }
   .header {
     position: relative;
-    max-width: 80%;
+    max-width: 100%;
     height: fit-content;
     height: fit-content;
     min-height: 60px;
-    top: auto;
-    left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
+    align-self: center;
   }
   .header h2 {
     font-size: 36px;
@@ -213,6 +203,7 @@
     line-height: 60.08px;
     letter-spacing: 0.03em;
     text-align: center;
+    
   }
   .header h2 span {
     position: relative;
@@ -261,7 +252,13 @@
     min-height: 60px;
     top: auto;
     right: auto;
-  }
+    align-self: center;
+    transform: translateX(0);
+    -webkit-transform: translateX(0);
+    -moz-transform: translateX(0);
+    -ms-transform: translateX(0);
+    -o-transform: translateX(0);
+}
   .logoText h4 {
     font-size: 16px;
     font-weight: 700;
@@ -278,13 +275,12 @@
     max-width: 658.5px;
     height: fit-content;
     min-height: 60px;
-    top: auto;
-    left: auto;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
     gap: 16px;
+    align-self: center;
   }
   .buttonContainer .download {
     width: 100%;
@@ -331,7 +327,7 @@
     font-weight: 500;
     line-height: 24px;
     text-align: left;
-}
+  }
   .buttonContainer .googleLink img {
     width: 20px;
     height: 20px;
