@@ -5,6 +5,7 @@ import FootMarquee from "@/components/Landing_Page/home/foot/Foot";
 import Brain from "@/components/Landing_Page/home/brain/Brain";
 import Foot from "@/components/Landing_Page/home/footSection/FootSection";
 import EarthSection from "@/components/Landing_Page/home/earth/Earth";
+import WhatWeOffer from "@/components/Landing_Page/home/whatWeOffer/WhatWeOffer";
 
 function page() {
   return (
@@ -24,6 +25,9 @@ function page() {
         </div>
         <div className={styles.brain}>
           <Foot />
+        </div>
+        <div className={styles.whatWeOffer}>
+          <WhatWeOffer />
         </div>
         <div className={styles.aboutH}></div>
       </section>

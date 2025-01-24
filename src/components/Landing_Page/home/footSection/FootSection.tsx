@@ -14,8 +14,9 @@ function Foot() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2>
-            Discover and share experiences to create a better future,
-            <span>COMMUNICATION IS CULTURE.</span>
+            Be part of the community with GreenTeam,
+            <br />
+            <span>THE SUSTAINABLE COMMUNICATION TOOL.</span>
           </h2>
         </div>
         <div className={styles.text}>

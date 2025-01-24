@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-// import Footer from "@/components/zfooter/Footer";
 import Navbar from "@/components/Landing_Page/00Navbar/Navbar";
-// import Navbar from "@/components/aaaNavbar/Navbar";
+import Footer from "@/components/Landing_Page/ZFooter/Footer";
 
 export default async function RootLayout({
   children,
@@ -23,7 +22,7 @@ export default async function RootLayout({
         <header><Navbar /></header>
         <div>{children}</div>
         <div>
-          {/* <Footer /> */}
+          <Footer/>
         </div>
       </NextIntlClientProvider>
     </section>

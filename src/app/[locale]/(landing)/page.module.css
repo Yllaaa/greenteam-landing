@@ -5,5 +5,29 @@
 }
 .brain {
   margin: 100px auto 150px auto;
-  padding: 0px 101px;
+  padding: 0px 100px;
+}
+.whatWeOffer {
+  margin: 100px auto 150px auto;
+  padding: 0px 100px;
+}
+@media screen and (max-width: 1024px) {
+  .brain {
+    margin: 75px auto 100px auto;
+    padding: 0px 50px;
+  }
+  .whatWeOffer {
+    margin: 75px auto 100px auto;
+    padding: 0px 50px;
+  } 
+}
+@media screen and (max-width: 430px) {
+  .brain {
+    margin: 25px auto 50px auto;
+    padding: 0px 20px;
+  }
+  .whatWeOffer {
+    margin: 25px auto 50px auto;
+    padding: 0px 20px;
+  } 
 }
