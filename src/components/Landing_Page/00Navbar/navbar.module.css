@@ -1,0 +1,123 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  min-height: 39px;
+  padding: 0px 102px;
+  margin-top: 21px;
+  position: absolute;
+  transition: all 0.5s ease-in-out;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -ms-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  z-index: 1000;
+}
+.logo {
+  width: 233px;
+  height: 39px;
+}
+.logo img {
+  width: 233px;
+  height: 39px;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+}
+.auth {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 16px;
+}
+.auth .btn {
+  width: 153px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15.23px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.auth .signup {
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+
+  border: 1px solid #006633;
+}
+.auth .login {
+  border: 1px solid #006633;
+}
+.navbarResponsive {
+  display: none;
+}
+@media screen and (max-width: 1100px) {
+  .navbarResponsive {
+    display: none;
+  }
+  .container {
+    padding: 0px 70px;
+  }
+
+  .links {
+    gap: 20px;
+  }
+  .auth .btn {
+    width: 80px;
+  }
+}
+@media screen and (max-width: 860px) {
+  .navbarResponsive {
+    display: none;
+  }
+  .container {
+    padding: 0px 30px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .navbarResponsive {
+    display: flex;
+  }
+  .menuContainer {
+    position: fixed;
+    top: 0;
+    right: -60vw;
+    width: 60vw;
+    height: 100%;
+    overflow-x: hidden;
+    z-index: 1000;
+    background-color: red;
+    transition: right 0.4s;
+    -webkit-transition: right 0.4s;
+    -moz-transition: right 0.4s;
+    -ms-transition: right 0.4s;
+    -o-transition: right 0.4s;
+  }
+  .open {
+    right: 0;
+  }
+  .logo {
+    width: 150px;
+    height: 25px;
+    z-index: 1010;
+  }
+  .logo img {
+    width: 150px;
+    height: 25px;
+  }
+  .links {
+    display: none;
+  }
+  .auth {
+    display: none;
+  }
+}

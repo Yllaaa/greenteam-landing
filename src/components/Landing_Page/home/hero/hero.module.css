@@ -1,0 +1,355 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: fit-content;
+  min-height: 819px;
+  width: 100%;
+  overflow: hidden;
+  z-index: 10;
+}
+.header {
+  position: absolute;
+  max-width: 604px;
+  height: fit-content;
+  min-height: 160px;
+  top: 222px;
+  left: 104px;
+}
+.header h2 {
+  font-size: 56px;
+  font-weight: 700;
+  line-height: 80.08px;
+  letter-spacing: 0.03em;
+  text-align: left;
+}
+.header h2 span {
+  position: relative;
+}
+.header h2 span img {
+  position: absolute;
+  top: -8%;
+  left: -15%;
+  width: 120%;
+  height: 100%;
+  min-height: 106px;
+}
+.text {
+  position: absolute;
+  width: 462px;
+  height: 29px;
+  top: 398px;
+  left: 104px;
+}
+.text p {
+  font-size: 23.56px;
+  font-weight: 500;
+  line-height: 28.72px;
+  text-align: left;
+  color: #b5b5b5;
+}
+.logo {
+  position: absolute;
+  width: 350px;
+  height: 365px;
+  top: 171px;
+  right: 106px;
+}
+.logo img {
+  width: 350px;
+  height: 365px;
+}
+.logoText {
+  position: absolute;
+  width: 228px;
+  height: fit-content;
+  min-height: 120px;
+  top: 568px;
+  right: 167px;
+}
+.logoText h4 {
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 40px;
+  text-align: center;
+  background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.buttonContainer {
+  position: absolute;
+  width: 45.72%;
+  max-width: 658.5px;
+  height: 57px;
+  top: 487px;
+  left: 104px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.buttonContainer .download {
+  width: 100%;
+  max-width: 211px;
+  min-width: fit-content;
+  padding: 0px 16px;
+  height: 100%;
+  border: none;
+  outline: none;
+  border-radius: 64px;
+  -webkit-border-radius: 64px;
+  -moz-border-radius: 64px;
+  -ms-border-radius: 64px;
+  -o-border-radius: 64px;
+  background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+.buttonContainer .googleLink {
+  width: 100%;
+  max-width: 247px;
+  min-width: fit-content;
+  padding: 0px 16px;
+  height: 100%;
+  border: none;
+  outline: none;
+  border-radius: 64px;
+  -webkit-border-radius: 64px;
+  -moz-border-radius: 64px;
+  -ms-border-radius: 64px;
+  -o-border-radius: 64px;
+  background: #006633;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  text-align: left;
+}
+.buttonContainer .googleLink img {
+  width: 20px;
+  height: 20px;
+}
+.buttonContainer .register {
+  width: 100%;
+  max-width: 168px;
+  padding: 0px 16px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  background: #006633;
+  border-radius: 64px;
+  -webkit-border-radius: 64px;
+  -moz-border-radius: 64px;
+  -ms-border-radius: 64px;
+  -o-border-radius: 64px;
+}
+
+@media screen and (max-width: 1250px) {
+  .header {
+    left: 40px;
+  }
+  .text {
+    left: 40px;
+  }
+
+  .logo {
+    right: 40px;
+  }
+  .logo img {
+    width: 300px;
+    height: 315px;
+  }
+  .logoText {
+    top: 520px;
+    right: 130px;
+  }
+  .buttonContainer {
+    left: 40px;
+  }
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+    min-height: 900px;
+    width: 100%;
+    overflow: hidden;
+    z-index: 10;
+  }
+  .header {
+    position: relative;
+    max-width: 80%;
+    height: fit-content;
+    height: fit-content;
+    min-height: 60px;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .header h2 {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 60.08px;
+    letter-spacing: 0.03em;
+    text-align: center;
+  }
+  .header h2 span {
+    position: relative;
+  }
+  .header h2 span img {
+    position: absolute;
+    top: -55%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    min-height: 106px;
+  }
+  .text {
+    position: relative;
+    width: 80%;
+    height: fit-content;
+    min-height: 29px;
+    top: auto;
+    left: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .text p {
+    font-size: 16.56px;
+    font-weight: 500;
+    line-height: 20.72px;
+    text-align: center;
+    color: #b5b5b5;
+  }
+  .logo {
+    position: relative;
+    width: 300px;
+    height: 315px;
+    top: auto;
+    right: auto;
+  }
+  .logo img {
+    width: 300px;
+    height: 315px;
+  }
+  .logoText {
+    position: relative;
+    width: 228px;
+    height: fit-content;
+    min-height: 60px;
+    top: auto;
+    right: auto;
+  }
+  .logoText h4 {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 20px;
+    text-align: center;
+    background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .buttonContainer {
+    position: relative;
+    width: 80%;
+    max-width: 658.5px;
+    height: fit-content;
+    min-height: 60px;
+    top: auto;
+    left: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .buttonContainer .download {
+    width: 100%;
+    max-width: none;
+    min-width: fit-content;
+    padding: 16px;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 64px;
+    -webkit-border-radius: 64px;
+    -moz-border-radius: 64px;
+    -ms-border-radius: 64px;
+    -o-border-radius: 64px;
+    background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+  }
+  .buttonContainer .googleLink {
+    width: 100%;
+    max-width: none;
+    min-width: fit-content;
+    padding: 16px;
+    height: 100%;
+    border: none;
+    outline: none;
+    border-radius: 64px;
+    -webkit-border-radius: 64px;
+    -moz-border-radius: 64px;
+    -ms-border-radius: 64px;
+    -o-border-radius: 64px;
+    background: #006633;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    text-align: left;
+}
+  .buttonContainer .googleLink img {
+    width: 20px;
+    height: 20px;
+  }
+  .buttonContainer .register {
+    width: 100%;
+    max-width: none;
+    padding: 16px;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    background: #006633;
+    border-radius: 64px;
+    -webkit-border-radius: 64px;
+    -moz-border-radius: 64px;
+    -ms-border-radius: 64px;
+    -o-border-radius: 64px;
+  }
+}

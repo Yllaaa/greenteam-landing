@@ -60,7 +60,7 @@ function AboutH() {
           </div>
         </div>
         <div className={styles.btn}>
-          <Link href={`${locale}/explore`}>ABOUT US</Link>
+          <Link href={`${locale}/login`}>LOGIN</Link>
         </div>
       </div>
     </>
