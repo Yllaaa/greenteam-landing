@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 import { Link } from "@/i18n/routing";
 
 // import catalan from "../../../public/flags/catalan.svg";
-// import spanish from "../../../public/flags/spanish.svg";
+import spanish from "@/../public/language/spain.svg";
 import english from "@/../public/language/english.svg";
 // import arabic from "../../../public/flags/arabic.svg";
 
@@ -19,26 +19,17 @@ const LangBtn: React.FC = () => {
   // const [currentLang, setCurrentLang] = useState<string | any>("en"); // Default language
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
-  const languages: { code: string; label: string; flag?: string }[] = [
+  const languages: { code: string; label: string; flag: string }[] = [
     {
       code: "en",
       label: "English",
       flag: english,
     },
-    {
-      code: "ar",
-      label: "Arabic",
-      // flag: arabic,
-    },
+
     {
       code: "es",
       label: "Spanish",
-      // flag: spanish,
-    },
-    {
-      code: "ca",
-      label: "Catalan",
-      // flag: catalan,
+      flag: spanish,
     },
   ];
 
@@ -53,13 +44,12 @@ const LangBtn: React.FC = () => {
       <button style={styles.button} onClick={toggleDropdown}>
         <span>{currentLanguage?.label}</span>
         <Image
-          src={currentLanguage?.flag ?? null}
+          src={currentLanguage?.flag}
           alt={currentLanguage?.label}
           style={styles.flag}
           width={20}
           height={20}
         />
-        {/* {currentLanguage?.label} */}
       </button>
       {isDropdownOpen && (
         <div style={styles.dropdown}>
@@ -73,13 +63,13 @@ const LangBtn: React.FC = () => {
                 style={styles.dropdownItem}
               >
                 <span>{lang.label}</span>
-                {/* <Image
-                  src={lang.flag ?? null}
+                <Image
+                  src={lang?.flag}
                   alt={lang.label}
                   style={styles.dropdownFlag}
-                  width={20}
-                  height={20}
-                /> */}
+                  width={10}
+                  height={10}
+                />
               </Link>
             ))}
         </div>
@@ -98,7 +88,6 @@ const styles: any = {
     alignItems: "center",
     gap: "8px",
     backgroundColor: "transparent",
-
     border: "1px solid transparent",
     borderRadius: "5px",
     cursor: "pointer",
@@ -125,14 +114,16 @@ const styles: any = {
     padding: "8px 0px",
     cursor: "pointer",
     gap: "8px",
+    fontSize: "12px",
     transition: "background-color 0.2s",
   },
+  
   dropdownItemHover: {
     backgroundColor: "#f0f0f0",
   },
   dropdownFlag: {
-    width: "40px",
-    height: "30px",
+    width: "20px",
+    height: "20px",
     borderRadius: "2px",
   },
 };

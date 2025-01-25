@@ -11,6 +11,10 @@ function page() {
   return (
     <>
       <section className={styles.container}>
+        <div className={styles.shadow1}></div>
+        <div className={styles.shadow2}></div>
+        <div className={styles.shadow3}></div>
+        <div className={styles.shadow4}></div>
         <div className={styles.hero}>
           <Hero />
         </div>

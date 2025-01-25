@@ -1,0 +1,18 @@
+.aboutUs{
+    padding: 0px 100px;
+    margin-bottom: 140px;
+}
+.history{
+    padding: 0px 100px;
+}
+
+@media screen and (max-width: 1024px){
+    .history{
+        padding: 0px 20px;
+    }
+    .aboutUs{
+        padding: 0px 20px;
+        margin-bottom: 40px;
+    }
+    
+}

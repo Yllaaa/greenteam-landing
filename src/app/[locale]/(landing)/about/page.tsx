@@ -1,9 +1,23 @@
+import AboutUs from "@/components/Landing_Page/about/aboutUs/AboutUs";
+import AboutHero from "@/components/Landing_Page/about/hero/AboutHero";
+import History from "@/components/Landing_Page/about/histoty/History";
 import React from "react";
+import styles from "./about.module.css"
 
 function page() {
   return (
     <>
-      <div>page</div>
+      <section>
+        <div>
+          <AboutHero />
+        </div>
+        <div className={styles.aboutUs}>
+          <AboutUs />
+        </div>
+        <div className={styles.history}>
+          <History />
+        </div>
+      </section>
     </>
   );
 }
