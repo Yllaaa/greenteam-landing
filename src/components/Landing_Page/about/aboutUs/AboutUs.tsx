@@ -1,13 +1,21 @@
+"use client";
 import React from "react";
 import styles from "./aboutUs.module.css";
 import aoura from "@/../public/about/aoura.jpeg";
 import Image from "next/image";
+import LoadingTree from "@/components/zaLoader/LoadingTree";
 function AboutUs() {
+  const [loaded, setLoaded] = React.useState(false);
   return (
     <>
       <div className={styles.container}>
+      {!loaded && (
         <div className={styles.aboutUsImg}>
-          <Image src={aoura} alt="aoura" loading="lazy" />
+          <LoadingTree />
+        </div>
+      )}
+        <div className={styles.aboutUsImg}>
+          <Image src={aoura} alt="aoura" loading="lazy" onLoad={() => setLoaded(true)} />
         </div>
         <div className={styles.aboutUsText}>
           <h3>About Us</h3>

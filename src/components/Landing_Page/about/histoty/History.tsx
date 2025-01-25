@@ -1,9 +1,12 @@
+"use client";
 import React from "react";
 import styles from "./history.module.css";
 import Image from "next/image";
 import big from "@/../public/about/history.jpeg";
+import LoadingTree from "@/components/zaLoader/LoadingTree";
 
 const History: React.FC = () => {
+  const [loaded, setLoaded] = React.useState(false);
   return (
     <div className={styles.container}>
       <h2 className={styles.title}>History</h2>
@@ -51,8 +54,20 @@ const History: React.FC = () => {
         <p>{`We are all GREENTEAM!`}</p>
         <p>{`BECOME A MEMBER NOW!!!!`}</p>
       </div>
+      {!loaded && (
+        <div className={styles.imageContainer}>
+          <LoadingTree />
+        </div>
+      )}
       <div className={styles.imageContainer}>
-        <Image src={big} alt="big" />
+        <Image
+          src={big}
+          alt="history"
+          loading="lazy"
+          onLoad={() => {
+            setLoaded(true);
+          }}
+        />
       </div>
     </div>
   );
