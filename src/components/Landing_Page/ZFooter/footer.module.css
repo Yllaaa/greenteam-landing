@@ -116,6 +116,13 @@
   width: 100%;
   max-width: 200px;
 }
+
+.containerTop .containerTopActionsLoading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.containerTop .containerTopActionsLoading,
 .containerTop .containerTopActionsMockup {
   grid-column: 7 / 13;
   grid-row: 1 / 3;
@@ -223,5 +230,158 @@
   width: 100%;
   height: fit-content;
   min-height: 371px;
-  background: red;
+  background: linear-gradient(90deg, #002f10 0%, #001b0b 100%);
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, min-content);
+  padding: 44.75px 100px 86.25px 100px;
+}
+.containerBottom .containerBottomLogo {
+  grid-column: 1 / 4;
+  grid-row: 1 / 2;
+  width: 100%;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.containerBottom .containerBottomLogo img {
+  width: 233px;
+  height: 100%;
+}
+.containerBottom .containerBottomNavigation {
+  grid-column: 5 / 12;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-self: flex-start;
+}
+
+.containerBottom .containerBottomNavigation .link {
+  position: relative;
+  display: inline-block;
+  padding: 16px 20px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  z-index: 1;
+  transition: all 0.4s ease;
+  -webkit-transition: all 0.4s ease;
+  -moz-transition: all 0.4s ease;
+  -ms-transition: all 0.4s ease;
+  -o-transition: all 0.4s ease;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.containerBottom .containerBottomNavigation .link::before {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  inset: 0px;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  z-index: -1;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.containerBottom .containerBottomNavigation .link:hover {
+  color: #74b243; /* Change text color on hover */
+}
+.containerBottom .containerBottomSocial {
+  grid-column: 12 / 13;
+  grid-row: 1 / 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 20px;
+  justify-self: flex-end;
+}
+.containerBottom .containerBottomSocial .social {
+  cursor: pointer;
+}
+.containerBottom .containerBottomSocial .social svg:hover {
+  fill: #74b243;
+}
+.containerBottom .containerBottomCopyright {
+  grid-column: 1 / 13;
+  grid-row: 2 / 3;
+  margin-top: 157px;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  text-align: left;
+}
+@media screen and (max-width: 1024px) {
+  .containerBottom .containerBottomNavigation {
+    grid-column: 6 / 11;
+    width: 100%;
+    flex-direction: column;
+    gap: 15px;
+    align-self: flex-start;
+  }
+  .containerBottom .containerBottomNavigation .link {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+
+  .containerBottom .containerBottomCopyright {
+    margin-top: 60px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .containerBottom {
+    grid-template-rows: repeat(4, min-content);
+    padding: 14.75px 50px 26.25px 50px;
+    row-gap: 20px;
+  }
+  .containerBottom .containerBottomLogo {
+    grid-column: 1 / 13;
+    grid-row: 1 / 2;
+    min-width: 233px;
+  }
+  .containerBottom .containerBottomNavigation {
+    grid-column: 3 / 11;
+    grid-row: 2 / 3;
+    width: 100%;
+    min-width: fit-content;
+    flex-direction: column;
+    gap: 15px;
+    align-self: flex-start;
+  }
+  .containerBottom .containerBottomSocial {
+    grid-column: 1 / 13;
+    grid-row: 3 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+    gap: 20px;
+    justify-self: center;
+  }
+  .containerBottom .containerBottomNavigation .link {
+    position: relative;
+    width: 100%;
+    text-align: center;
+  }
+  .containerBottom .containerBottomCopyright {
+    grid-column: 1 / 13;
+    grid-row: 4 / 5;
+    margin-top: 0px;
+    text-align: center;
+  }
 }

@@ -10,16 +10,30 @@ import { useLocale } from "next-intl";
 import { AOSInit } from "@/Utils/aos/aos";
 import "aos/dist/aos.css";
 import { FaArrowRightLong } from "react-icons/fa6";
+import LoadingTree from "@/components/zaLoader/LoadingTree";
 function Hero() {
   const locale = useLocale();
   React.useEffect(() => {
     AOSInit(1500);
   }, []);
+
+  const [logoLoaded, setLogoLoaded] = React.useState(false);
+  
   return (
     <>
       <div className={styles.container}>
+        {!logoLoaded ? (
+          <div className={styles.logoLoader}>
+            <LoadingTree />
+          </div>
+        ) : null}
         <div className={styles.logo}>
-          <Image src={logo} alt="logo" />
+          <Image
+            src={logo}
+            alt="logo"
+            loading="lazy"
+            onLoad={() => setLogoLoaded(true)}
+          />
         </div>
         <div className={styles.header}>
           <h2>

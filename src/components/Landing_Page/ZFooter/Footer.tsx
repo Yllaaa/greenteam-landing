@@ -7,9 +7,14 @@ import mockup from "@/../public/footer/mockup.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-
+import LoadingTree from "@/components/zaLoader/LoadingTree";
+import logo from "@/../public/logo/fullLogo.png";
+import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 function Footer() {
   const locale = useLocale();
+
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
   return (
     <>
       <div className={styles.container}>
@@ -31,11 +36,51 @@ function Footer() {
               <Link href={`/${locale}/register`}>Register Now</Link>
             </div>
           </div>
+          {!imageLoaded && (
+            <div className={styles.containerTopActionsLoading}>
+              <LoadingTree />
+            </div>
+          )}
           <div className={styles.containerTopActionsMockup}>
-            <Image src={mockup} alt="Mockup" loading="lazy" />
+            <Image
+              src={mockup}
+              alt="Mockup"
+              loading="lazy"
+              onLoad={() => setImageLoaded(true)}
+            />
           </div>
         </div>
-        <div className={styles.containerBottom}></div>
+        <div className={styles.containerBottom}>
+          <div className={styles.containerBottomLogo}>
+            <Image src={logo} alt="Logo" loading="lazy" />
+          </div>
+          <div className={styles.containerBottomNavigation}>
+            <Link className={styles.link} href={`/${locale}/about`}>
+              <span>About us</span>
+            </Link>
+            <Link className={styles.link} href={`/${locale}/goal`}>
+              Goal
+            </Link>
+            <button className={styles.link}>Download Now</button>
+            <Link className={styles.link} href={`/${locale}/register`}>
+              Register
+            </Link>
+          </div>
+          <div className={styles.containerBottomSocial}>
+            <div className={styles.social}>
+              <FaXTwitter />
+            </div>
+            <div className={styles.social}>
+              <FaFacebookF />
+            </div>
+            <div className={styles.social}>
+              <FaInstagram />
+            </div>
+          </div>
+          <div className={styles.containerBottomCopyright}>
+            <p>© Copyright 2024, All Rights Reserved by Greenteam</p>
+          </div>
+        </div>
       </div>
     </>
   );

@@ -2,9 +2,11 @@
   display: flex;
   flex-direction: column;
   height: fit-content;
+  position: relative;
+  overflow: auto;
 }
 .hero {
-  padding: 0px 100px;
+  padding: 0px;
 }
 .brain {
   margin: 100px auto 150px auto;

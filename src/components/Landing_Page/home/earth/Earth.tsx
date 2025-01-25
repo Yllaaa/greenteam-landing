@@ -3,12 +3,15 @@ import React from "react";
 import styles from "./earth.module.css";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-import { FiArrowRight } from "react-icons/fi";
 import earth from "@/../public/brain/earth.png";
 import Image from "next/image";
+import LoadingTree from "@/components/zaLoader/LoadingTree";
 
 function EarthSection() {
   const locale = useLocale();
+
+  const [imageLoaded, setImageLoaded] = React.useState(false);
+
   return (
     <>
       <div className={styles.container}>
@@ -27,11 +30,21 @@ function EarthSection() {
         </div>
         <div className={styles.link}>
           <Link href={`/${locale}/about`}>
-            <span>Read more</span> <FiArrowRight />
+          <span>Learn more</span>
           </Link>
         </div>
+        {!imageLoaded && (
+          <div className={styles.image}>
+            <LoadingTree />
+          </div>
+        )}
         <div className={styles.image}>
-          <Image src={earth} alt="Foot" loading="lazy" />
+          <Image
+            src={earth}
+            alt="Foot"
+            loading="lazy"
+            onLoad={() => setImageLoaded(true)}
+          />
         </div>
       </div>
     </>
