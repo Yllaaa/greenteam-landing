@@ -1,0 +1,44 @@
+.chart {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 150px auto;
+}
+
+.chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.hexagon {
+  fill: #f0f0f0; /* Background color */
+  stroke: #ccc;
+  stroke-width: 1;
+}
+
+.filledArea {
+  fill: rgba(0, 123, 255, 0.6); /* Adjusted to match the hexagon */
+  stroke: #007bff;
+  stroke-width: 1;
+}
+
+.axis {
+  stroke: #aaa;
+  stroke-width: 0.5;
+}
+
+.labels {
+  position: absolute;
+  top: -25%;
+  left: -25%;
+  width: 150%;
+  height: 150%;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  font-size: 12px;
+  font-weight: bold;
+  transform: translate(-50%, -50%);
+}
