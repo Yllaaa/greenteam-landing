@@ -83,6 +83,10 @@
 }
 .hero {
   padding: 0px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .brain {
   margin: 100px auto 150px auto;
@@ -91,6 +95,16 @@
 .whatWeOffer {
   margin: 100px auto 150px auto;
   padding: 0px 100px;
+  overflow: hidden;
+}
+.news {
+  width: fit-content;
+  margin: 100px auto 150px auto;
+  padding: 0px;
+  overflow: hidden !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 @media screen and (max-width: 1024px) {
   .hero {

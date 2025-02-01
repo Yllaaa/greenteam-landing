@@ -230,7 +230,7 @@
   width: 100%;
   height: fit-content;
   min-height: 371px;
-  background: linear-gradient(90deg, #002f10 0%, #001b0b 100%);
+  background: #28343024;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(2, min-content);
