@@ -91,6 +91,7 @@ const styles: any = {
     border: "1px solid transparent",
     borderRadius: "5px",
     cursor: "pointer",
+    fontSize: "16px",
   },
   flag: {
     width: "20px",
@@ -114,7 +115,7 @@ const styles: any = {
     padding: "8px 0px",
     cursor: "pointer",
     gap: "8px",
-    fontSize: "12px",
+    fontSize: "16px",
     transition: "background-color 0.2s",
   },
   

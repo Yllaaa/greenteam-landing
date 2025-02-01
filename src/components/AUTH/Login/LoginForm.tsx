@@ -8,9 +8,9 @@ import styles from "./loginForm.module.css";
 import Image from "next/image";
 import footLogo from "@/../public/logo/foot.png";
 import googleIcon from "@/../public/icons/google.svg";
-import facebookIcon from "@/../public/icons/facebook.svg";
-import appleIcon from "@/../public/icons/apple.svg";
-import twitterIcon from "@/../public/icons/twitter.svg";
+// import facebookIcon from "@/../public/icons/facebook.svg";
+// import appleIcon from "@/../public/icons/apple.svg";
+// import twitterIcon from "@/../public/icons/twitter.svg";
 import bgImage from "@/../public/auth/dots.png";
 import feet from "@/../public/auth/foots.svg";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
@@ -54,7 +54,7 @@ function LoginForm() {
     }
   }, []);
 
-  const iconsArray = [googleIcon, facebookIcon, appleIcon, twitterIcon];
+  // const iconsArray = [googleIcon, facebookIcon, appleIcon, twitterIcon];
 
   //   const googleSignIn = () => {
   //     // Your Google Sign In logic here
@@ -119,11 +119,12 @@ function LoginForm() {
             </div>
             {/* icons */}
             <div className={styles.icons}>
-              {iconsArray.map((icon, index) => (
-                <div className={styles.icon} key={index}>
-                  <Image src={icon} alt="logo" />
-                </div>
-              ))}
+              <div className={styles.icon}>
+                <Image src={googleIcon} alt="logo" />
+              </div>
+              {/* {iconsArray.map((icon, index) => (
+                
+              ))} */}
             </div>
             {/* secerate line */}
             <div className={styles.line}>

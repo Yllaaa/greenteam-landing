@@ -1,6 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
 :root {
-  --white: #fff;
+  --white: #fefefe;
   --textSec: #b5b5b5;
   --lightGreen: #97b00f;
   --secondary: #4f8f92;
@@ -28,6 +28,7 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   scroll-behavior: smooth;
+  /* overflow: hidden; */
 }
 
 body {
@@ -49,7 +50,7 @@ body {
 }
 
 a {
-  color: inherit;
+  color: var(--white);
   text-decoration: none;
 }
 .rtl {
@@ -71,6 +72,9 @@ a {
 .rtl .container {
   display: flex;
   flex-direction: row-reverse;
+}
+.platform{
+  background: linear-gradient(127.36deg, #0F3B18 0.8%, #0C2311 50%, #031E09 99.2%);
 }
 
 @media (prefers-color-scheme: dark) {

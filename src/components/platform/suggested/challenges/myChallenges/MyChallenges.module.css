@@ -1,0 +1,115 @@
+.container {
+  min-width: 331px;
+  max-width: 331px;
+  height: 512px;
+  background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
+  padding: 25px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+/* header */
+.header h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25.2px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+.header p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.8px;
+  text-align: center;
+  color: #fefefe80;
+}
+
+/* challenges */
+.challenges {
+  max-height: 340px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+.challenge {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  height: fit-content;
+}
+
+.challenge .challengeDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  width: 100%;
+  gap: 4px;
+}
+.challenge .challengeDetails .challengeImage {
+  width: 56px;
+  height: 56px;
+  background-color: red;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.challenge .challengeDetails .challengeText {
+  margin-bottom: 16px;
+}
+.challenge .challengeDetails .challengeText h3 {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.63px;
+  letter-spacing: -0.004em;
+  text-align: center;
+}
+.challenge .challengeDetails .challengeText p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.63px;
+  letter-spacing: -0.004em;
+  text-align: center;
+  color: #fefefeb2;
+}
+.challenge .challengeActions {
+  width: 100%;
+}
+.challenge .challengeActions .challengeButton {
+  width: 95%;
+  height: 32px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  /* text */
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.63px;
+  letter-spacing: -0.004em;
+  text-align: center;
+  color: #006633;
+
+  /* end text */
+  cursor: pointer;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}

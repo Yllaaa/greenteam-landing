@@ -4,6 +4,11 @@ const withNextIntl = createNextIntlPlugin();
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    domains: [
+      "picsum.photos", // Allow images from Lorem Picsum
+    ],
+  },
   async rewrites() {
     return [
       {

@@ -1,0 +1,188 @@
+.container {
+  position: relative;
+  width: 679.21px;
+  height: 512px;
+  background: linear-gradient(
+    126.97deg,
+    #006633 28.26%,
+    rgba(50, 80, 65, 0.5) 91.2%
+  );
+  padding: 42px 20px;
+  z-index: 0;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.chart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  height: 355px;
+  margin: auto;
+  z-index: 200;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+
+.chart svg {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.hexagon {
+  fill: #f0f0f0; /* Background color */
+  stroke: #ccc;
+  stroke-width: 1;
+}
+
+.filledArea {
+  fill: rgba(0, 123, 255, 0.329); /* Adjusted to match the hexagon */
+  stroke: #007bff34;
+  stroke-width: 1;
+}
+.diamondShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 270px;
+  height: 300px;
+  margin: auto;
+  z-index: 100;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+.diamondShape img {
+  width: 100%;
+  height: 100%;
+}
+.labels {
+  position: relative;
+  top: 50%;
+  left: 51%;
+  width: 575px;
+  height: 415px;
+  z-index: 300;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+
+.label {
+  width: 156px;
+  height: 53px;
+  padding: 2.5%;
+  background: #132f14;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  text-align: center;
+  position: absolute;
+  font-size: 12px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: hidden;
+  scroll-behavior: none;
+}
+
+.modalContent {
+  background: linear-gradient(
+    126.97deg,
+    #006633 28.26%,
+    rgba(50, 80, 65, 0.5) 91.2%
+  );
+
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 956px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.modalDiamond {
+  width: 270px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+}
+
+.modalDiamond img {
+  width: 100%;
+  height: 100%;
+}
+
+.subCategories {
+  text-align: center;
+  color: white;
+}
+
+.subCategories h2 {
+  margin-bottom: 20px;
+}
+
+.subCategories p {
+  list-style: none;
+  padding: 0;
+  position: absolute;
+}
+
+.subCategories li {
+  margin: 10px 0;
+  font-size: 18px;
+}

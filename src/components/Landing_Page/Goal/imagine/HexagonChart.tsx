@@ -41,6 +41,7 @@ const HexagonChart: React.FC<Props> = ({ values }) => {
     <div className={styles.chart}>
       <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
         {/* Main Hexagon Background */}
+        
         <polygon
           points="50,7 87,29 87,71 50,93 13,71 13,29"
           className={styles.hexagon}
