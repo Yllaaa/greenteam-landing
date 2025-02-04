@@ -215,7 +215,7 @@ function Header() {
                   />
                 </svg>
               </div>
-              <ul>
+              {/* <ul>
                 <li className={`${styles.item}`}>Download the app</li>
                 <li className={`${styles.item}`}>
                   <div className={styles.data}>
@@ -228,7 +228,7 @@ function Header() {
                     </div>
                   </div>
                 </li>
-              </ul>
+              </ul> */}
             </div>
           )}
         </div>
