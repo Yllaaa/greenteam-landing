@@ -23,16 +23,21 @@ function Header() {
   const locale = useLocale();
   const router = useRouter();
 
-  // const userInfo = useAppSelector((state) => state.login);
-  const userInfo1 = localStorage.getItem("user");
-  const userInfo = userInfo1 ? JSON.parse(userInfo1) : null;
-  console.log(userInfo);
-
-  useEffect(() => {
-    if (!userInfo) {
-      router.push(`/${locale}`);
+  // handle state if not logged in
+  const userInfo1 = localStorage?.getItem("user");
+  const userInfo = () => {
+    if (!userInfo1) {
+      return null;
+    } else {
+      return JSON.parse(userInfo1);
     }
-  }, []);
+  };
+
+  // useEffect(() => {
+  //   if (userInfo() === null) {
+  //     router.push(`/${locale}`);
+  //   }
+  // }, []);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const toggleDropdown = useCallback(() => {
@@ -58,7 +63,6 @@ function Header() {
   const toggleMenu = () => {
     setIsOpen(!isOpen);
     console.log("clicked");
-    
   };
   const handleClickOutsideMenu = (event: MouseEvent) => {
     if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
@@ -126,9 +130,9 @@ function Header() {
             </div>
             <div className={styles.profileIcon}>
               <div className={styles.avatar}>
-                {userInfo.user?.avatar ? (
+                {userInfo().user?.avatar ? (
                   <Image
-                    src={userInfo.user?.avatar}
+                    src={userInfo().user?.avatar}
                     alt="profile"
                     width={30}
                     height={30}
@@ -139,17 +143,17 @@ function Header() {
               </div>
               <div className={styles.data}>
                 <div className={styles.name}>
-                  <h5>{userInfo.user?.fullName}</h5>
+                  <h5>{userInfo().user?.fullName}</h5>
                 </div>
 
                 <div className={styles.username}>
-                  <h5>@{userInfo.user?.username}</h5>
+                  <h5>@{userInfo().user?.username}</h5>
                 </div>
               </div>
             </div>
           </div>
           <div
-            style={{ zIndex: "10000",display: isOpen ? "none" : "" }}
+            style={{ zIndex: "10000", display: isOpen ? "none" : "" }}
             className={styles.navbarResponsive}
             onClick={toggleMenu}
             // style={{}}
@@ -212,11 +216,11 @@ function Header() {
                 <li className={`${styles.item}`}>
                   <div className={styles.data}>
                     <div className={styles.name}>
-                      <h5>{userInfo.user?.fullName}</h5>
+                      <h5>{userInfo().user?.fullName}</h5>
                     </div>
 
                     <div className={styles.username}>
-                      <h5>@{userInfo.user?.username}</h5>
+                      <h5>@{userInfo().user?.username}</h5>
                     </div>
                   </div>
                 </li>
