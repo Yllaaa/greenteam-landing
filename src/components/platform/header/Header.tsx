@@ -24,14 +24,14 @@ function Header() {
   const router = useRouter();
 
   // handle state if not logged in
-  const userInfo1 = localStorage?.getItem("user");
-  const userInfo = () => {
-    if (!userInfo1) {
-      return null;
-    } else {
-      return JSON.parse(userInfo1);
-    }
-  };
+  // const userInfo1 = localStorage?.getItem("user");
+  // const userInfo = () => {
+  //   if (!userInfo1) {
+  //     return null;
+  //   } else {
+  //     return JSON.parse(userInfo1);
+  //   }
+  // };
 
   // useEffect(() => {
   //   if (userInfo() === null) {
