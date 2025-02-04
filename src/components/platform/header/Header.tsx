@@ -130,27 +130,33 @@ function Header() {
             </div>
             <div className={styles.profileIcon}>
               <div className={styles.avatar}>
-                {userInfo().user?.avatar ? (
-                  <Image
-                    src={userInfo().user?.avatar}
-                    alt="profile"
-                    width={30}
-                    height={30}
-                  />
-                ) : (
+                {
+                // userInfo().user?.avatar ? (
+                //   <Image
+                //     src={userInfo().user?.avatar}
+                //     alt="profile"
+                //     width={30}
+                //     height={30}
+                //   />
+                // ) :
+                 (
                   <Image src={noUserPic} alt="profile" width={30} height={30} />
                 )}
               </div>
               <div className={styles.data}>
                 <div className={styles.name}>
                   <h5>
-                    {userInfo().user ? userInfo().user?.fullName : "testing"}
+                    {
+                    // userInfo().user ? userInfo().user?.fullName : 
+                    "testing"}
                   </h5>
                 </div>
 
                 <div className={styles.username}>
                   <h5>
-                    @{userInfo().user ? userInfo().user?.username : "testing"}
+                    @{
+                    // userInfo().user ? userInfo().user?.username :
+                     "testing"}
                   </h5>
                 </div>
               </div>
