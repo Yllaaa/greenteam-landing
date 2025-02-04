@@ -83,6 +83,10 @@ function LoginForm() {
               "Access-Control-Allow-Origin": "*",
               "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             },
+            proxy: {
+              host: `${process.env.NEXT_PUBLIC_BACKENDAPI}`,
+              port: 9000,
+            },
           }
         )
         .then((response) => {
