@@ -143,11 +143,15 @@ function Header() {
               </div>
               <div className={styles.data}>
                 <div className={styles.name}>
-                  <h5>{userInfo().user?.fullName}</h5>
+                  <h5>
+                    {userInfo().user ? userInfo().user?.fullName : "testing"}
+                  </h5>
                 </div>
 
                 <div className={styles.username}>
-                  <h5>@{userInfo().user?.username}</h5>
+                  <h5>
+                    @{userInfo().user ? userInfo().user?.username : "testing"}
+                  </h5>
                 </div>
               </div>
             </div>
