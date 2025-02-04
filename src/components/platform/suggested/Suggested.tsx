@@ -52,26 +52,26 @@ function Suggested() {
             />
           </>
         )}
+        {loaded && instanceRef.current && (
+          <div className={styles.dots}>
+            {[
+              ...Array(instanceRef.current.track.details.slides.length).keys(),
+            ].map((idx) => {
+              return (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    instanceRef.current?.moveToIdx(idx);
+                  }}
+                  className={` ${styles.dot} ${
+                    currentSlide === idx ? styles.active : ""
+                  }`}
+                ></button>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {loaded && instanceRef.current && (
-        <div className={styles.dots}>
-          {[
-            ...Array(instanceRef.current.track.details.slides.length).keys(),
-          ].map((idx) => {
-            return (
-              <button
-                key={idx}
-                onClick={() => {
-                  instanceRef.current?.moveToIdx(idx);
-                }}
-                className={
-                  styles.dot + (currentSlide === idx ? styles.active : "")
-                }
-              ></button>
-            );
-          })}
-        </div>
-      )}
     </>
   );
 }

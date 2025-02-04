@@ -1,0 +1,22 @@
+.container {
+  width: 100%;
+  height: fit-content;
+  padding: 0px 22px;
+}
+.forum {
+  width: 100%;
+  height: fit-content;
+  margin: 32px auto 38px auto;
+}
+.addNew {
+  width: 100%;
+  height: fit-content;
+  margin: 32px auto 330px auto;
+}
+.forums::after {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 1px;
+  background-color: #3a444c;
+}

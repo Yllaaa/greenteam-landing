@@ -63,33 +63,42 @@ function LoginForm() {
   const login = () => {
     if (!selectedOption) {
       setSelectedOptionError("Please accept terms and conditions");
+      ToastNot("Please accept terms and conditions");
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
+    console.log(data);
+
     try {
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/login`,
           {
-            identifier: data.identifier,
-            password: data.password,
+            identifier: data?.identifier,
+            password: data?.password,
           },
           {
             headers: {
               "Content-Type": "application/json",
+              "Access-Control-Allow-Origin": "*",
             },
           }
         )
         .then((response) => {
           console.log(response);
+          localStorage.setItem("user", JSON.stringify(response.data));
           dispatch(setUserLoginData(response.data));
           ToastNot("Login successful");
           setTimeout(() => {
-            router.push(`/${locale}`);
+            router.replace(`/${locale}/feeds`);
           }, 3000);
         })
         .catch((error) => {
-          ToastNot(error.response.data.message);
+          if (error.response.data) {
+            ToastNot(error.response.data.message);
+          } else {
+            ToastNot("Login failed");
+          }
         });
     } catch (error) {
       console.log(error);
@@ -206,9 +215,8 @@ function LoginForm() {
                       id="accept"
                       value={selectedOption ? "yes" : "no"}
                       checked={selectedOption}
-                      onChange={(e) => {
+                      onChange={() => {
                         handleRadioClick();
-                        console.log(e.target.value);
                       }}
                       onClick={() => {
                         setSelectedOption(!selectedOption);
@@ -238,7 +246,10 @@ function LoginForm() {
           </form>
           <p className={styles.createAccount}>
             Don’t have an account?{" "}
-            <Link href={`/${locale}/register`}> SignUp</Link>
+            <Link href={`/${locale}/register`} replace>
+              {" "}
+              SignUp
+            </Link>
           </p>
         </div>
         <div className={styles.sideImageContainer}>

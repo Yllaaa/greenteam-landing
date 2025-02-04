@@ -20,18 +20,7 @@ function ArtSection() {
             <li>Event 4</li>
           </ul>
         </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "flex-start",
-            gap: "25px",
-            alignItems: "center",
-            overflowX: "auto",
-            overflowY: "hidden",
-            scrollbarWidth: "none",
-            paddingLeft: "34px",
-          }}
-        >
+        <div className={styles.posts}>
           <PostCard />
           <PostCard />
           <PostCard />

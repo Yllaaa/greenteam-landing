@@ -1,0 +1,169 @@
+.container {
+  width: 100%;
+  height: fit-content;
+  min-height: 555px;
+  justify-self: center;
+}
+.container .header {
+  width: 100%;
+  height: fit-content;
+  margin-bottom: 47.5px;
+}
+.container .header h2 {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 12px;
+  height: 100%;
+
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 29.26px;
+  text-align: center;
+}
+.container .forumBody .forumForm {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+.container .forumBody .forumForm .textArea {
+  width: 100%;
+  height: fit-content;
+  min-height: 330px;
+  background-color: #141414;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 15px;
+
+  font-family: Manrope;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 25.6px;
+  text-align: left;
+  text-underline-position: from-font;
+  text-decoration-skip-ink: none;
+
+  margin-bottom: 24px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.container .forumBody .forumForm .addAndCategory {
+  width: 100%;
+  height: fit-content;
+  min-height: 43px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.insertImage {
+  position: relative;
+  width: 123.79px;
+  height: fit-content;
+  min-height: 42.44px;
+
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+}
+.insertImage .imageButton {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  height: fit-content;
+
+  display: flex;
+  justify-content: center;
+  z-index: 8;
+  width: 123.79px;
+  height: 42.44px;
+  cursor: pointer;
+}
+.insertImage .imageButton button {
+  width: 100%;
+  height: 100%;
+  background-color: #141414;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 9.22px;
+  -webkit-border-radius: 9.22px;
+  -moz-border-radius: 9.22px;
+  -ms-border-radius: 9.22px;
+  -o-border-radius: 9.22px;
+}
+.insertImage .imageFunc {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  height: fit-content;
+  min-height: 43px;
+  display: flex;
+  justify-content: center;
+  z-index: 9;
+  cursor: pointer;
+  opacity: 0;
+}
+.selectCategory {
+  height: fit-content;
+
+  width: 155px;
+  height: 42.44px;
+}
+.selectCategory select {
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: #141414;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.selectSubCategory {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  height: 100%;
+  min-height: 43px;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  background-color: #141414;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.submit {
+  align-self: flex-end;
+  width: 161px;
+  height: 42px;
+  padding: 8px 16px 8px 16px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+  cursor: pointer;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}

@@ -24,6 +24,13 @@
   list-style: none;
 }
 .title ul li {
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.01em;
+  text-align: left;
+
   width: fit-content;
   display: flex;
   justify-content: center;
@@ -44,4 +51,66 @@
   -moz-transition: all 0.4s;
   -ms-transition: all 0.4s;
   -o-transition: all 0.4s;
+}
+.posts {
+  display: flex;
+  justify-content: flex-start;
+  gap: 25px;
+  align-items: center;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-left: 34px;
+}
+@media screen and (max-width: 1024px) {
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: 26px;
+    padding: 0px 13px;
+  }
+  .title h3 {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 22px;
+    text-align: center;
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .title h3 img {
+    width: 20px;
+    height: 20px;
+  }
+  .title ul {
+    justify-content: flex-start;
+    gap: 12px;
+    width: 100%;
+  }
+  .title ul li {
+    overflow-x: auto;
+    width: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px 0px;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    transition: all 0.4s;
+    -webkit-transition: all 0.4s;
+    -moz-transition: all 0.4s;
+    -ms-transition: all 0.4s;
+    -o-transition: all 0.4s;
+  }
+  .posts {
+    display: flex;
+    gap: 16px;
+    padding-left: 12px;
+  }
 }

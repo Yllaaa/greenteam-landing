@@ -69,4 +69,75 @@
   width: 100vw;
   height: 100px;
   background: #a1e0c133;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.lower .content {
+  height: 100%;
+  width: fit-content;
+  min-width: 20vw;
+  max-width: 384px;
+  position: absolute;
+  left: 50%;
+  padding: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+.lower .content ul {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.lower .content ul li a {
+  font-family: Roboto;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  text-align: left;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+}
+.lower .content ul li a:hover {
+  text-decoration: underline;
+  transition: all 0.4s ease-in-out;
+  -webkit-transition: all 0.4s ease-in-out;
+  -moz-transition: all 0.4s ease-in-out;
+  -ms-transition: all 0.4s ease-in-out;
+  -o-transition: all 0.4s ease-in-out;
+}
+.lower .content p {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 14.06px;
+  text-align: left;
+}
+.lower .containerBottomSocial {
+  position: absolute;
+  right: 8%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+  justify-self: flex-end;
+}
+.lower .containerBottomSocial .social {
+  cursor: pointer;
+}
+.lower .containerBottomSocial .social svg:hover {
+  fill: #74b243;
 }

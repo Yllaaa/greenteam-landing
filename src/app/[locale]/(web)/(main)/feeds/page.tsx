@@ -8,66 +8,25 @@ import ProductSection from "@/components/platform/products/ProductSection";
 function page() {
   return (
     <section className={srtyles.container}>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
-      <div
-        style={{
-          padding: "32.5px 0px",
-          borderBottom: "1px solid #3A444C",
-          borderTop: "1px solid #3A444C",
-        }}
-      >
+      <div className={srtyles.artSection}>
         <ArtSection />
-        {/* <PostCard /> */}
       </div>
+
       <div
         style={{
           padding: "32.5px 0px",

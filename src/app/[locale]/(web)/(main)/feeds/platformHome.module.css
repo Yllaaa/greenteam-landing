@@ -1,0 +1,39 @@
+.container {
+  width: 100%;
+  height: fit-content;
+  min-height: 100vh;
+}
+.layout {
+  z-index: 10;
+  padding: 40px 30px;
+  display: flex;
+  flex-direction: row;
+  gap: 25px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.artSection {
+  width: 100%;
+  height: fit-content;
+  padding: 32.5px 0px;
+  border-bottom: 1px solid #3a444c;
+  border-top: 1px solid #3a444c;
+}
+@media screen and (max-width: 768px) {
+  .layout {
+    z-index: 10;
+    padding: 20px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    overflow-x: hidden;
+    scrollbar-width: none;
+  }
+  .artSection {
+    width: 100%;
+    height: fit-content;
+    padding: 16px 0px;
+    border-bottom: 1px solid #3a444c;
+    border-top: 1px solid #3a444c;
+  }
+}

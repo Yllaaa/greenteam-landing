@@ -252,16 +252,16 @@ function Categories() {
                       </svg>
                     </div>
                     <div>
-                      <p style={{ top: "40%", left: "30%" }}>
+                      <p style={{ top: "40%", left: "10%" }}>
                         {subCategories[selectedCategory][0]}
                       </p>
-                      <p style={{ top: "40%", left: "70%" }}>
+                      <p style={{ top: "40%", left: "80%" }}>
                         {subCategories[selectedCategory][1]}
                       </p>
-                      <p style={{ top: "60%", left: "30%" }}>
+                      <p style={{ top: "60%", left: "10%" }}>
                         {subCategories[selectedCategory][2]}
                       </p>
-                      <p style={{ top: "60%", left: "70%" }}>
+                      <p style={{ top: "60%", left: "80%" }}>
                         {subCategories[selectedCategory][3]}
                       </p>
                     </div>

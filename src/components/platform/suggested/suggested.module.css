@@ -1,18 +1,19 @@
-
 .navigationWrapper {
   position: relative;
   width: 804px;
   min-height: 512px;
+  background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
 }
 .suggested {
- display: flex;
- align-items: center;
- justify-content: center;
- height: 512px;
-  /* width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   height: 512px;
-  min-height: 512px;
-  max-height: 512px; */
 }
 
 .dots {
@@ -41,7 +42,7 @@
   outline: none;
 }
 
-.dot.active {
+.active {
   background: #000;
   display: none;
 }
@@ -68,4 +69,77 @@
 
 .arrowDisabled {
   fill: rgba(255, 255, 255, 0.5);
+}
+
+@media screen and (max-width: 768px) {
+  .navigationWrapper {
+    position: relative;
+    width: 100%;
+    min-width: 310px;
+    min-height: 420px;
+  }
+  .suggested {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 420px;
+  }
+
+  .dots {
+    display: block;
+    display: flex;
+    padding: 10px 0;
+    justify-content: center;
+  }
+
+  .dot {
+    display: block;
+    border: none;
+    width: 10px;
+    height: 10px;
+    background: #00663366;
+    border-radius: 50%;
+    margin: 0 5px;
+    padding: 5px;
+    cursor: pointer;
+  }
+  .dots button {
+    display: block;
+  }
+
+  .dot:focus {
+    outline: none;
+  }
+
+  .active {
+    background: #006633;
+    display: block;
+
+    
+  }
+
+  .arrow {
+    display: none;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    fill: #fff;
+    cursor: pointer;
+  }
+
+  .arrowLeft {
+    left: 5px;
+  }
+
+  .arrowRight {
+    left: auto;
+    right: 5px;
+  }
+
+  .arrowDisabled {
+    fill: rgba(255, 255, 255, 0.5);
+  }
 }

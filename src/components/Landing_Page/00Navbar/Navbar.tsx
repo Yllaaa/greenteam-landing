@@ -8,9 +8,36 @@ import Image from "next/image";
 import LangBtn from "./languageBtn/LangBtn";
 import Link from "next/link";
 import { ScreenBreakpoints } from "@/Utils/screenBreakPoints/ScreenBreakPoints";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+
 
 function Navbar() {
   const locale = useLocale();
+
+  const router = useRouter()
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      const user = localStorage.getItem("user");
+      const userObj = JSON.parse(user!);
+      console.log(userObj);
+      router.push(`/${locale}/feeds`)
+      
+
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+          headers: {
+            Authorization: `Bearer ${userObj.accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);

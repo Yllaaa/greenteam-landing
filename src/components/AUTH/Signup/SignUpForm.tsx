@@ -3,7 +3,6 @@ import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import { Bounce, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
@@ -16,14 +15,43 @@ import footLogo from "@/../public/logo/foot.png";
 import bgImage from "@/../public/auth/dots.png";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import earthImage from "@/../public/auth/earth.svg";
+// yup
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 // redux
-
 import { useAppDispatch } from "@/store/hooks";
 import { setUserSignupData } from "@/store/features/signup/userSignupSlice";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function SignUpForm() {
   const router = useRouter();
   const locale = useLocale();
+  // register form react-forms
+  // yup
+  const passwordSchema = yup.object().shape({
+    email: yup.string().required("Email is required").email("Invalid email"),
+
+    password: yup
+      .string()
+      .required("Password is required")
+      .min(8, "Password must be at least 8 characters long")
+      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
+      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
+      .matches(/[0-9]/, "Password must contain at least one number")
+      .matches(
+        /[!@#$%^&*(),.?":{}|<>]/,
+        "Password must contain at least one special character"
+      ),
+
+    username: yup
+      .string()
+      .required("Username is required")
+      .min(3, "Username must be at least 3 characters long")
+      .max(20, "Username must not exceed 20 characters"),
+
+    confirmPassword: yup.string().required("Confirm Password is required"),
+  });
+
   const {
     register,
     formState: { errors },
@@ -33,7 +61,8 @@ function SignUpForm() {
     password: string;
     username: string;
     confirmPassword: string;
-  }>();
+  }>({ resolver: yupResolver(passwordSchema) });
+  // data
   const [data, setData] = useState<
     | {
         email: string;
@@ -50,7 +79,7 @@ function SignUpForm() {
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword(!showPassword);
+    setShowConfirmPassword(!showConfirmPassword);
 
   const [selectedOption, setSelectedOption] = useState<boolean>(false);
   const [selectedOptionError, setSelectedOptionError] = useState<string>("");
@@ -58,18 +87,6 @@ function SignUpForm() {
     setSelectedOption(!selectedOption);
   };
 
-  const notify = (message: string) =>
-    toast(message, {
-      position: "top-center",
-      autoClose: 5000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "dark",
-      transition: Bounce,
-    });
   const signup = () => {
     if (!selectedOption) {
       setSelectedOptionError("Please accept terms and conditions");
@@ -78,7 +95,7 @@ function SignUpForm() {
     }
     try {
       if (data.password !== data.confirmPassword)
-        return notify("Password does not match");
+        return ToastNot("Password does not match");
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/register`,
@@ -94,13 +111,13 @@ function SignUpForm() {
           }
         )
         .then((response) => {
-          if (response.status === 200) notify("Account created successfully");
+          if (response.status === 200) ToastNot("Account created successfully");
           dispatch(setUserSignupData(response.data));
-          router.push(`/${locale}/login`);
+          router.replace(`/${locale}/login`);
         })
         .catch((error) => {
           console.log(error);
-          notify("Account creation failed");
+          ToastNot(error.response.data.message);
         });
     } catch (error) {
       console.log(error);
@@ -150,7 +167,7 @@ function SignUpForm() {
                 className={styles.input}
               />{" "}
               {errors.username && (
-                <p className={styles.errorMessage}>Indentifier is required</p>
+                <p className={styles.errorMessage}>{errors.username.message}</p>
               )}
             </div>
             <label htmlFor="email">
@@ -168,7 +185,7 @@ function SignUpForm() {
                 className={styles.input}
               />{" "}
               {errors.email && (
-                <p className={styles.errorMessage}>Indentifier is required</p>
+                <p className={styles.errorMessage}>{errors.email.message}</p>
               )}
             </div>
             <label htmlFor="password">
@@ -180,7 +197,7 @@ function SignUpForm() {
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="password"
-                  {...register("password", { required: true })}
+                  {...register("password", { required: true, minLength: 8 })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
                   }
@@ -190,7 +207,7 @@ function SignUpForm() {
                 </div>
               </div>
               {errors.password && (
-                <p className={styles.errorMessage}>Check password field</p>
+                <p className={styles.errorMessage}>{errors.password.message}</p>
               )}
             </div>
             <label htmlFor="confirmPasswordpassword">
@@ -215,7 +232,9 @@ function SignUpForm() {
                 </div>
               </div>
               {errors.confirmPassword && (
-                <p className={styles.errorMessage}>Check password field</p>
+                <p className={styles.errorMessage}>
+                  {errors.confirmPassword.message}
+                </p>
               )}
             </div>
             <div className={styles.agreeSectionContainer}>
@@ -235,9 +254,8 @@ function SignUpForm() {
                       id="accept"
                       value={selectedOption ? "yes" : "no"}
                       checked={selectedOption}
-                      onChange={(e) => {
+                      onChange={() => {
                         handleRadioClick();
-                        console.log(e.target.value);
                       }}
                       onClick={() => {
                         setSelectedOption(!selectedOption);
