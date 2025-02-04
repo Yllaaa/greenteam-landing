@@ -23,6 +23,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setUserLoginData } from "@/store/features/login/userLoginSlice";
+import https from "https";
 function LoginForm() {
   const router = useRouter();
   const locale = useLocale();
@@ -81,12 +82,10 @@ function LoginForm() {
             headers: {
               "Content-Type": "application/json",
               "Access-Control-Allow-Origin": "*",
-              "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
             },
-            proxy: {
-              host: `${process.env.NEXT_PUBLIC_BACKENDAPI}`,
-              port: 9000,
-            },
+            httpsAgent: new https.Agent({
+              rejectUnauthorized: false,
+            }),
           }
         )
         .then((response) => {
