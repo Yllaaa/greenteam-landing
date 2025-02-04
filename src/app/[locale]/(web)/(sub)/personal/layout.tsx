@@ -27,21 +27,6 @@ export default async function RootLayout({
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
           </div>
-          {/* <div
-            style={{
-              zIndex: "10",
-              padding: "40px 30px",
-              display: "flex",
-              flexDirection: "row",
-              gap: "25px",
-              overflowX: "auto",
-              scrollbarWidth: "none",
-            }}
-          >
-            <Categories />
-            <Suggested />
-            <MyChallenges />
-          </div> */}
         </header>
         <div className={styles.container}>
           <div className={styles.childern}>{children}</div>

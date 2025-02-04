@@ -9,6 +9,7 @@ import defaultAvatar from "@/../public/auth/user.png";
 import axios from "axios";
 
 function Forums() {
+  // get topics and sub topics
   const [topics, setTopics] = useState<any>([]);
   useEffect(() => {
     axios
@@ -59,13 +60,17 @@ console.log(data);
   return (
     <>
       <div className={styles.container}>
+        {/* start header */}
         <div className={styles.header}>
           <h2>
             <Image src={dicusionIcon} alt="addIcon" /> <span>Start Forum</span>
           </h2>
         </div>
+        {/* end header */}
+        {/* start form */}
         <div className={styles.forumBody}>
           <form className={styles.forumForm} onSubmit={handleSubmit(onSubmit)}>
+            {/* text box section */}
             <div className={styles.boxContainer}>
               <div className={styles.userAvatar}>
                 {userInfo.avatar ? (
@@ -90,15 +95,16 @@ console.log(data);
                 {...register("Post", { required: true })}
               />
             </div>
+            {/* end text box section */}
             <div className={styles.addAndCategory}>
-              {/* main Cat. */}
+              
               <div className={styles.selectCategory}>
                 <select
                   {...register("addCatecory", { required: true })}
                   onChange={handleCategoryChange}
                 >
-                  <option disabled selected value="null">
-                    -Select
+                  <option selected value="null">
+                    -Select-
                   </option>
                   {topics?.map((topic: any) => (
                     <option key={topic.id} value={topic.id}>
@@ -109,7 +115,7 @@ console.log(data);
 
                 {/* sub Cat. */}
                 <div className={styles.selectSubCategory}>
-                  {data?.addCatecory && (
+                  {topics?.filter((topic: any) => topic.id === data?.addCatecory)[0]?.subTopics && data?.addCatecory && (
                     <>
                       <label>
                         <input
