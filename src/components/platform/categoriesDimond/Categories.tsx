@@ -10,7 +10,7 @@ import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 import ReactECharts from "echarts-for-react";
-import { color } from "echarts";
+// import { color } from "echarts";
 
 // type Props = {
 //   values?: {
@@ -24,6 +24,25 @@ import { color } from "echarts";
 // };
 
 function Categories() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<
+    | keyof typeof subCategories
+    | "community"
+    | "food"
+    | "eco"
+    | "know"
+    | "art"
+    | "physical"
+  >("community");
+  const subCategories = {
+    community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
+    food: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
+    eco: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
+    know: ["Sub 1", "Sub 2"],
+    art: ["Sub 1", "Sub 2", "Sub 3"],
+    physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
+  };
+
   // echart
   const option = {
     title: {
@@ -44,13 +63,15 @@ function Categories() {
         type: "pie",
         radius: "50%",
         color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#749f83"],
-        data: [
-          { value: 20, name: "Search Engine" },
-          { value: 5, name: "Direct" },
-          { value: 30, name: "Email" },
-          { value: 40, name: "Union Ads" },
-          { value: 5, name: "Video Ads" },
-        ],
+
+        data:
+          selectedCategory !== undefined
+            ? subCategories[selectedCategory].map((item, index) => ({
+                value: subCategories[selectedCategory].length - index,
+                name: item,
+              }))
+            : [],
+
         emphasis: {
           itemStyle: {
             shadowBlur: 10,
@@ -62,19 +83,7 @@ function Categories() {
     ],
   };
   //   const { community, food, eco, know, art, physical } = values;
-  const subCategories = {
-    community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
-    food: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
-    eco: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
-    know: ["Sub 1", "Sub 2"],
-    art: ["Sub 1", "Sub 2", "Sub 3"],
-    physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
-  };
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<
-    keyof typeof subCategories | null
-  >(null);
   const modalRef = React.useRef<HTMLDivElement>(null);
   const handleCategoryClick = (category: keyof typeof subCategories) => {
     console.log("category", category);
@@ -107,7 +116,7 @@ function Categories() {
   }, [isModalOpen]);
   const closeModal = () => {
     setIsModalOpen(false);
-    setSelectedCategory(null);
+    setSelectedCategory("community");
   };
 
   const HEX_RADIUS = 43;
@@ -230,7 +239,10 @@ function Categories() {
             <div className={styles.subCategories}>
               <h2>{selectedCategory.toUpperCase()}</h2>
               <div>
-              <ReactECharts option={option} style={{ height: 400, width: "100%" }} />
+                <ReactECharts
+                  option={option}
+                  style={{ height: 400, width: "100%" }}
+                />
                 {/* {subCategories[selectedCategory].map((subCategory, index) => (
                   <div key={index} className={styles.sub}>
                     <p style={{ top: "80%", left: `${index * 15 + 5}%` }}>{subCategory}</p>
