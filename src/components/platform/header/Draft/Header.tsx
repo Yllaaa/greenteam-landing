@@ -1,72 +1,77 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./header.module.css";
 import Image from "next/image";
 
 import { FaSearch } from "react-icons/fa";
+import Link from "next/link";
 import handsLogo from "@/../public/ZPLATFORM/header/handsLogo.svg";
 import footLogo from "@/../public/ZPLATFORM/header/foot.svg";
-
+import likes from "@/../public/ZPLATFORM/header/like.svg";
+import post from "@/../public/ZPLATFORM/header/posts.svg";
+import message from "@/../public/ZPLATFORM/header/message.svg";
+import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
 import noUserPic from "@/../public/auth/user.png";
-import { useForm } from "react-hook-form";
+import { IoIosArrowDown } from "react-icons/io";
+// import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { ScreenBreakpoints } from "@/Utils/screenBreakPoints/ScreenBreakPoints";
-// import axios from "axios";
-// import { useAppDispatch } from "@/store/hooks";
-// import { setUserLoginData } from "@/store/features/login/userLoginSlice";
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import axios from "axios";
+import { useAppDispatch } from "@/store/hooks";
+import { setUserLoginData } from "@/store/features/login/userLoginSlice";
 
-type searchTypes = {
-  search: string;
-};
 function Header() {
-  // constants
   const locale = useLocale();
   const router = useRouter();
-  // const dispatch = useAppDispatch();
-  const { register, handleSubmit } = useForm<searchTypes>({
-    defaultValues: {
-      search: "",
-    },
-  });
+  const dispatch = useAppDispatch();
+  // handle state if not logged in
+  const [userToken, setUserToken] = useState("");
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      const userInfo1 = localStorage?.getItem("user");
+      const userInfo = JSON.parse(userInfo1!);
+      setUserToken(userInfo.accessToken);
+    }
+  }, []);
+  // handle state if logged in
+  useEffect(() => {
+    // console.log(userToken);
+    if (userToken !== "") {
+      console.log(userToken);
+      
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res.data);
+          dispatch(setUserLoginData(res.data));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [userToken]);
 
-  // // handle state if not logged in
-  // const [userToken, setUserToken] = useState("");
-  // useEffect(() => {
-  //   if (localStorage.getItem("user")) {
-  //     const userInfo1 = localStorage?.getItem("user");
-  //     const userInfo = JSON.parse(userInfo1!);
-  //     setUserToken(userInfo.accessToken);
-  //   }
-  // }, []);
-  // // handle state if logged in
-  // useEffect(() => {
-  //   // console.log(userToken);
-  //   if (userToken !== "") {
-  //     console.log(userToken);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+  const toggleDropdown = useCallback(() => {
+    setIsDropdownOpen((prev) => !prev);
+  }, []);
+  const handleOutsideClick = useCallback((event: MouseEvent) => {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+      setIsDropdownOpen(false);
+    }
+  }, []);
 
-  //     axios
-  //       .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
-  //         headers: {
-  //           Authorization: `Bearer ${userToken}`,
-  //         },
-  //       })
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         dispatch(setUserLoginData(res.data));
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [userToken]);
-
-  // handle search
-  const onSubmit = (data: any) => {
-    ToastNot(`we are in testing phase your search is: ${data.search}`);
-  };
-  // handle menu responsive
+  React.useEffect(() => {
+    document.addEventListener("click", handleOutsideClick);
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [handleOutsideClick]);
 
   const [isOpen, setIsOpen] = useState(false);
 
@@ -77,10 +82,7 @@ function Header() {
     console.log("clicked");
   };
   const handleClickOutsideMenu = (event: MouseEvent) => {
-    if (
-      menuRefResponsive.current &&
-      !menuRefResponsive.current.contains(event.target as Node)
-    ) {
+    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
       setIsOpen(false);
     }
   };
@@ -101,31 +103,48 @@ function Header() {
   return (
     <>
       <div className={styles.container}>
+        <div className={styles.dropdown}>
+          <div
+            onClick={toggleDropdown}
+            ref={menuRef}
+            className={styles.dropmenu}
+          >
+            <h3 style={isDropdownOpen ? { color: "red" } : {}}>
+              Menu <IoIosArrowDown />
+            </h3>
+          </div>
+
+          {isDropdownOpen && (
+            <ul style={{ zIndex: "100" }} className={styles.list}>
+              <li>
+                <Link href="#">Home</Link>
+              </li>
+              <li>
+                <Link href="#">Profile</Link>
+              </li>
+              <li>
+                <Link href="#">About</Link>
+              </li>
+            </ul>
+          )}
+        </div>
         <div className={styles.top}>
-          <div className={styles.logos}>
-            <div className={styles.footLogo}>
-              <Image
-                onClick={() => router.push(`/${locale}/feeds`)}
-                style={{ cursor: "pointer" }}
-                src={footLogo}
-                alt="footLogo"
-              />
-            </div>
-            <div className={styles.logo}>
-              <Image
-                src={handsLogo}
-                alt="handsLogo"
-                style={{ cursor: "pointer" }}
-                onClick={() => router.push(`/${locale}/feeds`)}
-              />
-            </div>
+          <div className={styles.logo}>
+            <Image src={handsLogo} alt="handsLogo" />
+          </div>
+          <div className={styles.footLogo}>
+            <Image
+              onClick={() => router.push(`/${locale}/feeds`)}
+              style={{ cursor: "pointer" }}
+              src={footLogo}
+              alt="footLogo"
+            />
           </div>
           <div className={styles.profile}>
-            <form className={styles.search} onSubmit={handleSubmit(onSubmit)}>
-              <FaSearch onClick={handleSubmit(onSubmit)} />
-              <input {...register("search")} type="text" placeholder="Search" />
-            </form>
-
+            <div className={styles.search}>
+              <FaSearch />
+              <input type="text" placeholder="Search" />
+            </div>
             <div className={styles.profileIcon}>
               <div className={styles.avatar}>
                 {
@@ -145,7 +164,7 @@ function Header() {
                   <h5>
                     {
                       // userInfo().user ? userInfo().user?.fullName :
-                      "testing testing"
+                      "testing"
                     }
                   </h5>
                 </div>
@@ -162,7 +181,6 @@ function Header() {
               </div>
             </div>
           </div>
-          {/* responsive */}
           <div
             style={{ zIndex: "10000", display: isOpen ? "none" : "" }}
             className={styles.navbarResponsive}
@@ -238,6 +256,32 @@ function Header() {
               </ul> */}
             </div>
           )}
+        </div>
+        <div className={styles.bottom}>
+          <div className={styles.link}>
+            <Link href="/">
+              <span>125 likes</span>
+              <Image src={likes} alt="like" />
+            </Link>
+          </div>
+          <div className={styles.link}>
+            <Link href="/">
+              <span>125 message</span>
+              <Image src={message} alt="like" />
+            </Link>
+          </div>
+          <div className={styles.link}>
+            <Link href="/">
+              <span>125 posts</span>
+              <Image src={post} alt="posts" />
+            </Link>
+          </div>
+          <div className={styles.link}>
+            <Link href={`/${locale}/personal/newPost`}>
+              <span>Add post</span>
+              <Image src={addNew} alt="add" />
+            </Link>
+          </div>
         </div>
       </div>
     </>

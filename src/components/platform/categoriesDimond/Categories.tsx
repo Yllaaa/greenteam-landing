@@ -9,6 +9,8 @@ import eco from "@/../public/ZPLATFORM/categories/eco.svg";
 import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
+import ReactECharts from "echarts-for-react";
+import { color } from "echarts";
 
 // type Props = {
 //   values?: {
@@ -22,6 +24,43 @@ import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 // };
 
 function Categories() {
+  // echart
+  const option = {
+    title: {
+      text: "Referrer of a Website",
+      subtext: "Fake Data",
+      left: "center",
+    },
+    tooltip: {
+      trigger: "item",
+    },
+    legend: {
+      orient: "vertical",
+      left: "left",
+    },
+    series: [
+      {
+        name: "Referrer",
+        type: "pie",
+        radius: "50%",
+        color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#749f83"],
+        data: [
+          { value: 20, name: "Search Engine" },
+          { value: 5, name: "Direct" },
+          { value: 30, name: "Email" },
+          { value: 40, name: "Union Ads" },
+          { value: 5, name: "Video Ads" },
+        ],
+        emphasis: {
+          itemStyle: {
+            shadowBlur: 10,
+            shadowOffsetX: 0,
+            shadowColor: "rgba(0, 0, 0, 0.5)",
+          },
+        },
+      },
+    ],
+  };
   //   const { community, food, eco, know, art, physical } = values;
   const subCategories = {
     community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
@@ -89,33 +128,33 @@ function Categories() {
     getPoint(100, 240),
     getPoint(0, 300),
   ].join(" ");
-  const points2 = [getPoint(100, 0), getPoint(100, 180)].join(" ");
-  const points3 = [
-    getPoint(100, 0),
-    getPoint(100, 120),
-    getPoint(100, 240),
-  ].join(" ");
-  const points4 = [
-    getPoint(100, 60),
-    getPoint(100, 120),
-    getPoint(100, 240),
-    getPoint(100, 300),
-  ].join(" ");
-  const points6 = [
-    getPoint(90, 0),
-    getPoint(100, 60),
-    getPoint(70, 120),
-    getPoint(60, 180),
-    getPoint(100, 240),
-    getPoint(0, 300),
-  ].join(" ");
-  const points5 = [
-    getPoint(100, 0),
-    getPoint(100, 60),
-    getPoint(100, 120),
-    getPoint(100, 240),
-    getPoint(100, 300),
-  ].join(" ");
+  // const points2 = [getPoint(100, 0), getPoint(100, 180)].join(" ");
+  // const points3 = [
+  //   getPoint(100, 0),
+  //   getPoint(100, 120),
+  //   getPoint(100, 240),
+  // ].join(" ");
+  // const points4 = [
+  //   getPoint(100, 60),
+  //   getPoint(100, 120),
+  //   getPoint(100, 240),
+  //   getPoint(100, 300),
+  // ].join(" ");
+  // const points6 = [
+  //   getPoint(90, 0),
+  //   getPoint(100, 60),
+  //   getPoint(70, 120),
+  //   getPoint(60, 180),
+  //   getPoint(100, 240),
+  //   getPoint(0, 300),
+  // ].join(" ");
+  // const points5 = [
+  //   getPoint(100, 0),
+  //   getPoint(100, 60),
+  //   getPoint(100, 120),
+  //   getPoint(100, 240),
+  //   getPoint(100, 300),
+  // ].join(" ");
   return (
     <>
       <div style={{ zIndex: 0 }} className={styles.container}>
@@ -130,48 +169,48 @@ function Categories() {
         <div style={{ zIndex: 1000 }} className={styles.labels}>
           <span
             onClick={() => handleCategoryClick("community")}
-            className={styles.label}
-            style={{ top: "5%", left: "50%", zIndex: 10055 }}
+            className={`${styles.label} ${styles.top1}`}
+            // style={{ top: "5%", left: "50%", zIndex: 10055 }}
           >
             <Image src={community} alt="community" />
             Community and Nature
           </span>
           <span
             onClick={() => handleCategoryClick("food")}
-            className={styles.label}
-            style={{ top: "20%", left: "85%" }}
+            className={`${styles.label} ${styles.top2}`}
+            // style={{ top: "25%", left: "85%" }}
           >
             <Image src={food} alt="food" />
             Food and Health
           </span>
           <span
             onClick={() => handleCategoryClick("eco")}
-            className={styles.label}
-            style={{ top: "75%", left: "85%" }}
+            className={`${styles.label} ${styles.top3}`}
+            // style={{ top: "78%", left: "83%" }}
           >
             <Image src={eco} alt="eco" />
             Ecotechnics
           </span>
           <span
             onClick={() => handleCategoryClick("know")}
-            className={styles.label}
-            style={{ top: "95%", left: "50%" }}
+            className={`${styles.label} ${styles.top4}`}
+            // style={{ top: "95%", left: "50%" }}
           >
             <Image src={know} alt="know" />
             Knowledge and values
           </span>
           <span
             onClick={() => handleCategoryClick("art")}
-            className={styles.label}
-            style={{ top: "75%", left: "10%" }}
+            className={`${styles.label} ${styles.top5}`}
+            // style={{ top: "78%", left: "12%" }}
           >
             <Image src={art} alt="art" />
             Art and Shows
           </span>
           <span
             onClick={() => handleCategoryClick("physical")}
-            className={styles.label}
-            style={{ top: "20%", left: "10%" }}
+            className={`${styles.label} ${styles.top6}`}
+            // style={{ top: "25%", left: "12%" }}
           >
             <Image src={physical} alt="physical" />
             Physical and mental
@@ -185,13 +224,19 @@ function Categories() {
             <button className={styles.closeButton} onClick={closeModal}>
               &times;
             </button>
-            <div className={styles.modalDiamond}>
+            {/* <div className={styles.modalDiamond}>
               <Image src={diamond} alt="diamond" priority />
-            </div>
+            </div> */}
             <div className={styles.subCategories}>
               <h2>{selectedCategory.toUpperCase()}</h2>
               <div>
-                {subCategories[selectedCategory].length === 2 ? (
+              <ReactECharts option={option} style={{ height: 400, width: "100%" }} />
+                {/* {subCategories[selectedCategory].map((subCategory, index) => (
+                  <div key={index} className={styles.sub}>
+                    <p style={{ top: "80%", left: `${index * 15 + 5}%` }}>{subCategory}</p>
+                  </div>
+                ))} */}
+                {/* {subCategories[selectedCategory].length === 2 ? (
                   <>
                     <div style={{ zIndex: 11 }} className={styles.chart}>
                       <svg
@@ -331,7 +376,7 @@ function Categories() {
                       </p>
                     </div>
                   </>
-                ) : null}
+                ) : null} */}
               </div>
             </div>
           </div>

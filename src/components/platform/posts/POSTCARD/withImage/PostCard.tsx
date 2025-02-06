@@ -55,6 +55,9 @@ function PostCard() {
     };
   }, []);
 
+  const postContent =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit.";
+
   return (
     <>
       <div className={styles.container}>
@@ -68,7 +71,13 @@ function PostCard() {
               </p>
             </div>
             <div className={styles.post}>
-              <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+              {postContent.length > 50 ? (
+                <p>
+                  {postContent.slice(0, 40)} <span>Read More... </span>
+                </p>
+              ) : (
+                <p>{postContent.slice(0, 50)}</p>
+              )}
             </div>
           </div>
         </div>

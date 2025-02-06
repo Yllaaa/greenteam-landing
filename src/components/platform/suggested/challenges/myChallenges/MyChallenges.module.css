@@ -1,7 +1,7 @@
 .container {
   min-width: 331px;
   max-width: 331px;
-  height: 512px;
+  height: 674px;
   background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
   padding: 25px 12px;
   display: flex;
@@ -34,7 +34,7 @@
 
 /* challenges */
 .challenges {
-  max-height: 340px;
+  max-height: 665px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;

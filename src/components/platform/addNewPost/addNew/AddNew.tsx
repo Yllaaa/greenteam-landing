@@ -1,41 +1,123 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./AddNew.module.css";
 import { useForm } from "react-hook-form";
 import addIcon from "@/../public/forum/add.svg";
 import Image from "next/image";
+import axios from "axios";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
+// topics
+type ParentType = {
+  id: string;
+  name: string;
+};
+
+type ItemType = {
+  id: string;
+  name: string;
+  parentId: string;
+  parent: ParentType;
+};
+
+// post
+type PostType = {
+  content: string;
+  mainTopicId: string;
+  subtopicIds: string[];
+  creatorType: "user";
+};
 function AddNew() {
-  const { register, handleSubmit } = useForm();
-  const [data, setData] = React.useState<any>({});
-  const onSubmit = (data: any) => {
+  // get the user info
+  const userInfo1 = localStorage.getItem("user");
+  const userInfo = userInfo1 ? JSON.parse(userInfo1) : null;
+
+  // get topics and sub topics
+  const [topics, setTopics] = useState<ItemType[]>();
+
+  useEffect(() => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/topics`)
+      .then((res) => {
+        setTopics(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  // handle the form
+  const { register, handleSubmit, setValue, getValues } = useForm<PostType>({
+    defaultValues: {
+      content: "",
+      mainTopicId: "",
+      subtopicIds: [],
+      creatorType: "user",
+    },
+  });
+
+  const [data, setData] = useState<PostType | null>(null);
+
+  const onSubmit = (formData: PostType) => {
+    setData(formData);
+    console.log(formData);
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
+        {
+          content: formData.content,
+          mainTopicId: formData.mainTopicId,
+          subtopicIds: formData.subtopicIds,
+          creatorType: "user",
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+          // withCredentials: true,
+        }
+      )
+      .then((res) => {
+        console.log("data", res.data);
+        ToastNot(`Post in ${res.data.mainTopic.name} added successfully`);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot(err.response.data.message);
+      });
     console.log(data);
-    // You can send the data to your server here
-    setData(data);
   };
 
   // Subcategories selection
-  const [selectedOptions, setSelectedOptions] = useState<any>([]);
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
-  const handleOptionChange = (event: any) => {
+  const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value, checked } = event.target;
+    let updatedSelections = [...selectedOptions];
+
     if (checked) {
-      // Add the option to the selected options
-      setSelectedOptions([...selectedOptions, value]);
+      updatedSelections.push(value);
     } else {
-      // Remove the option from the selected options
-      setSelectedOptions(
-        selectedOptions.filter((option: any) => option !== value)
-      );
+      updatedSelections = updatedSelections.filter((id) => id !== value);
     }
+
+    setSelectedOptions(updatedSelections);
+    setValue("subtopicIds", updatedSelections);
   };
 
-  // Reset selected options when subcategory changes
-  const handleCategoryChange = (event: any) => {
-    const selectedSubcategory = event.target.value;
-    setData({ ...data, addCatecory: selectedSubcategory });
-    setSelectedOptions([]); // Clear selected options
+  // Find the parent category
+  const subTopic = topics?.find(
+    (topic) => topic.id === getValues("mainTopicId")
+  )?.parent;
+
+  // Handle topic change and reset subtopics
+  const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedMainTopic = event.target.value;
+    setValue("mainTopicId", selectedMainTopic);
+    setSelectedOptions([]); // Reset selected subtopics
+    setValue("subtopicIds", []); // Clear selected options in form state
   };
 
   return (
@@ -51,11 +133,12 @@ function AddNew() {
             <textarea
               placeholder="Add your experiencies and tips to make a better future."
               className={styles.textArea}
-              {...register("Post", { required: true })}
+              {...register("content", { required: true })}
             />
             <div className={styles.addAndCategory}>
               {/* insert image */}
-              <div style={{ cursor: "pointer" }} className={styles.insertImage}>
+
+              {/* <div style={{ cursor: "pointer" }} className={styles.insertImage}>
                 <div className={styles.imageButton}>
                   <button>Add Media</button>
                 </div>
@@ -71,58 +154,34 @@ function AddNew() {
                     }}
                   />
                 </div>
-              </div>
+              </div> */}
+
               {/* main Cat. */}
               <div className={styles.selectCategory}>
                 <select
-                  {...register("addCatecory", { required: true })}
-                  onChange={handleCategoryChange}
+                  {...register("mainTopicId", { required: true })}
+                  onChange={handleTopicChange}
                 >
-                  <option disabled selected value="null">
-                    -Select
-                  </option>
-                  <option value="sub1">sub1 sub1</option>
-                  <option value="sub2">sub2 sub2</option>
-                  <option value="sub3">sub3 sub3</option>
+                  <option value="">-Select-</option>
+                  {topics?.map((topic) => (
+                    <option key={topic.id} value={topic.id}>
+                      {topic.name}
+                    </option>
+                  ))}
                 </select>
               </div>
               {/* sub Cat. */}
               <div className={styles.selectSubCategory}>
-                {data?.addCatecory && (
+                {subTopic && (
                   <>
                     <label>
                       <input
                         type="checkbox"
-                        name="option"
-                        value="option1"
-                        checked={selectedOptions.includes("option1")}
+                        value={subTopic.id}
+                        checked={selectedOptions.includes(subTopic.id)}
                         onChange={handleOptionChange}
                       />{" "}
-                      Option 1
-                    </label>
-
-                    {/* Option 2 */}
-                    <label>
-                      <input
-                        type="checkbox"
-                        name="option"
-                        value="option2"
-                        checked={selectedOptions.includes("option2")}
-                        onChange={handleOptionChange}
-                      />{" "}
-                      Option 2
-                    </label>
-
-                    {/* Option 3 */}
-                    <label>
-                      <input
-                        type="checkbox"
-                        name="option"
-                        value="option3"
-                        checked={selectedOptions.includes("option3")}
-                        onChange={handleOptionChange}
-                      />{" "}
-                      Option 3
+                      {subTopic.name}
                     </label>
                   </>
                 )}

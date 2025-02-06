@@ -1,0 +1,114 @@
+.container {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(3, min-content);
+  column-gap: 1%;
+}
+.userCard {
+  grid-column: 1 / 10;
+  grid-row: 1 / 2;
+  width: 100%;
+  min-height: 269px;
+  background: #104323;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.trackCard {
+  grid-column: 10 / 13;
+  grid-row: 1 / 2;
+  width: 100%;
+  background: #97b00f;
+
+  min-height: 269px;
+  border-radius: 30px;
+}
+.personalInfo {
+  position: relative;
+  grid-column: 1 / 13;
+  grid-row: 2 / 3;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+
+  min-height: 269px;
+  margin-top: 42px;
+  padding-bottom: 32px;
+  z-index: 10;
+}
+.personalInfo::after {
+  content: "";
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #cbd5e1;
+  opacity: 1;
+  z-index: -1;
+}
+.personalInfo .header {
+  grid-column: 1 / 4;
+  background: red;
+  height: 100%;
+}
+.personalInfo .card {
+  grid-column: 5 / 13;
+  background: blue;
+  max-width: 1147px;
+  width: 100%;
+  justify-self: flex-end;
+
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  -ms-border-radius: 32px;
+  -o-border-radius: 32px;
+}
+
+.paymentInfo {
+  position: relative;
+  grid-column: 1 / 13;
+  grid-row: 3 / 4;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr;
+
+  min-height: 269px;
+  margin-top: 32px;
+  padding-bottom: 25px;
+  z-index: 10;
+}
+.paymentInfo::after {
+  content: "";
+  position: absolute;
+  bottom: 0%;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: #cbd5e1;
+  opacity: 1;
+  z-index: -1;
+}
+.paymentInfo .header {
+  grid-column: 1 / 4;
+  background: red;
+  height: 100%;
+}
+.paymentInfo .card {
+  grid-column: 5 / 13;
+  background: blue;
+  max-width: 1147px;
+  width: 100%;
+  justify-self: flex-end;
+
+  border-radius: 32px;
+  -webkit-border-radius: 32px;
+  -moz-border-radius: 32px;
+  -ms-border-radius: 32px;
+  -o-border-radius: 32px;
+}

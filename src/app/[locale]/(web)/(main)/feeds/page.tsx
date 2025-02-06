@@ -4,10 +4,14 @@ import PostForums from "@/components/platform/posts/POSTCARD/PostForums";
 import EventSection from "@/components/platform/Events/EventSection";
 import ArtSection from "@/components/platform/posts/Art/ArtSection";
 import ProductSection from "@/components/platform/products/ProductSection";
+import SubHeader from "@/components/platform/header/SubHeader/SubHeader";
 
 function page() {
   return (
     <section className={srtyles.container}>
+      <div className={srtyles.artSection}>
+        <SubHeader />
+      </div>
       <div className={srtyles.artSection}>
         <ArtSection />
       </div>

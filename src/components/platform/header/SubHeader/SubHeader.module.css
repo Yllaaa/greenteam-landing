@@ -1,0 +1,54 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 25px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 0px 30px;
+}
+.diamond .links {
+  margin-top: 43px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px 20px;
+}
+.diamond .links .link {
+  min-width: 130px;
+  min-height: 119px;
+  align-content: center;
+  cursor: pointer;
+  background: linear-gradient(
+    126.97deg,
+    rgba(6, 38, 13, 0.74) 28.26%,
+    rgba(39, 55, 26, 0.5) 91.2%
+  );
+  backdrop-filter: blur(120px);
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.diamond .links .link a {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  justify-content: center;
+}
+.diamond .links .link a span {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+  margin-top: 16px;
+}
+

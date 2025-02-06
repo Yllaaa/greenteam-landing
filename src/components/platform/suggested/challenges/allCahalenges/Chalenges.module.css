@@ -1,6 +1,6 @@
 .container {
   width: 804px;
-  height: 512px;
+  height: 100%;
   /* background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%); */
   display: flex;
   justify-content: flex-start;
@@ -11,6 +11,7 @@
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
+  
 }
 .header {
   width: 80%;
@@ -36,7 +37,7 @@
   width: 85%;
   align-self: center;
   height: fit-content;
-  max-height: 360px;
+  max-height: 520px;
   overflow-y: auto;
   scrollbar-width: none;
   -ms-overflow-style: none;

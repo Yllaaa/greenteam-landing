@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Categories from "@/components/platform/categoriesDimond/Categories";
+
 import Header from "@/components/platform/header/Header";
-import MyChallenges from "@/components/platform/suggested/challenges/myChallenges/MyChallenges";
-import Suggested from "@/components/platform/suggested/Suggested";
+
 import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import styles from "./platformHome.module.css";
+
 export default async function RootLayout({
   children,
   params,
@@ -25,11 +24,6 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
-          </div>
-          <div className={styles.layout}>
-            <Categories />
-            <Suggested />
-            <MyChallenges />
           </div>
         </header>
         <div>{children}</div>
