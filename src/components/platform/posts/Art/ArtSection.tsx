@@ -21,13 +21,24 @@ function ArtSection() {
           </ul>
         </div>
         <div className={styles.posts}>
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
+          <div className={styles.postContainer}>
+            <PostCard />
+          </div>
         </div>
       </div>
     </>

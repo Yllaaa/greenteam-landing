@@ -49,7 +49,9 @@ function Forums() {
   }, []);
 
   // handle the form
-  const { register, handleSubmit, setValue, getValues } = useForm<PostType>({
+  const { register, reset, handleSubmit, setValue, getValues } = useForm<
+    PostType
+  >({
     defaultValues: {
       content: "",
       mainTopicId: "",
@@ -58,11 +60,9 @@ function Forums() {
     },
   });
 
-  const [data, setData] = useState<PostType | null>(null);
+  // const [data, setData] = useState<PostType | null>(null);
 
   const onSubmit = (formData: PostType) => {
-    setData(formData);
-    console.log(formData);
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
@@ -82,13 +82,13 @@ function Forums() {
         }
       )
       .then((res) => {
-        console.log("data",res.data);
+        console.log("data", res.data);
         ToastNot(`Post in ${res.data.mainTopic.name} added successfully`);
       })
       .catch((err) => {
         console.log(err);
       });
-    console.log(data);
+    reset();
   };
 
   // Subcategories selection

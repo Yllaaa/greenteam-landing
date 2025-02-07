@@ -6,6 +6,8 @@ import "keen-slider/keen-slider.min.css";
 
 import styles from "./suggested.module.css";
 import Challenges from "./challenges/allCahalenges/Challenges";
+import AddNewModal from "./challenges/allCahalenges/modals/addNew/AddNewModal";
+import DoItModal from "./challenges/allCahalenges/modals/toDo/DoItModal";
 function Suggested() {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -18,12 +20,17 @@ function Suggested() {
       setLoaded(true);
     },
   });
+
+  // modals
+  const [addNew, setAddNew] = React.useState(false);
+  const [doItModal, setDoItModal] = React.useState(false);
+
   return (
     <>
       <div className={`${styles.navigationWrapper} ${styles.container}`}>
         <div ref={sliderRef} className={`keen-slider`}>
           <div className={`keen-slider__slide ${styles.suggested}`}>
-            <Challenges />
+            <Challenges setAddNew={setAddNew} setDoItModal={setDoItModal} />
           </div>
           <div className={`keen-slider__slide ${styles.suggested}`}>2</div>
           <div className={`keen-slider__slide ${styles.suggested}`}>3</div>
@@ -72,6 +79,17 @@ function Suggested() {
           </div>
         )}
       </div>
+      {/* Modal */}
+      {addNew && (
+        <>
+          <AddNewModal setAddNew={setAddNew} addNew={addNew} />
+        </>
+      )}
+      {doItModal && (
+        <>
+          <DoItModal setDoItModal={setDoItModal} doItModal={doItModal} />
+        </>
+      )}
     </>
   );
 }

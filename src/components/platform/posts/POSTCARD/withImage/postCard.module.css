@@ -1,6 +1,6 @@
 .container {
-  width: 627px;
-  height: 737px;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -80,14 +80,15 @@
 }
 .image .reactionBtns {
   position: absolute;
-  bottom: 25px;
-  left: 26px;
+  bottom: 5%;
+  left: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 16px;
   z-index: 10;
-  width: 467px;
+  width: 100%;
+  padding: 0px 3.5%;
 }
 .image .reactionBtns .btn {
   display: flex;

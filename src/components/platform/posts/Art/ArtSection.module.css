@@ -62,6 +62,15 @@
   scrollbar-width: none;
   padding-left: 34px;
 }
+.postContainer {
+  width: 627px;
+  height: 663px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
 @media screen and (max-width: 1024px) {
   .title {
     display: flex;

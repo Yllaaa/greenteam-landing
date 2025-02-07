@@ -34,6 +34,7 @@ function Categories() {
     | "art"
     | "physical"
   >("community");
+
   const subCategories = {
     community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
     food: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
@@ -43,7 +44,7 @@ function Categories() {
     physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
   };
 
-  // echart
+  // echart modal
   const option = {
     title: {
       text: "Referrer of a Website",
@@ -132,38 +133,11 @@ function Categories() {
   const points = [
     getPoint(90, 0),
     getPoint(100, 60),
-    getPoint(70, 120),
-    getPoint(60, 180),
+    getPoint(80, 120),
+    getPoint(85, 180),
     getPoint(100, 240),
-    getPoint(0, 300),
+    getPoint(60, 300),
   ].join(" ");
-  // const points2 = [getPoint(100, 0), getPoint(100, 180)].join(" ");
-  // const points3 = [
-  //   getPoint(100, 0),
-  //   getPoint(100, 120),
-  //   getPoint(100, 240),
-  // ].join(" ");
-  // const points4 = [
-  //   getPoint(100, 60),
-  //   getPoint(100, 120),
-  //   getPoint(100, 240),
-  //   getPoint(100, 300),
-  // ].join(" ");
-  // const points6 = [
-  //   getPoint(90, 0),
-  //   getPoint(100, 60),
-  //   getPoint(70, 120),
-  //   getPoint(60, 180),
-  //   getPoint(100, 240),
-  //   getPoint(0, 300),
-  // ].join(" ");
-  // const points5 = [
-  //   getPoint(100, 0),
-  //   getPoint(100, 60),
-  //   getPoint(100, 120),
-  //   getPoint(100, 240),
-  //   getPoint(100, 300),
-  // ].join(" ");
   return (
     <>
       <div style={{ zIndex: 0 }} className={styles.container}>
@@ -182,7 +156,7 @@ function Categories() {
             // style={{ top: "5%", left: "50%", zIndex: 10055 }}
           >
             <Image src={community} alt="community" />
-            Community and Nature
+            {/* Community and Nature */}
           </span>
           <span
             onClick={() => handleCategoryClick("food")}
@@ -190,7 +164,7 @@ function Categories() {
             // style={{ top: "25%", left: "85%" }}
           >
             <Image src={food} alt="food" />
-            Food and Health
+            {/* Food and Health */}
           </span>
           <span
             onClick={() => handleCategoryClick("eco")}
@@ -198,7 +172,7 @@ function Categories() {
             // style={{ top: "78%", left: "83%" }}
           >
             <Image src={eco} alt="eco" />
-            Ecotechnics
+            {/* Ecotechnics */}
           </span>
           <span
             onClick={() => handleCategoryClick("know")}
@@ -206,7 +180,7 @@ function Categories() {
             // style={{ top: "95%", left: "50%" }}
           >
             <Image src={know} alt="know" />
-            Knowledge and values
+            {/* Knowledge and values */}
           </span>
           <span
             onClick={() => handleCategoryClick("art")}
@@ -214,7 +188,7 @@ function Categories() {
             // style={{ top: "78%", left: "12%" }}
           >
             <Image src={art} alt="art" />
-            Art and Shows
+            {/* Art and Shows */}
           </span>
           <span
             onClick={() => handleCategoryClick("physical")}
@@ -222,7 +196,7 @@ function Categories() {
             // style={{ top: "25%", left: "12%" }}
           >
             <Image src={physical} alt="physical" />
-            Physical and mental
+            {/* Physical and mental */}
           </span>
         </div>
       </div>
@@ -233,9 +207,7 @@ function Categories() {
             <button className={styles.closeButton} onClick={closeModal}>
               &times;
             </button>
-            {/* <div className={styles.modalDiamond}>
-              <Image src={diamond} alt="diamond" priority />
-            </div> */}
+
             <div className={styles.subCategories}>
               <h2>{selectedCategory.toUpperCase()}</h2>
               <div>
@@ -243,12 +215,28 @@ function Categories() {
                   option={option}
                   style={{ height: 400, width: "100%" }}
                 />
-                {/* {subCategories[selectedCategory].map((subCategory, index) => (
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+export default Categories;
+
+/* <div className={styles.modalDiamond}>
+              <Image src={diamond} alt="diamond" priority />
+            </div> */
+
+/* {subCategories[selectedCategory].map((subCategory, index) => (
                   <div key={index} className={styles.sub}>
                     <p style={{ top: "80%", left: `${index * 15 + 5}%` }}>{subCategory}</p>
                   </div>
-                ))} */}
-                {/* {subCategories[selectedCategory].length === 2 ? (
+                ))} */
+
+/* {subCategories[selectedCategory].length === 2 ? (
                   <>
                     <div style={{ zIndex: 11 }} className={styles.chart}>
                       <svg
@@ -388,17 +376,7 @@ function Categories() {
                       </p>
                     </div>
                   </>
-                ) : null} */}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-    </>
-  );
-}
-
-export default Categories;
+                ) : null} */
 
 // "use client";
 // import React, { useState } from "react";

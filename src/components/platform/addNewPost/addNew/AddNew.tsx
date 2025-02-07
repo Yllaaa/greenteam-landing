@@ -47,7 +47,14 @@ function AddNew() {
   }, []);
 
   // handle the form
-  const { register, handleSubmit, setValue, getValues } = useForm<PostType>({
+  const {
+    register,
+
+    reset,
+    handleSubmit,
+    setValue,
+    getValues,
+  } = useForm<PostType>({
     defaultValues: {
       content: "",
       mainTopicId: "",
@@ -56,11 +63,7 @@ function AddNew() {
     },
   });
 
-  const [data, setData] = useState<PostType | null>(null);
-
   const onSubmit = (formData: PostType) => {
-    setData(formData);
-    console.log(formData);
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
@@ -87,7 +90,7 @@ function AddNew() {
         console.log(err);
         ToastNot(err.response.data.message);
       });
-    console.log(data);
+    reset();
   };
 
   // Subcategories selection
