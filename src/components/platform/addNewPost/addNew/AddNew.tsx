@@ -49,7 +49,6 @@ function AddNew() {
   // handle the form
   const {
     register,
-
     reset,
     handleSubmit,
     setValue,

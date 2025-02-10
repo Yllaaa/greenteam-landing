@@ -1,15 +1,16 @@
 .container {
-  min-width: 331px;
-  max-width: 331px;
+  min-width: 397px;
+  max-width: 397px;
   height: 674px;
   background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
-  padding: 25px 12px;
+  backdrop-filter: blur(60px);
+  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   text-align: center;
-  gap: 16px;
+  gap: 58px;
   border-radius: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
@@ -17,12 +18,16 @@
   -o-border-radius: 20px;
 }
 /* header */
+.header {
+  width: 100%;
+  height: fit-content;
+}
 .header h2 {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 25.2px;
   text-align: center;
-  margin-bottom: 5px;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 140%;
 }
 .header p {
   font-size: 12px;
@@ -34,7 +39,9 @@
 
 /* challenges */
 .challenges {
-  max-height: 665px;
+  height: fit-content;
+  min-height: 377px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -44,52 +51,90 @@
   scrollbar-width: none;
 }
 .challenge {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
   width: 100%;
-  height: fit-content;
 }
 
-.challenge .challengeDetails {
+.challenge .postContainer {
+  width: 100%;
+  height: 100%;
+}
+.challenge .postContainer .postedChallenge {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+.challenge .postContainer .postedChallenge .challengeHeader {
+  width: 100%;
+  height: 49px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 9px;
+}
+.challengeHeader .userAvatar {
+  width: 49px;
+  height: 49px;
+  min-width: 49px;
+  min-height: 49px;
+  background: yellow;
+  border-radius: 50%;
+}
+.challengeHeader .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 4px;
+}
+.challengeHeader .details .userName {
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 18.29px;
+  text-align: left;
+}
+.challengeHeader .details .userName p span {
+  color: #8899a6;
+}
+.challengeHeader .details .post {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.29px;
+  text-align: left;
+}
+.challengeHeader .details .post p {
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 18.29px;
+  text-align: left;
+}
+.challengeHeader .details .post p span {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14.29px;
+  text-align: left;
+  color: #8899a6;
+}
+.postedChallenge .challengeImage {
+  position: relative;
+  width: 100%;
+  height: 312px;
+  background: #000;
+}
+
+.challenge .challengeActions {
+  position: absolute;
+  bottom: 14px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  width: 100%;
-  gap: 4px;
-}
-.challenge .challengeDetails .challengeImage {
-  width: 56px;
-  height: 56px;
-  background-color: red;
-  border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
-}
-.challenge .challengeDetails .challengeText {
-  margin-bottom: 16px;
-}
-.challenge .challengeDetails .challengeText h3 {
-  font-size: 12px;
-  font-weight: 500;
-  line-height: 14.63px;
-  letter-spacing: -0.004em;
-  text-align: center;
-}
-.challenge .challengeDetails .challengeText p {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 14.63px;
-  letter-spacing: -0.004em;
-  text-align: center;
-  color: #fefefeb2;
-}
-.challenge .challengeActions {
-  width: 100%;
+  gap: 8px;
 }
 .challenge .challengeActions .challengeButton {
   width: 95%;
@@ -113,6 +158,29 @@
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
 }
+.arrow {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: 90%;
+  fill: #97B00F;
+  cursor: pointer;
+}
+
+.arrowLeft {
+  left: 40%;
+  fill: #97B00F;
+}
+
+.arrowRight {
+  left: auto;
+  right: 40%;
+  fill: #97B00F;
+}
+
+/* .arrowDisabled {
+  fill: #fff;
+} */
 @media screen and (max-width: 768px) {
   .container {
     min-width: 310px;
@@ -127,10 +195,9 @@
     font-weight: 700;
     line-height: 20.2px;
   }
-  
 
   /* challenges */
-  
+
   .challenge {
     background: #363636;
     padding: 10px 0px;
@@ -139,7 +206,7 @@
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
-}
+  }
 
   .challenge .challengeDetails {
     display: flex;

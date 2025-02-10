@@ -22,27 +22,27 @@ function SubHeader() {
           <Categories />
           <div className={styles.links}>
             <div className={styles.link}>
-              <Link href="/">
-                <span>125 likes</span>
+              <Link href="/" className={styles.regularLink}>
                 <Image src={likes} alt="like" />
+                <span>125 likes</span>
               </Link>
             </div>
             <div className={styles.link}>
-              <Link href="/">
-                <span>125 message</span>
+              <Link href="/" className={styles.regularLink}>
                 <Image src={message} alt="like" />
+                <span>125 message</span>
               </Link>
             </div>
             <div className={styles.link}>
-              <Link href="/">
-                <span>125 posts</span>
+              <Link href="/" className={styles.regularLink}>
                 <Image src={post} alt="posts" />
+                <span>125 posts</span>
               </Link>
             </div>
             <div className={styles.link}>
-              <Link href={`/${locale}/personal/newPost`}>
-                <span>Add post</span>
+              <Link href={`/${locale}/personal/newPost`} className={styles.postLink}>
                 <Image src={addNew} alt="add" />
+                <span>Add post</span>
               </Link>
             </div>
           </div>

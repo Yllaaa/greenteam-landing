@@ -12,6 +12,14 @@
   overflow-x: auto;
   scrollbar-width: none;
 }
+.subHeader {
+  width: 100%;
+  height: fit-content;
+  min-height: 674px;
+  padding: 32.5px 0px;
+  border-bottom: 1px solid #3a444c;
+  overflow-y: hidden;
+}
 .artSection {
   width: 100%;
   height: fit-content;

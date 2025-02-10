@@ -1,0 +1,362 @@
+.container {
+  position: relative;
+  min-width: 550px;
+  height: 449px;
+  background: #333634;
+  padding: 24px;
+  overflow: hidden;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+}
+.user {
+  min-height: 40px;
+  gap: 6px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-bottom: 14px;
+}
+.user .avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.user .avatar img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.user .noAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.user .data .username {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 21px;
+  text-align: left;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.user .data .username p {
+  cursor: pointer;
+}
+.user .data .username span {
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  cursor: pointer;
+}
+.user .data .job {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.8px;
+  text-align: left;
+  color: #fefefe80;
+}
+.scrollable {
+  height: 290px;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.body {
+  height: fit-content;
+  min-height: 77px;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+.body .title {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 21px;
+  text-align: left;
+}
+.body .post {
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 21px;
+  text-align: left;
+}
+.image {
+  width: 100%;
+  height: 200px;
+  gap: 10px;
+  border: 1px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+
+.reactionBtns {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  padding: 0 16px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 10;
+  margin-top: 15px;
+}
+.reactionBtns .btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  z-index: 10;
+  height: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.reactionBtns .btn:hover {
+  background: #3a444c;
+  padding: 20px 16px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.commentSection {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: #1c1e20e7;
+  border-radius: 15px;
+  -webkit-border-radius: 15px;
+  -moz-border-radius: 15px;
+  -ms-border-radius: 15px;
+  -o-border-radius: 15px;
+  transform: translateY(-100%);
+  -webkit-transform: translateY(-100%);
+  -moz-transform: translateY(-100%);
+  -ms-transform: translateY(-100%);
+  -o-transform: translateY(-100%);
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.showCommentSection {
+  transform: translateY(0%);
+  -webkit-transform: translateY(0%);
+  -moz-transform: translateY(0%);
+  -ms-transform: translateY(0%);
+  -o-transform: translateY(0%);
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.hideCommentSection {
+  transform: translateY(100%);
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  -ms-transform: translateY(100%);
+  -o-transform: translateY(100%);
+  transition: all 0.3s ease-in-out;
+}
+.commentSection .commentContainer {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.commentSection .commentContainer .newComment {
+  position: absolute;
+  bottom: 5%;
+  background: #3a444c;
+  width: 98%;
+  height: fit-content;
+  min-height: 30px;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+}
+.commentSection .commentContainer .newComment .commentTextArea {
+  width: 90%;
+  height: 30px;
+  resize: none;
+  border: none;
+  stroke: none;
+  outline: none;
+  background: transparent;
+}
+.commentSection .commentContainer .newComment .commentTextArea:focus {
+  border: none;
+  stroke: none;
+  outline: none;
+}
+.commentSection .commentContainer .newComment .addImage {
+  position: relative;
+  width: 10%;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.commentSection .commentContainer .newComment .addImage input {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    min-width: 310px;
+
+    padding: 12px;
+  }
+  .user {
+    min-height: 40px;
+    gap: 6px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  .user .avatar {
+    width: 36px;
+    height: 36px;
+  }
+  .user .avatar img {
+    width: 100%;
+    height: 100%;
+  }
+  .user .noAvatar {
+    width: 36px;
+    height: 36px;
+  }
+  .user .data .username {
+    font-size: 14px;
+    line-height: 16px;
+  }
+
+  .scrollable {
+    height: 330px;
+    overflow-y: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .body {
+    height: fit-content;
+    min-height: 77px;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  .body .title {
+    font-size: 15px;
+    line-height: 17px;
+  }
+  .body .post {
+    font-size: 15px;
+    line-height: 17px;
+  }
+  .image {
+    width: 100%;
+    height: 150px;
+  }
+  .image img {
+    width: 100%;
+    height: 100%;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+
+  .reactionBtns {
+    gap: 12px;
+  }
+  .reactionBtns .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+  .reactionBtns .btn:hover {
+    background: #3a444c;
+    padding: 5px;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+}

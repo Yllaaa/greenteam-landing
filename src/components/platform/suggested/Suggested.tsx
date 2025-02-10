@@ -6,13 +6,16 @@ import "keen-slider/keen-slider.min.css";
 
 import styles from "./suggested.module.css";
 import Challenges from "./challenges/allCahalenges/Challenges";
-import AddNewModal from "./challenges/allCahalenges/modals/addNew/AddNewModal";
-import DoItModal from "./challenges/allCahalenges/modals/toDo/DoItModal";
+import AddNewModal from "../modals/addNew/AddNewModal";
+import DoItModal from "../modals/toDo/DoItModal";
 function Suggested() {
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
+    loop: true,
+    slides: { perView: 1 },
+
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -27,16 +30,20 @@ function Suggested() {
 
   return (
     <>
-      <div className={`${styles.navigationWrapper} ${styles.container}`}>
-        <div ref={sliderRef} className={`keen-slider`}>
+      <div className={`${styles.navigationWrapper}`}>
+        <div ref={sliderRef} className={`keen-slider ${styles.container}`}>
           <div className={`keen-slider__slide ${styles.suggested}`}>
             <Challenges setAddNew={setAddNew} setDoItModal={setDoItModal} />
           </div>
-          <div className={`keen-slider__slide ${styles.suggested}`}>2</div>
-          <div className={`keen-slider__slide ${styles.suggested}`}>3</div>
-          <div className={`keen-slider__slide ${styles.suggested}`}>4</div>
-          <div className={`keen-slider__slide ${styles.suggested}`}>5</div>
-          <div className={`keen-slider__slide ${styles.suggested}`}>6</div>
+          <div className={`keen-slider__slide ${styles.suggested}`}>
+            <Challenges setAddNew={setAddNew} setDoItModal={setDoItModal} />
+          </div>
+          <div className={`keen-slider__slide ${styles.suggested}`}>
+            <Challenges setAddNew={setAddNew} setDoItModal={setDoItModal} />
+          </div>
+          <div className={`keen-slider__slide ${styles.suggested}`}>
+            <Challenges setAddNew={setAddNew} setDoItModal={setDoItModal} />
+          </div>
         </div>
         {loaded && instanceRef.current && (
           <>

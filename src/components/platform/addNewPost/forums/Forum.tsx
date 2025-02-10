@@ -23,10 +23,10 @@ type ItemType = {
 
 // post
 type PostType = {
+  headline: string;
   content: string;
   mainTopicId: string;
-  subtopicIds: string[];
-  creatorType: "user";
+  section: string;
 };
 
 function Forums() {
@@ -49,28 +49,28 @@ function Forums() {
   }, []);
 
   // handle the form
-  const { register, reset, handleSubmit, setValue, getValues } = useForm<
-    PostType
-  >({
+  const { register, reset, handleSubmit, setValue } = useForm<PostType>({
     defaultValues: {
+      headline: "",
       content: "",
       mainTopicId: "",
-      subtopicIds: [],
-      creatorType: "user",
+      section: "",
     },
   });
 
-  // const [data, setData] = useState<PostType | null>(null);
+  const [header, setheader] = useState<string>("");
 
+  const [selectedOptions, setSelectedOptions] = useState<string>("");
   const onSubmit = (formData: PostType) => {
+    console.log(formData);
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum/add-publication`,
         {
+          headline: formData.headline,
           content: formData.content,
           mainTopicId: formData.mainTopicId,
-          subtopicIds: formData.subtopicIds,
-          creatorType: "user",
+          section: formData.section,
         },
         {
           headers: {
@@ -78,47 +78,36 @@ function Forums() {
             Authorization: `Bearer ${userInfo.accessToken}`,
             "Access-Control-Allow-Origin": "*",
           },
-          // withCredentials: true,
         }
       )
       .then((res) => {
         console.log("data", res.data);
-        ToastNot(`Post in ${res.data.mainTopic.name} added successfully`);
+        ToastNot(`Post in ${res.data.section} added successfully`);
       })
       .catch((err) => {
+        ToastNot(`Error adding forum`);
         console.log(err);
       });
     reset();
+    setSelectedOptions("");
   };
 
   // Subcategories selection
-  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
 
+  const subTopics = ["need", "doubt", "dream"];
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    let updatedSelections = [...selectedOptions];
+    const { value } = event.target;
 
-    if (checked) {
-      updatedSelections.push(value);
-    } else {
-      updatedSelections = updatedSelections.filter((id) => id !== value);
-    }
+    setSelectedOptions(value);
 
-    setSelectedOptions(updatedSelections);
-    setValue("subtopicIds", updatedSelections);
+    // setSelectedOptions(value as "" | "dream" | "need" | "doubt");
+    setValue("section", value);
   };
-
-  // Find the parent category
-  const subTopic = topics?.find(
-    (topic) => topic.id === getValues("mainTopicId")
-  )?.parent;
 
   // Handle topic change and reset subtopics
   const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMainTopic = event.target.value;
     setValue("mainTopicId", selectedMainTopic);
-    setSelectedOptions([]); // Reset selected subtopics
-    setValue("subtopicIds", []); // Clear selected options in form state
   };
 
   return (
@@ -153,11 +142,26 @@ function Forums() {
                 />
               )}
             </div>
-            <textarea
-              placeholder="Add your experiences and tips to make a better future."
-              className={styles.textArea}
-              {...register("content", { required: true })}
-            />
+            <div className={styles.textAreaContainer}>
+              <div className={styles.headline}>
+                <textarea
+                  placeholder="Add your headline"
+                  className={styles.headlineArea}
+                  maxLength={50}
+                  {...register("headline", { required: true, maxLength: 50 })}
+                  onChange={(event) => {
+                    setheader(event.target.value);
+                  }}
+                />
+                <p className={styles.headlineCount}>*{header?.length}/50</p>
+              </div>
+
+              <textarea
+                placeholder="Add your experiences and tips to make a better future."
+                className={styles.textArea}
+                {...register("content", { required: true })}
+              />
+            </div>
           </div>
           {/* End text box section */}
 
@@ -178,19 +182,19 @@ function Forums() {
 
               {/* Subcategories */}
               <div className={styles.selectSubCategory}>
-                {subTopic && (
-                  <>
-                    <label>
+                {subTopics &&
+                  subTopics.map((subTopic, index) => (
+                    <label htmlFor={subTopic} key={index}>
                       <input
-                        type="checkbox"
-                        value={subTopic.id}
-                        checked={selectedOptions.includes(subTopic.id)}
+                        id={subTopic}
+                        type="radio"
+                        value={subTopic}
+                        checked={selectedOptions === subTopic}
                         onChange={handleOptionChange}
-                      />{" "}
-                      {subTopic.name}
+                      />
+                      {subTopic}
                     </label>
-                  </>
-                )}
+                  ))}
               </div>
             </div>
 

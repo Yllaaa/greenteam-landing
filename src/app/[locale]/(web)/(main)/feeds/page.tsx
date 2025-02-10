@@ -1,7 +1,7 @@
 import React from "react";
 import srtyles from "./platformHome.module.css";
-import PostForums from "@/components/platform/posts/POSTCARD/PostForums";
-import EventSection from "@/components/platform/Events/EventSection";
+import PostForums from "@/components/platform/posts/forums/PostForums";
+import EventSection from "@/components/platform/posts/Events/EventSection";
 import ArtSection from "@/components/platform/posts/Art/ArtSection";
 import ProductSection from "@/components/platform/products/ProductSection";
 import SubHeader from "@/components/platform/header/SubHeader/SubHeader";
@@ -9,7 +9,7 @@ import SubHeader from "@/components/platform/header/SubHeader/SubHeader";
 function page() {
   return (
     <section className={srtyles.container}>
-      <div className={srtyles.artSection}>
+      <div className={srtyles.subHeader}>
         <SubHeader />
       </div>
       <div className={srtyles.artSection}>
@@ -39,7 +39,6 @@ function page() {
         }}
       >
         <EventSection />
-        {/* <EventCard /> */}
       </div>
       <div
         style={{
@@ -49,9 +48,9 @@ function page() {
         }}
       >
         <ProductSection />
-        {/* <EventCard /> */}
       </div>
-      <div style={{ margin: "100px 0px" }}>
+      {/* done lesa likes/comment/do/unlike */}
+      <div className={srtyles.artSection}>
         <PostForums />
       </div>
     </section>

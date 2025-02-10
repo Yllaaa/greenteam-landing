@@ -6,14 +6,19 @@
   padding: 0px 34px;
 }
 .title h3 {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.title h3 .titleText {
   font-size: 24px;
   font-weight: 600;
   line-height: 29.26px;
   text-align: center;
-
-  display: flex;
-  align-items: center;
-  gap: 10px;
+}
+.title h3 .titleIcon {
+  width: 38px;
+  height: 38px;
 }
 .title ul {
   width: fit-content;
@@ -43,9 +48,22 @@
   -o-border-radius: 12px;
   transition: all 0.4s;
 }
+.title ul li span {
+  width: 100%;
+  display: inline-block;
+  height: 100%;
+}
 .title ul li:hover {
-  background-color: #307040;
+  color: #47b161;
   cursor: pointer;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+.active {
+  color: #307040;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;
   -moz-transition: all 0.4s;

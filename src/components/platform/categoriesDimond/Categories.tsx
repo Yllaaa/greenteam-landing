@@ -10,18 +10,6 @@ import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 import ReactECharts from "echarts-for-react";
-// import { color } from "echarts";
-
-// type Props = {
-//   values?: {
-//     community?: number;
-//     food?: number;
-//     eco?: number;
-//     know?: number;
-//     art?: number;
-//     physical?: number;
-//   };
-// };
 
 function Categories() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -131,12 +119,12 @@ function Categories() {
   };
 
   const points = [
-    getPoint(90, 0),
-    getPoint(100, 60),
-    getPoint(80, 120),
-    getPoint(85, 180),
-    getPoint(100, 240),
-    getPoint(60, 300),
+    getPoint(Math.floor(Math.random() * 100), 0),
+    getPoint(Math.floor(Math.random() * 100), 60),
+    getPoint(Math.floor(Math.random() * 100), 120),
+    getPoint(Math.floor(Math.random() * 100), 180),
+    getPoint(Math.floor(Math.random() * 100), 240),
+    getPoint(Math.floor(Math.random() * 100), 300),
   ].join(" ");
   return (
     <>

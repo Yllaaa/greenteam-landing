@@ -1,7 +1,6 @@
 .container {
-  width: 804px;
+  width: 100%;
   height: 100%;
-  /* background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%); */
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
@@ -169,16 +168,10 @@
   -o-border-radius: 20px;
 }
 
-
-
-
-
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
-    min-width: 310px;
     height: 420px;
-    background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
     display: flex;
     justify-content: flex-start;
     align-items: flex-start;
@@ -190,6 +183,16 @@
     min-height: fit-content;
     margin-bottom: 22px;
     padding: 22px 10px 0px 10px;
+  }
+  .header .headerBtn .challengeButton {
+    gap: 10px;
+    /* text */
+    font-size: 10px;
+
+    line-height: 12.63px;
+
+    /* end text */
+    width: 100px;
   }
   .header h2 {
     font-size: 16px;
@@ -206,7 +209,6 @@
     color: #fefefe80;
   }
   .challenges {
-    /* background: #000; */
     width: 100%;
     align-self: flex-start;
     justify-self: center;

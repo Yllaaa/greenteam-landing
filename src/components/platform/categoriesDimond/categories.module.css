@@ -1,7 +1,8 @@
 .container {
   position: relative;
-  width: 679.21px;
-  height: 512px;
+  width: 685px;
+
+  height: 575px;
   background: linear-gradient(
     126.97deg,
     #006633 28.26%,
@@ -241,13 +242,7 @@
   .container {
     position: relative;
     width: 100%;
-    /* min-width: 310px; */
     height: 320px;
-    background: linear-gradient(
-      126.97deg,
-      #006633 28.26%,
-      rgba(50, 80, 65, 0.5) 91.2%
-    );
     padding: 42px 20px;
     z-index: 0;
     border-radius: 20px;
@@ -277,17 +272,6 @@
     z-index: -1;
   }
 
-  .hexagon {
-    fill: #f0f0f0; /* Background color */
-    stroke: #ccc;
-    stroke-width: 1;
-  }
-
-  .filledArea {
-    fill: rgba(0, 123, 255, 0.329); /* Adjusted to match the hexagon */
-    stroke: #007bff34;
-    stroke-width: 1;
-  }
   .diamondShape {
     position: absolute;
     top: 50%;

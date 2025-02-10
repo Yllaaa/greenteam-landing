@@ -1,7 +1,17 @@
 .navigationWrapper {
   position: relative;
-  width: 804px;
-  min-height: 674px;
+  width: 736;
+  height: 674;
+  /* background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%); */
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.container{
+  width: 100%;
+  height: 100%;
   background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
   border-radius: 20px;
   -webkit-border-radius: 20px;
@@ -71,8 +81,6 @@
   fill: rgba(255, 255, 255, 0.5);
 }
 
-
-
 /* Modal Styles */
 .modal {
   inset: 0;
@@ -121,7 +129,9 @@
 @media screen and (max-width: 768px) {
   .navigationWrapper {
     position: relative;
-    width: 100%;
+    width: 425px;
+    min-width: 310px;
+    height: 477px;
     min-width: 310px;
     min-height: 420px;
   }
@@ -187,4 +197,17 @@
   .arrowDisabled {
     fill: rgba(255, 255, 255, 0.5);
   }
+}
+
+@media screen and (max-width: 430px) {
+  .navigationWrapper {
+    position: relative;
+    width: 310px;
+    min-width: 310px;
+    height: 477px;
+    min-width: 310px;
+    min-height: 420px;
+  }
+  
+  
 }
