@@ -82,7 +82,7 @@
 }
 
 .suggested {
-  max-width: 736px;
+  /* max-width: 736px; */
   width: fit-content;
 }
 .challenges {
