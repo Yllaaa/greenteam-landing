@@ -208,8 +208,8 @@ function LoginForm() {
                   <div
                     style={
                       selectedOption
-                        ? { backgroundColor: "#3c6060" }
-                        : { backgroundColor: "#495C5C" }
+                        ? { backgroundColor: "#307040" }
+                        : { backgroundColor: "#96b032" }
                     }
                     className={styles.radioBtnContainer}
                   >

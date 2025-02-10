@@ -8,7 +8,7 @@ import like from "@/../public/ZPLATFORM/post/like.svg";
 import unlike from "@/../public/ZPLATFORM/post/unlike.svg";
 import comment from "@/../public/ZPLATFORM/post/comment.svg";
 import { useInView } from "react-intersection-observer";
-import { FaPaperclip } from "react-icons/fa6";
+import { FaCameraRetro } from "react-icons/fa6";
 type Author = {
   id: string;
   fullName: string;
@@ -167,7 +167,7 @@ function ForumCard(props: Discussion) {
                     // onChange={(e) => setNewCommentImage(e.target.files[0])}
                   />
                   <label htmlFor="image">
-                    <FaPaperclip />
+                    <FaCameraRetro />
                   </label>
                 </div>
               </div>
