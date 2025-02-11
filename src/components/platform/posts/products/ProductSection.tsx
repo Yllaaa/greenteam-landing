@@ -1,17 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
-import PostCard from "../POSTCARD/mainPost/PostCard";
-import styles from "./ArtSection.module.css";
-import Image from "next/image";
-import artIcon from "@/../public/ZPLATFORM/categories/art.svg";
-import DoItModal from "../../modals/toDo/DoItModal";
+import React from "react";
+import ProductCard from "./Card/ProductCard";
+import styles from "./ProductSection.module.css";
 import { MdOutlineFilterList } from "react-icons/md";
 import { useForm } from "react-hook-form";
-
-function ArtSection() {
-  const [doItModal, setDoItModal] = useState(false);
-
+function ProductSection() {
   const [openTopics, setOpenTopics] = React.useState(false);
   const topicsRef = React.useRef<HTMLDivElement>(null);
   React.useEffect(() => {
@@ -63,10 +57,7 @@ function ArtSection() {
         <div className={styles.header}>
           <div className={styles.title}>
             <h3>
-              <span className={styles.titleIcon}>
-                <Image src={artIcon} alt="artIcon" loading="lazy" className={styles.titleIcon} />
-              </span>{" "}
-              <span className={styles.titleText}>Art</span>
+              <span className={styles.titleText}>Products</span>
             </h3>
           </div>
           <div className={styles.filterSection}>
@@ -160,28 +151,24 @@ function ArtSection() {
 
         <div className={styles.posts}>
           <div className={styles.postContainer}>
-            <PostCard setDoItModal={setDoItModal} />
+            <ProductCard />
           </div>
           <div className={styles.postContainer}>
-            <PostCard />
+            <ProductCard />
           </div>
           <div className={styles.postContainer}>
-            <PostCard />
+            <ProductCard />
           </div>
           <div className={styles.postContainer}>
-            <PostCard />
+            <ProductCard />
           </div>
           <div className={styles.postContainer}>
-            <PostCard />
-          </div>
-          <div className={styles.postContainer}>
-            <PostCard />
+            <ProductCard />
           </div>
         </div>
       </div>
-      {doItModal && <DoItModal setDoItModal={setDoItModal} />}
     </>
   );
 }
 
-export default ArtSection;
+export default ProductSection;

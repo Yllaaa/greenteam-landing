@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./SubHeader.module.css";
 
 import Categories from "../../categoriesDimond/Categories";
-import Suggested from "../../suggested/Suggested";
+import Suggested from "../../suggested/GreenChallenges";
 import MyChallenges from "../../suggested/challenges/myChallenges/MyChallenges";
 import Link from "next/link";
 import Image from "next/image";

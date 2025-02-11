@@ -1,9 +1,10 @@
 "use client";
 import React from "react";
-import axios from "axios";
+// import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
 import image from "@/../public/icons/foot.svg";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 interface ProductCardProps {
   id?: string;
@@ -17,7 +18,7 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  id,
+  // id,
   imageUrl,
   category,
   details,
@@ -27,16 +28,18 @@ const ProductCard: React.FC<ProductCardProps> = ({
   isFavorite,
 }) => {
   const handleJoinNow = async () => {
-    try {
-      const response = await axios.post("/api/joinEvent", { eventId: id });
-      console.log("Join response:", response.data);
-    } catch (error) {
-      console.error("Error joining event:", error);
-    }
+    ToastNot("joined")
+    // try {
+    //   const response = await axios.post("/api/joinEvent", { eventId: id });
+    //   console.log("Join response:", response.data);
+    // } catch (error) {
+    //   console.error("Error joining event:", error);
+    // }
   };
 
   const handleToggleFavorite = () => {
-    axios.post("/api/toggleFavorite", { eventId: id });
+    ToastNot("added")
+    // axios.post("/api/toggleFavorite", { eventId: id });
   };
 
   return (
@@ -59,16 +62,17 @@ const ProductCard: React.FC<ProductCardProps> = ({
             ? product
             : "Stay hydrated sustainably with our BPA-free, reusable water bottle made from recycled materials"}
         </p>
-        <p className={styles.price}>
-          {price
-            ? `${price} $`
-            : "12.99 $"}
-        </p>
+        <p className={styles.price}>{price ? `${price} $` : "12.99 $"}</p>
+        <div className={styles.topBtns}>
+          <button onClick={handleJoinNow} className={styles.contactButton}>
+            Contact Seller
+          </button>
+          <button onClick={handleJoinNow} className={styles.contactButton}>
+            Contact Seller
+          </button>
+        </div>
         <button onClick={handleJoinNow} className={styles.messageButton}>
           Message Seller
-        </button>
-        <button onClick={handleJoinNow} className={styles.contactButton}>
-          Contact Seller
         </button>
       </div>
       <button onClick={handleToggleFavorite} className={styles.favoriteButton}>

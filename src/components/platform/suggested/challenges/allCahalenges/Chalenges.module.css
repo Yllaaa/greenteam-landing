@@ -1,88 +1,17 @@
 .container {
-  width: 100%;
+  width: 85%;
   height: 100%;
   display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-direction: column;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-}
-.header {
-  width: 100%;
-  min-height: 44px;
-  margin-bottom: 42px;
-  padding: 22px 30px 0px 30px;
-  display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-.header .title {
-  width: 50%;
-}
-.header .headerBtn {
-  width: 30%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 10px;
-}
-.header .headerBtn .challengeButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  /* text */
-  font-size: 12px;
-  font-weight: 600;
-  line-height: 14.63px;
-  letter-spacing: -0.004em;
-  text-align: center;
-  color: #006633;
-
-  /* end text */
-  width: 182px;
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-  height: 32px;
-  cursor: pointer;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-}
-.header .title h2 {
-  font-size: 18px;
-  font-weight: 700;
-  line-height: 25.2px;
-  text-align: left;
-  margin-bottom: 2px;
-}
-.header .title p {
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 16.8px;
-  text-align: left;
-  color: #fefefe80;
-}
-.challenges {
-  width: 85%;
-  align-self: center;
   height: fit-content;
   max-height: 520px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
+  overflow-y: hidden;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 24px;
 }
+
 .challenge {
   width: 100%;
   height: fit-content;
@@ -171,43 +100,18 @@
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
-    height: 420px;
+    height: 100%;
+    max-height: 420px;
     display: flex;
     justify-content: flex-start;
-    align-items: flex-start;
+    align-items: center;
     flex-direction: column;
+    overflow-y: auto;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+    gap: 18px;
   }
-  .header {
-    width: 90%;
-    height: fit-content;
-    min-height: fit-content;
-    margin-bottom: 22px;
-    padding: 22px 10px 0px 10px;
-  }
-  .header .headerBtn .challengeButton {
-    gap: 10px;
-    /* text */
-    font-size: 10px;
 
-    line-height: 12.63px;
-
-    /* end text */
-    width: 100px;
-  }
-  .header h2 {
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 20.2px;
-    text-align: left;
-    margin-bottom: 2px;
-  }
-  .header p {
-    font-size: 12px;
-    font-weight: 400;
-    line-height: 16.8px;
-    text-align: left;
-    color: #fefefe80;
-  }
   .challenges {
     width: 100%;
     align-self: flex-start;

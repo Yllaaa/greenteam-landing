@@ -1,7 +1,8 @@
 .card {
   position: relative;
-  min-width: 470px;
-  height: 447px;
+  min-width: 415px;
+  height: fit-content;
+  min-height: 459px;
   background: #333634;
   z-index: 9;
   border-radius: 30px;
@@ -12,7 +13,7 @@
 }
 
 .image {
-  width: 470px;
+  width: 100%;
   height: 168px;
   object-fit: cover;
   border-radius: 30px 30px 0px 0px;
@@ -64,7 +65,13 @@
   color: #97b00f;
   margin-bottom: 22px;
 }
-
+.topBtns{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
 .messageButton {
   width: 100%;
   height: 35px;
@@ -84,7 +91,7 @@
   -o-border-radius: 30px;
 }
 .contactButton {
-    width: 100%;
+  width: 100%;
   height: 35px;
   color: white;
   border: 1px solid #97b00f;
