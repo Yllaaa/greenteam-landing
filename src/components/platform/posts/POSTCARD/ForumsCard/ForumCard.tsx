@@ -42,7 +42,7 @@ type Discussion = {
 function ForumCard(props: Discussion) {
   const { posts, setPage, page } = props;
   const { ref, inView } = useInView({
-    threshold: 0.5, // Trigger when 50% of the element is visible
+    threshold: 0.5,
   });
 
   const [commentSection, setCommentSection] = React.useState("");

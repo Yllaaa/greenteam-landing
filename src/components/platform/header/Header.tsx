@@ -116,7 +116,7 @@ function Header() {
                 src={handsLogo}
                 alt="handsLogo"
                 style={{ cursor: "pointer" }}
-                onClick={() => router.push(`/${locale}/feeds`)}
+                onClick={() => router.push(`/${locale}/community`)}
               />
             </div>
           </div>

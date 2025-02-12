@@ -1,0 +1,41 @@
+.filterType {
+  width: 100%;
+  height: 39px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filterType ul {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  list-style: none;
+}
+.filterType ul .listItem {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 39.01px;
+  letter-spacing: 0%;
+  text-align: center;
+
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.filterType ul .listItem:hover {
+  color: #006633;
+}
+.filterType ul .active{
+    color: #006633;
+}

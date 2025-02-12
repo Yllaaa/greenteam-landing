@@ -83,7 +83,6 @@ function PostForums() {
       .catch((err) => {
         setErrorMessage("An Error Occured");
         setIsLoading(false);
-
         console.log(err);
       });
   }, [section, mainTopicId, page]);
