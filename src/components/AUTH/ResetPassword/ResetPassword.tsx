@@ -5,7 +5,7 @@ import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import styles from "./resetPassword.module.css";
 import Link from "next/link";
@@ -17,6 +17,7 @@ import earthImage from "@/../public/auth/earth.svg";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function ResetPassword() {
+  const t = useTranslations('auth.resetPassword');
   const router = useRouter();
   const locale = useLocale();
   const {
@@ -47,7 +48,7 @@ function ResetPassword() {
   const passwordReset = () => {
     try {
       if (data.password !== data.confirmPassword)
-        return ToastNot("Password does not match");
+        return ToastNot(t('passwordNotMatch'));
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/register`,
@@ -61,12 +62,12 @@ function ResetPassword() {
           }
         )
         .then((response) => {
-          if (response.status === 200) ToastNot("Password reset successfully");
+          if (response.status === 200) ToastNot(t('resetSuccess'));
           router.push(`/${locale}/login`);
         })
         .catch((error) => {
           console.log(error);
-          ToastNot("Reset password failed");
+          ToastNot(t('resetFailed'));
         });
     } catch (error) {
       console.log(error);
@@ -91,8 +92,8 @@ function ResetPassword() {
             </div>
             {/* header */}
             <div className={styles.title}>
-              <h5>Reset Password</h5>
-              <p>Write Your Password To reset it</p>
+              <h5>{t('resetPassword')}</h5>
+              <p>{t('writePassword')}</p>
             </div>
           </div>
           <form
@@ -103,14 +104,14 @@ function ResetPassword() {
           >
             
             <label htmlFor="password">
-              Password <span>*</span>
+              {t('password')} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="password"
+                  placeholder={t('password')}
                   {...register("password", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
@@ -121,18 +122,18 @@ function ResetPassword() {
                 </div>
               </div>
               {errors.password && (
-                <p className={styles.errorMessage}>Check password field</p>
+                <p className={styles.errorMessage}>{t('checkPassword')}</p>
               )}
             </div>
             <label htmlFor="confirmPasswordpassword">
-              Confirm Password <span>*</span>
+              {t('confirmPassword')} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="confirmPassword"
+                  placeholder={t('confirmPassword')}
                   {...register("confirmPassword", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, confirmPassword: e.target.value })
@@ -146,17 +147,17 @@ function ResetPassword() {
                 </div>
               </div>
               {errors.confirmPassword && (
-                <p className={styles.errorMessage}>Check password field</p>
+                <p className={styles.errorMessage}>{t('checkPassword')}</p>
               )}
             </div>
             
 
             <button type="submit" onClick={passwordReset}>
-              Reset
+              {t('reset')}
             </button>
           </form>
           <p className={styles.createAccount}>
-            Want to login? <Link href={`/${locale}/login`}> Login</Link>
+            {t('wantLogin')} <Link href={`/${locale}/login`}> {t('login')}</Link>
           </p>
         </div>
         <div className={styles.sideImageContainer}>
@@ -164,11 +165,10 @@ function ResetPassword() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>Join the Movement for a </h4>
-            <h3>Greener Future</h3>
+            <h4>{t('join')}</h4>
+            <h3>{t('greenerFuture')}e</h3>
             <p>
-              Be part of a global community working together to create
-              sustainable solutions for a healthier planet.
+              {t('bePart')}
             </p>
           </div>
           <div className={styles.foots}>

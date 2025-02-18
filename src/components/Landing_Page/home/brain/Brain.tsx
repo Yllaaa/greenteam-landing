@@ -2,12 +2,13 @@
 import React from "react";
 import styles from "./brain.module.css";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import brain from "@/../public/brain/brain.png";
 import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 
 function Brain() {
+  const t = useTranslations('landing.brain');
   const locale = useLocale();
 
   const [imageLoaded, setImageLoaded] = React.useState(false);
@@ -17,20 +18,18 @@ function Brain() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2>
-            The Community have the solution to all problems,{" "}
-            <span>SUSTAINABLE CULTURE</span>
+            {t('community')}{" "}
+            <span>{t('sustainableCulture')}</span>
           </h2>
         </div>
         <div className={styles.text}>
           <p>
-            The evolution of culture is a process of dynamic change in the way
-            human society sees, understands and acts, linked to values ​​and
-            beliefs shaped over time.
+            {t('evolution')}
           </p>
         </div>
         <div className={styles.link}>
           <Link href={`/${locale}/about`}>
-            <span>Learn more</span>
+            <span>{t('learnMore')}</span>
           </Link>
         </div>
         {!imageLoaded && (

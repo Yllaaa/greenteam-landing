@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import React, { useEffect, useRef, useState } from "react";
 import logo from "@/../public/logo/fullLogo.png";
 import styles from "./navbar.module.css";
@@ -13,6 +13,7 @@ import { useRouter } from "next/navigation";
 
 
 function Navbar() {
+  const t = useTranslations('landing.navbar');
   const locale = useLocale();
 
   const router = useRouter()
@@ -74,7 +75,7 @@ function Navbar() {
           <Image src={logo} alt="logo" />
         </div>
         <div className={styles.links}>
-          <p onClick={redirectToDownloadLink}>Download the App</p>
+          <p onClick={redirectToDownloadLink}>{t('downloadApp')}</p>
           <LangBtn />
         </div>
         <div className={styles.auth}>
@@ -82,13 +83,13 @@ function Navbar() {
             href={`/${locale}/login`}
             className={`${styles.login} ${styles.btn}`}
           >
-            Login
+            {t('login')}
           </Link>
           <Link
             href={`/${locale}/register`}
             className={`${styles.signup} ${styles.btn}`}
           >
-            Signup
+            {t('signUp')}
           </Link>
         </div>
         <div
@@ -154,7 +155,7 @@ function Navbar() {
                 onClick={() => redirectToDownloadLink()}
                 className={`${styles.item}`}
               >
-                Download the app
+                {t('downloadApp2')}
               </li>
               <li className={`${styles.item}`}>
                 <LangBtn />
