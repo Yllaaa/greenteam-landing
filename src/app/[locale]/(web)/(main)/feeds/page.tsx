@@ -1,11 +1,7 @@
 import React from "react";
 import srtyles from "./platformHome.module.css";
 import PostForums from "@/components/platform/posts/forums/PostForums";
-<<<<<<< HEAD
 import EventSection from "@/components/platform/posts/Events/EventSection";
-=======
-// import EventSection from "@/components/platform/posts/Events/EventSection";
->>>>>>> e4cf70e317d78abafae6ee0c2a903e6bcebbb502
 import ArtSection from "@/components/platform/posts/feeds/ArtSection";
 import ProductSection from "@/components/platform/posts/products/ProductSection";
 import SubHeader from "@/components/platform/header/SubHeader/SubHeader";
