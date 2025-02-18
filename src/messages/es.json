@@ -150,6 +150,18 @@
       "weSent": "Hemos enviado un enlace de verificación a tu correo electrónico.",
       "didn'tReceive": "¿No recibiste el correo? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para obtener ayuda",
       "verityEmail": "Verificar correo electrónico"
+    },
+    "forgetPassword": {
+      "forgetPassword": "¿Olvidaste tu contraseña",
+      "writeEmail": "Escribe tu correo electrónico para recuperar tu contraseña",
+      "email":"Correo electrónico",
+      "emailRequired": "El correo electrónico es obligatorio",
+      "resetPassword": "Restablecer contraseña",
+      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+      "login": "Iniciar sesión",
+      "join": "Únete al Movimiento por un ",
+      "greenerFuture": "Futuro más verde",
+      "bePart": "Sé parte de una comunidad global que trabaja junta para crear soluciones sostenibles para un planeta más saludable."
     }
   }
 }

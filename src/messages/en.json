@@ -150,6 +150,18 @@
       "weSent": "We’ve sent a verification link to your email.",
       "didn'tReceive": "Didn’t receive the email? Check your spam folder or contact our support team for assistance",
       "verityEmail": "Verify Email"
+    },
+    "forgetPassword": {
+      "forgetPassword":"Forget Password",
+      "writeEmail": "Write Your Email To Recover Your Password",
+      "email": "Email",
+      "emailRequired":"Email is required",
+      "resetPassword":"Reset Password",
+      "alreadyHaveAccount":"Already have an account?",
+      "login":"Login",
+      "join": "Join the Movement for a ",
+      "greenerFuture": "Greener Future",
+      "bePart":"Be part of a global community working together to create sustainable solutions for a healthier planet."
     }
   }
 }
