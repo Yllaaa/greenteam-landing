@@ -1,0 +1,195 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalcontent {
+  background: #141414;
+  padding: 20px;
+  width: 70%;
+  min-width: 310px;
+  height: 600px;
+  display: grid;
+  align-items: flex-start;
+  justify-content: flex-start;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(2, min-content);
+  /* gap: 40px; */
+  overflow: hidden;
+  position: relative;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.postImages {
+  grid-column: 1 / 6;
+  grid-row: 1 / 3;
+  position: relative;
+}
+.postImages .postCard {
+  width: 100%;
+  height: 100%;
+  max-height: 550px;
+}
+.dots {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  bottom: 15px;
+  left: 50%;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  background: #006633;
+  opacity: 0.5;
+  margin: 0 5px;
+  border: none;
+  outline: none;
+}
+.dot.active {
+  opacity: 1;
+}
+.comment {
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+/* comments */
+
+.commentsSection {
+  grid-row: 1 / 2;
+  grid-column: 6 / 13;
+  padding: 20px;
+  height: 530px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 23px;
+  scrollbar-width: none;
+}
+
+.comment .commentHeader {
+  width: 32px;
+  height: 32px;
+}
+.comment .commentHeader img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.comment .commentFooter {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.comment .commentFooter .upper p {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 15px;
+}
+.comment .commentFooter .upper p .username {
+  font-family: Roboto;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.comment .commentFooter .upper p .commentText {
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+.comment .commentFooter .lower {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.newComment {
+  grid-row: 2 / 3;
+  grid-column: 6 / 13;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 40px;
+}
+.newCommentContainer {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  border-top: 1px solid #fff;
+
+  padding: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.newCommentContainer form {
+  width: 100%;
+  display: flex;
+}
+.newCommentContainer .commentTextArea {
+  width: 85%;
+  height: 30px;
+  resize: none;
+  border: none;
+  stroke: none;
+  outline: none;
+  background: transparent;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0%;
+}
+.newCommentContainer .commentTextArea:focus {
+  border: none;
+  stroke: none;
+  outline: none;
+}
+
+.newCommentContainer button {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #97b00f;
+  width: 15%;
+  min-width: fit-content;
+}

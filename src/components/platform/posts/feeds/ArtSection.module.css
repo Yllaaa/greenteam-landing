@@ -7,7 +7,7 @@
   grid-template-rows: repeat(1, min-content);
 }
 .header .title {
-  grid-column: 1 / 5;
+  grid-column: 1 / 6;
   justify-self: flex-start;
   font-weight: 600;
   font-size: 24px;
@@ -22,7 +22,7 @@
   gap: 16px;
 }
 .filterSection {
-  grid-column: 5 / 10;
+  grid-column: 6 / 13;
   justify-self: flex-start;
 
   width: fit-content;
@@ -31,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 20px;
+  gap: 15px;
   list-style: none;
 }
 .filterSection ul li {
@@ -39,64 +39,9 @@
   cursor: pointer;
   font-family: Roboto;
   font-weight: 400;
-  font-size: 24px;
+  font-size: 20px;
   line-height: 33.6px;
   letter-spacing: 1%;
-}
-.filterTopics {
-  grid-column: 10 / 13;
-  justify-self: flex-end;
-  width: fit-content;
-}
-.filterTopics .topicsBtn {
-  cursor: pointer;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 33.6px;
-  letter-spacing: 1%;
-}
-.filterTopics .topicsList {
-  position: absolute;
-  background: #1b201c;
-  width: fit-content;
-  top: 100%;
-  right: 0%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  z-index: 100;
-  height: 200px;
-  overflow-y: auto;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
-}
-.filterTopics form {
-  align-content: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  flex-direction: column;
-  gap: 10px;
-  padding: 10px;
-}
-.filterTopics form .filter {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 10px;
-  cursor: pointer;
-  width: 100%;
-}
-.filterTopics form .filter:hover {
-  background: #3e3e3e;
-}
-.filterTopics form .filter label {
-  text-transform: capitalize;
-  text-wrap: nowrap;
 }
 
 .posts {
@@ -104,36 +49,21 @@
   justify-content: flex-start;
   gap: 25px;
   align-items: center;
-  overflow-y: hidden;
-  overflow-x: auto;
-  scrollbar-width: thin; 
-  scrollbar-color: #00510c #00310758; 
-  padding-left: 34px;
+  overflow: hidden;
+  padding: 0px 34px;
   margin-top: 36px;
-}
-.posts::-webkit-scrollbar {
-  height: 10px;
-}
-.posts::-webkit-scrollbar-track {
-  background: #00310758;
-  border-radius: 6px;
-}
-.posts::-webkit-scrollbar-thumb {
-  background: #00510c; /* Grey thumb */
-  border-radius: 6px; /* Rounded corners */
-}
-.posts::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Darker grey on hover */
 }
 
 .postContainer {
-  width: 627px;
-  height: 663px;
+  width: 100%;
+  height: fit-content;
+  min-height: 743px;
   border-radius: 16px;
   -webkit-border-radius: 16px;
   -moz-border-radius: 16px;
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
+  margin-bottom: 50px;
 }
 @media screen and (max-width: 1024px) {
   .header {
@@ -144,7 +74,7 @@
     row-gap: 10px;
   }
   .header .title {
-    grid-column: 1 / 7;
+    grid-column: 1 / 13;
     grid-row: 1 / 2;
     font-size: 16px;
     line-height: 20.26px;
@@ -163,8 +93,10 @@
   .filterSection {
     grid-column: 1 / 13;
     grid-row: 2 / 3;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
     justify-self: flex-start;
-    width: fit-content;
   }
   .filterSection ul {
     display: flex;
@@ -176,6 +108,7 @@
   .filterSection ul li {
     font-size: 14px;
     line-height: 20.6px;
+    text-wrap: nowrap;
   }
   .filterTopics {
     grid-column: 8 / 13;
@@ -206,10 +139,18 @@
   .posts {
     display: flex;
     gap: 16px;
-    padding-left: 12px;
+    padding: 0px;
     margin-top: 25px;
-
-    scrollbar-width: none; 
-    scrollbar-color: #00510c #00310758; 
+  }
+  .postContainer {
+    width: 100%;
+    height: fit-content;
+    min-height: 200px;
+    border-radius: 16px;
+    -webkit-border-radius: 16px;
+    -moz-border-radius: 16px;
+    -ms-border-radius: 16px;
+    -o-border-radius: 16px;
+    margin-bottom: 50px;
   }
 }

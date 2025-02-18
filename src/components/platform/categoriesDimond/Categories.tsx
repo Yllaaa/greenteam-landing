@@ -200,6 +200,7 @@ function Categories() {
               <h2>{selectedCategory.toUpperCase()}</h2>
               <div>
                 <ReactECharts
+                
                   option={option}
                   style={{ height: 400, width: "100%" }}
                 />

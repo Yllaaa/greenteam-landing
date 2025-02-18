@@ -1,20 +1,44 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-
 import styles from "./PostSlider.module.css";
 import Image from "next/image";
 import foot from "@/../public/goals/9af82d040ad31191bd7b42312d18fff3.jpeg";
+import { FaCheckSquare } from "react-icons/fa";
+import { AiFillDislike, AiFillLike } from "react-icons/ai";
+import { FaComment } from "react-icons/fa6";
+import axios from "axios";
 
-import doIcon from "@/../public/ZPLATFORM/post/do.svg";
-import like from "@/../public/ZPLATFORM/post/like.svg";
-import unlike from "@/../public/ZPLATFORM/post/unlike.svg";
-import comment from "@/../public/ZPLATFORM/post/comment.svg";
 type Props = {
   setDoItModal?: (value: boolean) => void;
+  setCommentModal?: any;
+  setPostComments?: any;
+  likes: string;
+  comments: string;
+  dislikes: string;
+  postId: string;
+  userReactionType: string | null;
+  hasDoReaction: boolean;
+  commentPage: number;
+  setCommentPage: (value: number) => void;
 };
 function PostSlider(props: Props) {
-  const { setDoItModal } = props;
+  const {
+    commentPage,
+
+    setDoItModal,
+    setCommentModal,
+    setPostComments,
+
+    likes,
+    comments,
+    dislikes,
+    userReactionType,
+    hasDoReaction,
+    postId,
+  } = props;
   // slider handler
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -31,54 +55,68 @@ function PostSlider(props: Props) {
     },
   });
 
-  //   text color handler
+  const localeS = localStorage.getItem("user");
+  const userInfo = localeS ? JSON.parse(localeS) : null;
 
-  const [textColor, setTextColor] = useState("black"); // Default text color
-
+  //get comments
   useEffect(() => {
-    const img = new window.Image();
-    img.src = foot.src;
-    img.crossOrigin = "Anonymous"; // Enable cross-origin access if needed
-
-    img.onload = () => {
-      const canvas = document.createElement("canvas");
-      const ctx = canvas.getContext("2d");
-      canvas.width = foot.width;
-      canvas.height = foot.height;
-
-      // Draw the image on the canvas
-      ctx?.drawImage(img, 0, 0, foot.width, foot.height);
-
-      // Get the average color of the image
-      const imageData = ctx?.getImageData(0, 0, canvas.width, canvas.height);
-      const data = imageData?.data;
-
-      let r = 0,
-        g = 0,
-        b = 0;
-
-      if (data) {
-        for (let i = 0; i < data.length; i += 4) {
-          r += data[i];
-          g += data[i + 1];
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comments?page=${commentPage}&limit=10`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${userInfo.accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
         }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setPostComments((prev: any) => {
+          if (res.data.length >= 0 && commentPage === 1) {
+            return res.data;
+          } else if (res.data.length >= 0 && commentPage > 1) {
+            return [...prev, ...res.data];
+          }
+        });
+      });
+  }, [commentPage, setPostComments]);
+  const handleComment = () => {
+    try {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comments?page=${commentPage}&limit=10`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${userInfo.accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          setPostComments((prev: any) => {
+            if (res.data.length >= 0 && commentPage === 1) {
+              return res.data;
+            } else if (res.data.length >= 0 && commentPage > 1) {
+              return [...prev, ...res.data];
+            }
+          });
 
-        r = Math.floor(r / (data.length / 4));
-        g = Math.floor(g / (data.length / 4));
-        b = Math.floor(b / (data.length / 4));
+          console.log(res.data);
+        })
+        .then(() => {
+          setCommentModal(true);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-        // Calculate the brightness of the average color
-        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-        console.log(brightness);
-        // Set the text color based on the brightness
-        if (brightness > 128) {
-          setTextColor("black");
-        } else {
-          setTextColor("white");
-        }
-      }
-    };
-  }, []);
   return (
     <>
       {
@@ -162,32 +200,63 @@ function PostSlider(props: Props) {
               </div>
             )}
           </div>
-          <div style={{ color: textColor }} className={styles.reactionBtns}>
+          <div className={styles.reactionBtns}>
             <div
               onClick={() => setDoItModal && setDoItModal(true)}
               className={styles.btn}
             >
-              <Image src={doIcon} alt="do" />
+              <FaCheckSquare
+                style={
+                  hasDoReaction ? { fill: "#006633" } : { fill: "#97B00F" }
+                }
+              />
+
               <p>
                 <span>Do</span>
               </p>
             </div>
             <div className={styles.btn}>
-              <Image src={like} alt="like" />
+              <AiFillLike
+                style={
+                  userReactionType === "like"
+                    ? { fill: "#006633" }
+                    : { fill: "#97B00F" }
+                }
+              />
+
               <p>
-                <span>Like</span>
+                <span>{likes} Like</span>
               </p>
             </div>
-            <div className={styles.btn}>
-              <Image src={unlike} alt="unlike" />
+            <div
+              style={
+                userReactionType === "dislike"
+                  ? { backgroundColor: "#97B00F", padding: "2%" }
+                  : {}
+              }
+              className={styles.btn}
+            >
+              <AiFillDislike
+                style={
+                  userReactionType === "like"
+                    ? { fill: "#006633" }
+                    : { fill: "#97B00F" }
+                }
+              />
               <p>
-                <span>Unlike</span>
+                <span>{dislikes} Unlike</span>
               </p>
             </div>
-            <div className={styles.btn}>
-              <Image src={comment} alt="comment" />
+            <div onClick={() => handleComment()} className={styles.btn}>
+              <FaComment
+                style={
+                  userReactionType === "like"
+                    ? { fill: "#006633" }
+                    : { fill: "#97B00F" }
+                }
+              />
               <p>
-                <span>Comment</span>
+                <span>{comments} Comment</span>
               </p>
             </div>
           </div>

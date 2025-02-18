@@ -53,19 +53,20 @@ function PostForums() {
     "doubt" | "need" | "dream" | "all"
   >("all");
   const [topics, setTopics] = React.useState<Topic>();
-  const [mainTopicId, setMainTopicId] = React.useState<string | "all">("all"); // "3a9073ba-82da-4017-9fc2-52d318d0a050";
+  const [mainTopicId, setMainTopicId] = React.useState<string | "all">("all");
   const limit = "5";
   const [page, setPage] = React.useState(1);
   const [isLoading, setIsLoading] = React.useState(true);
   const [errorMessage, setErrorMessage] = React.useState("");
+  const [prevPage, setPrevPage] = React.useState(page);
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum?${
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum?limit=${limit}&${
           section === "all" ? "" : `section=${section}`
         }&${
-          mainTopicId === "all" ? "" : `mainTopicId=${mainTopicId}`
-        }&limit=${limit}&page=${page}`,
+          mainTopicId === "all" ? "" : `mainTopicId=${new Number(mainTopicId)}`
+        }&page=${page}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,13 +76,20 @@ function PostForums() {
         }
       )
       .then((res) => {
-        setPosts((prev) => [...prev, ...res.data]);
         setIsLoading(false);
-        console.log(posts);
-        
+        setPosts((prev) => {
+          // If page changed, append data
+          if (prevPage !== page && page !== 1) {
+            return [...prev, ...res.data];
+          }
+          // If section or mainTopicId changed, replace data
+          return res.data;
+        });
+
+        setPrevPage(page); // Store the previous page for comparison
       })
       .catch((err) => {
-        setErrorMessage("An Error Occured");
+        setErrorMessage("An Error Occurred");
         setIsLoading(false);
         console.log(err);
       });
@@ -105,7 +113,10 @@ function PostForums() {
             <ul>
               <li
                 style={section === "all" ? { color: "#97B00F" } : { color: "" }}
-                onClick={() => setSection("all")}
+                onClick={() => {
+                  setPage(1);
+                  setSection("all");
+                }}
               >
                 all
               </li>
@@ -113,7 +124,10 @@ function PostForums() {
                 style={
                   section === "doubt" ? { color: "#97B00F" } : { color: "" }
                 }
-                onClick={() => setSection("doubt")}
+                onClick={() => {
+                  setPage(1);
+                  setSection("doubt");
+                }}
               >
                 doubt
               </li>
@@ -121,7 +135,10 @@ function PostForums() {
                 style={
                   section === "dream" ? { color: "#97B00F" } : { color: "" }
                 }
-                onClick={() => setSection("dream")}
+                onClick={() => {
+                  setPage(1);
+                  setSection("dream");
+                }}
               >
                 dream
               </li>
@@ -129,7 +146,10 @@ function PostForums() {
                 style={
                   section === "need" ? { color: "#97B00F" } : { color: "" }
                 }
-                onClick={() => setSection("need")}
+                onClick={() => {
+                  setPage(1);
+                  setSection("need");
+                }}
               >
                 need
               </li>
@@ -206,7 +226,7 @@ function PostForums() {
                   </div>
                 }
               >
-                <ForumCard posts={posts} page={page} setPage={setPage} />
+                <ForumCard section={section} posts={posts} page={page} setPage={setPage} />
               </Suspense>
             )
           ) : (

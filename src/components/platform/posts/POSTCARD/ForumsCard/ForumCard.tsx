@@ -37,10 +37,11 @@ type Discussion = {
   }[];
   page: number;
   setPage: Dispatch<SetStateAction<number>>;
+  section: string;
 };
 
 function ForumCard(props: Discussion) {
-  const { posts, setPage, page } = props;
+  const { posts, setPage, page, section } = props;
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -48,8 +49,7 @@ function ForumCard(props: Discussion) {
   const [commentSection, setCommentSection] = React.useState("");
 
   const handlePages = React.useCallback(() => {
-    setPage(page + 1);
-    console.log("updating...");
+    setPage(posts.length < 5 ? 1 : page + 1);
   }, [page]);
 
   React.useEffect(() => {
@@ -106,18 +106,22 @@ function ForumCard(props: Discussion) {
             )}
           </div>
           <div className={styles.reactionBtns}>
-            <div className={styles.btn}>
-              <Image src={doIcon} alt="do" />
-              <p>
-                <span>Do</span>
-              </p>
-            </div>
-            <div className={styles.btn}>
-              <Image src={like} alt="like" />
-              <p>
-                <span>Like</span>
-              </p>
-            </div>
+            {section === "need" && (
+              <div className={styles.btn}>
+                <Image src={doIcon} alt="do" />
+                <p>
+                  <span>Do</span>
+                </p>
+              </div>
+            )}
+            {section !== "need" && (
+              <div className={styles.btn}>
+                <Image src={like} alt="like" />
+                <p>
+                  <span>Like</span>
+                </p>
+              </div>
+            )}
             <div className={styles.btn}>
               <Image src={unlike} alt="unlike" />
               <p>
@@ -170,6 +174,7 @@ function ForumCard(props: Discussion) {
                     <FaCameraRetro />
                   </label>
                 </div>
+                <button className={styles.commentBtn}>Comment</button>
               </div>
             </div>
           </div>
