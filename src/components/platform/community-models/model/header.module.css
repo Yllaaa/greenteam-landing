@@ -1,0 +1,110 @@
+.header {
+  width: 688;
+  height: 97;
+  background: #141414;
+  position: relative;
+}
+
+.header .content {
+  width: 688;
+  height: 76;
+  gap: 16px;
+  padding-top: 24px;
+  padding-right: 24px;
+  padding-left: 24px;
+  display: inline-flex;
+}
+
+.header .content .featureIcon {
+  width: 48;
+  height: 48;
+  border-radius: 10px;
+  border-width: 1px;
+  background: #006633;
+  border: 1px solid #e9eaeb80;
+  box-shadow: 0px 1px 2px 0px #0a0d120d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .content .featureIcon .buildingIcon {
+  width: 24;
+  height: 24;
+  top: 12px;
+  left: 12px;
+  text-align: center;
+}
+
+.header .content .textAndSupportingText {
+  width: 520;
+  height: 52;
+  gap: 4px;
+}
+
+.header .content .textAndSupportingText .text {
+  width: 520;
+  height: 28;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #006633;
+}
+
+.header .content .textAndSupportingText .supportingText {
+  width: 520;
+  height: 20;
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #535862;
+}
+
+.header .closeButton {
+  width: 44;
+  height: 44;
+  border-radius: 8px;
+  padding: 10px;
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header .closeButton:hover {
+  border: 1px solid #717680;
+  cursor: pointer;
+}
+
+.header .closeButton .xClose {
+  width: 24;
+  height: 24;
+  background-color: #0000;
+  border-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.header .closeButton .xClose:hover {
+  border: 1px solid #717680;
+  cursor: pointer;
+}
+
+.header .padding {
+  width: 688;
+  height: 20;
+}
+
+.header .divider {
+  width: 688;
+  height: 1;
+  background: #e9eaeb80;
+}

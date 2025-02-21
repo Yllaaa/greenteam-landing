@@ -185,9 +185,56 @@
         "privacyAndPolicy": "Privacy and policy",
         "rightsReserved": "© 2025 All Rights Reserved"
       },
-      "setting":{
+      "setting": {
         "personalInfo": "Personal Information",
-        "paymentInfo" : "Payment Information"
+        "paymentInfo": "Payment Information"
+      }
+    }
+  },
+  "community-models": {
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "add-new-page": {
+      "newPage": "New Page",
+      "createPage": "Create a new Page",
+      "pageName": "Page Name",
+      "pageDescription": "Page Description",
+      "pageSlug": "Page Slug",
+      "pageAvatar": "Page Avatar",
+      "pageCover": "Page Cover",
+      "pageCategory": "Page Category",
+      "pageTopic": "Page Topic",
+      "category": {
+        "business": "Business",
+        "project": "Project"
+      }
+    },
+    "add-new-group": {
+      "startGroup": "Start a New Group",
+      "bringPeople": "Bring people together with shared interests. Set up your group to create meaningful connections",
+      "groupName": "Group Name",
+      "groupDescription": "Group Description",
+      "groupPrivacy": "Group Privacy",
+      "public": "Public",
+      "private": "Private",
+      "groupTopic": "Group Topic"
+    },
+    "add-new-event": {
+      "hostYourEvent": "Host Your Event",
+      "planAndPromote": "Plan and promote your upcoming event. Share details to help attendees find and join your event",
+      "eventName": "Event Name",
+      "eventDescription": "Event Description",
+      "eventLocation": "Event Location",
+      "eventStartDate": "Event Start Date",
+      "eventEndDate": "Event End Date",
+      "eventCategory": "Event Category",
+      "eventTopic": "Event Topic",
+      "category": {
+        "social": "Social",
+        "volunteering&work": "Volunteering & Work",
+        "talks&workshops": "Talks & Workshops"
       }
     }
   }
