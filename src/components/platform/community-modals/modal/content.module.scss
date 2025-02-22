@@ -88,6 +88,23 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          position: relative;
+
+          .clearValue {
+            display: none;
+          }
+
+          &.hasValue {
+            background: #96B032;
+
+            &:hover .clearValue {
+              display: block;
+              position: absolute;
+              scale: 1.5;
+              padding-top: 5px;
+              cursor: pointer;
+            }
+          }
         }
 
         .fileUpload {
@@ -101,6 +118,10 @@
           border-width: 1px;
           background: #363636;
           text-align: center;
+
+          &.dragging {
+            border: 2px dashed #96B032;
+          }
 
           input {
             display: none;
