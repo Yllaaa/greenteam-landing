@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { common } from "@/Utils/backendEndpoints/backend-endpoints";
 
 export const fetchTopics = async (setTopics: (topics: { [key: number]: string }) => void) => {
@@ -11,4 +12,12 @@ export const fetchTopics = async (setTopics: (topics: { [key: number]: string })
                 setTopics(topicsMap);
             })
             .catch(err => console.log(err))
+}
+
+export const getFormData = (data: {[key: string]: any}) => {
+    const formData = new FormData();
+    for (const key in data) {
+        formData.append(key, data[key]);
+    }
+    return formData
 }
