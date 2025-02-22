@@ -1,7 +1,7 @@
 import Actions from "./Actions"
 import Content from "./Content"
 import Header from "./Header"
-import styles from "./model.module.css"
+import styles from "./modal.module.css"
 
 function Modal({
     show,

@@ -1,13 +1,13 @@
 import { useForm } from "react-hook-form";
-import { TextControl } from "./model/controls/TextControl";
-import Modal from "./model/Model";
-import { Divider, Error } from "./model/Content";
+import { TextControl } from "./modal/controls/TextControl";
+import Modal from "./modal/Modal";
+import { Divider, Error } from "./modal/Content";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addNewPageSchema, postPage } from "./add-new-page.schema";
-import { SelectControl } from "./model/controls/SelectControl";
+import { SelectControl } from "./modal/controls/SelectControl";
 import { useEffect, useState } from "react";
 import * as yup from 'yup';
-import { TextLabeledControl } from "./model/controls/TextLabeledControl";
+import { TextLabeledControl } from "./modal/controls/TextLabeledControl";
 import { fetchTopics } from "./common.schema";
 import { useTranslations } from "next-intl";
 
