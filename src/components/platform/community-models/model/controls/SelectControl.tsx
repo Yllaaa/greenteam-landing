@@ -8,7 +8,7 @@ export function SelectControl({
 }: {
     label: string,
     options: { [key: string | number]: string }
-    children: React.ReactNode
+    children?: React.ReactNode
 }) {
     return (
         <div>

@@ -8,7 +8,7 @@ export function TextLabeledControl({
 }: {
     label: string,
     inputLabel: string,
-    children: React.ReactNode
+    children?: React.ReactNode
 }) {
     return (
         <div>

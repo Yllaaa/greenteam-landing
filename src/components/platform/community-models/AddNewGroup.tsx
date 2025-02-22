@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { TextControl } from "./model/controls/TextControl";
-import Model from "./model/Model";
+import Modal from "./model/Model";
 import { Divider, Error } from "./model/Content";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SelectControl } from "./model/controls/SelectControl";
@@ -36,7 +36,7 @@ function AddNewGroup({
     }
 
     return (
-        <Model
+        <Modal
             show={show}
             headerText={t('startGroup')}
             headerSubText={t('bringPeople')}
@@ -71,7 +71,7 @@ function AddNewGroup({
             >
                 {errors.topicId && <Error message={errors.topicId?.message} />}
             </SelectControl>
-        </Model>
+        </Modal>
     );
 }
 

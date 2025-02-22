@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { TextControl } from "./model/controls/TextControl";
-import Model from "./model/Model";
+import Modal from "./model/Model";
 import { Divider, Error } from "./model/Content";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { addNewPageSchema, postPage } from "./add-new-page.schema";
@@ -37,7 +37,7 @@ function AddNewPage({
     }
 
     return (
-        <Model
+        <Modal
             show={show}
             headerText={t('newPage')}
             headerSubText={t('createPage')}
@@ -87,7 +87,7 @@ function AddNewPage({
                 {...register("topic_id")}>
                 {errors.topic_id && <Error message={errors.topic_id.message?.toString()} />}
             </SelectControl>
-        </Model>
+        </Modal>
     );
 }
 

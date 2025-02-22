@@ -3,7 +3,7 @@ import Content from "./Content"
 import Header from "./Header"
 import styles from "./model.module.css"
 
-function Model({
+function Modal({
     show,
     headerText,
     headerSubText,
@@ -18,7 +18,7 @@ function Model({
     onClose: () => void,
     onConfirm: () => void,
     onCancel: () => void,
-    children: React.ReactNode
+    children?: React.ReactNode
 }) {
     return (
         <div className={styles.addNewPage} style={show ? { display: "block" } : { display: "none" }}>
@@ -35,4 +35,4 @@ function Model({
     )
 }
 
-export default Model
+export default Modal

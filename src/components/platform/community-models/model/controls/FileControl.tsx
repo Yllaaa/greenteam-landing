@@ -7,7 +7,7 @@ export function FileControl({
     ...props
 }: {
     label: string,
-    children: React.ReactNode
+    children?: React.ReactNode
 }) {
     const fileInputRef = useRef<HTMLInputElement>(null);
     function uploadFile() {
