@@ -19,26 +19,31 @@ type Props = {
   comments: string;
   dislikes: string;
   postId: string;
-  userReactionType: string | null;
+  userReactionType: any;
   hasDoReaction: boolean;
   commentPage: number;
   setCommentPage: (value: number) => void;
+  rerender: boolean;
+  setPostId?: any;
 };
 function PostSlider(props: Props) {
   const {
     commentPage,
-
     setDoItModal,
     setCommentModal,
     setPostComments,
-
     likes,
     comments,
     dislikes,
     userReactionType,
     hasDoReaction,
     postId,
+    setPostId,
   } = props;
+
+  const localS = localStorage.getItem("user");
+  const accessToken = localS ? JSON.parse(localS).accessToken : null;
+
   // slider handler
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -72,7 +77,6 @@ function PostSlider(props: Props) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setPostComments((prev: any) => {
           if (res.data.length >= 0 && commentPage === 1) {
             return res.data;
@@ -81,8 +85,9 @@ function PostSlider(props: Props) {
           }
         });
       });
-  }, [commentPage, setPostComments]);
+  }, [commentPage, postId]);
   const handleComment = () => {
+    setPostId(postId);
     try {
       axios
         .get(
@@ -96,15 +101,7 @@ function PostSlider(props: Props) {
           }
         )
         .then((res) => {
-          setPostComments((prev: any) => {
-            if (res.data.length >= 0 && commentPage === 1) {
-              return res.data;
-            } else if (res.data.length >= 0 && commentPage > 1) {
-              return [...prev, ...res.data];
-            }
-          });
-
-          console.log(res.data);
+          setPostComments(res.data);
         })
         .then(() => {
           setCommentModal(true);
@@ -116,7 +113,153 @@ function PostSlider(props: Props) {
       console.log(err);
     }
   };
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  // toggle reaction
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  const [currentAction, setCurrentAction] = useState<{
+    [commentId: string]: string;
+  }>({});
 
+  const [reactedLike, setReactedLike] = useState<{
+    [commentId: string]: string;
+  }>({});
+  const [reactedDislike, setReactedDislike] = useState<{
+    [commentId: string]: string;
+  }>({});
+  // const [reactedDo, setReactedDo] = useState<{
+  //   [commentId: string]: string;
+  // }>({});
+
+  useEffect(() => {
+    if (userReactionType !== null) {
+      setReactedLike((prev) => ({
+        ...prev,
+        [postId]: userReactionType,
+      }));
+      setReactedDislike((prev) => ({
+        ...prev,
+        [postId]: userReactionType,
+      }));
+    }
+  }, []);
+
+  const handleToggleReaction = ({
+    postId,
+    postType,
+    reactionType,
+  }: {
+    postId: string;
+    postType: string;
+    reactionType: string;
+  }) => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/reactions/toggle-reaction`,
+          {
+            reactionableType: postType,
+            reactionableId: postId,
+            reactionType: reactionType,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+
+          if (res.data.action === "updated") {
+            setCurrentAction((prev) => ({
+              ...prev,
+              [postId]: res.data.action,
+            }));
+            if (reactionType === "like") {
+              setReactedLike((prev) => ({
+                ...prev,
+                [postId]: reactionType,
+              }));
+              setReactedDislike((prev) => ({
+                ...prev,
+                [postId]: "",
+              }));
+            } else if (reactionType === "dislike") {
+              setReactedDislike((prev) => ({
+                ...prev,
+                [postId]: reactionType,
+              }));
+              setReactedLike((prev) => ({
+                ...prev,
+                [postId]: "",
+              }));
+            }
+          } else {
+            if (res.data.action === "added") {
+              setCurrentAction((prev) => ({
+                ...prev,
+                [postId]: res.data.action,
+              }));
+              if (reactionType === "like") {
+                setReactedLike((prev) => ({
+                  ...prev,
+                  [postId]: reactionType,
+                }));
+                setReactedDislike((prev) => ({
+                  ...prev,
+                  [postId]: "",
+                }));
+              } else if (reactionType === "dislike") {
+                setReactedDislike((prev) => ({
+                  ...prev,
+                  [postId]: reactionType,
+                }));
+                setReactedLike((prev) => ({
+                  ...prev,
+                  [postId]: "",
+                }));
+              }
+            } else if (res.data.action === "removed") {
+              setCurrentAction((prev) => ({
+                ...prev,
+                [postId]: res.data.action,
+              }));
+              if (reactionType === "like") {
+                setReactedLike((prev) => ({
+                  ...prev,
+                  [postId]: "",
+                }));
+              } else if (reactionType === "dislike") {
+                setReactedDislike((prev) => ({
+                  ...prev,
+                  [postId]: "",
+                }));
+              }
+            }
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  // toggle reaction
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
+  ///////////////////////////////////////////////////
   return (
     <>
       {
@@ -215,36 +358,104 @@ function PostSlider(props: Props) {
                 <span>Do</span>
               </p>
             </div>
-            <div className={styles.btn}>
+            <div
+              className={styles.btn}
+              onClick={() => {
+                handleToggleReaction({
+                  postId: postId,
+                  postType: "post",
+                  reactionType: "like",
+                });
+                console.log(reactedLike[postId]);
+              }}
+            >
               <AiFillLike
                 style={
-                  userReactionType === "like"
+                  reactedLike[postId] === "like"
                     ? { fill: "#006633" }
-                    : { fill: "#97B00F" }
+                    : reactedLike[postId] !== "like"
+                    ? { fill: "#97B00F" }
+                    : { fill: "#006633" }
                 }
               />
 
               <p>
-                <span>{likes} Like</span>
+                <span>
+                  {userReactionType === reactedLike[postId]
+                    ? Number(likes)
+                    : reactedLike[postId] === "like" &&
+                      currentAction[postId] === "added"
+                    ? Number(likes) + 1
+                    : reactedLike[postId] === "like" &&
+                      currentAction[postId] === "removed"
+                    ? Number(likes) > 0
+                      ? Number(likes) - 1
+                      : 0
+                    : reactedLike[postId] === "like" &&
+                      currentAction[postId] === "updated"
+                    ? Number(likes) + 1
+                    : reactedLike[postId] !== "like" &&
+                      currentAction[postId] === "removed"
+                    ? Number(likes) > 0
+                      ? Number(likes) - 1
+                      : 0
+                    : reactedLike[postId] !== "like" &&
+                      currentAction[postId] === "updated"
+                    ? Number(likes) > 0
+                      ? Number(likes) - 1
+                      : 0
+                    : Number(likes)}
+                  Like
+                </span>
               </p>
             </div>
             <div
-              style={
-                userReactionType === "dislike"
-                  ? { backgroundColor: "#97B00F", padding: "2%" }
-                  : {}
+              onClick={() =>
+                handleToggleReaction({
+                  postId: postId,
+                  postType: "post",
+                  reactionType: "dislike",
+                })
               }
               className={styles.btn}
             >
               <AiFillDislike
                 style={
-                  userReactionType === "like"
+                  reactedDislike[postId] === "dislike"
                     ? { fill: "#006633" }
-                    : { fill: "#97B00F" }
+                    : reactedDislike[postId] !== "dislike"
+                    ? { fill: "#97B00F" }
+                    : { fill: "#006633" }
                 }
               />
               <p>
-                <span>{dislikes} Unlike</span>
+                <span>
+                  {userReactionType === reactedDislike[postId]
+                    ? Number(dislikes)
+                    : reactedDislike[postId] === "dislike" &&
+                      currentAction[postId] === "added"
+                    ? Number(dislikes) + 1
+                    : reactedDislike[postId] === "dislike" &&
+                      currentAction[postId] === "removed"
+                    ? Number(dislikes) > 0
+                      ? Number(dislikes) - 1
+                      : 0
+                    : reactedDislike[postId] === "dislike" &&
+                      currentAction[postId] === "updated"
+                    ? Number(dislikes) + 1
+                    : reactedDislike[postId] !== "dislike" &&
+                      currentAction[postId] === "removed"
+                    ? Number(dislikes) > 0
+                      ? Number(dislikes) - 1
+                      : 0
+                    : reactedDislike[postId] !== "dislike" &&
+                      currentAction[postId] === "updated"
+                    ? Number(dislikes) > 0
+                      ? Number(dislikes) - 1
+                      : 0
+                    : Number(dislikes)}
+                  Unlike
+                </span>
               </p>
             </div>
             <div onClick={() => handleComment()} className={styles.btn}>

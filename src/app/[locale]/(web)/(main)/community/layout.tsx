@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import BallHeader from "@/components/platform/community/ballHeader/BallHeader";
-import Header from "@/components/platform/header/Header";
+import Header from "@/components/platform/a-header/Header";
 
 import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
@@ -25,7 +25,7 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
-            <BallHeader/>
+            <BallHeader />
           </div>
         </header>
         <div>{children}</div>

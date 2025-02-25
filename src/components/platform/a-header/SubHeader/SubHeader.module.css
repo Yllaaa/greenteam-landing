@@ -1,0 +1,336 @@
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 25px;
+  overflow-x: hidden;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  padding: 0px;
+  height: fit-content;
+  overflow-y: hidden;
+  padding: 0px 30px;
+}
+.cardsContainer {
+  width: fit-content;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  overflow-x: hidden;
+  gap: 25px;
+}
+.ResponsiveContainer {
+  display: none;
+}
+.subContent {
+  display: none;
+}
+.navBtns {
+  z-index: 100;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.navBtns .next {
+  cursor: pointer;
+}
+.subcontainer {
+  position: relative;
+  z-index: 10;
+  width: 80vw;
+  min-height: fit-content;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 25px;
+  overflow-x: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
+  height: fit-content;
+  overflow-y: hidden;
+  transition: all 0.4s;
+  -webkit-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  -ms-transition: all 0.4s;
+  -o-transition: all 0.4s;
+}
+.closeWindow {
+  transform: translateX(0%);
+  -webkit-transform: translateX(0%);
+  -moz-transform: translateX(0%);
+  -ms-transform: translateX(0%);
+  -o-transform: translateX(0%);
+}
+.openWindow {
+  transform: translateX(-61vw);
+  -webkit-transform: translateX(-61vw);
+  -moz-transform: translateX(-61vw);
+  -ms-transform: translateX(-61vw);
+  -o-transform: translateX(-61vw);
+}
+.diamond {
+  justify-self: flex-start;
+  width: 39.4vw;
+  max-width: 568px;
+  min-width: 468px;
+  height: 575px;
+}
+.loading {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.links {
+  margin-top: 24px;
+  width: 568px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  gap: 24px;
+}
+.links .link {
+  align-content: center;
+  cursor: pointer;
+  background: linear-gradient(
+    126.97deg,
+    rgba(6, 38, 13, 0.74) 28.26%,
+    rgba(39, 55, 26, 0.5) 91.2%
+  );
+  backdrop-filter: blur(120px);
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.links .link .regularLink {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  height: 91px;
+}
+.links .link .postLink {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+  width: fit-content;
+  height: 91px;
+  padding: 0px 10px;
+}
+.links .link .regularLink img,
+.links .link .postLink img {
+  width: 48px;
+  height: 48px;
+}
+.links .link .regularLink span {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+  margin-top: 8px;
+}
+.links .link .postLink span {
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 12px;
+  text-align: center;
+}
+
+.suggested {
+  justify-self: flex-start;
+  width: 40.13vw;
+  max-width: 578px;
+  min-width: 478px;
+  height: 575px;
+}
+.challenges {
+  width: 100%;
+  height: 575px;
+  display: flex;
+  justify-self: flex-start;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    align-items: center;
+  }
+  .cardsContainer {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: hidden;
+    gap: 25px;
+  }
+
+  .diamond {
+    justify-self: flex-start;
+    width: 90vw;
+    max-width: 700px;
+    min-width: 568px;
+    height: 575px;
+  }
+  .suggested {
+    width: 90vw;
+    max-width: 700px;
+    min-width: 568px;
+    height: 575px;
+  }
+  .navBtns {
+    display: none;
+  }
+  .subcontainer {
+    width: 100vw;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    display: none;
+  }
+  .ResponsiveContainer {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(3, min-content);
+    padding: 0px 10px;
+    width: 100%;
+    height: fit-content;
+    min-height: 100px;
+  }
+  .container {
+    position: relative;
+    width: 100%;
+    height: 575px;
+    background: linear-gradient(
+      126.97deg,
+      #006633 28.26%,
+      rgba(50, 80, 65, 0.5) 91.2%
+    );
+    padding: 21px 20px 40px 20px;
+    z-index: 0;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+  }
+
+  .diamond {
+    grid-column: 1 / 13;
+    grid-row: 1 / 2;
+    width: 100%;
+    max-width: 568px;
+    min-width: 310px;
+    height: 320px;
+    justify-self: center;
+  }
+  .links {
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+    justify-self: center;
+    width: 100%;
+    min-width: 310px;
+    margin-top: 16px;
+    padding: 0px;
+    justify-content: space-around;
+    margin-bottom: 16px;
+    gap: 10px;
+    position: relative;
+  }
+  .links::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.1);
+    bottom: -16px;
+  }
+  .links .link {
+    padding: 10px;
+    min-width: 90px;
+    width: 90%;
+    height: 120px;
+  }
+  .links .link .regularLink,
+  .links .link .postLink {
+    display: flex;
+    flex-direction: column;
+    padding: 0px;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    height: 100%;
+  }
+  .links .link .postLink {
+    gap: 0px;
+  }
+  .links .link .regularLink img,
+  .links .link .postLink img {
+    width: 65px;
+    height: 65px;
+  }
+  .links .link .postLink span,
+  .links .link .regularLink span {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 10px;
+    text-align: center;
+    margin-top: 12px;
+  }
+  .subContent {
+    grid-column: 1 / 13;
+    grid-row: 3 / 4;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 25px;
+    height: fit-content;
+    margin-top: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: thin;
+    scroll-behavior: smooth;
+    scrollbar-color: #fff #006633;
+  }
+  .suggested {
+    width: 100%;
+    max-width: 312px;
+    min-width: 310px;
+    height: 437px;
+  }
+
+  .subContent .challenges {
+    width: fit-content;
+    min-width: fit-content;
+    height: 437px;
+    display: flex;
+    justify-self: flex-start;
+    overflow-x: hidden;
+  }
+}

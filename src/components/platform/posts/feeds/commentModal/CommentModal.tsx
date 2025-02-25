@@ -4,47 +4,72 @@
 import React, { useEffect, useState } from "react";
 import styles from "./commentmodal.module.css";
 import Image from "next/image";
-// import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import admin from "@/../public/auth/user.png";
 import foot from "@/../public/goals/9af82d040ad31191bd7b42312d18fff3.jpeg";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useInView } from "react-intersection-observer";
-
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { useAppSelector } from "@/store/hooks";
 
-type Author = {
+interface Author {
   id: string;
   fullName: string;
   username: string;
-  avatar?: string | null;
-};
+  avatar: string | null;
+}
 
-type Comment = {
+interface Response {
   id: string;
   publicationId: string;
   content: string;
-  mediaUrl?: string | null;
+  mediaUrl: string | null;
   createdAt: string;
   author: Author;
-};
+  likeCount: string;
+  dislikeCount: string;
+  userReaction: string | null;
+}
 
+interface Reply {
+  id: string;
+  commentId: string;
+  content: string;
+  mediaUrl: string | null;
+  createdAt: string;
+  author: Author;
+  likeCount: number;
+  dislikeCount: number;
+  userReaction: string | null;
+}
 type Props = {
   setCommentModal: (value: boolean) => void;
-  postComments: Comment[];
-  setCommentPage: (value: number) => void;
-  commentPage: number;
+  postComments: any;
+  setPostComments?: any;
+  setCommentsPage: (value: number) => void;
+  commentsPage: number;
+  repliesPage?: number;
+  setRepliesPage?: (value: number) => void;
+  rerender?: boolean;
+  setRerender: (value: boolean) => void;
+  postId?: string;
 };
 function CommentModal(props: Props) {
-  const localeS = localStorage.getItem("user");
-  const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
+  const accessToken = useAppSelector((state) => state.login.accessToken);
 
-  const { setCommentModal, postComments, setCommentPage, commentPage } = props;
+  const {
+    setCommentModal,
+    postComments,
+    setCommentsPage,
+    commentsPage,
+    setPostComments,
+    postId,
+  } = props;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
 
-  // SLIDER HANDLER
+  // POST SLIDER HANDLER
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -60,6 +85,10 @@ function CommentModal(props: Props) {
     },
   });
   // END SLIDER HANDLER
+
+  const [reacted, setReacted] = useState<{
+    [commentId: string]: boolean;
+  }>({});
 
   // START CLICK OUTSIDE MODAL
   useEffect(() => {
@@ -85,10 +114,8 @@ function CommentModal(props: Props) {
   });
 
   const handlePages = React.useCallback(() => {
-    setCommentPage(postComments.length < 5 ? 1 : commentPage + 1);
-    
-    
-  }, [commentPage]);
+    setCommentsPage(postComments.length < 5 ? 1 : commentsPage + 1);
+  }, [commentsPage]);
 
   React.useEffect(() => {
     if (inView) {
@@ -125,20 +152,95 @@ function CommentModal(props: Props) {
   }
   //  END FORMAT TIME FUNCTION
 
-  // add comment
+  // REPLY COMMENT
+  // State to track which comment's replies are open
+  const [openReplies, setOpenReplies] = useState<{
+    [commentId: string]: boolean;
+  }>({});
+  const [selectedReply, setSelectedReply] = useState<string>("");
+
+  // Function to toggle replies visibility
+  const toggleReplies = (commentId: string) => {
+    setOpenReplies((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }));
+    setSelectedReply(commentId);
+  };
+
+  // Function to handle fetching replies
+  const [postCommentReply, setPostCommentReply] = useState<{
+    [key: string]: any[];
+  }>({});
+
+  const getReplies = async (postId: string, commentId: string) => {
+    try {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comments/${commentId}/replies`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          setOpenReplies((prev) => ({
+            [commentId]: prev[commentId],
+          }));
+          setPostCommentReply((prev) => ({
+            ...prev,
+            [commentId]: res.data,
+          }));
+          toggleReplies(commentId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  // add comment and reply
   const {
-    register,
-    handleSubmit,
-    formState: { errors },
+    register: registerComment,
+    handleSubmit: handleSubmitComment,
+    reset: resetComment,
   } = useForm();
-  const onSubmit = (data: any) => {
-    console.log(data);
+  const {
+    register: registerReply,
+    handleSubmit: handleSubmitReply,
+    reset: resetReply,
+  } = useForm();
+
+  const onSubmit = async (data: any) => {
+    try {
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comment`,
+          { content: data.comment },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        )
+        .then((res) => {
+          setPostComments((prev: Response[]) => [...prev, res.data]);
+        });
+
+      resetComment();
+    } catch (err) {
+      console.error("Error adding comment:", err);
+    }
+  };
+
+  const onReplySubmit = (data: any) => {
     try {
       axios
         .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postComments[0].publicationId}/comment`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postComments[0].publicationId}/comments/${selectedReply}/reply`,
           {
-            content: data.comment,
+            content: data.reply,
           },
           {
             headers: {
@@ -148,12 +250,70 @@ function CommentModal(props: Props) {
             },
           }
         )
-        .then((res) => console.log(res.data));
+        .then((res) => {
+          setPostCommentReply((prev: { [key: string]: any[] }) => ({
+            ...prev,
+            [selectedReply]: [...(prev[selectedReply] || []), res.data],
+          }));
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
+    resetReply();
+  };
+
+  // END add comment
+
+  // Function to toggle reactions
+  const handleToggleReaction = ({
+    commentId,
+    postType,
+    reactionType,
+  }: {
+    commentId: string;
+    postType: string;
+    reactionType: string;
+  }) => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/reactions/toggle-reaction`,
+          {
+            reactionableType: postType,
+            reactionableId: commentId,
+            reactionType: reactionType,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          if (res.data.action === "added") {
+            setReacted((prev) => ({
+              ...prev,
+              [commentId]: true,
+            }));
+          } else {
+            setReacted((prev) => ({
+              ...prev,
+              [commentId]: false,
+            }));
+          }
+
+          // ToastNot(`${res.data.action}`);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     } catch (err) {
       console.log(err);
     }
   };
-  console.log(errors);
 
   return (
     <>
@@ -238,55 +398,174 @@ function CommentModal(props: Props) {
           </div>
           <div className={styles.commentsSection}>
             {postComments.length > 0 ? (
-              postComments.map((comment, index) => (
+              postComments.map((comment: Response, index: number) => (
                 <div
                   key={comment.id}
                   ref={index === postComments.length - 1 ? ref : null}
                   className={styles.comment}
                 >
-                  <div className={styles.commentHeader}>
-                    <Image
-                      src={
-                        comment.author.avatar ? comment.author.avatar : admin
-                      }
-                      alt="avatar"
-                      width={30}
-                      height={30}
-                    />
-                  </div>
-                  <div className={styles.commentFooter}>
-                    <div className={styles.upper}>
-                      <p>
-                        <span className={styles.username}>
-                          {" "}
-                          {comment.author.fullName}
-                        </span>
-                        <span className={styles.commentText}>
-                          {comment.content}
-                        </span>
-                      </p>
+                  <div className={styles.mainCommentBody}>
+                    <div className={styles.commentAvatar}>
+                      <Image
+                        src={
+                          comment.author.avatar ? comment.author.avatar : admin
+                        }
+                        alt="avatar"
+                        width={30}
+                        height={30}
+                      />
                     </div>
-                    <div className={styles.lower}>
-                      <p>{formatTimeDifference(comment.createdAt)}</p>
-                      <p>Like</p>
-                      <p>Reply</p>
+                    <div className={styles.commentFooter}>
+                      <div className={styles.upper}>
+                        <p>
+                          <span className={styles.username}>
+                            {comment.author.fullName}
+                          </span>
+                          <span className={styles.commentText}>
+                            {comment.content}
+                          </span>
+                        </p>
+                      </div>
+                      <div className={styles.lower}>
+                        <p>{formatTimeDifference(comment.createdAt)}</p>
+                        <p
+                          style={{
+                            cursor: "pointer",
+                            color: reacted[comment.id] ? "green" : "",
+                          }}
+                          onClick={() =>
+                            handleToggleReaction({
+                              commentId: comment.id,
+                              postType: "comment",
+                              reactionType: "like",
+                            })
+                          }
+                        >
+                          {comment.likeCount} Like
+                        </p>
+                        <p
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            getReplies(comment.publicationId, comment.id)
+                          }
+                        >
+                          Reply
+                        </p>
+                      </div>
                     </div>
                   </div>
+                  {openReplies[comment.id] &&
+                  postCommentReply[comment.id]?.length > 0 ? (
+                    <div key={Math.random()} className={styles.repliesSection}>
+                      {postCommentReply[comment.id].map(
+                        (reply: Reply, index: number) => (
+                          <>
+                            <div key={index} className={styles.reply}>
+                              <div className={styles.replyAvatar}>
+                                <Image
+                                  src={
+                                    reply.author.avatar
+                                      ? reply.author.avatar
+                                      : admin
+                                  }
+                                  alt="avatar"
+                                  width={30}
+                                  height={30}
+                                />
+                              </div>
+                              <div className={styles.replyContent}>
+                                <div className={styles.upper}>
+                                  <p>
+                                    <span className={styles.username}>
+                                      {reply.author.fullName}
+                                    </span>
+                                    <span className={styles.commentText}>
+                                      {reply.content}
+                                    </span>
+                                  </p>
+                                </div>
+                                <div className={styles.lower}>
+                                  <p>
+                                    {formatTimeDifference(comment.createdAt)}
+                                  </p>
+                                  <p
+                                    style={{
+                                      cursor: "pointer",
+                                      color: reacted[comment.id] ? "green" : "",
+                                    }}
+                                    onClick={() =>
+                                      handleToggleReaction({
+                                        commentId: reply.id,
+                                        postType: "reply",
+                                        reactionType: "like",
+                                      })
+                                    }
+                                  >
+                                    {reply.likeCount} Like
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )
+                      )}
+                      <div className={styles.newReply}>
+                        <div className={styles.newReplyContainer}>
+                          <form onSubmit={handleSubmitReply(onReplySubmit)}>
+                            <textarea
+                              className={styles.commentTextArea}
+                              placeholder="Add a reply"
+                              {...registerReply("reply", {
+                                required: true,
+                              })}
+                            />
+
+                            <button type="submit">Add Reply</button>
+                          </form>
+                        </div>
+                      </div>
+                      {/*  */}
+                    </div>
+                  ) : (
+                    openReplies[comment.id] &&
+                    postCommentReply && (
+                      <div className={styles.newReply}>
+                        <div className={styles.newReplyContainer}>
+                          <form onSubmit={handleSubmitReply(onReplySubmit)}>
+                            <textarea
+                              className={styles.commentTextArea}
+                              placeholder="Add a reply"
+                              {...registerReply("reply", { required: true })}
+                            />
+
+                            <button
+                              onClick={() => {
+                                console.log("clicked");
+                              }}
+                              type="submit"
+                            >
+                              Add Reply
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    )
+                  )}
                 </div>
               ))
             ) : (
-              <div >
+              <div>
                 <p>No comments yet</p>
               </div>
             )}
           </div>
           <div className={styles.newComment}>
             <div className={styles.newCommentContainer}>
-              <form onSubmit={handleSubmit(onSubmit)}>
+              <form onSubmit={handleSubmitComment(onSubmit)}>
                 <textarea
                   className={styles.commentTextArea}
                   placeholder="Add a comment"
-                  {...register("comment", { required: true })}
+                  {...registerComment("comment", { required: true })}
                 />
 
                 <button type="submit">Add Comments</button>

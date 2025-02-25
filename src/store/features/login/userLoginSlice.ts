@@ -2,12 +2,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface User {
-  id: string;
-  avatar: string;
-  bio: string;
-  email: string;
-  fullName: string;
-  username: string;
+  user: {
+    id: string;
+    avatar: string;
+    bio: string;
+    email: string;
+    fullName: string;
+    username: string;
+  };
 }
 
 interface UserLoginState {
@@ -39,9 +41,6 @@ const userLoginSlice = createSlice({
   },
 });
 
-export const {
-  setUserLoginData,
-  clearUserLoginData,
-} = userLoginSlice.actions;
+export const { setUserLoginData, clearUserLoginData } = userLoginSlice.actions;
 
 export default userLoginSlice.reducer;

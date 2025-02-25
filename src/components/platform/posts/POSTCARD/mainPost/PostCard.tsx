@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { lazy, Suspense, useEffect, useState } from "react";
@@ -30,20 +31,23 @@ type Comment = {
 type Props = {
   setDoItModal?: (value: boolean) => void;
   setCommentModal?: (value: boolean) => void;
-  setPostComments?: (value: Comment[]) => void;
-  commentPage: number;
-  setCommentPage: (value: number) => void;
+  setPostCommentReply?: (value: Comment[]) => void;
+  setPostComments?: any;
+  setCommentsPage: (value: number) => void;
+  commentsPage: number;
   mainTopic?: {
-    id: number;
+    id: string;
     name: string;
     subtopics: {
-      id: number;
+      id: string;
       name: string;
     }[];
   };
   subTopic: {
     [key: number]: string;
   };
+  rerender: boolean;
+  setPostId?: (value: string) => void;
 };
 
 interface Post {
@@ -71,17 +75,20 @@ interface PostItem {
 
 type PostsData = PostItem[];
 function PostCard(props: Props) {
-  const router = useRouter();
-  const locale = useLocale();
   const {
-    commentPage,
-    setCommentPage,
+    commentsPage,
+    setCommentsPage,
     setDoItModal,
     mainTopic,
     subTopic,
     setCommentModal,
     setPostComments,
+    rerender,
+    setPostId,
   } = props;
+
+  const router = useRouter();
+  const locale = useLocale();
 
   const localS = localStorage.getItem("user");
   const accessToken = localS ? JSON.parse(localS).accessToken : null;
@@ -122,13 +129,13 @@ function PostCard(props: Props) {
     axios
       .get(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts?limit=${limit}${
-          subTopic[mainTopic.id] !== "all"
+          subTopic[Number(mainTopic.id)] !== "all"
             ? ""
             : `&mainTopicId=${mainTopic?.id}`
         }${
-          subTopic[mainTopic.id] === "all"
+          subTopic[Number(mainTopic.id)] === "all"
             ? ""
-            : `&subTopicId=${subTopic[mainTopic.id]}`
+            : `&subTopicId=${subTopic[Number(mainTopic.id)]}`
         }&page=${page}`,
         {
           headers: {
@@ -140,7 +147,6 @@ function PostCard(props: Props) {
         }
       )
       .then((res) => {
-        console.log("rerendered");
         setPostContent((prev) => {
           if (res.data.length >= 0 && page === 1) {
             return res.data;
@@ -150,7 +156,6 @@ function PostCard(props: Props) {
 
           return res.data;
         });
-        console.log("length post", postContent.length);
 
         setIsLoading(false);
       })
@@ -164,11 +169,8 @@ function PostCard(props: Props) {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
-  console.log("length", mainTopic?.id, postContent.length);
-  const handlePages = React.useCallback(() => {
-    console.log("page", page);
-    console.log("length", postContent.length);
 
+  const handlePages = React.useCallback(() => {
     setPage(postContent.length < 4 ? 1 : page + 1);
   }, [postContent.length]);
 
@@ -203,7 +205,6 @@ function PostCard(props: Props) {
       return `${days}D`; // Days
     }
   }
-
 
   return (
     <>
@@ -290,9 +291,8 @@ function PostCard(props: Props) {
                   <div className={styles.image}>
                     <div className={styles.postslider}>
                       <PostSlider
-                        commentPage={commentPage}
-                        setCommentPage={setCommentPage}
-
+                        commentPage={commentsPage}
+                        setCommentPage={setCommentsPage}
                         likes={post.likeCount}
                         comments={post.commentCount}
                         dislikes={post.dislikeCount}
@@ -302,6 +302,8 @@ function PostCard(props: Props) {
                         setCommentModal={setCommentModal}
                         setPostComments={setPostComments}
                         postId={post.post.id}
+                        rerender={rerender}
+                        setPostId={setPostId}
                       />
                     </div>
                   </div>

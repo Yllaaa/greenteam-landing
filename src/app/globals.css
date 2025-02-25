@@ -29,6 +29,7 @@ body {
   overflow-x: hidden;
   scroll-behavior: smooth;
   /* overflow: hidden; */
+  font-family: var(--monta);
 }
 
 body {
