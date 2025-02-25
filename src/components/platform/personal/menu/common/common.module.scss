@@ -1,0 +1,44 @@
+.section {
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 32px;
+
+        .title {
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 29.26px;
+            letter-spacing: 0%;
+            text-align: center;
+            color: #FEFEFE;
+        }
+
+        .seeAll {
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 24px;
+            line-height: 29.26px;
+            letter-spacing: 0%;
+            text-align: center;
+            color: #97B00F;
+        }
+
+    }
+}
+
+.divider {
+    width: 100%;
+    height: 2;
+    margin: 32px 0px;
+    background-color: #3A444C;
+}
+
+.hero {
+    padding: 0px;
+    min-height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
