@@ -6,7 +6,7 @@ import { FieldValues, useForm } from "react-hook-form";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import styles from "./signup.module.css";
 import Link from "next/link";
@@ -24,32 +24,33 @@ import { setUserSignupData } from "@/store/features/signup/userSignupSlice";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function SignUpForm() {
+  const t = useTranslations('auth.signUp');
   const router = useRouter();
   const locale = useLocale();
   // register form react-forms
   // yup
   const passwordSchema = yup.object().shape({
-    email: yup.string().required("Email is required").email("Invalid email"),
+    email: yup.string().required(t('emailRequired')).email(t('invalidEmail')),
 
     password: yup
       .string()
-      .required("Password is required")
-      .min(8, "Password must be at least 8 characters long")
-      .matches(/[A-Z]/, "Password must contain at least one uppercase letter")
-      .matches(/[a-z]/, "Password must contain at least one lowercase letter")
-      .matches(/[0-9]/, "Password must contain at least one number")
+      .required(t('passwordRequired'))
+      .min(8, t('passwordMin'))
+      .matches(/[A-Z]/, t('passwordMatchUpper'))
+      .matches(/[a-z]/, t('passwordMatchLower'))
+      .matches(/[0-9]/, t('passwordMatchNumber'))
       .matches(
         /[!@#$%^&*(),.?":{}|<>]/,
-        "Password must contain at least one special character"
+        t('passwordMatchSpecial')
       ),
 
     username: yup
       .string()
-      .required("Username is required")
-      .min(3, "Username must be at least 3 characters long")
-      .max(20, "Username must not exceed 20 characters"),
+      .required(t('usernameRequired'))
+      .min(3, t('usernameMin'))
+      .max(20, t('usernameMax')),
 
-    confirmPassword: yup.string().required("Confirm Password is required"),
+    confirmPassword: yup.string().required(t('confirmRequired')),
   });
 
   const {
@@ -89,13 +90,13 @@ function SignUpForm() {
 
   const signup = () => {
     if (!selectedOption) {
-      setSelectedOptionError("Please accept terms and conditions");
+      setSelectedOptionError(t('pleaseAccept'));
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
     try {
       if (data.password !== data.confirmPassword)
-        return ToastNot("Password does not match");
+        return ToastNot(t('passwordNotMatch'));
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/register`,
@@ -111,7 +112,7 @@ function SignUpForm() {
           }
         )
         .then((response) => {
-          if (response.status === 200) ToastNot("Account created successfully");
+          if (response.status === 200) ToastNot(t('signUpSuccess'));
           dispatch(setUserSignupData(response.data));
           router.replace(`/${locale}/login`);
         })
@@ -142,8 +143,8 @@ function SignUpForm() {
             </div>
             {/* header */}
             <div className={styles.title}>
-              <h5>Create an account</h5>
-              <p>Sign up now and unlock exclusive access!</p>
+              <h5>{t('createAccount')}</h5>
+              <p>{t('signUpNow')}</p>
             </div>
           </div>
           <form
@@ -153,15 +154,15 @@ function SignUpForm() {
             })}
           >
             <label htmlFor="username">
-              User Name <span>*</span>
+              {t('username')} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
                 id="username"
                 type="text"
-                placeholder="Email or Username"
+                placeholder={t('username')}
                 {...register("username", {
-                  required: { value: true, message: "Email is required" },
+                  required: { value: true, message: t('usernameRequired') },
                 })}
                 onChange={(e) => setData({ ...data, username: e.target.value })}
                 className={styles.input}
@@ -171,15 +172,15 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="email">
-              Email <span>*</span>
+              {t('email')} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
                 id="email"
                 type="text"
-                placeholder="Email or email"
+                placeholder={t('email')}
                 {...register("email", {
-                  required: { value: true, message: "Email is required" },
+                  required: { value: true, message: t('emailRequired') },
                 })}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
                 className={styles.input}
@@ -189,14 +190,14 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="password">
-              Password <span>*</span>
+              {t('password')} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="password"
+                  placeholder={t('password')}
                   {...register("password", { required: true, minLength: 8 })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
@@ -211,14 +212,14 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="confirmPasswordpassword">
-              Confirm Password <span>*</span>
+              {t('confirmPassword')} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder="confirmPassword"
+                  placeholder={t('confirmPassword')}
                   {...register("confirmPassword", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, confirmPassword: e.target.value })
@@ -264,13 +265,13 @@ function SignUpForm() {
                     />
                   </div>
                   <p>
-                    I agree to the{" "}
-                    <Link href={"service"}>terms of services</Link>
+                    {t('IAgree')}e{" "}
+                    <Link href={"service"}>{t('termsOfService')}</Link>
                   </p>
                 </div>
                 <div className={styles.forgetPassword}>
                   <Link href={`/${locale}/forget-password`}>
-                    Forget Password?
+                    {t('forgetPassword')}
                   </Link>
                 </div>
               </div>
@@ -280,11 +281,11 @@ function SignUpForm() {
             </div>
 
             <button type="submit" onClick={signup}>
-              Signup
+              {t('signUp')}
             </button>
           </form>
           <p className={styles.createAccount}>
-            Have an account? <Link href={`/${locale}/login`}> Login</Link>
+            {t('alreadyHaveAccount')} <Link href={`/${locale}/login`}> {t('login')}</Link>
           </p>
         </div>
         <div className={styles.sideImageContainer}>
@@ -292,11 +293,10 @@ function SignUpForm() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>Join the Movement for a </h4>
-            <h3>Greener Future</h3>
+            <h4>{t('join')}</h4>
+            <h3>{t('greenerFuture')}</h3>
             <p>
-              Be part of a global community working together to create
-              sustainable solutions for a healthier planet.
+              {t('bePart')}
             </p>
           </div>
           <div className={styles.foots}>

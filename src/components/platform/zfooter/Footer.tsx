@@ -7,27 +7,29 @@ import Image from "next/image";
 import cirle from "@/../public/ZPLATFORM/footer/circle.svg";
 import Link from "next/link";
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
+import { useTranslations } from "next-intl";
 
 function Footer() {
+  const t = useTranslations('web.main.footer')
   return (
     <>
       <div className={styles.container}>
         <div className={styles.containerDiscover}>
           <div className={styles.textOne}>
-            <p>Discover Sustainable Community</p>
+            <p>{t('discover')}</p>
           </div>
           <div className={styles.logo}>
             <Image src={handLogo} alt="community" className={styles.logo} />
           </div>
           <div className={styles.textTwo}>
-            <p>All you need is around you</p>
+            <p>{t('allNeed')}</p>
           </div>
         </div>
         <div className={styles.upper}>
           <div className={styles.content}>
-            <h2 className={styles.text}>Each Grain Matters To Create a</h2>
+            <h2 className={styles.text}>{t('eachGrain')}</h2>
             <h2 className={styles.text}>
-              Brighter Future{" "}
+              {t('brighterFuture')}{" "}
               <span>
                 <Image
                   src={footLogo}
@@ -38,10 +40,10 @@ function Footer() {
             </h2>
             <div className={styles.actions}>
               <div className={styles.topActions}>
-                <button className={styles.button}>Join us</button>
-                <button className={styles.button}>Donate</button>
+                <button className={styles.button}>{t('joinUs')}</button>
+                <button className={styles.button}>{t('donate')}</button>
               </div>
-              <button className={styles.button}>Donate</button>
+              <button className={styles.button}>{t('donate')}</button>
             </div>
           </div>
           {/* <div className={styles.circle}> */}
@@ -52,16 +54,16 @@ function Footer() {
           <div className={styles.content}>
             <ul>
               <li>
-                <Link href="#">Home</Link>
+                <Link href="#">{t('home')}</Link>
               </li>
               <li>
-                <Link href="#">Community</Link>
+                <Link href="#">{t('community')}</Link>
               </li>
               <li>
-                <Link href="#">Profile</Link>
+                <Link href="#">{t('profile')}</Link>
               </li>
               <li>
-                <Link href="#">Privacy and policy</Link>
+                <Link href="#">{t('privacyAndPolicy')}</Link>
               </li>
             </ul>
           </div>
@@ -77,7 +79,7 @@ function Footer() {
             </div>
           </div>
           <div className={styles.copyright}>
-            <p>© 2025 All Rights Reserved</p>
+            <p>{t('rightsReserved')}</p>
           </div>
         </div>
       </div>

@@ -1,0 +1,11 @@
+.addNewPage {
+  width: 688;
+  border-radius: 12px;
+  background: #141414;
+  box-shadow: 0px 20px 24px -4px #0a0d121a;
+  position: absolute;
+  top: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 124574558744;
+}

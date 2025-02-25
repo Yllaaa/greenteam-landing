@@ -1,0 +1,221 @@
+.content {
+  width: 688;
+  padding-top: 20px;
+  padding-right: 24px;
+  padding-left: 24px;
+  gap: 20px;
+
+  form {
+    width: 640;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .row {
+      width: 640;
+      display: flex;
+      gap: 32px;
+
+      .text {
+        width: 160;
+        height: 20;
+        font-family: Inter;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: 0%;
+        color: #414651;
+
+        label::after {
+          content: "*";
+        }
+      }
+
+      .control1 {
+        width: 448;
+
+        input {
+          border: 1px solid #D5D7DA;
+          background: #363636;
+          box-shadow: 0px 1px 2px 0px #0A0D120D;
+          font-family: Inter;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0%;
+          padding-top: 10px;
+          padding-right: 14px;
+          padding-bottom: 10px;
+          padding-left: 14px;
+          border-radius: 8px;
+          border-width: 1px;
+          width: 448;
+          height: 44;
+
+          &::placeholder {
+            font-family: Inter;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0%;
+            color: #717680;
+          }
+        }
+
+        textarea {
+          @extend input;
+          width: 448;
+          height: 80;
+        }
+
+        select {
+          @extend input;
+        }
+      }
+
+      .control2 {
+        width: 448;
+        height: 74;
+        gap: 20px;
+        display: flex;
+
+        .avatar {
+          width: 64;
+          height: 64;
+          border-radius: 200px;
+          color: #363636;
+          background: #363636;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: relative;
+
+          .clearValue {
+            display: none;
+          }
+
+          &.hasValue {
+            background: #96B032;
+
+            &:hover .clearValue {
+              display: block;
+              position: absolute;
+              scale: 1.5;
+              padding-top: 5px;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .fileUpload {
+          width: 364;
+          height: 74;
+          padding-top: 16px;
+          padding-right: 24px;
+          padding-bottom: 16px;
+          padding-left: 24px;
+          border-radius: 12px;
+          border-width: 1px;
+          background: #363636;
+          text-align: center;
+
+          &.dragging {
+            border: 2px dashed #96B032;
+          }
+
+          input {
+            display: none;
+          }
+
+          .action {
+            font-family: Inter;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 20px;
+            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            background-clip: text;
+            color: transparent;
+            border: none;
+            cursor: pointer;
+            padding-right: 2px;
+          }
+
+          .text {
+            font-family: Inter;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0%;
+            color: #535862;
+          }
+        }
+      }
+
+      .control3 {
+        display: inline-flex;
+        width: 448;
+        height: 44;
+
+        .text {
+          display: block;
+          background: #363636;
+          width: 139;
+          height: 44;
+          padding-top: 10px;
+          padding-right: 12px;
+          padding-bottom: 10px;
+          padding-left: 14px;
+          border-top-left-radius: 8px;
+          border-bottom-left-radius: 8px;
+          font-family: Inter;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0%;
+          color: #535862;
+        }
+
+        input {
+          width: 309;
+          height: 44;
+          padding-top: 10px;
+          padding-right: 14px;
+          padding-bottom: 10px;
+          padding-left: 14px;
+          border-width: 1px;
+          border-top-right-radius: 8px;
+          border-bottom-right-radius: 8px;
+          background: #FFFFFF;
+          border: 1px solid #D5D7DA;
+          color: #717680;
+          font-family: Inter;
+          font-weight: 400;
+          font-size: 16px;
+          line-height: 24px;
+          letter-spacing: 0%;
+
+          &::placeholder {
+            font-family: Inter;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0%;
+            color: #717680;
+          }
+        }
+      }
+
+    }
+
+    .divider {
+      width: 640;
+      height: 1;
+      background: #E9EAEB80;
+    }
+
+    .error {
+      color: red;
+      font-size: 12px;
+    }
+  }
+}

@@ -4,7 +4,9 @@ import React from "react";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import styles from "./CommunityPage.module.css";
 import { setCurrentCommunity } from "@/store/features/communitySection/currentCommunity";
+import { useTranslations } from "use-intl";
 function CommunityPage() {
+  const t = useTranslations('web.main.community')
   const { currentCommunity: community } = useAppSelector(
     (state) => state.currentCommunity
   );
@@ -23,7 +25,7 @@ function CommunityPage() {
                 styles.listItem
               }`}
             >
-              pages
+              {t('pages')}
             </li>
             <li
               onClick={() => handleCommunityChange("groups")}
@@ -31,7 +33,7 @@ function CommunityPage() {
                 styles.listItem
               }`}
             >
-              groups
+              {t('groups')}
             </li>
             <li
               onClick={() => handleCommunityChange("events")}
@@ -39,7 +41,7 @@ function CommunityPage() {
                 styles.listItem
               }`}
             >
-              events
+              {t('events')}
             </li>
             <li
               onClick={() => handleCommunityChange("products")}
@@ -47,7 +49,7 @@ function CommunityPage() {
                 styles.listItem
               }`}
             >
-              products
+              {t('products')}
             </li>
           </ul>
         </div>

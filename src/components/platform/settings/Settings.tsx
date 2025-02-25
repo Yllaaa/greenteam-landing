@@ -1,6 +1,8 @@
 import React from "react";
 import styles from "./Settings.module.css";
+import { useTranslations } from "next-intl";
 function Settings() {
+  const t = useTranslations('web.main.settings')
   // declarations
   // react forms
   // redux
@@ -14,13 +16,13 @@ function Settings() {
         {/* hold */}
         <div className={styles.personalInfo}>
           <div className={styles.header}>
-            <h2>Personal Information</h2>
+            <h2>{t('personalInfo')}</h2>
           </div>
           <div className={styles.card}></div>
         </div>
         <div className={styles.paymentInfo}>
           <div className={styles.header}>
-            <h2>payment Information</h2>
+            <h2>{t('paymentInfo')}</h2>
           </div>
           <div className={styles.card}></div>
         </div>

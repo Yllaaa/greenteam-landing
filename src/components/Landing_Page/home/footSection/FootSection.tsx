@@ -2,12 +2,13 @@
 import React from "react";
 import styles from "./footSection.module.css";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import foot from "@/../public/brain/foot.svg";
 import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 
 function Foot() {
+  const t = useTranslations('landing.foot');
   const locale = useLocale();
 
   const [imageLoaded, setImageLoaded] = React.useState(false);
@@ -17,21 +18,19 @@ function Foot() {
       <div className={styles.container}>
         <div className={styles.header}>
           <h2>
-            Be part of the community with GreenTeam,
+            {t('bePart')}
             <br />
-            <span>THE SUSTAINABLE COMMUNICATION TOOL.</span>
+            <span>{t('theSustainable')}</span>
           </h2>
         </div>
         <div className={styles.text}>
           <p>
-            Green team, the conscious social network, is the communication tool
-            designed to facilitate interaction between conscious people,
-            responsible for their social and environmental impact.
+            {t('greenTeam')}
           </p>
         </div>
         <div className={styles.link}>
           <Link href={`/${locale}/about`}>
-            <span>Learn more</span>
+            <span>{t('learnMore')}</span>
           </Link>
         </div>
         {!imageLoaded && (
