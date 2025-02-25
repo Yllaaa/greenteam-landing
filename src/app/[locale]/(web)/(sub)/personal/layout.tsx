@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import Categories from "@/components/platform/categoriesDimond/Categories";
-import Header from "@/components/platform/header/Header";
+import Header from "@/components/platform/a-header/Header";
 // import MyChallenges from "@/components/platform/suggested/challenges/myChallenges/MyChallenges";
 // import Suggested from "@/components/platform/suggested/Suggested";
 import Footer from "@/components/platform/zfooter/Footer";
