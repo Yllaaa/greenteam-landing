@@ -1,0 +1,188 @@
+$min-width: 1024px;
+
+.pages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    .item {
+        height: 304;
+        border-radius: 30px;
+        background: #333634;
+        padding: 33px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        position: relative;
+
+        @media (min-width: $min-width) {
+            padding-left: 85px;
+        }
+
+        .header {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+
+            .logo {
+                width: 69;
+                height: 69;
+
+                @media (min-width: $min-width) {
+                    position: absolute;
+                    top: 32px;
+                    left: 12px;
+                }
+            }
+
+            %item {
+                width: fit-content;
+                height: 34;
+                border-radius: 80px;
+                padding-top: 6px;
+                padding-right: 10px;
+                padding-bottom: 6px;
+                padding-left: 10px;
+                font-family: Epilogue;
+                font-weight: 600;
+                font-size: 14px;
+                line-height: 22.4px;
+                letter-spacing: 0%;
+                text-overflow: clip;
+                white-space: nowrap;
+            }
+
+            .likes {
+                @extend %item;
+                background: #56CDAD1A;
+                color: #56CDAD;
+            }
+
+            .followers {
+                @extend %item;
+                border: 1px solid #FFB836;
+                color: #FFB836;
+            }
+
+            .ecoVillage {
+                @extend %item;
+                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                background-clip: text;
+                color: transparent;
+                border: 1px solid #74B243;
+            }
+
+            .divider {
+                width: 1;
+                height: 34;
+                background: #D6DDEB;
+            }
+        }
+
+        .content {
+            height: 221.5;
+            gap: 8px;
+            display: flex;
+            flex-direction: column;
+
+            @media (min-width: $min-width) {
+                flex-direction: row;
+            }
+
+            .text {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+
+                .title {
+                    font-family: Epilogue;
+                    font-weight: 600;
+                    font-size: 20px;
+                    line-height: 24px;
+                    letter-spacing: 0%;
+                    text-overflow: ellipsis;
+                    color: #FEFEFEFE;
+                }
+
+                .description {
+                    font-family: Montserrat;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 25.6px;
+                    letter-spacing: 0%;
+                    text-overflow: ellipsis;
+                    color: #FEFEFE80;
+                }
+            }
+
+            .img {
+                height: 188px;
+                border-radius: 12px;
+                display: none;
+
+                @media (min-width: $min-width) {
+                    display: block;
+                }
+            }
+
+            .actions {
+                display: flex;
+                flex-direction: row;
+                gap: 8px;
+
+                @media (min-width: $min-width) {
+                    height: 188px;
+                    gap: 10px;
+                    align-self: flex-end;
+                    flex-direction: column;
+                    justify-content: end;
+                }
+
+                button {
+                    flex-grow: 1;
+                    display: block;
+                    height: 32;
+                    border-radius: 20px;
+                    border-width: 1px;
+
+                    @media (min-width: $min-width) {
+                        flex-grow: 0;
+                        width: 135;
+                    }
+
+                    &.contact {
+                        border: 1px solid #74B243;
+                        background-color: transparent;
+                        color: #FEFEFE;
+                    }
+
+                    &.like {
+                        background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                        color: #FEFEFE;
+                    }
+                }
+            }
+        }
+
+
+
+
+        .star {
+            width: 38;
+            height: 38;
+            top: 33px;
+            right: 26px;
+            border-radius: 20px;
+            padding: 7px;
+            position: absolute;
+            background: #006633;
+            display: none;
+
+            @media (min-width: $min-width) {
+                display: block;
+            }
+        }
+
+    }
+}
