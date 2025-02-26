@@ -1,0 +1,97 @@
+.whoToFollow {
+    width: 350;
+    border-radius: 16px;
+    background: #042912;
+
+    .header {
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24.38px;
+        letter-spacing: 1.4%;
+        padding: 16px;
+        color: #FFFFFF;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1px solid #307040;
+        border-style: solid none;
+        padding: 16px;
+
+        .content {
+            display: flex;
+            align-items: center;
+            width: fit-content;
+            gap: 10px;
+
+
+            .avatar {
+                width: 49;
+                height: 49;
+                top: 10px;
+                left: 16px;
+                border-radius: 99999px;
+                padding-top: 1px;
+                padding-right: 1px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 99999px;
+                }
+            }
+
+            .text {
+                .name {
+                    font-family: Montserrat;
+                    font-weight: 700;
+                    font-size: 16px;
+                    line-height: 19.5px;
+                    letter-spacing: 0%;
+                    color: #FFFFFF;
+                }
+
+                .details {
+                    font-family: Montserrat;
+                    font-weight: 500;
+                    font-size: 16px;
+                    line-height: 19.5px;
+                    letter-spacing: -1.7%;
+                    color: #8899A6;
+                }
+            }
+        }
+
+        button.follow {
+            width: 80;
+            height: 30;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #96af31;
+            border-radius: 10px;
+            background: linear-gradient(90deg, #74B243 0%, #96B032 100%);
+            background-clip: text;
+            color: transparent;
+            cursor: pointer;
+        }
+    }
+
+    .showMore {
+        padding: 16px;
+
+        a {
+            font-family: Montserrat;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18.29px;
+            letter-spacing: 0%;
+            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            background-clip: text;
+            color: transparent;
+        }
+    }
+}

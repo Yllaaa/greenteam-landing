@@ -1,0 +1,82 @@
+.news {
+    width: 350;
+    border-radius: 16px;
+    background: #042912;
+
+    .header {
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 20px;
+        line-height: 24.38px;
+        letter-spacing: 1.4%;
+        padding: 16px;
+        color: #FFFFFF;
+    }
+
+    .item {
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid #307040;
+        border-style: solid none;
+        padding: 16px;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            width: 235;
+            height: 118;
+            gap: 6px;
+
+
+            .details {
+                font-family: Montserrat;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17.07px;
+                letter-spacing: 0%;
+                color: #8899A6;
+            }
+
+            .title {
+                font-family: Montserrat;
+                font-weight: 700;
+                font-size: 15px;
+                line-height: 18.29px;
+                letter-spacing: 2%;
+                color: #FFFFFF;
+            }
+
+            .hashtag {
+                font-family: Montserrat;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 17.07px;
+                letter-spacing: -2%;
+                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                background-clip: text;
+                color: transparent;
+            }
+        }
+
+        .photo {
+            width: 71;
+            height: 69;
+            border-radius: 12px;
+        }
+    }
+
+    .showMore {
+        padding: 16px;
+
+        a {
+            font-family: Montserrat;
+            font-weight: 500;
+            font-size: 15px;
+            line-height: 18.29px;
+            letter-spacing: 0%;
+            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            background-clip: text;
+            color: transparent;
+        }
+    }
+}
