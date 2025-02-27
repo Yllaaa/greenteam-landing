@@ -1,294 +1,241 @@
 {
-  "homeHero": {
-    "header1": "EFFORTLESS CONECTIONS,",
-    "header2": " EXPERT RESUTLS",
-    "subHeader": "€10,000 Could Be Yours – Take Your Startup to the Next Level!",
-    "title": "Bring your ideas to life with success",
-    "subTitle": "Turn your idea into a successful product",
-    "roundText": "Scroll down . Scroll down . Scroll down . ",
-    "next":"Your Next Freelancer is Here"
+  "landing": {
+    "navbar": {
+      "downloadApp": "Download the App",
+      "login": "Login",
+      "signUp": "Sign Up",
+      "downloadApp2": "Download the app"
+    },
+    "hero": {
+      "sustainability": "Sustainability",
+      "wayOfLife": "is a way of life",
+      "bePart": "Be part of the sustentable community.",
+      "theConscient": "The conscient",
+      "socialNet": "social net.",
+      "downloadApp": "Download app",
+      "loginWithGoogle": "Login with Google",
+      "register": "Register"
+    },
+    "brain": {
+      "community": "The community have the solution to all problems,",
+      "sustainableCulture": "SUSTAINABLE CULTURE",
+      "evolution": "The evolution of culture is a process of dynamic change in the way human society sees, understands and acts, linked to values ​​and beliefs shaped over time.",
+      "learnMore": "Learn more"
+    },
+    "earth": {
+      "bePart": "Be part of the community with GreenTeam,",
+      "theSustainable": "THE SUSTAINABLE COMMUNICATION TOOL.",
+      "greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
+      "learnMore": "Learn more"
+    },
+    "foot": {
+      "bePart": "Be part of the community with GreenTeam,",
+      "theSustainable": "THE SUSTAINABLE COMMUNICATION TOOL.",
+      "greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
+      "learnMore": "Learn more"
+    },
+    "whatWeOffer": {
+      "whatWeOffer": "WHAT WE OFFER",
+      "howWeMake": "How We Make a ",
+      "difference": "Difference",
+      "cards": {
+        "card1": {
+          "header": "Data Privacy",
+          "text": "Your data is secure with ethical and transparent choices."
+        },
+        "card2": {
+          "header": "Organic Internet",
+          "text": "authentic connections through meaningful and focused design"
+        },
+        "card3": {
+          "header": "Comunication for Impact",
+          "text": "Tools to focus on collective well-being and local impact"
+        }
+      }
+    },
+    "news": {
+      "technology": "Technology",
+      "ultimate": "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
+      "AIWont": "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how calculators were once thought to replace",
+      "hannah": "Hannah",
+      "readMore": "Read more",
+      "news": "News",
+      "seeGreenTeam": "SEE GREENTEAM NEWS AND BLOGS"
+    },
+    "footer": {
+      "theConscient": "THE CONSCIENT SOCIAL NET.",
+      "greenTeam": "GREENTEAM",
+      "takeCare": "Take care of yourself, take care of the world.",
+      "registerNow": "Register now",
+      "aboutUs": "About us",
+      "goal": "Goal",
+      "downloadNow": "Download Now",
+      "register": "Register",
+      "copyright": "© Copyright 2024, All Rights Reserved by Greenteam"
+    }
   },
-  "aboutUs": {
-    "title": "About Us",
-    "subTitle": "Your Startup’s Partner for Talent, Growth, and Success",
-    "paragraph": "At Yllaaa, we believe in empowering startups to succeed by connecting them with the right talent and resources. Our platform goes beyond traditional freelancing by offering dedicated support through experienced account managers, a seamless matching process, and a focus on collaboration. We’re here to help you build and grow with confidence, every step of the way.",
-    "buttonText": "More About Us",
-    "projects": "Projects",
-    "months": "Months",
-    "clients": "Clients",
-    "profs": "Professionals"
+  "auth": {
+    "login": {
+      "login": "Login",
+      "signInNow": "Sign in now and unlock exclusive access!",
+      "or": "or",
+      "name": "Name",
+      "emailOrUsername": "Email or Username",
+      "emailRequired": "Email is required",
+      "identifierRequired": "Identifier is required",
+      "password": "Password",
+      "checkPassword": "Check password field",
+      "IAgree": "I agree to the",
+      "termsOfService": "terms of services",
+      "forgetPassword": "Forget Password?",
+      "signUp": "Sign Up",
+      "don'tHaveAccount": "Don't have an account?",
+      "welcomeBack": "Welcome Back to",
+      "sustainability": "Sustainability",
+      "reconnect": "Reconnect with the community making meaningful changes for our world.",
+      "pleaseAccept": "Please accept terms and conditions",
+      "loginSuccess": "Login successful",
+      "loginFailed": "Login failed"
+    },
+    "signUp": {
+      "emailRequired": "Email is required",
+      "invalidEmail": "Invalid email",
+      "passwordRequired": "Password is required",
+      "passwordMin": "Password must be at least 8 characters long",
+      "passwordMatchUpper": "Password must contain at least one uppercase letter",
+      "passwordMatchLower": "Password must contain at least one lowercase letter",
+      "passwordMatchNumber": "Password must contain at least one number",
+      "passwordMatchSpecial": "Password must contain at least one special character",
+      "usernameRequired": "Username is required",
+      "usernameMin": "Username must be at least 3 characters long",
+      "usernameMax": "Username must not exceed 20 characters",
+      "confirmRequired": "Confirm Password is required",
+      "pleaseAccept": "Please accept terms and conditions",
+      "passwordNotMatch": "Password does not match",
+      "signUpSuccess": "Account created successfully",
+      "createAccount": "Create an account",
+      "signUpNow": "Sign up now and unlock exclusive access!",
+      "username": "User Name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "IAgree": "I agree to the",
+      "termsOfService": "terms of services",
+      "forgetPassword": "Forget Password?",
+      "signUp": "Sign Up",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "join": "Join the Movement for a ",
+      "greenerFuture": "Greener Future",
+      "bePart": "Be part of a global community working together to create sustainable solutions for a healthier planet."
+    },
+    "resetPassword": {
+      "passwordNotMatch": "Password does not match",
+      "resetSuccess": "Password reset successfully",
+      "resetFailed": "Reset password failed",
+      "resetPassword": "Reset Password",
+      "writePassword": "Write your Password to reset it",
+      "password": "Password",
+      "checkPassword": "Check password field",
+      "confirmPassword": "Confirm Password",
+      "reset": "Reset",
+      "wantLogin": "Want to login?",
+      "login": "Login",
+      "join": "Join the Movement for a ",
+      "greenerFuture": "Greener Future",
+      "bePart": "Be part of a global community working together to create sustainable solutions for a healthier planet."
+    },
+    "verification": {
+      "hi": "Hi!",
+      "weSent": "We’ve sent a verification link to your email.",
+      "didn'tReceive": "Didn’t receive the email? Check your spam folder or contact our support team for assistance",
+      "verityEmail": "Verify Email"
+    },
+    "forgetPassword": {
+      "forgetPassword": "Forget Password",
+      "writeEmail": "Write Your Email To Recover Your Password",
+      "email": "Email",
+      "emailRequired": "Email is required",
+      "resetPassword": "Reset Password",
+      "alreadyHaveAccount": "Already have an account?",
+      "login": "Login",
+      "join": "Join the Movement for a ",
+      "greenerFuture": "Greener Future",
+      "bePart": "Be part of a global community working together to create sustainable solutions for a healthier planet."
+    }
   },
-  "earth": {
-    "title": "Want to work beyond borders?",
-    "header": "Why Freelancers Love",
-    "header2": "YLLAAA?",
-    "description": "YLLAAA gives you the chance to work globally, collaborate with international startups, and earn in hard currency. Gain amazing experience creating top-tier MVPs. Grow your skills, widen your network and unleash new possibilities of your career within global market",
-    "buttonText": "YLLAAA"
+  "web": {
+    "main": {
+      "community": {
+        "pages": "pages",
+        "groups": "groups",
+        "events": "events",
+        "products": "products"
+      },
+      "footer": {
+        "discover": "Discover Sustainable Community",
+        "allNeed": "All you need is around you",
+        "eachGrain": "Each Grain Matters To Create a",
+        "brighterFuture": "Brighter Future",
+        "joinUs": "Join Us",
+        "donate": "Donate",
+        "home": "Home",
+        "community": "Community",
+        "profile": "Profile",
+        "privacyAndPolicy": "Privacy and policy",
+        "rightsReserved": "© 2025 All Rights Reserved"
+      },
+      "setting": {
+        "personalInfo": "Personal Information",
+        "paymentInfo": "Payment Information"
+      }
+    }
   },
-  "reason": {
-    "title": "Features",
-    "header": "Top Reasons to Trust YLLAAA",
-    "description": "YLLAAA gives you the chance to work globally, collaborate with international startups, and earn in hard currency. Gain amazing experience creating top-tier MVPs. Grow your skills, widen your network and unleash new possibilities of your career within global market",
-    "buttonText": "About us",
-    "lableSheild": "Protection",
-    "descriptionSheild": "We prioritize security and confidentiality.",
-    "lableHeart": "Easiness",
-    "descriptionHeart": "Our platform is designed to be user-friendly.",
-    "lableStar": "Flexibility",
-    "descriptionStar": "We offer tailored solutions and flexible options.",
-    "lableGraph": "Tracking",
-    "descriptionGraph": "Our platform provides real-time tracking."
-  },
-  "about": {
-    "title": "About us",
-    "header": "Get to know more about",
-    "header2": "YLLAAA",
-    "description": "At YLLAAA, we connect startups with the top 1% of talent in Egypt. We believe in helping startups succeed by finding them the right talent and resources. Unlike traditional freelancing, our platform goes beyond just offering the matching process; we have dedicated support through experienced account managers, seamless matching process and focused collaboration!",
-    "buttonText": "About us",
-    "lableCard1": "MONTHS",
-    "numberCard1": "+6",
-    "lableCard2": "CLIENTS",
-    "numberCard2": "+14",
-    "lableCard3": "PROJECTS",
-    "numberCard3": "+20"
-  },
-  "cloudHero": {
-    "yllaaa": "YLLAAA",
-    "title": "From the Land of the Pyramids to the World!",
-    "description": "Visionaries who once built the pyramids are now revolutionizing startups worldwide! The top 1% of Egyptian talent is now shaping the future with modern ideas, global impact, and world-class MVPs."
-  },
-  "build": {
-    "01": "01",
-    "submit": "Submit",
-    "submitText": "Share your idea, goals, and requirements to get started.",
-    "02": "02",
-    "analyze": "Analyze",
-    "analyzeText": "Our system identifies the best freelance talent for your needs.",
-    "03": "03",
-    "yllaaa": "YLLAAA",
-    "yllaaaText": "Instantly connect with the top 1% Egyptian freelancers.",
-    "04": "04",
-    "approve": "Approve",
-    "approveText": "Explore profiles, pricing, and choose your perfect match.",
-    "05": "05",
-    "build": "Build",
-    "buildText": "Collaborate seamlessly and bring your MVP to life efficiently."
-  },
-  "world": {
-    "yllaaa": "YLLAAA",
-    "text": "From the Land of the Pyramids to the World!",
-    "paragraph": "Visionaries who once built the pyramids are now revolutionizing startups worldwide! The top 1% of Egyptian talent is now shaping the future with modern ideas, global impact, and world-class MVPs."
-  },
-  "cost": {
-    "title": "Cut Costs?",
-    "header": "What if outsourcing talent could be",
-    "headerEasy": "Easy",
-    "headerAnd": "and",
-    "headerAffordable": "Affordable?",
-    "description": "At YLLAAA, we connect you to the top 1% of Egypt’s freelance talent, providing you with world-class MVP development at a fraction of the cost. We handle everything so you can focus on growing your business without the stress!",
-    "buttonText": "YLLAAA"
-  },
-  "proccess": {
-    "sectionLable": "OUR PROCESS",
-    "sectionTitle": "Our Process to Empower Your",
-    "sectionTitleSpecialWord": "Vision",
-    "description": "YLLAAA embraces a dynamic and flexible process, prioritizing collaboration and tailored solutions for every client.",
-    "title1": "Choose your business body",
-    "paragraph1": "Choose an account manager who speaks your language and understands your business culture.",
-    "title2": "Dive deep",
-    "paragraph2": "Grab a virtual or real coffee with your account manager, we listen, we strategize, and we craft a plan that ressonate with your vision.",
-    "title3": " AI-Powered Planning.",
-    "paragraph3": "Ditch the guesswork. Our AI-powered tool presents a tailored, transparent plan with recommended budgets and timelines.",
-    "title4": "World-Class Team",
-    "paragraph4": "Our advanced algorithm pairs you with a World-Class team of Egyptian talents, ensuring your venture reaches new heights."
-  },
-  "clients": {
-    "sectionLable": "For Startups",
-    "sectionTitle": "Validate Your Idea with YLLAAA",
-    "description": "Building an MVP efficiently is the best way to accelerate Your Idea into Reality. Our app is designed to be the most affordable, rapid, and top-quality solution for MVP development in the market.",
-    "buttonText1": "Time Efficiency",
-    "buttonSubtext1": "Start Hiring",
-    "buttonText2": "Cost-Effectiveness",
-    "buttonSubtext2": "Start Hiring",
-    "buttonText3": "Quality Assurance",
-    "buttonSubtext3": "Start Hiring"
-  },
-  "team": {
-    "sectionTitle": "Team",
-    "description": "Passionate Minds, Creative Solutions. Discover the team behind YLLAAA.",
-    "buttonText": "Our Team",
-
-    "mohamedAbdelkader1": "Mohamed",
-    "mohamedAbdelkader2": "Abdelkader",
-    "positionMohamed": "CEO & Co-Founder",
-    "breifMohamed": "Ambitious Dreamer, Always Thinking Big",
-
-    "zeyadSaleh1": "Zeyad",
-    "zeyadSaleh2": "Saleh",
-    "positionZeyad": "CTO & Co-Founder",
-    "breifZeyad": "Calm Problem-Solver, Tech Enthusiast",
-
-    "vittorio1": "Vittorio",
-    "vittorio2": "Badia",
-    "positionVittorio": "Product Owner",
-    "breifVittorio": "Goal-Oriented Strategist, thinker",
-
-    "wiamMouafi1": "Wiam",
-    "wiamMouafi2": "Mouafi",
-    "positionWiam": "Marketing executive",
-    "breifWiam": "Goal-Driven Planner, Insightful",
-
-    "mohamedAshraf1": "Mohamed",
-    "mohamedAshraf2": "Ashraf",
-    "positionMohamedAshraf": "Content Creator",
-    "breifMohamedAshraf": "Intuitive Creator, Fun And Imaginative",
-
-    "shaymaElFouly1": "Shaimaa",
-    "shaymaElFouly2": "El Fouly",
-    "positionShayma": "Designer",
-    "breifShayma": "Original Thinker And Artistic",
-
-    "yehia1": "Yehia",
-    "yehia2": "Abdelhamed",
-    "positionYehia": "Designer",
-    "breifYehia": "Creative Designer, Focused And Inventive",
-
-    "mohamedYasser1": "Mohamed",
-    "mohamedYasser2": "Yasser",
-    "positionMohamedYasser": "Software Developer",
-    "breifMohamedYasser": "Reliable Thinker, Steady And Skilled",
-
-    "youssef1": "Youssef",
-    "youssef2": "Ahmed",
-    "positionYoussef": "Software Developer",
-    "breifYoussef": "Resourceful Builder, Determined And Sharp",
-
-    "Moustafa1": "Moustafa",
-    "Moustafa2": "Adel",
-    "positionMoustafa": "Software Developer",
-    "breifMoustafa": "Adaptable Coder, Clever"
-  },
-  "talent": {
-    "sectionLable": "For Talent",
-    "sectionTitle": "Find a great worker",
-    "description": "Meet clients you’re excited to work with and take your career or to new heights.",
-    "text1": "Show your talent to the world",
-    "text2": "Explore different ways to earn",
-    "text3": "Control when, where, and how you work",
-    "buttonText": "Get Started"
-  },
-  "aboutHero": {
-    "sectionLabel": "Mission",
-    "sectionTitleW1": "Empowering Connections Between",
-    "sectionTitleB1": "Clients",
-    "sectionTitleW2": "and",
-    "sectionTitleB2": "Freelancers",
-    "description": " At Yllaaa, we connect freelancers and businesses, supported by project managers, to foster collaboration, flexibility, and growth. Our platform creates an ecosystem where talent and opportunity meet, empowering both to thrive."
-  },
-  "business": {
-    "sectionLable": "For Business",
-    "subHeader": "Boost your projects with ",
-    "specialSubHeader": "Freeworkers",
-    "paragraph": " Start working with the best software, design and marketing freelancers. Save on fixed costs and make your growth more flexible.",
-    "button": "Start now",
-
-    "card1Header": "APP DEVELOPMENT",
-    "card1SubHeader": "within 6-8 weeks",
-    "card2Header": "APP DEVELOPMENT",
-    "card2SubHeader": "within 6-8 weeks",
-    "card3Header": "APP DEVELOPMENT",
-    "card3SubHeader": "within 6-8 weeks",
-
-    "row1": "THE BEST TECH",
-    "row2": "TALENT IS AT",
-    "btnLable": "Start now"
-  },
-  "freelancer": {
-    "sectionLable": "For Freelancers",
-    "subHeader": "The house of ",
-    "specialSubHeader": "Freelancing",
-    "paragraph": "Find projects that match your talent. We are the first freeworker community that puts talent first.",
-    "button": "Start now",
-
-    "card1Header": "APP DEVELOPMENT",
-    "card1SubHeader": "skills: Flutter developer",
-    "card2Header": "marketing campaign",
-    "card2SubHeader": "skills: digital marketing",
-    "card3Header": "WEB DESIGN",
-    "card3SubHeader": "skills: UX/UI Design",
-
-    "row1": "THE BEST TECH",
-    "row2": "TALENT IS AT",
-    "btnLable": "Start now"
-  },
-  "manager": {
-    "sectionLable": "For Managers",
-    "subHeader": "Your Strategic Project ",
-    "specialSubHeader": "Partner",
-    "paragraph": "Maximize Efficiency. Deliver Success. Yalla's dedicated Account Managers ensure seamless project flow, so you can focus on growth",
-    "button": "Start Managing Now",
-
-    "card1Header": "Digital Marketing Experts",
-    "card1SubHeader": "Leverage data-driven strategies and targeted campaigns to maximize project visibility and user engagement",
-    "card2Header": "Product Design",
-    "card2SubHeader": "Transform concepts into user-centric designs that elevate product appeal and usability.",
-    "card3Header": "Software Development",
-    "card3SubHeader": "Deliver scalable, reliable software solutions tailored to project requirements and user needs",
-
-    "row1": "Lead  projects and connect with",
-    "row2": "top industry players at",
-    "btnLable": "Start now"
-  },
-  "forHero": {
-    "buisiness": "For Businesses",
-    "freelancer": "For Freelancers",
-    "manager": "For Managers",
-    "header": "It is time to make the",
-    "header2": "switch.",
-    "description": "Enhance your experience with a wide variety of add-ons and integrations. From essentials to powerful workflows."
-  },
-  "barriers": {
-    "yllaaa": "YLLAAA",
-    "header": "No barriers to success.",
-    "header2": " Just seamless collaboration.",
-    "secureH": "Secure Projects Instantly",
-    "secureP": "Match with projects that align with your expertise and start collaborating in no time.",
-    "rewardH": "Rewarding Opportunities",
-    "rewardP": "Earn more with premium projects designed to help you grow and achieve your goals.",
-    "diveH": "Dive Deep",
-    "diveP": "Grab. virtual or real coffee with your account manager, we listen, we stratigize and we craft a plan that resonate with your business need.",
-    "globalH": "Global Collaboration Made Easy",
-    "globalP": "Work with clients and teams worldwide, foster growth and make impactful results."
-  },
-  "headerFooter": {
-    "home": "Home",
-    "about": "About us",
-    "contact": "Contact us",
-    "forBusiness": "For Business",
-    "forFreelancers": "For Freelancers",
-    "forManagers": "For Managers",
-    "footerText": "LET US POWER YOUR",
-    "text1": "IDEA",
-    "text2": "PROJECT",
-    "text3": "STARTUP",
-    "text4": "VISION",
-    "download": "Download the app",
-    "btn": "GET STARTED"
-  },
-  "contact": {
-    "header": "Contact Us",
-    "subHeader": "Our Team would love to hear from you.",
-    "firstName": "First Name",
-    "firstNameError": "Please Enter Your First Name",
-    "lastName": "Last Name",
-    "lastNameError": "Please Enter Your Last Name",
-    "email": "Please Enter Your Email Address",
-    "emailError": "Please Enter Your Email Address",
-    "invalidEmailError": "Invalid email address",
-    "phone": "Phone Number",
-    "phoneError": "Please Enter Your Phone Number",
-    "message": "Leave A Message",
-    "messageError": "Message is required",
-    "btn": "Send A Message"
+  "community-models": {
+    "actions": {
+      "cancel": "Cancel",
+      "confirm": "Confirm"
+    },
+    "add-new-page": {
+      "newPage": "New Page",
+      "createPage": "Create a new Page",
+      "pageName": "Page Name",
+      "pageDescription": "Page Description",
+      "pageSlug": "Page Slug",
+      "pageAvatar": "Page Avatar",
+      "pageCover": "Page Cover",
+      "pageCategory": "Page Category",
+      "pageTopic": "Page Topic",
+      "category": {
+        "business": "Business",
+        "project": "Project"
+      }
+    },
+    "add-new-group": {
+      "startGroup": "Start a New Group",
+      "bringPeople": "Bring people together with shared interests. Set up your group to create meaningful connections",
+      "groupName": "Group Name",
+      "groupDescription": "Group Description",
+      "groupPrivacy": "Group Privacy",
+      "public": "Public",
+      "private": "Private",
+      "groupTopic": "Group Topic"
+    },
+    "add-new-event": {
+      "hostYourEvent": "Host Your Event",
+      "planAndPromote": "Plan and promote your upcoming event. Share details to help attendees find and join your event",
+      "eventName": "Event Name",
+      "eventDescription": "Event Description",
+      "eventLocation": "Event Location",
+      "eventStartDate": "Event Start Date",
+      "eventEndDate": "Event End Date",
+      "eventCategory": "Event Category",
+      "eventTopic": "Event Topic",
+      "category": {
+        "social": "Social",
+        "volunteering&work": "Volunteering & Work",
+        "talks&workshops": "Talks & Workshops"
+      }
+    }
   }
 }

@@ -8,7 +8,7 @@ import { FieldValues, useForm } from "react-hook-form";
 
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -16,6 +16,7 @@ import footLogo from "@/../public/logo/foot.png";
 import bgImage from "@/../public/auth/dots.png";
 import earthImage from "@/../public/auth/earth.svg";
 function ForgetPassword() {
+  const t = useTranslations('auth.forgetPassword')
   const router = useRouter();
   const locale = useLocale();
   const {
@@ -62,8 +63,8 @@ function ForgetPassword() {
             </div>
             {/* header */}
             <div className={styles.title}>
-              <h5>Forget Password</h5>
-              <p>Write Your Email To Recover Your Password</p>
+              <h5>{t('forgetPassword')}</h5>
+              <p>{t('writeEmail')}</p>
             </div>
           </div>
           <form
@@ -73,30 +74,30 @@ function ForgetPassword() {
             })}
           >
             <label htmlFor="email">
-              Email <span>*</span>
+              {t('email')} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
                 id="email"
                 type="text"
-                placeholder="Email or email"
+                placeholder={t('email')}
                 {...register("email", {
-                  required: { value: true, message: "Email is required" },
+                  required: { value: true, message: t('emailRequired') },
                 })}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
                 className={styles.input}
               />{" "}
               {errors.email && (
-                <p className={styles.errorMessage}>Indentifier is required</p>
+                <p className={styles.errorMessage}>{t('emailRequired')}</p>
               )}
             </div>
 
             <button type="submit" onClick={forgetPassword}>
-              Rest Password
+              {t('resetPassword')}
             </button>
           </form>
           <p className={styles.createAccount}>
-            Have an account? <Link href={`/${locale}/login`}> Login</Link>
+            {t('alreadyHaveAccount')} <Link href={`/${locale}/login`}> {t('login')}</Link>
           </p>
         </div>
         <div className={styles.sideImageContainer}>
@@ -104,11 +105,10 @@ function ForgetPassword() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>Join the Movement for a </h4>
-            <h3>Greener Future</h3>
+            <h4>{t('join')}</h4>
+            <h3>{t('greenerFuture')}</h3>
             <p>
-              Be part of a global community working together to create
-              sustainable solutions for a healthier planet.
+              {t('bePart')}
             </p>
           </div>
           <div className={styles.foots}>

@@ -6,22 +6,24 @@ import tree from "@/../public/whatWeOffer/tree.svg";
 import message from "@/../public/whatWeOffer/message.svg";
 import Image from "next/image";
 import Loading from "@/app/loading";
+import { useTranslations } from "next-intl";
 function WhatWeOffer() {
+  const t = useTranslations('landing.whatWeOffer');
   const cardContent = [
     {
       icon: lock,
-      header: `Data Privacy`,
-      text: "Your data is secure with ethical and transparent choices.",
+      header: t('cards.card1.header'),
+      text: t('cards.card1.text'),
     },
     {
       icon: tree,
-      header: "Organic Internet",
-      text: "authentic connections through meaningful and focused design",
+      header: t('cards.card2.header'),
+      text: t('cards.card2.text'),
     },
     {
       icon: message,
-      header: "Comunication for Impact",
-      text: "Tools to focus on collective well-being and local impact",
+      header: t('cards.card3.header'),
+      text: t('cards.card3.text'),
     },
   ];
   const [loaded, setLoaded] = React.useState(false);
@@ -30,9 +32,9 @@ function WhatWeOffer() {
       <div className={styles.container}>
         {loaded ? (
           <div className={styles.header}>
-            <h5>WHAT WE OFFER</h5>
+            <h5>{t('whatWeOffer')}</h5>
             <h3>
-              How We Make a <span>Difference</span>
+              {t('howWeMake')}<span>{t('difference')}</span>
             </h3>
           </div>
         ) : (

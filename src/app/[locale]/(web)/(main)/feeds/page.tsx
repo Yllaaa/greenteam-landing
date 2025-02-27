@@ -5,7 +5,10 @@ import EventSection from "@/components/platform/posts/Events/EventSection";
 import ArtSection from "@/components/platform/posts/feeds/FeedSection";
 import ProductSection from "@/components/platform/posts/products/ProductSection";
 import SubHeader from "@/components/platform/a-header/SubHeader/SubHeader";
+<<<<<<< HEAD
 import Chat from "@/components/platform/b-Chat/chatBox/ChatBox";
+=======
+>>>>>>> 6eb5f615be5e0d98ae22a9cca4ac3e74a50be5ca
 
 function page() {
   return (
