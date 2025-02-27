@@ -9,7 +9,7 @@ export default function Item({ ...props }: PageItem) {
         <div className={styles.item}>
             <div className={styles.header}>
                 <div className={styles.logo}>
-                    <Image src={logo} alt={props.title} />
+                    <Image src={logo} alt={props.name} />
                 </div>
                 <div className={styles.likes}>{props.likes} Likes</div>
                 <div className={styles.divider}></div>
@@ -18,11 +18,11 @@ export default function Item({ ...props }: PageItem) {
             </div>
             <div className={styles.content}>
                 <div className={styles.text}>
-                    <div className={styles.title}>{props.title}</div>
+                    <div className={styles.title}>{props.name}</div>
                     <div className={styles.description}>{props.description}</div>
                 </div>
                 <div className={styles.img}>
-                    <Image src={props.image} alt={props.title} width={481} height={188} className={styles.img} />
+                    <Image src={props.cover} alt={props.name} width={481} height={188} className={styles.img} />
                 </div>
                 <div className={styles.actions}>
                     <button className={styles.contact}>Contact</button>

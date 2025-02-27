@@ -19,7 +19,7 @@ export function Item({ ...props }: SuggestedFriendsItem) {
                 </div>
                 <div className={styles.text}>
                     <div className={styles.name}>
-                        {props.name}
+                        {props.fullName}
                     </div>
                     <div className={styles.details}>
                         {props.work}

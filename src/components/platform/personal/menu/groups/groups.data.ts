@@ -1,6 +1,9 @@
+import { suggestions } from "@/Utils/backendEndpoints/backend-endpoints";
+import { getRequest } from "@/Utils/backendEndpoints/backend-requests";
+
 export type GroupItem = {
-    logo: string;
-    title: string;
+    cover: string;
+    name: string;
     description: string;
     members: number;
 }
@@ -13,22 +16,6 @@ export function formatNumber(num: number): string {
 }
 
 export async function getGroupItems(): Promise<GroupItem[]> {
-    return [
-        {
-            logo: '/about/aoura.jpeg',
-            title: 'Group 1',
-            description: 'Group Description',
-            members: 10,
-        }, {
-            logo: '/about/aoura.jpeg',
-            title: 'Group 1',
-            description: 'Group Description',
-            members: 10,
-        }, {
-            logo: '/about/aoura.jpeg',
-            title: 'Group 1',
-            description: 'Group Description',
-            members: 10,
-        }
-    ]
+    const { data } = await getRequest(suggestions.groups);
+    return data
 }

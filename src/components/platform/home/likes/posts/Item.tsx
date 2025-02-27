@@ -16,7 +16,7 @@ export default function Item({ ...props }: PostItem) {
                 <div className={styles.text}>
                     <div>
                         <label className={styles.name}>{props.user.name}</label>
-                        <label className={styles.details}>@{props.user.city}.{getPassedTime(props.published)}</label>
+                        <label className={styles.details}>@{props.user.city}.{getPassedTime(props.createdAt)}</label>
                     </div>
                     <div>
                         <label className={styles.title}>{props.title}</label>

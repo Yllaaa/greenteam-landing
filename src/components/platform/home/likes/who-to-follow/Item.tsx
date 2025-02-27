@@ -19,7 +19,7 @@ export default function Item({ ...props }: WhoToFollowItem) {
                     <Image src={props.avatar} alt='' width={56} height={56} />
                 </div>
                 <div className={styles.text}>
-                    <div className={styles.name}>{props.name}</div>
+                    <div className={styles.name}>{props.fullName}</div>
                     <div className={styles.details}>@{props.city}</div>
                 </div>
             </div>

@@ -1,8 +1,6 @@
 export const host = 'http://localhost:9000/api/v1/';
 
 export const users = {
-    howToFollow: `${host}/users/how-to-follow`,
-    suggestedFriends: `${host}/users/suggested-friends`,
     follow: `${host}/users/follow`,
     addFriend: `${host}/users/add-friend`
 }
@@ -24,5 +22,12 @@ export const events = {
 }
 
 export const posts = {
-    likes: `${host}/posts/likes`
+    likedPosts: `${host}/posts/liked-posts`
+}
+
+export const suggestions = {
+    followees: `${host}/suggestions/followees`,
+    friends: `${host}/suggestions/friends`,
+    groups: `${host}/suggestions/groups`,
+    pages: `${host}/suggestions/pages`
 }
