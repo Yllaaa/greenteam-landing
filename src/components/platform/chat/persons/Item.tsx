@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import styles from './persons.module.scss'
 import classNames from 'classnames'
-import { PersonItem } from './persons.data'
+import { PersonItem } from './search/persons.data'
 
 type ItemProps = PersonItem & {
     selected: boolean

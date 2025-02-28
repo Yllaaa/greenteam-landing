@@ -2,7 +2,8 @@
     width: 419;
     height: 514;
     border-width: 1px;
-    padding-top: 32px;
+    padding-top: 16px;
+    padding-left: 10px;
     border-right: 1px solid #4B5669;
     overflow-y: scroll;
 
@@ -83,9 +84,7 @@
                 font-size: 14px;
                 line-height: 16.94px;
                 letter-spacing: 0%;
-                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
-                background-clip: text;
-                color: transparent;
+                color: #006633;
             }
 
             .details {
@@ -94,7 +93,9 @@
                 font-size: 12px;
                 line-height: 14.52px;
                 letter-spacing: -0.4%;
-                color: #FEFEFE;
+                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                background-clip: text;
+                color: transparent;
             }
         }
 
