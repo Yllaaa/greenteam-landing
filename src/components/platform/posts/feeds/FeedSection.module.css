@@ -47,6 +47,7 @@
 .posts {
   display: flex;
   justify-content: flex-start;
+  width: 100%;
   gap: 25px;
   align-items: center;
   overflow: hidden;
@@ -57,7 +58,7 @@
 .postContainer {
   width: 100%;
   height: fit-content;
-  min-height: 743px;
+  min-height: 500px;
   border-radius: 16px;
   -webkit-border-radius: 16px;
   -moz-border-radius: 16px;
