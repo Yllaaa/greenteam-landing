@@ -1,5 +1,6 @@
-import Likes from "@/components/platform/home/likes/Likes";
+'use client'
+import Chat from "@/components/platform/chat/Chat";
 
 export default function Page() {
-    return <Likes />
+    return <Chat />
 }
