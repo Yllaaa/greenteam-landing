@@ -8,8 +8,8 @@ export default function Empty() {
             <div className={styles.icon}>
                 <Image src={inboxIcon} alt="empty" />
             </div>
-            <div className={styles.title}>No messages yet</div>
-            <div className={styles.details}>Send a message to start a conversation</div>
+            <div className={styles.title}>Your messages</div>
+            <div className={styles.details}>Select a person to display their chat or start a new conversation.</div>
         </div>
     )
 }
