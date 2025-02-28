@@ -6,7 +6,7 @@ import Image from "next/image";
 import bgImage from "@/../public/auth/dots.png";
 import message from "@/../public/auth/message.svg";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import axios from "axios";
@@ -14,6 +14,7 @@ import { setUserLoginData } from "@/store/features/login/userLoginSlice";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function Verification() {
+  const t = useTranslations('auth.verification');
   const params = useSearchParams();
   // console.log(params.get("key"));
   const dispatch = useAppDispatch();
@@ -46,15 +47,14 @@ function Verification() {
             <Image src={message} alt="message" />
           </div>
           <div className={styles.text}>
-            <h3>Hi! {newUser.user?.username}</h3>
-            <h4>We’ve sent a verification link to your email.</h4>
+            <h3>{t('hi')} {newUser.user?.username}</h3>
+            <h4>{t('weSent')}</h4>
             <p>
-              Didn’t receive the email? Check your spam folder or contact our
-              support team for assistance
+              {t("didn'tReceive")}
             </p>
           </div>
           <div className={styles.btn}>
-            <Link href={`/${locale}/login`}>Verify Email</Link>
+            <Link href={`/${locale}/login`}>{t("verityEmail")}</Link>
           </div>
         </div>
       </div>

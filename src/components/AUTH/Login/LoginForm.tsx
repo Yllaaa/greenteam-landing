@@ -15,7 +15,7 @@ import bgImage from "@/../public/auth/dots.png";
 import feet from "@/../public/auth/foots.svg";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
@@ -25,6 +25,7 @@ import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setUserLoginData } from "@/store/features/login/userLoginSlice";
 import https from "https";
 function LoginForm() {
+  const t = useTranslations('auth.login')
   const router = useRouter();
   const locale = useLocale();
 
@@ -63,8 +64,8 @@ function LoginForm() {
   //   };
   const login = () => {
     if (!selectedOption) {
-      setSelectedOptionError("Please accept terms and conditions");
-      ToastNot("Please accept terms and conditions");
+      setSelectedOptionError(t('pleaseAccept'));
+      ToastNot(t('pleaseAccept'));
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
@@ -92,7 +93,7 @@ function LoginForm() {
           console.log(response);
           localStorage.setItem("user", JSON.stringify(response.data));
           dispatch(setUserLoginData(response.data));
-          ToastNot("Login successful");
+          ToastNot(t('loginSuccess'));
           setTimeout(() => {
             router.replace(`/${locale}/feeds`);
           }, 3000);
@@ -101,7 +102,7 @@ function LoginForm() {
           if (error.response.data) {
             ToastNot(error.response.data.message);
           } else {
-            ToastNot("Login failed");
+            ToastNot(t('loginFailed'));
           }
         });
     } catch (error) {
@@ -127,8 +128,8 @@ function LoginForm() {
             </div>
             {/* header */}
             <div className={styles.title}>
-              <h5>Login</h5>
-              <p>Sign in now and unlock exclusive access!</p>
+              <h5>{t("login")}</h5>
+              <p>{t('signInNow')}</p>
             </div>
             {/* icons */}
             <div className={styles.icons}>
@@ -142,7 +143,7 @@ function LoginForm() {
             {/* secerate line */}
             <div className={styles.line}>
               <div className={styles.lineBefore}></div>
-              <p>OR</p>
+              <p>{t('or')}</p>
               <div className={styles.lineAfter}></div>
             </div>
           </div>
@@ -154,7 +155,7 @@ function LoginForm() {
           >
             <p className={styles.errorMessage}>{newUserSignup.message}</p>
             <label htmlFor="identifier">
-              Name <span>*</span>
+              {t('name')} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
@@ -168,10 +169,10 @@ function LoginForm() {
                 placeholder={
                   newUserSignup.user
                     ? newUserSignup.user.email
-                    : "Email or Username"
+                    : t('emailOrUsername')
                 }
                 {...register("identifier", {
-                  required: { value: true, message: "Email is required" },
+                  required: { value: true, message: t('emailRequired') },
                 })}
                 onChange={(e) =>
                   setData({ ...data, identifier: e.target.value })
@@ -179,16 +180,16 @@ function LoginForm() {
                 className={styles.input}
               />{" "}
               {errors.identifier && (
-                <p className={styles.errorMessage}>Indentifier is required</p>
+                <p className={styles.errorMessage}>{t('identifierRequired')}</p>
               )}
             </div>
-            <label htmlFor="password">password</label>
+            <label htmlFor="password">{t('password')}</label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder="password"
+                  placeholder={t('password')}
                   {...register("password", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
@@ -199,7 +200,7 @@ function LoginForm() {
                 </div>
               </div>
               {errors.password && (
-                <p className={styles.errorMessage}>Check password field</p>
+                <p className={styles.errorMessage}>{t('checkPassword')}</p>
               )}
             </div>
             <div className={styles.agreeSectionContainer}>
@@ -229,13 +230,13 @@ function LoginForm() {
                     />
                   </div>
                   <p>
-                    I agree to the{" "}
-                    <Link href={"service"}>terms of services</Link>
+                    {t('IAgree')}{" "}
+                    <Link href={"service"}>{t('termsOfService')}</Link>
                   </p>
                 </div>
                 <div className={styles.forgetPassword}>
                   <Link href={`/${locale}/forget-password`}>
-                    Forget Password?
+                    {t('forgetPassword')}
                   </Link>
                 </div>
               </div>
@@ -245,14 +246,14 @@ function LoginForm() {
             </div>
 
             <button type="submit" onClick={login}>
-              login
+              {t('login')}
             </button>
           </form>
           <p className={styles.createAccount}>
-            Don’t have an account?{" "}
+            {t("don'tHaveAccount")}{" "}
             <Link href={`/${locale}/register`} replace>
               {" "}
-              SignUp
+              {t('signUp')}
             </Link>
           </p>
         </div>
@@ -261,11 +262,10 @@ function LoginForm() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>Welcome Back to</h4>
-            <h3>Sustainability</h3>
+            <h4>{t('welcomeBack')}</h4>
+            <h3>{t('sustainability')}</h3>
             <p>
-              Reconnect with the community making meaningful changes for our
-              world.
+              {t('reconnect')}
             </p>
           </div>
           <div className={styles.foots}>

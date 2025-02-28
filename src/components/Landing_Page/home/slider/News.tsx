@@ -6,8 +6,10 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 
 function News() {
+  const t = useTranslations('landing.news');
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = React.useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -36,27 +38,25 @@ function News() {
         <div className={styles.card}>
           <div className={styles.img}></div>
           <div className={styles.title}>
-            <h5>Technoligy</h5>
+            <h5>{t('technology')}</h5>
           </div>
           <div className={styles.context}>
             <h5>
-              Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit
+              {t('ultimate')}
             </h5>
           </div>
           <div className={styles.text}>
             <h5>
-              AI won’t replace designers, but designers who use AI will replace
-              those who don’t. Similar to how calculators were once thought to
-              replace
+              {t('AIWont')}
             </h5>
           </div>
           <div className={styles.cardFooter}>
             <div className={styles.user}>
               <div className={styles.img}></div>
-              <div className={styles.name}>Hannah</div>
+              <div className={styles.name}>{t('hannah')}</div>
             </div>
             <div className={styles.readMore}>
-              <Link href={""}>Read More</Link>
+              <Link href={""}>{t('readMore')}</Link>
               <FaArrowRight />
             </div>
           </div>
@@ -70,8 +70,8 @@ function News() {
       <div className={styles.container}>
         <div className={styles.newsHeader}>
           <div className={styles.title}>
-            <h5>NEWS</h5>
-            <h3>SEE GREENTEAM NEWS AND BLOGS</h3>
+            <h5>{t('news')}</h5>
+            <h3>{t('seeGreenTeam')}</h3>
           </div>
           <div className={styles.arrows}>
             {loaded && instanceRef.current && (

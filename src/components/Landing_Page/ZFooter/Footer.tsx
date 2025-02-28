@@ -6,11 +6,12 @@ import googlePlay from "@/../public/footer/playStore.svg";
 import mockup from "@/../public/footer/mockup.png";
 import Image from "next/image";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import logo from "@/../public/logo/fullLogo.png";
 import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
 function Footer() {
+  const t = useTranslations('landing.footer');
   const locale = useLocale();
 
   const [imageLoaded, setImageLoaded] = React.useState(false);
@@ -21,9 +22,9 @@ function Footer() {
         <div className={styles.containerTop}>
           <div className={styles.containerTopActionsText}>
             <h2>
-              THE CONSCIENT SOCIAL NET. <span>GREENTEAM</span>
+              {t('theConscient')} <span>{t('greenTeam')}</span>
             </h2>
-            <p>Take care of yourself, take care of the world.</p>
+            <p>{t('takeCare')}</p>
           </div>
           <div className={styles.containerTopActionsBtns}>
             <div className={styles.store}>
@@ -33,7 +34,7 @@ function Footer() {
               <Image src={googlePlay} alt="App Store" loading="lazy" />
             </div>
             <div className={styles.link}>
-              <Link href={`/${locale}/register`}>Register Now</Link>
+              <Link href={`/${locale}/register`}>{t('registerNow')}</Link>
             </div>
           </div>
           {!imageLoaded && (
@@ -56,14 +57,14 @@ function Footer() {
           </div>
           <div className={styles.containerBottomNavigation}>
             <Link className={styles.link} href={`/${locale}/about`}>
-              <span>About us</span>
+              <span>{t('aboutUs')}</span>
             </Link>
             <Link className={styles.link} href={`/${locale}/goal`}>
-              Goal
+              {t('goal')}
             </Link>
-            <button className={styles.link}>Download Now</button>
+            <button className={styles.link}>{t('downloadNow')}</button>
             <Link className={styles.link} href={`/${locale}/register`}>
-              Register
+              {t('register')}
             </Link>
           </div>
           <div className={styles.containerBottomSocial}>
@@ -78,7 +79,7 @@ function Footer() {
             </div>
           </div>
           <div className={styles.containerBottomCopyright}>
-            <p>© Copyright 2024, All Rights Reserved by Greenteam</p>
+            <p>{t('copyright')}</p>
           </div>
         </div>
       </div>

@@ -7,8 +7,10 @@ import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentCommunity } from "@/store/features/communitySection/currentCommunity";
 import rockBall from "@/../public/ZPLATFORM/community/hagar.png";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 function BallHeader() {
+  const t = useTranslations('web.main.community')
   const { currentCommunity } = useAppSelector(
     (state) => state.currentCommunity
   );
@@ -39,7 +41,7 @@ function BallHeader() {
               style={currentCommunity === "pages" ? { opacity: 1 } : {}}
               className={styles.pageText}
             >
-              <p>pages</p>
+              <p>{t('pages')}</p>
             </div>
           </div>
           {/*  */}
@@ -57,7 +59,7 @@ function BallHeader() {
               style={currentCommunity === "groups" ? { opacity: 1 } : {}}
               className={styles.groupText}
             >
-              <p>groups</p>
+              <p>{t('groups')}</p>
             </div>
           </div>
           {/*  */}
@@ -76,7 +78,7 @@ function BallHeader() {
               style={currentCommunity === "events" ? { opacity: 1 } : {}}
               className={styles.eventsText}
             >
-              <p>events</p>
+              <p>{t('events')}</p>
             </div>
           </div>
           {/*  */}
@@ -95,7 +97,7 @@ function BallHeader() {
               style={currentCommunity === "products" ? { opacity: 1 } : {}}
               className={styles.productsText}
             >
-              <p>products</p>
+              <p>{t('products')}</p>
             </div>
           </div>
           {/*  */}

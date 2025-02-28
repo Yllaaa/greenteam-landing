@@ -1,0 +1,118 @@
+$min-width: 1024px;
+
+.groupsContainer {
+    @media (min-width: $min-width) {
+        width: 100%;
+        overflow-x: scroll;
+        margin-bottom: 16px;
+
+        &::-webkit-scrollbar {
+            height: 10px;
+            width: 0;
+
+            &-track {
+                background-color: transparent;
+                border-radius: 10px;
+            }
+
+            &-thumb {
+                background-color: #307040;
+                border-radius: 10px;
+
+                &:hover {
+                    background-color: #74B243;
+                }
+            }
+        }
+    }
+
+    .groups {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+
+        @media (min-width: $min-width) {
+            flex-direction: row;
+            width: fit-content;
+            margin-bottom: 16px;
+        }
+
+        .item {
+            height: 299;
+            border-radius: 30px;
+            background: #333634;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            align-items: stretch;
+
+            @media (min-width: $min-width) {
+                width: 637;
+            }
+
+            .logo {
+                width: 100%;
+                height: 135;
+                border-top-left-radius: 30px;
+                border-top-right-radius: 30px;
+            }
+
+            .content {
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+                align-items: stretch;
+                padding: 0 16px;
+
+                .title {
+                    height: 18;
+                    font-family: Montserrat;
+                    font-weight: 600;
+                    font-size: 15px;
+                    line-height: 18.29px;
+                    letter-spacing: 0%;
+                    text-decoration: underline;
+                    text-decoration-style: solid;
+                    text-decoration-thickness: Auto;
+                    color: #FEFEFE;
+                }
+
+                .description {
+                    height: 31;
+                    font-family: Montserrat;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 16px;
+                    letter-spacing: 0%;
+                    color: #FEFEFEB2;
+                }
+
+                .members {
+                    width: 569;
+                    height: 15;
+                    font-family: Montserrat;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 14.63px;
+                    letter-spacing: 0%;
+                    color: #97B00F;
+                }
+
+                .action {
+                    height: 35;
+                    border-radius: 30px;
+                    background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                    font-family: Montserrat;
+                    font-weight: 600;
+                    font-size: 10px;
+                    line-height: 16px;
+                    letter-spacing: 0%;
+                    color: #FEFEFEFE;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                }
+            }
+        }
+    }
+}

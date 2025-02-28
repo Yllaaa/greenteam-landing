@@ -1,0 +1,40 @@
+.notifications {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    .item {
+        height: 128;
+        border-radius: 30px;
+        background: #1A1E1C;
+        display: flex;
+        gap: 10px;
+        padding: 27px 0 0 44px;
+
+        .logo {
+            width: 56;
+            height: 56;
+            border-radius: 100px;
+        }
+
+        .text {
+            .title {
+                font-family: Montserrat;
+                font-weight: 600;
+                font-size: 20px;
+                line-height: 24.38px;
+                letter-spacing: -0.4%;
+                color: #FEFEFE;
+            }
+
+            .description {
+                font-family: Montserrat;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 19.5px;
+                letter-spacing: -0.4%;
+                color: #FEFEFEB2;
+            }
+        }
+    }
+}
