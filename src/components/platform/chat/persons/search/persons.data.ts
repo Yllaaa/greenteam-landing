@@ -31,3 +31,8 @@ export async function getPersons(): Promise<PersonItem[]> {
         }
     ]
 }
+
+export function filterPersons(persons: PersonItem[], query: string): PersonItem[] {
+    if(query === '') return persons
+    return persons.filter((p) => p.name.toLowerCase().includes(query.toLowerCase()))
+}
