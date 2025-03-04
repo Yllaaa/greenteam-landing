@@ -1,0 +1,33 @@
+.chat {
+    width: 1370;
+    height: 581;
+    border-radius: 8px;
+    border-width: 1px;
+    background: #141414;
+
+
+    .header {
+        font-family: Inter;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 19.36px;
+        letter-spacing: 0%;
+        background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+        background-clip: text;
+        color: transparent;
+        padding: 24px 32px;
+        border-bottom: 1px solid #4B5669;
+    }
+
+    .content {
+        display: flex;
+
+        .messagesView {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            flex-grow: 1;
+        }
+    }
+
+}

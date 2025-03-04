@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useEffect, useState } from "react";
 import styles from "./categories.module.css";
@@ -9,10 +10,161 @@ import eco from "@/../public/ZPLATFORM/categories/eco.svg";
 import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
-import ReactECharts from "echarts-for-react";
+// import ReactECharts from "echarts-for-react";
 
 function Categories() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // const topics = [
+  //   {
+  //     id: 1,
+  //     name: "Food and health",
+  //     subtopics: [
+  //       {
+  //         id: 7,
+  //         name: "Cultivate",
+  //       },
+  //       {
+  //         id: 8,
+  //         name: "Cook",
+  //       },
+  //       {
+  //         id: 9,
+  //         name: "Keep",
+  //       },
+  //       {
+  //         id: 10,
+  //         name: "Natural Medicine",
+  //       },
+  //       {
+  //         id: 11,
+  //         name: "Nutrition",
+  //       },
+  //       {
+  //         id: 12,
+  //         name: "Hygiene",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "Knowledge and values",
+  //     subtopics: [
+  //       {
+  //         id: 13,
+  //         name: "Philosophy",
+  //       },
+  //       {
+  //         id: 14,
+  //         name: "Astronomy",
+  //       },
+  //       {
+  //         id: 15,
+  //         name: "Biology",
+  //       },
+  //       {
+  //         id: 16,
+  //         name: "Geology",
+  //       },
+  //       {
+  //         id: 17,
+  //         name: "History",
+  //       },
+  //       {
+  //         id: 18,
+  //         name: "Psychology",
+  //       },
+  //       {
+  //         id: 19,
+  //         name: "Culture",
+  //       },
+  //       {
+  //         id: 20,
+  //         name: "Others",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "Physical and mental exercise",
+  //     subtopics: [
+  //       {
+  //         id: 21,
+  //         name: "Sports and games",
+  //       },
+  //       {
+  //         id: 22,
+  //         name: "Active meditation",
+  //       },
+  //       {
+  //         id: 23,
+  //         name: "Passive meditation",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     name: "Community and Nature",
+  //     subtopics: [
+  //       {
+  //         id: 24,
+  //         name: "Together",
+  //       },
+  //       {
+  //         id: 25,
+  //         name: "Nature",
+  //       },
+  //       {
+  //         id: 26,
+  //         name: "Volunteering",
+  //       },
+  //       {
+  //         id: 27,
+  //         name: "Ecotourism",
+  //       },
+  //       {
+  //         id: 28,
+  //         name: "Notifications",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 5,
+  //     name: "Art",
+  //     subtopics: [
+  //       {
+  //         id: 29,
+  //         name: "Crafts",
+  //       },
+  //       {
+  //         id: 30,
+  //         name: "Music",
+  //       },
+  //       {
+  //         id: 31,
+  //         name: "Show",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 6,
+  //     name: "Ecotechnics and bioconstruction",
+  //     subtopics: [
+  //       {
+  //         id: 32,
+  //         name: "EcoDesign / Permaculture",
+  //       },
+  //       {
+  //         id: 33,
+  //         name: "Water and energy",
+  //       },
+  //       {
+  //         id: 34,
+  //         name: "Durable tools",
+  //       },
+  //     ],
+  //   },
+  // ];
   const [selectedCategory, setSelectedCategory] = useState<
     | keyof typeof subCategories
     | "community"
@@ -33,45 +185,45 @@ function Categories() {
   };
 
   // echart modal
-  const option = {
-    title: {
-      text: "Referrer of a Website",
-      subtext: "Fake Data",
-      left: "center",
-    },
-    tooltip: {
-      trigger: "item",
-    },
-    legend: {
-      orient: "vertical",
-      left: "left",
-    },
-    series: [
-      {
-        name: "Referrer",
-        type: "pie",
-        radius: "50%",
-        color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#749f83"],
+  // const option = {
+  //   title: {
+  //     text: "Referrer of a Website",
+  //     subtext: "Fake Data",
+  //     left: "center",
+  //   },
+  //   tooltip: {
+  //     trigger: "item",
+  //   },
+  //   legend: {
+  //     orient: "vertical",
+  //     left: "left",
+  //   },
+  //   series: [
+  //     {
+  //       name: "Referrer",
+  //       type: "pie",
+  //       radius: "50%",
+  //       color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#749f83"],
 
-        data:
-          selectedCategory !== undefined
-            ? subCategories[selectedCategory].map((item, index) => ({
-                value: subCategories[selectedCategory].length - index,
-                name: item,
-              }))
-            : [],
+  //       data:
+  //         selectedCategory !== undefined
+  //           ? subCategories[selectedCategory].map((item, index) => ({
+  //               value: subCategories[selectedCategory].length - index,
+  //               name: item,
+  //             }))
+  //           : [],
 
-        emphasis: {
-          itemStyle: {
-            shadowBlur: 10,
-            shadowOffsetX: 0,
-            shadowColor: "rgba(0, 0, 0, 0.5)",
-          },
-        },
-      },
-    ],
-  };
-  //   const { community, food, eco, know, art, physical } = values;
+  //       emphasis: {
+  //         itemStyle: {
+  //           shadowBlur: 10,
+  //           shadowOffsetX: 0,
+  //           shadowColor: "rgba(0, 0, 0, 0.5)",
+  //         },
+  //       },
+  //     },
+  //   ],
+  // };
+  // const { community, food, eco, know, art, physical } = values;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
   const handleCategoryClick = (category: keyof typeof subCategories) => {
@@ -141,7 +293,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("community")}
             className={`${styles.label} ${styles.top1}`}
-            // style={{ top: "5%", left: "50%", zIndex: 10055 }}
           >
             <Image src={community} alt="community" />
             {/* Community and Nature */}
@@ -149,7 +300,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("food")}
             className={`${styles.label} ${styles.top2}`}
-            // style={{ top: "25%", left: "85%" }}
           >
             <Image src={food} alt="food" />
             {/* Food and Health */}
@@ -157,7 +307,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("eco")}
             className={`${styles.label} ${styles.top3}`}
-            // style={{ top: "78%", left: "83%" }}
           >
             <Image src={eco} alt="eco" />
             {/* Ecotechnics */}
@@ -165,7 +314,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("know")}
             className={`${styles.label} ${styles.top4}`}
-            // style={{ top: "95%", left: "50%" }}
           >
             <Image src={know} alt="know" />
             {/* Knowledge and values */}
@@ -173,7 +321,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("art")}
             className={`${styles.label} ${styles.top5}`}
-            // style={{ top: "78%", left: "12%" }}
           >
             <Image src={art} alt="art" />
             {/* Art and Shows */}
@@ -181,7 +328,6 @@ function Categories() {
           <span
             onClick={() => handleCategoryClick("physical")}
             className={`${styles.label} ${styles.top6}`}
-            // style={{ top: "25%", left: "12%" }}
           >
             <Image src={physical} alt="physical" />
             {/* Physical and mental */}
@@ -198,12 +344,63 @@ function Categories() {
 
             <div className={styles.subCategories}>
               <h2>{selectedCategory.toUpperCase()}</h2>
-              <div>
+              {/* <div>
                 <ReactECharts
-                
                   option={option}
                   style={{ height: 400, width: "100%" }}
                 />
+              </div> */}
+              <div style={{ zIndex: 11 }} className={styles.chart}>
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                  <polygon points={points} className={styles.filledArea} />
+                </svg>
+              </div>
+              <div style={{ zIndex: 10 }} className={styles.diamondShape}>
+                <Image src={diamond} alt="diamond" />
+              </div>
+              <div style={{ zIndex: 1000 }} className={styles.labels}>
+                <span
+                  onClick={() => handleCategoryClick("community")}
+                  className={`${styles.label} ${styles.top1}`}
+                >
+                  <Image src={community} alt="community" />
+                  {/* Community and Nature */}
+                </span>
+                <span
+                  onClick={() => handleCategoryClick("food")}
+                  className={`${styles.label} ${styles.top2}`}
+                >
+                  <Image src={food} alt="food" />
+                  {/* Food and Health */}
+                </span>
+                <span
+                  onClick={() => handleCategoryClick("eco")}
+                  className={`${styles.label} ${styles.top3}`}
+                >
+                  <Image src={eco} alt="eco" />
+                  {/* Ecotechnics */}
+                </span>
+                <span
+                  onClick={() => handleCategoryClick("know")}
+                  className={`${styles.label} ${styles.top4}`}
+                >
+                  <Image src={know} alt="know" />
+                  {/* Knowledge and values */}
+                </span>
+                <span
+                  onClick={() => handleCategoryClick("art")}
+                  className={`${styles.label} ${styles.top5}`}
+                >
+                  <Image src={art} alt="art" />
+                  {/* Art and Shows */}
+                </span>
+                <span
+                  onClick={() => handleCategoryClick("physical")}
+                  className={`${styles.label} ${styles.top6}`}
+                >
+                  <Image src={physical} alt="physical" />
+                  {/* Physical and mental */}
+                </span>
               </div>
             </div>
           </div>
@@ -214,313 +411,3 @@ function Categories() {
 }
 
 export default Categories;
-
-/* <div className={styles.modalDiamond}>
-              <Image src={diamond} alt="diamond" priority />
-            </div> */
-
-/* {subCategories[selectedCategory].map((subCategory, index) => (
-                  <div key={index} className={styles.sub}>
-                    <p style={{ top: "80%", left: `${index * 15 + 5}%` }}>{subCategory}</p>
-                  </div>
-                ))} */
-
-/* {subCategories[selectedCategory].length === 2 ? (
-                  <>
-                    <div style={{ zIndex: 11 }} className={styles.chart}>
-                      <svg
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polygon
-                          points={points2}
-                          className={styles.filledArea}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p style={{ top: "22%", left: "47%" }}>
-                        {subCategories[selectedCategory][0]}
-                      </p>
-                      <p style={{ top: "75%", left: "47%" }}>
-                        {subCategories[selectedCategory][1]}
-                      </p>
-                    </div>
-                  </>
-                ) : subCategories[selectedCategory].length === 3 ? (
-                  <>
-                    <div style={{ zIndex: 11 }} className={styles.chart}>
-                      <svg
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polygon
-                          points={points3}
-                          className={styles.filledArea}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p style={{ top: "22%", left: "47%" }}>
-                        {subCategories[selectedCategory][0]}
-                      </p>
-                      <p style={{ top: "60%", left: "25%" }}>
-                        {subCategories[selectedCategory][1]}
-                      </p>
-                      <p style={{ top: "60%", left: "70%" }}>
-                        {subCategories[selectedCategory][2]}
-                      </p>
-                    </div>
-                  </>
-                ) : subCategories[selectedCategory].length === 4 ? (
-                  <>
-                    <div style={{ zIndex: 11 }} className={styles.chart}>
-                      <svg
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polygon
-                          points={points4}
-                          className={styles.filledArea}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p style={{ top: "40%", left: "10%" }}>
-                        {subCategories[selectedCategory][0]}
-                      </p>
-                      <p style={{ top: "40%", left: "80%" }}>
-                        {subCategories[selectedCategory][1]}
-                      </p>
-                      <p style={{ top: "60%", left: "10%" }}>
-                        {subCategories[selectedCategory][2]}
-                      </p>
-                      <p style={{ top: "60%", left: "80%" }}>
-                        {subCategories[selectedCategory][3]}
-                      </p>
-                    </div>
-                  </>
-                ) : subCategories[selectedCategory].length === 5 ? (
-                  <>
-                    <div style={{ zIndex: 11 }} className={styles.chart}>
-                      <svg
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polygon
-                          points={points5}
-                          className={styles.filledArea}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p style={{ top: "22%", left: "47%" }}>
-                        {subCategories[selectedCategory][0]}
-                      </p>
-                      <p style={{ top: "37%", left: "25%" }}>
-                        {subCategories[selectedCategory][1]}
-                      </p>
-                      <p style={{ top: "37%", left: "70%" }}>
-                        {subCategories[selectedCategory][2]}
-                      </p>
-                      <p style={{ top: "60%", left: "70%" }}>
-                        {subCategories[selectedCategory][3]}
-                      </p>
-                      <p style={{ top: "60%", left: "25%" }}>
-                        {subCategories[selectedCategory][4]}
-                      </p>
-                    </div>
-                  </>
-                ) : subCategories[selectedCategory].length === 6 ? (
-                  <>
-                    <div style={{ zIndex: 11 }} className={styles.chart}>
-                      <svg
-                        viewBox="0 0 100 100"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <polygon
-                          points={points6}
-                          className={styles.filledArea}
-                        />
-                      </svg>
-                    </div>
-                    <div>
-                      <p style={{ top: "22%", left: "47%" }}>
-                        {subCategories[selectedCategory][0]}
-                      </p>
-                      <p style={{ top: "37%", left: "25%" }}>
-                        {subCategories[selectedCategory][1]}
-                      </p>
-                      <p style={{ top: "37%", left: "70%" }}>
-                        {subCategories[selectedCategory][2]}
-                      </p>
-                      <p style={{ top: "60%", left: "25%" }}>
-                        {subCategories[selectedCategory][3]}
-                      </p>
-                      <p style={{ top: "60%", left: "70%" }}>
-                        {subCategories[selectedCategory][4]}
-                      </p>
-                      <p style={{ top: "75%", left: "47%" }}>
-                        {subCategories[selectedCategory][5]}
-                      </p>
-                    </div>
-                  </>
-                ) : null} */
-
-// "use client";
-// import React, { useState } from "react";
-// import styles from "./categories.module.css";
-// import Image from "next/image";
-// import diamond from "@/../public/ZPLATFORM/categories/diamond.svg";
-// import communityIcon from "@/../public/ZPLATFORM/categories/community.svg";
-// import artIcon from "@/../public/ZPLATFORM/categories/art.svg";
-// import ecoIcon from "@/../public/ZPLATFORM/categories/eco.svg";
-// import foodIcon from "@/../public/ZPLATFORM/categories/food.svg";
-// import knowIcon from "@/../public/ZPLATFORM/categories/know.svg";
-// import physicalIcon from "@/../public/ZPLATFORM/categories/physical.svg";
-
-// type Props = {
-//   values?: {
-//     community?: number;
-//     food?: number;
-//     eco?: number;
-//     know?: number;
-//     art?: number;
-//     physical?: number;
-//   };
-// };
-
-// // Subcategories for each category
-// const subCategories = {
-//   community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
-//   food: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
-//   eco: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
-//   know: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
-//   art: ["Sub 1", "Sub 2", "Sub 3"],
-//   physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
-// };
-
-// function Categories({ values }: Props) {
-//   const { community = 0, food = 0, eco = 0, know = 0, art = 0, physical = 0 } = values || {};
-
-//   const [isModalOpen, setIsModalOpen] = useState(false);
-//   const [selectedCategory, setSelectedCategory] = useState<keyof typeof subCategories | null>(null);
-
-//   const HEX_RADIUS = 43;
-
-//   const getPoint = (value: number, angle: number) => {
-//     const radius = (value / 100) * HEX_RADIUS;
-//     const radian = (angle - 90) * (Math.PI / 180);
-//     const x = 50 + radius * Math.cos(radian);
-//     const y = 50 + radius * Math.sin(radian);
-//     return `${x},${y}`;
-//   };
-
-//   const points = [
-//     getPoint(community, 0),
-//     getPoint(food, 60),
-//     getPoint(eco, 120),
-//     getPoint(know, 180),
-//     getPoint(art, 240),
-//     getPoint(physical, 300),
-//   ].join(" ");
-
-//   const handleCategoryClick = (category: keyof typeof subCategories) => {
-//     setSelectedCategory(category);
-//     setIsModalOpen(true);
-//   };
-
-//   const closeModal = () => {
-//     setIsModalOpen(false);
-//     setSelectedCategory(null);
-//   };
-
-//   return (
-//     <>
-//       <div className={styles.container}>
-//         <div className={`${styles.chart} ${styles.centerAbsolute}`}>
-//           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hexagonal chart">
-//             <polygon points={points} className={styles.filledArea} />
-//           </svg>
-//         </div>
-//         <div className={`${styles.diamondShape} ${styles.centerAbsolute}`}>
-//           <Image src={diamond} alt="diamond" priority />
-//         </div>
-//         <div className={`${styles.labels} ${styles.centerAbsolute}`}>
-//           <span
-//             className={styles.label}
-//             style={{ top: "5%", left: "50%" }}
-//             onClick={() => handleCategoryClick("community")}
-//           >
-//             <Image src={communityIcon} alt="community" />
-//             Community and Nature
-//           </span>
-//           <span
-//             className={styles.label}
-//             style={{ top: "20%", left: "85%" }}
-//             onClick={() => handleCategoryClick("food")}
-//           >
-//             <Image src={foodIcon} alt="food" />
-//             Food and Health
-//           </span>
-//           <span
-//             className={styles.label}
-//             style={{ top: "75%", left: "85%" }}
-//             onClick={() => handleCategoryClick("eco")}
-//           >
-//             <Image src={ecoIcon} alt="eco" />
-//             Ecotechnics
-//           </span>
-//           <span
-//             className={styles.label}
-//             style={{ top: "95%", left: "50%" }}
-//             onClick={() => handleCategoryClick("know")}
-//           >
-//             <Image src={knowIcon} alt="know" />
-//             Knowledge and values
-//           </span>
-//           <span
-//             className={styles.label}
-//             style={{ top: "75%", left: "10%" }}
-//             onClick={() => handleCategoryClick("art")}
-//           >
-//             <Image src={artIcon} alt="art" />
-//             Art and Shows
-//           </span>
-//           <span
-//             className={styles.label}
-//             style={{ top: "20%", left: "10%" }}
-//             onClick={() => handleCategoryClick("physical")}
-//           >
-//             <Image src={physicalIcon} alt="physical" />
-//             Physical and mental
-//           </span>
-//         </div>
-//       </div>
-
-//       {/* Modal */}
-//       {isModalOpen && selectedCategory && (
-//         <div className={styles.modal}>
-//           <div className={styles.modalContent}>
-//             <button className={styles.closeButton} onClick={closeModal}>
-//               &times;
-//             </button>
-//             <div className={styles.modalDiamond}>
-//               <Image src={diamond} alt="diamond" priority />
-//             </div>
-//             <div className={styles.subCategories}>
-//               <h2>{selectedCategory.toUpperCase()}</h2>
-//               <ul>
-//                 {subCategories[selectedCategory].map((sub, index) => (
-//                   <li key={index}>{sub}</li>
-//                 ))}
-//               </ul>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </>
-//   );
-// }
-
-// export default Categories;

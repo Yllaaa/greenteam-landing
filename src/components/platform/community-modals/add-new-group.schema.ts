@@ -1,5 +1,5 @@
 import { groups } from "@/Utils/backendEndpoints/backend-endpoints";
-import axios from "axios";
+import { postRequest } from "@/Utils/backendEndpoints/backend-requests";
 import * as yup from "yup";
 
 export const addNewGroupSchema = yup.object().shape({
@@ -10,5 +10,5 @@ export const addNewGroupSchema = yup.object().shape({
 });
 
 export const postGroup = async (groupData: yup.InferType<typeof addNewGroupSchema>) => {
-    axios.post(groups.create, groupData)
+    return await postRequest(groups.create, groupData)
 }

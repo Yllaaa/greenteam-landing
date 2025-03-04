@@ -11,7 +11,7 @@ function page() {
           <Forums />
         </div>
         <div className={styles.addNew}>
-          <AddNew />
+          <AddNew/>
         </div>
       </div>
     </>
