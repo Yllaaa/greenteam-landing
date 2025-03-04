@@ -1,0 +1,117 @@
+.header {
+  display: flex;
+  position: relative;
+  padding: 0px 30px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, min-content);
+}
+.header .title {
+  grid-column: 1 / 6;
+  justify-self: flex-start;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29.26px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.header .title h3 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 16px;
+}
+.filterSection {
+  grid-column: 6 / 13;
+  justify-self: flex-start;
+
+  width: fit-content;
+}
+.filterSection ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  list-style: none;
+}
+.filterSection ul li {
+  text-transform: capitalize;
+  cursor: pointer;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 33.6px;
+  letter-spacing: 1%;
+}
+
+@media screen and (max-width: 1270px) {
+  .header {
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, min-content);
+    row-gap: 10px;
+  }
+  .header .title {
+    grid-column: 1 / 13;
+    grid-row: 1 / 2;
+    font-size: 16px;
+    line-height: 20.26px;
+    text-align: left;
+    align-items: center;
+  }
+  .header .title h3 {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+  }
+  .header .title .titleIcon {
+    width: 25px;
+  }
+  .filterSection {
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+    width: 100%;
+    overflow-x: auto;
+    scrollbar-width: none;
+    justify-self: flex-start;
+  }
+  .filterSection ul {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    list-style: none;
+  }
+  .filterSection ul li {
+    font-size: 14px;
+    line-height: 20.6px;
+    text-wrap: nowrap;
+  }
+  .filterTopics {
+    grid-column: 8 / 13;
+  }
+  .filterTopics .topicsBtn {
+    font-size: 14px;
+    line-height: 20.6px;
+  }
+  .filterTopics .topicsList {
+    position: absolute;
+    background: #1b201c;
+    width: fit-content;
+    top: 100%;
+    right: 0%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 100;
+    height: 200px;
+    overflow-y: auto;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+  }
+}

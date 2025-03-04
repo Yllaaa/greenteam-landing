@@ -8,6 +8,7 @@ import styles from "./PostForum.module.css";
 import { useForm } from "react-hook-form";
 import { MdOutlineFilterList } from "react-icons/md";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { getToken } from "@/Utils/userToken/LocalToken";
 const ForumCard = lazy(() => import("../POSTCARD/ForumsCard/ForumCard"));
 
 type ParentType = {
@@ -21,8 +22,8 @@ type Topic = {
   parent: ParentType;
 }[];
 function PostForums() {
-  const localeS = localStorage.getItem("user");
-  const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
+  const localeS = getToken();
+  const accessToken = localeS ? localeS.accessToken : null;
 
   const [openTopics, setOpenTopics] = React.useState(false);
   const topicsRef = React.useRef<HTMLDivElement>(null);
@@ -226,7 +227,12 @@ function PostForums() {
                   </div>
                 }
               >
-                <ForumCard section={section} posts={posts} page={page} setPage={setPage} />
+                <ForumCard
+                  section={section}
+                  posts={posts}
+                  page={page}
+                  setPage={setPage}
+                />
               </Suspense>
             )
           ) : (

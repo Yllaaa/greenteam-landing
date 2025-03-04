@@ -9,13 +9,14 @@ const MyChallenges = lazy(() =>
 );
 import Link from "next/link";
 import Image from "next/image";
+import { useLocale } from "next-intl";
 
 import likes from "@/../public/ZPLATFORM/header/like.svg";
 import message from "@/../public/ZPLATFORM/header/message.svg";
 import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
-import { useLocale } from "next-intl";
-import LoadingTree from "@/components/zaLoader/LoadingTree";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
+
+import LoadingTree from "@/components/zaLoader/LoadingTree";
 function SubHeader() {
   const locale = useLocale();
 
@@ -86,7 +87,6 @@ function SubHeader() {
           <div className={styles.link}>
             <Link href="/" className={styles.regularLink}>
               <Image src={likes} alt="like" />
-
               <span>125 likes</span>
             </Link>
           </div>

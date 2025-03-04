@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { FaSearch } from "react-icons/fa";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 type searchTypes = {
   search: string;
@@ -33,11 +34,12 @@ function Header() {
     },
   });
 
+  const localS = getToken();
+
   // handle state if not logged in
   const [userToken, setUserToken] = useState("");
   useEffect(() => {
-    const LocaleS = localStorage?.getItem("user");
-    const accessToken = LocaleS ? JSON.parse(LocaleS).accessToken : null;
+    const accessToken = localS ? localS.accessToken : null;
     setUserToken(accessToken);
   }, []);
   // handle state if logged in
@@ -50,7 +52,7 @@ function Header() {
           },
         })
         .then((res) => {
-          console.log(res.data);
+          // console.log(res.data);
           const user = {
             loggedIn: !!userToken,
             accessToken: userToken,

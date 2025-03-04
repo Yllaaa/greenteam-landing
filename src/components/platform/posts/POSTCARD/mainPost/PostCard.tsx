@@ -12,6 +12,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 type CommentsAuthor = {
   id: string;
@@ -90,8 +91,8 @@ function PostCard(props: Props) {
   const router = useRouter();
   const locale = useLocale();
 
-  const localS = localStorage.getItem("user");
-  const accessToken = localS ? JSON.parse(localS).accessToken : null;
+  const localS = getToken();
+  const accessToken = localS ? localS.accessToken : null;
 
   const limit = 5;
   const [page, setPage] = useState(1);
