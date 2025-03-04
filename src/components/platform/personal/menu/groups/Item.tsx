@@ -7,11 +7,11 @@ function Item({ ...props }: GroupItem) {
     return (
         <div className={styles.item}>
             <div className={styles.logo}>
-                <Image src={props.logo} alt={props.title} width={637} height={135} className={styles.logo} />
+                <Image src={props.cover} alt={props.name} width={637} height={135} className={styles.logo} />
             </div>
             <div className={styles.content}>
                 <div className={styles.title}>
-                    <label>{props.title}</label>
+                    <label>{props.name}</label>
                 </div>
                 <div className={styles.description}>
                     <label>{props.description}</label>

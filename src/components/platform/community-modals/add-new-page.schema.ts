@@ -1,5 +1,5 @@
 import { pages } from '@/Utils/backendEndpoints/backend-endpoints';
-import axios from 'axios';
+import { postRequest } from '@/Utils/backendEndpoints/backend-requests';
 import * as yup from 'yup'
 
 export const pageCategories = ['Business','Project']
@@ -17,5 +17,5 @@ export const addNewPageSchema = yup.object().shape({
 
 
 export const postPage = async (pageData: yup.InferType<typeof addNewPageSchema>) => {
-    axios.post(pages.create, pageData)
+    return await postRequest(pages.create, pageData)
 }

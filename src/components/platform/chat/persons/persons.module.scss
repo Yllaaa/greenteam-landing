@@ -1,0 +1,103 @@
+.persons {
+    width: 419;
+    height: 514;
+    border-width: 1px;
+    padding-top: 16px;
+    padding-left: 10px;
+    border-right: 1px solid #4B5669;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+        height: 0px;
+        width: 10px;
+        background-color: transparent;
+
+        &-track {
+            background-color: transparent;
+        }
+
+        &-thumb {
+            background-color: #307040;
+            border-radius: 10px;
+
+            &:hover {
+                background-color: #74B243;
+            }
+        }
+    }
+
+    .item {
+        width: 100%;
+        height: 88;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 16px 32px;
+        cursor: pointer;
+
+        &:hover {
+            background: #4b4b4d;
+        }
+
+        .avatar {
+            width: 56;
+            height: 56;
+            border-radius: 100px;
+            position: relative;
+
+            img {
+                width: 48;
+                height: 48;
+                border-radius: 100px;
+            }
+
+            .circle {
+                width: 8;
+                height: 8;
+                border-radius: 100px;
+                position: absolute;
+                top: 34px;
+                left: 39px;
+                border-width: 1px;
+                background: #5D6778;
+            }
+        }
+
+        &.selected {
+            background: #2C2C2D;
+        }
+
+        &.active {
+            .avatar .circle {
+                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            }
+        }
+
+        .data {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+
+            .name {
+                font-family: Inter;
+                font-weight: 500;
+                font-size: 14px;
+                line-height: 16.94px;
+                letter-spacing: 0%;
+                color: #006633;
+            }
+
+            .details {
+                font-family: Inter;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 14.52px;
+                letter-spacing: -0.4%;
+                background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+                background-clip: text;
+                color: transparent;
+            }
+        }
+
+    }
+}

@@ -1,33 +1,15 @@
+import { suggestions } from "@/Utils/backendEndpoints/backend-endpoints"
+import { getRequest } from "@/Utils/backendEndpoints/backend-requests"
+
 export type PageItem = {
     likes: number,
     followers: number,
-    title: string,
+    name: string,
     description: string,
-    image: string
+    cover: string
 }
 
 export async function getPageItems(): Promise<PageItem[]> {
-    return [
-        {
-            likes: 10,
-            followers: 10,
-            title: 'Page 1',
-            description: 'Page Description',
-            image: '/about/aoura.jpeg',
-        },
-        {
-            likes: 10,
-            followers: 10,
-            title: 'Page 1',
-            description: 'Page Description',
-            image: '/about/aoura.jpeg',
-        },
-        {
-            likes: 10,
-            followers: 10,
-            title: 'Page 1',
-            description: 'Page Description',
-            image: '/about/aoura.jpeg',
-        }
-    ]
+    const { data } = await getRequest(suggestions.pages);
+    return data
 }

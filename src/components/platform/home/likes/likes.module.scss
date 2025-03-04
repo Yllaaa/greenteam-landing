@@ -1,0 +1,41 @@
+$min-width: 1024px;
+
+.container {
+    max-width: 100%;
+    padding: 16px;
+
+    .content {
+        display: flex;
+        gap: 18px;
+        margin-top: 16px;
+
+        .mainColumn {
+            flex-grow: 1;
+
+            @media (min-width: $min-width) {
+                max-width: calc(99vw - 16px - 18px - 350px - 16px);
+            }
+
+        }
+
+        .sideColumn {
+            display: none;
+
+            @media (min-width: $min-width) {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+                width: 350;
+            }
+
+            .termsOfService {
+                font-family: Montserrat;
+                font-weight: 500;
+                font-size: 13px;
+                line-height: 15.85px;
+                letter-spacing: 0%;
+                color: #8899A6;
+            }
+        }
+    }
+}

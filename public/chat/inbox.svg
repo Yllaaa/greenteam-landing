@@ -1,0 +1,18 @@
+<svg width="56" height="56" viewBox="0 0 56 56" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Inbox">
+<path id="Vector" d="M51.3334 28H37.3334L32.6667 35H23.3334L18.6667 28H4.66675" stroke="url(#paint0_linear_2009_43347)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+<path id="Vector_2" d="M12.7167 11.924L4.66675 28.0007V42.0006C4.66675 43.2383 5.15841 44.4253 6.03358 45.3005C6.90875 46.1757 8.09574 46.6673 9.33341 46.6673H46.6667C47.9044 46.6673 49.0914 46.1757 49.9666 45.3005C50.8417 44.4253 51.3334 43.2383 51.3334 42.0006V28.0007L43.2834 11.924C42.8971 11.1465 42.3015 10.4922 41.5636 10.0346C40.8258 9.57709 39.9749 9.33445 39.1067 9.33398H16.8934C16.0252 9.33445 15.1744 9.57709 14.4365 10.0346C13.6987 10.4922 13.1031 11.1465 12.7167 11.924Z" stroke="url(#paint1_linear_2009_43347)" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+<defs>
+<linearGradient id="paint0_linear_2009_43347" x1="4.66675" y1="31.5" x2="51.3334" y2="31.5" gradientUnits="userSpaceOnUse">
+<stop stop-color="#307040"/>
+<stop offset="0.455" stop-color="#74B243"/>
+<stop offset="0.8" stop-color="#96B032"/>
+</linearGradient>
+<linearGradient id="paint1_linear_2009_43347" x1="4.66675" y1="28.0007" x2="51.3334" y2="28.0007" gradientUnits="userSpaceOnUse">
+<stop stop-color="#307040"/>
+<stop offset="0.455" stop-color="#74B243"/>
+<stop offset="0.8" stop-color="#96B032"/>
+</linearGradient>
+</defs>
+</svg>
