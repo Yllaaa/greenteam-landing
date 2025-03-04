@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./newPost.module.css";
-import AddNew from "@/components/platform/addNewPost/addNew/AddNew";
-import Forums from "@/components/platform/addNewPost/forums/Forum";
+import AddNew from "@/components/platform/addNew/post/AddNew";
+import Forums from "@/components/platform/addNew/forums/Forum";
 
 function page() {
   return (
