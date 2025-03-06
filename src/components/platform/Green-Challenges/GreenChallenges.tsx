@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 
@@ -13,8 +14,13 @@ import Image from "next/image";
 import plus from "@/../public/ZPLATFORM/challenges/plus.svg";
 import star from "@/../public/ZPLATFORM/challenges/star.svg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import { Challenge } from "./GreenTypes/GreenTypes";
 
 function GreenChallenges() {
+  const user = getToken();
+  const accessToken = user.accessToken;
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
@@ -29,6 +35,34 @@ function GreenChallenges() {
       setLoaded(true);
     },
   });
+  const [challenges, setChallenges] = useState<Challenge[]>([]);
+  const [page, setPage] = useState(1);
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges?page=${page}&limit=3`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        if (res.data.length === 0) {
+          setPage(1);
+        } else {
+          setChallenges(res.data);
+        }
+      })
+      .then(() => {
+        console.log(challenges);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [page]);
 
   // modals
   const [addNew, setAddNew] = React.useState(false);
@@ -70,32 +104,22 @@ function GreenChallenges() {
         <div className={`${styles.navigationWrapper}`}>
           <div ref={sliderRef} className={`keen-slider `}>
             <div className={`keen-slider__slide ${styles.suggested}`}>
-              <Challenges />
-            </div>
-            <div className={`keen-slider__slide ${styles.suggested}`}>
-              <Challenges />
-            </div>
-            <div className={`keen-slider__slide ${styles.suggested}`}>
-              <Challenges />
+              <Challenges challenges={challenges} />
             </div>
           </div>
           {loaded && instanceRef.current && (
             <>
               <Arrow
                 left
-                onClick={(e: any) =>
-                  e.stopPropagation() || instanceRef.current?.prev()
-                }
+                onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
                 disabled={currentSlide === 0}
               />
 
               <Arrow
-                onClick={(e: any) =>
-                  e.stopPropagation() || instanceRef.current?.next()
-                }
+                onClick={() => setPage(page + 1)}
                 disabled={
                   currentSlide ===
-                  instanceRef.current.track.details.slides.length - 1
+                  instanceRef.current.track.details?.slides.length - 1
                 }
               />
             </>
@@ -122,7 +146,7 @@ export default GreenChallenges;
 function Arrow(props: {
   disabled: boolean;
   left?: boolean;
-  onClick: (e: any) => void;
+  onClick: () => void;
 }) {
   const disabled = props.disabled ? styles.arrowDisabled : "";
   return (
@@ -131,8 +155,6 @@ function Arrow(props: {
       className={`${styles.arrow} ${
         props.left ? styles.arrowLeft : styles.arrowRight
       } ${disabled}`}
-      // xmlns="http://www.w3.org/2000/svg"
-      // viewBox="0 0 24 24"
     >
       {props.left && (
         <div

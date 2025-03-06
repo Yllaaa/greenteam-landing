@@ -3,18 +3,22 @@
   height: 100%;
   display: flex;
   align-items: center;
-  height: 370px;
-  overflow-y: hidden;
+  height: fit-content;
+  min-height: 342px;
+  max-height: 370px;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 0px 10px;
+  justify-content: flex-start;
+  gap: 16px;
+  padding: 0px 8px;
 }
 
 .challenge {
   width: 100%;
   height: fit-content;
   min-height: 72px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -24,14 +28,13 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 12px;
+  gap: 11px;
 }
 .challenge .challengeDetails .challengeImage {
   width: 56px;
   height: 56px;
   min-width: 56px;
   min-height: 56px;
-  background: #000;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -49,9 +52,10 @@
 .challenge .challengeDetails .challengeText {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: flex-start;
-  gap: 12px;
+  max-width: 340px;
+  overflow-y: auto;
 }
 .challenge .challengeDetails .challengeText .challengeIcon {
   width: fit-content;
@@ -62,6 +66,7 @@
   -moz-border-radius: 80px;
   -ms-border-radius: 80px;
   -o-border-radius: 80px;
+  margin-bottom: 12px;
 }
 .challenge .challengeDetails .challengeText .challengeIcon p {
   font-family: Epilogue;
@@ -77,6 +82,7 @@
   font-size: 15px;
   line-height: 18.29px;
   letter-spacing: -0.4%;
+  margin-bottom: 8px;
 }
 .challenge .challengeDetails .challengeText .challengeDescription {
   font-family: Montserrat;

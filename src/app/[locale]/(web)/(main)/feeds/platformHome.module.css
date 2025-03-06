@@ -17,8 +17,24 @@
   height: fit-content;
   min-height: 674px;
   /* padding: 32.5px 0px; */
-  border-bottom: 1px solid #3a444c;
+  /* border-bottom: 1px solid #3a444c; */
   overflow-y: hidden;
+  position: relative;
+}
+.subHeader::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 98%;
+  height: 1px;
+  background: #3a444c;
+  z-index: 0;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
 }
 .artSection {
   width: 100%;

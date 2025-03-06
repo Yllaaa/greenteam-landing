@@ -1,27 +1,24 @@
 .container {
-  background: #000;
   position: relative;
   width: 100%;
+  height: fit-content;
   min-height: 700px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  gap: 25px;
-  overflow-x: hidden;
-  scrollbar-width: none;
-  scroll-behavior: smooth;
-  height: fit-content;
-  overflow-y: hidden;
+  gap: 16px;
+  overflow: hidden;
   padding: 21px;
 }
+
 .cardsContainer {
   width: fit-content;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
   overflow-x: hidden;
-  gap: 25px;
+  gap: 16px;
 }
 .ResponsiveContainer {
   display: none;
@@ -96,10 +93,10 @@
 }
 .links {
   margin-top: 24px;
-  width: 568px;
+  width: 100%;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0px;
   gap: 24px;
 }
@@ -130,6 +127,7 @@
   justify-content: center;
   width: 130px;
   height: 91px;
+  text-transform: capitalize;
 }
 .links .link .postLink {
   display: flex;
@@ -159,7 +157,7 @@
   text-align: center;
 }
 
-.suggested {
+.greenChallenge {
   justify-self: flex-start;
   width: 40.13vw;
   max-width: 578px;
@@ -195,7 +193,7 @@
     min-width: 568px;
     height: 575px;
   }
-  .suggested {
+  .greenChallenge {
     width: 90vw;
     max-width: 700px;
     min-width: 568px;
@@ -318,7 +316,7 @@
     scroll-behavior: smooth;
     scrollbar-color: #fff #006633;
   }
-  .suggested {
+  .greenChallenge {
     width: 100%;
     max-width: 312px;
     min-width: 310px;

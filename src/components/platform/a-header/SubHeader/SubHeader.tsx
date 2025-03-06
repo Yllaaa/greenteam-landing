@@ -3,9 +3,11 @@ import React, { lazy, Suspense, useState } from "react";
 import styles from "./SubHeader.module.css";
 
 const Categories = lazy(() => import("../../categoriesDimond/Categories"));
-const Suggested = lazy(() => import("../../suggested/GreenChallenges"));
+const GreenChallenges = lazy(() =>
+  import("../../Green-Challenges/GreenChallenges")
+);
 const MyChallenges = lazy(() =>
-  import("../../suggested/challenges/myChallenges/MyChallenges")
+  import("../../Green-Challenges/challenges/myChallenges/MyChallenges")
 );
 import Link from "next/link";
 import Image from "next/image";
@@ -14,9 +16,12 @@ import { useLocale } from "next-intl";
 import likes from "@/../public/ZPLATFORM/header/like.svg";
 import message from "@/../public/ZPLATFORM/header/message.svg";
 import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
+import post from "@/../public/ZPLATFORM/header/posts.svg";
+
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+
 function SubHeader() {
   const locale = useLocale();
 
@@ -53,7 +58,7 @@ function SubHeader() {
               <Categories />
             </Suspense>
           </div>
-          <div className={styles.suggested}>
+          <div className={styles.greenChallenge}>
             <Suspense
               fallback={
                 <div className={styles.loading}>
@@ -61,7 +66,7 @@ function SubHeader() {
                 </div>
               }
             >
-              <Suggested />
+              <GreenChallenges />
             </Suspense>
           </div>
 
@@ -86,13 +91,19 @@ function SubHeader() {
         <div className={styles.links}>
           <div className={styles.link}>
             <Link href="/" className={styles.regularLink}>
-              <Image src={likes} alt="like" />
+              <Image src={likes} alt="like" loading="lazy" />
               <span>125 likes</span>
             </Link>
           </div>
           <div className={styles.link}>
             <Link href="/" className={styles.regularLink}>
-              <Image src={message} alt="like" />
+              <Image src={post} alt="like" loading="lazy" />
+              <span>125 posts</span>
+            </Link>
+          </div>
+          <div className={styles.link}>
+            <Link href="/" className={styles.regularLink}>
+              <Image src={message} alt="like" loading="lazy" />
               <span>125 message</span>
             </Link>
           </div>
@@ -101,7 +112,7 @@ function SubHeader() {
               href={`/${locale}/personal/newPost`}
               className={styles.postLink}
             >
-              <Image src={addNew} alt="add" />
+              <Image src={addNew} alt="add" loading="lazy" />
               <span>Add post</span>
             </Link>
           </div>
@@ -154,7 +165,7 @@ function SubHeader() {
                 </div>
               }
             >
-              <Suggested />
+              <GreenChallenges />
             </Suspense>
           </div>
           <div className={styles.challenges}>

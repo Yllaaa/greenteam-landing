@@ -1,97 +1,141 @@
+import { getToken } from "@/Utils/userToken/LocalToken";
+import axios from "axios";
+
+export type SenderType = "user" | "page";
+
+export interface Sender {
+  id: string;
+  name: string;
+  avatar: string | null;
+  username: string;
+}
+
+export type Message = {
+  id: string;
+  content: string;
+  conversationId: string;
+  isReceived: boolean;
+  mediaUrl: string | null;
+  seenAt: string | null;
+  sender: Sender;
+  senderType: SenderType;
+  sentAt: Date;
+};
+export type NextCursor = {
+  sentAt: string;
+  id: string;
+};
 export type MessageItem = {
-    user: {
-        id: string,
-        name: string,
-        avatar: string,
-        work: string
-    },
-    message: string,
-    createdAt: Date
+  messages: Message[];
+
+  nextCursor?: NextCursor;
+};
+
+export type ContactType = "user" | "group";
+
+export interface Contact {
+  id: string;
+  fullName: string;
+  username: string;
+  avatar: string | null;
+  type: ContactType;
 }
 
-export function getUserId() : string {
-    return '1'
+export interface LastMessage {
+  id: string;
+  content: string;
+  sentAt: string;
 }
 
-export async function getMessageItems(personId: string): Promise<MessageItem[]> {
-    if(personId === '') return [];
-    return [
-        {
-            user: {
-                id: '1',
-                name: 'Egor Letov',
-                avatar: 'https://picsum.photos/200/300',
-                work: 'Musician'
-            },
-            message: 'Hello, how are you?',
-            createdAt: new Date('2022-05-01T12:00:00.000Z')
-        },
-        {
-            user: {
-                id: '2',
-                name: 'Vladimir Mayakovsky',
-                avatar: 'https://picsum.photos/201/301',
-                work: 'Poet'
-            },
-            message: 'I am fine, what about you?',
-            createdAt: new Date('2022-05-01T13:00:00.000Z')
-        },
-        {
-            user: {
-                id: '1',
-                name: 'Egor Letov',
-                avatar: 'https://picsum.photos/200/300',
-                work: 'Musician'
-            },
-            message: 'I am fine too, thanks',
-            createdAt: new Date('2022-05-01T14:00:00.000Z')
-        },
-        {
-            user: {
-                id: '1',
-                name: 'Egor Letov',
-                avatar: 'https://picsum.photos/200/300',
-                work: 'Musician'
-            },
-            message: 'Hello, how are you?',
-            createdAt: new Date('2022-05-01T12:00:00.000Z')
-        },
-        {
-            user: {
-                id: '2',
-                name: 'Vladimir Mayakovsky',
-                avatar: 'https://picsum.photos/201/301',
-                work: 'Poet'
-            },
-            message: 'I am fine, what about you?',
-            createdAt: new Date('2022-05-01T13:00:00.000Z')
-        },
-        {
-            user: {
-                id: '1',
-                name: 'Egor Letov',
-                avatar: 'https://picsum.photos/200/300',
-                work: 'Musician'
-            },
-            message: 'I am fine too, thanks',
-            createdAt: new Date('2022-05-01T14:00:00.000Z')
-        }
-    ]
+export interface Conversation {
+  id: string;
+  contactType: ContactType;
+  contact: Contact;
+  lastMessage: LastMessage;
+  unreadCount: number;
 }
 
-export function formatChatDate(date: Date): string {
-    const now = new Date();
-    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    const messageDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
-    const diffDays = Math.round((today.getTime() - messageDate.getTime()) / (1000 * 60 * 60 * 24));
+export function getUserId(): string {
+  return "1";
+}
 
-    if (diffDays === 0) {
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }); // Today
-    } else if (diffDays === 1) {
-        return "Yesterday";
-    } else if (diffDays < 7) {
-        return date.toLocaleDateString([], { weekday: 'long' }); // Day of the week (e.g., Monday)
-    } else {
-        return date.toLocaleDateString([], { day: '2-digit', month: 'short', year: 'numeric' });
-    }
+//
+//
+export async function getMessageItems(
+  chatId: string,
+  // nextCursor?: any,
+  limit: number = 20
+): Promise<{
+  messages: MessageItem;
+  nextCursor: {
+    sentAt: string;
+    id: string;
+  };
+}> {
+  if (!chatId)
+    return {
+      messages: { messages: [] },
+      nextCursor: {
+        sentAt: "",
+        id: "",
+      },
+    };
+
+  const token = getToken();
+  // const query = nextCursor
+  //   ? `cursor[id]=${nextCursor.id}&cursor[sentAt]=${nextCursor.sentAt}&limit=${limit}`
+  //   : `limit=${limit}`;
+
+  try {
+    const response = await axios.get(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${chatId}/messages?limit=${limit}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token.accessToken}`,
+        },
+      }
+    );
+
+    return {
+      messages: response.data as {
+        messages: {
+          id: string;
+          content: string;
+          conversationId: string;
+          isReceived: boolean;
+          mediaUrl: string | null;
+          seenAt: string | null;
+          sender: Sender;
+          senderType: SenderType;
+          sentAt: Date;
+        }[];
+      },
+      nextCursor: response.data.nextCursor || null,
+    };
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+    return {
+      messages: { messages: [] },
+
+      nextCursor: {
+        sentAt: "",
+        id: "",
+      },
+    };
+  }
+}
+
+//
+//
+export function formatChatDate(dateString: string): string {
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) return "Invalid date";
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const hours = date.getHours();
+  const minutes = date.getMinutes().toString().padStart(2, "0");
+
+  return `${day}/${month}/${year} ${hours}:${minutes}`;
 }

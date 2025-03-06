@@ -5,8 +5,7 @@ import EventSection from "@/components/platform/posts/Events/EventSection";
 import ProductSection from "@/components/platform/posts/products/ProductSection";
 import SubHeader from "@/components/platform/a-header/SubHeader/SubHeader";
 import FeedSection from "@/components/platform/posts/feeds/FeedSection";
-import Chat from "@/components/platform/b-Chat/chatBox/ChatBox";
-
+import Chat from "@/components/platform/chat/Chat";
 function page() {
   return (
     <section className={srtyles.container}>
@@ -40,16 +39,7 @@ function page() {
         <PostForums />
       </div>
       <div>
-        <Chat
-          selectedUser={{
-            id: "ba7917b5-0979-4565-9636-b94e827b1202",
-            name: "Moustafa firefox",
-            avatar: "",
-            isOnline: true,
-            // conversationId:"test"
-          }}
-         
-        />
+        <Chat />
       </div>
     </section>
   );
