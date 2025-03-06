@@ -12,7 +12,7 @@ import { number } from "yup";
 // types
 
 type ItemType = {
-  id: string;
+  id: number;
   name: string;
   parentId?: string;
   subtopics?: ItemType[]; // Subtopics now included inside topics
@@ -33,149 +33,149 @@ function AddNew() {
   // topics and subtopics
   const topics: ItemType[] = [
     {
-      id: "1",
+      id: 1,
       name: "Food and health",
       subtopics: [
         {
-          id: "7",
+          id: 7,
           name: "Cultivate",
         },
         {
-          id: "8",
+          id: 8,
           name: "Cook",
         },
         {
-          id: "9",
+          id: 9,
           name: "Keep",
         },
         {
-          id: "10",
+          id: 10,
           name: "Natural Medicine",
         },
         {
-          id: "11",
+          id: 11,
           name: "Nutrition",
         },
         {
-          id: "12",
+          id: 12,
           name: "Hygiene",
         },
       ],
     },
     {
-      id: "2",
+      id: 2,
       name: "Knowledge and values",
       subtopics: [
         {
-          id: "13",
+          id: 13,
           name: "Philosophy",
         },
         {
-          id: "14",
+          id: 14,
           name: "Astronomy",
         },
         {
-          id: "15",
+          id: 15,
           name: "Biology",
         },
         {
-          id: "16",
+          id: 16,
           name: "Geology",
         },
         {
-          id: "17",
+          id: 17,
           name: "History",
         },
         {
-          id: "18",
+          id: 18,
           name: "Psychology",
         },
         {
-          id: "19",
+          id: 19,
           name: "Culture",
         },
         {
-          id: "20",
+          id: 20,
           name: "Others",
         },
       ],
     },
     {
-      id: "3",
+      id: 3,
       name: "Physical and mental exercise",
       subtopics: [
         {
-          id: "21",
+          id: 21,
           name: "Sports and games",
         },
         {
-          id: "22",
+          id: 22,
           name: "Active meditation",
         },
         {
-          id: "23",
+          id: 23,
           name: "Passive meditation",
         },
       ],
     },
     {
-      id: "4",
+      id: 4,
       name: "Community and Nature",
       subtopics: [
         {
-          id: "24",
+          id: 24,
           name: "Together",
         },
         {
-          id: "25",
+          id: 25,
           name: "Nature",
         },
         {
-          id: "26",
+          id: 26,
           name: "Volunteering",
         },
         {
-          id: "27",
+          id: 27,
           name: "Ecotourism",
         },
         {
-          id: "28",
+          id: 28,
           name: "Notifications",
         },
       ],
     },
     {
-      id: " 5",
+      id: 5,
       name: "Art",
       subtopics: [
         {
-          id: "29",
+          id: 29,
           name: "Crafts",
         },
         {
-          id: "30",
+          id: 30,
           name: "Music",
         },
         {
-          id: "31",
+          id: 31,
           name: "Show",
         },
       ],
     },
     {
-      id: "6",
+      id: 6,
       name: "Ecotechnics and bioconstruction",
       subtopics: [
         {
-          id: "32",
+          id: 32,
           name: "EcoDesign / Permaculture",
         },
         {
-          id: "33",
+          id: 33,
           name: "Water and energy",
         },
         {
-          id: "34",
+          id: 34,
           name: "Durable tools",
         },
       ],
@@ -203,7 +203,7 @@ function AddNew() {
         {
           content: formData.content,
           mainTopicId: Number(formData.mainTopicId),
-          subtopicIds: [Number(formData.subtopicIds)],
+          subtopicIds: formData.subtopicIds.map((id) => Number(id)),
           creatorType: "user",
         },
         {
@@ -213,8 +213,9 @@ function AddNew() {
           },
         }
       );
+console.log(response.data);
 
-      ToastNot(`Post in ${response.data.mainTopic.name} added successfully`);
+      ToastNot(`Post added successfully`);
       reset();
       setSelectedMainTopic(""); // Reset topic selection
       setSelectedSubtopics([]); // Reset subtopics selection

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import * as Radix from "@radix-ui/react-select";
-import styles from "./AddNew.module.css"; // Import CSS module
+import styles from "./AddNew.module.css";
 
 const topics = [
   {
@@ -61,7 +61,7 @@ export default function TopicSelector() {
   const availableSubtopics =
     topics.find((t) => t.id === selectedTopic)?.subtopics || [];
 
-  const onSubmit = async (data: any) => {
+  const onSubmit = async () => {
     if (!selectedTopic) {
       setMessage("❌ Please select a topic first.");
       return;
@@ -89,6 +89,7 @@ export default function TopicSelector() {
         setMessage("❌ Failed to submit selection. Please try again.");
       }
     } catch (error) {
+      console.error(error);
       setMessage("❌ Error connecting to the server.");
     }
 
@@ -101,8 +102,7 @@ export default function TopicSelector() {
       <Controller
         name="topic"
         control={control}
-        
-        render={({ field }) => (
+        render={() => (
           <Radix.Select onValueChange={handleTopicChange}>
             <Radix.SelectTrigger className={styles.addAndCategory}>
               <Radix.SelectValue placeholder="Select a topic" />
