@@ -33,6 +33,7 @@ export default function Chat() {
       socketRef.current = io(SOCKET_URL, {
         transports: ["websocket"],
         auth: { token: accessToken },
+        
       });
   
       socketRef.current.on("connect", () =>

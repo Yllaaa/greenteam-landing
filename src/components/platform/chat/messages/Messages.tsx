@@ -49,7 +49,7 @@ export default function Messages({
     try {
       const messages = await getMessageItems(
         chatId,
-        
+
         20
       );
 
@@ -57,7 +57,7 @@ export default function Messages({
         messages?.messages?.messages &&
         messages?.messages?.messages?.length > 0
       ) {
-        setMessages((prev: any) => [...prev, ...messages?.messages.messages]);
+        setMessages((prev: any) => [...messages?.messages.messages, ...prev]);
         setNextCursor(messages.nextCursor);
       }
     } catch (error) {
@@ -103,7 +103,7 @@ export default function Messages({
         }
       })
       .catch((err) => console.error(err));
-  }, [nextCursor,  selectedUser]);
+  }, [nextCursor, selectedUser]);
 
   useEffect(() => {
     scrollToBottom();
