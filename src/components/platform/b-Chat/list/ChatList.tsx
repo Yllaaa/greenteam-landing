@@ -54,7 +54,7 @@ function ChatList(props: any) {
                   height={30}
                 />
               )}{" "}
-              {user.contact.fullName}
+              {/* {user.contact.fullName} */}
             </li>
           ))
         ) : (
