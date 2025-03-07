@@ -1,0 +1,65 @@
+$min-width: 1400px;
+
+.paymentForm {
+    display: flex;
+    gap: 200px;
+    padding: 50px;
+    padding-left: 90px;
+
+    .logo {
+        display: none;
+        width: 50%;
+        justify-content: center;
+        align-items: center;
+
+        img {
+            width: 373;
+            height: 390;
+            top: 340px;
+            left: 88px;
+        }
+
+        @media (min-width: $min-width) {
+            display: flex;
+        }
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        width: 100%;
+        max-width: 750px;
+
+
+        .header {
+            font-family: DM Sans;
+            font-weight: 700;
+            font-size: 34px;
+            line-height: 46px;
+            letter-spacing: 0px;
+            color: #FEFEFE;
+        }
+
+        .action {
+            width: 100%;
+            height: 54;
+            border-radius: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            text-align: center;
+            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 14px;
+            line-height: 100%;
+            letter-spacing: -2%;
+            text-align: center;
+            color: #FFFFFF;
+            cursor: pointer;
+        }
+
+
+    }
+
+}
