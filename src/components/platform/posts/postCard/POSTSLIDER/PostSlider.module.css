@@ -1,0 +1,143 @@
+.navigationWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  border-width: 1px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+.textPost {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 15px;
+  z-index: 10;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 140%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: #fefefe;
+  background: #363636;
+  border-width: 1px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+}
+.postCard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+.postCard .image {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 10;
+}
+.postCard .image .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(0deg, #030a00 50.26%, #313a0e49 91.2%);
+  z-index: 1;
+}
+.postCard .image .postImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;
+}
+.reactionBtns {
+  position: absolute;
+  bottom: 5%;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 10;
+  width: 100%;
+  padding: 0px 3.5%;
+}
+.reactionBtns .btn {
+  background: none;
+    outline: none;
+    border: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  gap: 8px;
+  z-index: 10;
+  height: 16px;
+  cursor: pointer;
+  color: #fefefe;
+  font-weight: 600;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.reactionBtns .btn img {
+  width: 16px;
+  height: 16px;
+}
+.reactionBtns .btn:hover {
+  background: #3a444c;
+  width: fit-content;
+  padding: 20px 16px;
+  border-radius: 16px;
+  -webkit-border-radius: 16px;
+  -moz-border-radius: 16px;
+  -ms-border-radius: 16px;
+  -o-border-radius: 16px;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+@media screen and (max-width: 768px) {
+  .reactionBtns {
+    gap: 8px;
+    padding: 0px 0.25%;
+  }
+  .reactionBtns .btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 12px;
+    gap: 4px;
+    height: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -ms-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+  }
+  .reactionBtns .btn img {
+    width: 12px;
+    height: 12px;
+  }
+  .reactionBtns .btn:hover {
+    padding: 10px 8px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+  }
+}

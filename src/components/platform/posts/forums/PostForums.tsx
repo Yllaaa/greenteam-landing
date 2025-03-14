@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { MdOutlineFilterList } from "react-icons/md";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { getToken } from "@/Utils/userToken/LocalToken";
-const ForumCard = lazy(() => import("../POSTCARD/ForumsCard/ForumCard"));
+const ForumCard = lazy(() => import("./ForumsCard/ForumCard"));
 
 type ParentType = {
   name: string;

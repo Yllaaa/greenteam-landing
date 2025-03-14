@@ -12,6 +12,7 @@ import { useInView } from "react-intersection-observer";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useAppSelector } from "@/store/hooks";
+import { formatTimeDifference } from "./functions/CommentModal.data";
 
 interface Author {
   id: string;
@@ -86,9 +87,12 @@ function CommentModal(props: Props) {
   });
   // END SLIDER HANDLER
 
-  const [reacted, setReacted] = useState<{
-    [commentId: string]: boolean;
-  }>({});
+  // const [reacted, setReacted] = useState<{
+  //   [commentId: string]: boolean;
+  // }>({});
+  // const [action, setAction] = useState<{
+  //   [commentId: string]: string;
+  // }>({});
 
   // START CLICK OUTSIDE MODAL
   useEffect(() => {
@@ -124,33 +128,6 @@ function CommentModal(props: Props) {
   }, [inView]);
   //   END PAGINATION
   //   ////////////////////////
-  //  FORMAT TIME FUNCTION
-  function formatTimeDifference(targetDate: string): string {
-    // Convert the target date string to a Date object
-    const target = new Date(targetDate);
-    const now = new Date();
-
-    // Calculate the difference in milliseconds
-    const differenceInMs = now.getTime() - target.getTime();
-
-    // Convert milliseconds to seconds
-    const differenceInSeconds = Math.floor(differenceInMs / 1000);
-
-    // Format the difference
-    if (differenceInSeconds < 60) {
-      return `${differenceInSeconds}S`; // Seconds
-    } else if (differenceInSeconds < 3600) {
-      const minutes = Math.floor(differenceInSeconds / 60);
-      return `${minutes}m`; // Minutes
-    } else if (differenceInSeconds < 86400) {
-      const hours = Math.floor(differenceInSeconds / 3600);
-      return `${hours}hr`; // Hours
-    } else {
-      const days = Math.floor(differenceInSeconds / 86400);
-      return `${days}D`; // Days
-    }
-  }
-  //  END FORMAT TIME FUNCTION
 
   // REPLY COMMENT
   // State to track which comment's replies are open
@@ -264,7 +241,60 @@ function CommentModal(props: Props) {
   };
 
   // END add comment
+  const [userLikeStatus, setUserLikeStatus] = useState<{
+    [id: string]: boolean;
+  }>({});
 
+  // Track the accurate like counts
+  const [localLikeCounts, setLocalLikeCounts] = useState<{
+    [id: string]: number;
+  }>({});
+
+  // Initialize these states when comments/replies load
+  useEffect(() => {
+    // Initialize like status from API data
+    if (postComments && postComments.length > 0) {
+      const initialLikeStatus: { [id: string]: boolean } = {};
+      const initialLikeCounts: { [id: string]: number } = {};
+
+      postComments.forEach((comment: Response) => {
+        initialLikeStatus[comment.id] = comment.userReaction === "like";
+        initialLikeCounts[comment.id] = parseInt(comment.likeCount);
+      });
+
+      setUserLikeStatus(initialLikeStatus);
+      setLocalLikeCounts(initialLikeCounts);
+    }
+  }, [postComments]);
+
+  // Do the same for replies when they're loaded
+  useEffect(() => {
+    // For each comment ID that has replies
+    Object.keys(postCommentReply).forEach((commentId) => {
+      if (
+        postCommentReply[commentId] &&
+        postCommentReply[commentId].length > 0
+      ) {
+        const replies = postCommentReply[commentId];
+
+        setUserLikeStatus((prev) => {
+          const updated = { ...prev };
+          replies.forEach((reply: Reply) => {
+            updated[reply.id] = reply.userReaction === "like";
+          });
+          return updated;
+        });
+
+        setLocalLikeCounts((prev) => {
+          const updated = { ...prev };
+          replies.forEach((reply: Reply) => {
+            updated[reply.id] = reply.likeCount;
+          });
+          return updated;
+        });
+      }
+    });
+  }, [postCommentReply]);
   // Function to toggle reactions
   const handleToggleReaction = ({
     commentId,
@@ -275,41 +305,34 @@ function CommentModal(props: Props) {
     postType: string;
     reactionType: string;
   }) => {
-    try {
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/reactions/toggle-reaction`,
-          {
-            reactionableType: postType,
-            reactionableId: commentId,
-            reactionType: reactionType,
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        )
-        .then((res) => {
-          if (res.data.action === "added") {
-            setReacted((prev) => ({
-              ...prev,
-              [commentId]: true,
-            }));
-          } else {
-            setReacted((prev) => ({
-              ...prev,
-              [commentId]: false,
-            }));
-          }
+    // Get current like status
+    const isCurrentlyLiked = userLikeStatus[commentId] || false;
 
-          // ToastNot(`${res.data.action}`);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+    // Calculate new like count (toggle once)
+    const newLikeCount = isCurrentlyLiked
+      ? (localLikeCounts[commentId] || 0) - 1
+      : (localLikeCounts[commentId] || 0) + 1;
+
+    // Update UI optimistically
+    setUserLikeStatus((prev) => ({ ...prev, [commentId]: !isCurrentlyLiked }));
+    setLocalLikeCounts((prev) => ({ ...prev, [commentId]: newLikeCount }));
+
+    try {
+      axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/reactions/toggle-reaction`,
+        {
+          reactionableType: postType,
+          reactionableId: commentId,
+          reactionType: reactionType,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
     } catch (err) {
       console.log(err);
     }
@@ -419,7 +442,7 @@ function CommentModal(props: Props) {
                       <div className={styles.upper}>
                         <p>
                           <span className={styles.username}>
-                            {comment.author.fullName}
+                            {comment.author.username}
                           </span>
                           <span className={styles.commentText}>
                             {comment.content}
@@ -430,8 +453,10 @@ function CommentModal(props: Props) {
                         <p>{formatTimeDifference(comment.createdAt)}</p>
                         <p
                           style={{
+                            color: userLikeStatus[comment.id]
+                              ? "green"
+                              : "#fff",
                             cursor: "pointer",
-                            color: reacted[comment.id] ? "green" : "",
                           }}
                           onClick={() =>
                             handleToggleReaction({
@@ -441,7 +466,10 @@ function CommentModal(props: Props) {
                             })
                           }
                         >
-                          {comment.likeCount} Like
+                          {localLikeCounts[comment.id] !== undefined
+                            ? localLikeCounts[comment.id]
+                            : comment.likeCount}{" "}
+                          Like
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -491,7 +519,9 @@ function CommentModal(props: Props) {
                                   <p
                                     style={{
                                       cursor: "pointer",
-                                      color: reacted[comment.id] ? "green" : "",
+                                      color: userLikeStatus[reply.id]
+                                        ? "green"
+                                        : "#fff",
                                     }}
                                     onClick={() =>
                                       handleToggleReaction({
@@ -501,7 +531,10 @@ function CommentModal(props: Props) {
                                       })
                                     }
                                   >
-                                    {reply.likeCount} Like
+                                    {localLikeCounts[reply.id] !== undefined
+                                      ? localLikeCounts[reply.id]
+                                      : reply.likeCount}{" "}
+                                    Like
                                   </p>
                                 </div>
                               </div>

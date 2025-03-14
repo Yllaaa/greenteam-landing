@@ -7,6 +7,7 @@ import singleBanner from "@/../public/ZPLATFORM/event/single/singleEvent.jpg";
 import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaCalendar, FaLocationPin } from "react-icons/fa6";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 type Props = {
   id: string;
@@ -71,6 +72,30 @@ function SingleEventPage(props: Props) {
       console.error(error);
     }
   }, [id]);
+
+  const handleJoinEvent = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/join`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      if (response.status === 200) {
+        ToastNot("joined");
+      }
+    } catch (error) {
+      const err = error as { status: number };
+      console.error("Error joining event:", error);
+      if (err?.status === 409) {
+        ToastNot("Already joined");
+      }
+    }
+  };
 
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -167,7 +192,9 @@ function SingleEventPage(props: Props) {
             </div>
           </div>
           <div className={styles.actions}>
-            <button className={styles.action}>Join Group</button>
+            <button className={styles.action} onClick={handleJoinEvent}>
+              Join Event
+            </button>
             <button className={styles.action}>Invite</button>
           </div>
         </div>

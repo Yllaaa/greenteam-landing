@@ -1,0 +1,350 @@
+.container {
+  position: relative;
+  width: 100%;
+  height: 575px;
+  background: linear-gradient(
+    126.97deg,
+    #006633 28.26%,
+    rgba(50, 80, 65, 0.5) 91.2%
+  );
+  padding: 21px 20px 40px 20px;
+  z-index: 0;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.chart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 360px;
+  height: 355px;
+  margin: auto;
+  z-index: 200;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+
+.chart svg {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+.filledArea {
+  fill: none;
+  stroke: #006633;
+  stroke-width: 1px;
+}
+.diamondShape {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 270px;
+  height: 300px;
+  margin: auto;
+  z-index: 100;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+.diamondShape img {
+  width: 100%;
+  height: 100%;
+}
+.labels {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  z-index: 300;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+  -o-transform: translateX(-50%) translateY(-50%);
+}
+
+.label {
+  width: fit-content;
+  height: fit-content;
+  z-index: 400;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  position: absolute;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+}
+.label img {
+  width: 91px;
+  height: 91px;
+}
+
+/* Modal Styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: hidden;
+  scroll-behavior: none;
+}
+
+.modalContent {
+  background: linear-gradient(
+    126.97deg,
+    #006633 28.26%,
+    rgba(50, 80, 65, 0.5) 91.2%
+  );
+
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 956px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+.modalDiamond {
+  width: 270px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  -webkit-transform: translateX(-50%) translateY(-50%);
+  -moz-transform: translateX(-50%) translateY(-50%);
+  -ms-transform: translateX(-50%) translateY(-50%);
+}
+
+.modalDiamond img {
+  width: 100%;
+  height: 100%;
+}
+
+.subCategories {
+  text-align: center;
+  color: white;
+}
+
+.subCategories h2 {
+  margin-bottom: 20px;
+}
+
+.subCategories p {
+  list-style: none;
+  padding: 0;
+  position: absolute;
+}
+
+.subCategories li {
+  margin: 10px 0;
+  font-size: 18px;
+}
+.top1 {
+  position: absolute;
+  top: 12%;
+  left: 50%;
+  height: 50px;
+  z-index: 300;
+}
+.top2 {
+  position: absolute;
+  top: 30%;
+  left: 90%;
+  z-index: 300;
+}
+.top3 {
+  position: absolute;
+  top: 70%;
+  left: 90%;
+  z-index: 300;
+}
+.top4 {
+  position: absolute;
+  top: 90%;
+  left: 50%;
+  z-index: 300;
+}
+.top5 {
+  position: absolute;
+  top: 70%;
+  left: 10%;
+  z-index: 300;
+}
+.top6 {
+  position: absolute;
+  top: 30%;
+  left: 10%;
+  z-index: 300;
+}
+@media screen and (max-width: 768px) {
+  .container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      126.97deg,
+      #006633 28.26%,
+      rgba(50, 80, 65, 0.5) 91.2%
+    );
+    padding: 10px 15px 10px 15px;
+    
+  }
+  /*  */
+  .chart {
+    width: 180px;
+    height: 180px;
+  }
+
+  .chart svg {
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+  }
+
+  .filledArea {
+    fill: none;
+    stroke: #006633;
+    stroke-width: 1px;
+  }
+  .diamondShape {
+    width: 160px;
+    height: 160px;
+  }
+
+  /*  */
+
+  .label {
+    width: fit-content;
+    height: fit-content;
+    z-index: 400;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    position: absolute;
+    cursor: pointer;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+  }
+  .label img {
+    width: 50px;
+    height: 50px;
+  }
+
+  /* Modal Styles */
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: hidden;
+    scroll-behavior: none;
+  }
+
+  .modalContent {
+    background: linear-gradient(
+      126.97deg,
+      #006633 28.26%,
+      rgba(50, 80, 65, 0.5) 91.2%
+    );
+
+    padding: 20px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    height: 90%;
+    max-height: 956px;
+    overflow-y: auto;
+    position: relative;
+  }
+
+  .closeButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: white;
+    cursor: pointer;
+  }
+
+  .modalDiamond {
+    width: 142px;
+    height: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    -webkit-transform: translateX(-50%) translateY(-50%);
+    -moz-transform: translateX(-50%) translateY(-50%);
+    -ms-transform: translateX(-50%) translateY(-50%);
+  }
+
+  .modalDiamond img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .subCategories {
+    text-align: center;
+    color: white;
+  }
+
+  .subCategories h2 {
+    margin-bottom: 20px;
+  }
+
+  .subCategories p {
+    list-style: none;
+    padding: 0;
+    position: absolute;
+  }
+
+  .subCategories li {
+    margin: 10px 0;
+    font-size: 18px;
+  }
+}

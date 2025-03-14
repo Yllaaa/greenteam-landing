@@ -63,22 +63,22 @@ export function getUserId(): string {
 //
 export async function getMessageItems(
   chatId: string,
-  // nextCursor?: any,
+
   limit: number = 20
 ): Promise<{
   messages: MessageItem;
-  nextCursor: {
-    sentAt: string;
-    id: string;
-  };
+  // nextCursor: {
+  //   sentAt: string;
+  //   id: string;
+  // };
 }> {
   if (!chatId)
     return {
       messages: { messages: [] },
-      nextCursor: {
-        sentAt: "",
-        id: "",
-      },
+      // nextCursor: {
+      //   sentAt: "",
+      //   id: "",
+      // },
     };
 
   const token = getToken();
@@ -110,17 +110,17 @@ export async function getMessageItems(
           sentAt: Date;
         }[];
       },
-      nextCursor: response.data.nextCursor || null,
+      // nextCursor: response.data.nextCursor || null,
     };
   } catch (error) {
     console.error("Error fetching messages:", error);
     return {
       messages: { messages: [] },
 
-      nextCursor: {
-        sentAt: "",
-        id: "",
-      },
+      // nextCursor: {
+      //   sentAt: "",
+      //   id: "",
+      // },
     };
   }
 }

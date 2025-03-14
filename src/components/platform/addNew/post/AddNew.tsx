@@ -8,15 +8,9 @@ import Image from "next/image";
 import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { number } from "yup";
+import { Topics } from "@/components/Assets/topics/Topics.data";
 
 // types
-
-type ItemType = {
-  id: number;
-  name: string;
-  parentId?: string;
-  subtopics?: ItemType[]; // Subtopics now included inside topics
-};
 
 type PostType = {
   content: string;
@@ -31,156 +25,7 @@ function AddNew() {
   const userInfo = userInfo1 ? JSON.parse(userInfo1) : null;
 
   // topics and subtopics
-  const topics: ItemType[] = [
-    {
-      id: 1,
-      name: "Food and health",
-      subtopics: [
-        {
-          id: 7,
-          name: "Cultivate",
-        },
-        {
-          id: 8,
-          name: "Cook",
-        },
-        {
-          id: 9,
-          name: "Keep",
-        },
-        {
-          id: 10,
-          name: "Natural Medicine",
-        },
-        {
-          id: 11,
-          name: "Nutrition",
-        },
-        {
-          id: 12,
-          name: "Hygiene",
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: "Knowledge and values",
-      subtopics: [
-        {
-          id: 13,
-          name: "Philosophy",
-        },
-        {
-          id: 14,
-          name: "Astronomy",
-        },
-        {
-          id: 15,
-          name: "Biology",
-        },
-        {
-          id: 16,
-          name: "Geology",
-        },
-        {
-          id: 17,
-          name: "History",
-        },
-        {
-          id: 18,
-          name: "Psychology",
-        },
-        {
-          id: 19,
-          name: "Culture",
-        },
-        {
-          id: 20,
-          name: "Others",
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: "Physical and mental exercise",
-      subtopics: [
-        {
-          id: 21,
-          name: "Sports and games",
-        },
-        {
-          id: 22,
-          name: "Active meditation",
-        },
-        {
-          id: 23,
-          name: "Passive meditation",
-        },
-      ],
-    },
-    {
-      id: 4,
-      name: "Community and Nature",
-      subtopics: [
-        {
-          id: 24,
-          name: "Together",
-        },
-        {
-          id: 25,
-          name: "Nature",
-        },
-        {
-          id: 26,
-          name: "Volunteering",
-        },
-        {
-          id: 27,
-          name: "Ecotourism",
-        },
-        {
-          id: 28,
-          name: "Notifications",
-        },
-      ],
-    },
-    {
-      id: 5,
-      name: "Art",
-      subtopics: [
-        {
-          id: 29,
-          name: "Crafts",
-        },
-        {
-          id: 30,
-          name: "Music",
-        },
-        {
-          id: 31,
-          name: "Show",
-        },
-      ],
-    },
-    {
-      id: 6,
-      name: "Ecotechnics and bioconstruction",
-      subtopics: [
-        {
-          id: 32,
-          name: "EcoDesign / Permaculture",
-        },
-        {
-          id: 33,
-          name: "Water and energy",
-        },
-        {
-          id: 34,
-          name: "Durable tools",
-        },
-      ],
-    },
-  ];
+  const topics = Topics;
   const [selectedMainTopic, setSelectedMainTopic] = useState<string | any>();
   const [selectedSubtopics, setSelectedSubtopics] = useState<string[] | any>(
     []
@@ -213,7 +58,7 @@ function AddNew() {
           },
         }
       );
-console.log(response.data);
+      console.log(response.data);
 
       ToastNot(`Post added successfully`);
       reset();

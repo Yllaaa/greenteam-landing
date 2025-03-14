@@ -1,0 +1,312 @@
+.container {
+  width: 100%;
+  max-width: 578px;
+  min-width: 478px;
+  height: 575px;
+  flex-shrink: 0;
+  padding: 21px 0px;
+  background: linear-gradient(127deg, #1a3a0e 28.26%, #313a0e 91.2%);
+  backdrop-filter: blur(120px);
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.header {
+  width: 100%;
+  min-height: 61px;
+  padding: 0px 14px;
+  margin-bottom: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.header .title {
+  width: 55%;
+}
+
+.header .title h2 {
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 25.2px;
+  text-align: left;
+  margin-bottom: 2px;
+}
+.header .title p {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16.8px;
+  text-align: left;
+  color: #fefefe80;
+}
+
+.header .headerBtn {
+  width: 45%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.header .headerBtn .challengeButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  /* text */
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 14.63px;
+  letter-spacing: -0.004em;
+  text-align: center;
+  color: #006633;
+  /* end text */
+  width: 142px;
+  height: 32px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  cursor: pointer;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.header .headerBtn .addButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 59px;
+  height: 32px;
+  border: none;
+  outline: none;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  cursor: pointer;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+
+.navigationWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 456px;
+}
+
+.suggested {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  display: none;
+}
+
+.arrow {
+  width: 47px;
+  height: 47px;
+  position: absolute;
+  bottom: 0%;
+  fill: #fff;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  background: #97b00f;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.arrow svg {
+  width: 20px;
+  height: 20px;
+}
+
+.arrowLeft {
+  left: 40%;
+}
+
+.arrowRight {
+  left: auto;
+  right: 40%;
+}
+
+.arrowDisabled {
+  fill: rgba(255, 255, 255, 0.5);
+}
+
+/* Modal Styles */
+.modal {
+  inset: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  overflow-y: hidden;
+  scroll-behavior: none;
+}
+
+.modalContent {
+  background: linear-gradient(
+    126.97deg,
+    #006633 28.26%,
+    rgba(50, 80, 65, 0.5) 91.2%
+  );
+
+  padding: 20px;
+  border-radius: 20px;
+  width: 90%;
+  max-width: 800px;
+  height: 90%;
+  max-height: 956px;
+  overflow-y: auto;
+  position: relative;
+}
+
+.closeButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 1024px) {
+  .container {
+    width: 100%;
+    max-width: 700px;
+    min-width: 500px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .container {
+    width: 100%;
+    height: 437px;
+    max-height: 437px;
+    max-width: 410px;
+    min-width: 310px;
+    flex-shrink: 0;
+    padding: 10px 0px;
+  }
+  .header {
+    min-height: 24px;
+    padding: 22px 10px 0px 10px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .header .title {
+    width: 50%;
+  }
+
+  .header .title h2 {
+    font-size: 12px;
+    line-height: 16.8px;
+    margin-bottom: 0px;
+  }
+  .header .title p {
+    display: none;
+  }
+
+  .header .headerBtn {
+    width: 45%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  .header .headerBtn .challengeButton {
+    /* text */
+    font-size: 10px;
+    line-height: 12.19px;
+    letter-spacing: -0.4%;
+    /* end text */
+    width: 96px;
+    height: 24px;
+  }
+  .header .headerBtn .challengeButton img {
+    width: 12px;
+    height: 12px;
+  }
+  .header .headerBtn .addButton {
+    width: 59px;
+    height: 26px;
+  }
+  .header .headerBtn .addButton img {
+    width: 12px;
+    height: 12px;
+  }
+
+  .navigationWrapper {
+    position: relative;
+    width: 100%;
+    height: 300px;
+    max-height: 300px;
+  }
+
+  .suggested {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .active {
+    display: none;
+  }
+
+  .arrow {
+    width: 37px;
+    height: 37px;
+
+    bottom: -24%;
+  }
+  .arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+@media screen and (max-width: 430px) {
+  .container {
+    width: 100%;
+    height: 500px;
+    max-height: 500px;
+    max-width: 410px;
+    min-width: 310px;
+    flex-shrink: 0;
+    padding: 10px 0px;
+  }
+  .arrow {
+    bottom: -40%;
+  }
+  .arrowLeft {
+    left: 37%;
+  }
+  
+  .arrowRight {
+    left: auto;
+    right: 37%;
+  }
+}

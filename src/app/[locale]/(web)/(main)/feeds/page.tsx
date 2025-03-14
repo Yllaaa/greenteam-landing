@@ -5,7 +5,6 @@ import EventSection from "@/components/platform/posts/Events/EventSection";
 import ProductSection from "@/components/platform/posts/products/ProductSection";
 import SubHeader from "@/components/platform/a-header/SubHeader/SubHeader";
 import FeedSection from "@/components/platform/posts/feeds/FeedSection";
-import Chat from "@/components/platform/chat/Chat";
 function page() {
   return (
     <section className={srtyles.container}>
@@ -38,9 +37,7 @@ function page() {
       <div className={srtyles.artSection}>
         <PostForums />
       </div>
-      <div>
-        <Chat />
-      </div>
+      
     </section>
   );
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import Image from "next/image";
@@ -11,7 +12,7 @@ import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 
 function FeedsHeader(props: {
-  topic: SingleTopicsData;
+  topic?: SingleTopicsData | any;
   setSelectedSubtopics: React.Dispatch<
     React.SetStateAction<{ [key: number]: string }>
   >;
@@ -41,7 +42,7 @@ function FeedsHeader(props: {
           <h3>
             <span className={styles.titleIcon}>
               <Image
-                src={topicLogo[Number(topic.id) - 1]?.logo}
+                src={topicLogo[Number(topic?.id) - 1]?.logo}
                 alt="artIcon"
                 loading="lazy"
                 className={styles.titleIcon}
@@ -49,27 +50,27 @@ function FeedsHeader(props: {
                 height={30}
               />
             </span>{" "}
-            <span className={styles.titleText}>{topic.name}</span>
+            <span className={styles.titleText}>{topic?.name}</span>
           </h3>
         </div>
         <div className={styles.filterSection}>
           <ul>
             <li
               style={
-                selectedSubtopics[Number(topic.id)] === "all"
-                  ? { color: "#97B00F" }
+                selectedSubtopics[Number(topic?.id)] === "all"
+                  ? { color: "#97B00F" , opacity: 1}
                   : { color: "" }
               }
-              onClick={() => handleSubTopicChange(Number(topic.id), "all")}
+              onClick={() => handleSubTopicChange(Number(topic?.id), "all")}
             >
               all
             </li>
-            {topic.subtopics.map((subtopic, index) => (
+            {topic?.subtopics.map((subtopic: any, index: number) => (
               <li
                 key={index}
                 style={
                   selectedSubtopics[Number(topic.id)] === subtopic.id.toString()
-                    ? { color: "#97B00F" }
+                    ? { color: "#97B00F", opacity: 1 }
                     : { color: "" }
                 }
                 onClick={() =>

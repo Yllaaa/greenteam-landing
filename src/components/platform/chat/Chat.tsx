@@ -10,7 +10,7 @@ import Messages from "./messages/Messages";
 import Persons from "./persons/Persons";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Message, NextCursor } from "./messages/messages.data";
-const SOCKET_URL = "http://64.226.73.140:9000/api/v1/chat";
+const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
 
 export default function Chat() {
   const token = getToken();
@@ -25,56 +25,53 @@ export default function Chat() {
   const [inputValue, setInputValue] = useState(true);
   useEffect(() => {
     if (!selectedUser) return;
-  
+
     const accessToken = token.accessToken;
-    
+
     // Function to initialize WebSocket connection
     const connectSocket = () => {
       socketRef.current = io(SOCKET_URL, {
         transports: ["websocket"],
         auth: { token: accessToken },
-        
       });
-  
+
       socketRef.current.on("connect", () =>
         console.log("Connected to WebSocket")
       );
-  
+
       socketRef.current.on("newMessage", (message: any) => {
         console.log("testNew", message);
-        
-  
+
         if (message.conversationId === chatId) {
           console.log("Received message:", message);
-          setMessages((prev) => [ ...prev, message]);
+          setMessages((prev) => [...prev, message]);
         }
         console.log("user:", chatId);
-        
+
         console.log("New message:", message);
       });
-  
+
       socketRef.current.on("exception", (error: any) =>
         console.error("Socket exception:", error)
       );
     };
-  
+
     // Initial connection
     connectSocket();
-  
+
     // Refresh connection every 5 seconds
-    const interval = setInterval(() => {
-      console.log("Refreshing WebSocket connection...");
-      socketRef.current?.disconnect();
-      connectSocket();
-    }, 5000);
-  
+    // const interval = setInterval(() => {
+    // console.log("Refreshing WebSocket connection...");
+    // socketRef.current?.disconnect();
+    // connectSocket();
+    // }, 5000);
+
     // Cleanup function to clear interval and disconnect WebSocket
     return () => {
-      clearInterval(interval);
+      // clearInterval(interval);
       socketRef.current?.disconnect();
     };
   }, [selectedUser]);
-  
 
   const sendMessage = async () => {
     if (!newMessage.trim() || !selectedUser || !socketRef.current?.connected)
@@ -117,7 +114,6 @@ export default function Chat() {
           selectedUser={selectedUser}
           setSelectedUser={setSelectedUser}
           newMessage={newMessage}
-          
         />
         <div className={styles.messagesView}>
           <Messages
@@ -138,7 +134,6 @@ export default function Chat() {
             setInputValue={setInputValue}
             newMessage={newMessage}
             sendMessageHandler={sendMessage}
-            
           />
         </div>
       </div>

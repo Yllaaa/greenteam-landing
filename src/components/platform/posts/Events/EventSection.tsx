@@ -10,8 +10,9 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
 function EventSection() {
-  const localeS = localStorage.getItem("user");
+  const localeS = localStorage?.getItem("user");
   const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
+  
 
   const [events, setEvents] = React.useState<any[]>([]);
   const [section, setSection] = React.useState<

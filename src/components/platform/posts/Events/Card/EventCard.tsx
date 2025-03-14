@@ -10,6 +10,8 @@ import locationIcon from "@/../public/ZPLATFORM/event/location.svg";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
+// import { getToken } from "@/Utils/userToken/LocalToken";
 
 type Props = {
   events: {
@@ -51,6 +53,10 @@ type Props = {
 };
 function EventCard(props: Props) {
   const locale = useLocale();
+  // const token = getToken();
+  const localeS = localStorage.getItem("user");
+  const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
+
   const { page, setPage, events, event, index } = props;
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -64,11 +70,28 @@ function EventCard(props: Props) {
       handlePages();
     }
   }, [inView]);
-  const handleJoinNow = async () => {
+  const handleJoinNow = async (id: string) => {
     try {
-      const response = await axios.post("/api/joinEvent", { eventId: 1 });
-      console.log("Join response:", response.data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/join`,
+        {},
+        {
+          headers: {
+            // "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            // "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      console.log("Join response:", await response.data);
+      if (response.data) {
+        ToastNot(`${response.data.message}`);
+      }
     } catch (error) {
+      const err = error as { status: number };
+      if (err.status === 409) {
+        ToastNot(`Joined before`);
+      }
       console.error("Error joining event:", error);
     }
   };
@@ -137,7 +160,10 @@ function EventCard(props: Props) {
               : "Hosted by GreenTeam"}
           </p>
           <div className={styles.actions}>
-            <button onClick={handleJoinNow} className={styles.joinButton}>
+            <button
+              onClick={() => handleJoinNow(`${event?.id}`)}
+              className={styles.joinButton}
+            >
               Join event
             </button>
             <button onClick={handleEventDetails} className={styles.joinButton}>

@@ -1,11 +1,11 @@
 //Topics types
 type Subtopic = {
-  id: string;
+  id: number;
   name: string;
 };
 
 type Topic = {
-  id: string;
+  id: number;
   name: string;
   subtopics: Subtopic[];
 };

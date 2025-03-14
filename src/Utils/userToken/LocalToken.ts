@@ -5,3 +5,8 @@ export const getToken = () => {
   }
   return "";
 };
+export const removeToken = () => {
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("user");
+  }
+};
