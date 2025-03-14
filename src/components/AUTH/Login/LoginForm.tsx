@@ -58,10 +58,10 @@ function LoginForm() {
 
   // const iconsArray = [googleIcon, facebookIcon, appleIcon, twitterIcon];
 
-  //   const googleSignIn = () => {
-  //     // Your Google Sign In logic here
-  //     window.open("http://64.226.73.140:9000/api/v1/auth/google/login", "_blank");
-  //   };
+    const googleSignIn = () => {
+      // Your Google Sign In logic here
+      window.open(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/google/login`, "_blank");
+    };
   const login = () => {
     if (!selectedOption) {
       setSelectedOptionError(t('pleaseAccept'));
@@ -133,7 +133,7 @@ function LoginForm() {
             </div>
             {/* icons */}
             <div className={styles.icons}>
-              <div className={styles.icon}>
+              <div onClick={googleSignIn} className={styles.icon}>
                 <Image src={googleIcon} alt="logo" />
               </div>
               {/* {iconsArray.map((icon, index) => (
