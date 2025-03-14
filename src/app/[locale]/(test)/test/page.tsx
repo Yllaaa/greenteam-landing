@@ -1,6 +1,6 @@
 'use client'
-import Chat from "@/components/platform/chat/Chat";
+import PaymentForm from "@/components/platform/Payment/Form/PaymentForm";
 
 export default function Page() {
-    return <Chat />
+    return <PaymentForm />
 }
