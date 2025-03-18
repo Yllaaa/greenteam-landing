@@ -67,11 +67,12 @@ function PostSlider(props: Props) {
   // Fetch comments with error handling and loading state
   const fetchComments = useCallback(
     async (postId: string, page: number) => {
+      const limit = 10;
       if (!accessToken || !postId || !setPostComments) return;
 
       try {
         const response = await axios.get(
-          `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=10`,
+          `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=${limit}`,
           {
             headers: {
               "Content-Type": "application/json",
@@ -105,7 +106,7 @@ function PostSlider(props: Props) {
   // Handle comment button click
   const handleComment = async (postId: string) => {
     if (!setPostId || !setCommentModal || !setPostComments) return;
-
+    setPostComments([]);
     setPostId(postId);
     setCommentPage(1);
 

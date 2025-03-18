@@ -4,7 +4,7 @@ import PostCard from "../postCard/PostCard";
 import styles from "./FeedSection.module.css";
 
 import DoItModal from "../../modals/toDo/DoItModal";
-import CommentModal from "./commentModal/CommentModal";
+import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
 import { Topics } from "@/components/Assets/topics/Topics.data";

@@ -8,6 +8,8 @@ import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaCalendar, FaLocationPin } from "react-icons/fa6";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { CommentSection } from "../../feeds/commentModal/CommentModal";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 type Props = {
   id: string;
@@ -50,8 +52,19 @@ type Event = {
 };
 function SingleEventPage(props: Props) {
   const { id } = props;
-  const localeS = localStorage.getItem("user");
-  const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
+
+  //APIs Data
+
+  const [postComments, setPostComments] = useState<Comment[]>([]);
+
+  //pagination
+  const [commentsPage, setCommentsPage] = useState(1);
+
+  // request rerender comments
+  const [rerender, setRerender] = useState(false);
+
+  const localeS = getToken();
+  const accessToken = localeS ? localeS : null;
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
     try {
@@ -134,6 +147,26 @@ function SingleEventPage(props: Props) {
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
+
+  // get comments
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/comments?page=${commentsPage}&limit=10`,{
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setPostComments(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []); 
+
   return (
     <>
       <div className={styles.container}>
@@ -202,6 +235,20 @@ function SingleEventPage(props: Props) {
           <h3>About Event</h3>
           <p>{event?.description}</p>
         </div>
+      </div>
+      <div className={styles.bar}>
+        <p>Comments</p>
+      </div>
+      <div className={styles.comments}>
+        <CommentSection
+          commentsPage={commentsPage}
+          setCommentsPage={setCommentsPage}
+          postComments={postComments}
+          rerender={rerender}
+          setRerender={setRerender}
+          setPostComments={setPostComments}
+          postId={id}
+        />
       </div>
     </>
   );

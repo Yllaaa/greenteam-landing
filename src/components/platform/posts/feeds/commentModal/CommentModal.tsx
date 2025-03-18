@@ -45,7 +45,7 @@ interface Reply {
   userReaction: string | null;
 }
 type Props = {
-  setCommentModal: (value: boolean) => void;
+  setCommentModal?: (value: boolean) => void;
   postComments: any;
   setPostComments?: any;
   setCommentsPage: (value: number) => void;
@@ -101,7 +101,7 @@ function PostComments(passProps: Props) {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        setCommentModal(false);
+        if (setCommentModal) setCommentModal(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -118,7 +118,7 @@ function PostComments(passProps: Props) {
   });
 
   const handlePages = React.useCallback(() => {
-    setCommentsPage(postComments.length < 5 ? 1 : commentsPage + 1);
+    setCommentsPage(postComments.length < 10 ? 1 : commentsPage + 1);
   }, [commentsPage]);
 
   React.useEffect(() => {
@@ -216,6 +216,35 @@ function PostComments(passProps: Props) {
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postComments[0].publicationId}/comments/${selectedReply}/reply`,
+          {
+            content: data.reply,
+          },
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          setPostCommentReply((prev: { [key: string]: any[] }) => ({
+            ...prev,
+            [selectedReply]: [...(prev[selectedReply] || []), res.data],
+          }));
+        });
+    } catch (err) {
+      console.log(err);
+    }
+
+    resetReply();
+  };
+
+  const eventOnReplySubmit = (data: any) => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${postComments[0].publicationId}/comments/${selectedReply}/reply`,
           {
             content: data.reply,
           },
@@ -345,6 +374,7 @@ function PostComments(passProps: Props) {
     ref,
     handleToggleReaction,
     onReplySubmit,
+    eventOnReplySubmit,
     postComments,
     postCommentReply,
     toggleReplies,
@@ -363,7 +393,7 @@ function PostComments(passProps: Props) {
     onSubmit,
   };
 }
-export default function CommentModal(props: Props) {
+export function CommentModal(props: Props) {
   const {
     loaded,
     instanceRef,
@@ -660,3 +690,221 @@ export default function CommentModal(props: Props) {
 }
 
 // export default ();
+
+export function CommentSection(props: Props) {
+  const {
+    ref,
+    userLikeStatus,
+    localLikeCounts,
+    handleToggleReaction,
+    eventOnReplySubmit,
+    postComments,
+    postCommentReply,
+    openReplies,
+    getReplies,
+    handleSubmitReply,
+    registerReply,
+    handleSubmitComment,
+    registerComment,
+    onSubmit,
+  } = PostComments(props);
+
+  return (
+    <>
+      <div className={styles.Section}>
+        <div className={styles.commentContent}>
+          <div className={styles.commentsSection}>
+            {postComments.length > 0 ? (
+              postComments.map((comment: Response, index: number) => (
+                <div
+                  key={comment.id}
+                  ref={index === postComments.length - 1 ? ref : null}
+                  className={styles.comment}
+                >
+                  <div className={styles.mainCommentBody}>
+                    <div className={styles.commentAvatar}>
+                      <Image
+                        src={
+                          comment.author.avatar ? comment.author.avatar : admin
+                        }
+                        alt="avatar"
+                        width={30}
+                        height={30}
+                      />
+                    </div>
+                    <div className={styles.commentFooter}>
+                      <div className={styles.upper}>
+                        <p>
+                          <span className={styles.username}>
+                            {comment.author.username}
+                          </span>
+                          <span className={styles.commentText}>
+                            {comment.content}
+                          </span>
+                        </p>
+                      </div>
+                      <div className={styles.lower}>
+                        <p>{formatTimeDifference(comment.createdAt)}</p>
+                        <p
+                          style={{
+                            color: userLikeStatus[comment.id]
+                              ? "green"
+                              : "#fff",
+                            cursor: "pointer",
+                          }}
+                          onClick={() =>
+                            handleToggleReaction({
+                              commentId: comment.id,
+                              postType: "comment",
+                              reactionType: "like",
+                            })
+                          }
+                        >
+                          {localLikeCounts[comment.id] !== undefined
+                            ? localLikeCounts[comment.id]
+                            : comment.likeCount}{" "}
+                          Like
+                        </p>
+                        <p
+                          style={{ cursor: "pointer" }}
+                          onClick={() =>
+                            getReplies(comment.publicationId, comment.id)
+                          }
+                        >
+                          Reply
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  {openReplies[comment.id] &&
+                  postCommentReply[comment.id]?.length > 0 ? (
+                    <div key={Math.random()} className={styles.repliesSection}>
+                      {postCommentReply[comment.id].map(
+                        (reply: Reply, index: number) => (
+                          <>
+                            <div key={index} className={styles.reply}>
+                              <div className={styles.replyAvatar}>
+                                <Image
+                                  src={
+                                    reply.author.avatar
+                                      ? reply.author.avatar
+                                      : admin
+                                  }
+                                  alt="avatar"
+                                  width={30}
+                                  height={30}
+                                />
+                              </div>
+                              <div className={styles.replyContent}>
+                                <div className={styles.upper}>
+                                  <p>
+                                    <span className={styles.username}>
+                                      {reply.author.fullName}
+                                    </span>
+                                    <span className={styles.commentText}>
+                                      {reply.content}
+                                    </span>
+                                  </p>
+                                </div>
+                                <div className={styles.lower}>
+                                  <p>
+                                    {formatTimeDifference(comment.createdAt)}
+                                  </p>
+                                  <p
+                                    style={{
+                                      cursor: "pointer",
+                                      color: userLikeStatus[reply.id]
+                                        ? "green"
+                                        : "#fff",
+                                    }}
+                                    onClick={() =>
+                                      handleToggleReaction({
+                                        commentId: reply.id,
+                                        postType: "reply",
+                                        reactionType: "like",
+                                      })
+                                    }
+                                  >
+                                    {localLikeCounts[reply.id] !== undefined
+                                      ? localLikeCounts[reply.id]
+                                      : reply.likeCount}{" "}
+                                    Like
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                          </>
+                        )
+                      )}
+                      <div className={styles.newReply}>
+                        <div className={styles.newReplyContainer}>
+                          <form
+                            onSubmit={handleSubmitReply(eventOnReplySubmit)}
+                          >
+                            <textarea
+                              className={styles.commentTextArea}
+                              placeholder="Add a reply"
+                              {...registerReply("reply", {
+                                required: true,
+                              })}
+                            />
+
+                            <button type="submit">Add Reply</button>
+                          </form>
+                        </div>
+                      </div>
+                      {/*  */}
+                    </div>
+                  ) : (
+                    openReplies[comment.id] &&
+                    postCommentReply && (
+                      <div className={styles.newReply}>
+                        <div className={styles.newReplyContainer}>
+                          <form
+                            onSubmit={handleSubmitReply(eventOnReplySubmit)}
+                          >
+                            <textarea
+                              className={styles.commentTextArea}
+                              placeholder="Add a reply"
+                              {...registerReply("reply", { required: true })}
+                            />
+
+                            <button
+                              onClick={() => {
+                                console.log("clicked");
+                              }}
+                              type="submit"
+                            >
+                              Add Reply
+                            </button>
+                          </form>
+                        </div>
+                      </div>
+                    )
+                  )}
+                </div>
+              ))
+            ) : (
+              <div>
+                <p>No comments yet</p>
+              </div>
+            )}
+          </div>
+          <div className={styles.newComment}>
+            <div className={styles.newCommentContainer}>
+              <form onSubmit={handleSubmitComment(onSubmit)}>
+                <textarea
+                  className={styles.commentTextArea}
+                  placeholder="Add a comment"
+                  {...registerComment("comment", { required: true })}
+                />
+
+                <button type="submit">Add Comments</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}

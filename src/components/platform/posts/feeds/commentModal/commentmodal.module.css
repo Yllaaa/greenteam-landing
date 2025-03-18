@@ -317,3 +317,7 @@
   width: 15%;
   min-width: fit-content;
 }
+.Section{
+  background: #000;
+  margin-bottom: 26px;
+}
