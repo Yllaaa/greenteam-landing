@@ -18,6 +18,8 @@ function AddNewEvent({
     show: boolean,
     onClose: () => void
 }) {
+    console.log("show", show);
+    
     const t = useTranslations('community-models.add-new-event');
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ resolver: yupResolver(addNewEventSchema) });
     const [topics, setTopics] = useState<{ [key: number]: string }>({});

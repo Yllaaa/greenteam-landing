@@ -4,7 +4,7 @@ import React from "react";
 import axios from "axios";
 import styles from "./EventCard.module.css";
 import Image from "next/image";
-import image from "@/../public/icons/foot.svg";
+import noPIc from "@/../public/ZPLATFORM/event/noPicjpg.jpg";
 import clock from "@/../public/ZPLATFORM/event/clock.svg";
 import locationIcon from "@/../public/ZPLATFORM/event/location.svg";
 import { useInView } from "react-intersection-observer";
@@ -17,7 +17,7 @@ type Props = {
   events: {
     id?: string;
     creatorId?: string;
-    creatorType?: "user" | "admin" | "moderator"; // Assuming possible creator types
+    creatorType?: string; // Assuming possible creator types
     title?: string;
     description?: string;
     location?: string;
@@ -33,7 +33,7 @@ type Props = {
   event: {
     id?: string;
     creatorId?: string;
-    creatorType?: "user" | "admin" | "moderator"; // Assuming possible creator types
+    creatorType?: string; // Assuming possible creator types
     title?: string;
     description?: string;
     location?: string;
@@ -127,19 +127,19 @@ function EventCard(props: Props) {
         key={index}
         className={styles.card}
       >
-        <Image
-          src={event?.poster ? event?.poster : image}
-          alt="image"
-          className={styles.image}
-        />
+        <div className={styles.img}>
+          <Image
+            src={event?.poster ? event?.poster : noPIc}
+            alt="image"
+            className={styles.image}
+          />
+        </div>
         <div className={styles.content}>
           <h2 className={styles.name}>
             {event.title ? event?.title : "Community Beach Cleanup"}
           </h2>
           <p className={styles.details}>
-            {event?.description
-              ? event?.description
-              : "Join us for a fun day of cleaning up Santa Monica Beach and protecting marine life. All supplies provided!"}
+            {event?.description ? event?.description : "JNo Description!"}
           </p>
           <p className={styles.time}>
             <Image src={clock} alt="clock" />{" "}
@@ -148,7 +148,7 @@ function EventCard(props: Props) {
                   event?.startDate
                 )} - ${getHour(event?.endDate)}
                 `
-              : "Sat, Jan 27, 2024 | 9:00 AM - 12:00 PM"}
+              : "Not Selected"}
           </p>
           <p className={styles.location}>
             <Image src={locationIcon} alt="location" />{" "}
@@ -174,9 +174,10 @@ function EventCard(props: Props) {
         <button
           onClick={handleToggleFavorite}
           className={styles.favoriteButton}
-        ></button>
+        >
+          x
+        </button>
       </div>
-      {/* ))} */}
     </>
   );
 }

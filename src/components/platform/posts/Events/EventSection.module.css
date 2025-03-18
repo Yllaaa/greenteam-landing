@@ -1,62 +1,44 @@
-.header {
-  display: flex;
-  position: relative;
-  padding: 0px 30px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(1, min-content);
-}
-.header .title {
-  grid-column: 1 / 5;
-  justify-self: flex-start;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 29.26px;
-  letter-spacing: 0%;
-  text-align: center;
-}
-.filterSection {
-  grid-column: 5 / 10;
-  justify-self: flex-start;
-
-  width: fit-content;
-}
-.filterSection ul {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 20px;
-  list-style: none;
-}
-.filterSection ul li {
-  text-transform: capitalize;
-  cursor: pointer;
-  font-family: Roboto;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 33.6px;
-  letter-spacing: 1%;
-  opacity: 0.5;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -ms-transition: all 0.4s;
-  -o-transition: all 0.4s;
-}
-.filterSection ul li:hover {
-  opacity: 1;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -ms-transition: all 0.4s;
-  -o-transition: all 0.4s;
-}
-.sliderBtns{
+.sliderBtns {
   width: 100%;
-  height: fit-content;
   display: flex;
   justify-content: space-around;
+  margin-bottom: 50px;
 }
+.arrow {
+  margin-top: 30px;
+  width: 40px;
+  height: 40px;
+  background: #97b00f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  opacity: 0.8;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+.arrow:hover {
+  opacity: 1;
+  transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -ms-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
+}
+.arrow svg {
+  width: 30px;
+  height: 30px;
+}
+
+
 .body {
   display: flex;
   align-items: flex-start;

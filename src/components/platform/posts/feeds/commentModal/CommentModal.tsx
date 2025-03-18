@@ -56,7 +56,7 @@ type Props = {
   setRerender: (value: boolean) => void;
   postId?: string;
 };
-function CommentModal(props: Props) {
+function PostComments(passProps: Props) {
   const accessToken = useAppSelector((state) => state.login.accessToken);
 
   const {
@@ -66,7 +66,7 @@ function CommentModal(props: Props) {
     commentsPage,
     setPostComments,
     postId,
-  } = props;
+  } = passProps;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
 
@@ -337,6 +337,54 @@ function CommentModal(props: Props) {
       console.log(err);
     }
   };
+  return {
+    loaded,
+    instanceRef,
+    userLikeStatus,
+    localLikeCounts,
+    ref,
+    handleToggleReaction,
+    onReplySubmit,
+    postComments,
+    postCommentReply,
+    toggleReplies,
+    openReplies,
+    selectedReply,
+    resetReply,
+    resetComment,
+    sliderRef,
+    modalRef,
+    currentSlide,
+    getReplies,
+    handleSubmitReply,
+    registerReply,
+    handleSubmitComment,
+    registerComment,
+    onSubmit,
+  };
+}
+export default function CommentModal(props: Props) {
+  const {
+    loaded,
+    instanceRef,
+    ref,
+    userLikeStatus,
+    localLikeCounts,
+    currentSlide,
+    handleToggleReaction,
+    onReplySubmit,
+    postComments,
+    postCommentReply,
+    openReplies,
+    sliderRef,
+    modalRef,
+    getReplies,
+    handleSubmitReply,
+    registerReply,
+    handleSubmitComment,
+    registerComment,
+    onSubmit,
+  } = PostComments(props);
 
   return (
     <>
@@ -611,4 +659,4 @@ function CommentModal(props: Props) {
   );
 }
 
-export default CommentModal;
+// export default ();

@@ -1,196 +1,227 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/**
+ * src/features/events/components/EventSection.tsx
+ */
 "use client";
-import React, { lazy, Suspense } from "react";
-const EventCard = lazy(() => import("./Card/EventCard")); // "./Card/EventCard";
-import styles from "./EventSection.module.css";
-import axios from "axios";
-import LoadingTree from "@/components/zaLoader/LoadingTree";
 
+import React, {
+  lazy,
+  Suspense,
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+} from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 
+// Services and Utils
+import { getToken } from "@/Utils/userToken/LocalToken";
+import { fetchEvents } from "./functions/eventService";
+
+// Components
+import LoadingTree from "@/components/zaLoader/LoadingTree";
+import EventFilter from "./filterComponent/EventFilter";
+const EventCard = lazy(() => import("./Card/EventCard"));
+
+// Modals
+import AddNewEvent from "./modal/AddNewEvent";
+
+// Types
+import { Event, EventCategory } from "./types/eventTypes.data";
+
+// Styles
+import styles from "./EventSection.module.css";
+
 function EventSection() {
-  const localeS = localStorage?.getItem("user");
-  const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
-  
+  // Authentication
+  const { accessToken } = getToken() || { accessToken: null };
 
-  const [events, setEvents] = React.useState<any[]>([]);
-  const [section, setSection] = React.useState<
-    "social" | "volunteering%26work" | "talks%26workshops" | "all"
-  >("all");
-  const limit = 5;
-  const [page, setPage] = React.useState(1);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [errorMessage, setErrorMessage] = React.useState("");
-  const [prevPage, setPrevPage] = React.useState(page);
+  // State management
+  const [events, setEvents] = useState<Event[]>([]);
+  const [section, setSection] = useState<EventCategory>("all");
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [addNew, setAddNew] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
 
-  React.useEffect(() => {
-    axios
-      .get(
-        `${
-          process.env.NEXT_PUBLIC_BACKENDAPI
-        }/api/v1/events?page=${page}&limit=${limit}
-        ${section === "all" ? "" : `&category=${section}`}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        setIsLoading(false);
-        setEvents((prev) => {
-          // If page changed, append data
-          if (prevPage !== page && page !== 1) {
-            return [...prev, ...res.data];
-          }
-          // If section or mainTopicId changed, replace data
-          return res.data;
+  // Constants
+  const LIMIT = 5;
+  const bodyRef = useRef<HTMLDivElement>(null);
+
+  // Fetch events data
+  const loadEvents = useCallback(
+    async (pageNum: number, replace: boolean = false) => {
+      try {
+        setIsLoading(true);
+        const data = await fetchEvents({
+          page: pageNum,
+          limit: LIMIT,
+          category: section !== "all" ? section : undefined,
+          accessToken,
         });
 
-        setPrevPage(page); // Store the previous page for comparison
-      })
-      .catch((err) => {
+        // Check if we've reached the end of available events
+        if (data.length < LIMIT) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
+
+        setEvents((prev) => {
+          if (replace) {
+            return data;
+          }
+          return [...prev, ...data];
+        });
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
         setErrorMessage("An Error Occurred");
+      } finally {
         setIsLoading(false);
-        console.log(err);
-      });
-  }, [section, page, accessToken]);
+      }
+    },
+    [section, LIMIT, accessToken]
+  );
 
-  const bodyRef = React.useRef<HTMLDivElement>(null);
+  // Initial load and section change handler
+  useEffect(() => {
+    setPage(1);
+    loadEvents(1, true);
+  }, [section, loadEvents]);
 
-  const prevSlide = () => {
-    // if (instanceRef.current) instanceRef.current.prev();
-    if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: +300,
-        behavior: "smooth",
-      });
+  // Scroll event handler for infinite scrolling
+  const handleScroll = useCallback(() => {
+    if (!bodyRef.current || !hasMore || isLoading) return;
+
+    const container = bodyRef.current;
+    const scrollWidth = container.scrollWidth;
+    const clientWidth = container.clientWidth;
+    const scrollLeft = container.scrollLeft;
+
+    // Load more when user has scrolled to 80% of the content
+    if (scrollLeft + clientWidth >= scrollWidth * 0.8) {
+      setPage((prevPage) => prevPage + 1);
     }
+  }, [hasMore, isLoading]);
+
+  // Load more events when page changes
+  useEffect(() => {
+    if (page > 1) {
+      loadEvents(page, false);
+    }
+  }, [page, loadEvents]);
+
+  // Add scroll event listener
+  useEffect(() => {
+    const currentRef = bodyRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+      return () => {
+        currentRef.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
+
+  // Client-side only effects
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Manual scroll handlers for arrow buttons
+  const handleManualScroll = (direction: "left" | "right") => {
+    if (!bodyRef.current) return;
+
+    bodyRef.current.scrollBy({
+      left: direction === "left" ? -300 : 300,
+      behavior: "smooth",
+    });
   };
 
-  // Go to Next Slide
-  const nextSlide = () => {
-    if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: -300,
-        behavior: "smooth",
-      });
+  // Render loading state
+  const renderLoading = () => (
+    <div className={styles.noPosts}>
+      <LoadingTree />
+    </div>
+  );
+
+  // Render content based on state
+  const renderContent = () => {
+    if (isLoading && events.length === 0) {
+      return renderLoading();
     }
+
+    if (errorMessage && events.length === 0) {
+      return (
+        <div className={styles.noPosts}>
+          <p>{errorMessage}</p>
+        </div>
+      );
+    }
+
+    if (events.length === 0) {
+      return (
+        <div className={styles.noPosts}>
+          <p>No events found</p>
+        </div>
+      );
+    }
+
+    return (
+      <Suspense fallback={renderLoading()}>
+        {events.map((event, index) => (
+          <EventCard
+            key={event.id || index}
+            limit={LIMIT}
+            events={events}
+            event={event}
+            index={index}
+            page={page}
+            setPage={setPage}
+          />
+        ))}
+        {isLoading && events.length > 0 && (
+          <div className={styles.loadingMore}>
+            <LoadingTree />
+          </div>
+        )}
+      </Suspense>
+    );
   };
 
   return (
     <>
-      <div>
-        <div className={styles.header}>
-          <div className={styles.title}>
-            <h3>Events</h3>
-          </div>
-          <div className={styles.filterSection}>
-            <ul>
-              <li
-                style={
-                  section === "all"
-                    ? { color: "#97B00F", opacity: 1 }
-                    : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("all");
-                }}
-              >
-                all
-              </li>
-              <li
-                style={
-                  section === "social"
-                    ? { color: "#97B00F", opacity: 1 }
-                    : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("social");
-                }}
-              >
-                social
-              </li>
-              <li
-                style={
-                  section === "volunteering%26work"
-                    ? { color: "#97B00F", opacity: 1 }
-                    : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("volunteering%26work");
-                }}
-              >
-                volunteering & work
-              </li>
-              <li
-                style={
-                  section === "talks%26workshops"
-                    ? { color: "#97B00F", opacity: 1 }
-                    : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("talks%26workshops");
-                }}
-              >
-                talks & workshops
-              </li>
-            </ul>
-          </div>
-        </div>
+      <EventFilter
+        section={section}
+        setPage={setPage}
+        setSection={setSection}
+        setAddNew={setAddNew}
+      />
+
+      {isMounted && (
         <div className={styles.sliderBtns}>
-          <div className="arrow left" onClick={prevSlide}>
+          <div
+            className={styles.arrow}
+            onClick={() => handleManualScroll("left")}
+            aria-label="Previous slide"
+          >
             <FaArrowLeft />
           </div>
-          <div className="arrow right" onClick={nextSlide}>
+          <div
+            className={styles.arrow}
+            onClick={() => handleManualScroll("right")}
+            aria-label="Next slide"
+          >
             <FaArrowRight />
           </div>
         </div>
-        <div ref={bodyRef} className={styles.body}>
-          {isLoading ? (
-            <div className={styles.noPosts}>
-              <LoadingTree />
-            </div>
-          ) : errorMessage === "" ? (
-            events.length === 0 ? (
-              <div className={styles.noPosts}>
-                <p>No events found</p>
-              </div>
-            ) : (
-              <Suspense
-                fallback={
-                  <div className={styles.noPosts}>
-                    <LoadingTree />
-                  </div>
-                }
-              >
-                {events.map((event, index) => (
-                  <EventCard
-                    limit={limit}
-                    key={index}
-                    events={events}
-                    event={event}
-                    index={index}
-                    page={page}
-                    setPage={setPage}
-                  />
-                ))}
-              </Suspense>
-            )
-          ) : (
-            <div className={styles.noPosts}>
-              <p>{errorMessage}</p>
-            </div>
-          )}
-        </div>
+      )}
+
+      <div ref={bodyRef} className={styles.body}>
+        {renderContent()}
       </div>
+
+      {addNew && <AddNewEvent setAddNew={setAddNew} userType="user" />}
     </>
   );
 }

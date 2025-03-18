@@ -72,8 +72,8 @@
 }
 .reactionBtns .btn {
   background: none;
-    outline: none;
-    border: none;
+  outline: none;
+  border: none;
   display: flex;
   align-items: center;
   justify-content: space-between;
