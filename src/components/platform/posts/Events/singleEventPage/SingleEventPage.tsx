@@ -64,7 +64,9 @@ function SingleEventPage(props: Props) {
   const [rerender, setRerender] = useState(false);
 
   const localeS = getToken();
-  const accessToken = localeS ? localeS : null;
+  const accessToken = localeS ? localeS.accessToken : null;
+  console.log(accessToken);
+  
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
     try {

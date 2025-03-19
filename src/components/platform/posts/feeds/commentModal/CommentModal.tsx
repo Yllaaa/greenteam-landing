@@ -181,6 +181,39 @@ function PostComments(passProps: Props) {
     }
   };
 
+  // event get replies
+
+  const getEventReplies = async (postId: string, commentId: string) => {
+    try {
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${postId}/comments/${commentId}/replies`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          setOpenReplies((prev) => ({
+            [commentId]: prev[commentId],
+          }));
+          setPostCommentReply((prev) => ({
+            ...prev,
+            [commentId]: res.data,
+          }));
+          toggleReplies(commentId);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   // add comment and reply
   const {
     register: registerComment,
@@ -210,7 +243,24 @@ function PostComments(passProps: Props) {
       console.error("Error adding comment:", err);
     }
   };
+  // event
+  const onEvenctCommentSubmit = async (data: any) => {
+    try {
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${postId}/comment`,
+          { content: data.comment },
+          { headers: { Authorization: `Bearer ${accessToken}` } }
+        )
+        .then((res) => {
+          setPostComments((prev: Response[]) => [...prev, res.data]);
+        });
 
+      resetComment();
+    } catch (err) {
+      console.error("Error adding comment:", err);
+    }
+  };
   const onReplySubmit = (data: any) => {
     try {
       axios
@@ -239,7 +289,7 @@ function PostComments(passProps: Props) {
 
     resetReply();
   };
-
+  // even reply
   const eventOnReplySubmit = (data: any) => {
     try {
       axios
@@ -379,6 +429,7 @@ function PostComments(passProps: Props) {
     postCommentReply,
     toggleReplies,
     openReplies,
+
     selectedReply,
     resetReply,
     resetComment,
@@ -386,11 +437,13 @@ function PostComments(passProps: Props) {
     modalRef,
     currentSlide,
     getReplies,
+    getEventReplies,
     handleSubmitReply,
     registerReply,
     handleSubmitComment,
     registerComment,
     onSubmit,
+    onEvenctCommentSubmit,
   };
 }
 export function CommentModal(props: Props) {
@@ -701,12 +754,12 @@ export function CommentSection(props: Props) {
     postComments,
     postCommentReply,
     openReplies,
-    getReplies,
+    getEventReplies,
     handleSubmitReply,
     registerReply,
     handleSubmitComment,
     registerComment,
-    onSubmit,
+    onEvenctCommentSubmit,
   } = PostComments(props);
 
   return (
@@ -768,7 +821,7 @@ export function CommentSection(props: Props) {
                         <p
                           style={{ cursor: "pointer" }}
                           onClick={() =>
-                            getReplies(comment.publicationId, comment.id)
+                            getEventReplies(comment.publicationId, comment.id)
                           }
                         >
                           Reply
@@ -892,7 +945,7 @@ export function CommentSection(props: Props) {
           </div>
           <div className={styles.newComment}>
             <div className={styles.newCommentContainer}>
-              <form onSubmit={handleSubmitComment(onSubmit)}>
+              <form onSubmit={handleSubmitComment(onEvenctCommentSubmit)}>
                 <textarea
                   className={styles.commentTextArea}
                   placeholder="Add a comment"

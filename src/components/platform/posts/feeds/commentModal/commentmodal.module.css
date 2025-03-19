@@ -318,6 +318,6 @@
   min-width: fit-content;
 }
 .Section{
-  background: #000;
+  padding: 0px 20px;
   margin-bottom: 26px;
 }
