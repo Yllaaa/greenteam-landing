@@ -4,13 +4,14 @@
 import React, { useEffect } from "react";
 import styles from "./singlePost.module.css";
 import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 type Props = {
   postId: string;
 };
 function SinglePost(props: Props) {
-  const localS = localStorage.getItem("user");
-  const accessToken = localS ? JSON.parse(localS).accessToken : null;
+  const localS = getToken();
+  const accessToken = localS ? localS.accessToken : null;
 
   const { postId } = props;
   const [comments, setComments] = React.useState([]);

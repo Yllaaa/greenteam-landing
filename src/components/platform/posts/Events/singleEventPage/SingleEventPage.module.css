@@ -204,10 +204,32 @@
   -o-border-radius: 8px;
 }
 
-.about{
+.about {
   height: fit-content;
   min-height: 550px;
   margin-top: 50px;
+}
+.bar {
+  width: 96%;
+  height: 96px;
+  border-top: 1px solid #3A444C;
+  border-bottom: 1px solid #3A444C;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bar p{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 16px;
+  gap: 8px;
+  z-index: 10;
+  height: 16px;
+  cursor: pointer;
+  color: #fefefe;
+  font-weight: 600;
 }
 @media screen and (max-width: 1440px) {
   .banner {

@@ -1,65 +1,124 @@
-$min-width: 1400px;
-
-.paymentForm {
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 25px;
+  width: 100%;
+  padding: 100px 80px;
+  @media screen and (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 100px 20px;
+  }
+  .logo {
+    width: 100%;
     display: flex;
-    gap: 200px;
-    padding: 50px;
-    padding-left: 90px;
 
-    .logo {
-        display: none;
-        width: 50%;
-        justify-content: center;
-        align-items: center;
-
-        img {
-            width: 373;
-            height: 390;
-            top: 340px;
-            left: 88px;
-        }
-
-        @media (min-width: $min-width) {
-            display: flex;
-        }
+    img {
+      width: 373px;
+      height: 390px;
+      align-self: center;
     }
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  .formWrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    .header {
+      font-family: DM Sans;
+      font-weight: 700;
+      font-size: 34px;
+      line-height: 46px;
+      letter-spacing: 0px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 50px;
+    }
+    .action {
+      width: 100%;
+      max-width: 730px;
+      height: 54px;
 
-    .content {
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
+      padding-top: 10px;
+      padding-right: 8px;
+      padding-left: 8px;
+      padding-bottom: 10px;
+      background: linear-gradient(
+        90deg,
+        #307040 0%,
+        #74b243 45.5%,
+        #96b032 80%
+      );
+      cursor: pointer;
+      outline: none;
+      border: none;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+  }
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+  .formGroupSection {
+    display: flex;
+    justify-content: flex-start;
+    gap: 25px;
+    @media screen and (max-width: 1024px) {
+      flex-direction: column;
+    }
+    .formGroup {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+      label {
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: -2%;
+        color: #fefefe80;
+      }
+      input {
+        border-radius: 10px;
+        border: 1px solid #e0e5f2;
+        padding: 15px 20px;
         width: 100%;
-        max-width: 750px;
-
-
-        .header {
-            font-family: DM Sans;
-            font-weight: 700;
-            font-size: 34px;
-            line-height: 46px;
-            letter-spacing: 0px;
-            color: #FEFEFE;
+        min-width: 350px;
+        @media screen and (max-width: 1275px) {
+          min-width: 225px;
         }
-
-        .action {
-            width: 100%;
-            height: 54;
-            border-radius: 10px;
-            padding-top: 10px;
-            padding-bottom: 10px;
-            text-align: center;
-            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
-            font-family: Montserrat;
-            font-weight: 600;
-            font-size: 14px;
-            line-height: 100%;
-            letter-spacing: -2%;
-            text-align: center;
-            color: #FFFFFF;
-            cursor: pointer;
-        }
-
-
+      }
     }
+  }
+}
 
+.submitButtonStripe {
+  width: 100%;
+  max-width: 730px;
+  height: 54px;
+  margin-top: 50px;
+  padding-top: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
+  padding-bottom: 10px;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  cursor: pointer;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
 }

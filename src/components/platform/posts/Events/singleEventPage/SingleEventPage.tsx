@@ -10,6 +10,7 @@ import { FaCalendar, FaLocationPin } from "react-icons/fa6";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { CommentSection } from "../../feeds/commentModal/CommentModal";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { FaComment } from "react-icons/fa";
 
 type Props = {
   id: string;
@@ -239,7 +240,10 @@ function SingleEventPage(props: Props) {
         </div>
       </div>
       <div className={styles.bar}>
-        <p>Comments</p>
+        <p>
+          <FaComment style={{ fill: "#97B00F" }} />
+          <span>Comments</span>
+          </p>
       </div>
       <div className={styles.comments}>
         <CommentSection
