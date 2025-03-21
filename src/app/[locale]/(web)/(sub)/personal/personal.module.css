@@ -7,7 +7,6 @@
 }
 .sidebar {
   grid-column: 2 / 3;
-  background: #fff;
   width: 100%;
   min-width: 350px;
   height: 100%;
@@ -49,6 +48,4 @@
     background: #000;
     opacity: 0.5;
   }
-  
-  
 }

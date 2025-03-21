@@ -23,7 +23,6 @@ function PostSlider(props: Props) {
     content,
     commentPage,
     setCommentPage,
-    setDoItModal,
     setCommentModal,
     setPostComments,
     likes,
@@ -61,6 +60,7 @@ function PostSlider(props: Props) {
   const [userDisliked, setUserDisliked] = useState(
     userReactionType === "dislike"
   );
+  const [userDo, setUserDo] = useState(hasDoReaction);
   // API base URL constant
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
@@ -150,10 +150,20 @@ function PostSlider(props: Props) {
         } else if (reactionType === "dislike") {
           setUserDisliked(userReactionType === "dislike");
           setDislikeCount(parseInt(dislikes) || 0);
+        } else if (reactionType === "do") {
+          setUserDo(hasDoReaction);
         }
       }
     },
-    [API_BASE_URL, accessToken, postId, likes, dislikes, userReactionType]
+    [
+      accessToken,
+      API_BASE_URL,
+      postId,
+      userReactionType,
+      likes,
+      dislikes,
+      hasDoReaction,
+    ]
   );
 
   // Handle like button click with optimistic UI update
@@ -203,7 +213,26 @@ function PostSlider(props: Props) {
       handleToggleReaction("dislike");
     }
   };
-
+  // /////////////////
+  // Handle dislike button click with optimistic UI update
+  const handleDo = () => {
+    // If already do
+    if (hasDoReaction) {
+      setUserDo(false);
+      handleToggleReaction(null);
+    }
+    // If liked, remove do
+    else if (userDo) {
+      setUserDo(false);
+      handleToggleReaction("do");
+    }
+    // Otherwise, add do
+    else {
+      setUserDo(true);
+      handleToggleReaction("do");
+    }
+  };
+  /////////////////
   // Navigate to full post
   const handleNavigatePost = (postId: string) => {
     router.push(`/${locale}/feeds/posts/${postId}`);
@@ -277,19 +306,8 @@ function PostSlider(props: Props) {
   // Render reaction buttons
   const renderReactionButtons = () => (
     <div className={styles.reactionBtns}>
-      <button
-        onClick={() => {
-          handleToggleReaction("do");
-          if (setDoItModal) {
-            setDoItModal(false);
-          }
-        }}
-        className={styles.btn}
-        aria-label="Do It"
-      >
-        <FaCheckSquare
-          style={{ fill: hasDoReaction ? "#006633" : "#97B00F" }}
-        />
+      <button onClick={handleDo} className={styles.btn} aria-label="Do It">
+        <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
         <p>
           <span>Do</span>
         </p>

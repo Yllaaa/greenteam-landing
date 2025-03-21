@@ -6,6 +6,7 @@ import arrowIcon from "@/../public/chat/arrow.svg";
 import classNames from "classnames";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useInView } from "react-intersection-observer";
+import { useAppSelector } from "@/store/hooks";
 
 type Props = {
   message: Message;
@@ -35,12 +36,14 @@ export default function Item({
     }
   }, [inView, index, setLoadingMore]);
 
+  const currentUser = useAppSelector((state) => state.login.user?.user.id);
+
   return (
     <div
       // Only attach the ref to the first (oldest) message
       ref={index === 0 ? ref : undefined}
       className={classNames(styles.item, {
-        [styles.self]: !message.isReceived,
+        [styles.self]: message.sender.id === currentUser ,
       })}
       onClick={() => {
         if (index === 1) {

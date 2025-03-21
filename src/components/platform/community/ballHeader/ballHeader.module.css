@@ -6,6 +6,7 @@
     #006633 28.26%,
     rgba(50, 80, 65, 0.5) 91.2%
   );
+  z-index: 1;
   position: relative;
   display: grid;
   grid-template-columns: repeat(12, 1fr);

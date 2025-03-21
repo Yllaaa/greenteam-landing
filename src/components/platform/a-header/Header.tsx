@@ -12,6 +12,7 @@ import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
 import settings from "@/../public/ZPLATFORM/A-Header/navIcons/settings.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
+import drop from "@/../public/ZPLATFORM/A-Header/navIcons/dropArrow.svg";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
@@ -23,7 +24,7 @@ import { useRouter } from "next/navigation";
 
 import { useLocale } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
-import { FaArrowDown } from "react-icons/fa6";
+
 import Link from "next/link";
 
 function Header() {
@@ -118,7 +119,7 @@ function Header() {
       id: 4,
       name: "Plans",
       icon: plans,
-      link: `/${locale}/plans`,
+      link: `/${locale}/payment`,
     },
 
     {
@@ -212,7 +213,7 @@ function Header() {
                   isDropdownOpen && styles.arrowOpened
                 }`}
               >
-                <FaArrowDown />
+                <Image src={drop} alt="arrow" />
               </div>
             </div>
             {isDropdownOpen && (

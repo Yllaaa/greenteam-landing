@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./categories.module.css";
 import Image from "next/image";
-import diamond from "@/../public/ZPLATFORM/categories/diamond.svg";
+import diamond from "@/../public/ZPLATFORM/categories/GroupD.png";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
 import art from "@/../public/ZPLATFORM/categories/art.svg";
 import eco from "@/../public/ZPLATFORM/categories/eco.svg";
@@ -33,47 +33,6 @@ function Categories() {
     art: ["Sub 1", "Sub 2", "Sub 3"],
     physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
   };
-
-  // echart modal
-  // const option = {
-  //   title: {
-  //     text: "Referrer of a Website",
-  //     subtext: "Fake Data",
-  //     left: "center",
-  //   },
-  //   tooltip: {
-  //     trigger: "item",
-  //   },
-  //   legend: {
-  //     orient: "vertical",
-  //     left: "left",
-  //   },
-  //   series: [
-  //     {
-  //       name: "Referrer",
-  //       type: "pie",
-  //       radius: "50%",
-  //       color: ["#c23531", "#2f4554", "#61a0a8", "#d48265", "#749f83"],
-
-  //       data:
-  //         selectedCategory !== undefined
-  //           ? subCategories[selectedCategory].map((item, index) => ({
-  //               value: subCategories[selectedCategory].length - index,
-  //               name: item,
-  //             }))
-  //           : [],
-
-  //       emphasis: {
-  //         itemStyle: {
-  //           shadowBlur: 10,
-  //           shadowOffsetX: 0,
-  //           shadowColor: "rgba(0, 0, 0, 0.5)",
-  //         },
-  //       },
-  //     },
-  //   ],
-  // };
-  // const { community, food, eco, know, art, physical } = values;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
   const handleCategoryClick = (category: keyof typeof subCategories) => {
@@ -194,12 +153,6 @@ function Categories() {
 
             <div className={styles.subCategories}>
               <h2>{selectedCategory.toUpperCase()}</h2>
-              {/* <div>
-                <ReactECharts
-                  option={option}
-                  style={{ height: 400, width: "100%" }}
-                />
-              </div> */}
               <div style={{ zIndex: 11 }} className={styles.chart}>
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
                   <polygon points={points} className={styles.filledArea} />
@@ -211,42 +164,42 @@ function Categories() {
               <div style={{ zIndex: 1000 }} className={styles.labels}>
                 <span
                   onClick={() => handleCategoryClick("community")}
-                  className={`${styles.label} ${styles.top1}`}
+                  className={`${styles.label} ${styles.top11}`}
                 >
                   <Image src={community} alt="community" />
                   {/* Community and Nature */}
                 </span>
                 <span
                   onClick={() => handleCategoryClick("food")}
-                  className={`${styles.label} ${styles.top2}`}
+                  className={`${styles.label} ${styles.top22}`}
                 >
                   <Image src={food} alt="food" />
                   {/* Food and Health */}
                 </span>
                 <span
                   onClick={() => handleCategoryClick("eco")}
-                  className={`${styles.label} ${styles.top3}`}
+                  className={`${styles.label} ${styles.top33}`}
                 >
                   <Image src={eco} alt="eco" />
                   {/* Ecotechnics */}
                 </span>
                 <span
                   onClick={() => handleCategoryClick("know")}
-                  className={`${styles.label} ${styles.top4}`}
+                  className={`${styles.label} ${styles.top44}`}
                 >
                   <Image src={know} alt="know" />
                   {/* Knowledge and values */}
                 </span>
                 <span
                   onClick={() => handleCategoryClick("art")}
-                  className={`${styles.label} ${styles.top5}`}
+                  className={`${styles.label} ${styles.top55}`}
                 >
                   <Image src={art} alt="art" />
                   {/* Art and Shows */}
                 </span>
                 <span
                   onClick={() => handleCategoryClick("physical")}
-                  className={`${styles.label} ${styles.top6}`}
+                  className={`${styles.label} ${styles.top66}`}
                 >
                   <Image src={physical} alt="physical" />
                   {/* Physical and mental */}
