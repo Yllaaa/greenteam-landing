@@ -75,7 +75,7 @@ function ForumFilter(props: ForumFilterProps) {
           </ul>
         </div>
         <div className={styles.addBtn}>
-          <button onClick={handleAddNew}>Add Event</button>
+          <button onClick={handleAddNew}>Add Forum</button>
         </div>
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}

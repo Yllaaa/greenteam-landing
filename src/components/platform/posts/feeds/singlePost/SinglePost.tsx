@@ -14,6 +14,26 @@ function SinglePost(props: Props) {
   const accessToken = localS ? localS.accessToken : null;
 
   const { postId } = props;
+
+  // const [post, setPost] = React.useState({});
+
+  // useEffect(() => {
+  //   axios
+  //     .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}api/v1/posts/${postId}`, {
+  //       headers: {
+  //         Authorization: `Bearer ${accessToken}`,
+  //       },
+  //     })
+  //     .then((response) => {
+  //       console.log(response.data);
+        
+  //       setPost(response.data);
+  //     })
+  //     .catch((error) => {
+  //       console.error(error);
+  //     });
+  // }, [postId, accessToken]);
+
   const [comments, setComments] = React.useState([]);
   useEffect(() => {
     axios
@@ -21,8 +41,8 @@ function SinglePost(props: Props) {
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comments?page=1&limit=10`,
         {
           headers: {
-            Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "*",
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )

@@ -53,6 +53,13 @@ function PostSlider(props: Props) {
     },
   });
 
+  const navigateToPost = useCallback(
+    (postId: string) => {
+      router.push(`/${locale}/feeds/posts/${postId}`);
+    },
+    [router, locale]
+  );
+
   // Static state for like/dislike UI
   const [likeCount, setLikeCount] = useState(parseInt(likes));
   const [dislikeCount, setDislikeCount] = useState(parseInt(dislikes));
@@ -287,7 +294,7 @@ function PostSlider(props: Props) {
     }
 
     return (
-      <div className={styles.textPost}>
+      <div onClick={() => navigateToPost(postId)} className={styles.textPost}>
         <p>
           {content.slice(0, 1000)}
           {content.length > 1000 && (
