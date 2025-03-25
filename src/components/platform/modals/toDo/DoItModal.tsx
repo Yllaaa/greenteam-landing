@@ -9,7 +9,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 function DoItModal(props: any) {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
-  const { setDoItModal, challengeId } = props;
+  const { setDoItModal, challengeId, section } = props;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
 
@@ -36,7 +36,11 @@ function DoItModal(props: any) {
     try {
       axios
         .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`,
+          `${
+            process.env.NEXT_PUBLIC_BACKENDAPI
+          }/api/v1/challenges/green-challenges/${challengeId}/${
+            section === "green-challenges" ? "add-to-do" : "mark-as-done"
+          }`,
           {},
           {
             headers: {

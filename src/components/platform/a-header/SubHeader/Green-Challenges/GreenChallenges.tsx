@@ -42,6 +42,7 @@ function GreenChallenges() {
   const [addNew, setAddNew] = React.useState(false);
   const [challengeId, setChallengeId] = React.useState("");
   const [doItModal, setDoItModal] = React.useState(false);
+  const [section, setSection] = React.useState("");
   useEffect(() => {
     axios
       .get(
@@ -109,6 +110,7 @@ function GreenChallenges() {
                 setAddNew={setAddNew}
                 setChallengeId={setChallengeId}
                 setDoItModal={setDoItModal}
+                setSection={setSection}
               />
             </div>
           </div>
@@ -147,6 +149,7 @@ function GreenChallenges() {
             setDoItModal={setDoItModal}
             doItModal={doItModal}
             challengeId={challengeId}
+            section={section}
           />
         </>
       )}

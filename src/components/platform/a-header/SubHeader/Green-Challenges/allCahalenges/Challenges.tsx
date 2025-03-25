@@ -10,7 +10,13 @@ import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { Props } from "./types/ChallengeTypes.data";
 
 function Challenges(props: Props) {
-  const { challenges, setAddNew, setChallengeId, setDoItModal } = props;
+  const {
+    challenges,
+    setAddNew,
+    setChallengeId,
+    setDoItModal,
+    setSection,
+  } = props;
 
   return (
     <>
@@ -36,6 +42,7 @@ function Challenges(props: Props) {
               <button
                 onClick={() => {
                   setDoItModal(true);
+                  setSection("green-challenges");
                   setChallengeId(challenge.id);
                 }}
                 className={styles.challengeButton}

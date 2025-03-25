@@ -4,4 +4,5 @@ export type Props = {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   setChallengeId: React.Dispatch<React.SetStateAction<string>>;
   setDoItModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setSection: React.Dispatch<React.SetStateAction<string>>;
 };

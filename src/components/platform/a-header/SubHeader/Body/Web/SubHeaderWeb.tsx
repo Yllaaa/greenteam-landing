@@ -28,6 +28,7 @@ type Props = {
   rerender: boolean;
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   commentModal: boolean;
+  userReactions: any;
 };
 function SubHeaderWeb(props: Props) {
   const {
@@ -43,22 +44,24 @@ function SubHeaderWeb(props: Props) {
     rerender,
     setPostId,
     commentModal,
+    userReactions,
   } = props;
   const locale = useLocale();
+
   const actions = [
     {
       icon: likes,
-      title: "Likes",
+      title: `${userReactions?.reactionsCount} Likes`,
       href: "/likes",
     },
     {
       icon: message,
-      title: "Messages",
-      href: "/messages",
+      title: `${userReactions.commentsCount} Comments`,
+      href: "/comments",
     },
     {
       icon: post,
-      title: "Posts",
+      title: `${userReactions.postsCount} Posts`,
       href: "/posts",
     },
     {
@@ -156,7 +159,6 @@ function SubHeaderWeb(props: Props) {
           </div>
         ))}
       </div>
-      
     </>
   );
 }

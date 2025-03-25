@@ -12,6 +12,8 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
 
 type Props = {
+  ref: any;
+  page: number;
   challenge: Post;
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -19,6 +21,8 @@ type Props = {
   commentPage: number;
   setCommentPage: React.Dispatch<React.SetStateAction<number>>;
   postId: string;
+  index: number;
+  length: number;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -29,6 +33,9 @@ function MyChallengeCard(props: Props) {
     commentPage,
     setCommentPage,
     postId,
+    ref,
+    index,
+    length,
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -125,7 +132,10 @@ function MyChallengeCard(props: Props) {
 
   return (
     <>
-      <div className={styles.challengeHeader}>
+      <div
+        ref={index === length - 1 ? ref : null}
+        className={styles.challengeHeader}
+      >
         <div className={styles.userAvatar}>
           <Image src={challenge.creator.avatar || noAvatar} alt="userAvatar" />
         </div>
