@@ -172,10 +172,10 @@ function PostCard(props: Props) {
       );
     }
 
-    if (errorMessage) {
+    if (errorMessage && isMounted) {
       return (
         <div className={styles.noPosts}>
-          <p>{errorMessage}</p>
+          <p>Error Loading posts</p>
         </div>
       );
     }

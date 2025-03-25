@@ -1,18 +1,42 @@
 .MyContainer {
   display: flex;
   gap: 25px;
+  padding: 0px 16px 0px 16px;
   justify-content: flex-start;
   width: 100%;
   height: auto;
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: #97b00f #1b201c;
+
   overflow-y: hidden;
+  padding-bottom: 16px;
+}
+
+/* For webkit browsers (Chrome, Safari, newer Edge) */
+.MyContainer::-webkit-scrollbar {
+  height: 8px; /* Thin scrollbar height */
+}
+
+.MyContainer::-webkit-scrollbar-track {
+  background: #1b201c; /* Track background color */
+  border-radius: 10px;
+  margin: 0 10px; /* Creates gap on sides */
+}
+
+.MyContainer::-webkit-scrollbar-thumb {
+  background-color: #97b00f; /* Thumb color */
+  border-radius: 10px;
+
+  /* Optional: add some spacing around the thumb */
+  margin: 0 2px;
 }
 
 .container {
+  width: 389px;
   min-width: 389px;
-  height: 575px;
+  height: 560px;
+  border: 1px solid #98b00f31;
   background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
   backdrop-filter: blur(60px);
   padding: 20px 10px;
@@ -46,16 +70,11 @@
   height: fit-content;
   height: 100%;
   width: 100%;
-  display: flex;
-  /* flex-direction: column; */
-  justify-content: flex-start;
-  align-items: center;
-  gap: 16px;
   overflow: none;
 }
 
 .arrow {
-  position: absolute;
+  position: fixed;
   top: 90%;
   cursor: pointer;
 }

@@ -40,16 +40,17 @@ type Event = {
   title: string;
   description: string;
   location: string;
-  startDate: string; // ISO date string
-  endDate: string; // ISO date string
-  category: string; // Consider defining specific category types if known
-  poster: string | null; // Nullable image URL
+  startDate: string;
+  endDate: string;
+  category: string;
+  poster: string | null;
   priority: number;
   topicId: number;
-  createdAt: string; // ISO date string
+  createdAt: string;
   joinedCount: number;
   topic: Topic;
   userCreator: UserCreator;
+  isJoined: boolean;
 };
 function SingleEventPage(props: Props) {
   const { id } = props;
@@ -61,13 +62,16 @@ function SingleEventPage(props: Props) {
   //pagination
   const [commentsPage, setCommentsPage] = useState(1);
 
+  //local Join Status
+  const [isJoined, setIsJoined] = useState(false);
+
   // request rerender comments
   const [rerender, setRerender] = useState(false);
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
   console.log(accessToken);
-  
+
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
     try {
@@ -79,7 +83,9 @@ function SingleEventPage(props: Props) {
           },
         })
         .then((res) => {
+          console.log(res.data.isJoined);
           setEvent(res.data);
+          setIsJoined(res.data.isJoined);
         })
         .catch((err) => {
           console.log(err);
@@ -102,7 +108,32 @@ function SingleEventPage(props: Props) {
         }
       );
       if (response.status === 200) {
+        setIsJoined(!isJoined);
         ToastNot("joined");
+      }
+    } catch (error) {
+      const err = error as { status: number };
+      console.error("Error joining event:", error);
+      if (err?.status === 409) {
+        ToastNot("Already joined");
+      }
+    }
+  };
+  const handleLeaveEvent = async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/leave`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      if (response.status === 200) {
+        setIsJoined(!isJoined);
+        ToastNot("You left the event");
       }
     } catch (error) {
       const err = error as { status: number };
@@ -150,13 +181,13 @@ function SingleEventPage(props: Props) {
 
   const [imageLoaded, setImageLoaded] = useState(false);
 
-
   // get comments
 
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/comments?page=${commentsPage}&limit=10`,{
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/comments?page=${commentsPage}&limit=10`,
+        {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "*",
@@ -168,7 +199,7 @@ function SingleEventPage(props: Props) {
         setPostComments(res.data);
       })
       .catch((err) => console.log(err));
-  }, []); 
+  }, []);
 
   return (
     <>
@@ -228,8 +259,11 @@ function SingleEventPage(props: Props) {
             </div>
           </div>
           <div className={styles.actions}>
-            <button className={styles.action} onClick={handleJoinEvent}>
-              Join Event
+            <button
+              className={styles.action}
+              onClick={isJoined ? handleLeaveEvent : handleJoinEvent}
+            >
+              {isJoined ? "Leave" : "Join Event"}
             </button>
             <button className={styles.action}>Invite</button>
           </div>
@@ -243,7 +277,7 @@ function SingleEventPage(props: Props) {
         <p>
           <FaComment style={{ fill: "#97B00F" }} />
           <span>Comments</span>
-          </p>
+        </p>
       </div>
       <div className={styles.comments}>
         <CommentSection

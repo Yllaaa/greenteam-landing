@@ -37,6 +37,11 @@ function GreenChallenges() {
   });
   const [challenges, setChallenges] = useState<Challenge[]>([]);
   const [page, setPage] = useState(1);
+
+  // modals
+  const [addNew, setAddNew] = React.useState(false);
+  const [challengeId, setChallengeId] = React.useState("");
+  const [doItModal, setDoItModal] = React.useState(false);
   useEffect(() => {
     axios
       .get(
@@ -62,11 +67,7 @@ function GreenChallenges() {
       .catch((err) => {
         console.log(err);
       });
-  }, [page]);
-
-  // modals
-  const [addNew, setAddNew] = React.useState(false);
-  const [doItModal, setDoItModal] = React.useState(false);
+  }, [page, addNew, doItModal]);
 
   return (
     <>
@@ -103,7 +104,12 @@ function GreenChallenges() {
         <div className={`${styles.navigationWrapper}`}>
           <div ref={sliderRef} className={`keen-slider `}>
             <div className={`keen-slider__slide ${styles.suggested}`}>
-              <Challenges challenges={challenges} setAddNew={setAddNew} />
+              <Challenges
+                challenges={challenges}
+                setAddNew={setAddNew}
+                setChallengeId={setChallengeId}
+                setDoItModal={setDoItModal}
+              />
             </div>
           </div>
           {loaded && instanceRef.current && (
@@ -128,12 +134,20 @@ function GreenChallenges() {
       {/* Modal */}
       {addNew && (
         <>
-          <AddNewModal setAddNew={setAddNew} addNew={addNew} />
+          <AddNewModal
+            setAddNew={setAddNew}
+            addNew={addNew}
+            challengeId={challengeId}
+          />
         </>
       )}
       {doItModal && (
         <>
-          <DoItModal setDoItModal={setDoItModal} doItModal={doItModal} />
+          <DoItModal
+            setDoItModal={setDoItModal}
+            doItModal={doItModal}
+            challengeId={challengeId}
+          />
         </>
       )}
     </>

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 import React, { useEffect, useState } from "react";
@@ -10,13 +11,53 @@ import eco from "@/../public/ZPLATFORM/categories/eco.svg";
 import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
-// import ReactECharts from "echarts-for-react";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
+
+interface TopicScore {
+  topicId: number;
+  topicName: string;
+  totalPoints: string;
+}
 
 function Categories() {
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [topicScores, setTopicScores] = useState<TopicScore[]>([]);
+  const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([]);
+
+  // Mapping between component categories and backend topic names
+  const categoryMapping = {
+    know: { name: "Knowledge And Values" },
+    food: { name: "Food And Health" },
+    physical: { name: "Physical And Mental Exercise" },
+    community: { name: "Community And Nature" },
+    art: { name: "Art" },
+    eco: { name: "Ecotechnologies" },
+  };
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/score/main-topics`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        setTopicScores(res.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching topic scores:", error);
+      });
+  }, []);
 
   const [selectedCategory, setSelectedCategory] = useState<
-    | keyof typeof subCategories
+    | keyof typeof categoryMapping
     | "community"
     | "food"
     | "eco"
@@ -25,21 +66,43 @@ function Categories() {
     | "physical"
   >("community");
 
-  const subCategories = {
-    community: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6"],
-    food: ["Sub 1", "Sub 2", "Sub 3", "Sub 4"],
-    eco: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
-    know: ["Sub 1", "Sub 2"],
-    art: ["Sub 1", "Sub 2", "Sub 3"],
-    physical: ["Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5"],
+  const modalRef = React.useRef<HTMLDivElement>(null);
+
+  const handleCategoryClick = (category: keyof typeof categoryMapping) => {
+    const selectedTopic = categoryMapping[category].name;
+    const topicId = topicScores.find(
+      (topic) => topic.topicName === selectedTopic
+    )?.topicId;
+
+    // Fetch sub-topics for the selected category
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/score/sub-topics/${topicId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        // Filter out topics with 0 points and sort by points in descending order
+        const filteredScores = res.data
+          // .filter((topic: TopicScore) => parseInt(topic.totalPoints) > 0)
+          // .sort(
+          //   (a: TopicScore, b: TopicScore) =>
+          //     parseInt(b.totalPoints) - parseInt(a.totalPoints)
+          // )
+          // .slice(0, 6); // Take top 6 topics
+
+        setSubTopicScores(filteredScores);
+        setSelectedCategory(category);
+        setIsModalOpen(true);
+      })
+      .catch((error) => {
+        console.error("Error fetching sub-topic scores:", error);
+      });
   };
 
-  const modalRef = React.useRef<HTMLDivElement>(null);
-  const handleCategoryClick = (category: keyof typeof subCategories) => {
-    console.log("category", category);
-    setSelectedCategory(category);
-    setIsModalOpen(true);
-  };
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
@@ -64,6 +127,7 @@ function Categories() {
       htmlElelemtTag.style.overflow = "unset";
     }
   }, [isModalOpen]);
+
   const closeModal = () => {
     setIsModalOpen(false);
     setSelectedCategory("community");
@@ -79,68 +143,75 @@ function Categories() {
     return `${x},${y}`;
   };
 
-  const points = [
-    getPoint(Math.floor(Math.random() * 100), 0),
-    getPoint(Math.floor(Math.random() * 100), 60),
-    getPoint(Math.floor(Math.random() * 100), 120),
-    getPoint(Math.floor(Math.random() * 100), 180),
-    getPoint(Math.floor(Math.random() * 100), 240),
-    getPoint(Math.floor(Math.random() * 100), 300),
-  ].join(" ");
+  // Get points based on actual topic scores
+  const getScaledPoints = (scores?: TopicScore[]) => {
+    // If no scores, return random points
+    if (!scores || scores.length === 0) {
+      return [
+        getPoint(Math.floor(0), 0),
+        getPoint(Math.floor(0), 60),
+        getPoint(Math.floor(0), 120),
+        getPoint(Math.floor(0), 180),
+        getPoint(Math.floor(0), 240),
+        getPoint(Math.floor(0), 300),
+      ].join(" ");
+    }
+
+    // Map points to create hexagon
+    const points = scores.map((score, index) => {
+      const value = Math.min(parseInt(score.totalPoints), 100);
+      return getPoint(value, index * 60);
+    });
+
+    // If fewer than 6 points, pad with zeros
+    while (points.length < 6) {
+      points.push(getPoint(0, points.length * 60));
+    }
+
+    return points.join(" ");
+  };
+
   return (
     <>
       <div style={{ zIndex: 0 }} className={styles.container}>
         <div style={{ zIndex: 11 }} className={styles.chart}>
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <polygon points={points} className={styles.filledArea} />
+            <polygon
+              points={getScaledPoints(topicScores)}
+              className={styles.filledArea}
+            />
           </svg>
         </div>
         <div style={{ zIndex: 10 }} className={styles.diamondShape}>
           <Image src={diamond} alt="diamond" />
         </div>
         <div style={{ zIndex: 1000 }} className={styles.labels}>
-          <span
-            onClick={() => handleCategoryClick("community")}
-            className={`${styles.label} ${styles.top1}`}
-          >
-            <Image src={community} alt="community" />
-            {/* Community and Nature */}
-          </span>
-          <span
-            onClick={() => handleCategoryClick("food")}
-            className={`${styles.label} ${styles.top2}`}
-          >
-            <Image src={food} alt="food" />
-            {/* Food and Health */}
-          </span>
-          <span
-            onClick={() => handleCategoryClick("eco")}
-            className={`${styles.label} ${styles.top3}`}
-          >
-            <Image src={eco} alt="eco" />
-            {/* Ecotechnics */}
-          </span>
-          <span
-            onClick={() => handleCategoryClick("know")}
-            className={`${styles.label} ${styles.top4}`}
-          >
-            <Image src={know} alt="know" />
-            {/* Knowledge and values */}
-          </span>
-          <span
-            onClick={() => handleCategoryClick("art")}
-            className={`${styles.label} ${styles.top5}`}
-          >
-            <Image src={art} alt="art" />
-            {/* Art and Shows */}
-          </span>
-          <span
-            onClick={() => handleCategoryClick("physical")}
-            className={`${styles.label} ${styles.top6}`}
-          >
-            <Image src={physical} alt="physical" />
-            {/* Physical and mental */}
-          </span>
+          {Object.entries(categoryMapping).map(([key, value]) => {
+            const categoryIcons = {
+              community: community,
+              food: food,
+              eco: eco,
+              know: know,
+              art: art,
+              physical: physical,
+            };
+
+            const iconSrc = categoryIcons[key as keyof typeof categoryIcons];
+
+            return (
+              <span
+                key={key}
+                onClick={() =>
+                  handleCategoryClick(key as keyof typeof categoryMapping)
+                }
+                className={`${styles.label} ${
+                  styles[`top${Object.keys(categoryMapping).indexOf(key) + 1}`]
+                }`}
+              >
+                <Image src={iconSrc} alt={key} />
+              </span>
+            );
+          })}
         </div>
       </div>
       {/* Modal */}
@@ -152,58 +223,28 @@ function Categories() {
             </button>
 
             <div className={styles.subCategories}>
-              <h2>{selectedCategory.toUpperCase()}</h2>
+              <h2>{categoryMapping[selectedCategory].name.toUpperCase()}</h2>
+
               <div style={{ zIndex: 11 }} className={styles.chart}>
                 <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                  <polygon points={points} className={styles.filledArea} />
+                  <polygon
+                    points={getScaledPoints(subTopicScores)}
+                    className={styles.filledArea}
+                  />
                 </svg>
               </div>
               <div style={{ zIndex: 10 }} className={styles.diamondShape}>
                 <Image src={diamond} alt="diamond" />
               </div>
               <div style={{ zIndex: 1000 }} className={styles.labels}>
-                <span
-                  onClick={() => handleCategoryClick("community")}
-                  className={`${styles.label} ${styles.top11}`}
-                >
-                  <Image src={community} alt="community" />
-                  {/* Community and Nature */}
-                </span>
-                <span
-                  onClick={() => handleCategoryClick("food")}
-                  className={`${styles.label} ${styles.top22}`}
-                >
-                  <Image src={food} alt="food" />
-                  {/* Food and Health */}
-                </span>
-                <span
-                  onClick={() => handleCategoryClick("eco")}
-                  className={`${styles.label} ${styles.top33}`}
-                >
-                  <Image src={eco} alt="eco" />
-                  {/* Ecotechnics */}
-                </span>
-                <span
-                  onClick={() => handleCategoryClick("know")}
-                  className={`${styles.label} ${styles.top44}`}
-                >
-                  <Image src={know} alt="know" />
-                  {/* Knowledge and values */}
-                </span>
-                <span
-                  onClick={() => handleCategoryClick("art")}
-                  className={`${styles.label} ${styles.top55}`}
-                >
-                  <Image src={art} alt="art" />
-                  {/* Art and Shows */}
-                </span>
-                <span
-                  onClick={() => handleCategoryClick("physical")}
-                  className={`${styles.label} ${styles.top66}`}
-                >
-                  <Image src={physical} alt="physical" />
-                  {/* Physical and mental */}
-                </span>
+                {subTopicScores.map((subTopic, index) => (
+                  <span
+                    key={subTopic.topicId}
+                    className={`${styles.label} ${styles[`top${index + 1}${index + 1}`]}`}
+                  >
+                    {subTopic.topicName}
+                  </span>
+                ))}
               </div>
             </div>
           </div>

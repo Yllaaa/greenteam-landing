@@ -3,9 +3,13 @@
 import React, { useEffect } from "react";
 import styles from "./DoItModal.module.css";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 function DoItModal(props: any) {
-  const { setDoItModal } = props;
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
+  const { setDoItModal, challengeId } = props;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
 
@@ -28,6 +32,34 @@ function DoItModal(props: any) {
   const closeModal = () => {
     setDoItModal(false);
   };
+  const acceptDo = () => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          if (res) {
+            ToastNot("challenge marked as done");
+            setDoItModal(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          ToastNot("error occurred while marking challenge as done");
+        });
+    } catch {
+      ToastNot("error occurred while marking challenge as done");
+    }
+  };
 
   return (
     <>
@@ -37,8 +69,7 @@ function DoItModal(props: any) {
           <div className={styles.buttons}>
             <button
               onClick={() => {
-                closeModal();
-                ToastNot("you selected yes");
+                acceptDo();
               }}
               className={styles.modalButton}
             >
@@ -47,7 +78,6 @@ function DoItModal(props: any) {
             <button
               onClick={() => {
                 closeModal();
-                ToastNot("you selected no");
               }}
               className={styles.modalButton}
             >

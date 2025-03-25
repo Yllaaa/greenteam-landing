@@ -5,14 +5,13 @@ import styles from "./Chalenges.module.css";
 // import doIt from "@/../public/ZPLATFORM/challenges/doIt.svg";
 
 import Image from "next/image";
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
+
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { Props } from "./types/ChallengeTypes.data";
-import { useRouter } from "next/navigation";
 
 function Challenges(props: Props) {
-  const { challenges, setAddNew } = props;
-  const router = useRouter();
+  const { challenges, setAddNew, setChallengeId, setDoItModal } = props;
+
   return (
     <>
       <div className={styles.container}>
@@ -36,7 +35,8 @@ function Challenges(props: Props) {
             <div className={styles.challengeActions}>
               <button
                 onClick={() => {
-                  ToastNot("Challenge Accepted");
+                  setDoItModal(true);
+                  setChallengeId(challenge.id);
                 }}
                 className={styles.challengeButton}
               >
@@ -44,7 +44,7 @@ function Challenges(props: Props) {
               </button>
               <button
                 onClick={() => {
-                  router.push(`?id=${challenge.id}`);
+                  setChallengeId(challenge.id);
                   setAddNew(true);
                 }}
                 className={styles.challengeButton}

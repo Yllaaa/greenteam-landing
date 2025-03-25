@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { Suspense } from "react";
 import styles from "../../SubHeader.module.css";
@@ -12,7 +13,38 @@ import message from "@/../public/ZPLATFORM/header/message.svg";
 import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
 import { useLocale } from "next-intl";
 import post from "@/../public/ZPLATFORM/header/posts.svg";
-function SubHeaderRes() {
+
+type Props = {
+  setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
+  postComments: any;
+  setPostComments: React.Dispatch<React.SetStateAction<any>>;
+  postId: string;
+  setCommentPage: React.Dispatch<React.SetStateAction<number>>;
+  commentPage: number;
+  setRepliesPage: React.Dispatch<React.SetStateAction<number>>;
+  repliesPage: number;
+  setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+  rerender: boolean;
+  setPostId: React.Dispatch<React.SetStateAction<string>>;
+  commentModal: boolean;
+};
+
+function SubHeaderRes(props: Props) {
+  const {
+    setCommentModal,
+    postComments,
+    setPostComments,
+    postId,
+    setCommentPage,
+    commentPage,
+    setRepliesPage,
+    repliesPage,
+    setRerender,
+    rerender,
+    setPostId,
+    commentModal,
+  } = props;
+
   const locale = useLocale();
 
   const actions = [
@@ -88,7 +120,20 @@ function SubHeaderRes() {
             </div>
           }
         >
-          <MyChallenges />
+          <MyChallenges
+            setCommentModal={setCommentModal}
+            postComments={postComments}
+            setPostComments={setPostComments}
+            postId={postId}
+            setCommentPage={setCommentPage}
+            commentPage={commentPage}
+            setRepliesPage={setRepliesPage}
+            repliesPage={repliesPage}
+            setRerender={setRerender}
+            rerender={rerender}
+            setPostId={setPostId}
+            commentModal={commentModal}
+          />
         </Suspense>
       </div>
     </>

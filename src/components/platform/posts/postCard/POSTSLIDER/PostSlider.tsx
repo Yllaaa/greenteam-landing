@@ -175,11 +175,11 @@ function PostSlider(props: Props) {
 
   // Handle like button click with optimistic UI update
   const handleLike = () => {
+    handleToggleReaction("like");
     // If already liked, remove like
     if (userLiked) {
       setLikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserLiked(false);
-      handleToggleReaction(null);
     }
     // If disliked, remove dislike and add like
     else if (userDisliked) {
@@ -187,23 +187,21 @@ function PostSlider(props: Props) {
       setLikeCount((prevCount) => prevCount + 1);
       setUserDisliked(false);
       setUserLiked(true);
-      handleToggleReaction("like");
     }
     // Otherwise, add like
     else {
       setLikeCount((prevCount) => prevCount + 1);
       setUserLiked(true);
-      handleToggleReaction("like");
     }
   };
 
   // Handle dislike button click with optimistic UI update
   const handleDislike = () => {
+    handleToggleReaction("dislike");
     // If already disliked, remove dislike
     if (userDisliked) {
       setDislikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserDisliked(false);
-      handleToggleReaction(null);
     }
     // If liked, remove like and add dislike
     else if (userLiked) {
@@ -211,32 +209,28 @@ function PostSlider(props: Props) {
       setDislikeCount((prevCount) => prevCount + 1);
       setUserLiked(false);
       setUserDisliked(true);
-      handleToggleReaction("dislike");
     }
     // Otherwise, add dislike
     else {
       setDislikeCount((prevCount) => prevCount + 1);
       setUserDisliked(true);
-      handleToggleReaction("dislike");
     }
   };
   // /////////////////
   // Handle dislike button click with optimistic UI update
   const handleDo = () => {
+    handleToggleReaction("do");
     // If already do
     if (hasDoReaction) {
       setUserDo(false);
-      handleToggleReaction(null);
     }
     // If liked, remove do
     else if (userDo) {
       setUserDo(false);
-      handleToggleReaction("do");
     }
     // Otherwise, add do
     else {
       setUserDo(true);
-      handleToggleReaction("do");
     }
   };
   /////////////////

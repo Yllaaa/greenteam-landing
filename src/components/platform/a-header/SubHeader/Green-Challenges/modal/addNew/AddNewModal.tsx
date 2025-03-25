@@ -14,12 +14,13 @@ import ImageUpload from "@/Utils/imageUploadComponent/ImageUpload";
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
+  challengeId: string;
 }) {
   const params = useParams();
   console.log(params);
 
   const accessToken = useAppSelector((state) => state.login.accessToken);
-  const { setAddNew } = props;
+  const { setAddNew, challengeId } = props;
   const closeModal = useCallback(() => {
     setAddNew(false);
   }, [setAddNew]);
@@ -53,10 +54,9 @@ function AddNewModal(props: {
   const onSubmit = async (formData: any) => {
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/done-with-post`,
         {
           content: formData.content,
-          creatorType: "user",
         },
         {
           headers: {
@@ -65,7 +65,11 @@ function AddNewModal(props: {
           },
         }
       );
-      console.log(response.data);
+      if (response) {
+        ToastNot(`Post added successfully`);
+        reset();
+        setAddNew(false);
+      }
 
       ToastNot(`Post added successfully`);
       reset();

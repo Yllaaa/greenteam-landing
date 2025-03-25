@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useState } from "react";
 import Image from "next/image";
 import styles from "../../SubHeader.module.css";
@@ -13,7 +14,36 @@ import MyChallenges from "../../doChallenges/myChallenges/MyChallenges";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Link from "next/link";
 import { useLocale } from "next-intl";
-function SubHeaderWeb() {
+
+type Props = {
+  setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
+  postComments: any;
+  setPostComments: React.Dispatch<React.SetStateAction<any>>;
+  postId: string;
+  setCommentPage: React.Dispatch<React.SetStateAction<number>>;
+  commentPage: number;
+  setRepliesPage: React.Dispatch<React.SetStateAction<number>>;
+  repliesPage: number;
+  setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+  rerender: boolean;
+  setPostId: React.Dispatch<React.SetStateAction<string>>;
+  commentModal: boolean;
+};
+function SubHeaderWeb(props: Props) {
+  const {
+    setCommentModal,
+    postComments,
+    setPostComments,
+    postId,
+    setCommentPage,
+    commentPage,
+    setRepliesPage,
+    repliesPage,
+    setRerender,
+    rerender,
+    setPostId,
+    commentModal,
+  } = props;
   const locale = useLocale();
   const actions = [
     {
@@ -91,7 +121,20 @@ function SubHeaderWeb() {
                 </div>
               }
             >
-              <MyChallenges />
+              <MyChallenges
+                setCommentModal={setCommentModal}
+                postComments={postComments}
+                setPostComments={setPostComments}
+                postId={postId}
+                setCommentPage={setCommentPage}
+                commentPage={commentPage}
+                setRepliesPage={setRepliesPage}
+                repliesPage={repliesPage}
+                setRerender={setRerender}
+                rerender={rerender}
+                setPostId={setPostId}
+                commentModal={commentModal}
+              />
             </Suspense>
           </div>
         </div>
@@ -113,6 +156,7 @@ function SubHeaderWeb() {
           </div>
         ))}
       </div>
+      
     </>
   );
 }
