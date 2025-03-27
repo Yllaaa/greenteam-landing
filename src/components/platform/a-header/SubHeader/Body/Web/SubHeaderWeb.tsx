@@ -67,7 +67,7 @@ function SubHeaderWeb(props: Props) {
     {
       icon: addNew,
       title: "Add post",
-      href: "/add-new",
+      href: `addNew/newPost`,
     },
   ];
   const [isOpen, setIsOpen] = useState(false);
@@ -148,7 +148,7 @@ function SubHeaderWeb(props: Props) {
             <Link
               href={`/${locale}/${action.href}`}
               className={
-                action.href === "/add-new"
+                action.href === `addNew/newPost`
                   ? styles.postLink
                   : styles.regularLink
               }

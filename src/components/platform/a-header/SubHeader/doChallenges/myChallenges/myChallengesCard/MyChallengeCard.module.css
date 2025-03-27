@@ -73,7 +73,10 @@
 .challengeImage .noImage {
   width: 100%;
   height: 100%;
-  text-align: start;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
   background: #3a444c;
   padding: 16px;
   border-radius: 16px;

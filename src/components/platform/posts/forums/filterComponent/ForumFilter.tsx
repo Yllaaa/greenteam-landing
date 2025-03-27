@@ -10,7 +10,7 @@ function ForumFilter(props: ForumFilterProps) {
   const { section, setPage, setSection } = props;
   //   const [show, setShow] = React.useState(false);
   const handleAddNew = () => {
-    router.push(`/${locale}/personal/newForum`);
+    router.push(`/${locale}/addNew/newForum`);
   };
   return (
     <>

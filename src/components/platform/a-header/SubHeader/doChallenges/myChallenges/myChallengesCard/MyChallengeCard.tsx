@@ -130,6 +130,29 @@ function MyChallengeCard(props: Props) {
     [isMounted]
   );
 
+  const handleDoIt = () => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challenge.id}/mark-as-done`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          console.log(res.data);
+          ToastNot("Challenge Accepted");
+        });
+    } catch (err) {
+      console.error("Error handling do it:", err);
+    }
+  };
+
   return (
     <>
       <div
@@ -188,6 +211,7 @@ function MyChallengeCard(props: Props) {
       <div className={styles.challengeActions}>
         <button
           onClick={() => {
+            handleDoIt();
             ToastNot("Challenge Accepted");
           }}
           className={styles.challengeButton}

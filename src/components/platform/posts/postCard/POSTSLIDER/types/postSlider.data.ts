@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-type ReactionType = "like" | "dislike" | "do" | null;
+type ReactionType = "like" | "dislike" | "do" | "sign" | null;
 
 type Props = {
   media: string[] | null;

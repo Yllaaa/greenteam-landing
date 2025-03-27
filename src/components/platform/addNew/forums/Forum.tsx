@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styles from "./Forum.module.css";
 import { useForm } from "react-hook-form";
 import dicusionIcon from "@/../public/forum/discution.svg";
@@ -7,53 +7,30 @@ import Image from "next/image";
 import defaultAvatar from "@/../public/auth/user.png";
 import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import { Topics } from "@/components/Assets/topics/Topics.data";
 
-// topics
-type ParentType = {
-  id: string;
-  name: string;
-};
-
-type ItemType = {
-  id: string;
-  name: string;
-  parentId: string;
-  parent: ParentType;
-};
-
-// post
 type PostType = {
   headline: string;
   content: string;
-  mainTopicId: string;
+  mainTopicId: number;
   section: string;
 };
 
 function Forums() {
   // get the user info
-  const userInfo1 = localStorage.getItem("user");
-  const userInfo = userInfo1 ? JSON.parse(userInfo1) : null;
+  const userInfo1 = getToken();
+  const userInfo = userInfo1 ? userInfo1 : null;
 
   // get topics and sub topics
-  const [topics, setTopics] = useState<ItemType[]>();
-
-  useEffect(() => {
-    axios
-      .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/topics`)
-      .then((res) => {
-        setTopics(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
+  const topics = Topics;
 
   // handle the form
-  const { register, reset, handleSubmit, setValue } = useForm<PostType>({
+  const { register, reset, handleSubmit, setValue, formState: { errors } } = useForm<PostType>({
     defaultValues: {
       headline: "",
       content: "",
-      mainTopicId: "",
+      mainTopicId: 0,
       section: "",
     },
   });
@@ -62,14 +39,21 @@ function Forums() {
 
   const [selectedOptions, setSelectedOptions] = useState<string>("");
   const onSubmit = (formData: PostType) => {
-    console.log(formData);
+    // Ensure mainTopicId is a valid integer
+    const mainTopicId = parseInt(formData.mainTopicId.toString(), 10);
+    
+    if (isNaN(mainTopicId)) {
+      ToastNot("Please select a valid topic");
+      return;
+    }
+    
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum/add-publication`,
         {
           headline: formData.headline,
           content: formData.content,
-          mainTopicId: formData.mainTopicId,
+          mainTopicId: mainTopicId,
           section: formData.section,
         },
         {
@@ -83,31 +67,35 @@ function Forums() {
       .then((res) => {
         console.log("data", res.data);
         ToastNot(`Post in ${res.data.section} added successfully`);
+        reset();
+        setSelectedOptions("");
       })
       .catch((err) => {
         ToastNot(`Error adding forum`);
         console.log(err);
       });
-    reset();
-    setSelectedOptions("");
   };
 
   // Subcategories selection
-
   const subTopics = ["need", "doubt", "dream"];
   const handleOptionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
     setSelectedOptions(value);
-
-    // setSelectedOptions(value as "" | "dream" | "need" | "doubt");
     setValue("section", value);
   };
 
   // Handle topic change and reset subtopics
   const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMainTopic = event.target.value;
-    setValue("mainTopicId", selectedMainTopic);
+    
+    // Ensure the selected value is converted to a number
+    const topicId = parseInt(selectedMainTopic, 10);
+    
+    // Only set the value if it's a valid number
+    if (!isNaN(topicId)) {
+      setValue("mainTopicId", topicId);
+    }
   };
 
   return (
@@ -169,7 +157,10 @@ function Forums() {
             <div className={styles.selectCategory}>
               {/* Main Category */}
               <select
-                {...register("mainTopicId", { required: true })}
+                {...register("mainTopicId", { 
+                  required: "Please select a topic",
+                  validate: (value) => !isNaN(parseInt(value.toString(), 10)) || "Invalid topic selection"
+                })}
                 onChange={handleTopicChange}
               >
                 <option value="">-Select-</option>
@@ -179,6 +170,7 @@ function Forums() {
                   </option>
                 ))}
               </select>
+              {errors.mainTopicId && <p className={styles.error}>{errors.mainTopicId.message}</p>}
 
               {/* Subcategories */}
               <div className={styles.selectSubCategory}>

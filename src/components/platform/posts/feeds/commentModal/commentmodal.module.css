@@ -41,6 +41,20 @@
   width: 100%;
   height: 567px;
 }
+.postImages .noMedia {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.postImages .noMedia .postImage {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .dots {
   position: absolute;
   display: flex;
@@ -317,7 +331,7 @@
   width: 15%;
   min-width: fit-content;
 }
-.Section{
+.Section {
   padding: 0px 20px;
   margin-bottom: 26px;
 }

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-
+import ReCAPTCHA from "react-google-recaptcha";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -24,33 +25,33 @@ import { setUserSignupData } from "@/store/features/signup/userSignupSlice";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function SignUpForm() {
-  const t = useTranslations('auth.signUp');
+  const t = useTranslations("auth.signUp");
   const router = useRouter();
   const locale = useLocale();
   // register form react-forms
+  // reCAPTCHA state
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
   // yup
   const passwordSchema = yup.object().shape({
-    email: yup.string().required(t('emailRequired')).email(t('invalidEmail')),
+    email: yup.string().required(t("emailRequired")).email(t("invalidEmail")),
 
     password: yup
       .string()
-      .required(t('passwordRequired'))
-      .min(8, t('passwordMin'))
-      .matches(/[A-Z]/, t('passwordMatchUpper'))
-      .matches(/[a-z]/, t('passwordMatchLower'))
-      .matches(/[0-9]/, t('passwordMatchNumber'))
-      .matches(
-        /[!@#$%^&*(),.?":{}|<>]/,
-        t('passwordMatchSpecial')
-      ),
+      .required(t("passwordRequired"))
+      .min(8, t("passwordMin"))
+      .matches(/[A-Z]/, t("passwordMatchUpper"))
+      .matches(/[a-z]/, t("passwordMatchLower"))
+      .matches(/[0-9]/, t("passwordMatchNumber"))
+      .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
 
     username: yup
       .string()
-      .required(t('usernameRequired'))
-      .min(3, t('usernameMin'))
-      .max(20, t('usernameMax')),
+      .required(t("usernameRequired"))
+      .min(3, t("usernameMin"))
+      .max(20, t("usernameMax")),
 
-    confirmPassword: yup.string().required(t('confirmRequired')),
+    confirmPassword: yup.string().required(t("confirmRequired")),
   });
 
   const {
@@ -89,14 +90,19 @@ function SignUpForm() {
   };
 
   const signup = () => {
+    // Check if captcha is verified
+    if (!captchaToken) {
+      ToastNot(t("pleaseSolveCaptcha"));
+      return;
+    }
     if (!selectedOption) {
-      setSelectedOptionError(t('pleaseAccept'));
+      setSelectedOptionError(t("pleaseAccept"));
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
     try {
       if (data.password !== data.confirmPassword)
-        return ToastNot(t('passwordNotMatch'));
+        return ToastNot(t("passwordNotMatch"));
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/register`,
@@ -112,7 +118,7 @@ function SignUpForm() {
           }
         )
         .then((response) => {
-          if (response.status === 200) ToastNot(t('signUpSuccess'));
+          if (response.status === 200) ToastNot(t("signUpSuccess"));
           dispatch(setUserSignupData(response.data));
           router.replace(`/${locale}/login`);
         })
@@ -143,8 +149,8 @@ function SignUpForm() {
             </div>
             {/* header */}
             <div className={styles.title}>
-              <h5>{t('createAccount')}</h5>
-              <p>{t('signUpNow')}</p>
+              <h5>{t("createAccount")}</h5>
+              <p>{t("signUpNow")}</p>
             </div>
           </div>
           <form
@@ -154,15 +160,15 @@ function SignUpForm() {
             })}
           >
             <label htmlFor="username">
-              {t('username')} <span>*</span>
+              {t("username")} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
                 id="username"
                 type="text"
-                placeholder={t('username')}
+                placeholder={t("username")}
                 {...register("username", {
-                  required: { value: true, message: t('usernameRequired') },
+                  required: { value: true, message: t("usernameRequired") },
                 })}
                 onChange={(e) => setData({ ...data, username: e.target.value })}
                 className={styles.input}
@@ -172,15 +178,15 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="email">
-              {t('email')} <span>*</span>
+              {t("email")} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
                 id="email"
                 type="text"
-                placeholder={t('email')}
+                placeholder={t("email")}
                 {...register("email", {
-                  required: { value: true, message: t('emailRequired') },
+                  required: { value: true, message: t("emailRequired") },
                 })}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
                 className={styles.input}
@@ -190,14 +196,14 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="password">
-              {t('password')} <span>*</span>
+              {t("password")} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder={t('password')}
+                  placeholder={t("password")}
                   {...register("password", { required: true, minLength: 8 })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
@@ -212,14 +218,14 @@ function SignUpForm() {
               )}
             </div>
             <label htmlFor="confirmPasswordpassword">
-              {t('confirmPassword')} <span>*</span>
+              {t("confirmPassword")} <span>*</span>
             </label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
-                  placeholder={t('confirmPassword')}
+                  placeholder={t("confirmPassword")}
                   {...register("confirmPassword", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, confirmPassword: e.target.value })
@@ -242,7 +248,7 @@ function SignUpForm() {
               <div className={styles.agreeSectionAll}>
                 <div className={styles.agreeSection}>
                   <div
-                     style={
+                    style={
                       selectedOption
                         ? { backgroundColor: "#307040" }
                         : { backgroundColor: "#96b032" }
@@ -265,13 +271,13 @@ function SignUpForm() {
                     />
                   </div>
                   <p>
-                    {t('IAgree')}e{" "}
-                    <Link href={"service"}>{t('termsOfService')}</Link>
+                    {t("IAgree")}e{" "}
+                    <Link href={"service"}>{t("termsOfService")}</Link>
                   </p>
                 </div>
                 <div className={styles.forgetPassword}>
                   <Link href={`/${locale}/forget-password`}>
-                    {t('forgetPassword')}
+                    {t("forgetPassword")}
                   </Link>
                 </div>
               </div>
@@ -279,13 +285,20 @@ function SignUpForm() {
                 <div className={styles.errorMessage}>{selectedOptionError}</div>
               )}
             </div>
-
+            <div className={styles.captchaContainer}>
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
+                onChange={(token: any) => setCaptchaToken(token)}
+                onExpired={() => setCaptchaToken(null)}
+              />
+            </div>
             <button type="submit" onClick={signup}>
-              {t('signUp')}
+              {t("signUp")}
             </button>
           </form>
           <p className={styles.createAccount}>
-            {t('alreadyHaveAccount')} <Link href={`/${locale}/login`}> {t('login')}</Link>
+            {t("alreadyHaveAccount")}{" "}
+            <Link href={`/${locale}/login`}> {t("login")}</Link>
           </p>
         </div>
         <div className={styles.sideImageContainer}>
@@ -293,11 +306,9 @@ function SignUpForm() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>{t('join')}</h4>
-            <h3>{t('greenerFuture')}</h3>
-            <p>
-              {t('bePart')}
-            </p>
+            <h4>{t("join")}</h4>
+            <h3>{t("greenerFuture")}</h3>
+            <p>{t("bePart")}</p>
           </div>
           <div className={styles.foots}>
             <Image src={earthImage} alt="feet" />

@@ -1,66 +1,53 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useEffect, lazy, Suspense } from "react";
+import React, {
+  useEffect,
+  lazy,
+  Suspense,
+  useState,
+  useCallback,
+  useRef,
+} from "react";
 import axios from "axios";
 import styles from "./PostForum.module.css";
 
-// import { useForm } from "react-hook-form";
-// import { MdOutlineFilterList } from "react-icons/md";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import ForumFilter from "./filterComponent/ForumFilter";
+import { CommentModal } from "../feeds/commentModal/CommentModal";
+import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
+import Image from "next/image";
 const ForumCard = lazy(() => import("./ForumsCard/ForumCard"));
 
-// type ParentType = {
-//   name: string;
-//   id: string;
-// };
-// type Topic = {
-//   id: string;
-//   name: string;
-//   parentId: string;
-//   parent: ParentType;
-// }[];
 function PostForums() {
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
 
-  // const [openTopics, setOpenTopics] = React.useState(false);
-  // const topicsRef = React.useRef<HTMLDivElement>(null);
-  // useEffect(() => {
-  //   const handleClickOutside = (event: MouseEvent) => {
-  //     if (
-  //       topicsRef.current &&
-  //       !topicsRef.current.contains(event.target as Node)
-  //     ) {
-  //       setOpenTopics(false);
-  //     }
-  //   };
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
-  // const onSubmit = (data: any) => console.log(data);
-  // console.log(errors);
+  // Modals and state
+  const [commentModal, setCommentModal] = useState(false);
+  const [postComments, setPostComments] = useState<Comment[]>([]);
+  const [postId, setPostId] = useState<string>("");
+  const [commentsPage, setCommentsPage] = useState(1);
+  const [rerender, setRerender] = useState(false);
 
-  const [posts, setPosts] = React.useState<any[]>([]);
-  const [section, setSection] = React.useState<
-    "doubt" | "need" | "dream" | "all"
-  >("all");
-  // const [topics, setTopics] = React.useState<Topic>();
+  const [posts, setPosts] = useState<any[]>([]);
+  const [section, setSection] = useState<"doubt" | "need" | "dream" | "all">(
+    "all"
+  );
 
   const limit = "5";
-  const [page, setPage] = React.useState(1);
-  const [isLoading, setIsLoading] = React.useState(true);
-  const [errorMessage, setErrorMessage] = React.useState("");
-  const [prevPage, setPrevPage] = React.useState(page);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [prevPage, setPrevPage] = useState(page);
+
+  // Refs and scroll state
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Fetch posts effect
   useEffect(() => {
     axios
       .get(
@@ -91,123 +78,75 @@ function PostForums() {
       .catch((err) => {
         setErrorMessage("An Error Occurred");
         setIsLoading(false);
-        console.log(err);
+        console.error(err);
       });
-  }, [section, page]);
+  }, [section, page, accessToken]);
 
-  // useEffect(() => {
-  //   axios
-  //     .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/topics`)
-  //     .then((res) => setTopics(res.data))
-  //     .catch((err) => console.log(err));
-  // }, []);
+  // Check scroll position and update scroll buttons
+  const checkScrollPosition = useCallback(() => {
+    if (bodyRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = bodyRef.current;
+      const scrollableWidth = scrollWidth - clientWidth;
+
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollableWidth);
+    }
+  }, []);
+
+  // Initial mount and scroll position check
+  useEffect(() => {
+    // Delay initial check to ensure DOM is fully rendered
+    const checkInitialScroll = () => {
+      if (bodyRef.current) {
+        const { scrollWidth, clientWidth } = bodyRef.current;
+        setCanScrollRight(scrollWidth > clientWidth);
+      }
+    };
+
+    // Check immediately after posts are loaded
+    checkInitialScroll();
+
+    // Additional check after a short delay to handle any rendering issues
+    const timer = setTimeout(checkInitialScroll, 100);
+
+    const currentRef = bodyRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", checkScrollPosition);
+
+      // Add resize observer to handle dynamic content changes
+      const resizeObserver = new ResizeObserver(checkInitialScroll);
+      resizeObserver.observe(currentRef);
+
+      return () => {
+        currentRef.removeEventListener("scroll", checkScrollPosition);
+        resizeObserver.disconnect();
+        clearTimeout(timer);
+      };
+    }
+  }, [checkScrollPosition, posts]);
+
+  // Scroll handlers with improved navigation
+  const prevSlide = useCallback(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  const nextSlide = useCallback(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
+  }, []);
 
   return (
     <>
       <div className={styles.container}>
-        {/* <div className={styles.header}>
-          <div className={styles.title}>
-            <h3>Forums</h3>
-          </div>
-          <div className={styles.filterSection}>
-            <ul>
-              <li
-                style={section === "all" ? { color: "#97B00F" } : { color: "" }}
-                onClick={() => {
-                  setPage(1);
-                  setSection("all");
-                }}
-              >
-                all
-              </li>
-              <li
-                style={
-                  section === "doubt" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("doubt");
-                }}
-              >
-                doubt
-              </li>
-              <li
-                style={
-                  section === "dream" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("dream");
-                }}
-              >
-                dream
-              </li>
-              <li
-                style={
-                  section === "need" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => {
-                  setPage(1);
-                  setSection("need");
-                }}
-              >
-                need
-              </li>
-            </ul>
-          </div>
-          <div className={styles.filterTopics}>
-            <div
-              onClick={() => setOpenTopics(!openTopics)}
-              className={styles.topicsBtn}
-            >
-              <p>
-                <span>
-                  <MdOutlineFilterList />
-                </span>{" "}
-                filter
-              </p>
-            </div>
-            {openTopics && (
-              <div ref={topicsRef} className={styles.topicsList}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className={styles.filter}>
-                    <input
-                      {...register("filter")}
-                      onClick={() => {
-                        setMainTopicId("all");
-                        handleSubmit(onSubmit);
-                        setOpenTopics(false);
-                      }}
-                      type="radio"
-                      value="all"
-                      id="all"
-                      checked={mainTopicId === "all"}
-                    />
-                    <label htmlFor="all">All</label>
-                  </div>
-                  {topics &&
-                    topics?.map((topic) => (
-                      <div key={topic.id} className={styles.filter}>
-                        <input
-                          {...register("filter")}
-                          onClick={() => {
-                            setMainTopicId(topic.id);
-                            handleSubmit(onSubmit);
-                            setOpenTopics(false);
-                          }}
-                          type="radio"
-                          value={topic.id}
-                          id={topic.id}
-                          checked={mainTopicId === topic.id}
-                        />
-                        <label htmlFor={topic.id}>{topic.name}</label>
-                      </div>
-                    ))}
-                </form>
-              </div>
-            )}
-          </div>
-        </div> */}
         <ForumFilter
           section={section}
           setPage={setPage}
@@ -231,12 +170,61 @@ function PostForums() {
                   </div>
                 }
               >
-                <ForumCard
-                  section={section}
-                  posts={posts}
-                  page={page}
-                  setPage={setPage}
-                />
+                {posts.length > 0 && (
+                  <div className={styles.sliderBtns}>
+                    <div
+                      className={`${styles.arrow} ${
+                        !canScrollLeft ? styles.disabled : ""
+                      }`}
+                      onClick={prevSlide}
+                    >
+                      <Image
+                        src={toRight}
+                        alt="right arrow"
+                        width={100}
+                        height={100}
+                        style={{ transform: "rotateY(180deg)" }}
+                      />
+                    </div>
+                    <div
+                      className={`${styles.arrow} ${
+                        !canScrollRight ? styles.disabled : ""
+                      }`}
+                      onClick={nextSlide}
+                    >
+                      <Image
+                        src={toRight}
+                        alt="right arrow"
+                        width={100}
+                        height={100}
+                      />
+                    </div>
+                  </div>
+                )}
+                <div
+                  ref={bodyRef}
+                  className={styles.content}
+                  onScroll={checkScrollPosition}
+                >
+                  {posts.map((post, index) => (
+                    <div key={post.id}>
+                      <ForumCard
+                        key={post.id}
+                        section={section}
+                        post={post}
+                        index={index}
+                        page={page}
+                        setPage={setPage}
+                        length={posts.length}
+                        commentPage={commentsPage}
+                        setCommentPage={setCommentsPage}
+                        setCommentModal={setCommentModal}
+                        setPostComments={setPostComments}
+                        setPostId={setPostId}
+                      />
+                    </div>
+                  ))}
+                </div>
               </Suspense>
             )
           ) : (
@@ -246,6 +234,18 @@ function PostForums() {
           )}
         </div>
       </div>
+      {commentModal && (
+        <CommentModal
+          commentsPage={commentsPage}
+          setCommentsPage={setCommentsPage}
+          setCommentModal={setCommentModal}
+          postComments={postComments}
+          rerender={rerender}
+          setRerender={setRerender}
+          setPostComments={setPostComments}
+          postId={postId}
+        />
+      )}
     </>
   );
 }

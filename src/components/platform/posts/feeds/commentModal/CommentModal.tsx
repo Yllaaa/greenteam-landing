@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 import styles from "./commentmodal.module.css";
 import Image from "next/image";
 import admin from "@/../public/auth/user.png";
-import foot from "@/../public/goals/9af82d040ad31191bd7b42312d18fff3.jpeg";
+import foot from "@/../public/logo/foot.png";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import { useInView } from "react-intersection-observer";
@@ -55,6 +55,7 @@ type Props = {
   rerender?: boolean;
   setRerender: (value: boolean) => void;
   postId?: string;
+  postMedia?: any;
 };
 function PostComments(passProps: Props) {
   const accessToken = useAppSelector((state) => state.login.accessToken);
@@ -66,6 +67,7 @@ function PostComments(passProps: Props) {
     commentsPage,
     setPostComments,
     postId,
+    postMedia,
   } = passProps;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
@@ -444,6 +446,7 @@ function PostComments(passProps: Props) {
     registerComment,
     onSubmit,
     onEvenctCommentSubmit,
+    postMedia,
   };
 }
 export function CommentModal(props: Props) {
@@ -467,6 +470,7 @@ export function CommentModal(props: Props) {
     handleSubmitComment,
     registerComment,
     onSubmit,
+    postMedia,
   } = PostComments(props);
 
   return (
@@ -474,79 +478,95 @@ export function CommentModal(props: Props) {
       <div className={styles.modal}>
         <div ref={modalRef} className={styles.modalcontent}>
           <div className={styles.postImages}>
-            <div ref={sliderRef} className={`keen-slider`}>
-              <div className={`keen-slider__slide ${styles.postCard}`}>
-                <div className={styles.image}>
-                  <div className={styles.overlay}></div>
-                  <Image
-                    src={foot}
-                    alt="image"
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className={styles.postImage}
-                  />
+            {postMedia && postMedia.length > 0 && (
+              <div ref={sliderRef} className={`keen-slider`}>
+                <div className={`keen-slider__slide ${styles.postCard}`}>
+                  <div className={styles.image}>
+                    <div className={styles.overlay}></div>
+                    <Image
+                      src={foot}
+                      alt="image"
+                      loading="lazy"
+                      width={1000}
+                      height={1000}
+                      className={styles.postImage}
+                    />
+                  </div>
+                </div>
+                <div className={`keen-slider__slide ${styles.postCard}`}>
+                  <div className={styles.image}>
+                    <div className={styles.overlay}></div>
+                    <Image
+                      src={foot}
+                      alt="image"
+                      loading="lazy"
+                      width={1000}
+                      height={1000}
+                      className={styles.postImage}
+                    />
+                  </div>
+                </div>
+                <div className={`keen-slider__slide ${styles.postCard}`}>
+                  <div className={styles.image}>
+                    <Image
+                      src={foot}
+                      alt="image"
+                      loading="lazy"
+                      width={1000}
+                      height={1000}
+                      className={styles.postImage}
+                    />
+                  </div>
+                </div>
+                <div className={`keen-slider__slide ${styles.postCard}`}>
+                  <div className={styles.image}>
+                    <div className={styles.overlay}></div>
+                    <Image
+                      src={foot}
+                      alt="image"
+                      loading="lazy"
+                      width={1000}
+                      height={1000}
+                      className={styles.postImage}
+                    />
+                  </div>
                 </div>
               </div>
-
-              <div className={`keen-slider__slide ${styles.postCard}`}>
-                <div className={styles.image}>
-                  <div className={styles.overlay}></div>
-                  <Image
-                    src={foot}
-                    alt="image"
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className={styles.postImage}
-                  />
+            )}
+            {postMedia &&
+              postMedia.length > 0 &&
+              loaded &&
+              instanceRef.current && (
+                <div className={styles.dots}>
+                  {[
+                    ...Array(
+                      instanceRef.current.track.details.slides.length
+                    ).keys(),
+                  ].map((idx) => {
+                    return (
+                      <button
+                        key={idx}
+                        onClick={() => {
+                          instanceRef.current?.moveToIdx(idx);
+                        }}
+                        className={` ${styles.dot} ${
+                          currentSlide === idx ? styles.active : ""
+                        }`}
+                      ></button>
+                    );
+                  })}
                 </div>
-              </div>
-              <div className={`keen-slider__slide ${styles.postCard}`}>
-                <div className={styles.image}>
-                  <Image
-                    src={foot}
-                    alt="image"
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className={styles.postImage}
-                  />
-                </div>
-              </div>
-              <div className={`keen-slider__slide ${styles.postCard}`}>
-                <div className={styles.image}>
-                  <div className={styles.overlay}></div>
-                  <Image
-                    src={foot}
-                    alt="image"
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className={styles.postImage}
-                  />
-                </div>
-              </div>
-            </div>
-            {loaded && instanceRef.current && (
-              <div className={styles.dots}>
-                {[
-                  ...Array(
-                    instanceRef.current.track.details.slides.length
-                  ).keys(),
-                ].map((idx) => {
-                  return (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        instanceRef.current?.moveToIdx(idx);
-                      }}
-                      className={` ${styles.dot} ${
-                        currentSlide === idx ? styles.active : ""
-                      }`}
-                    ></button>
-                  );
-                })}
+              )}
+            {!postMedia && (
+              <div className={styles.noMedia}>
+                <Image
+                  src={foot}
+                  alt="image"
+                  loading="lazy"
+                  width={1000}
+                  height={1000}
+                  className={styles.postImage}
+                />
               </div>
             )}
           </div>
@@ -741,8 +761,6 @@ export function CommentModal(props: Props) {
     </>
   );
 }
-
-
 
 export function CommentSection(props: Props) {
   const {

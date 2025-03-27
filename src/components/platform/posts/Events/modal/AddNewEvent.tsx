@@ -3,13 +3,13 @@ import { useForm } from "react-hook-form";
 import { format } from "date-fns";
 import { Calendar, X } from "lucide-react";
 import styles from "./AddNewEvent.module.css";
-import { useAppSelector } from "@/store/hooks";
 import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 import { preventBackgroundScroll } from "@/hooks/preventScroll/preventBackroundScroll";
 import addlogo from "@/../public/ZPLATFORM/event/addLogo.svg";
 import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
 // Define types for better TypeScript support
 interface FormData {
   creatorType: string;
@@ -44,8 +44,8 @@ const category: Category[] = [
 ];
 
 const AddNewEvent = (props: addEventProps) => {
-  const accessToken = useAppSelector((state) => state.login.accessToken);
-  console.log(accessToken);
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -99,7 +99,7 @@ const AddNewEvent = (props: addEventProps) => {
       !data.location ||
       !data.startDate ||
       !data.endDate ||
-      !data.category 
+      !data.category
     ) {
       ToastNot("Please fill all fields");
     }
@@ -113,18 +113,19 @@ const AddNewEvent = (props: addEventProps) => {
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/create-event`,
           {
+            creatorType: data.creatorType,
+            title: data.title,
+            description: data.description,
+            location: data.location,
+            startDate: data.startDate,
+            endDate: data.endDate,
+            category: data.category,
+          },
+          {
             headers: {
+              "Content-Type": "application/json",
               Authorization: `Bearer ${accessToken}`,
-            },
-            data: {
-              creatorType: data.creatorType,
-              title: data.title,
-              description: data.description,
-              location: data.location,
-              startDate: data.startDate,
-              endDate: data.endDate,
-              category: data.category,
-              topicId: data.topicId,
+              "Access-Control-Allow-Origin": "*",
             },
           }
         )
