@@ -240,7 +240,7 @@ function Categories() {
                 {subTopicScores.map((subTopic, index) => (
                   <span
                     key={subTopic.topicId}
-                    className={`${styles.label} ${styles[`top${index + 1}${index + 1}`]}`}
+                    className={`${styles.label} ${styles.subLabel} ${styles[`top${index + 1}${index + 1}`]}`}
                   >
                     {subTopic.topicName}
                   </span>
