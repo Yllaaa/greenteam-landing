@@ -10,7 +10,9 @@ import React, {
 } from "react";
 import styles from "./ForumCard.module.css";
 import Image from "next/image";
-
+import dream from "@/../public/ZPLATFORM/forum/dreem.png";
+import need from "@/../public/ZPLATFORM/forum/need.png";
+import question from "@/../public/ZPLATFORM/forum/question.png";
 import comment from "@/../public/ZPLATFORM/post/comment.svg";
 import { useInView } from "react-intersection-observer";
 import { FaCameraRetro } from "react-icons/fa6";
@@ -279,26 +281,43 @@ function ForumCard(props: Discussion) {
         key={index}
         className={styles.container}
       >
-        <div className={styles.user}>
-          <div className={styles.avatar}>
-            {post.author.avatar ? (
-              <Image
-                src={post.author.avatar}
-                alt="image"
-                loading="lazy"
-                width={400}
-                height={300}
-              />
-            ) : (
-              <div className={styles.noAvatar}></div>
-            )}
-          </div>
-          <div className={styles.data}>
-            <div className={styles.username}>
-              <p>{post.author.username}</p> {" . "}
-              <span>Add friend</span>
+        <div className={styles.header}>
+          <div className={styles.user}>
+            <div className={styles.avatar}>
+              {post.author.avatar ? (
+                <Image
+                  src={post.author.avatar}
+                  alt="image"
+                  loading="lazy"
+                  width={400}
+                  height={300}
+                />
+              ) : (
+                <div className={styles.noAvatar}></div>
+              )}
             </div>
-            <div className={styles.job}>{post.author.fullName}</div>
+            <div className={styles.data}>
+              <div className={styles.username}>
+                <p>{post.author.username}</p> {" . "}
+                <span>Add friend</span>
+              </div>
+              <div className={styles.job}>{post.author.fullName}</div>
+            </div>
+          </div>
+          <div className={styles.logo}>
+            <Image
+              src={
+                post.section === "need"
+                  ? need
+                  : post.section === "dream"
+                  ? dream
+                  : question
+              }
+              alt="image"
+              loading="lazy"
+              width={400}
+              height={300}
+            />
           </div>
         </div>
         <div className={styles.scrollable}>

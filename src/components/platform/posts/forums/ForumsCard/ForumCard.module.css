@@ -11,6 +11,19 @@
   -ms-border-radius: 15px;
   -o-border-radius: 15px;
 }
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.header .logo{
+  width: 32px;
+  height: 32px;
+}
+.header .logo img{
+  width: 32px;
+  height: 32px;
+}
 .user {
   min-height: 40px;
   gap: 6px;
