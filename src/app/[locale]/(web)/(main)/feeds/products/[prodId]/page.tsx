@@ -2,8 +2,8 @@ import SingleProduct from "@/components/platform/posts/products/singleProduct/Si
 import React from "react";
 import styles from "./prodId.module.css";
 
-function page(params: { params: { prodId: string } }) {
-  const { prodId } = params.params;
+async function page(params: Promise<{ prodId: string }>) {
+  const { prodId } = await params;
   return (
     <>
       <div className={styles.container}>
