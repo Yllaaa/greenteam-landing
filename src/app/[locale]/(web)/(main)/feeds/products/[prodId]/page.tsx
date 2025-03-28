@@ -1,8 +1,8 @@
 import SingleProduct from "@/components/platform/posts/products/singleProduct/SingleProduct";
 import React from "react";
-import styles from "./prodId.module.css"
+import styles from "./prodId.module.css";
 
-function page(params: { params: { locale: string; prodId: string } }) {
+function page(params: { params: { prodId: string } }) {
   const { prodId } = params.params;
   return (
     <>
