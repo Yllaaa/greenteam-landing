@@ -1,83 +1,96 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React from "react";
 // import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
-import image from "@/../public/icons/foot.svg";
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
-
+import image from "@/../public/logo/foot.png";
+import { Products } from "../types/productsTypes.data";
+import { useInView } from "react-intersection-observer";
+import { FaMessage } from "react-icons/fa6";
+import { useRouter } from "next/navigation";
+// import { TiStarFullOutline } from "react-icons/ti";
 interface ProductCardProps {
-  id?: string;
-  imageUrl?: string;
-  category?: string;
-  details?: string;
-
-  product?: string;
-  price?: "";
-  isFavorite?: boolean;
+  limit?: number;
+  products: Products[];
+  product: Products;
+  index?: number;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setSendMessage: React.Dispatch<React.SetStateAction<boolean>>;
+  setSellerId: React.Dispatch<React.SetStateAction<string>>;
+  setSellerType: React.Dispatch<React.SetStateAction<string>>;
 }
 
-const ProductCard: React.FC<ProductCardProps> = ({
-  // id,
-  imageUrl,
-  category,
-  details,
-
-  product,
-  price,
-  isFavorite,
-}) => {
+const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
+  const {
+    product,
+    index,
+    page,
+    setPage,
+    products,
+    setSendMessage,
+    setSellerId,
+    setSellerType,
+  } = props;
+  const router = useRouter();
+  const handleNavigate = () => {
+    router.push(`feeds/products/${product?.id}`);
+  };
   const handleJoinNow = async () => {
-    ToastNot("joined")
-    // try {
-    //   const response = await axios.post("/api/joinEvent", { eventId: id });
-    //   console.log("Join response:", response.data);
-    // } catch (error) {
-    //   console.error("Error joining event:", error);
-    // }
+    setSendMessage(true);
+    setSellerId(product?.sellerId);
+    setSellerType(product?.sellerType);
   };
 
-  const handleToggleFavorite = () => {
-    ToastNot("added")
-    // axios.post("/api/toggleFavorite", { eventId: id });
-  };
+  console.log("product", product);
+
+  const { ref, inView } = useInView({
+    threshold: 0.5,
+  });
+  const handlePages = React.useCallback(() => {
+    setPage(products && products.length < 5 ? 1 : page + 1);
+  }, [page]);
+
+  React.useEffect(() => {
+    if (inView) {
+      handlePages();
+    }
+  }, [inView]);
 
   return (
-    <div className={styles.card}>
+    <div
+      ref={index === products.length - 1 ? ref : null}
+      className={styles.card}
+    >
       <Image
-        src={imageUrl ? imageUrl : image}
+        src={product.imageUrl ? product.imageUrl[0] : image}
         alt="image"
         className={styles.image}
       />
-      <div className={styles.content}>
-        <h2 className={styles.category}>
-          {category ? category : "ECOFRIENDLY"}
-        </h2>
+      <div onClick={handleNavigate} className={styles.content}>
+        <h2 className={styles.category}>{product?.marketType}</h2>
         <p className={styles.details}>
-          {details ? details : "Eco-Friendly Water Bottle"}
+          {product?.description.length > 90
+            ? product?.description.slice(0, 90) + "..."
+            : product?.description}
         </p>
 
         <p className={styles.product}>
-          {product
-            ? product
-            : "Stay hydrated sustainably with our BPA-free, reusable water bottle made from recycled materials"}
+          {product?.description.length > 90
+            ? product?.description.slice(0, 90) + "..."
+            : product?.description}
         </p>
-        <p className={styles.price}>{price ? `${price} $` : "12.99 $"}</p>
-        <div className={styles.topBtns}>
-          <button onClick={handleJoinNow} className={styles.contactButton}>
-            Contact Seller
-          </button>
-          <button onClick={handleJoinNow} className={styles.contactButton}>
-            Contact Seller
-          </button>
-        </div>
-        <button onClick={handleJoinNow} className={styles.messageButton}>
+        <p className={styles.price}>{product?.price} $</p>
+      </div>
+      <div className={styles.topBtns}>
+        <button onClick={handleJoinNow} className={styles.contactButton}>
           Message Seller
         </button>
+        <button onClick={handleJoinNow} className={styles.chatButton}>
+          <FaMessage />
+        </button>
       </div>
-      <button onClick={handleToggleFavorite} className={styles.favoriteButton}>
-        {isFavorite ? "❤️" : "🤍"}
-      </button>
     </div>
   );
 };

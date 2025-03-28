@@ -1,6 +1,4 @@
-/**
- * src/services/api/eventService.ts
- */
+
 import axios from "axios";
 import { Event, EventCategory } from "../types/eventTypes.data";
 

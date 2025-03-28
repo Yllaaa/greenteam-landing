@@ -1,172 +1,242 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React from "react";
+import React, {
+  Suspense,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import ProductCard from "./Card/ProductCard";
 import styles from "./ProductSection.module.css";
-import { MdOutlineFilterList } from "react-icons/md";
-import { useForm } from "react-hook-form";
+import ProductsFilter from "./filterComponent/ProductsFilter";
+import { Products, ProductsCategory } from "./types/productsTypes.data";
+import { fetchProducts } from "./functions/productsService";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import LoadingTree from "@/components/zaLoader/LoadingTree";
+import Image from "next/image";
+import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
+import AddNewProduct from "./modal/AddNewProduct";
+import MessageModal from "./modal/MessageModal";
+
 function ProductSection() {
-  const [openTopics, setOpenTopics] = React.useState(false);
-  const topicsRef = React.useRef<HTMLDivElement>(null);
-  React.useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        topicsRef.current &&
-        !topicsRef.current.contains(event.target as Node)
-      ) {
-        setOpenTopics(false);
+  const [section, setSection] = useState<ProductsCategory>(0);
+  const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [addNew, setAddNew] = useState(false);
+  const [sendMessage, setSendMessage] = useState(false);
+  const [sellerId, setSellerId] = useState("");
+  const [sellerType, setSellerType] = useState("");
+  const [isMounted, setIsMounted] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+  const [products, setProducts] = useState<Products[]>([]);
+
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
+  // Constants
+  const LIMIT = 5;
+  const bodyRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Fetch events data
+  const loadProducts = useCallback(
+    async (pageNum: number, replace: boolean = false) => {
+      try {
+        setIsLoading(true);
+        const data = await fetchProducts({
+          page: pageNum,
+          limit: LIMIT,
+          accessToken,
+          topicId: section,
+        });
+
+        // Check if we've reached the end of available events
+        if (data.length < LIMIT) {
+          setHasMore(false);
+        } else {
+          setHasMore(true);
+        }
+
+        setProducts((prev) => {
+          if (replace) {
+            return data;
+          }
+          return [...prev, ...data];
+        });
+      } catch (error) {
+        console.error("Failed to fetch events:", error);
+        setErrorMessage("An Error Occurred");
+      } finally {
+        setIsLoading(false);
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    },
+    [section, LIMIT, accessToken]
+  );
+
+  // Initial load and section change handler
+  useEffect(() => {
+    setPage(1);
+    loadProducts(1, true);
+  }, [section, loadProducts]);
+
+  // Scroll event handler for infinite scrolling and scroll button state
+  const handleScroll = useCallback(() => {
+    if (!bodyRef.current || !hasMore || isLoading) return;
+
+    const container = bodyRef.current;
+    const scrollWidth = container.scrollWidth;
+    const clientWidth = container.clientWidth;
+    const scrollLeft = container.scrollLeft;
+
+    // Update scroll button states
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+
+    // Load more when user has scrolled to 80% of the content
+    if (scrollLeft + clientWidth >= scrollWidth * 0.8) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  }, [hasMore, isLoading]);
+
+  // Load more events when page changes
+  useEffect(() => {
+    if (page > 1) {
+      loadProducts(page, false);
+    }
+  }, [page, loadProducts]);
+
+  // Add scroll event listener
+  useEffect(() => {
+    const currentRef = bodyRef.current;
+    if (currentRef) {
+      currentRef.addEventListener("scroll", handleScroll);
+
+      // Initial scroll state check
+      const scrollWidth = currentRef.scrollWidth;
+      const clientWidth = currentRef.clientWidth;
+      setCanScrollRight(scrollWidth > clientWidth);
+
+      return () => {
+        currentRef.removeEventListener("scroll", handleScroll);
+      };
+    }
+  }, [handleScroll]);
+
+  // Client-side only effects
+  useEffect(() => {
+    setIsMounted(true);
   }, []);
 
-  const [section, setSection] = React.useState<
-    "doubt" | "need" | "dream" | "all"
-  >("all");
+  // Manual scroll handlers for arrow buttons
+  const handleManualScroll = (direction: "left" | "right") => {
+    if (!bodyRef.current) return;
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
-  const onSubmit = (data: any) => console.log(data);
-  console.log(errors);
+    const container = bodyRef.current;
+    const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
 
-  const topics = [
-    {
-      name: "sub1",
-      id: "1",
-    },
-    {
-      name: "sub2",
-      id: "2",
-    },
-    {
-      name: "sub3",
-      id: "3",
-    },
-  ];
-  const [mainTopicId, setMainTopicId] = React.useState<string | "all">("all"); // "3a9073ba-82da-4017-9fc2-52d318d0a050";
+    container.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
+  };
+
+  // Render loading state
+  const renderLoading = () => {
+    return (
+      <div className={styles.noPosts}>
+        <LoadingTree />
+      </div>
+    );
+  };
+
+  // Render content based on state
+  const renderContent = () => {
+    if (isLoading && products.length === 0) {
+      return renderLoading();
+    }
+
+    if (errorMessage && products.length === 0) {
+      return (
+        <div className={styles.noPosts}>
+          <p>{errorMessage}</p>
+        </div>
+      );
+    }
+
+    if (products.length === 0) {
+      return (
+        <div className={styles.noPosts}>
+          <p>No events found</p>
+        </div>
+      );
+    }
+    return (
+      <>
+        <Suspense fallback={renderLoading()}>
+          {isMounted &&
+            products.map((product, index) => (
+              <div key={product.id || index} className={styles.postContainer}>
+                <ProductCard
+                  limit={LIMIT}
+                  products={products}
+                  product={product}
+                  index={index}
+                  page={page}
+                  setPage={setPage}
+                  setSendMessage={setSendMessage}
+                  setSellerId={setSellerId}
+                  setSellerType={setSellerType}
+                />
+              </div>
+            ))}
+        </Suspense>
+      </>
+    );
+  };
+
   return (
     <>
       <div className={styles.container}>
-        {/*  */}
-        <div className={styles.header}>
-          <div className={styles.title}>
-            <h3>
-              <span className={styles.titleText}>Products</span>
-            </h3>
-          </div>
-          <div className={styles.filterSection}>
-            <ul>
-              <li
-                style={section === "all" ? { color: "#97B00F" } : { color: "" }}
-                onClick={() => setSection("all")}
-              >
-                all
-              </li>
-              <li
-                style={
-                  section === "doubt" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => setSection("doubt")}
-              >
-                doubt
-              </li>
-              <li
-                style={
-                  section === "dream" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => setSection("dream")}
-              >
-                dream
-              </li>
-              <li
-                style={
-                  section === "need" ? { color: "#97B00F" } : { color: "" }
-                }
-                onClick={() => setSection("need")}
-              >
-                need
-              </li>
-            </ul>
-          </div>
-          <div className={styles.filterTopics}>
+        <ProductsFilter
+          section={section}
+          setPage={setPage}
+          setSection={setSection}
+          setAddNew={setAddNew}
+        />
+        {products.length > 0 && (
+          <div className={styles.sliderBtns}>
             <div
-              onClick={() => setOpenTopics(!openTopics)}
-              className={styles.topicsBtn}
+              className={`${styles.arrow} ${
+                !canScrollLeft ? styles.disabled : ""
+              }`}
+              onClick={() => handleManualScroll("left")}
             >
-              <p>
-                <span>
-                  <MdOutlineFilterList />
-                </span>{" "}
-                filter
-              </p>
+              <Image
+                src={toRight}
+                alt="left arrow"
+                width={100}
+                height={100}
+                style={{ transform: "rotateY(180deg)" }}
+              />
             </div>
-            {openTopics && (
-              <div ref={topicsRef} className={styles.topicsList}>
-                <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className={styles.filter}>
-                    <input
-                      {...register("filter")}
-                      onClick={() => {
-                        setMainTopicId("all");
-                        handleSubmit(onSubmit);
-                        setOpenTopics(false);
-                      }}
-                      type="radio"
-                      value="all"
-                      id="all"
-                      checked={mainTopicId === "all"}
-                    />
-                    <label htmlFor="all">All</label>
-                  </div>
-                  {topics &&
-                    topics?.map((topic) => (
-                      <div key={topic.id} className={styles.filter}>
-                        <input
-                          {...register("filter")}
-                          onClick={() => {
-                            setMainTopicId(topic.id);
-                            handleSubmit(onSubmit);
-                            setOpenTopics(false);
-                          }}
-                          type="radio"
-                          value={topic.id}
-                          id={topic.id}
-                          checked={mainTopicId === topic.id}
-                        />
-                        <label htmlFor={topic.id}>{topic.name}</label>
-                      </div>
-                    ))}
-                </form>
-              </div>
-            )}
+            <div
+              className={`${styles.arrow} ${
+                !canScrollRight ? styles.disabled : ""
+              }`}
+              onClick={() => handleManualScroll("right")}
+            >
+              <Image src={toRight} alt="right arrow" width={100} height={100} />
+            </div>
           </div>
-        </div>
-        {/*  */}
+        )}
 
-        <div className={styles.posts}>
-          <div className={styles.postContainer}>
-            <ProductCard />
-          </div>
-          <div className={styles.postContainer}>
-            <ProductCard />
-          </div>
-          <div className={styles.postContainer}>
-            <ProductCard />
-          </div>
-          <div className={styles.postContainer}>
-            <ProductCard />
-          </div>
-          <div className={styles.postContainer}>
-            <ProductCard />
-          </div>
+        <div ref={bodyRef} className={styles.posts}>
+          {renderContent()}
         </div>
       </div>
+      {addNew && <AddNewProduct setAddNew={setAddNew} userType="user" />}
+      {sendMessage && <MessageModal sellerId={sellerId} sellerType={sellerType} setMessage={setSendMessage} />}
     </>
   );
 }

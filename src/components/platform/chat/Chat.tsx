@@ -56,17 +56,8 @@ export default function Chat() {
       );
     };
 
-    // Initial connection
     connectSocket();
 
-    // Refresh connection every 5 seconds
-    // const interval = setInterval(() => {
-    // console.log("Refreshing WebSocket connection...");
-    // socketRef.current?.disconnect();
-    // connectSocket();
-    // }, 5000);
-
-    // Cleanup function to clear interval and disconnect WebSocket
     return () => {
       // clearInterval(interval);
       socketRef.current?.disconnect();

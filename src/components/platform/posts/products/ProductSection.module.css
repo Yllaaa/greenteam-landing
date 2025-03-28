@@ -1,3 +1,6 @@
+.container{
+  position: relative;
+}
 .header {
   display: flex;
   position: relative;
@@ -113,6 +116,18 @@
 .postContainer {
   width: fit-content;
   height: fit-content;
+}
+.sliderBtns{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0px 20px;
+  z-index: 100;
 }
 @media screen and (max-width: 768px) {
   .header {

@@ -1,8 +1,8 @@
 .card {
   position: relative;
-  min-width: 415px;
-  height: fit-content;
-  min-height: 459px;
+  min-width: 470px;
+  height: 591px;
+  min-height: 591px;
   background: #333634;
   z-index: 9;
   border-radius: 30px;
@@ -14,7 +14,7 @@
 
 .image {
   width: 100%;
-  height: 168px;
+  height: 330px;
   object-fit: cover;
   border-radius: 30px 30px 0px 0px;
   -webkit-border-radius: 30px 30px 0px 0px;
@@ -65,12 +65,20 @@
   color: #97b00f;
   margin-bottom: 22px;
 }
-.topBtns{
-  width: 100%;
+.topBtns {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 90%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
 }
 .messageButton {
   width: 100%;
@@ -109,13 +117,24 @@
   -o-border-radius: 30;
 }
 
-.favoriteButton {
-  position: absolute;
-  top: 8px;
-  right: 8px;
+.chatButton {
+  width: 50px;
+  height: 50px;
   background: none;
   border: none;
-  font-size: 1.5rem;
   cursor: pointer;
-  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.chatButton svg{
+  width: 20px;
+  height: 20px;
+  fill: white;
 }
