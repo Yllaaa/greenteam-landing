@@ -86,13 +86,7 @@ function Categories() {
       )
       .then((res) => {
         // Filter out topics with 0 points and sort by points in descending order
-        const filteredScores = res.data
-          // .filter((topic: TopicScore) => parseInt(topic.totalPoints) > 0)
-          // .sort(
-          //   (a: TopicScore, b: TopicScore) =>
-          //     parseInt(b.totalPoints) - parseInt(a.totalPoints)
-          // )
-          // .slice(0, 6); // Take top 6 topics
+        const filteredScores = res.data;
 
         setSubTopicScores(filteredScores);
         setSelectedCategory(category);
@@ -214,6 +208,9 @@ function Categories() {
           })}
         </div>
       </div>
+      <div className={styles.text}>
+        <p>Your way to sustainability</p>
+      </div>
       {/* Modal */}
       {isModalOpen && selectedCategory && (
         <div className={styles.modal}>
@@ -233,14 +230,16 @@ function Categories() {
                   />
                 </svg>
               </div>
-              <div style={{ zIndex: 10 }} className={styles.diamondShape}>
+              <div style={{ zIndex: 10 }} className={styles.diamondShapeModal}>
                 <Image src={diamond} alt="diamond" />
               </div>
-              <div style={{ zIndex: 1000 }} className={styles.labels}>
+              <div style={{ zIndex: 1000 }} className={styles.subLabels}>
                 {subTopicScores.map((subTopic, index) => (
                   <span
                     key={subTopic.topicId}
-                    className={`${styles.label} ${styles.subLabel} ${styles[`top${index + 1}${index + 1}`]}`}
+                    className={` ${styles.subLabel} ${
+                      styles[`top${index + 1}${index + 1}`]
+                    }`}
                   >
                     {subTopic.topicName}
                   </span>

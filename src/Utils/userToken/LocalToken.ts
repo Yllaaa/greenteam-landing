@@ -1,7 +1,10 @@
 export const getToken = () => {
   if (typeof window !== "undefined") {
-    const storage = localStorage.getItem("user") || "";
-    return JSON.parse(storage);
+    const storage =
+      localStorage.getItem("user") === null
+        ? ""
+        : localStorage.getItem("user") || "";
+    return localStorage.getItem("user") === null ? "" : JSON.parse(storage);
   }
   return "";
 };

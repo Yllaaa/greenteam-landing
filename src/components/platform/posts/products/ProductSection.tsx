@@ -133,10 +133,10 @@ function ProductSection() {
     if (!bodyRef.current) return;
 
     const container = bodyRef.current;
-    const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
+    // const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
 
     container.scrollBy({
-      left: direction === "left" ? -scrollAmount : scrollAmount,
+      left: direction === "left" ? -300 : +300,
       behavior: "smooth",
     });
   };
@@ -236,7 +236,13 @@ function ProductSection() {
         </div>
       </div>
       {addNew && <AddNewProduct setAddNew={setAddNew} userType="user" />}
-      {sendMessage && <MessageModal sellerId={sellerId} sellerType={sellerType} setMessage={setSendMessage} />}
+      {sendMessage && (
+        <MessageModal
+          sellerId={sellerId}
+          sellerType={sellerType}
+          setMessage={setSendMessage}
+        />
+      )}
     </>
   );
 }

@@ -11,7 +11,7 @@ import React, {
   useRef,
   useCallback,
 } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
+import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 
 // Services and Utils
 import { getToken } from "@/Utils/userToken/LocalToken";
@@ -30,6 +30,7 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 
 // Styles
 import styles from "./EventSection.module.css";
+import Image from "next/image";
 
 function EventSection() {
   // Authentication
@@ -191,36 +192,41 @@ function EventSection() {
 
   return (
     <>
-      <EventFilter
-        section={section}
-        setPage={setPage}
-        setSection={setSection}
-        setAddNew={setAddNew}
-      />
+      <div className={styles.container}>
+        <EventFilter
+          section={section}
+          setPage={setPage}
+          setSection={setSection}
+          setAddNew={setAddNew}
+        />
 
-      {isMounted && (
-        <div className={styles.sliderBtns}>
-          <div
-            className={styles.arrow}
-            onClick={() => handleManualScroll("left")}
-            aria-label="Previous slide"
-          >
-            <FaArrowLeft />
+        {isMounted && (
+          <div className={styles.sliderBtns}>
+            <div
+              className={`${styles.arrow}`}
+              onClick={() => handleManualScroll("left")}
+            >
+              <Image
+                src={toRight}
+                alt="left arrow"
+                width={100}
+                height={100}
+                style={{ transform: "rotateY(180deg)" }}
+              />
+            </div>
+            <div
+              className={`${styles.arrow}`}
+              onClick={() => handleManualScroll("right")}
+            >
+              <Image src={toRight} alt="right arrow" width={100} height={100} />
+            </div>
           </div>
-          <div
-            className={styles.arrow}
-            onClick={() => handleManualScroll("right")}
-            aria-label="Next slide"
-          >
-            <FaArrowRight />
-          </div>
+        )}
+
+        <div ref={bodyRef} className={styles.body}>
+          {renderContent()}
         </div>
-      )}
-
-      <div ref={bodyRef} className={styles.body}>
-        {renderContent()}
       </div>
-
       {addNew && <AddNewEvent setAddNew={setAddNew} userType="user" />}
     </>
   );

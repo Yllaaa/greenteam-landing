@@ -1,17 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./header.module.css";
 import Image from "next/image";
 import handsLogo from "@/../public/ZPLATFORM/A-Header/HandLogo.svg";
 import FootLogo from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
-import chat from "@/../public/ZPLATFORM/A-Header/navIcons/chat.svg";
-import challenges from "@/../public/ZPLATFORM/A-Header/navIcons/challenges.svg";
-import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
-import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
-import settings from "@/../public/ZPLATFORM/A-Header/navIcons/settings.svg";
-import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
 import drop from "@/../public/ZPLATFORM/A-Header/navIcons/dropArrow.svg";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
@@ -24,8 +18,7 @@ import { useRouter } from "next/navigation";
 
 import { useLocale } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
-
-import Link from "next/link";
+import ProfileMenu from "./profileMenu/ProfileMenu";
 
 function Header() {
   // constants
@@ -35,45 +28,52 @@ function Header() {
 
   const localS = getToken();
   const [mounted, setMounted] = useState(false);
+  const [userToken, setUserToken] = useState("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
+  // Mounted effect
   useEffect(() => {
-    setMounted(true);
+    if (localS !== "") {
+      setMounted(true);
+    } else {
+      router.push(`/${locale}`);
+    }
   }, []);
 
+  // Logout handler
+  const handleLogout = useCallback(() => {
+    // Clear user data from Redux store
+    dispatch(clearUserLoginData());
+
+    // Remove token from localStorage
+    removeToken();
+
+    // Clear any other user-related data
+    localStorage.removeItem("user");
+
+    // Redirect to /locale route
+    router.replace(`/${locale}`);
+  }, [dispatch, router, locale]);
+
+  // Authentication check effects
   useEffect(() => {
     if (mounted) {
       const user = localStorage.getItem("user") ? localS : null;
       if (!user) {
-        router.push(`/${locale}`);
+        router.replace(`/${locale}`);
       }
     }
-  }, [mounted]);
-  useEffect(() => {
-    if (mounted) {
-      if (!localS) {
-        // Clear user data from Redux store
-        dispatch(clearUserLoginData());
+  }, [mounted, handleLogout]);
 
-        // Remove token from localStorage
-        removeToken();
-
-        // Clear any other user-related data
-        localStorage.removeItem("user");
-
-        // Redirect to /locale route
-        router.push(`/${locale}`);
-      }
-    }
-  }, [mounted]);
-  // handle state if not logged in
-  const [userToken, setUserToken] = useState("");
+  // Token and user data effect
   useEffect(() => {
     const accessToken = localS ? localS.accessToken : null;
-    setUserToken(accessToken);
-  }, []);
-  // handle state if logged in
+    setUserToken(accessToken || "");
+  }, [localS]);
+
+  // Fetch user data effect
   useEffect(() => {
-    if (userToken !== "") {
+    if (userToken) {
       axios
         .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
           headers: {
@@ -88,63 +88,32 @@ function Header() {
           };
           dispatch(setUserLoginData(user));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          console.error("Error fetching user data:", err);
+          // Logout user if token is invalid
+          handleLogout();
+        });
     }
-  }, [userToken]);
+  }, [userToken, dispatch]);
 
-  // manage user state
+  // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
 
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownList = [
-    {
-      id: 1,
-      name: "Chat",
-      icon: chat,
-      link: `/${locale}/chat`,
-    },
-    {
-      id: 2,
-      name: "Community",
-      icon: community,
-      link: `/${locale}/community`,
-    },
-    {
-      id: 3,
-      name: "Challenges",
-      icon: challenges,
-      link: `/${locale}/challenges`,
-    },
-    {
-      id: 4,
-      name: "Plans",
-      icon: plans,
-      link: `/${locale}/payment`,
-    },
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const dropdownElement = document.querySelector(`.${styles.headerMenu}`);
+      if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
 
-    {
-      id: 5,
-      name: "Settings",
-      icon: settings,
-      link: `/${locale}/settings`,
-    },
-  ];
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
-  const handleLogout = () => {
-    if (localS) {
-      // Clear user data from Redux store
-      dispatch(clearUserLoginData());
-
-      // Remove token from localStorage
-      removeToken();
-
-      // Clear any other user-related data
-      localStorage.removeItem("user");
-
-      // Redirect to /locale route
-      router.push(`/${locale}`);
-    }
-  };
   return (
     <>
       <div className={styles.container}>
@@ -165,9 +134,9 @@ function Header() {
           </div>
         </div>
         <div className={styles.profile}>
-          <div className={`${styles.headerMenu}`}>
+          <div className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}>
             <div
-              onClick={() => !isDropdownOpen && setIsDropdownOpen(true)}
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className={styles.profileIcon}
             >
               <div
@@ -208,45 +177,19 @@ function Header() {
                 </div>
               </div>
               <div
-                onClick={() => isDropdownOpen && setIsDropdownOpen(false)}
                 className={`${styles.arrow} ${
-                  isDropdownOpen && styles.arrowOpened
+                  isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
                 }`}
               >
                 <Image src={drop} alt="arrow" />
               </div>
             </div>
-            {isDropdownOpen && (
-              <div
-                style={{ transition: "all 0.3s ease-in-out" }}
-                className={styles.dropdown}
-              >
-                <ul>
-                  {dropdownList.map((item) => (
-                    <li
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                      }}
-                      className={styles.dropdownItem}
-                      key={item.id}
-                    >
-                      <Image src={item.icon} alt={item.name} />
-                      <Link href={item.link}>{item.name}</Link>
-                    </li>
-                  ))}
-                  <li
-                    onClick={() => {
-                      setIsDropdownOpen(false);
-                      handleLogout();
-                    }}
-                    className={styles.logout}
-                  >
-                    <Image src={logout} alt="logout" />
-                    <span>Logout</span>
-                  </li>
-                </ul>
-              </div>
-            )}
+
+            <ProfileMenu
+              isDropdownOpen={isDropdownOpen}
+              setIsDropdownOpen={setIsDropdownOpen}
+              handleLogout={handleLogout}
+            />
           </div>
         </div>
       </div>
