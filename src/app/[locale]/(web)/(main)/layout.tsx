@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Header from "@/components/platform/a-header/Header";
+import ReactQueryProvider from "@/components/platform/Payment/Plans/providers/plansProvider";
 
 import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
@@ -26,7 +27,7 @@ export default async function RootLayout({
             <Header />
           </div>
         </header>
-        <div>{children}</div>
+        <ReactQueryProvider>{children}</ReactQueryProvider>
         <div>
           <Footer />
         </div>

@@ -12,6 +12,8 @@ import { useRouter } from "next/navigation";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useLocale } from "next-intl";
 import { ReactionType, Props } from "./types/postSlider.data";
+import { useAppDispatch } from "@/store/hooks";
+import { setUpdateState } from "@/store/features/update/updateSlice";
 
 // Define better types for better type safety
 
@@ -218,7 +220,10 @@ function PostSlider(props: Props) {
   };
   // /////////////////
   // Handle dislike button click with optimistic UI update
+  const dispatch = useAppDispatch();
+
   const handleDo = () => {
+    dispatch(setUpdateState());
     handleToggleReaction("do");
     // If already do
     if (hasDoReaction) {

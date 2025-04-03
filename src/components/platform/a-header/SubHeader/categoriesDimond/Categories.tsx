@@ -207,9 +207,9 @@ function Categories() {
             );
           })}
         </div>
-      </div>
-      <div className={styles.text}>
-        <p>Your way to sustainability</p>
+        <div className={styles.text}>
+          <p>Your way to sustainability</p>
+        </div>
       </div>
       {/* Modal */}
       {isModalOpen && selectedCategory && (

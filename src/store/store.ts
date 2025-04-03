@@ -2,13 +2,15 @@ import { configureStore } from "@reduxjs/toolkit";
 import userSignupSlice from "./features/signup/userSignupSlice";
 import userLoginSlice from "./features/login/userLoginSlice";
 import currentCommunity from "./features/communitySection/currentCommunity";
+import updateState from "./features/update/updateSlice";
 
 export const store = () => {
   return configureStore({
     reducer: {
       signup: userSignupSlice,
       login: userLoginSlice,
-      currentCommunity: currentCommunity
+      currentCommunity: currentCommunity,
+      updateState: updateState,
     },
   });
 };

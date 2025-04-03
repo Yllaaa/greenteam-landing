@@ -41,6 +41,7 @@
   stroke: #006633;
   stroke-width: 1px;
 }
+/* main and modal */
 .diamondShapeModal,
 .diamondShape {
   position: absolute;
@@ -56,6 +57,7 @@
   -ms-transform: translateX(-50%) translateY(-50%);
   -o-transform: translateX(-50%) translateY(-50%);
 }
+/* main and modal */
 .diamondShapeModal img,
 .diamondShape img {
   width: 100%;
@@ -170,24 +172,6 @@
   cursor: pointer;
 }
 
-.modalDiamond {
-  width: 270px;
-  height: 300px;
-  position: relative;
-
-  top: 50%;
-  left: 50%;
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-}
-
-.modalDiamond img {
-  width: 100%;
-  height: 100%;
-}
-
 .subCategories {
   text-align: center;
   color: white;
@@ -196,19 +180,14 @@
 }
 
 .subCategories h2 {
-  margin-bottom: 20px;
+  font-family: Montserrat;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 30px;
+  letter-spacing: 0%;
 }
 
-.subCategories p {
-  list-style: none;
-  padding: 0;
-  position: absolute;
-}
-
-.subCategories li {
-  margin: 10px 0;
-  font-size: 18px;
-}
+/* labels and subLablels positions */
 .top1 {
   position: absolute;
   top: 12%;
@@ -299,6 +278,7 @@
     position: relative;
     width: 100%;
     height: 100%;
+
     background: linear-gradient(
       126.97deg,
       #006633 28.26%,
@@ -306,12 +286,25 @@
     );
     padding: 10px 15px 10px 15px;
   }
+
+  .text {
+    position: absolute;
+    top: 5%;
+    left: 2%;
+    width: 150px;
+  }
+  .text p {
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 24px;
+    letter-spacing: 0%;
+  }
   /*  */
   .closeButton {
     display: none;
   }
   .subCategories h2 {
-    margin-bottom: 10px;
     font-size: 16px;
   }
   .chart {
@@ -330,14 +323,10 @@
     stroke: #006633;
     stroke-width: 1px;
   }
+  .diamondShapeModal,
   .diamondShape {
     width: 160px;
     height: 160px;
-  }
-  .diamondShapeModal {
-    width: 140px;
-    height: 140px;
-    top: 50%;
   }
 
   /*  */
@@ -346,14 +335,12 @@
     position: relative;
     width: 100%;
     height: 100%;
-
     font-size: 10px;
   }
   .subLabel {
     min-width: 90px;
     max-width: 90px;
     text-wrap: wrap;
-
     font-size: 10px;
   }
   .label {
@@ -363,18 +350,8 @@
     display: flex;
     align-items: center;
     gap: 4px;
-
     text-wrap: wrap;
     font-size: 10px;
-
-    padding: 2px 4px;
-    position: absolute;
-    cursor: pointer;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
-    -o-transform: translate(-50%, -50%);
   }
   .label img {
     width: 50px;

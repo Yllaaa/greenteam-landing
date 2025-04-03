@@ -10,7 +10,7 @@ import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 import { useParams } from "next/navigation";
 import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
-import ImageUpload from "@/Utils/imageUploadComponent/ImageUpload";
+import ImageUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
