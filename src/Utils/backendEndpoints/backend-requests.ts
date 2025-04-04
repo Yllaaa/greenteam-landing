@@ -1,26 +1,36 @@
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import axios from "axios";
+// import { cookies } from "next/headers";
+import { getToken } from "../userToken/LocalToken";
 
-export function getAccessToken() {
-    const userInfo = localStorage.getItem("user");
-    if (!userInfo)
-        throw new Error('User not logged in');
-    const user = JSON.parse(userInfo);
-    return user.accessToken;
-}
+const token = getToken();
+const accessToken = token ? token.accessToken : "";
 
-export async function getRequest(endpoint: string) {
-    return await axios.get(endpoint, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+export function getRequest(endpoint: string) {
+  return axios.get(endpoint, {
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function postRequest(endpoint: string, data: any) {
-    return await axios.post(endpoint, data, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+  return await axios.post(endpoint, data, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 }
 
 export async function putRequest(endpoint: string, data: any) {
-    return await axios.put(endpoint, data, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+  return await axios.put(endpoint, data, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 }
 
 export async function deleteRequest(endpoint: string) {
-    return await axios.delete(endpoint, { headers: { Authorization: `Bearer ${getAccessToken()}` } });
+  return await axios.delete(endpoint, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
 }

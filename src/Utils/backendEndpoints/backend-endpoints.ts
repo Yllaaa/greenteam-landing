@@ -1,33 +1,44 @@
-export const host = 'http://localhost:9000/api/v1/';
+export const host = process.env.NEXT_PUBLIC_BACKENDAPI;
+
+const withId = (baseUrl: string) => (id: string) => `${baseUrl}/${id}`;
+const withMidId = (baseUrl: string, end: string) => (id: string) =>
+  `${baseUrl}/${id}/${end}`;
 
 export const users = {
-    follow: `${host}/users/follow`,
-    addFriend: `${host}/users/add-friend`
-}
+  follow: `${host}/users/follow`,
+  addFriend: `${host}/users/add-friend`,
+};
 
 export const common = {
-    topics: `${host}/common/topics`
-}
+  topics: `${host}/common/topics`,
+};
 
 export const pages = {
-    create: `${host}/pages/create-page`
-}
+  create: `${host}/pages/create-page`,
+};
 
 export const groups = {
-    create: `${host}/groups`
-}
+  allGroups: `${host}/api/v1/groups`,
+  singleGroup: withId(`${host}/api/v1/groups`),
+  editGroup: withId(`${host}/api/v1/groups`),
+  deleteGroup: withId(`${host}/api/v1/groups`),
+  groupEvent: {
+    create: withMidId(`${host}/api/v1/groups`, `events/create-event`),
+    getAll: withMidId(`${host}/api/v1/groups`, `events`),
+  },
+};
 
 export const events = {
-    create: `${host}/events/create-event`
-}
+  create: `${host}/events/create-event`,
+};
 
 export const posts = {
-    likedPosts: `${host}/posts/liked-posts`
-}
+  likedPosts: `${host}/posts/liked-posts`,
+};
 
 export const suggestions = {
-    followees: `${host}/suggestions/followees`,
-    friends: `${host}/suggestions/friends`,
-    groups: `${host}/suggestions/groups`,
-    pages: `${host}/suggestions/pages`
-}
+  followees: `${host}/suggestions/followees`,
+  friends: `${host}/suggestions/friends`,
+  groups: `${host}/suggestions/groups`,
+  pages: `${host}/api/v1/pages`,
+};

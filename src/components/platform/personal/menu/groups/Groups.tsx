@@ -1,19 +1,30 @@
-import { getGroupItems } from './groups.data';
-import styles from './groups.module.scss'
-import Item from './Item';
+"use client";
+import { useEffect, useState } from "react";
 
-async function Groups() {
-    const groups = await getGroupItems();
+import { getGroupItems, GroupsResponse } from "./groups.data";
 
-    return (
-        <div className={styles.groupsContainer}>
-            <div className={styles.groups}>
-                {groups.map((group, index) => (
-                    <Item key={index} {...group} />
-                ))}
-            </div>
-        </div>
-    )
+import styles from "./groups.module.scss";
+import Item from "./Item";
+
+
+function Groups() {
+  const [groupsArray, setGroupsArray] = useState<GroupsResponse>([]);
+useEffect(()=>{
+
+  getGroupItems().then((res) => {
+    setGroupsArray(res);
+  });
+},[])
+
+  return (
+    <div className={styles.groupsContainer}>
+      <div className={styles.groups}>
+        {groupsArray.map((group, index) => (
+          <Item key={index} {...group} />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-export default Groups
+export default Groups;

@@ -92,6 +92,7 @@ function LoginForm() {
         .then((response) => {
           console.log(response);
           localStorage.setItem("user", JSON.stringify(response.data));
+          document.cookie = `user=${JSON.stringify(response.data.accessToken)}`;
           dispatch(setUserLoginData(response.data));
           ToastNot(t('loginSuccess'));
           setTimeout(() => {

@@ -3,7 +3,8 @@ import Header from "@/components/platform/a-header/Header";
 import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-import styles from "./personal.module.css";
+import styles from "./groups.module.css";
+import Grpheader from "@/components/platform/sections/sec_group/header/GrpHeader";
 
 export default async function RootLayout({
   children,
@@ -23,6 +24,9 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
+          </div>
+          <div style={{ position: "relative", zIndex: "9", marginTop: "50px" }}>
+            <Grpheader />
           </div>
         </header>
         <div className={styles.container}>

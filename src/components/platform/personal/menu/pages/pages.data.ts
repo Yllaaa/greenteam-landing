@@ -6,7 +6,7 @@ export type PageItem = {
     followers: number,
     name: string,
     description: string,
-    cover: string
+    cover?: string
 }
 
 export async function getPageItems(): Promise<PageItem[]> {

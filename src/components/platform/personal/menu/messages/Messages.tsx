@@ -5,6 +5,9 @@ import styles from './messages.module.scss'
 
 export default async function Messages() {
     const messages = await getMessageItems();
+    // const messages =[{
+
+    // }]
     return (
         <div className={styles.messages}>
             {messages.map((message, index) => (

@@ -28,26 +28,25 @@ type Author = {
   username: string;
 };
 
-type MainTopic = {
-  id: string;
-  name: string;
-};
+// type MainTopic = {
+//   id: string;
+//   name: string;
+// };
 
 type Discussion = {
   post: {
     id: string;
     headline: string;
     content: string;
-    section: string;
     mediaUrl: string | null;
     createdAt: string;
     author: Author;
-    mainTopic: MainTopic;
     commentCount: number;
-    likeCount: number;
+    userReaction: "like" | "dislike" | "sign" | null;
     dislikeCount: number;
+    section: string;
+    likeCount: number;
     signCount: number;
-    userReaction: string | null;
   };
   page: number;
   setPage: Dispatch<SetStateAction<number>>;

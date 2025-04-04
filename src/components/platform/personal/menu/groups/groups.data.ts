@@ -1,21 +1,63 @@
-import { suggestions } from "@/Utils/backendEndpoints/backend-endpoints";
+"use client";
+import { groups } from "@/Utils/backendEndpoints/backend-endpoints";
 import { getRequest } from "@/Utils/backendEndpoints/backend-requests";
 
-export type GroupItem = {
-    cover: string;
-    name: string;
-    description: string;
-    members: number;
+// export type GroupItem = {
+//   cover?: string;
+//   name: string;
+//   description: string;
+//   members: number;
+// };
+
+// Define Privacy type as an enum of possible values
+export type Privacy = "PUBLIC" | "PRIVATE" | "RESTRICTED";
+
+// Define the Group interface
+export interface Group {
+  id: string;
+  ownerId: string;
+  name: string;
+  description: string;
+  cover: string | null;
+  topicId: number;
+  privacy: Privacy;
+  createdAt: string;
+  updatedAt: string;
 }
+
+// Define a type for group creation request payload
+export interface CreateGroupRequest {
+  name: string;
+  description: string;
+  cover?: string | null;
+  topicId: number;
+  privacy: Privacy;
+}
+
+// Define a type for updating a group
+export interface UpdateGroupRequest {
+  name?: string;
+  description?: string;
+  cover?: string | null;
+  topicId?: number;
+  privacy?: Privacy;
+}
+
+// Define a type for group response arrays
+export type GroupsResponse = Group[];
+
+// Define a type for a single group response
+export type GroupResponse = Group;
 
 export function formatNumber(num: number): string {
-    if (num >= 1e9) return (num / 1e9).toFixed(1).replace(/\.0$/, '') + 'B';
-    if (num >= 1e6) return (num / 1e6).toFixed(1).replace(/\.0$/, '') + 'M';
-    if (num >= 1e3) return (num / 1e3).toFixed(1).replace(/\.0$/, '') + 'K';
-    return num.toString();
+  if (num >= 1e9) return (num / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
+  if (num >= 1e6) return (num / 1e6).toFixed(1).replace(/\.0$/, "") + "M";
+  if (num >= 1e3) return (num / 1e3).toFixed(1).replace(/\.0$/, "") + "K";
+  return num.toString();
 }
 
-export async function getGroupItems(): Promise<GroupItem[]> {
-    const { data } = await getRequest(suggestions.groups);
-    return data
+export function getGroupItems(): Promise<GroupsResponse> {
+  const data = getRequest(groups.allGroups).then((res) => res.data);
+
+  return data;
 }

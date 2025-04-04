@@ -8,11 +8,13 @@ import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+// import { getAccessToken } from "@/Utils/backendEndpoints/backend-requests";
 
 // topics and subtopics
 const topics = Topics;
 
 function FeedSection() {
+  
   // Define state variables
   //modals
   const [doItModal, setDoItModal] = useState(false);

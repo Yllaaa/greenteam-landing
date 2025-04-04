@@ -43,8 +43,6 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     setSellerType(product?.sellerType);
   };
 
-  console.log("product", product);
-
   const { ref, inView } = useInView({
     threshold: 0.5,
   });

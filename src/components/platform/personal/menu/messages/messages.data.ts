@@ -3,7 +3,8 @@ export type MessageItem = {
     description: string;
 }
 
-export async function getMessageItems(): Promise<MessageItem[]> {
+// export async function getMessageItems(): Promise<MessageItem[]> {
+export async function getMessageItems() {
     return [
         {
             title: 'Message 1',
