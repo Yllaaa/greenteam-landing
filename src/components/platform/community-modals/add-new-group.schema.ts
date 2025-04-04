@@ -1,5 +1,5 @@
-import { groups } from "@/Utils/backendEndpoints/backend-endpoints";
-import { postRequest } from "@/Utils/backendEndpoints/backend-requests";
+// import { groups } from "@/Utils/backendEndpoints/backend-endpoints";
+// import { postRequest } from "@/Utils/backendEndpoints/backend-requests";
 import * as yup from "yup";
 
 export const addNewGroupSchema = yup.object().shape({
@@ -9,6 +9,6 @@ export const addNewGroupSchema = yup.object().shape({
     topicId: yup.number().typeError("Please select a topic").integer("Please select a topic").positive("Please select a topic").required("Please select a topic"),
 });
 
-export const postGroup = async (groupData: yup.InferType<typeof addNewGroupSchema>) => {
-    return await postRequest(groups.create, groupData)
-}
+// export const postGroup = async (groupData: yup.InferType<typeof addNewGroupSchema>) => {
+//     // return await postRequest(groups.create, groupData)
+// }

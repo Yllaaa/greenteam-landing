@@ -7,8 +7,9 @@ import { SelectControl } from "./modal/controls/SelectControl";
 import { useEffect, useState } from "react";
 import * as yup from 'yup';
 import { fetchTopics } from "./common.schema";
-import { addNewGroupSchema, postGroup } from "./add-new-group.schema";
+import { addNewGroupSchema } from "./add-new-group.schema";
 import { useTranslations } from "next-intl";
+import { log } from "node:console";
 
 function AddNewGroup({
     show,
@@ -25,7 +26,7 @@ function AddNewGroup({
     }, [])
 
     function onConfirm(data: yup.InferType<typeof addNewGroupSchema>) {
-        postGroup(data);
+        log(data);
         reset();
         onClose();
     }
