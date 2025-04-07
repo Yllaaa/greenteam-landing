@@ -1,47 +1,25 @@
+"use client";
+import { useEffect, useState } from "react";
 import Item from "./Item";
-// import { getPageItems } from "./pages.data";
+import { getPageItems, PageItem } from "./pages.data";
 import styles from "./pages.module.scss";
 
-export default async function Pages() {
+export default function Pages() {
+  const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   // const pages = await getPageItems();
-  // console.log("pages", pages);
-  const pages = [
-    {
-      likes: 100,
-      followers: 15,
-      name: "string",
-      description: "string",
-    },
-    {
-      likes: 100,
-      followers: 15,
-      name: "string",
-      description: "string",
-    },
-    {
-      likes: 100,
-      followers: 15,
-      name: "string",
-      description: "string",
-    },
-    {
-      likes: 100,
-      followers: 15,
-      name: "string",
-      description: "string",
-    },
-    {
-      likes: 100,
-      followers: 15,
-      name: "string",
-      description: "string",
-    },
-  ];
+  useEffect(()=>{
+  
+    getPageItems().then((res) => {
+      setPagesArray(res);
+    });
+  },[])
   return (
-    <div className={styles.pages}>
-      {pages.map((page, index) => (
-        <Item key={index} {...page} />
-      ))}
+    <div className={styles.pagesContainer}>
+      <div className={styles.pages}>
+        {pagesArray.map((page, index) => (
+          <Item key={index} {...page} />
+        ))}
+      </div>
     </div>
   );
 }

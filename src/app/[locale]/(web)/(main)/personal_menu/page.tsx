@@ -4,7 +4,7 @@ import React from "react";
 function page() {
   return (
     <>
-      <section style={{ padding: "32.5px 50px" }}>
+      <section style={{ padding: "32.5px 20px" }}>
         <PersonalMenu />
       </section>
     </>

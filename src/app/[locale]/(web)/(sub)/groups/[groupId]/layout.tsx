@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Header from "@/components/platform/a-header/Header";
-// import Footer from "@/components/platform/zfooter/Footer";
+import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import styles from "./groups.module.css";
@@ -36,7 +36,7 @@ export default async function RootLayout({
           </div>
         </div>
         <div>
-          {/* <Footer /> */}
+          <Footer />
         </div>
       </NextIntlClientProvider>
     </section>

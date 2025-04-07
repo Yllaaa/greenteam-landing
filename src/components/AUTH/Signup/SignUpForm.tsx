@@ -1,10 +1,10 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React from "react";
 import axios from "axios";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
-import ReCAPTCHA from "react-google-recaptcha";
+// import ReCAPTCHA from "react-google-recaptcha";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
@@ -30,7 +30,7 @@ function SignUpForm() {
   const locale = useLocale();
   // register form react-forms
   // reCAPTCHA state
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   // yup
   const passwordSchema = yup.object().shape({
@@ -91,10 +91,10 @@ function SignUpForm() {
 
   const signup = () => {
     // Check if captcha is verified
-    if (!captchaToken) {
-      ToastNot(t("pleaseSolveCaptcha"));
-      return;
-    }
+    // if (!captchaToken) {
+    //   ToastNot(t("pleaseSolveCaptcha"));
+    //   return;
+    // }
     if (!selectedOption) {
       setSelectedOptionError(t("pleaseAccept"));
     } else if (selectedOption) {
@@ -286,11 +286,11 @@ function SignUpForm() {
               )}
             </div>
             <div className={styles.captchaContainer}>
-              <ReCAPTCHA
+              {/* <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ""}
                 onChange={(token: any) => setCaptchaToken(token)}
                 onExpired={() => setCaptchaToken(null)}
-              />
+              /> */}
             </div>
             <button type="submit" onClick={signup}>
               {t("signUp")}

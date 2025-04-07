@@ -69,8 +69,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div onClick={handleNavigate} className={styles.content}>
         <h2 className={styles.category}>{product?.marketType}</h2>
         <p className={styles.details}>
-          {product?.name.length > 30
-            ? product?.name.slice(0, 30) + "..."
+          {product?.name.length > 90
+            ? product?.name.slice(0, 90) + "..."
             : product?.name}
         </p>
 

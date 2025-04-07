@@ -13,9 +13,9 @@ export const common = {
   topics: `${host}/common/topics`,
 };
 
-export const pages = {
-  create: `${host}/pages/create-page`,
-};
+// export const pages = {
+//   create: `${host}/pages/create-page`,
+// };
 
 export const groups = {
   allGroups: `${host}/api/v1/groups`,
@@ -26,6 +26,11 @@ export const groups = {
     create: withMidId(`${host}/api/v1/groups`, `events/create-event`),
     getAll: withMidId(`${host}/api/v1/groups`, `events`),
   },
+};
+export const pages = {
+  allPages: `${host}/api/v1/pages`,
+  singlePage: withId(`${host}/api/v1/pages`),
+ 
 };
 
 export const events = {
