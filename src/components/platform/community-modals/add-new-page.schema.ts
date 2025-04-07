@@ -17,5 +17,5 @@ export const addNewPageSchema = yup.object().shape({
 
 
 export const postPage = async (pageData: yup.InferType<typeof addNewPageSchema>) => {
-    return await postRequest(pages.create, pageData)
+    return await postRequest(pages.allPages, pageData)
 }
