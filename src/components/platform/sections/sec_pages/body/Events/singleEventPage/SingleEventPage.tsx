@@ -8,7 +8,7 @@ import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaCalendar, FaLocationPin } from "react-icons/fa6";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { CommentSection } from "../../feeds/commentModal/CommentModal";
+import { CommentSection } from "../../../../../posts/feeds/commentModal/CommentModal";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { FaComment } from "react-icons/fa";
 
