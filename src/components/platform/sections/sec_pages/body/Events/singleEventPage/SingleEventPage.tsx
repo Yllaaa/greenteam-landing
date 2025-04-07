@@ -8,35 +8,16 @@ import Image from "next/image";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaCalendar, FaLocationPin } from "react-icons/fa6";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { CommentSection } from "../../../../../posts/feeds/commentModal/CommentModal";
+import { CommentSection } from "../../../ ../../../../posts/feeds/commentModal/CommentModal";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { FaComment } from "react-icons/fa";
 
 type Props = {
   id: string;
 };
-type CreatorType = "user" | "admin" | "moderator"; // Adjust based on possible values
-
-type Topic = {
-  id: number;
-  name: string;
-  parentId: number | null;
-  createdAt: string; // ISO date string
-  updatedAt: string; // ISO date string
-};
-
-type UserCreator = {
-  id: string;
-  fullName: string;
-  username: string;
-  avatar: string | null;
-  bio: string | null;
-};
 
 type Event = {
   id: string;
-  creatorId: string;
-  creatorType: CreatorType;
   title: string;
   description: string;
   location: string;
@@ -44,13 +25,9 @@ type Event = {
   endDate: string;
   category: string;
   poster: string | null;
-  priority: number;
-  topicId: number;
-  createdAt: string;
-  joinedCount: number;
-  topic: Topic;
-  userCreator: UserCreator;
+  hostedBy: string;
   isJoined: boolean;
+  hostName: string;
 };
 function SingleEventPage(props: Props) {
   const { id } = props;
@@ -221,17 +198,17 @@ function SingleEventPage(props: Props) {
         <div className={styles.content}>
           <div className={styles.hostedBy}>
             <p>
-              Hosted by: <span>{event?.creatorType}</span>
+              Hosted by: <span>{event?.hostedBy}</span>
             </p>
           </div>
           <div className={styles.name}>
             <h3>{event?.title}</h3>
           </div>
-          <div className={styles.members}>
+          {/* <div className={styles.members}>
             <p>
-              Members: <span>{event?.joinedCount} members will join</span>
+              Members: <span>{event?.} members will join</span>
             </p>
-          </div>
+          </div> */}
           <div className={styles.date}>
             <p>
               <span className={styles.icon}>
@@ -254,7 +231,7 @@ function SingleEventPage(props: Props) {
           <div className={styles.organizer}>
             <div className={styles.img}></div>
             <div className={styles.text}>
-              <p className={styles.username}>{event?.userCreator.username}</p>
+              <p className={styles.username}>{event?.hostName}</p>
               <p className={styles.usernameTitle}>Organizer</p>
             </div>
           </div>
