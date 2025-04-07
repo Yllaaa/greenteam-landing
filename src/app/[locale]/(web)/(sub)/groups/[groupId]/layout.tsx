@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Header from "@/components/platform/a-header/Header";
-import Footer from "@/components/platform/zfooter/Footer";
+// import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import styles from "./groups.module.css";
@@ -11,10 +11,10 @@ export default async function RootLayout({
   params,
 }: {
   children: React.ReactNode;
-  params: Promise<{ locale: string }>;
+  params: Promise<{ locale: string; groupId: string }>;
 }) {
   // Await the params
-  const { locale } = await params;
+  const { locale, groupId } = await params;
 
   // Fetch messages server-side
   const messages = await getMessages(locale as any);
@@ -26,7 +26,7 @@ export default async function RootLayout({
             <Header />
           </div>
           <div style={{ position: "relative", zIndex: "9", marginTop: "50px" }}>
-            <Grpheader />
+            <Grpheader groupId={groupId} />
           </div>
         </header>
         <div className={styles.container}>
@@ -36,7 +36,7 @@ export default async function RootLayout({
           </div>
         </div>
         <div>
-          <Footer />
+          {/* <Footer /> */}
         </div>
       </NextIntlClientProvider>
     </section>

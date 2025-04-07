@@ -137,4 +137,130 @@ $mob-width: 430px;
       }
     }
   }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 16px;
+    @media (max-width: $min-width) {
+      flex-direction: row;
+      gap: 8px;
+    }
+    button {
+      width: 195px;
+      height: 48px;
+      background: #006633;
+      outline: none;
+      border: none;
+      cursor: pointer;
+
+      font-family: Montserrat;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      vertical-align: middle;
+      color: #97b00f;
+
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+
+      &:hover {
+        background: #97b00f;
+        color: #006633;
+        transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+      }
+      @media (max-width: $min-width) {
+        width: 120px;
+        height: 40px;
+      }
+    }
+  }
+}
+
+.groupForm {
+  background: #363636;
+  padding: 30px 35px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+  .contentBar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    .userAvatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      -webkit-border-radius: 50%;
+      -moz-border-radius: 50%;
+      -ms-border-radius: 50%;
+      -o-border-radius: 50%;
+    }
+    .contentInput {
+      width: 100%;
+      height: 56px;
+      padding: 0px 16px;
+      color: #74b243;
+      background: transparent;
+      border: 1px solid #b4b7c9;
+      outline: #b4b7c9;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+    }
+  }
+}
+.postActions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    width: 195px;
+    height: 48px;
+    background: #006633;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    font-family: Montserrat;
+    font-weight: 600;
+    font-size: 15px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    vertical-align: middle;
+    color: #97b00f;
+
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    -ms-border-radius: 6px;
+    -o-border-radius: 6px;
+
+    &:hover {
+      background: #97b00f;
+      color: #006633;
+      transition: all 0.5s ease-in-out;
+      -webkit-transition: all 0.5s ease-in-out;
+      -moz-transition: all 0.5s ease-in-out;
+      -ms-transition: all 0.5s ease-in-out;
+      -o-transition: all 0.5s ease-in-out;
+    }
+    @media (max-width: $min-width) {
+      width: 120px;
+      height: 40px;
+    }
+  }
 }

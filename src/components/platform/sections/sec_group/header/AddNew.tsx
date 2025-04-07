@@ -45,25 +45,30 @@ function AddNew() {
   return (
     <>
       <form className={styles.groupForm} onSubmit={handleSubmit(onSubmit)}>
-        <div className={styles.publish}>
-          <div className={styles.contentBar}>
-            <Image src={cover} alt={"member"} width={50} height={50} />
-            <input
-              type="text"
-              placeholder="Write something..."
-              {...register("content", { required: true })}
-            />
-          </div>
-          <div className={styles.postActions}>
-            <ImageUpload
-              onImagesSelected={handleImagesSelected}
-              maxImages={4}
-              maxSizeInMB={2}
-            />
-            <button type="submit" className={styles.postButton}>
-              Post
-            </button>
-          </div>
+        <div className={styles.contentBar}>
+          <Image
+            src={cover}
+            alt={"member"}
+            width={50}
+            height={50}
+            className={styles.userAvatar}
+          />
+          <input
+            className={styles.contentInput}
+            type="text"
+            placeholder="Write something..."
+            {...register("content", { required: true })}
+          />
+        </div>
+        <div className={styles.postActions}>
+          <ImageUpload
+            onImagesSelected={handleImagesSelected}
+            maxImages={4}
+            maxSizeInMB={2}
+          />
+          <button type="submit" className={styles.postButton}>
+            Post
+          </button>
         </div>
       </form>
     </>

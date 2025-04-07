@@ -7,7 +7,7 @@ import { getToken } from "../userToken/LocalToken";
 const token = getToken();
 const accessToken = token ? token.accessToken : "";
 
-export function getRequest(endpoint: string) {
+export function getRequest( endpoint: string) {
   return axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
