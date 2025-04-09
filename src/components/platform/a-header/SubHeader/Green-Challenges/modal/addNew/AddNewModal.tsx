@@ -10,7 +10,7 @@ import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 import { useParams } from "next/navigation";
 import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
-import ImageUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
+import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
@@ -36,18 +36,22 @@ function AddNewModal(props: {
   }, []);
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const handleImagesSelected = (files: File[]) => {
-    setSelectedFiles((prev) => [...prev, ...files]);
-  };
   // Form handling
-  const { register, reset, handleSubmit } = useForm<any>({
+  const { register, reset, handleSubmit, setValue } = useForm<any>({
     defaultValues: {
       content: "",
       images: selectedFiles,
       creatorType: "user",
-      
     },
   });
+
+  const [fileType, setFileType] = useState<"image" | "pdf">("image");
+
+  const handleFilesSelected = (files: File[], type: "image" | "pdf") => {
+    setSelectedFiles((prev) => [...prev, ...files]);
+    setFileType(type);
+    setValue("fileType", type);
+  };
 
   const onSubmit = async (formData: any) => {
     // Create FormData object
@@ -55,9 +59,13 @@ function AddNewModal(props: {
     // Append text fields
     formDataToSend.append("content", formData.content);
     // Append each image file
-    selectedFiles.forEach((file) => {
-      formDataToSend.append("images", file);
-    });
+    if (fileType === "image") {
+      selectedFiles.forEach((file) => {
+        formDataToSend.append(`images`, file);
+      });
+    } else if (fileType === "pdf" && selectedFiles.length > 0) {
+      formDataToSend.append("document", selectedFiles[0]);
+    }
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/done-with-post`,
@@ -106,8 +114,8 @@ function AddNewModal(props: {
             />
             <div className={styles.buttons}>
               {/*  */}
-              <ImageUpload
-                onImagesSelected={handleImagesSelected}
+              <FileUpload
+                onFilesSelected={handleFilesSelected}
                 maxImages={4}
                 maxSizeInMB={2}
               />
