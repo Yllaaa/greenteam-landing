@@ -20,7 +20,7 @@ interface FormData {
   endDate: string;
   category: string;
   topicId: string | number;
-  image?: File | null;
+  poster: File | null;
 }
 
 interface DateSelection {
@@ -77,7 +77,7 @@ const AddNewEvent = (props: addEventProps) => {
       startDate: "",
       endDate: "",
       category: "",
-      image: null,
+      poster: null,
     },
   });
 
@@ -120,10 +120,11 @@ const AddNewEvent = (props: addEventProps) => {
             startDate: data.startDate,
             endDate: data.endDate,
             category: data.category,
+            poster: data.poster,
           },
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
             },
@@ -247,7 +248,7 @@ const AddNewEvent = (props: addEventProps) => {
   // Process the selected file (either from input or drag)
   const processSelectedFile = (file: File) => {
     // Set the file in the form
-    setValue("image", file);
+    setValue("poster", file);
 
     // Create object URL for preview
     const objectUrl = URL.createObjectURL(file);
@@ -274,7 +275,7 @@ const AddNewEvent = (props: addEventProps) => {
   const removeImage = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation(); // Prevent triggering the parent onClick
-    setValue("image", null);
+    setValue("poster", null);
 
     // Clean up the object URL if it exists
     if (imagePreview && imagePreview.startsWith("blob:")) {
@@ -454,7 +455,7 @@ const AddNewEvent = (props: addEventProps) => {
               <div
                 ref={dropAreaRef}
                 className={`${styles.imageUploadContainer} ${
-                  errors.image ? styles.inputError : ""
+                  errors.poster ? styles.inputError : ""
                 } ${isDragging ? styles.dragging : ""}`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
@@ -501,8 +502,8 @@ const AddNewEvent = (props: addEventProps) => {
                   style={{ display: "none" }} // Hide the actual input
                 />
               </div>
-              {errors.image && (
-                <p className={styles.errorText}>{errors.image.message}</p>
+              {errors.poster && (
+                <p className={styles.errorText}>{errors.poster.message}</p>
               )}
             </div>
           </div>

@@ -39,7 +39,7 @@
 }
 .postCard .image {
   width: 100%;
-  height: 100%;
+  height: 663px;
   position: relative;
   z-index: 10;
 }
@@ -49,7 +49,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(0deg, #030a00 50.26%, #313a0e49 91.2%);
+  background: linear-gradient(0deg, #030a00c3 30.26%, #313a0e49 91.2%);
   z-index: 1;
 }
 .postCard .image .postImage {
@@ -112,7 +112,7 @@
 @media screen and (max-width: 768px) {
   .reactionBtns {
     gap: 8px;
-    padding: 0px 0.25%;
+    padding: 0px 10px;
   }
   .reactionBtns .btn {
     display: flex;

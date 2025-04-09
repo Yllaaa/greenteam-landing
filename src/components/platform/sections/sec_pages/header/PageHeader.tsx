@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Image from "next/image";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./header.module.scss";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
 // import AddNew from "./AddNew";
@@ -9,6 +9,7 @@ import cover from "@/../public/ZPLATFORM/groups/cover.png";
 // import { useAppSelector } from "@/store/hooks";
 import { getSinglePageItems } from "./header.data";
 import { PageItem } from "./header.data";
+import AddNewProduct from "../body/products/modal/AddNewProduct";
 
 function Pageheader(props: { pageId: string }) {
   // const user = useAppSelector((state) => state.login.user);
@@ -20,12 +21,19 @@ function Pageheader(props: { pageId: string }) {
       setData(res);
     });
   }, []);
-
+  const [addNew, setAddNew] = useState(false);
   return (
     <>
       <div className={styles.cover}>
         <div className={styles.coverSection}>
-          <Image src={cover} alt={"cover"} className={styles.coverImg} />
+          <Image
+            src={data.cover ? data.cover : cover}
+            alt={"cover"}
+            className={styles.coverImg}
+            width={1000}
+            height={1000}
+            loading="lazy"
+          />
         </div>
         <div className={styles.pageInfo}>
           <div className={styles.image}>
@@ -33,6 +41,9 @@ function Pageheader(props: { pageId: string }) {
               src={data.avatar ? data.avatar : cover}
               alt={"cover"}
               className={styles.coverImg}
+              loading="lazy"
+              width={135}
+              height={135}
             />
           </div>
           <div className={styles.name}>
@@ -58,7 +69,12 @@ function Pageheader(props: { pageId: string }) {
         <div className={styles.headerActions}>
           <div className={styles.headerAddBtns}>
             <button className={styles.addPost}>Add Post</button>
-            <button className={styles.addProduct}>Add Product</button>
+            <button
+              onClick={() => setAddNew(!addNew)}
+              className={styles.addProduct}
+            >
+              Add Product
+            </button>
             <button className={styles.addEvent}>Add Event</button>
           </div>
           <div className={styles.headerLike}>
@@ -67,6 +83,7 @@ function Pageheader(props: { pageId: string }) {
         </div>
       </div>
       {/* <AddNew /> */}
+      {addNew && <AddNewProduct setAddNew={setAddNew} userType="page" />}
     </>
   );
 }

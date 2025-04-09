@@ -237,7 +237,7 @@ function ProductSection(props: { slug: string }) {
           {renderContent()}
         </div>
       </div>
-      {addNew && <AddNewProduct setAddNew={setAddNew} userType="user" />}
+      {addNew && <AddNewProduct setAddNew={setAddNew} userType="page" />}
       {sendMessage && (
         <MessageModal
           sellerId={sellerId}

@@ -22,6 +22,7 @@ interface FormData {
   city: number;
   topicId: string | number;
   image?: File | null;
+  marketType: string;
 }
 
 interface Country {
@@ -64,16 +65,7 @@ const AddNewProduct = (props: addProductProps) => {
     setValue,
     reset,
     formState: { errors },
-  } = useForm<FormData>({
-    // defaultValues: {
-    //   name: "",
-    //   description: "",
-    //   price: 0,
-    //   country: 0,
-    //   city: 0,
-    //   image: null,
-    // },
-  });
+  } = useForm<FormData>({});
 
   // Form submission handler
   const onSubmit = (data: FormData) => {
@@ -84,6 +76,7 @@ const AddNewProduct = (props: addProductProps) => {
       !data.description ||
       !data.price ||
       !data.country ||
+      !data.marketType ||
       !data.city
     ) {
       ToastNot("Please fill all fields");
@@ -98,10 +91,10 @@ const AddNewProduct = (props: addProductProps) => {
           {
             name: data.name,
             description: data.description,
-
+            marketType: data.marketType,
             price: Number(data.price),
-            countryId: Number(data.country),
-            cityId: Number(data.city),
+            // countryId: Number(data.country),
+            // cityId: Number(data.city),
             topicId: Number(data.topicId),
           },
           {
@@ -227,7 +220,10 @@ const AddNewProduct = (props: addProductProps) => {
   const [search, setSearch] = useState<string>("");
 
   const topics = Topics;
-  console.log("topics", topics);
+  const markets = [
+    { id: 1, name: "local_business" },
+    { id: 2, name: "value_driven_business" },
+  ]
 
   useEffect(() => {
     axios
@@ -432,6 +428,28 @@ const AddNewProduct = (props: addProductProps) => {
               </select>
               {errors.topicId && (
                 <p className={styles.errorText}>{errors.topicId.message}</p>
+              )}
+            </div>
+            {/* Market type */}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Market Type</label>
+              <select
+                className={`${styles.select} ${
+                  errors.marketType ? styles.inputError : ""
+                }`}
+                {...register("marketType", { required: "Market type is required" })}
+              >
+                <option value="" disabled>
+                  Select market type
+                </option>
+                {markets?.map((market, index) => (
+                  <option key={index} value={market.id}>
+                    {market.name}
+                  </option>
+                ))}
+              </select>
+              {errors.marketType && (
+                <p className={styles.errorText}>{errors.marketType.message}</p>
               )}
             </div>
 

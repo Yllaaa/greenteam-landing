@@ -32,7 +32,7 @@
   .posts {
     display: flex;
     gap: 16px;
-    padding: 0px;
+    padding: 0px 20px;
     margin-top: 25px;
   }
   .postContainer {

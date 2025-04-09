@@ -16,9 +16,6 @@ type Props = {
   id: string;
 };
 
-
-
-
 type Event = {
   id: string;
   title: string;
@@ -27,7 +24,7 @@ type Event = {
   startDate: string;
   endDate: string;
   category: string;
-  poster: string | null;
+  posterUrl: string | null;
   hostedBy: string;
   isJoined: boolean;
   hostName: string;
@@ -50,7 +47,6 @@ function SingleEventPage(props: Props) {
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
-  console.log(accessToken);
 
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
@@ -63,7 +59,6 @@ function SingleEventPage(props: Props) {
           },
         })
         .then((res) => {
-          console.log(res.data.isJoined);
           setEvent(res.data);
           setIsJoined(res.data.isJoined);
         })
@@ -77,20 +72,21 @@ function SingleEventPage(props: Props) {
 
   const handleJoinEvent = async () => {
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/join`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
-      if (response.status === 200) {
-        setIsJoined(!isJoined);
-        ToastNot("joined");
-      }
+      await axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/join`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          setIsJoined(!isJoined);
+          ToastNot(res.data.message);
+        });
     } catch (error) {
       const err = error as { status: number };
       console.error("Error joining event:", error);
@@ -101,9 +97,9 @@ function SingleEventPage(props: Props) {
   };
   const handleLeaveEvent = async () => {
     try {
-      const response = await axios.post(
+      const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/leave`,
-        {},
+
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -175,7 +171,6 @@ function SingleEventPage(props: Props) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         setPostComments(res.data);
       })
       .catch((err) => console.log(err));
@@ -192,10 +187,12 @@ function SingleEventPage(props: Props) {
           )}
           <Image
             className={styles.image}
-            src={event?.poster ? event?.poster : singleBanner}
+            src={event?.posterUrl ? event?.posterUrl : singleBanner}
             alt="Single Event Banner"
             loading="lazy"
             onLoad={() => setImageLoaded(true)}
+            width={1000}
+            height={1000}
           />
         </div>
         <div className={styles.content}>

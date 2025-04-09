@@ -237,7 +237,22 @@ function PostComments(passProps: Props) {
           { headers: { Authorization: `Bearer ${accessToken}` } }
         )
         .then((res) => {
-          setPostComments((prev: Response[]) => [...prev, res.data]);
+          const newComment = {
+            ...res.data,
+            likeCount: res.data.likeCount || "0", // Ensure likeCount is a string
+            dislikeCount: res.data.dislikeCount || "0", // Ensure dislikeCount is a string
+          };
+          setPostComments((prev: Response[]) => [...prev, newComment]);
+          // Initialize local like counts for the new comment
+          setLocalLikeCounts((prev) => ({
+            ...prev,
+            [newComment.id]: parseInt(newComment.likeCount),
+          }));
+          // Initialize user reaction status
+          setUserLikeStatus((prev) => ({
+            ...prev,
+            [newComment.id]: newComment.userReaction === "like",
+          }));
         });
 
       resetComment();
@@ -255,7 +270,22 @@ function PostComments(passProps: Props) {
           { headers: { Authorization: `Bearer ${accessToken}` } }
         )
         .then((res) => {
-          setPostComments((prev: Response[]) => [...prev, res.data]);
+          const newComment = {
+            ...res.data,
+            likeCount: res.data.likeCount || "0", // Ensure likeCount is a string
+            dislikeCount: res.data.dislikeCount || "0", // Ensure dislikeCount is a string
+          };
+          setPostComments((prev: Response[]) => [...prev, newComment]);
+          // Initialize local like counts for the new comment
+          setLocalLikeCounts((prev) => ({
+            ...prev,
+            [newComment.id]: parseInt(newComment.likeCount),
+          }));
+          // Initialize user reaction status
+          setUserLikeStatus((prev) => ({
+            ...prev,
+            [newComment.id]: newComment.userReaction === "like",
+          }));
         });
 
       resetComment();
@@ -473,64 +503,34 @@ export function CommentModal(props: Props) {
     postMedia,
   } = PostComments(props);
 
+  console.log("postMedia", postMedia);
+
   return (
     <>
       <div className={styles.modal}>
         <div ref={modalRef} className={styles.modalcontent}>
           <div className={styles.postImages}>
-            {postMedia && postMedia.length > 0 && (
+            {postMedia.length > 0 && (
               <div ref={sliderRef} className={`keen-slider`}>
-                <div className={`keen-slider__slide ${styles.postCard}`}>
-                  <div className={styles.image}>
-                    <div className={styles.overlay}></div>
-                    <Image
-                      src={foot}
-                      alt="image"
-                      loading="lazy"
-                      width={1000}
-                      height={1000}
-                      className={styles.postImage}
-                    />
-                  </div>
-                </div>
-                <div className={`keen-slider__slide ${styles.postCard}`}>
-                  <div className={styles.image}>
-                    <div className={styles.overlay}></div>
-                    <Image
-                      src={foot}
-                      alt="image"
-                      loading="lazy"
-                      width={1000}
-                      height={1000}
-                      className={styles.postImage}
-                    />
-                  </div>
-                </div>
-                <div className={`keen-slider__slide ${styles.postCard}`}>
-                  <div className={styles.image}>
-                    <Image
-                      src={foot}
-                      alt="image"
-                      loading="lazy"
-                      width={1000}
-                      height={1000}
-                      className={styles.postImage}
-                    />
-                  </div>
-                </div>
-                <div className={`keen-slider__slide ${styles.postCard}`}>
-                  <div className={styles.image}>
-                    <div className={styles.overlay}></div>
-                    <Image
-                      src={foot}
-                      alt="image"
-                      loading="lazy"
-                      width={1000}
-                      height={1000}
-                      className={styles.postImage}
-                    />
-                  </div>
-                </div>
+                {postMedia.map((media: any, index: number) => {
+                  return (
+                    <div
+                      key={index}
+                      className={`keen-slider__slide ${styles.postCard}`}
+                    >
+                      <div className={styles.image}>
+                        <Image
+                          src={media.mediaUrl}
+                          alt="image"
+                          loading="lazy"
+                          width={1000}
+                          height={1000}
+                          className={styles.postImage}
+                        />
+                      </div>
+                    </div>
+                  );
+                })}
               </div>
             )}
             {postMedia &&
@@ -557,7 +557,7 @@ export function CommentModal(props: Props) {
                   })}
                 </div>
               )}
-            {!postMedia && (
+            {postMedia.length === 0 && (
               <div className={styles.noMedia}>
                 <Image
                   src={foot}
@@ -619,7 +619,7 @@ export function CommentModal(props: Props) {
                         >
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
-                            : comment.likeCount}{" "}
+                            : parseInt(comment.likeCount)}{" "}
                           Like
                         </p>
                         <p
@@ -833,7 +833,7 @@ export function CommentSection(props: Props) {
                         >
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
-                            : comment.likeCount}{" "}
+                            : parseInt(comment.likeCount)}{" "}
                           Like
                         </p>
                         <p
@@ -1050,7 +1050,7 @@ export function PostCommentSection(props: Props) {
                         >
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
-                            : comment.likeCount}{" "}
+                            : `${comment.likeCount}`}{" "}
                           Like
                         </p>
                         <p

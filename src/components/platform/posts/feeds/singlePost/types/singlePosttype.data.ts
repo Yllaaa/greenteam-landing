@@ -27,6 +27,11 @@ interface Author {
 export type PostWithDetails = {
   post: Post;
   author: Author;
+  media:{
+    id: string;
+    mediaUrl: string;
+    mediaType: string;
+  }[],
   commentCount: string;
   likeCount: string;
   dislikeCount: string;

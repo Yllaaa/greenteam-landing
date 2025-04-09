@@ -6,7 +6,8 @@ const withNextIntl = createNextIntlPlugin();
 const nextConfig = {
   images: {
     domains: [
-      "picsum.photos", // Allow images from Lorem Picsum
+      "picsum.photos", 
+      "greenteam-bucket-2025.s3.us-east-2.amazonaws.com"
     ],
   },
   async rewrites() {

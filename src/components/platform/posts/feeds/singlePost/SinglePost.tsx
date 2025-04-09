@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { useCallback, useEffect, useState } from "react";
 import styles from "./singlePost.module.css";
@@ -13,6 +14,9 @@ import { ReactionType } from "../../postCard/POSTSLIDER/types/postSlider.data";
 import { AiFillLike, AiFillDislike } from "react-icons/ai";
 import { FaCheckSquare } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
+import attached from "@/../public/ZPLATFORM/post/attach.jpg";
+import foot from "@/../public/logo/foot.png";
+import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
 
 type Props = {
   postId: string;
@@ -165,7 +169,6 @@ function SinglePost(props: Props) {
     if (userLiked) {
       setLikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserLiked(false);
-      // handleToggleReaction("like");
     }
     // If disliked, remove dislike and add like
     else if (userDisliked) {
@@ -173,13 +176,11 @@ function SinglePost(props: Props) {
       setLikeCount((prevCount) => prevCount + 1);
       setUserDisliked(false);
       setUserLiked(true);
-      // handleToggleReaction("like");
     }
     // Otherwise, add like
     else {
       setLikeCount((prevCount) => prevCount + 1);
       setUserLiked(true);
-      // handleToggleReaction("like");
     }
   };
 
@@ -190,7 +191,6 @@ function SinglePost(props: Props) {
     if (userDisliked) {
       setDislikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserDisliked(false);
-      // handleToggleReaction("dislike");
     }
     // If liked, remove like and add dislike
     else if (userLiked) {
@@ -198,13 +198,11 @@ function SinglePost(props: Props) {
       setDislikeCount((prevCount) => prevCount + 1);
       setUserLiked(false);
       setUserDisliked(true);
-      // handleToggleReaction("dislike");
     }
     // Otherwise, add dislike
     else {
       setDislikeCount((prevCount) => prevCount + 1);
       setUserDisliked(true);
-      // handleToggleReaction("dislike");
     }
   };
   // /////////////////
@@ -213,12 +211,10 @@ function SinglePost(props: Props) {
     handleToggleReaction("do");
     // If liked, remove do
     if (userDo) {
-      // handleToggleReaction("do");
       setUserDo(false);
     }
     // Otherwise, add do
     else {
-      // handleToggleReaction("do");
       setUserDo(true);
     }
   };
@@ -242,6 +238,23 @@ function SinglePost(props: Props) {
       .catch((err) => console.log(err));
   }, [postId, commentsPage, accessToken]);
 
+  const uniqueImages = post?.media.filter(
+    (item, index, self) => index === self.findIndex((t) => t.id === item.id)
+  );
+
+  const [fullscreenImage, setFullscreenImage] = useState(null);
+  const openFullscreen = (media: any) => {
+    setFullscreenImage(media);
+    document.body.style.overflow = "hidden"; // Prevent scrolling when fullscreen is open
+  };
+
+  const closeFullscreen = () => {
+    setFullscreenImage(null);
+    document.body.style.overflow = "auto"; // Restore scrolling
+  };
+  const downloadPdf = (link: string, name: string) => {
+    downloadPDF(link, name);
+  };
   return (
     <>
       {post && (
@@ -276,6 +289,71 @@ function SinglePost(props: Props) {
           </div>
           <div className={styles.postContent}>
             <p>{post.post.content}</p>
+          </div>
+          {post.media.length > 0 && (
+            <div className={styles.postImages}>
+              <div
+                className={
+                  uniqueImages?.length === 1
+                    ? styles.singleGrid
+                    : uniqueImages?.length === 2
+                    ? styles.doubleGrid
+                    : styles.grid
+                }
+              >
+                {uniqueImages &&
+                  uniqueImages.map((media) => (
+                    <Image
+                      key={media.id}
+                      src={
+                        media.mediaType === "image"
+                          ? media.mediaUrl
+                          : media.mediaType === "document"
+                          ? attached
+                          : foot
+                      }
+                      alt="Post Media"
+                      width={300}
+                      height={300}
+                      loading="lazy"
+                      className={styles.image}
+                      onClick={() =>
+                        media.mediaType === "image"
+                          ? openFullscreen(media.mediaUrl)
+                          : media.mediaType === "document"
+                          ? downloadPdf(media.mediaUrl, media.mediaType)
+                          : null
+                      }
+                    />
+                  ))}
+              </div>
+            </div>
+          )}
+          {/* Fullscreen overlay */}
+          <div
+            className={`${styles.fullscreenOverlay} ${
+              fullscreenImage ? styles.active : ""
+            }`}
+            onClick={closeFullscreen}
+          >
+            {fullscreenImage && (
+              <>
+                <Image
+                  src={fullscreenImage}
+                  alt="Fullscreen Media"
+                  width={1200}
+                  height={1200}
+                  className={styles.fullscreenImage}
+                  onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
+                />
+                <button
+                  className={styles.closeButton}
+                  onClick={closeFullscreen}
+                >
+                  ✕
+                </button>
+              </>
+            )}
           </div>
           {/*  */}
           <div className={styles.reactionBtns}>

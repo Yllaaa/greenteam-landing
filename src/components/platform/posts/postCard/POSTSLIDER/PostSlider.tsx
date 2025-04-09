@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useCallback, useEffect, useState } from "react";
+"use client";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import styles from "./PostSlider.module.css";
@@ -14,6 +15,8 @@ import { useLocale } from "next-intl";
 import { ReactionType, Props } from "./types/postSlider.data";
 import { useAppDispatch } from "@/store/hooks";
 import { setUpdateState } from "@/store/features/update/updateSlice";
+import attached from "@/../public/ZPLATFORM/post/attach.jpg";
+import foot from "@/../public/logo/foot.png";
 
 // Define better types for better type safety
 
@@ -34,6 +37,7 @@ function PostSlider(props: Props) {
     hasDoReaction,
     postId,
     setPostId,
+    setPostMedia,
   } = props;
 
   const localS = getToken();
@@ -73,6 +77,16 @@ function PostSlider(props: Props) {
   // API base URL constant
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
+  const uniqueMedia = useMemo(
+    () =>
+      media && media.length > 0
+        ? media.filter(
+            (item, index, self) =>
+              index === self.findIndex((t) => t.id === item.id)
+          )
+        : [],
+    [media]
+  );
   // Fetch comments with error handling and loading state
   const fetchComments = useCallback(
     async (postId: string, page: number) => {
@@ -95,14 +109,14 @@ function PostSlider(props: Props) {
           if (page === 1) return response.data;
           return [...prev, ...response.data];
         });
-
+        setPostMedia(uniqueMedia);
         return response.data;
       } catch (error) {
         console.error("Error fetching comments:", error);
         return [];
       }
     },
-    [API_BASE_URL, accessToken, setPostComments]
+    [API_BASE_URL, accessToken, setPostComments, setPostMedia, uniqueMedia]
   );
 
   // Load comments when page changes
@@ -227,7 +241,7 @@ function PostSlider(props: Props) {
     handleToggleReaction("do");
     // If already do
     if (hasDoReaction) {
-      setUserDo(false);
+      setUserDo(!userDo);
     }
     // If liked, remove do
     else if (userDo) {
@@ -244,21 +258,29 @@ function PostSlider(props: Props) {
     router.push(`/${locale}/feeds/posts/${postId}`);
   };
 
+  // Filter out duplicate media entries by ID
+
   // Render media slider or text content
   const renderContent = () => {
-    if (media && media.length > 0) {
+    if (uniqueMedia.length > 0) {
       return (
         <div className={styles.navigationWrapper}>
           <div ref={sliderRef} className="keen-slider">
-            {media.map((imageUrl, index) => (
+            {uniqueMedia.map((imageUrl, index) => (
               <div
-                key={index}
+                key={imageUrl.id || index}
                 className={`keen-slider__slide ${styles.postCard}`}
               >
                 <div className={styles.image}>
                   <div className={styles.overlay}></div>
                   <Image
-                    src={imageUrl}
+                    src={
+                      imageUrl.mediaType === "image"
+                        ? imageUrl.mediaUrl
+                        : imageUrl.mediaType === "document"
+                        ? attached
+                        : foot
+                    }
                     alt={`Post image ${index + 1}`}
                     loading="lazy"
                     width={1000}
@@ -270,7 +292,7 @@ function PostSlider(props: Props) {
             ))}
           </div>
 
-          {loaded && instanceRef.current && media.length > 1 && (
+          {loaded && instanceRef.current && uniqueMedia.length > 1 && (
             <div className={styles.dots}>
               {[
                 ...Array(

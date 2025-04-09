@@ -37,25 +37,42 @@ type Props = {
   };
   rerender: boolean;
   setPostId?: (value: string) => void;
+  setPostMedia: (
+    value: {
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]
+  ) => void;
 };
 
-interface Post {
+// Media interface for post attachments
+interface Media {
   id: string;
-  content: string;
-  createdAt: string;
-  mediaUrl: string[] | null;
+  mediaUrl: string;
+  mediaType: string;
 }
 
+// Author interface for post creators
 interface Author {
   id: string;
-  fullName: string;
+  name: string;
   avatar: string | null;
   username: string;
 }
 
+// Post details interface
+interface PostDetails {
+  id: string;
+  content: string;
+  createdAt: string;
+}
+
+// Complete post item interface including all related data
 interface PostItem {
-  post: Post;
+  post: PostDetails;
   author: Author;
+  media: Media[];
   commentCount: string;
   likeCount: string;
   dislikeCount: string;
@@ -67,7 +84,7 @@ type PostsData = PostItem[];
 
 export type {
   Props,
-  Post,
+  PostDetails,
   Author,
   PostItem,
   PostsData,

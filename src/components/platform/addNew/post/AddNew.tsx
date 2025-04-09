@@ -9,20 +9,23 @@ import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { number } from "yup";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import ImageUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
+import { getToken } from "@/Utils/userToken/LocalToken";
 
 // types
-
 type PostType = {
   content: string;
   mainTopicId: string;
   subtopicIds: string[];
   creatorType: "user";
+  images: File[];
 };
 
 function AddNew() {
   // Get user info
-  const userInfo1 = localStorage.getItem("user");
-  const userInfo = userInfo1 ? JSON.parse(userInfo1) : null;
+  const userInfo1 = getToken();
+  const userInfo = userInfo1 ? userInfo1.accessToken : null;
+  console.log(userInfo);
 
   // topics and subtopics
   const topics = Topics;
@@ -38,35 +41,60 @@ function AddNew() {
       mainTopicId: number,
       subtopicIds: [number],
       creatorType: "user",
+      images: [],
     },
   });
 
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+  const handleImagesSelected = (files: File[]) => {
+    setSelectedFiles((prev) => [...prev, ...files]);
+  };
+
   const onSubmit = async (formData: PostType) => {
     try {
+      // Create FormData object
+      const formDataToSend = new FormData();
+
+      // Append text fields
+      formDataToSend.append("content", formData.content);
+      formDataToSend.append(
+        "mainTopicId",
+        String(Number(formData.mainTopicId))
+      );
+      formDataToSend.append("creatorType", "user");
+
+      // Append subtopicIds as an array
+      formData.subtopicIds.forEach((id, index) => {
+        formDataToSend.append(`subtopicIds[${index}]`, String(Number(id)));
+      });
+
+      // Append each image file
+      selectedFiles.forEach((file) => {
+        formDataToSend.append(`images`, file);
+      });
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
-        {
-          content: formData.content,
-          mainTopicId: Number(formData.mainTopicId),
-          subtopicIds: formData.subtopicIds.map((id) => Number(id)),
-          creatorType: "user",
-        },
+        formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.accessToken}`,
+            Authorization: `Bearer ${userInfo}`,
+            "Content-Type": "multipart/form-data",
           },
         }
       );
-      console.log(response.data);
 
+      console.log(response.data);
       ToastNot(`Post added successfully`);
+
+      // Reset form and state
       reset();
-      setSelectedMainTopic(""); // Reset topic selection
-      setSelectedSubtopics([]); // Reset subtopics selection
+      setSelectedFiles([]);
+      setSelectedMainTopic("");
+      setSelectedSubtopics([]);
     } catch (err) {
       console.log(err);
-      ToastNot("error occured while adding post");
+      ToastNot("Error occurred while adding post");
     }
   };
 
@@ -115,6 +143,11 @@ function AddNew() {
             {...register("content", { required: true })}
           />
 
+          <ImageUpload
+            onImagesSelected={handleImagesSelected}
+            maxImages={4}
+            maxSizeInMB={2}
+          />
           <div className={styles.addAndCategory}>
             {/* Main Topic Selection */}
             <div className={styles.selectCategory}>

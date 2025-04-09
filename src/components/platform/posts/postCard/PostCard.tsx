@@ -12,13 +12,13 @@ import styles from "./postCard.module.css";
 import Image from "next/image";
 import admin from "@/../public/auth/user.png";
 import { useInView } from "react-intersection-observer";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
 function PostCard(props: Props) {
@@ -32,6 +32,7 @@ function PostCard(props: Props) {
     setPostComments,
     rerender,
     setPostId,
+    setPostMedia,
   } = props;
 
   const router = useRouter();
@@ -205,7 +206,7 @@ function PostCard(props: Props) {
             <div className={styles.header}>
               <div
                 onClick={() => navigateToProfile(post.author.id)}
-                style={{ cursor: "pointer" }}
+                style={{ cursor: "pointer",zIndex: 100 }}
                 className={styles.userAvatar}
               >
                 <Image
@@ -223,7 +224,7 @@ function PostCard(props: Props) {
                   className={styles.userName}
                 >
                   <p>
-                    {post.author.fullName} <span>@{post.author.username}</span>
+                    {post.author.username} <span>@{post.author.username}</span>
                     {isMounted && (
                       <span>
                         {" "}
@@ -232,10 +233,10 @@ function PostCard(props: Props) {
                     )}
                   </p>
                 </div>
-                {post.post.mediaUrl && (
+                {post.media.length > 0 && (
                   <div
                     onClick={() => navigateToPost(post.post.id)}
-                    style={{ cursor: "pointer" }}
+                    style={{ cursor: "pointer"}}
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
@@ -254,7 +255,7 @@ function PostCard(props: Props) {
               <div className={styles.postslider}>
                 {isMounted && (
                   <PostSlider
-                    media={post.post.mediaUrl}
+                    media={post.media}
                     content={post.post.content}
                     commentPage={commentsPage}
                     setCommentPage={setCommentsPage}
@@ -269,6 +270,7 @@ function PostCard(props: Props) {
                     postId={post.post.id}
                     rerender={rerender}
                     setPostId={setPostId}
+                    setPostMedia={setPostMedia}
                   />
                 )}
               </div>
@@ -278,6 +280,7 @@ function PostCard(props: Props) {
       </Suspense>
     );
   }, [
+    setPostMedia,
     isMounted,
     isLoading,
     errorMessage,
@@ -306,18 +309,20 @@ function PostCard(props: Props) {
 
   return (
     <>
-      {isMounted && (
-        <div className={styles.sliderBtns}>
-          <div className={styles.arrow} onClick={prevSlide}>
-            <FaArrowLeft />
+      <div className={styles.postContainer}>
+        {isMounted && (
+          <div className={styles.sliderBtns}>
+            <div className={styles.arrow} onClick={prevSlide}>
+              <IoIosArrowBack />
+            </div>
+            <div className={styles.arrow} onClick={nextSlide}>
+              <IoIosArrowForward />
+            </div>
           </div>
-          <div className={styles.arrow} onClick={nextSlide}>
-            <FaArrowRight />
-          </div>
+        )}
+        <div ref={bodyRef} className={styles.body}>
+          {renderPostContent}
         </div>
-      )}
-      <div ref={bodyRef} className={styles.body}>
-        {renderPostContent}
       </div>
     </>
   );

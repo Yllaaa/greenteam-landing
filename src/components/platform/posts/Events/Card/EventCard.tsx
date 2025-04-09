@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import styles from "./EventCard.module.css";
 import Image from "next/image";
@@ -11,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { FaStar } from "react-icons/fa6";
 // import { getToken } from "@/Utils/userToken/LocalToken";
 
 type Props = {
@@ -28,7 +29,7 @@ type Props = {
     priority?: number; // Assuming priority is an integer
     topicId?: number;
     createdAt?: string; // ISO date string
-    imageUrl?: string | null;
+    posterUrl?: string | null;
   }[];
   event: {
     id?: string;
@@ -44,7 +45,8 @@ type Props = {
     priority?: number; // Assuming priority is an integer
     topicId?: number;
     createdAt?: string; // ISO date string
-    imageUrl?: string | null;
+    posterUrl?: string | null;
+    isJoined: boolean; // Assuming this is a boolean indicating if the user has joined the event
   };
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -70,6 +72,9 @@ function EventCard(props: Props) {
       handlePages();
     }
   }, [inView]);
+
+  //local Join Status
+  const [isJoined, setIsJoined] = useState(event.isJoined);
   const handleJoinNow = async (id: string) => {
     try {
       const response = await axios.post(
@@ -77,15 +82,14 @@ function EventCard(props: Props) {
         {},
         {
           headers: {
-            // "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
-            // "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Origin": "*",
           },
         }
       );
-      console.log("Join response:", await response.data);
       if (response.data) {
         ToastNot(`${response.data.message}`);
+        setIsJoined(true);
       }
     } catch (error) {
       const err = error as { status: number };
@@ -95,9 +99,28 @@ function EventCard(props: Props) {
       console.error("Error joining event:", error);
     }
   };
+  const handleLeaveEvent = async (id: string) => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/leave`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+      if (response.data) {
+        ToastNot(`${response.data.message}`);
+        setIsJoined(false);
+      }
+    } catch (error) {
+      console.error("Error leaving event:", error);
+    }
+  };
 
   const handleToggleFavorite = () => {
-    // axios.post("/api/toggleFavorite", { eventId: id });
+    ToastNot("Added to favorites!");
   };
   // handle dates:
   function formatDate(dateString: string): string {
@@ -129,9 +152,11 @@ function EventCard(props: Props) {
       >
         <div className={styles.img}>
           <Image
-            src={event?.poster ? event?.poster : noPIc}
+            src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
             className={styles.image}
+            width={200}
+            height={200}
           />
         </div>
         <div className={styles.content}>
@@ -161,10 +186,14 @@ function EventCard(props: Props) {
           </p>
           <div className={styles.actions}>
             <button
-              onClick={() => handleJoinNow(`${event?.id}`)}
+              onClick={() =>
+                isJoined
+                  ? handleLeaveEvent(`${event?.id}`)
+                  : handleJoinNow(`${event?.id}`)
+              }
               className={styles.joinButton}
             >
-              Join event
+              {isJoined ? "Leave" : "Join"}
             </button>
             <button onClick={handleEventDetails} className={styles.joinButton}>
               See Details
@@ -175,7 +204,7 @@ function EventCard(props: Props) {
           onClick={handleToggleFavorite}
           className={styles.favoriteButton}
         >
-          x
+          <FaStar />
         </button>
       </div>
     </>

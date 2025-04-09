@@ -14,7 +14,6 @@ import { Topics } from "@/components/Assets/topics/Topics.data";
 const topics = Topics;
 
 function FeedSection() {
-  
   // Define state variables
   //modals
   const [doItModal, setDoItModal] = useState(false);
@@ -23,6 +22,13 @@ function FeedSection() {
 
   const [postComments, setPostComments] = useState<Comment[]>([]);
   const [postId, setPostId] = useState<string>("");
+  const [postMedia, setPostMedia] = useState<
+    {
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]
+  >([]);
 
   //pagination
   const [commentsPage, setCommentsPage] = useState(1);
@@ -65,6 +71,7 @@ function FeedSection() {
                   setCommentModal={setCommentModal}
                   setPostComments={setPostComments}
                   setPostId={setPostId}
+                  setPostMedia={setPostMedia}
                 />
               </div>
             </div>
@@ -82,6 +89,7 @@ function FeedSection() {
           setRerender={setRerender}
           setPostComments={setPostComments}
           postId={postId}
+          postMedia={postMedia}
         />
       )}
     </>

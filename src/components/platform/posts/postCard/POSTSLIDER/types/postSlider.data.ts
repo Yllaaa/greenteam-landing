@@ -2,7 +2,11 @@
 type ReactionType = "like" | "dislike" | "do" | "sign" | null;
 
 type Props = {
-  media: string[] | null;
+  media: {
+    id: string;
+    mediaUrl: string;
+    mediaType: string;
+  }[];
   content: string;
   setDoItModal?: (value: boolean) => void;
   setCommentModal?: ((value: boolean) => void) | any;
@@ -17,6 +21,13 @@ type Props = {
   setCommentPage: (value: number) => void;
   rerender: boolean;
   setPostId?: ((value: string) => void) | any;
+  setPostMedia: (
+    value: {
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]
+  ) => void;
 };
 
 export type { ReactionType, Props };

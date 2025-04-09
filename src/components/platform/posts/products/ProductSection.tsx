@@ -22,6 +22,7 @@ function ProductSection() {
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
+  const [isPaginationLoading, setIsPaginationLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [addNew, setAddNew] = useState(false);
   const [sendMessage, setSendMessage] = useState(false);
@@ -30,6 +31,7 @@ function ProductSection() {
   const [isMounted, setIsMounted] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState<Products[]>([]);
+  const [endOfResults, setEndOfResults] = useState(false);
 
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -43,7 +45,14 @@ function ProductSection() {
   const loadProducts = useCallback(
     async (pageNum: number, replace: boolean = false) => {
       try {
-        setIsLoading(true);
+        // Use different loading state for initial vs pagination loading
+        if (replace) {
+          setIsLoading(true);
+          setEndOfResults(false);
+        } else {
+          setIsPaginationLoading(true);
+        }
+
         const data = await fetchProducts({
           page: pageNum,
           limit: LIMIT,
@@ -51,9 +60,12 @@ function ProductSection() {
           topicId: section,
         });
 
-        // Check if we've reached the end of available events
+        // Check if we've reached the end of available products
         if (data.length < LIMIT) {
           setHasMore(false);
+          if (data.length === 0 && pageNum > 1) {
+            setEndOfResults(true);
+          }
         } else {
           setHasMore(true);
         }
@@ -65,10 +77,11 @@ function ProductSection() {
           return [...prev, ...data];
         });
       } catch (error) {
-        console.error("Failed to fetch events:", error);
+        console.error("Failed to fetch products:", error);
         setErrorMessage("An Error Occurred");
       } finally {
         setIsLoading(false);
+        setIsPaginationLoading(false);
       }
     },
     [section, LIMIT, accessToken]
@@ -82,7 +95,7 @@ function ProductSection() {
 
   // Scroll event handler for infinite scrolling and scroll button state
   const handleScroll = useCallback(() => {
-    if (!bodyRef.current || !hasMore || isLoading) return;
+    if (!bodyRef.current || !hasMore || isLoading || isPaginationLoading) return;
 
     const container = bodyRef.current;
     const scrollWidth = container.scrollWidth;
@@ -97,7 +110,7 @@ function ProductSection() {
     if (scrollLeft + clientWidth >= scrollWidth * 0.8) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [hasMore, isLoading]);
+  }, [hasMore, isLoading, isPaginationLoading]);
 
   // Load more events when page changes
   useEffect(() => {
@@ -167,7 +180,7 @@ function ProductSection() {
     if (products.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No events found</p>
+          <p>No Products found</p>
         </div>
       );
     }
@@ -190,6 +203,27 @@ function ProductSection() {
                 />
               </div>
             ))}
+          
+          {/* Pagination loading indicator */}
+          {isPaginationLoading && (
+            <div className={styles.paginationLoading}>
+              <LoadingTree />
+            </div>
+          )}
+          
+          {/* End of results message */}
+          {endOfResults && (
+            <div className={styles.endOfResults}>
+              <p>No more products to show</p>
+            </div>
+          )}
+          
+          {/* Message when there are no more products but not showing loading */}
+          {!hasMore && !isPaginationLoading && !endOfResults && products.length > 0 && (
+            <div className={styles.endOfResults}>
+              <p>{`You've reached the end of the products`}</p>
+            </div>
+          )}
         </Suspense>
       </>
     );
