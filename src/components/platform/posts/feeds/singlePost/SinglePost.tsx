@@ -16,7 +16,7 @@ import { FaCheckSquare } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
-import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
+// import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
 
 type Props = {
   postId: string;
@@ -252,8 +252,9 @@ function SinglePost(props: Props) {
     setFullscreenImage(null);
     document.body.style.overflow = "auto"; // Restore scrolling
   };
-  const downloadPdf = (link: string, name: string) => {
-    downloadPDF(link, name);
+  const downloadPdf = (link: string) => {
+    // downloadPDF(link, name);
+    window.open(link, "_blank");
   };
   return (
     <>
@@ -321,7 +322,7 @@ function SinglePost(props: Props) {
                         media.mediaType === "image"
                           ? openFullscreen(media.mediaUrl)
                           : media.mediaType === "document"
-                          ? downloadPdf(media.mediaUrl, media.mediaType)
+                          ? downloadPdf(media.mediaUrl)
                           : null
                       }
                     />
