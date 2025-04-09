@@ -9,7 +9,7 @@ import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { number } from "yup";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-import ImageUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
+import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload"; // Updated import
 import { getToken } from "@/Utils/userToken/LocalToken";
 
 // types
@@ -18,7 +18,8 @@ type PostType = {
   mainTopicId: string;
   subtopicIds: string[];
   creatorType: "user";
-  images: File[];
+  mediaFiles: File[];
+  fileType: "image" | "pdf";
 };
 
 function AddNew() {
@@ -41,13 +42,18 @@ function AddNew() {
       mainTopicId: number,
       subtopicIds: [number],
       creatorType: "user",
-      images: [],
+      mediaFiles: [],
+      fileType: "image",
     },
   });
 
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const handleImagesSelected = (files: File[]) => {
+  const [fileType, setFileType] = useState<"image" | "pdf">("image");
+  
+  const handleFilesSelected = (files: File[], type: "image" | "pdf") => {
     setSelectedFiles((prev) => [...prev, ...files]);
+    setFileType(type);
+    setValue("fileType", type);
   };
 
   const onSubmit = async (formData: PostType) => {
@@ -68,10 +74,14 @@ function AddNew() {
         formDataToSend.append(`subtopicIds[${index}]`, String(Number(id)));
       });
 
-      // Append each image file
-      selectedFiles.forEach((file) => {
-        formDataToSend.append(`images`, file);
-      });
+      // Append each media file
+      if (fileType === "image") {
+        selectedFiles.forEach((file) => {
+          formDataToSend.append(`images`, file);
+        });
+      } else if (fileType === "pdf" && selectedFiles.length > 0) {
+        formDataToSend.append("document", selectedFiles[0]);
+      }
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/publish-post`,
@@ -80,6 +90,7 @@ function AddNew() {
           headers: {
             Authorization: `Bearer ${userInfo}`,
             "Content-Type": "multipart/form-data",
+
           },
         }
       );
@@ -90,6 +101,7 @@ function AddNew() {
       // Reset form and state
       reset();
       setSelectedFiles([]);
+      setFileType("image");
       setSelectedMainTopic("");
       setSelectedSubtopics([]);
     } catch (err) {
@@ -143,11 +155,12 @@ function AddNew() {
             {...register("content", { required: true })}
           />
 
-          <ImageUpload
-            onImagesSelected={handleImagesSelected}
+          <FileUpload
+            onFilesSelected={handleFilesSelected}
             maxImages={4}
             maxSizeInMB={2}
           />
+          
           <div className={styles.addAndCategory}>
             {/* Main Topic Selection */}
             <div className={styles.selectCategory}>
