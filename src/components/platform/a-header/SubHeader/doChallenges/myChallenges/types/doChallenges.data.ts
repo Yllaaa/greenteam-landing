@@ -14,7 +14,12 @@ interface Post {
   id: string;
   content: string;
   createdAt: string;
-  mediaUrl: string | null;
+  media: {
+    id: string;
+    mediaUrl: string;
+    mediaType: string;
+  }[];
+
   creator: Creator;
 }
 

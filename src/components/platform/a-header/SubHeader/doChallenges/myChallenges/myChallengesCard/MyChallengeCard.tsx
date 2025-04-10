@@ -174,7 +174,7 @@ function MyChallengeCard(props: Props) {
             </p>
           </div>
           <div className={styles.post}>
-            {challenge.mediaUrl ? (
+            {challenge.media?.length > 0 ? (
               challenge.content.length > 50 ? (
                 <p>
                   {challenge.content.slice(0, 40)}{" "}
@@ -195,7 +195,7 @@ function MyChallengeCard(props: Props) {
         </div>
       </div>
       <div className={styles.challengeImage}>
-        {challenge.mediaUrl ? (
+        {challenge.media?.length > 0 ? (
           <Image src={noAvatar} alt="challengeImage" />
         ) : (
           <div

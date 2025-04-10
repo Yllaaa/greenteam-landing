@@ -49,7 +49,7 @@ function ProductsFilter(props: ProductsFilterProps) {
           </ul>
         </div>
         <div className={styles.addBtn}>
-          <button onClick={handleAddNew}>Add Event</button>
+          <button onClick={handleAddNew}>Add Product</button>
         </div>
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}

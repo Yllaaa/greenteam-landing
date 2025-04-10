@@ -18,12 +18,14 @@ interface ImageUploadProps {
   onFilesSelected: (files: File[], type: "image" | "pdf") => void;
   maxImages?: number;
   maxSizeInMB?: number;
+  selectAll?: boolean;
 }
 
 const FileUpload: React.FC<ImageUploadProps> = ({
   onFilesSelected,
   maxImages = 4,
   maxSizeInMB = 2,
+  selectAll = true,
 }) => {
   const [files, setFiles] = useState<UploadedFile[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -35,11 +37,13 @@ const FileUpload: React.FC<ImageUploadProps> = ({
     if (selectedFiles.length === 0) return;
 
     // Determine the type of the first file
-    const firstFileType = selectedFiles[0].type.startsWith("image/") 
-      ? "image" 
-      : selectedFiles[0].type === "application/pdf" 
-        ? "pdf" 
-        : null;
+    const firstFileType = selectAll
+      ? selectedFiles[0].type.startsWith("image/")
+        ? "image"
+        : selectedFiles[0].type === "application/pdf"
+        ? "pdf"
+        : null
+      : "image";
 
     // If type is not supported or mixed types, show error
     if (!firstFileType) {
@@ -48,7 +52,7 @@ const FileUpload: React.FC<ImageUploadProps> = ({
     }
 
     // Check if all files are of the same type
-    const hasInvalidType = selectedFiles.some(file => {
+    const hasInvalidType = selectedFiles.some((file) => {
       if (firstFileType === "image") {
         return !file.type.startsWith("image/");
       } else {
@@ -63,7 +67,11 @@ const FileUpload: React.FC<ImageUploadProps> = ({
 
     // If we already have files uploaded and trying to upload a different type
     if (files.length > 0 && files[0].type !== firstFileType) {
-      alert(`You already have ${files[0].type === "image" ? "images" : "a PDF"} uploaded. Please remove them first.`);
+      alert(
+        `You already have ${
+          files[0].type === "image" ? "images" : "a PDF"
+        } uploaded. Please remove them first.`
+      );
       return;
     }
 
@@ -98,10 +106,12 @@ const FileUpload: React.FC<ImageUploadProps> = ({
       }
 
       // Create a preview URL
-      const id = `file-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
-      
+      const id = `file-${Date.now()}-${Math.random()
+        .toString(36)
+        .substr(2, 9)}`;
+
       // For images, create a preview; for PDFs, use a placeholder or icon
-      const preview = file.type.startsWith("image/") 
+      const preview = file.type.startsWith("image/")
         ? URL.createObjectURL(file)
         : "/pdf-icon.svg"; // You'll need to add a PDF icon to your project
 
@@ -111,7 +121,7 @@ const FileUpload: React.FC<ImageUploadProps> = ({
         preview,
         progress: 0,
         uploading: true,
-        type: firstFileType
+        type: firstFileType,
       });
 
       validFiles.push(file);
@@ -160,7 +170,7 @@ const FileUpload: React.FC<ImageUploadProps> = ({
   const removeFile = (id: string) => {
     setFiles((prev) => {
       const updatedFiles = prev.filter((file) => file.id !== id);
-      
+
       // If no files left, reset upload mode
       if (updatedFiles.length === 0) {
         setUploadMode(null);
@@ -187,13 +197,19 @@ const FileUpload: React.FC<ImageUploadProps> = ({
   return (
     <div className={styles.imageUploadContainer}>
       <div className={styles.uploadArea}>
-        {((uploadMode === "image" && files.length < maxImages) || 
-           (uploadMode === "pdf" && files.length < 1) ||
-           uploadMode === null) && (
+        {((uploadMode === "image" && files.length < maxImages) ||
+          (uploadMode === "pdf" && files.length < 1) ||
+          uploadMode === null) && (
           <>
             <input
               type="file"
-              accept={uploadMode === "pdf" ? "application/pdf" : uploadMode === "image" ? "image/*" : "image/*,application/pdf"}
+              accept={
+                uploadMode === "pdf"
+                  ? "application/pdf"
+                  : uploadMode === "image"
+                  ? "image/*"
+                  : "image/*,application/pdf"
+              }
               multiple={uploadMode !== "pdf"}
               onChange={handleFileChange}
               ref={fileInputRef}
@@ -206,9 +222,13 @@ const FileUpload: React.FC<ImageUploadProps> = ({
                 {uploadMode === null ? "Add images or PDF" : getUploadLabel()}
                 <div className={styles.uploadInfo}>
                   {uploadMode === null ? (
-                    <>Max {maxImages} images or 1 PDF, {maxSizeInMB}MB each</>
+                    <>
+                      Max {maxImages} images or 1 PDF, {maxSizeInMB}MB each
+                    </>
                   ) : uploadMode === "image" ? (
-                    <>Max {maxImages} images, {maxSizeInMB}MB each</>
+                    <>
+                      Max {maxImages} images, {maxSizeInMB}MB each
+                    </>
                   ) : (
                     <>1 PDF document, max {maxSizeInMB}MB</>
                   )}
@@ -263,10 +283,9 @@ const FileUpload: React.FC<ImageUploadProps> = ({
       <div className={styles.uploadStatus}>
         {files.length > 0 ? (
           <div className={styles.imagesCount}>
-            {files[0].type === "image" 
+            {files[0].type === "image"
               ? `${files.length} of ${maxImages} images added`
-              : "PDF document added"
-            }
+              : "PDF document added"}
           </div>
         ) : (
           <div className={styles.imagesCount}>No files added</div>

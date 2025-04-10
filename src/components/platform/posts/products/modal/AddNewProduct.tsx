@@ -21,7 +21,7 @@ interface FormData {
   country: number;
   city: number;
   topicId: string | number;
-  image?: File | null;
+  image: File | null;
 }
 
 interface Country {
@@ -103,10 +103,11 @@ const AddNewProduct = (props: addProductProps) => {
             countryId: Number(data.country),
             cityId: Number(data.city),
             topicId: Number(data.topicId),
+            images: data.image,
           },
           {
             headers: {
-              "Content-Type": "application/json",
+              "Content-Type": "multipart/form-data",
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
             },
@@ -118,7 +119,7 @@ const AddNewProduct = (props: addProductProps) => {
         })
         .catch((err) => {
           console.log(err);
-          ToastNot("Error adding event");
+          ToastNot("Error adding Product");
         });
     } catch (err) {
       console.log(err);

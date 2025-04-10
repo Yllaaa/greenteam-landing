@@ -9,12 +9,14 @@ import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 
 type PostType = {
   headline: string;
   content: string;
   mainTopicId: number;
   section: string;
+  fileType: "image" | "pdf";
 };
 
 function Forums() {
@@ -26,14 +28,29 @@ function Forums() {
   const topics = Topics;
 
   // handle the form
-  const { register, reset, handleSubmit, setValue, formState: { errors } } = useForm<PostType>({
+  const {
+    register,
+    reset,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<PostType>({
     defaultValues: {
       headline: "",
       content: "",
       mainTopicId: 0,
       section: "",
+      fileType: "image",
     },
   });
+
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
+
+  const handleFilesSelected = (files: File[]) => {
+    console.log("files", files);
+    
+    setSelectedFiles((prev) => [...prev, ...files]);
+  };
 
   const [header, setheader] = useState<string>("");
 
@@ -41,39 +58,49 @@ function Forums() {
   const onSubmit = (formData: PostType) => {
     // Ensure mainTopicId is a valid integer
     const mainTopicId = parseInt(formData.mainTopicId.toString(), 10);
-    
+
     if (isNaN(mainTopicId)) {
       ToastNot("Please select a valid topic");
       return;
     }
-    
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum/add-publication`,
-        {
-          headline: formData.headline,
-          content: formData.content,
-          mainTopicId: mainTopicId,
-          section: formData.section,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${userInfo.accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        console.log("data", res.data);
-        ToastNot(`Post in ${res.data.section} added successfully`);
-        reset();
-        setSelectedOptions("");
-      })
-      .catch((err) => {
-        ToastNot(`Error adding forum`);
-        console.log(err);
-      });
+    try {
+      // Create FormData object
+      const formDataToSend = new FormData();
+      // Append text fields
+      formDataToSend.append("headline", formData.headline);
+      formDataToSend.append("content", formData.content);
+      formDataToSend.append("mainTopicId", String(mainTopicId));
+      formDataToSend.append("section", formData.section);
+      // Append files
+
+      formDataToSend.append("images", selectedFiles[0]);
+
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/forum/add-publication`,
+          formDataToSend,
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${userInfo.accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        )
+        .then((res) => {
+          console.log("data", res.data);
+          ToastNot(`Post in ${res.data.section} added successfully`);
+          reset();
+          setSelectedOptions("");
+        })
+        .catch((err) => {
+          ToastNot(`Error adding forum`);
+          console.log(err);
+        });
+    } catch (err) {
+      ToastNot(`Error adding forum`);
+      console.log(err);
+    }
   };
 
   // Subcategories selection
@@ -88,10 +115,10 @@ function Forums() {
   // Handle topic change and reset subtopics
   const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedMainTopic = event.target.value;
-    
+
     // Ensure the selected value is converted to a number
     const topicId = parseInt(selectedMainTopic, 10);
-    
+
     // Only set the value if it's a valid number
     if (!isNaN(topicId)) {
       setValue("mainTopicId", topicId);
@@ -157,9 +184,11 @@ function Forums() {
             <div className={styles.selectCategory}>
               {/* Main Category */}
               <select
-                {...register("mainTopicId", { 
+                {...register("mainTopicId", {
                   required: "Please select a topic",
-                  validate: (value) => !isNaN(parseInt(value.toString(), 10)) || "Invalid topic selection"
+                  validate: (value) =>
+                    !isNaN(parseInt(value.toString(), 10)) ||
+                    "Invalid topic selection",
                 })}
                 onChange={handleTopicChange}
               >
@@ -170,7 +199,9 @@ function Forums() {
                   </option>
                 ))}
               </select>
-              {errors.mainTopicId && <p className={styles.error}>{errors.mainTopicId.message}</p>}
+              {errors.mainTopicId && (
+                <p className={styles.error}>{errors.mainTopicId.message}</p>
+              )}
 
               {/* Subcategories */}
               <div className={styles.selectSubCategory}>
@@ -189,6 +220,12 @@ function Forums() {
                   ))}
               </div>
             </div>
+            <FileUpload
+              selectAll={false}
+              onFilesSelected={handleFilesSelected}
+              maxImages={1}
+              maxSizeInMB={2}
+            />
 
             <input type="submit" className={styles.submit} />
           </div>

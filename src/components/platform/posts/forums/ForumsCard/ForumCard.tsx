@@ -28,10 +28,11 @@ type Author = {
   username: string;
 };
 
-// type MainTopic = {
-//   id: string;
-//   name: string;
-// };
+type media = {
+  id: string;
+  mediaUrl: string;
+  mediaType: "image";
+};
 
 type Discussion = {
   post: {
@@ -41,6 +42,7 @@ type Discussion = {
     mediaUrl: string | null;
     createdAt: string;
     author: Author;
+    media: media[];
     commentCount: number;
     userReaction: "like" | "dislike" | "sign" | null;
     dislikeCount: number;
@@ -324,17 +326,19 @@ function ForumCard(props: Discussion) {
             <div className={styles.title}>{post.headline}</div>
             <div className={styles.post}>{post.content}</div>
           </div>
-          {post.mediaUrl && (
-            <div className={styles.image}>
-              <Image
-                src={post.mediaUrl}
-                alt="image"
-                loading="lazy"
-                width={400}
-                height={300}
-              />
-            </div>
-          )}
+          {post.media.length > 0
+            ? post.media[0].mediaUrl && (
+                <div className={styles.image}>
+                  <Image
+                    src={post.media[0].mediaUrl}
+                    alt="image"
+                    loading="lazy"
+                    width={400}
+                    height={300}
+                  />
+                </div>
+              )
+            : null}
         </div>
         <div className={styles.reactionBtns}>
           {post.section === "need" && (
