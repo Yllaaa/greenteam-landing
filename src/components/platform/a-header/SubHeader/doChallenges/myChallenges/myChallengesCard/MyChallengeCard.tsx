@@ -196,7 +196,7 @@ function MyChallengeCard(props: Props) {
       </div>
       <div className={styles.challengeImage}>
         {challenge.media?.length > 0 ? (
-          <Image src={noAvatar} alt="challengeImage" />
+          <Image src={challenge.media[0].mediaUrl} alt="challengeImage" width={500} height={500} />
         ) : (
           <div
             onClick={() => {

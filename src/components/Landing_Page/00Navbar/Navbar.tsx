@@ -49,11 +49,15 @@ function Navbar() {
         .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
           headers: {
             Authorization: `Bearer ${userObj}`,
-            
           },
         })
         .then((res) => {
-          console.log(res);
+          router.push(`/${locale}/feeds`);
+          const finalRes = {
+            ...res.data,
+            accessToken: userObj,
+          };
+          localStorage.setItem("user", JSON.stringify(finalRes));
         })
         .catch((err) => {
           console.log(err);

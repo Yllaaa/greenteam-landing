@@ -78,6 +78,7 @@ function Header() {
         .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
+            // withCredentials: true,
           },
         })
         .then((res) => {
