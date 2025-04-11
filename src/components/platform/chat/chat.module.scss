@@ -1,33 +1,36 @@
 .chat {
-    width: 1370px;
-    height: 581px;
-    border-radius: 8px;
-    border-width: 1px;
-    background: #141414;
+  width: 1370px;
+  height: 581px;
+  border-width: 1px;
+  background: #141414;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  margin: 20px auto;
 
+  .header {
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19.36px;
+    letter-spacing: 0%;
+    background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+    background-clip: text;
+    color: transparent;
+    padding: 24px 32px;
+    border-bottom: 1px solid #4b5669;
+  }
 
-    .header {
-        font-family: Inter;
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 19.36px;
-        letter-spacing: 0%;
-        background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
-        background-clip: text;
-        color: transparent;
-        padding: 24px 32px;
-        border-bottom: 1px solid #4B5669;
+  .content {
+    display: flex;
+
+    .messagesView {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      flex-grow: 1;
     }
-
-    .content {
-        display: flex;
-
-        .messagesView {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-            flex-grow: 1;
-        }
-    }
-
+  }
 }
