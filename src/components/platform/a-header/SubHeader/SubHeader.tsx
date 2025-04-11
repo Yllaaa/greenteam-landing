@@ -84,6 +84,7 @@ function SubHeader() {
           repliesPage={repliesPage}
           setRerender={setRerender}
           rerender={rerender}
+          postMedia={[]}
         />
       )}
     </>

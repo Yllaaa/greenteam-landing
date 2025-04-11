@@ -534,7 +534,7 @@ export function CommentModal(props: Props) {
               </div>
             )}
             {postMedia &&
-              postMedia.length > 0 &&
+              postMedia?.length > 0 &&
               loaded &&
               instanceRef.current && (
                 <div className={styles.dots}>
@@ -557,7 +557,7 @@ export function CommentModal(props: Props) {
                   })}
                 </div>
               )}
-            {postMedia.length === 0 && (
+            {postMedia?.length === 0 && (
               <div className={styles.noMedia}>
                 <Image
                   src={foot}
