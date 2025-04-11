@@ -1,52 +1,56 @@
 .community {
+  display: flex;
+  justify-content: space-around;
+  overflow-x: scroll;
+  margin-bottom: 16px;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    width: 0;
+
+    &-track {
+      background-color: transparent;
+      border-radius: 10px;
+    }
+
+    &-thumb {
+      background-color: #307040;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: #74b243;
+      }
+    }
+  }
+
+  .item {
     display: flex;
-    justify-content: space-around;
-    overflow-x: scroll;
-    margin-bottom: 16px;
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
 
-    &::-webkit-scrollbar {
-        height: 10px;
-        width: 0;
-
-        &-track {
-            background-color: transparent;
-            border-radius: 10px;
-        }
-
-        &-thumb {
-            background-color: #307040;
-            border-radius: 10px;
-
-            &:hover {
-                background-color: #74B243;
-            }
-        }
+    .logo {
+      width: 200px;
+      height: 200px;
+      background: #97b00f;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 400px;
+      -webkit-border-radius: 400px;
+      -moz-border-radius: 400px;
+      -ms-border-radius: 400px;
+      -o-border-radius: 400px;
     }
 
-    .item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 32px;
-
-        .logo {
-            width: 200;
-            height: 200;
-            border-radius: 400px;
-            background: #97B00F;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .text {
-            font-family: Montserrat;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 29.26px;
-            letter-spacing: 0%;
-            text-align: center;
-            color: #FFFFFF;
-        }
+    .text {
+      font-family: Montserrat;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 29.26px;
+      letter-spacing: 0%;
+      text-align: center;
+      color: #ffffff;
     }
+  }
 }
