@@ -23,9 +23,9 @@ export default function Item({
 }: Props) {
   // Only use the intersection observer for the first message (oldest)
   const { ref, inView } = useInView({
-    threshold: 0,
-    rootMargin: "100px 0px 0px 0px",
-    triggerOnce: false,
+    threshold: 1,
+    rootMargin: "200px 0px 0px 0px",
+    triggerOnce: true,
   });
 
   // Trigger loading more when the first message is in view

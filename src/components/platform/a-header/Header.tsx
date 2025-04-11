@@ -134,7 +134,11 @@ function Header() {
           </div>
         </div>
         <div className={styles.profile}>
-          <div className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}>
+          <div
+            className={`${styles.headerMenu} ${
+              isDropdownOpen ? styles.open : ""
+            }`}
+          >
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className={styles.profileIcon}

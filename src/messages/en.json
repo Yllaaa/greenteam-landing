@@ -173,12 +173,14 @@
         "products": "products"
       },
       "footer": {
-        "discover": "Discover Sustainable Community",
+        "sustainability": "The way to sustainability is in your hands",
+        "download": "Download the app",
         "allNeed": "All you need is around you",
-        "eachGrain": "Each Grain Matters To Create a",
-        "brighterFuture": "Brighter Future",
+        "eachGrain": "Each Grain Matters To Create a Brighter Future",
+        "walking": "Walking together towards sustainability",
         "joinUs": "Join Us",
         "donate": "Donate",
+        "invite":"Invite a friend",
         "home": "Home",
         "community": "Community",
         "profile": "Profile",

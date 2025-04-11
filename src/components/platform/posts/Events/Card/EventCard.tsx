@@ -11,7 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { FaStar } from "react-icons/fa6";
+// import { FaStar } from "react-icons/fa6";
 // import { getToken } from "@/Utils/userToken/LocalToken";
 
 type Props = {
@@ -119,9 +119,9 @@ function EventCard(props: Props) {
     }
   };
 
-  const handleToggleFavorite = () => {
-    ToastNot("Added to favorites!");
-  };
+  // const handleToggleFavorite = () => {
+  //   ToastNot("Added to favorites!");
+  // };
   // handle dates:
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -200,12 +200,12 @@ function EventCard(props: Props) {
             </button>
           </div>
         </div>
-        <button
+        {/* <button
           onClick={handleToggleFavorite}
           className={styles.favoriteButton}
         >
           <FaStar />
-        </button>
+        </button> */}
       </div>
     </>
   );

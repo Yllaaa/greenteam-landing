@@ -19,10 +19,12 @@ export default async function RootLayout({
   return (
     <section lang="en">
       <NextIntlClientProvider messages={messages}>
-        <header><Navbar /></header>
+        <header>
+          <Navbar />
+        </header>
         <div>{children}</div>
         <div>
-          <Footer/>
+          <Footer />
         </div>
       </NextIntlClientProvider>
     </section>

@@ -2,68 +2,70 @@
 import React from "react";
 import styles from "./footer.module.css";
 import footLogo from "@/../public/logo/foot.png";
-import handLogo from "@/../public/ZPLATFORM/header/handsLogo.svg";
+import green from "@/../public/ZPLATFORM/header/green.svg";
 import Image from "next/image";
 import cirle from "@/../public/ZPLATFORM/footer/circle.svg";
 import Link from "next/link";
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function Footer() {
-  const t = useTranslations('web.main.footer')
+  const t = useTranslations("web.main.footer");
+
+  const locale = useLocale();
+
+  const handleDownload = () => {
+    ToastNot("comming soon");
+  };
   return (
     <>
       <div className={styles.container}>
         <div className={styles.containerDiscover}>
-          <div className={styles.textOne}>
-            <p>{t('discover')}</p>
+          <div className={styles.textOneContainer}>
+            <p>{t("sustainability")}</p>
+            <button onClick={handleDownload}>{t("download")}</button>
           </div>
-          <div className={styles.logo}>
-            <Image src={handLogo} alt="community" className={styles.logo} />
-          </div>
-          <div className={styles.textTwo}>
-            <p>{t('allNeed')}</p>
+          <div className={styles.logoContainer}>
+            <Image src={footLogo} alt="community" className={styles.logo} />
           </div>
         </div>
         <div className={styles.upper}>
           <div className={styles.content}>
-            <h2 className={styles.text}>{t('eachGrain')}</h2>
-            <h2 className={styles.text}>
-              {t('brighterFuture')}{" "}
-              <span>
-                <Image
-                  src={footLogo}
-                  alt="footLogo"
-                  className={styles.logoImage}
-                />
-              </span>
-            </h2>
+            <h2 className={styles.text}>{t("eachGrain")}</h2>
+            <p>{t("walking")}</p>
             <div className={styles.actions}>
               <div className={styles.topActions}>
-                <button className={styles.button}>{t('joinUs')}</button>
-                <button className={styles.button}>{t('donate')}</button>
+                <button onClick={handleDownload} className={styles.button}>
+                  {t("joinUs")}
+                </button>
+                <button onClick={handleDownload} className={styles.button}>
+                  {t("donate")}
+                </button>
               </div>
-              <button className={styles.button}>{t('donate')}</button>
+              <button onClick={handleDownload} className={styles.button}>
+                {t("invite")}
+              </button>
             </div>
           </div>
-          {/* <div className={styles.circle}> */}
+
+          <Image src={green} alt="circles" className={styles.greenApp} />
           <Image src={cirle} alt="circles" className={styles.circleImage} />
-          {/* </div> */}
         </div>
         <div className={styles.lower}>
           <div className={styles.content}>
             <ul>
               <li>
-                <Link href="#">{t('home')}</Link>
+                <Link href={`/${locale}/feeds`}>{t("home")}</Link>
               </li>
               <li>
-                <Link href="#">{t('community')}</Link>
+                <Link href="#">{t("community")}</Link>
               </li>
               <li>
-                <Link href="#">{t('profile')}</Link>
+                <Link href="#">{t("profile")}</Link>
               </li>
               <li>
-                <Link href="#">{t('privacyAndPolicy')}</Link>
+                <Link href="#">{t("privacyAndPolicy")}</Link>
               </li>
             </ul>
           </div>
@@ -79,7 +81,7 @@ function Footer() {
             </div>
           </div>
           <div className={styles.copyright}>
-            <p>{t('rightsReserved')}</p>
+            <p>{t("rightsReserved")}</p>
           </div>
         </div>
       </div>

@@ -9,26 +9,47 @@ import LangBtn from "./languageBtn/LangBtn";
 import Link from "next/link";
 import { ScreenBreakpoints } from "@/Utils/screenBreakPoints/ScreenBreakPoints";
 import axios from "axios";
-import { useRouter } from "next/navigation";
-
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Navbar() {
-  const t = useTranslations('landing.navbar');
+  const t = useTranslations("landing.navbar");
   const locale = useLocale();
+  const params = useSearchParams();
 
-  const router = useRouter()
+  const router = useRouter();
+
+  console.log(params.get("token"));
+
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = localStorage.getItem("user");
       const userObj = JSON.parse(user!);
       console.log(userObj);
-      router.push(`/${locale}/feeds`)
-      
+      router.push(`/${locale}/feeds`);
 
       axios
         .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
           headers: {
             Authorization: `Bearer ${userObj.accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (params.get("token")) {
+      const userObj = params.get("token");
+      console.log(userObj);
+      // router.push(`/${locale}/feeds`);
+
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+          headers: {
+            Authorization: `Bearer ${userObj}`,
+            
           },
         })
         .then((res) => {
@@ -75,7 +96,7 @@ function Navbar() {
           <Image src={logo} alt="logo" />
         </div>
         <div className={styles.links}>
-          <p onClick={redirectToDownloadLink}>{t('downloadApp')}</p>
+          <p onClick={redirectToDownloadLink}>{t("downloadApp")}</p>
           <LangBtn />
         </div>
         <div className={styles.auth}>
@@ -83,13 +104,13 @@ function Navbar() {
             href={`/${locale}/login`}
             className={`${styles.login} ${styles.btn}`}
           >
-            {t('login')}
+            {t("login")}
           </Link>
           <Link
             href={`/${locale}/register`}
             className={`${styles.signup} ${styles.btn}`}
           >
-            {t('signUp')}
+            {t("signUp")}
           </Link>
         </div>
         <div
@@ -155,7 +176,7 @@ function Navbar() {
                 onClick={() => redirectToDownloadLink()}
                 className={`${styles.item}`}
               >
-                {t('downloadApp2')}
+                {t("downloadApp2")}
               </li>
               <li className={`${styles.item}`}>
                 <LangBtn />

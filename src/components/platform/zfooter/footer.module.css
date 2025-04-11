@@ -12,43 +12,78 @@
   width: 100vw;
   height: fit-content;
   min-height: 270px;
-  background: rgba(255, 255, 255, 0.2);
+  background: #304e3c;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0px 65px;
 }
-.containerDiscover .textOne {
+.containerDiscover .textOneContainer {
   display: flex;
-  width: 60%;
+  flex-direction: column;
+  width: 50%;
+  gap: 24px;
 }
-.containerDiscover .textOne p {
-  font-size: 60px;
-  font-style: normal;
+.containerDiscover .textOneContainer p {
+  font-family: Montserrat;
   font-weight: 700;
-  line-height: 65px;
+  font-size: 50px;
+  line-height: 55px;
+  letter-spacing: 0%;
+  vertical-align: middle;
 }
-.containerDiscover .logo {
-  width: 127px;
-  height: 99px;
-}
-.containerDiscover .textTwo {
-  display: flex;
-  width: 20%;
-}
-.containerDiscover .textTwo p {
+.containerDiscover .textOneContainer button {
+  width: 272px;
+  height: 42px;
+  background: #006633;
+  border: none;
+  outline: none;
+  color: #fff;
+  font-family: Montserrat;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 150%;
+  letter-spacing: 0%;
   text-align: center;
-
-  font-size: 42px;
-  font-style: normal;
-  font-weight: 700;
-  line-height: 42px;
+  vertical-align: middle;
+  cursor: pointer;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
 }
+.containerDiscover .textOneContainer button:hover {
+  background: #005533;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+.containerDiscover .logoContainer {
+  width: 142px;
+  height: 148px;
+  margin: auto;
+  position: relative;
+}
+.containerDiscover .logoContainer .logo {
+  width: 142px;
+  height: 148px;
+  position: absolute;
+  left: 209px;
+}
+
 .upper {
   position: relative;
   width: 100vw;
   height: fit-content;
-  min-height: 331px;
+  min-height: 369px;
   background-color: #97b00f;
   padding: 0px 68px;
   overflow: hidden;
@@ -59,25 +94,26 @@
 .upper .content {
   height: fit-content;
   min-height: 260px;
-  width: 100%;
+  width: 70%;
 }
-.upper .logo {
-  position: absolute;
-  width: 91px;
-  height: 95px;
-  left: 40vw;
-  top: 35%;
-}
-.logoImage {
-  width: 91px;
-  height: 95px;
-}
+
 .upper .content .text {
-  font-size: 60px;
+  font-family: Montserrat;
   font-weight: 700;
+  font-size: 60px;
   line-height: 65px;
-  text-align: left;
-  margin-bottom: 24px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  margin-bottom: 14px;
+}
+.upper .content p {
+  font-family: Montserrat;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  margin-bottom: 14px;
 }
 .upper .content .actions {
   width: 60%;
@@ -102,18 +138,40 @@
   border: none;
   outline: none;
   height: 42px;
+  cursor: pointer;
   border-radius: 20px;
   -webkit-border-radius: 20px;
   -moz-border-radius: 20px;
   -ms-border-radius: 20px;
   -o-border-radius: 20px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
 }
+.upper .content .actions .button:hover {
+  background: #005533;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+}
+
 .upper .circleImage {
   position: absolute;
   top: -50%;
-  right: 0;
+  right: -35%;
   width: 40vw;
   height: 40vw;
+}
+.upper .greenApp {
+  position: absolute;
+  bottom: 45px;
+  right: 202px;
+  width: 273px;
+  height: 127px;
 }
 .lower {
   width: 100vw;
