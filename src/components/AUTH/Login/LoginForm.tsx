@@ -25,7 +25,7 @@ import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import { setUserLoginData } from "@/store/features/login/userLoginSlice";
 import https from "https";
 function LoginForm() {
-  const t = useTranslations('auth.login')
+  const t = useTranslations("auth.login");
   const router = useRouter();
   const locale = useLocale();
 
@@ -58,14 +58,17 @@ function LoginForm() {
 
   // const iconsArray = [googleIcon, facebookIcon, appleIcon, twitterIcon];
 
-    const googleSignIn = () => {
-      // Your Google Sign In logic here
-      window.open(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/google/login`, "_blank");
-    };
+  const googleSignIn = () => {
+    // Your Google Sign In logic here
+    window.open(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/google/login`,
+      "_blank"
+    );
+  };
   const login = () => {
     if (!selectedOption) {
-      setSelectedOptionError(t('pleaseAccept'));
-      ToastNot(t('pleaseAccept'));
+      setSelectedOptionError(t("pleaseAccept"));
+      ToastNot(t("pleaseAccept"));
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
@@ -94,7 +97,7 @@ function LoginForm() {
           localStorage.setItem("user", JSON.stringify(response.data));
           document.cookie = `user=${JSON.stringify(response.data.accessToken)}`;
           dispatch(setUserLoginData(response.data));
-          ToastNot(t('loginSuccess'));
+          ToastNot(t("loginSuccess"));
           setTimeout(() => {
             router.replace(`/${locale}/feeds`);
           }, 3000);
@@ -103,7 +106,7 @@ function LoginForm() {
           if (error.response.data) {
             ToastNot(error.response.data.message);
           } else {
-            ToastNot(t('loginFailed'));
+            ToastNot(t("loginFailed"));
           }
         });
     } catch (error) {
@@ -130,7 +133,7 @@ function LoginForm() {
             {/* header */}
             <div className={styles.title}>
               <h5>{t("login")}</h5>
-              <p>{t('signInNow')}</p>
+              <p>{t("signInNow")}</p>
             </div>
             {/* icons */}
             <div className={styles.icons}>
@@ -144,7 +147,7 @@ function LoginForm() {
             {/* secerate line */}
             <div className={styles.line}>
               <div className={styles.lineBefore}></div>
-              <p>{t('or')}</p>
+              <p>{t("or")}</p>
               <div className={styles.lineAfter}></div>
             </div>
           </div>
@@ -156,7 +159,7 @@ function LoginForm() {
           >
             <p className={styles.errorMessage}>{newUserSignup.message}</p>
             <label htmlFor="identifier">
-              {t('name')} <span>*</span>
+              {t("name")} <span>*</span>
             </label>
             <div className={styles.indentifierField}>
               <input
@@ -170,10 +173,10 @@ function LoginForm() {
                 placeholder={
                   newUserSignup.user
                     ? newUserSignup.user.email
-                    : t('emailOrUsername')
+                    : t("emailOrUsername")
                 }
                 {...register("identifier", {
-                  required: { value: true, message: t('emailRequired') },
+                  required: { value: true, message: t("emailRequired") },
                 })}
                 onChange={(e) =>
                   setData({ ...data, identifier: e.target.value })
@@ -181,16 +184,16 @@ function LoginForm() {
                 className={styles.input}
               />{" "}
               {errors.identifier && (
-                <p className={styles.errorMessage}>{t('identifierRequired')}</p>
+                <p className={styles.errorMessage}>{t("identifierRequired")}</p>
               )}
             </div>
-            <label htmlFor="password">{t('password')}</label>
+            <label htmlFor="password">{t("password")}</label>
             <div className={styles.passwordField}>
               <div className={styles.passwordInput}>
                 <input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  placeholder={t('password')}
+                  placeholder={t("password")}
                   {...register("password", { required: true })}
                   onChange={(e) =>
                     setData({ ...data, password: e.target.value })
@@ -201,7 +204,7 @@ function LoginForm() {
                 </div>
               </div>
               {errors.password && (
-                <p className={styles.errorMessage}>{t('checkPassword')}</p>
+                <p className={styles.errorMessage}>{t("checkPassword")}</p>
               )}
             </div>
             <div className={styles.agreeSectionContainer}>
@@ -231,13 +234,13 @@ function LoginForm() {
                     />
                   </div>
                   <p>
-                    {t('IAgree')}{" "}
-                    <Link href={"service"}>{t('termsOfService')}</Link>
+                    {t("IAgree")}{" "}
+                    <Link href={"service"}>{t("termsOfService")}</Link>
                   </p>
                 </div>
                 <div className={styles.forgetPassword}>
                   <Link href={`/${locale}/forget-password`}>
-                    {t('forgetPassword')}
+                    {t("forgetPassword")}
                   </Link>
                 </div>
               </div>
@@ -247,14 +250,14 @@ function LoginForm() {
             </div>
 
             <button type="submit" onClick={login}>
-              {t('login')}
+              {t("login")}
             </button>
           </form>
           <p className={styles.createAccount}>
             {t("don'tHaveAccount")}{" "}
             <Link href={`/${locale}/register`} replace>
               {" "}
-              {t('signUp')}
+              {t("signUp")}
             </Link>
           </p>
         </div>
@@ -263,11 +266,9 @@ function LoginForm() {
             <Image src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
-            <h4>{t('welcomeBack')}</h4>
-            <h3>{t('sustainability')}</h3>
-            <p>
-              {t('reconnect')}
-            </p>
+            <h4>{t("welcomeBack")}</h4>
+            <h3>{t("sustainability")}</h3>
+            <p>{t("reconnect")}</p>
           </div>
           <div className={styles.foots}>
             <Image src={feet} alt="feet" />

@@ -16,6 +16,7 @@ import footLogo from "@/../public/logo/foot.png";
 import bgImage from "@/../public/auth/dots.png";
 import { LuEye, LuEyeClosed } from "react-icons/lu";
 import earthImage from "@/../public/auth/earth.svg";
+import googleIcon from "@/../public/icons/google.svg";
 // yup
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
@@ -40,10 +41,10 @@ function SignUpForm() {
       .string()
       .required(t("passwordRequired"))
       .min(8, t("passwordMin")),
-      // .matches(/[A-Z]/, t("passwordMatchUpper"))
-      // .matches(/[a-z]/, t("passwordMatchLower"))
-      // .matches(/[0-9]/, t("passwordMatchNumber"))
-      // .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
+    // .matches(/[A-Z]/, t("passwordMatchUpper"))
+    // .matches(/[a-z]/, t("passwordMatchLower"))
+    // .matches(/[0-9]/, t("passwordMatchNumber"))
+    // .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
 
     username: yup
       .string()
@@ -132,6 +133,14 @@ function SignUpForm() {
     }
   };
 
+  const googleSignIn = () => {
+    // Your Google Sign In logic here
+    window.open(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/google/login`,
+      "_blank"
+    );
+  };
+
   return (
     <>
       <div className={styles.container}>
@@ -152,6 +161,11 @@ function SignUpForm() {
             <div className={styles.title}>
               <h5>{t("createAccount")}</h5>
               <p>{t("signUpNow")}</p>
+            </div>
+          </div>
+          <div className={styles.icons}>
+            <div onClick={googleSignIn} className={styles.icon}>
+              <Image src={googleIcon} alt="logo" />
             </div>
           </div>
           <form
