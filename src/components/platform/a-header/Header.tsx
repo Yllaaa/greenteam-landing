@@ -151,7 +151,7 @@ function Header() {
                 className={styles.userProfile}
               >
                 <div className={styles.avatar}>
-                  {user && user?.avatar ? (
+                  {user && user?.avatar !==null ? (
                     <Image
                       src={user?.avatar}
                       alt={`${user.fullName}`}

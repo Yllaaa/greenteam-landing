@@ -39,11 +39,11 @@ function SignUpForm() {
     password: yup
       .string()
       .required(t("passwordRequired"))
-      .min(8, t("passwordMin"))
-      .matches(/[A-Z]/, t("passwordMatchUpper"))
-      .matches(/[a-z]/, t("passwordMatchLower"))
-      .matches(/[0-9]/, t("passwordMatchNumber"))
-      .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
+      .min(8, t("passwordMin")),
+      // .matches(/[A-Z]/, t("passwordMatchUpper"))
+      // .matches(/[a-z]/, t("passwordMatchLower"))
+      // .matches(/[0-9]/, t("passwordMatchNumber"))
+      // .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
 
     username: yup
       .string()
@@ -120,7 +120,8 @@ function SignUpForm() {
         .then((response) => {
           if (response.status === 200) ToastNot(t("signUpSuccess"));
           dispatch(setUserSignupData(response.data));
-          router.replace(`/${locale}/login`);
+          localStorage.setItem("user", JSON.stringify(response.data));
+          router.replace(`/${locale}/verification`);
         })
         .catch((error) => {
           console.log(error);

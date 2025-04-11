@@ -10,6 +10,8 @@ import Link from "next/link";
 import { ScreenBreakpoints } from "@/Utils/screenBreakPoints/ScreenBreakPoints";
 import axios from "axios";
 import { useRouter, useSearchParams } from "next/navigation";
+import { setUserLoginData } from "@/store/features/login/userLoginSlice";
+import { useAppDispatch } from "@/store/hooks";
 
 function Navbar() {
   const t = useTranslations("landing.navbar");
@@ -19,7 +21,7 @@ function Navbar() {
   const router = useRouter();
 
   console.log(params.get("token"));
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
     if (localStorage.getItem("user")) {
       const user = localStorage.getItem("user");
@@ -58,6 +60,7 @@ function Navbar() {
             accessToken: userObj,
           };
           localStorage.setItem("user", JSON.stringify(finalRes));
+          dispatch(setUserLoginData(finalRes));
         })
         .catch((err) => {
           console.log(err);

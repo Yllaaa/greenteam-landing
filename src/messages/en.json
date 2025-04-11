@@ -149,7 +149,7 @@
       "hi": "Hi!",
       "weSent": "We’ve sent a verification link to your email.",
       "didn'tReceive": "Didn’t receive the email? Check your spam folder or contact our support team for assistance",
-      "verityEmail": "Verify Email"
+      "verityEmail": "Resend Email"
     },
     "forgetPassword": {
       "forgetPassword": "Forget Password",
