@@ -181,12 +181,12 @@ $min-width: 1024px;
         button {
           flex-grow: 1;
           display: block;
-          height: 32;
+          height: 32px;
           border-radius: 20px;
           border-width: 1px;
           @media (min-width: $min-width) {
             flex-grow: 0;
-            width: 135;
+            width: 135px;
           }
 
           &.like {
@@ -204,7 +204,7 @@ $min-width: 1024px;
 
         %item {
           width: fit-content;
-          height: 34;
+          height: 34px;
           border-radius: 80px;
           padding-top: 6px;
           padding-right: 10px;
@@ -233,8 +233,8 @@ $min-width: 1024px;
             color: #ffb836;
           }
           .divider {
-            width: 1;
-            height: 34;
+            width: 1px;
+            height: 34px;
             background: #d6ddeb;
           }
         }
@@ -242,8 +242,8 @@ $min-width: 1024px;
     }
 
     .star {
-      width: 38;
-      height: 38;
+      width: 38px;
+      height: 38px;
       top: 33px;
       right: 26px;
       border-radius: 20px;
