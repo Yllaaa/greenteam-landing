@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState } from "react";
@@ -22,6 +23,8 @@ interface ProductCardProps {
   setSendMessage: React.Dispatch<React.SetStateAction<boolean>>;
   setSellerId: React.Dispatch<React.SetStateAction<string>>;
   setSellerType: React.Dispatch<React.SetStateAction<string>>;
+  setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
+  setContacts: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -34,6 +37,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     setSendMessage,
     setSellerId,
     setSellerType,
+    setShowContacts,
+    setContacts,
   } = props;
   const router = useRouter();
 
@@ -58,6 +63,11 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     setSendMessage(true);
     setSellerId(product?.sellerId);
     setSellerType(product?.sellerType);
+  };
+  const handleContacts = async () => {
+    setContacts(product?.sellerType);
+
+    setShowContacts(true);
   };
 
   const { ref, inView } = useInView({
@@ -124,14 +134,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </div>
         )}
       </div>
-      {/* <Image
-        src={product.images.length > 0 ? product.images[0].mediaUrl : image}
-        alt="image"
-        className={styles.image}
-        width={300}
-        height={300}
-        loading="lazy"
-      /> */}
+
       <div
         onClick={handleNavigate}
         style={{ cursor: "pointer" }}
@@ -153,7 +156,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
       <div className={styles.topBtns}>
         {product?.sellerType === "page" && (
-          <button onClick={handleJoinNow} className={styles.contactButton}>
+          <button onClick={handleContacts} className={styles.contactButton}>
             Message Seller
           </button>
         )}

@@ -361,3 +361,14 @@
     line-height: 100%;
   }
 }
+
+.modalcontact {
+  background: #006633;
+  width: 600px;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+}

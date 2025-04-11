@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
   Suspense,
@@ -17,6 +18,7 @@ import Image from "next/image";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
+import ContactModal from "./modal/ContactModal";
 
 function ProductSection() {
   const [section, setSection] = useState<ProductsCategory>(0);
@@ -32,7 +34,8 @@ function ProductSection() {
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState<Products[]>([]);
   const [endOfResults, setEndOfResults] = useState(false);
-
+  const [showContacts, setShowContacts] = useState(false);
+  const [contacts, setContacts] = useState<any>();
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -95,7 +98,8 @@ function ProductSection() {
 
   // Scroll event handler for infinite scrolling and scroll button state
   const handleScroll = useCallback(() => {
-    if (!bodyRef.current || !hasMore || isLoading || isPaginationLoading) return;
+    if (!bodyRef.current || !hasMore || isLoading || isPaginationLoading)
+      return;
 
     const container = bodyRef.current;
     const scrollWidth = container.scrollWidth;
@@ -200,30 +204,35 @@ function ProductSection() {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
+                  setContacts={setContacts}
+                  setShowContacts={setShowContacts}
                 />
               </div>
             ))}
-          
+
           {/* Pagination loading indicator */}
           {isPaginationLoading && (
             <div className={styles.paginationLoading}>
               <LoadingTree />
             </div>
           )}
-          
+
           {/* End of results message */}
           {endOfResults && (
             <div className={styles.endOfResults}>
               <p>No more products to show</p>
             </div>
           )}
-          
+
           {/* Message when there are no more products but not showing loading */}
-          {!hasMore && !isPaginationLoading && !endOfResults && products.length > 0 && (
-            <div className={styles.endOfResults}>
-              <p>{`You've reached the end of the products`}</p>
-            </div>
-          )}
+          {!hasMore &&
+            !isPaginationLoading &&
+            !endOfResults &&
+            products.length > 0 && (
+              <div className={styles.endOfResults}>
+                <p>{`You've reached the end of the products`}</p>
+              </div>
+            )}
         </Suspense>
       </>
     );
@@ -275,6 +284,12 @@ function ProductSection() {
           sellerId={sellerId}
           sellerType={sellerType}
           setMessage={setSendMessage}
+        />
+      )}
+      {showContacts && (
+        <ContactModal
+          contacts={contacts}
+          setShowContacts={setShowContacts}
         />
       )}
     </>
