@@ -99,13 +99,22 @@
 }
 
 .image {
-  width: 100%;
+  width: 605px;
   max-width: 605px;
   height: 100%;
   max-height: 593px;
   object-fit: cover;
   border-radius: 8px;
 }
+/* .singleGrid .image {
+  width: 605px;
+  max-width: 605px;
+  height: 100%;
+  max-height: 593px;
+  object-fit: cover;
+  border-radius: 8px;
+} */
+
 .fullscreenOverlay {
   position: fixed;
   top: 0;
