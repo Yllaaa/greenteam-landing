@@ -148,6 +148,8 @@ function SingleProduct(props: { prodId: string }) {
                     alt="image"
                     loading="lazy"
                     className={styles.image}
+                    width={100}
+                    height={100}
                   />
                 </div>
                 <div className={styles.details}>

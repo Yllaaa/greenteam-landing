@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import { PageItem } from "./pages.data";
 import styles from "./pages.module.scss";
@@ -27,21 +28,21 @@ export default function Item({ ...props }: PageItem) {
         <div onClick={handleNavigate} className={styles.description}>
           <div className={styles.headerWhy}>
             <span>Why: </span>
-            {props.why}
+            {props.why.length > 72 ? `${props.why.slice(0, 72)}...` : props.why}
           </div>
           <div className={styles.headerHow}>
             <span>How: </span>
-            {props.how}
+            {props.how.length > 72 ? `${props.how.slice(0, 72)}...` : props.how}
           </div>
           <div className={styles.headerWhat}>
             <span>What: </span>
-            {props.what}
+            {props.what.length > 72
+              ? `${props.what.slice(0, 72)}...`
+              : props.what}
           </div>
         </div>
         <div className={styles.actions}>
           <div className={styles.counts}>
-            <div className={styles.likes}>{props.followersCount} Likes</div>
-            <div className={styles.divider}></div>
             <div className={styles.followers}>
               {props.followersCount} Followers
             </div>

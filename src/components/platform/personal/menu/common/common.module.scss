@@ -1,44 +1,45 @@
 .section {
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 32px;
 
-    .header {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 32px;
-
-        .title {
-            font-family: Montserrat;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 29.26px;
-            letter-spacing: 0%;
-            text-align: center;
-            color: #FEFEFE;
-        }
-
-        .seeAll {
-            font-family: Montserrat;
-            font-weight: 600;
-            font-size: 24px;
-            line-height: 29.26px;
-            letter-spacing: 0%;
-            text-align: center;
-            color: #97B00F;
-        }
-
+    .title {
+      font-family: Montserrat;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 29.26px;
+      letter-spacing: 0%;
+      text-align: center;
+      color: #fefefe;
     }
+
+    .seeAll {
+      font-family: Montserrat;
+      font-weight: 600;
+      font-size: 24px;
+      line-height: 29.26px;
+      letter-spacing: 0%;
+      text-align: center;
+      color: #97b00f;
+      border: none;
+      outline: none;
+      background: transparent;
+    }
+  }
 }
 
 .divider {
-    width: 100%;
-    height: 2;
-    margin: 32px 0px;
-    background-color: #3A444C;
+  width: 100%;
+  height: 2;
+  margin: 32px 0px;
+  background-color: #3a444c;
 }
 
 .hero {
-    padding: 0px;
-    min-height: 200px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  padding: 0px;
+  min-height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

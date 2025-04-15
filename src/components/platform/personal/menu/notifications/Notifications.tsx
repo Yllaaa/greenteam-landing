@@ -1,14 +1,16 @@
-import Item from './Item';
-import { getNotificationItems } from './notifications.data';
-import styles from './notifications.module.scss'
+"use client";
+import Item from "./Item";
+import { getNotificationItems } from "./notifications.data";
+import styles from "./notifications.module.scss";
 
-export default async function Notifications() {
-    const notifications = await getNotificationItems();
-    return (
-        <div className={styles.notifications}>
-            {notifications.map((notification, index) => (
-                <Item key={index} {...notification} />
-            ))}
-        </div>
-    )
+export default function Notifications() {
+  const notifications = getNotificationItems();
+  return (
+    <div className={styles.notifications}>
+      {notifications &&
+        notifications?.map((notification, index) => (
+          <Item key={index} {...notification} />
+        ))}
+    </div>
+  );
 }

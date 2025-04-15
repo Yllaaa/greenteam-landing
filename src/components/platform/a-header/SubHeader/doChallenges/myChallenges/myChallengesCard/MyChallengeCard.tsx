@@ -10,6 +10,8 @@ import { useLocale } from "next-intl";
 import { Post } from "../types/doChallenges.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
+import { useAppDispatch } from "@/store/hooks";
+import { setUpdateState } from "@/store/features/update/updateSlice";
 
 type Props = {
   ref: any;
@@ -41,6 +43,7 @@ function MyChallengeCard(props: Props) {
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
   const router = useRouter();
+  const dispatch = useAppDispatch();
 
   const [isMounted, setIsMounted] = React.useState(false);
   // API base URL constant
@@ -133,8 +136,8 @@ function MyChallengeCard(props: Props) {
   const handleDoIt = () => {
     try {
       axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challenge.id}/mark-as-done`,
+        .put(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/mark-as-done`,
           {},
           {
             headers: {
@@ -145,6 +148,7 @@ function MyChallengeCard(props: Props) {
           }
         )
         .then((res) => {
+          dispatch(setUpdateState());
           console.log(res.data);
           ToastNot("Challenge Accepted");
         });
@@ -196,7 +200,12 @@ function MyChallengeCard(props: Props) {
       </div>
       <div className={styles.challengeImage}>
         {challenge.media?.length > 0 ? (
-          <Image src={challenge.media[0].mediaUrl} alt="challengeImage" width={500} height={500} />
+          <Image
+            src={challenge.media[0].mediaUrl}
+            alt="challengeImage"
+            width={500}
+            height={500}
+          />
         ) : (
           <div
             onClick={() => {

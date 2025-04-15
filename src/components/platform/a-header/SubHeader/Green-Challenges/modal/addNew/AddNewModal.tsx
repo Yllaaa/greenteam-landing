@@ -11,6 +11,7 @@ import { useParams } from "next/navigation";
 import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
+
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
@@ -56,8 +57,10 @@ function AddNewModal(props: {
   const onSubmit = async (formData: any) => {
     // Create FormData object
     const formDataToSend = new FormData();
+
     // Append text fields
     formDataToSend.append("content", formData.content);
+
     // Append each image file
     if (fileType === "image") {
       selectedFiles.forEach((file) => {
@@ -66,28 +69,30 @@ function AddNewModal(props: {
     } else if (fileType === "pdf" && selectedFiles.length > 0) {
       formDataToSend.append("document", selectedFiles[0]);
     }
+
     try {
+      // Fix: Don't convert formDataToSend to a new FormData object
+      // The correct usage is to just pass formDataToSend directly
+
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/done-with-post`,
         formDataToSend,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${accessToken}`,
           },
         }
       );
+
       if (response) {
         ToastNot(`Post added successfully`);
         reset();
         setAddNew(false);
       }
-
-      ToastNot(`Post added successfully`);
-      reset();
     } catch (err) {
       console.log(err);
-      ToastNot("error occurred while adding post");
+      ToastNot("Error occurred while adding post");
     }
   };
 

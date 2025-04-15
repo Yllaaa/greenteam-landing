@@ -21,7 +21,7 @@ export default async function RootLayout({
     <section className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
         <header>
-          <div style={{ position: "relative", zIndex: "9", marginTop: "50px" }}>
+          <div style={{ position: "relative", zIndex: "900", marginTop: "50px" }}>
             <Pageheader pageId={pageId} />
           </div>
         </header>

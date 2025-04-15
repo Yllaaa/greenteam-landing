@@ -4,7 +4,7 @@ export type NotificationItem = {
 };
 
 // export async function getNotificationItems(): Promise<NotificationItem[]> {
-export async function getNotificationItems() {
+export function getNotificationItems() {
   return [
     {
       title: "Notification 1",

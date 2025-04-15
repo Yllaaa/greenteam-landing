@@ -7,21 +7,37 @@ import cover from "@/../public/ZPLATFORM/groups/cover.png";
 // import AddNew from "./AddNew";
 
 // import { useAppSelector } from "@/store/hooks";
-import { getSinglePageItems } from "./header.data";
+import { getSinglePageItems, postFllow } from "./header.data";
 import { PageItem } from "./header.data";
 import AddNewProduct from "../body/products/modal/AddNewProduct";
-
+import AddNewEvent from "../body/Events/modal/AddNewEvent";
+import { useAppDispatch } from "@/store/hooks";
+import { setCurrentPage } from "@/store/features/pageDetails/pageDetails";
+import AddNewModal from "../body/feeds/modal/addNew/AddNewModal";
 function Pageheader(props: { pageId: string }) {
   // const user = useAppSelector((state) => state.login.user);
-
+  const dispatch = useAppDispatch();
   const { pageId } = props;
   const [data, setData] = React.useState<PageItem>({} as PageItem);
+  const [initialFollow, setInitialFollow] = useState(false);
   useEffect(() => {
     getSinglePageItems(pageId).then((res) => {
+      dispatch(setCurrentPage(res));
+
       setData(res);
+      setInitialFollow(res.isFollowing);
     });
   }, []);
-  const [addNew, setAddNew] = useState(false);
+  const [addNewP, setAddNewP] = useState(false);
+  const [addNewE, setAddNewE] = useState(false);
+  const [addNewPost, setAddNewPost] = useState(false);
+
+  const handleFollow = () => {
+    postFllow(pageId).then((res) => {
+      setInitialFollow(res.followed);
+    });
+  };
+
   return (
     <>
       <div className={styles.cover}>
@@ -68,22 +84,47 @@ function Pageheader(props: { pageId: string }) {
         </div>
         <div className={styles.headerActions}>
           <div className={styles.headerAddBtns}>
-            <button className={styles.addPost}>Add Post</button>
             <button
-              onClick={() => setAddNew(!addNew)}
-              className={styles.addProduct}
+              onClick={() => setAddNewPost(!addNewPost)}
+              className={styles.addPost}
             >
-              Add Product
+              Add Post
             </button>
-            <button className={styles.addEvent}>Add Event</button>
+
+            {data.isAdmin && (
+              <button
+                onClick={() => setAddNewP(!addNewP)}
+                className={styles.addProduct}
+              >
+                Add Product
+              </button>
+            )}
+            {data.isAdmin && (
+              <button
+                onClick={() => setAddNewE(!addNewE)}
+                className={styles.addEvent}
+              >
+                Add Event
+              </button>
+            )}
           </div>
           <div className={styles.headerLike}>
-            <button className={styles.likeBtn}>Like</button>
+            <button onClick={handleFollow} className={styles.likeBtn}>
+              {initialFollow ? "Unfollow" : "Follow"}
+            </button>
           </div>
         </div>
       </div>
       {/* <AddNew /> */}
-      {addNew && <AddNewProduct setAddNew={setAddNew} userType="page" />}
+      {addNewP && <AddNewProduct setAddNew={setAddNewP} userType="page" />}
+      {addNewE && <AddNewEvent setAddNew={setAddNewE} userType="page" />}
+      {addNewPost && (
+        <AddNewModal
+          setAddNew={setAddNewPost}
+          addNew={addNewPost}
+          slug={pageId}
+        />
+      )}
     </>
   );
 }

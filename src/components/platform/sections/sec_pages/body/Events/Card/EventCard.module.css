@@ -2,6 +2,7 @@
   position: relative;
   width: 100%;
   min-width: 415px;
+  max-width: 415px;
   height: 347px;
   background: #333634;
   z-index: 9;

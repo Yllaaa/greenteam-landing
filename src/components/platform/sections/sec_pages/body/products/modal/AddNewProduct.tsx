@@ -1,6 +1,5 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import { useForm } from "react-hook-form";
+"use client";
+import React, { useEffect, useRef, useState } from "react";
 import { X } from "lucide-react";
 import styles from "./AddNewProduct.module.css";
 import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
@@ -8,172 +7,222 @@ import { preventBackgroundScroll } from "@/hooks/preventScroll/preventBackroundS
 import addlogo from "@/../public/ZPLATFORM/event/addLogo.svg";
 import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import axios from "axios";
-import { getToken } from "@/Utils/userToken/LocalToken";
-import { useLocale } from "next-intl";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-// Define types for better TypeScript support
+import { postPageProduct } from "../functions/productsService";
+import { useParams } from "next/navigation";
+
+// Define types
 interface FormData {
-  creatorType: string;
   name: string;
   description: string;
   price: number;
-  country: number;
-  city: number;
   topicId: string | number;
-  image?: File | null;
   marketType: string;
+  images: File[];
 }
 
-interface Country {
-  id: number;
-  name: string;
-  iso: string;
+interface ImagePreview {
+  id: string; // Added unique ID for each image
+  url: string;
+  file: File;
 }
-interface City {
-  id: number;
-  name: string;
-}
-type addProductProps = {
+
+type AddProductProps = {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   userType: string;
 };
 
-const AddNewProduct = (props: addProductProps) => {
-  const token = getToken();
-  const accessToken = token ? token.accessToken : null;
-  const locale = useLocale();
+const AddNewProduct = ({ setAddNew }: AddProductProps) => {
+  const params = useParams();
+  const slug = params?.pageId;
+  const MAX_IMAGES = 4;
 
-  const { setAddNew } = props;
-  const closeModal = useCallback(() => {
-    setAddNew(false);
-  }, [setAddNew]);
+  // Form state
+  const [formData, setFormData] = useState<FormData>({
+    name: "",
+    description: "",
+    price: 0,
+    topicId: "",
+    marketType: "",
+    images: [],
+  });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [imagePreviews, setImagePreviews] = useState<ImagePreview[]>([]);
+  const [isDragging, setIsDragging] = useState<boolean>(false);
 
-  const modalRef = useOutsideClick(closeModal);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const modalRef = useOutsideClick(() => setAddNew(false));
 
+  // Handle modal effects
   useEffect(() => {
     preventBackgroundScroll(true);
-
     return () => {
+      // Clean up object URLs to prevent memory leaks
+      imagePreviews.forEach((preview) => {
+        if (preview.url.startsWith("blob:")) {
+          URL.revokeObjectURL(preview.url);
+        }
+      });
       preventBackgroundScroll(false);
     };
-  }, []);
-  // React Hook Form setup
-  const {
-    register,
-    handleSubmit,
-    setValue,
-    reset,
-    formState: { errors },
-  } = useForm<FormData>({});
+  }, [imagePreviews]);
 
-  // Form submission handler
-  const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-    // check all fields are filled
-    if (
-      !data.name ||
-      !data.description ||
-      !data.price ||
-      !data.country ||
-      !data.marketType ||
-      !data.city
-    ) {
-      ToastNot("Please fill all fields");
+  // Validate form
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    if (!formData.name) newErrors.name = "Name is required";
+    if (!formData.description)
+      newErrors.description = "Description is required";
+    else if (formData.description.length < 10)
+      newErrors.description = "Description must be at least 10 characters";
+    if (!formData.price) newErrors.price = "Price is required";
+    if (!formData.topicId) newErrors.topicId = "Topic is required";
+    if (!formData.marketType) newErrors.marketType = "Market type is required";
+    if (!formData.images.length)
+      newErrors.images = "At least one image is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  // Handle form input changes
+  const handleInputChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    // Clear error for this field if exists
+    if (errors[name]) {
+      setErrors((prev) => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
     }
-    try {
-      // send data to server
-      console.log(data);
+  };
 
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/create-product`,
-          {
-            name: data.name,
-            description: data.description,
-            marketType: data.marketType,
-            price: Number(data.price),
-            // countryId: Number(data.country),
-            // cityId: Number(data.city),
-            topicId: Number(data.topicId),
-          },
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        )
-        .then((res) => {
-          ToastNot(res.data.message);
-          reset();
-        })
-        .catch((err) => {
-          console.log(err);
-          ToastNot("Error adding event");
-        });
+  // Handle form submission
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!validateForm()) return;
+
+    try {
+      const passedFormData = new FormData();
+      passedFormData.append("name", formData.name);
+      passedFormData.append("description", formData.description);
+      passedFormData.append("marketType", formData.marketType);
+      passedFormData.append("price", String(formData.price));
+      passedFormData.append("topicId", String(formData.topicId));
+
+      // Append all images to the FormData
+      formData.images.forEach((image) => {
+        passedFormData.append("images", image);
+      });
+
+      postPageProduct(passedFormData, slug).then((res) => {
+        if (res.status === 200) {
+          ToastNot(res.message);
+          // Reset form
+          setFormData({
+            name: "",
+            description: "",
+            price: 0,
+            topicId: "",
+            marketType: "",
+            images: [],
+          });
+          setImagePreviews([]);
+        } else {
+          ToastNot(res.message);
+        }
+      });
     } catch (err) {
       console.log(err);
     }
   };
 
-  // Updated image upload state and refs
-  const [imagePreview, setImagePreview] = useState<string | null>(null);
-  const [isDragging, setIsDragging] = useState<boolean>(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const dropAreaRef = useRef<HTMLDivElement>(null);
+  // Image handling functions
+  const processSelectedFiles = (files: File[]) => {
+    const availableSlots = MAX_IMAGES - imagePreviews.length;
+    const filesToProcess = files.slice(0, availableSlots);
 
-  // Handle image selection - updated to handle the file properly
-  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e?.target?.files?.[0];
-    if (file) {
-      processSelectedFile(file);
+    if (filesToProcess.length === 0) {
+      ToastNot(`Maximum of ${MAX_IMAGES} images allowed`);
+      return;
+    }
+
+    // Create new previews with unique IDs
+    const newPreviews = filesToProcess.map((file) => ({
+      id: Math.random().toString(36).substring(2, 15), // Generate unique ID
+      url: URL.createObjectURL(file),
+      file: file,
+    }));
+
+    // Update previews
+    setImagePreviews((prev) => [...prev, ...newPreviews]);
+
+    // Update form value
+    setFormData((prev) => ({
+      ...prev,
+      images: [...prev.images, ...filesToProcess],
+    }));
+
+    // Show message if some files were not processed
+    if (files.length > availableSlots) {
+      ToastNot(
+        `Only ${availableSlots} more images allowed. ${
+          files.length - availableSlots
+        } images were not added.`
+      );
     }
   };
 
-  // Process the selected file (either from input or drag)
-  const processSelectedFile = (file: File) => {
-    // Set the file in the form
-    setValue("image", file);
-
-    // Create object URL for preview
-    const objectUrl = URL.createObjectURL(file);
-    setImagePreview(objectUrl);
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e?.target?.files;
+    if (files && files.length > 0) {
+      processSelectedFiles(Array.from(files));
+    }
   };
 
-  // Clean up object URLs on unmount to prevent memory leaks
-  useEffect(() => {
-    return () => {
-      if (imagePreview && imagePreview.startsWith("blob:")) {
-        URL.revokeObjectURL(imagePreview);
-      }
-    };
-  }, [imagePreview]);
-
-  // Modified to prevent event bubbling issues
   const handleImageClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    if (fileInputRef.current) {
+    if (fileInputRef.current && imagePreviews.length < MAX_IMAGES) {
       fileInputRef.current.click();
+    } else if (imagePreviews.length >= MAX_IMAGES) {
+      ToastNot(`Maximum of ${MAX_IMAGES} images allowed`);
     }
   };
 
-  const removeImage = (e: React.MouseEvent) => {
+  // Fixed remove image function to use IDs instead of indexes
+  const removeImage = (id: string, e: React.MouseEvent) => {
     e.preventDefault();
-    e.stopPropagation(); // Prevent triggering the parent onClick
-    setValue("image", null);
+    e.stopPropagation();
 
-    // Clean up the object URL if it exists
-    if (imagePreview && imagePreview.startsWith("blob:")) {
-      URL.revokeObjectURL(imagePreview);
-    }
+    // Find the image to remove
+    const imageToRemove = imagePreviews.find((img) => img.id === id);
+    if (!imageToRemove) return;
 
-    setImagePreview(null);
+    // Remove from previews using filter
+    const newPreviews = imagePreviews.filter((img) => img.id !== id);
+    setImagePreviews(newPreviews);
 
-    // Clear the input value
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+    // Remove from form data
+    setFormData((prev) => ({
+      ...prev,
+      images: formData.images.filter(
+        (file) =>
+          // Filter by comparing to the file in the removed preview
+          file !== imageToRemove.file
+      ),
+    }));
+
+    // Revoke the object URL
+    if (imageToRemove.url.startsWith("blob:")) {
+      URL.revokeObjectURL(imageToRemove.url);
     }
   };
 
@@ -193,9 +242,7 @@ const AddNewProduct = (props: addProductProps) => {
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!isDragging) {
-      setIsDragging(true);
-    }
+    if (!isDragging) setIsDragging(true);
   };
 
   const handleDrop = (e: React.DragEvent) => {
@@ -205,69 +252,20 @@ const AddNewProduct = (props: addProductProps) => {
 
     const files = e.dataTransfer.files;
     if (files && files.length > 0) {
-      const file = files[0];
-      // Check if it's an image file
-      if (file.type.startsWith("image/")) {
-        processSelectedFile(file);
+      // Filter only image files
+      const imageFiles = Array.from(files).filter((file) =>
+        file.type.startsWith("image/")
+      );
+      if (imageFiles.length > 0) {
+        processSelectedFiles(imageFiles);
       }
     }
   };
 
-  const [country, setCountry] = useState<Country[]>();
-  const [countryId, setCountryId] = useState<number | undefined>(undefined);
-  const [city, setCity] = useState<City[]>();
-
-  const [search, setSearch] = useState<string>("");
-
-  const topics = Topics;
   const markets = [
     { id: 1, name: "local_business" },
     { id: 2, name: "value_driven_business" },
-  ]
-
-  useEffect(() => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries?locale=${locale}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        setCountry(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        ToastNot("Error fetching countries");
-      });
-  }, []);
-
-  useEffect(() => {
-    if (countryId === undefined) return;
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${search}&limit=5`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        setCity(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        ToastNot("Error fetching cities");
-      });
-  }, [countryId, search]);
+  ];
 
   return (
     <div className={styles.modal}>
@@ -284,57 +282,49 @@ const AddNewProduct = (props: addProductProps) => {
             </p>
           </div>
         </div>
-        <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
+
+        <form onSubmit={handleSubmit} className={styles.form}>
           <div className={styles.formSection}>
             {/* Name */}
             <div className={styles.formGroup}>
               <label className={styles.label}>Product Name</label>
               <input
                 type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleInputChange}
                 className={`${styles.input} ${
                   errors.name ? styles.inputError : ""
                 }`}
-                {...register("name", {
-                  required: "Title is required",
-                  maxLength: {
-                    value: 100,
-                    message: "Title cannot exceed 100 characters",
-                  },
-                })}
               />
-              {errors.name && (
-                <p className={styles.errorText}>{errors.name.message}</p>
-              )}
+              {errors.name && <p className={styles.errorText}>{errors.name}</p>}
             </div>
-            {/* price */}
+
+            {/* Price */}
             <div className={styles.formGroup}>
               <label className={styles.label}>Price</label>
               <input
-                type="text"
+                type="number"
+                name="price"
+                value={formData.price || ""}
+                onChange={handleInputChange}
                 className={`${styles.input} ${
-                  errors.name ? styles.inputError : ""
+                  errors.price ? styles.inputError : ""
                 }`}
-                {...register("price", {
-                  required: "Price is required",
-                  maxLength: {
-                    value: 100,
-                    message: "Title cannot exceed 100 characters",
-                  },
-                })}
               />
               {errors.price && (
-                <p className={styles.errorText}>{errors.price.message}</p>
+                <p className={styles.errorText}>{errors.price}</p>
               )}
             </div>
           </div>
-          {/* IMAGE */}
+
+          {/* IMAGES */}
           <div className={styles.formSection}>
             <div className={styles.formGroup}>
-              <label className={styles.label}>Event Image</label>
+              <label className={styles.label}>Product Images (Maximum 4)</label>
               <div
-                ref={dropAreaRef}
                 className={`${styles.imageUploadContainer} ${
-                  errors.image ? styles.inputError : ""
+                  errors.images ? styles.inputError : ""
                 } ${isDragging ? styles.dragging : ""}`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
@@ -342,183 +332,145 @@ const AddNewProduct = (props: addProductProps) => {
                 onDragLeave={handleDragLeave}
                 onDrop={handleDrop}
               >
-                {imagePreview ? (
-                  <div className={styles.imagePreviewWrapper}>
-                    <div
-                      className={styles.imagePreview}
-                      onClick={handleImageClick} // Add onClick handler here
-                    >
-                      <Image
-                        src={imagePreview}
-                        alt="Event preview"
-                        fill
-                        style={{ objectFit: "cover" }}
-                      />
-                    </div>
-                    <button
-                      type="button"
-                      className={styles.removeImageButton}
-                      onClick={removeImage}
-                    >
-                      <X className={styles.removeIcon} />
-                    </button>
+                {imagePreviews.length > 0 ? (
+                  <div className={styles.multipleImagePreviewWrapper}>
+                    {imagePreviews.map((preview) => (
+                      <div key={preview.id} className={styles.imagePreviewItem}>
+                        <div className={styles.imagePreview}>
+                          <Image
+                            src={preview.url}
+                            alt={`Product preview`}
+                            style={{ objectFit: "cover" }}
+                            width={100}
+                            height={100}
+                          />
+                        </div>
+                        <button
+                          type="button"
+                          className={styles.removeImageButton}
+                          onClick={(e) => removeImage(preview.id, e)}
+                        >
+                          <X className={styles.removeIcon} />
+                        </button>
+                      </div>
+                    ))}
+                    {imagePreviews.length < MAX_IMAGES && (
+                      <div
+                        className={styles.addMoreImagesPlaceholder}
+                        onClick={handleImageClick}
+                      >
+                        <p>+ Add more images</p>
+                        <p className={styles.smallText}>
+                          {MAX_IMAGES - imagePreviews.length} remaining
+                        </p>
+                      </div>
+                    )}
                   </div>
                 ) : (
                   <div className={styles.uploadPlaceholder}>
                     <p>
                       {isDragging
-                        ? "Drop image here"
-                        : "Click or drag image here"}
+                        ? "Drop images here"
+                        : "Click or drag images here"}
+                    </p>
+                    <p className={styles.smallText}>
+                      Upload up to {MAX_IMAGES} images
                     </p>
                   </div>
                 )}
                 <input
                   type="file"
-                  ref={fileInputRef} // Add the ref here
+                  ref={fileInputRef}
                   accept="image/*"
+                  multiple
                   className={styles.fileInput}
                   onChange={handleImageChange}
-                  style={{ display: "none" }} // Hide the actual input
+                  style={{ display: "none" }}
                 />
               </div>
-              {errors.image && (
-                <p className={styles.errorText}>{errors.image.message}</p>
+              {errors.images && (
+                <p className={styles.errorText}>{errors.images}</p>
               )}
             </div>
           </div>
-          <div className={styles.formSection}>
-            {/* DESCRIPTION */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Description</label>
-              <textarea
-                rows={4}
-                className={`${styles.textarea} ${
-                  errors.description ? styles.inputError : ""
-                }`}
-                {...register("description", {
-                  required: "Description is required",
-                  minLength: {
-                    value: 10,
-                    message: "Description must be at least 10 characters",
-                  },
-                })}
-              ></textarea>
-              {errors.description && (
-                <p className={styles.errorText}>{errors.description.message}</p>
-              )}
-            </div>
 
-            {/* COUNTRY */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Topic</label>
-              <select
-                className={`${styles.select} ${
-                  errors.topicId ? styles.inputError : ""
-                }`}
-                {...register("topicId", { required: "Country is required" })}
-              >
-                <option value="" disabled>
-                  Select topic
-                </option>
-                {topics?.map((topic, index) => (
-                  <option key={index} value={topic.id}>
-                    {topic.name}
-                  </option>
-                ))}
-              </select>
-              {errors.topicId && (
-                <p className={styles.errorText}>{errors.topicId.message}</p>
-              )}
-            </div>
-            {/* Market type */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Market Type</label>
-              <select
-                className={`${styles.select} ${
-                  errors.marketType ? styles.inputError : ""
-                }`}
-                {...register("marketType", { required: "Market type is required" })}
-              >
-                <option value="" disabled>
-                  Select market type
-                </option>
-                {markets?.map((market, index) => (
-                  <option key={index} value={market.id}>
-                    {market.name}
-                  </option>
-                ))}
-              </select>
-              {errors.marketType && (
-                <p className={styles.errorText}>{errors.marketType.message}</p>
-              )}
-            </div>
-
-            {/* COUNTRY */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Country</label>
-              <select
-                className={`${styles.select} ${
-                  errors.country ? styles.inputError : ""
-                }`}
-                {...register("country", { required: "Country is required" })}
-                onChange={(e) => setCountryId(parseInt(e.target.value))}
-              >
-                <option value="" disabled>
-                  Select Country
-                </option>
-                {country?.map((country, index) => (
-                  <option key={index} value={country.id}>
-                    {country.iso}_{country.name}
-                  </option>
-                ))}
-              </select>
-              {errors.country && (
-                <p className={styles.errorText}>{errors.country.message}</p>
-              )}
-            </div>
-            {/* CITY */}
-
-            <div className={styles.formGroup}>
-              <label className={styles.label}>City</label>
-              <div className={styles.searchContainer}>
-                <input
-                  type="text"
-                  placeholder="Enter city"
-                  className={styles.input}
-                  onChange={(e) => setSearch(e.target.value)}
-                />
-                <select
-                  className={`${styles.select} ${
-                    errors.city ? styles.inputError : ""
-                  }`}
-                  {...register("city", { required: "city is required" })}
-                >
-                  <option value="" disabled>
-                    Select city
-                  </option>
-                  {/* <option value=""> */}
-                  {/* </option> */}
-                  {city?.map((city, index) => (
-                    <option key={index} value={city.id}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-              {errors.city && (
-                <p className={styles.errorText}>{errors.city.message}</p>
-              )}
-            </div>
+          {/* DESCRIPTION */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Description</label>
+            <textarea
+              rows={4}
+              name="description"
+              value={formData.description}
+              onChange={handleInputChange}
+              className={`${styles.textarea} ${
+                errors.description ? styles.inputError : ""
+              }`}
+            ></textarea>
+            {errors.description && (
+              <p className={styles.errorText}>{errors.description}</p>
+            )}
           </div>
+
+          {/* TOPIC */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Topic</label>
+            <select
+              name="topicId"
+              value={formData.topicId}
+              onChange={handleInputChange}
+              className={`${styles.select} ${
+                errors.topicId ? styles.inputError : ""
+              }`}
+            >
+              <option value="" disabled>
+                Select topic
+              </option>
+              {Topics?.map((topic) => (
+                <option key={topic.id} value={topic.id}>
+                  {topic.name}
+                </option>
+              ))}
+            </select>
+            {errors.topicId && (
+              <p className={styles.errorText}>{errors.topicId}</p>
+            )}
+          </div>
+
+          {/* Market type */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Market Type</label>
+            <select
+              name="marketType"
+              value={formData.marketType}
+              onChange={handleInputChange}
+              className={`${styles.select} ${
+                errors.marketType ? styles.inputError : ""
+              }`}
+            >
+              <option value="" disabled>
+                Select market type
+              </option>
+              {markets?.map((market) => (
+                <option key={market.id} value={market.name}>
+                  {market.name}
+                </option>
+              ))}
+            </select>
+            {errors.marketType && (
+              <p className={styles.errorText}>{errors.marketType}</p>
+            )}
+          </div>
+
           <div className={styles.submitContainer}>
             <button
+              type="button"
               onClick={() => setAddNew(false)}
               className={styles.cancelButton}
             >
               Cancel
             </button>
             <button type="submit" className={styles.submitButton}>
-              Create Event
+              Create Product
             </button>
           </div>
         </form>

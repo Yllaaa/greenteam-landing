@@ -16,29 +16,29 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 type Props = {
   events: {
     id: string;
-  title: string;
-  description: string;
-  location: string;
-  startDate: string; // ISO 8601 date string
-  endDate: string;   // ISO 8601 date string
-  category: string;
-  poster: string | null;
-  hostedBy: string | null;
-  isJoined: boolean;
-  hostName: string;
+    title: string;
+    description: string;
+    location: string;
+    startDate: string; // ISO 8601 date string
+    endDate: string; // ISO 8601 date string
+    category: string;
+    posterUrl: string | null;
+    hostedBy: string | null;
+    isJoined: boolean;
+    hostName: string;
   }[];
   event: {
     id: string;
-  title: string;
-  description: string;
-  location: string;
-  startDate: string; // ISO 8601 date string
-  endDate: string;   // ISO 8601 date string
-  category: string;
-  poster: string | null;
-  hostedBy: string | null;
-  isJoined: boolean;
-  hostName: string;
+    title: string;
+    description: string;
+    location: string;
+    startDate: string; // ISO 8601 date string
+    endDate: string; // ISO 8601 date string
+    category: string;
+    posterUrl: string | null;
+    hostedBy: string | null;
+    isJoined: boolean;
+    hostName: string;
   };
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -112,6 +112,7 @@ function EventCard(props: Props) {
   const handleEventDetails = () => {
     router.push(`/${locale}/event/${event?.id}`);
   };
+  
 
   return (
     <>
@@ -122,9 +123,11 @@ function EventCard(props: Props) {
       >
         <div className={styles.img}>
           <Image
-            src={event?.poster ? event?.poster : noPIc}
+            src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
             className={styles.image}
+            width={500}
+            height={500}
           />
         </div>
         <div className={styles.content}>

@@ -37,6 +37,10 @@
   background-color: #141414a7;
 }
 
+.uploadLabel {
+  font-size: 12px;
+  color: #fefefe;
+}
 .uploadInfo {
   font-size: 8px;
   color: #fefefe;

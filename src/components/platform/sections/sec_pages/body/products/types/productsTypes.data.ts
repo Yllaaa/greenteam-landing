@@ -1,11 +1,4 @@
-export type ProductsCategory =
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 0
+export type ProductsCategory = 1 | 2 | 3 | 4 | 5 | 6 | 0;
 
 // Topic type represents the associated topic of a market item
 type Topic = {
@@ -28,7 +21,10 @@ export interface Products {
   id: string;
   name: string;
   description: string;
-  imageUrl: string[];
+  images: {
+    mediaUrl: string;
+    id: string;
+  }[];
   price: string;
   marketType: MarketType;
   sellerId: string;

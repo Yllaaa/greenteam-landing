@@ -30,6 +30,7 @@ export const groups = {
 export const pages = {
   allPages: `${host}/api/v1/pages`,
   singlePage: withId(`${host}/api/v1/pages`),
+  follow: withMidId(`${host}/api/v1/pages`, `toggle-follow`),
  
 };
 

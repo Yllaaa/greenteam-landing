@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React from "react";
+import React, { useState } from "react";
 // import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
@@ -9,6 +9,8 @@ import { Products } from "../types/productsTypes.data";
 import { useInView } from "react-intersection-observer";
 import { FaMessage } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
+import { useKeenSlider } from "keen-slider/react";
 // import { TiStarFullOutline } from "react-icons/ti";
 interface ProductCardProps {
   limit?: number;
@@ -34,8 +36,25 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     setSellerType,
   } = props;
   const router = useRouter();
+  const locale = useLocale();
+
+  const [currentSlide, setCurrentSlide] = React.useState(0);
+  const [loaded, setLoaded] = useState(false);
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+    initial: 0,
+    loop: true,
+    slides: { perView: 1 },
+
+    slideChanged(slider) {
+      setCurrentSlide(slider.track.details.rel);
+    },
+    created() {
+      setLoaded(true);
+    },
+  });
+
   const handleNavigate = () => {
-    router.push(`feeds/products/${product?.id}`);
+    router.push(`/${locale}/feeds/products/${product?.id}`);
   };
   const handleJoinNow = async () => {
     setSendMessage(true);
@@ -55,17 +74,58 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       handlePages();
     }
   }, [inView]);
-
+  console.log("product", product);
   return (
     <div
       ref={index === products.length - 1 ? ref : null}
       className={styles.card}
     >
-      <Image
-        src={product.imageUrl ? product.imageUrl[0] : image}
-        alt="image"
-        className={styles.image}
-      />
+      <div ref={sliderRef} className={`keen-slider ${styles.slider}`}>
+        {product.images.length > 0 ? (
+          product.images.map((imageUrl, index) => (
+            <div
+              key={imageUrl.id || index}
+              className={`keen-slider__slide ${styles.postCard}`}
+            >
+              <div className={styles.image}>
+                <Image
+                  src={product.images?.length > 0 ? imageUrl.mediaUrl : image}
+                  alt={`Post image ${index + 1}`}
+                  loading="lazy"
+                  width={1000}
+                  height={1000}
+                  className={styles.image}
+                />
+              </div>
+            </div>
+          ))
+        ) : (
+          <Image
+            src={image}
+            alt={`Post image`}
+            loading="lazy"
+            width={1000}
+            height={1000}
+            className={styles.singleImage}
+          />
+        )}
+        {loaded && instanceRef.current && product.images.length > 1 && (
+          <div className={styles.dots}>
+            {[
+              ...Array(instanceRef.current.track.details.slides.length).keys(),
+            ].map((idx) => (
+              <button
+                key={idx}
+                onClick={() => instanceRef.current?.moveToIdx(idx)}
+                className={`${styles.dot} ${
+                  currentSlide === idx ? styles.active : ""
+                }`}
+                aria-label={`Go to slide ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
       <div onClick={handleNavigate} className={styles.content}>
         <h2 className={styles.category}>{product?.marketType}</h2>
         <p className={styles.details}>

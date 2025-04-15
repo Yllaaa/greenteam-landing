@@ -2,10 +2,11 @@ import React from "react";
 import styles from "./ProductsFilter.module.css";
 import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import { useAppSelector } from "@/store/hooks";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
-
+  const pageStatus = useAppSelector((state) => state.pageState);
   const topics = Topics;
 
   const handleAddNew = () => {
@@ -48,9 +49,11 @@ function ProductsFilter(props: ProductsFilterProps) {
             ))}
           </ul>
         </div>
-        <div className={styles.addBtn}>
-          <button onClick={handleAddNew}>Add Event</button>
-        </div>
+        {pageStatus && pageStatus.isAdmin && (
+          <div className={styles.addBtn}>
+            <button onClick={handleAddNew}>Add Event</button>
+          </div>
+        )}
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}
     </>

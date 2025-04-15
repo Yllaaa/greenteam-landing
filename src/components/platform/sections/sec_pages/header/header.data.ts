@@ -1,7 +1,7 @@
 "use client";
 
 import { pages } from "@/Utils/backendEndpoints/backend-endpoints";
-import { getRequest } from "@/Utils/backendEndpoints/backend-requests";
+import { getRequest, postRequest } from "@/Utils/backendEndpoints/backend-requests";
 
 interface Topic {
   id: number;
@@ -24,10 +24,16 @@ export type PageItem = {
   followersCount: number;
   topic: Topic;
   isAdmin: boolean;
+  isFollowing: boolean;
 };
 
 export function getSinglePageItems(id: string): Promise<PageItem> {
   const data = getRequest(pages.singlePage(id)).then((res) => res.data);
+
+  return data;
+}
+export function postFllow(slug: string) {
+  const data = postRequest(pages.follow(slug), {}).then((res) => res.data);
 
   return data;
 }

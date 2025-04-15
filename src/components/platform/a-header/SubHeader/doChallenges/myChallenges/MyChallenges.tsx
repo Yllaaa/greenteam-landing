@@ -168,8 +168,7 @@ function MyChallenges(props: DoMainProps) {
         },
       }
     );
-    console.log(response.data);
-    
+
     return response.data;
   };
 

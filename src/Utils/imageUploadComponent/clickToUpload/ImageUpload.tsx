@@ -219,7 +219,9 @@ const FileUpload: React.FC<ImageUploadProps> = ({
             <label htmlFor="file-upload" className={styles.uploadButton}>
               <Image src={imageIcon} alt={"icon"} />
               <div>
-                {uploadMode === null ? "Add images or PDF" : getUploadLabel()}
+                <p className={styles.uploadLabel}>
+                  {uploadMode === null ? "Add images or PDF" : getUploadLabel()}
+                </p>
                 <div className={styles.uploadInfo}>
                   {uploadMode === null ? (
                     <>

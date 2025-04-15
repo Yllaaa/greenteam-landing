@@ -6,7 +6,7 @@ import styles from "./pages.module.scss";
 
 export default function Pages() {
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
-  // const pages = await getPageItems();
+
   useEffect(()=>{
   
     getPageItems().then((res) => {

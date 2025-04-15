@@ -22,7 +22,7 @@ export interface Event {
   // Display and organization
   hostedBy: string;
   hostName: string;
-  poster: string | null;
+  posterUrl: string | null;
   priority: number;
 
   // User-specific data
