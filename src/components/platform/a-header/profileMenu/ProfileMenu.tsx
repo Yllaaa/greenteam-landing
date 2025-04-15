@@ -35,6 +35,12 @@ function ProfileMenu(props: Props) {
       link: `/${locale}/challenges`,
     },
     {
+      id: 6,
+      name: "Personal",
+      icon: challenges,
+      link: `/${locale}/personal_menu`,
+    },
+    {
       id: 4,
       name: "Plans",
       icon: plans,
