@@ -4,6 +4,7 @@ $min-width: 1024px;
   width: 100%;
   overflow-x: scroll;
   margin-bottom: 16px;
+  position: relative;
   @media (min-width: $min-width) {
     width: 100%;
     overflow-x: scroll;
@@ -27,6 +28,9 @@ $min-width: 1024px;
         }
       }
     }
+  }
+  .scrollControls {
+    display: none;
   }
   .pages {
     display: flex;
@@ -221,7 +225,7 @@ $min-width: 1024px;
           gap: 8px;
           // .likes {
           //   @extend %item;
-            
+
           // }
 
           .followers {
