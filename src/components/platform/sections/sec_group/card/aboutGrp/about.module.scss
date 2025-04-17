@@ -1,0 +1,31 @@
+.container {
+  width: 424px;
+  height: 239px;
+  background: #97b00f;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 24px;
+  flex-direction: column;
+  padding: 25px ;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  h2 {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #006633;
+  }
+  p {
+    font-family: Montserrat;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0%;
+  }
+}

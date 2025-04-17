@@ -4,6 +4,7 @@ import userLoginSlice from "./features/login/userLoginSlice";
 import currentCommunity from "./features/communitySection/currentCommunity";
 import updateState from "./features/update/updateSlice";
 import pageDetails from "./features/pageDetails/pageDetails";
+import groupState from "./features/groupState/groupState";
 
 export const store = () => {
   return configureStore({
@@ -13,6 +14,7 @@ export const store = () => {
       currentCommunity: currentCommunity,
       updateState: updateState,
       pageState: pageDetails,
+      groupState: groupState,
     },
   });
 };

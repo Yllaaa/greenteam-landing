@@ -5,7 +5,6 @@ function page() {
   return (
     <>
       <div>
-        <h1>Group Page</h1>
         <GroupUser />
       </div>
     </>

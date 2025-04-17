@@ -4,8 +4,10 @@ import styles from "./groups.module.scss";
 import { GroupResponse } from "./groups.data";
 import { useRouter } from "next/navigation";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
+import { useLocale } from "next-intl";
 
 function Item({ ...props }: GroupResponse) {
+  const locale = useLocale();
   const router = useRouter();
   return (
     <div className={styles.item}>
@@ -20,7 +22,7 @@ function Item({ ...props }: GroupResponse) {
       </div>
       <div className={styles.content}>
         <div
-          onClick={() => router.push(`/groups/${props.id}`)}
+          onClick={() => router.push(`/${locale}/groups/${props.id}`)}
           className={styles.title}
         >
           <label>{props.name}</label>

@@ -1,18 +1,38 @@
 "use client";
 
 import { groups } from "@/Utils/backendEndpoints/backend-endpoints";
-import { getRequest } from "@/Utils/backendEndpoints/backend-requests";
+import {
+  deleteRequest,
+  getRequest,
+  postRequest,
+} from "@/Utils/backendEndpoints/backend-requests";
 
+// Topic interface
+interface Topic {
+  topicId: number;
+  topicName: string;
+}
+
+// Member interface
+interface Member {
+  id: string;
+  fullName: string;
+  avatar: string | null;
+}
+
+// Group interface
 export type GroupItem = {
   id: string;
-  ownerId: string;
   name: string;
   description: string;
-  cover: string;
-  topicId: number;
-  privacy: string;
-  createdAt: string;
-  updatedAt: string;
+  banner: string | null;
+  topic: Topic;
+  ownerId: string;
+  ownerName: string;
+  memberCount: number;
+  isUserMember: boolean;
+  recentMembers: Member[];
+  isAdmin: boolean;
 };
 
 export function getSingleGroupItems(id: string): Promise<GroupItem> {
@@ -20,5 +40,21 @@ export function getSingleGroupItems(id: string): Promise<GroupItem> {
 
   return data;
 }
+export function joinGroup(
+  id: string
+): Promise<{
+  message: string;
+}> {
+  const data = postRequest(groups.joinGroup(id), {}).then((res) => res.data);
 
+  return data;
+}
+export function leaveGroup(
+  id: string
+): Promise<{
+  message: string;
+}> {
+  const data = deleteRequest(groups.leaveGroup(id)).then((res) => res.data);
 
+  return data;
+}

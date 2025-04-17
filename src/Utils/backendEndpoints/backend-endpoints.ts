@@ -1,8 +1,9 @@
 export const host = process.env.NEXT_PUBLIC_BACKENDAPI;
 
 const withId = (baseUrl: string) => (id: string) => `${baseUrl}/${id}`;
-const withMidId = (baseUrl: string, end: string) => (id: string) =>
-  `${baseUrl}/${id}/${end}`;
+const withMidId = (baseUrl: string, end: string) => (
+  id: string | string[] | undefined
+) => `${baseUrl}/${id}/${end}`;
 
 export const users = {
   follow: `${host}/users/follow`,
@@ -20,6 +21,10 @@ export const common = {
 export const groups = {
   allGroups: `${host}/api/v1/groups`,
   singleGroup: withId(`${host}/api/v1/groups`),
+  joinGroup: withMidId(`${host}/api/v1/groups`, `members/join`),
+  leaveGroup: withMidId(`${host}/api/v1/groups`, `members/leave`),
+  notes: withMidId(`${host}/api/v1/groups`, `notes`),
+  events: withMidId(`${host}/api/v1/groups`, `events`),
   editGroup: withId(`${host}/api/v1/groups`),
   deleteGroup: withId(`${host}/api/v1/groups`),
   groupEvent: {
@@ -31,7 +36,6 @@ export const pages = {
   allPages: `${host}/api/v1/pages`,
   singlePage: withId(`${host}/api/v1/pages`),
   follow: withMidId(`${host}/api/v1/pages`, `toggle-follow`),
- 
 };
 
 export const events = {

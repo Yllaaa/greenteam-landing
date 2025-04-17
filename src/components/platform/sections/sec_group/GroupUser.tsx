@@ -1,8 +1,13 @@
 "use client";
 import React from "react";
+import FeedSection from "./body/feeds/FeedSection";
 
 function GroupUser() {
-  return <></>;
+  return (
+  <>
+  <FeedSection/>
+  </>
+);
 }
 
 export default GroupUser;
