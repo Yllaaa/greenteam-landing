@@ -5,6 +5,7 @@ import currentCommunity from "./features/communitySection/currentCommunity";
 import updateState from "./features/update/updateSlice";
 import pageDetails from "./features/pageDetails/pageDetails";
 import groupState from "./features/groupState/groupState";
+import groupEdit from "./features/groupState/editGroupSettings";
 
 export const store = () => {
   return configureStore({
@@ -15,6 +16,7 @@ export const store = () => {
       updateState: updateState,
       pageState: pageDetails,
       groupState: groupState,
+      groupEdit: groupEdit,
     },
   });
 };

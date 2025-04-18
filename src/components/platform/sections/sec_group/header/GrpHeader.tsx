@@ -11,14 +11,15 @@ import {
   leaveGroup,
 } from "./header.data";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { useAppDispatch } from "@/store/hooks";
+import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentGroup } from "@/store/features/groupState/groupState";
+import { setGroupEdit } from "@/store/features/groupState/editGroupSettings";
 
 function Grpheader(props: { groupId: string }) {
   const { groupId } = props;
   const dispatch = useAppDispatch();
   const [data, setData] = React.useState<GroupItem>({} as GroupItem);
-  
+
   // Function to fetch group data
   const fetchGroupData = useCallback(async () => {
     try {
@@ -59,6 +60,11 @@ function Grpheader(props: { groupId: string }) {
     }
   };
 
+  const editState = useAppSelector((state) => state.groupEdit.edit);
+  const activeEdit = () => {
+    dispatch(setGroupEdit(!editState));
+  };
+
   return (
     <>
       <div className={styles.cover}>
@@ -96,7 +102,9 @@ function Grpheader(props: { groupId: string }) {
         </div>
         <div className={styles.actions}>
           {data.isAdmin ? (
-            <button className={styles.edit}>Edit</button>
+            <button onClick={activeEdit} className={styles.edit}>
+              {editState ? "Cancel Edit" : "Edit"}
+            </button>
           ) : (
             <button
               onClick={data.isUserMember ? handleLeaveGroup : handleJoinGroup}
@@ -109,7 +117,7 @@ function Grpheader(props: { groupId: string }) {
           <button>Invite</button>
         </div>
       </div>
-      <AddNew />
+      {!editState && <AddNew />}
     </>
   );
 }

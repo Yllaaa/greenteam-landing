@@ -5,7 +5,6 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import styles from "./groups.module.css";
 import Grpheader from "@/components/platform/sections/sec_group/header/GrpHeader";
-import GroupSides from "@/components/platform/sections/sec_group/sides/GroupSides";
 
 export default async function RootLayout({
   children,
@@ -30,12 +29,9 @@ export default async function RootLayout({
             <Grpheader groupId={groupId} />
           </div>
         </header>
-        <div className={styles.container}>
-          <div className={styles.childern}>{children}</div>
-          <div className={styles.sidebar}>
-            <GroupSides />
-          </div>
-        </div>
+
+        <div className={styles.childern}>{children}</div>
+
         <div>
           <Footer />
         </div>

@@ -4,12 +4,61 @@ import styles from "./notes.module.scss";
 import { useParams } from "next/navigation";
 import { getNotes, Note } from "./notes.data";
 import { useAppSelector } from "@/store/hooks";
+import { useForm } from "react-hook-form";
+import axios from "axios";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
+interface NoteType {
+  title: string;
+  content: string;
+}
 function Notes() {
+  const userInfo = useAppSelector((state) => state.login.accessToken);
   const groupId = useParams().groupId as string;
   const groupData = useAppSelector((state) => state.groupState);
   const [data, setData] = useState<Note[] | null>(null);
   const [loading, setLoading] = useState(true);
+  // Form handling
+  const { register, reset, handleSubmit } = useForm<NoteType>({
+    defaultValues: {
+      title: "",
+      content: "",
+    },
+  });
+
+  const onSubmit = async (formData: NoteType) => {
+    try {
+      // Create FormData object
+      const formDataToSend = new FormData();
+
+      // Append text fields
+      formDataToSend.append("content", formData.content);
+
+      formDataToSend.append("title", formData.title);
+
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/groups/${groupId}/notes/create-note`,
+        {
+          title: formData.title,
+          content: formData.content,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${userInfo}`,
+          },
+        }
+      );
+
+      console.log(response.data);
+      ToastNot(`Note added successfully`);
+
+      // Reset form and state
+      reset();
+    } catch (err) {
+      console.log(err);
+      ToastNot("Error occurred while adding note");
+    }
+  };
 
   useEffect(() => {
     // Only fetch notes if user is a member
@@ -55,11 +104,25 @@ function Notes() {
   // Check if user is admin
   if (groupData.isAdmin) {
     return (
-      <div className={styles.notes}>
-        <div className={styles.note}>
-          <h2>ADMIN FORM</h2>
+      <>
+        <div className={styles.notesForm}>
+          <div className={styles.note}>
+            <h2>Notes</h2>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <input
+                type="text"
+                placeholder="Title"
+                {...register("title", { required: true })}
+              />
+              <textarea
+                placeholder="Content"
+                {...register("content", { required: true })}
+              />
+              <button type="submit">Add Note</button>
+            </form>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 

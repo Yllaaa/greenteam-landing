@@ -1,3 +1,16 @@
+%notes {
+  width: 424px;
+  height: 426px;
+  background: #97b00f;
+  display: flex;
+
+  margin: auto;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
 .notesContainer {
   display: flex;
   align-items: center;
@@ -5,18 +18,102 @@
   gap: 16px;
   overflow-x: auto;
   scrollbar-width: none;
+  .notes {
+    @extend %notes;
+    align-items: center;
+    justify-content: center;
+  }
 }
-.notes {
-  width: 424px;
-  height: 426px;
-  background: #97b00f;
+.notesForm {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: auto;
-  border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  .note {
+    @extend %notes;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 25px;
+    h2 {
+      font-family: Montserrat;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #006633;
+      margin-bottom: 26px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 16px;
+      input {
+        width: 100%;
+        padding: 0px 20px;
+        height: 50px;
+        border: 1px solid #006633;
+        color: #006633;
+        background: transparent;
+        border-width: 1px;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        &::placeholder {
+          font-family: Montserrat;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          color: #006633;
+        }
+      }
+      textarea {
+        width: 100%;
+        padding: 10px 20px;
+        height: 126px;
+        resize: none;
+        border: 1px solid #006633;
+        color: #006633;
+        background: transparent;
+        border-width: 1px;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        &::placeholder {
+          font-family: Montserrat;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          color: #006633;
+        }
+      }
+      button{
+        width: 100%;
+        height: 50px;
+        background: #006633;
+        border-radius: 20px;
+        -webkit-border-radius: 20px;
+        -moz-border-radius: 20px;
+        -ms-border-radius: 20px;
+        -o-border-radius: 20px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #97b00f;
+      }
+    }
+  }
 }

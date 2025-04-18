@@ -8,9 +8,11 @@ import Messages from "./messages/Messages";
 import Notifications from "./notifications/Notifications";
 import Pages from "./pages/Pages";
 import AddNewPage from "./AddPage/AddNewPage";
+import AddNewGroup from "./AddGroup/AddNewGroup";
 
 export default function PersonalMenu() {
   const [addNewPage, setAddNewPage] = React.useState(false);
+  const [addNewGroup, setAddNewGroup] = React.useState(false);
   return (
     <div>
       <MenuSection title="Notifications" href="#">
@@ -25,14 +27,19 @@ export default function PersonalMenu() {
         <Community />
       </MenuSection>
       <Divider />
-      <MenuSection title="Pages" href="Create Page" setAddNew={setAddNewPage} >
+      <MenuSection title="Pages" href="Create Page" setAddNew={setAddNewPage}>
         <Pages />
       </MenuSection>
       <Divider />
-      <MenuSection title="Groups" href="#">
+      <MenuSection
+        title="Groups"
+        href="Create Group"
+        setAddNew={setAddNewGroup}
+      >
         <Groups />
       </MenuSection>
       {addNewPage && <AddNewPage setAddNew={setAddNewPage} />}
+      {addNewGroup && <AddNewGroup setAddNew={setAddNewGroup} />}
     </div>
   );
 }

@@ -49,6 +49,7 @@ const groupState = createSlice({
     setCurrentGroup: (state, action: PayloadAction<Group>) => {
       return action.payload;
     },
+   
   },
 });
 

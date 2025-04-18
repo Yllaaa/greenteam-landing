@@ -49,6 +49,26 @@ export type GroupsResponse = Group[];
 // Define a type for a single group response
 export type GroupResponse = Group;
 
+// Topic interface representing the topic of a community group
+interface Topic {
+  topicId: number;
+  topicName: string;
+}
+
+// Main Community Group interface
+export type CommunityGroup = {
+  id: string;
+  name: string;
+  description: string;
+  banner: string | null;
+  topic: Topic;
+  memberCount: number;
+  isUserMember: boolean;
+};
+
+// Optional: Type for an array of community groups
+export type CommunityGroups = CommunityGroup[];
+
 export function formatNumber(num: number): string {
   if (num >= 1e9) return (num / 1e9).toFixed(1).replace(/\.0$/, "") + "B";
   if (num >= 1e6) return (num / 1e6).toFixed(1).replace(/\.0$/, "") + "M";

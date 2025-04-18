@@ -1,0 +1,25 @@
+$max-width: 1024px;
+.container {
+  display: grid;
+  grid-template-columns: 70% 30%;
+  @media screen and (max-width: $max-width) {
+    grid-template-columns: 100%;
+  }
+  .body {
+    grid-column: 1 / 2;
+  }
+  .sidebar {
+    margin-top: 20px;
+    grid-column: 2 / 3;
+    width: fit-content;
+    min-width: 350px;
+    height: 100%;
+
+    @media screen and (max-width: $max-width) {
+      display: none;
+    }
+  }
+}
+.settings {
+  padding: 50px;
+}
