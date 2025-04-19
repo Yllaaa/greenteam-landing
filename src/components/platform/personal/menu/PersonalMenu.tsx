@@ -9,12 +9,14 @@ import Notifications from "./notifications/Notifications";
 import Pages from "./pages/Pages";
 import AddNewPage from "./AddPage/AddNewPage";
 import AddNewGroup from "./AddGroup/AddNewGroup";
+import UserDetails from "./useDetails/UserDetails";
 
 export default function PersonalMenu() {
   const [addNewPage, setAddNewPage] = React.useState(false);
   const [addNewGroup, setAddNewGroup] = React.useState(false);
   return (
-    <div>
+    <>
+      <UserDetails />
       <MenuSection title="Notifications" href="#">
         <Notifications />
       </MenuSection>
@@ -40,6 +42,6 @@ export default function PersonalMenu() {
       </MenuSection>
       {addNewPage && <AddNewPage setAddNew={setAddNewPage} />}
       {addNewGroup && <AddNewGroup setAddNew={setAddNewGroup} />}
-    </div>
+    </>
   );
 }
