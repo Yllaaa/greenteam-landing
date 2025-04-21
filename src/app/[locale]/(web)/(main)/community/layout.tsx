@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-<<<<<<< HEAD
-import BallHeader from "@/components/platform/community/AmapHeader/MapHeader";
-
-=======
->>>>>>> 9b350670929d461b197c39cd90a56b3aa79c6eac
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
