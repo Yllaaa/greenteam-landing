@@ -1,0 +1,397 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  z-index: 1000;
+  overflow-y: auto;
+}
+.formContainer {
+  width: 92%;
+  max-width: 688px;
+  margin: 0 auto;
+  padding: 24px;
+  background-color: #141414;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+
+  z-index: 1000;
+}
+.formTitleContainer {
+  display: flex;
+  justify-content: flex-start;
+  gap: 18px;
+  align-items: center;
+  padding-bottom: 21px;
+  border-bottom: 1px solid #e9eaeb80;
+}
+.titleIcon {
+  width: 48px;
+  height: 48px;
+  border-radius: 10px;
+  border-width: 1px;
+}
+.formTitle {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: 0%;
+  color: #006633;
+}
+.formDescription {
+  font-family: Inter;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #535862;
+}
+
+.form {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+.formSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e9eaeb80;
+}
+
+.label {
+  font-family: Inter;
+  width: 30%;
+  display: block;
+
+  margin-bottom: 4px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0%;
+  color: #414651;
+}
+
+.input,
+.select,
+.textarea,
+.datePickerInput {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  font-size: 16px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus,
+.datePickerInput:focus {
+  outline: none;
+  border-color: #006633;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+}
+
+.inputError {
+  border-color: #ef4444;
+}
+
+.inputError:focus {
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+}
+
+.errorText {
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+.textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.datePickerInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  color: #fefefe;
+  z-index: 11;
+}
+
+.calendarIcon {
+  height: 20px;
+  width: 20px;
+  color: #6b7280;
+}
+
+.datePickerContainer {
+  position: absolute;
+  z-index: 11;
+  margin-top: 4px;
+  background-color: #141414;
+
+  cursor: pointer;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 16px;
+  width: 100%;
+  top: 40px;
+}
+
+.datePickerHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+  font-weight: 500;
+  color: #fefefe;
+}
+
+.monthNavButton {
+  padding: 4px 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.monthNavButton:hover {
+  background-color: #f3f4f6;
+}
+
+.weekdaysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.weekday {
+  font-size: 12px;
+  font-weight: 500;
+  color: #6b7280;
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.dayCell {
+  height: 32px;
+  width: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  border-radius: 50%;
+}
+
+.selectedDay {
+  background-color: #006633;
+}
+.imageUploadContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 150px;
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  border: 1px solid #d1d5db;
+  overflow: hidden;
+}
+.uploadPlaceholder {
+  color: #74b243;
+}
+.fileInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 9;
+}
+.imagePreviewWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+}
+.multipleImagePreviewWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+}
+.imagePreviewItem {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.imagePreview {
+  width: 100%;
+  height: 100%;
+  z-index: 8;
+}
+.imagePreview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.addMoreImagesPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: #006633;
+
+  font-size: 12px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  color: #fefefe;
+  margin: auto;
+  cursor: pointer;
+}
+.removeImageButton {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  z-index: 10;
+}
+.searchContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.submitContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+.submitContainer button {
+  width: 100%;
+  height: 44px;
+  cursor: pointer;
+  opacity: 0.8;
+  border-radius: 8px;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  -ms-border-radius: 8px;
+  -o-border-radius: 8px;
+  transition: opacity 0.2s ease-in-out;
+}
+.submitContainer button:hover {
+  opacity: 1;
+  transition: opacity 0.2s ease-in-out;
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+}
+.cancelButton {
+  background: transparent;
+  border: 1px solid #006633;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #414651;
+}
+.submitButton {
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+
+  border: none;
+  outline: none;
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0%;
+  color: #fefefe;
+}
+@media screen and (max-width: 768px) {
+  .modalcontent {
+    padding: 10px;
+
+    height: 450px;
+    min-height: fit-content;
+  }
+  .forumForm {
+    width: 100%;
+  }
+  .forumForm .title {
+    font-size: 12px;
+
+    gap: 8px;
+    margin-bottom: 18px;
+  }
+  .forumForm .title img {
+    width: 24px;
+    height: 24px;
+  }
+  .forumForm .textArea {
+    min-height: 280px;
+    margin-bottom: 18px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+  .buttons .submit {
+    width: 140px;
+    height: 32px;
+    background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+    align-self: center;
+    font-size: 12px;
+    line-height: 100%;
+  }
+}

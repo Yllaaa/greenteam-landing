@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./community.module.css";
-import CommunityPage from "@/components/platform/community/mainPage/CommunityPage";
+import CommunityPage from "@/components/platform/community/Zcommunity/CommunityPage";
 
 function page() {
   return (

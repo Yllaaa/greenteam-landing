@@ -4,8 +4,36 @@ import styles from "./userDetails.module.scss";
 import { useAppSelector } from "@/store/hooks";
 import Image from "next/image";
 import noPic from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
 function Recods() {
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
   const userDetails = useAppSelector((state) => state.login.user);
+  const [userReactions, setUserReactions] = React.useState<{
+    commentsCount: number;
+    postsCount: number;
+    reactionsCount: number;
+  }>({
+    commentsCount: 0,
+    postsCount: 0,
+    reactionsCount: 0,
+  });
+
+  React.useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/score/user-stats`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+      .then((res) => {
+        setUserReactions(res.data);
+      });
+  }, [accessToken]);
   return (
     <>
       <div className={styles.recordContainer}>
@@ -24,16 +52,16 @@ function Recods() {
         </div>
         <div className={styles.recordDetails}>
           <div className={styles.record}>
-            <label>0</label>
-            <label>Posts</label>
+            <label>{userReactions?.postsCount}</label>
+            <p>Posts</p>
           </div>
           <div className={styles.record}>
-            <label>0</label>
-            <label>Followers</label>
+            <label>{userReactions?.reactionsCount}</label>
+            <p>Reactions</p>
           </div>
           <div className={styles.record}>
-            <label>0</label>
-            <label>Following</label>
+            <label>{userReactions?.commentsCount}</label>
+            <p>Comments</p>
           </div>
         </div>
       </div>

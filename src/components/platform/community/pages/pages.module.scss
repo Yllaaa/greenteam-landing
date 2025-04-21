@@ -1,0 +1,462 @@
+$min-width: 1024px;
+
+.emptyField {
+  height: fit-content;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+
+.pagesContainer {
+  width: 100%;
+  height: fit-content;
+  min-height: 350px;
+  overflow-x: scroll;
+  margin-bottom: 16px;
+  position: relative;
+  @media (min-width: $min-width) {
+    width: 100%;
+    overflow-x: scroll;
+    margin-bottom: 16px;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+      width: 0;
+
+      &-track {
+        background-color: transparent;
+        border-radius: 10px;
+      }
+
+      &-thumb {
+        background-color: #307040;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: #74b243;
+        }
+      }
+    }
+  }
+  .scrollControls {
+    display: none;
+  }
+  .pagesR {
+    gap: 10px;
+    overflow-y: auto;
+    width: fit-content;
+    display: flex;
+    width: fit-content;
+    margin-bottom: 16px;
+    @media (min-width: $min-width) {
+      display: none;
+    }
+  }
+  .pagesL {
+    display: none;
+    @media (min-width: $min-width) {
+      gap: 10px;
+      overflow-y: auto;
+      width: fit-content;
+      display: flex;
+      width: fit-content;
+      margin-bottom: 16px;
+    }
+  }
+  .item {
+    height: 401px;
+    width: 398px;
+    background: #333634;
+    padding: 33px 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    position: relative;
+    border-radius: 30px;
+    -webkit-border-radius: 30px;
+    -moz-border-radius: 30px;
+    -ms-border-radius: 30px;
+    -o-border-radius: 30px;
+
+    .header {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+
+      .logo {
+        width: 69px;
+        height: 69px;
+
+        @media (min-width: $min-width) {
+          top: 32px;
+          left: 12px;
+        }
+      }
+
+      %item {
+        width: fit-content;
+        height: 34px;
+
+        padding-top: 6px;
+        padding-right: 10px;
+        padding-bottom: 6px;
+        padding-left: 10px;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22.4px;
+        letter-spacing: 0%;
+        text-overflow: clip;
+        white-space: nowrap;
+        border-radius: 80px;
+        -webkit-border-radius: 80px;
+        -moz-border-radius: 80px;
+        -ms-border-radius: 80px;
+        -o-border-radius: 80px;
+      }
+
+      .ecoVillage {
+        @extend %item;
+        background: linear-gradient(
+          90deg,
+          #307040 0%,
+          #74b243 45.5%,
+          #96b032 80%
+        );
+        background-clip: text;
+        color: transparent;
+        border: 1px solid #74b243;
+      }
+    }
+
+    .content {
+      height: fit-content;
+      gap: 8px;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+
+      .text {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+
+        .title {
+          font-weight: 600;
+          font-size: 20px;
+          line-height: 24px;
+          letter-spacing: 0%;
+          text-overflow: ellipsis;
+          color: #fefefefe;
+        }
+      }
+      .description {
+        height: 201px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        scrollbar-width: none;
+        font-family: Montserrat;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 160%;
+        letter-spacing: 0%;
+        .headerWhy {
+          span {
+            color: #34b4a3;
+          }
+        }
+        .headerHow {
+          span {
+            color: #97b00f;
+          }
+        }
+        .headerWhat {
+          span {
+            color: #51bd87;
+          }
+        }
+      }
+    }
+
+    .actions {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: fit-content;
+      display: flex;
+
+      justify-content: space-between;
+      gap: 8px;
+      padding: 10px 12px;
+      @media (min-width: $min-width) {
+        height: fit-content;
+        gap: 10px;
+        align-self: flex-end;
+
+        justify-content: justify-content;
+        padding: 10px 12px;
+      }
+
+      button {
+        flex-grow: 1;
+        display: block;
+        height: 32px;
+        border-radius: 20px;
+        border-width: 1px;
+        @media (min-width: $min-width) {
+          flex-grow: 0;
+          width: 135px;
+        }
+
+        &.like {
+          background: linear-gradient(
+            90deg,
+            #307040 0%,
+            #74b243 45.5%,
+            #96b032 80%
+          );
+          color: #fefefe;
+          outline: none;
+          border: none;
+        }
+      }
+
+      %item {
+        width: fit-content;
+        height: 34px;
+        border-radius: 80px;
+        padding-top: 6px;
+        padding-right: 10px;
+        padding-bottom: 6px;
+        padding-left: 10px;
+        font-family: Epilogue;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 22.4px;
+        letter-spacing: 0%;
+        text-overflow: clip;
+        white-space: nowrap;
+      }
+      .counts {
+        display: flex;
+        gap: 8px;
+        // .likes {
+        //   @extend %item;
+
+        // }
+
+        .followers {
+          @extend %item;
+          // border: 1px solid #ffb836;
+          // color: #ffb836;
+          background: #56cdad1a;
+          color: #56cdad;
+        }
+        .divider {
+          width: 1px;
+          height: 34px;
+          background: #d6ddeb;
+        }
+      }
+    }
+  }
+
+  .star {
+    width: 38px;
+    height: 38px;
+    top: 33px;
+    right: 26px;
+    border-radius: 20px;
+    padding: 7px;
+    position: absolute;
+    background: #006633;
+    display: none;
+
+    @media (min-width: $min-width) {
+      display: block;
+    }
+  }
+}
+.card {
+  width: 100%;
+  min-width: 1354px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  height: 304px;
+  background: #333634;
+  padding: 26px 29px;
+  margin-bottom: 24px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  .logoImage {
+    width: 69px;
+    height: 69px;
+    margin: 0px 25px;
+  }
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+    %item {
+      width: fit-content;
+      height: 34px;
+      border-radius: 80px;
+      padding-top: 6px;
+      padding-right: 10px;
+      padding-bottom: 6px;
+      padding-left: 10px;
+      font-family: Epilogue;
+      font-weight: 600;
+      font-size: 14px;
+      line-height: 22.4px;
+      letter-spacing: 0%;
+      text-overflow: clip;
+      white-space: nowrap;
+    }
+    .counts {
+      display: flex;
+      gap: 8px;
+
+      .followers {
+        @extend %item;
+        background: #56cdad1a;
+        color: #56cdad;
+      }
+    }
+    .name {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0%;
+    }
+    %details {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0%;
+      color: #fefefeb2;
+    }
+    .what {
+      @extend %details;
+      span {
+        color: #34b4a3;
+      }
+    }
+    .why {
+      @extend %details;
+      span {
+        color: #97b00f;
+      }
+    }
+    .how {
+      @extend %details;
+      span {
+        color: #51bd87;
+      }
+    }
+
+    .hostedBy {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #97b00f;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 100%;
+    align-self: center;
+    max-width: 481px;
+    max-height: 188px;
+    position: relative;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.8) 87.82%
+      );
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      -o-border-radius: 12px;
+    }
+  }
+  .actions {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 10px;
+    %btn {
+      width: 135px;
+      height: 32px;
+      border: none;
+      outline: none;
+      background: linear-gradient(
+        90deg,
+        #307040 0%,
+        #74b243 45.5%,
+        #96b032 80%
+      );
+      cursor: pointer;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+      }
+    }
+    .joinButton {
+      @extend %btn;
+    }
+    .joinButton {
+      @extend %btn;
+    }
+  }
+}

@@ -1,0 +1,106 @@
+.container {
+  position: relative;
+}
+.sliderBtns {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 50px;
+}
+.sliderBtns {
+  position: absolute;
+  top: 50%;
+ 
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  height: 100px;
+  padding: 0px 20px;
+  z-index: 100;
+  transform: translateY(-50%);
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+}
+.arrow{
+  cursor: pointer;
+}
+
+
+.body {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  /* scrollbar-color: #e3e4e3 #00310758;  */
+  height: fit-content;
+  min-height: fit-content;
+  margin-top: 36px;
+  padding: 0px 20px;
+}
+.body::-webkit-scrollbar {
+  height: 10px;
+}
+.body::-webkit-scrollbar-track {
+  background: #00310758;
+  border-radius: 6px;
+}
+.body::-webkit-scrollbar-thumb {
+  background: #00510c; /* Grey thumb */
+  border-radius: 6px; /* Rounded corners */
+}
+.body::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Darker grey on hover */
+}
+.body .noPosts {
+  width: 100%;
+  height: 100%;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25.2px;
+  margin: auto;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, min-content);
+    row-gap: 10px;
+  }
+  .header .title {
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+    font-size: 16px;
+    line-height: 20.26px;
+    text-align: left;
+  }
+  .filterSection {
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+    justify-self: flex-start;
+    width: fit-content;
+  }
+  .filterSection ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    list-style: none;
+  }
+  .filterSection ul li {
+    font-size: 14px;
+    line-height: 20.6px;
+  }
+}

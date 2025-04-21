@@ -1,28 +1,49 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// features/userSignup/userSignupSlice.ts
+// features/communitySection/currentCommunity.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface currentCommunityState {
-  currentCommunity: string | any;// any type for now
+interface CurrentDestinationState {
+  selectedCountry: number | undefined;
+  selectedCity: number | undefined;
 }
 
-const initialState: currentCommunityState = {
-  currentCommunity: "pages",
+const initialState: CurrentDestinationState = {
+  selectedCountry: undefined,
+  selectedCity: undefined,
 };
 
-const currentCommunity = createSlice({
+const currentCommunitySlice = createSlice({
   name: "currentCommunity",
   initialState,
   reducers: {
-    setCurrentCommunity: (
+    setCurrentDestination: (
       state,
-      action: PayloadAction<currentCommunityState>
+      action: PayloadAction<{
+        selectedCountry?: number;
+        selectedCity?: number;
+      }>
     ) => {
-      state.currentCommunity = action.payload;
+      // Only update the fields that are provided
+      if (action.payload.selectedCountry !== undefined) {
+        state.selectedCountry = action.payload.selectedCountry;
+      }
+      if (action.payload.selectedCity !== undefined) {
+        state.selectedCity = action.payload.selectedCity;
+      }
     },
+    resetDestination: (state) => {
+      state.selectedCountry = undefined;
+      state.selectedCity = undefined;
+    },
+    clearSelectedCity: (state) => {
+      state.selectedCity = undefined;
+    }
   },
 });
 
-export const { setCurrentCommunity } = currentCommunity.actions;
+export const { 
+  setCurrentDestination, 
+  resetDestination,
+  clearSelectedCity 
+} = currentCommunitySlice.actions;
 
-export default currentCommunity.reducer;
+export default currentCommunitySlice.reducer;

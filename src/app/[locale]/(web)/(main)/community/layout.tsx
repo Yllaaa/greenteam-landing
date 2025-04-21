@@ -1,7 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import BallHeader from "@/components/platform/community/ballHeader/BallHeader";
-
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 
@@ -20,11 +18,7 @@ export default async function RootLayout({
   return (
     <section className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
-        <header>
-          <div>
-            <BallHeader />
-          </div>
-        </header>
+        <header></header>
         <div>{children}</div>
       </NextIntlClientProvider>
     </section>
