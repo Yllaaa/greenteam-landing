@@ -1,0 +1,217 @@
+$max-width: 1024px;
+.emptyField {
+  height: fit-content;
+  min-height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.eventsContainerW {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow-x: auto;
+  gap: 50px;
+  margin-bottom: 16px;
+
+  &::-webkit-scrollbar {
+    height: 10px;
+    width: 0;
+
+    &-track {
+      background-color: transparent;
+      border-radius: 10px;
+    }
+
+    &-thumb {
+      background-color: #307040;
+      border-radius: 10px;
+
+      &:hover {
+        background-color: #74b243;
+      }
+    }
+  }
+  @media screen and (max-width: $max-width) {
+    display: none;
+  }
+}
+.eventsContainerR {
+  @media screen and (max-width: $max-width) {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+    gap: 16px;
+    margin-bottom: 16px;
+
+    &::-webkit-scrollbar {
+      height: 10px;
+      width: 0;
+
+      &-track {
+        background-color: transparent;
+        border-radius: 10px;
+      }
+
+      &-thumb {
+        background-color: #307040;
+        border-radius: 10px;
+
+        &:hover {
+          background-color: #74b243;
+        }
+      }
+    }
+  }
+  display: none;
+}
+.card {
+  width: 100%;
+  min-width: 1354px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 304px;
+  background: #333634;
+  padding: 26px 29px;
+  margin-bottom: 24px;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+  .content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+    .name {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 120%;
+      letter-spacing: 0%;
+    }
+    .details {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 23px;
+      letter-spacing: 0%;
+      color: #fefefeb2;
+    }
+    %timeAndLocation {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: Montserrat;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 16px;
+      letter-spacing: 0%;
+
+      img {
+        width: 25px;
+        height: 25px;
+      }
+    }
+    .time {
+      @extend %timeAndLocation;
+    }
+    .location {
+      @extend %timeAndLocation;
+    }
+    .hostedBy {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 18px;
+      line-height: 100%;
+      letter-spacing: 0%;
+      color: #97b00f;
+    }
+  }
+  .img {
+    width: 100%;
+    height: 100%;
+    max-width: 481px;
+    max-height: 188px;
+    position: relative;
+    border-radius: 12px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    -ms-border-radius: 12px;
+    -o-border-radius: 12px;
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 0.8) 87.82%
+      );
+    }
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      -o-border-radius: 12px;
+    }
+  }
+  .actions {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-end;
+    gap: 10px;
+    %btn {
+      width: 135px;
+      height: 32px;
+      border: none;
+      outline: none;
+      background: linear-gradient(
+        90deg,
+        #307040 0%,
+        #74b243 45.5%,
+        #96b032 80%
+      );
+      cursor: pointer;
+      border-radius: 20px;
+      -webkit-border-radius: 20px;
+      -moz-border-radius: 20px;
+      -ms-border-radius: 20px;
+      -o-border-radius: 20px;
+      transition: all 0.3s ease;
+      -webkit-transition: all 0.3s ease;
+      -moz-transition: all 0.3s ease;
+      -ms-transition: all 0.3s ease;
+      -o-transition: all 0.3s ease;
+      &:hover {
+        opacity: 0.8;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+      }
+    }
+    .joinButton {
+      @extend %btn;
+    }
+    .joinButton {
+      @extend %btn;
+    }
+  }
+}

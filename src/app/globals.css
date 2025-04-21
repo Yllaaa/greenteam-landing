@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
+@import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
 :root {
   --white: #fefefe;
   --textSec: #b5b5b5;
@@ -7,7 +8,7 @@
   --primary: #2c3e50;
   --linear1: linear-gradient(to right, #307040 0%, #74b243 45.5%, #96b032 80%);
   --linear2: #000;
-  --background: #1A1E1C;
+  --background: #1a1e1c;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -74,8 +75,13 @@ a {
   display: flex;
   flex-direction: row-reverse;
 }
-.platform{
-  background: linear-gradient(127.36deg, #0F3B18 0.8%, #0C2311 50%, #031E09 99.2%);
+.platform {
+  background: linear-gradient(
+    127.36deg,
+    #0f3b18 0.8%,
+    #0c2311 50%,
+    #031e09 99.2%
+  );
 }
 
 @media (prefers-color-scheme: dark) {
