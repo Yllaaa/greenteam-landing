@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import BallHeader from "@/components/platform/community/ballHeader/BallHeader";
+import BallHeader from "@/components/platform/community/AmapHeader/MapHeader";
 
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
