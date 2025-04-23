@@ -11,6 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { FaStar } from "react-icons/fa6";
 // import { FaStar } from "react-icons/fa6";
 // import { getToken } from "@/Utils/userToken/LocalToken";
 
@@ -142,6 +143,32 @@ function EventCard(props: Props) {
     router.push(`/${locale}/event/${event?.id}`);
   };
 
+  const handleToggleFavorite = (id: string) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/toggle-favorite`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          ToastNot("Added to favorites!");
+        }
+      })
+      .catch((error) => {
+        const err = error as { status: number };
+        if (err.status === 409) {
+          ToastNot("Already in favorites!");
+        }
+        console.error("Error toggling favorite:", error);
+      });
+  };
+
   return (
     <>
       {/* {events.map((event, index) => ( */}
@@ -202,6 +229,12 @@ function EventCard(props: Props) {
               See Details
             </button>
           </div>
+        </div>
+        <div
+          onClick={() => handleToggleFavorite(`${event?.id}`)}
+          className={styles.favorite}
+        >
+          <FaStar fill="#FFD700" />
         </div>
       </div>
     </>

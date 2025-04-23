@@ -32,7 +32,7 @@ type Props = {
         }[];
       }
     | any;
-  subTopic: {
+  subTopic?: {
     [key: number]: string;
   };
   rerender: boolean;

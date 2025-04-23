@@ -17,7 +17,7 @@ export const fetchEvents = async ({
 }: FetchEventsParams): Promise<Event[]> => {
   try {
     const categoryParam = category ? `&category=${category}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${categoryParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/products?page=${page}&limit=${limit}${categoryParam}`;
 
     const response = await axios.get(url, {
       headers: {

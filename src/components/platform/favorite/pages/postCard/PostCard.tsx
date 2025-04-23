@@ -26,8 +26,6 @@ function PostCard(props: Props) {
     commentsPage,
     setCommentsPage,
     setDoItModal,
-    mainTopic,
-    subTopic,
     setCommentModal,
     setPostComments,
     rerender,
@@ -81,14 +79,12 @@ function PostCard(props: Props) {
 
   // Fetch posts on subtopic/page change only - but only after component mounts on client
   useEffect(() => {
-    if (!isMounted || !mainTopic) {
-      if (!mainTopic) setIsLoading(false);
-      return;
-    }
+    // if (!isMounted || !mainTopic) {
+    //   if (!mainTopic) setIsLoading(false);
+    //   return;
+    // }
 
     fetchPosts(
-      subTopic,
-      mainTopic,
       page,
       limit,
       setPostContent,
@@ -96,7 +92,7 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [subTopic, page, mainTopic, isLoading, accessToken, isMounted]);
+  }, [page, isLoading, accessToken, isMounted]);
 
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({
@@ -206,7 +202,7 @@ function PostCard(props: Props) {
             <div className={styles.header}>
               <div
                 onClick={() => navigateToProfile(post.author.id)}
-                style={{ cursor: "pointer",zIndex: 100 }}
+                style={{ cursor: "pointer", zIndex: 100 }}
                 className={styles.userAvatar}
               >
                 <Image
@@ -236,7 +232,7 @@ function PostCard(props: Props) {
                 {post.media.length > 0 && (
                   <div
                     onClick={() => navigateToPost(post.post.id)}
-                    style={{ cursor: "pointer"}}
+                    style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (

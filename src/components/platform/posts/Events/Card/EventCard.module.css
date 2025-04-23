@@ -98,7 +98,7 @@
   -o-border-radius: 30;
 }
 
-.favoriteButton {
+.favorite {
   position: absolute;
   top: 22px;
   right: 22px;

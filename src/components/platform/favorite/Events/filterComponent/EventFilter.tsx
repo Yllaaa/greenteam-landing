@@ -3,11 +3,11 @@ import styles from "./EventFilter.module.css";
 import { eventFilterProps } from "./eventFilterTypes.data";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function EventFilter(props: eventFilterProps) {
-  const { section, setPage, setSection, setAddNew } = props;
+  const { section, setPage, setSection } = props;
 //   const [show, setShow] = React.useState(false);
-  const handleAddNew = () => {
-    setAddNew(true);
-  };
+  // const handleAddNew = () => {
+  //   setAddNew(true);
+  // };
   return (
     <>
       <div className={styles.header}>
@@ -70,9 +70,9 @@ function EventFilter(props: eventFilterProps) {
             </li>
           </ul>
         </div>
-        <div className={styles.addBtn}>
+        {/* <div className={styles.addBtn}>
           <button onClick={handleAddNew}>Add Event</button>
-        </div>
+        </div> */}
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}
     </>

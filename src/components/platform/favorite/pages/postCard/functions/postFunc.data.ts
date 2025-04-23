@@ -4,8 +4,6 @@ import { PostsData } from "../types/postTypes.data";
 import { useCallback } from "react";
 
 export const fetchPosts = async (
-  subTopic: { [key: number]: string },
-  mainTopic: { id: number; name: string },
   page: number,
   limit: number,
   setPostContent: React.Dispatch<React.SetStateAction<PostsData>>,
@@ -15,17 +13,9 @@ export const fetchPosts = async (
 ) => {
   try {
     // Build URL parameters once
-    const mainTopicParam =
-      subTopic[Number(mainTopic.id)] !== "all"
-        ? ""
-        : `&mainTopicId=${mainTopic?.id}`;
-    const subTopicParam =
-      subTopic[Number(mainTopic.id)] === "all"
-        ? ""
-        : `&subTopicId=${subTopic[Number(mainTopic.id)]}`;
 
     const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts?limit=${limit}${mainTopicParam}${subTopicParam}&page=${page}`,
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/pages-posts?limit=${limit}&page=${page}`,
       {
         headers: {
           "Content-Type": "application/json",

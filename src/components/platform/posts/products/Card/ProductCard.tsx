@@ -9,9 +9,12 @@ import Image from "next/image";
 import image from "@/../public/logo/foot.png";
 import { Products } from "../types/productsTypes.data";
 import { useInView } from "react-intersection-observer";
-import { FaMessage } from "react-icons/fa6";
+import { FaMessage, FaStar } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
 import { useKeenSlider } from "keen-slider/react";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import axios from "axios";
 // import { TiStarFullOutline } from "react-icons/ti";
 interface ProductCardProps {
   limit?: number;
@@ -82,6 +85,40 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       handlePages();
     }
   }, [inView]);
+
+  const localeS = getToken();
+  const accessToken = localeS ? localeS.accessToken : null;
+  const handleToggleFavorite = (id: string) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products/${id}/toggle-favorite`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          ToastNot(
+            `${
+              response.data.isFavorited
+                ? "Added to favorites!"
+                : "Removed from favorites!"
+            }`
+          );
+        }
+      })
+      .catch((error) => {
+        const err = error as { status: number };
+        if (err.status === 409) {
+          ToastNot("Already in favorites!");
+        }
+        console.error("Error toggling favorite:", error);
+      });
+  };
 
   return (
     <div
@@ -163,6 +200,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <button onClick={handleJoinNow} className={styles.chatButton}>
           <FaMessage />
         </button>
+      </div>
+      <div
+        onClick={() => handleToggleFavorite(`${product?.id}`)}
+        className={styles.favorite}
+      >
+        <FaStar fill="#FFD700" />
       </div>
     </div>
   );

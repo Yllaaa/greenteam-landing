@@ -8,5 +8,5 @@ export type eventFilterProps = {
       "social" | "volunteering%26work" | "talks%26workshops" | "all"
     >
   >;
-  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddNew?: React.Dispatch<React.SetStateAction<boolean>>;
 };

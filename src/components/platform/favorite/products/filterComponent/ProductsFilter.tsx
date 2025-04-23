@@ -4,13 +4,13 @@ import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
-  const { section, setPage, setSection, setAddNew } = props;
+  const { section, setPage, setSection } = props;
 
   const topics = Topics;
 
-  const handleAddNew = () => {
-    setAddNew(true);
-  };
+  // const handleAddNew = () => {
+  //   setAddNew(true);
+  // };
   return (
     <>
       <div className={styles.header}>
@@ -48,9 +48,9 @@ function ProductsFilter(props: ProductsFilterProps) {
             ))}
           </ul>
         </div>
-        <div className={styles.addBtn}>
+        {/* <div className={styles.addBtn}>
           <button onClick={handleAddNew}>Add Product</button>
-        </div>
+        </div> */}
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}
     </>

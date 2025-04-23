@@ -47,6 +47,12 @@ function ProfileMenu(props: Props) {
       link: `/${locale}/payment`,
     },
     {
+      id: 7,
+      name: "Favorites",
+      icon: settings,
+      link: `/${locale}/favorite`,
+    },
+    {
       id: 5,
       name: "Settings",
       icon: settings,

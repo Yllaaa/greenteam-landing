@@ -1,0 +1,33 @@
+"use client";
+import React from "react";
+import styles from "./favorite.module.scss";
+import AllPage from "../pages/AllPage";
+import AllGroup from "../groups/AllGroup";
+import AllFriends from "../friends/AllFriends";
+import EventSection from "../Events/EventSection";
+import ProductSection from "../products/ProductSection";
+function FavoritePage() {
+  return (
+    <>
+      <div className={styles.favoritePage}>
+        <div className={styles.allPages}>
+          <AllFriends />
+        </div>
+        <div className={styles.allPages}>
+          <AllPage />
+        </div>
+        <div className={styles.allPages}>
+          <AllGroup />
+        </div>
+        <div className={styles.allPages}>
+          <EventSection />
+        </div>
+        <div className={styles.allPages}>
+          <ProductSection />
+        </div>
+      </div>
+    </>
+  );
+}
+
+export default FavoritePage;

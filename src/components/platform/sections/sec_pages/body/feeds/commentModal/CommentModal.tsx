@@ -13,7 +13,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useAppSelector } from "@/store/hooks";
 import { formatTimeDifference } from "./functions/CommentModal.data";
-
+import preventBackgroundScroll from "@/hooks/preventScroll/preventBackroundScroll";
+// import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 interface Author {
   id: string;
   fullName: string;
@@ -89,13 +90,13 @@ function PostComments(passProps: Props) {
   });
   // END SLIDER HANDLER
 
-  // const [reacted, setReacted] = useState<{
-  //   [commentId: string]: boolean;
-  // }>({});
-  // const [action, setAction] = useState<{
-  //   [commentId: string]: string;
-  // }>({});
+  useEffect(() => {
+    preventBackgroundScroll(true);
 
+    return () => {
+      preventBackgroundScroll(false);
+    };
+  }, []);
   // START CLICK OUTSIDE MODAL
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {

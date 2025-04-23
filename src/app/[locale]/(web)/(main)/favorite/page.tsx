@@ -1,9 +1,12 @@
-import React from 'react'
+import FavoritePage from "@/components/platform/favorite/All/FavoritePage";
+import React from "react";
 
 function page() {
   return (
-    <div>favourite</div>
-  )
+    <>
+      <FavoritePage />
+    </>
+  );
 }
 
-export default page
+export default page;
