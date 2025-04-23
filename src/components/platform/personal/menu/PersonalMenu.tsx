@@ -2,7 +2,7 @@
 import React from "react";
 import Divider from "./common/Divider";
 import MenuSection from "./common/MenuSection";
-import Community from "./community/Community";
+// import Community from "./community/Community";
 import Groups from "./groups/Groups";
 import Messages from "./messages/Messages";
 import Notifications from "./notifications/Notifications";
@@ -25,9 +25,9 @@ export default function PersonalMenu() {
         <Messages />
       </MenuSection>
       <Divider />
-      <MenuSection title="Community" href="#">
+      {/* <MenuSection title="Community" href="#">
         <Community />
-      </MenuSection>
+      </MenuSection> */}
       <Divider />
       <MenuSection title="Pages" href="Create Page" setAddNew={setAddNewPage}>
         <Pages />

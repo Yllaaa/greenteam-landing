@@ -3,6 +3,8 @@ import React from "react";
 import styles from "./header.module.scss";
 import Image from "next/image";
 import image from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
+import add from "@/../public/icons/add.svg";
+
 function Header({
   children,
   tag,
@@ -11,6 +13,7 @@ function Header({
   withFilter,
   section,
   setPage,
+  setAddNew,
 }: {
   children: React.ReactNode;
   tag?: string;
@@ -20,6 +23,7 @@ function Header({
   section?: string;
   setSection?: React.Dispatch<React.SetStateAction<string>>;
   setPage?: React.Dispatch<React.SetStateAction<number>>;
+  setAddNew?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   return (
     <>
@@ -94,7 +98,13 @@ function Header({
             </ul>
           </div>
         )}
-        <div className={styles.path}>
+        <div
+          onClick={() => {
+            if (setAddNew) setAddNew(true);
+          }}
+          className={styles.path}
+        >
+          <Image src={add} alt="tag" />
           <p>{path}</p>
         </div>
       </div>

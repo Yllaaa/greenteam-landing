@@ -73,12 +73,18 @@ $max-width: 1024px;
     grid-column: 10 / 13;
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: flex-end;
     justify-self: flex-end;
     gap: 12px;
     @media screen and (max-width: 1024px) {
       grid-row: 1 / 2;
       grid-column: 6 / 13;
+    }
+    @media screen and (max-width: 768px) {
+      p {
+        display: none;
+      }
     }
   }
   .children {

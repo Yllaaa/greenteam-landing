@@ -9,6 +9,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import LongItem from "./LongItem";
+import AddNewPage from "./AddPage/AddNewPage";
 
 export default function Pages() {
   const city = useAppSelector(
@@ -20,6 +21,7 @@ export default function Pages() {
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   // pagination
   const limit = 5;
+  const [addNew, setAddNew] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -250,14 +252,14 @@ export default function Pages() {
   };
 
   return (
-    <Header
-      tag="Pages"
-      setPage={setPage}
-      path={"Create new page"}
-      withFilter={false}
-    >
-      
-
+    <>
+      <Header
+        tag="Pages"
+        setPage={setPage}
+        path={"Create new page"}
+        withFilter={false}
+        setAddNew={setAddNew}
+      >
         <div ref={bodyRef} className={styles.content}>
           {renderContent()}
           {/* {isPaginationLoading && <div className={styles.paginationLoader}><LoadingTree /></div>} */}
@@ -267,7 +269,8 @@ export default function Pages() {
             </p>
           )}
         </div>
-      
-    </Header>
+      </Header>
+      {addNew && <AddNewPage setAddNew={setAddNew} />}
+    </>
   );
 }

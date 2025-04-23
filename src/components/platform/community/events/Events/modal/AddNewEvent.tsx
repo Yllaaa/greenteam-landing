@@ -10,6 +10,7 @@ import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { useLocale } from "next-intl";
 // Define types for better TypeScript support
 interface FormData {
   creatorType: string;
@@ -20,6 +21,8 @@ interface FormData {
   endDate: string;
   category: string;
   topicId: string | number;
+  countryId: string | number;
+  cityId: string | number;
   poster: File | null;
 }
 
@@ -36,6 +39,15 @@ type addEventProps = {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   userType: string;
 };
+interface Country {
+  id: number;
+  name: string;
+  iso: string;
+}
+interface City {
+  id: number;
+  name: string;
+}
 // Sample topics for the dropdown
 const category: Category[] = [
   { value: "volunteering&work", name: "Volunteering & Work" },
@@ -46,6 +58,7 @@ const category: Category[] = [
 const AddNewEvent = (props: addEventProps) => {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
+  const locale = useLocale();
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -78,6 +91,8 @@ const AddNewEvent = (props: addEventProps) => {
       endDate: "",
       category: "",
       poster: null,
+      countryId: "",
+      cityId: "",
     },
   });
 
@@ -99,7 +114,9 @@ const AddNewEvent = (props: addEventProps) => {
       !data.location ||
       !data.startDate ||
       !data.endDate ||
-      !data.category
+      !data.category ||
+      !data.cityId ||
+      !data.countryId
     ) {
       ToastNot("Please fill all fields");
     }
@@ -121,6 +138,8 @@ const AddNewEvent = (props: addEventProps) => {
             endDate: data.endDate,
             category: data.category,
             poster: data.poster,
+            countryId: Number(data.countryId),
+            cityId: Number(data.cityId),
           },
           {
             headers: {
@@ -230,6 +249,56 @@ const AddNewEvent = (props: addEventProps) => {
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
     );
   };
+
+  const [country, setCountry] = useState<Country[]>();
+  const [countryId, setCountryId] = useState<number | undefined>(undefined);
+  const [city, setCity] = useState<City[]>();
+
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries?locale=${locale}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCountry(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching countries");
+      });
+  }, [accessToken, locale]);
+
+  useEffect(() => {
+    if (countryId === undefined) return;
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${search}&limit=5`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCity(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching cities");
+      });
+  }, [accessToken, countryId, search]);
 
   // Updated image upload state and refs
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -507,6 +576,63 @@ const AddNewEvent = (props: addEventProps) => {
               )}
             </div>
           </div>
+          {/* COUNTRY */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Country</label>
+            <select
+              className={`${styles.select} ${
+                errors.countryId ? styles.inputError : ""
+              }`}
+              {...register("countryId", { required: "Country is required" })}
+              onChange={(e) => setCountryId(parseInt(e.target.value))}
+            >
+              <option value="" disabled>
+                Select Country
+              </option>
+              {country?.map((country, index) => (
+                <option key={index} value={country.id}>
+                  {country.iso}_{country.name}
+                </option>
+              ))}
+            </select>
+            {errors.countryId && (
+              <p className={styles.errorText}>{errors.countryId.message}</p>
+            )}
+          </div>
+          {/* CITY */}
+
+          <div className={styles.formGroup}>
+            <label className={styles.label}>City</label>
+            <div className={styles.searchContainer}>
+              <input
+                type="text"
+                placeholder="Enter city"
+                className={styles.input}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <select
+                className={`${styles.select} ${
+                  errors.cityId ? styles.inputError : ""
+                }`}
+                {...register("cityId", { required: "city is required" })}
+              >
+                <option value="" disabled>
+                  Select city
+                </option>
+                {/* <option value=""> */}
+                {/* </option> */}
+                {city?.map((city, index) => (
+                  <option key={index} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {errors.cityId && (
+              <p className={styles.errorText}>{errors.cityId.message}</p>
+            )}
+          </div>
+
           <div className={styles.formSection}>
             {/* LOCATION */}
             <div className={styles.formGroup}>

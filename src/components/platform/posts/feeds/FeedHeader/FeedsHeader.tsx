@@ -5,11 +5,11 @@ import Image from "next/image";
 import styles from "./FeedsHeader.module.css";
 import { SingleTopicsData } from "../TYPES/FeedTypes";
 import artIcon from "@/../public/ZPLATFORM/categories/art.svg";
-import community from "@/../public/ZPLATFORM/categories/community.svg";
-import eco from "@/../public/ZPLATFORM/categories/eco.svg";
 import food from "@/../public/ZPLATFORM/categories/food.svg";
-import know from "@/../public/ZPLATFORM/categories/know.svg";
-import physical from "@/../public/ZPLATFORM/categories/physical.svg";
+import know from "@/../public/ZPLATFORM/categories/physical.svg";
+import physical from "@/../public/ZPLATFORM/categories/eco.svg";
+import eco from "@/../public/ZPLATFORM/categories/know.svg";
+import community from "@/../public/ZPLATFORM/categories/community.svg";
 
 function FeedsHeader(props: {
   topic?: SingleTopicsData | any;
@@ -21,12 +21,12 @@ function FeedsHeader(props: {
   const { topic, setSelectedSubtopics, selectedSubtopics } = props;
 
   const topicLogo: { id: number; logo: string }[] = [
-    { id: 1, logo: artIcon },
-    { id: 2, logo: food },
+    { id: 1, logo: food },
+    { id: 2, logo: know },
     { id: 3, logo: physical },
-    { id: 4, logo: eco },
-    { id: 5, logo: community },
-    { id: 6, logo: know },
+    { id: 4, logo: community },
+    { id: 5, logo: artIcon },
+    { id: 6, logo: eco },
   ];
 
   const handleSubTopicChange = (topicId: number, subtopicId: string) => {
@@ -58,7 +58,7 @@ function FeedsHeader(props: {
             <li
               style={
                 selectedSubtopics[Number(topic?.id)] === "all"
-                  ? { color: "#97B00F" , opacity: 1}
+                  ? { color: "#97B00F", opacity: 1 }
                   : { color: "" }
               }
               onClick={() => handleSubTopicChange(Number(topic?.id), "all")}

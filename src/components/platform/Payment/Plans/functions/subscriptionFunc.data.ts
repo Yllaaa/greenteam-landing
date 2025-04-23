@@ -1,6 +1,6 @@
 "use client";
 import axios from "axios";
-import { SubscriptionTier } from "../types/subscriptionTypes.data";
+import { SubscriptionTier, CurrentTier } from "../types/subscriptionTypes.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 
 const API_BASE_URL = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1`;
@@ -28,4 +28,15 @@ export const subscriptionService = {
       throw error;
     }
   },
+};
+export const getCurrentPlan = async () => {
+  try {
+    const response = apiClient.get<CurrentTier>(
+      "/api/v1/subscriptions/my-subscription"
+    );
+    return (await response).data;
+  } catch (error) {
+    console.error("Error fetching subscription tiers:", error);
+    throw error;
+  }
 };

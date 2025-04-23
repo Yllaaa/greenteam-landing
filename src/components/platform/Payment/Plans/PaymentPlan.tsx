@@ -7,12 +7,32 @@ import { FaCheckCircle } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import logo from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import { CurrentTier } from "./types/subscriptionTypes.data";
 const PaymentPlan = () => {
+  const token = getToken();
+  const accessToken = token ? token.accessToken : "";
+
   const router = useRouter();
   const { data: tiers, isLoading, error } = useQuery({
     queryKey: ["subscriptionTiers"],
     queryFn: subscriptionService.getSubscriptionTiers,
   });
+
+  const [currentPlan, setCurrentPlan] = useState<CurrentTier>();
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/subscriptions/my-subscription`,
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      )
+      .then((response) => setCurrentPlan(response.data));
+  }, [accessToken]);
 
   if (isLoading)
     return (
@@ -53,11 +73,13 @@ const PaymentPlan = () => {
               }}
               className={styles.planButton}
             >
-              Select {tier.name}
+              {currentPlan?.tier.id === tier.id
+                ? "Current Plan"
+                : `Select ${tier.name}`}
             </button>
             <div className={styles.line}></div>
             <ul className={styles.planFeatures}>
-                <p>Features</p>
+              <p>Features</p>
               {tier.benefits.map((benefit, index) => (
                 <li key={index} className={styles.planFeature}>
                   <span className={styles.check}>

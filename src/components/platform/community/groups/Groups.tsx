@@ -10,6 +10,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
+import AddNewGroup from "./AddGroup/AddNewGroup";
 
 function Groups() {
   const city = useAppSelector(
@@ -22,6 +23,7 @@ function Groups() {
 
   // pagination
   const limit = 5;
+  const [addNew, setAddNew] = useState(false);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
@@ -226,6 +228,7 @@ function Groups() {
         setPage={setPage}
         path={"Create new group"}
         withFilter={false}
+        setAddNew={setAddNew}
       >
         <div ref={bodyRef} className={styles.content}>
           {renderContent()}
@@ -236,6 +239,8 @@ function Groups() {
           )}
         </div>
       </Header>
+      {isLoading && <LoadingTree />}
+      {addNew && <AddNewGroup setAddNew={setAddNew} />}
     </>
   );
 }

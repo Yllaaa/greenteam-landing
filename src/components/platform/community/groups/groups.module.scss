@@ -10,41 +10,39 @@ $min-width: 1024px;
 }
 
 .groupsContainer {
-  @media (min-width: $min-width) {
-    width: 100%;
-    overflow-x: scroll;
-    margin-bottom: 16px;
+  // @media (min-width: $min-width) {
+  width: 100%;
+  overflow-x: scroll;
+  margin-bottom: 16px;
 
-    &::-webkit-scrollbar {
-      height: 10px;
-      width: 0;
+  &::-webkit-scrollbar {
+    height: 10px;
+    width: 0;
 
-      &-track {
-        background-color: transparent;
-        border-radius: 10px;
-      }
+    &-track {
+      background-color: transparent;
+      border-radius: 10px;
+    }
 
-      &-thumb {
-        background-color: #307040;
-        border-radius: 10px;
+    &-thumb {
+      background-color: #307040;
+      border-radius: 10px;
 
-        &:hover {
-          background-color: #74b243;
-        }
+      &:hover {
+        background-color: #74b243;
       }
     }
+    // }
   }
 
   .groups {
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     gap: 24px;
 
-    @media (min-width: $min-width) {
-      flex-direction: row;
-      width: fit-content;
-      margin-bottom: 16px;
-    }
+    flex-direction: row;
+    width: fit-content;
+    margin-bottom: 16px;
 
     .item {
       position: relative;

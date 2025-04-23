@@ -53,20 +53,14 @@
   -o-transition: all 0.4s;
 }
 .addBtn {
-  width: 142px;
-  height: 32px;
-  border-radius: 20px;
-  gap: 8px;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
 }
-.addBtn button {
+.addBtn p {
   cursor: pointer;
-  width: 142px;
-  height: 32px;
-  border-radius: 20px;
-  gap: 8px;
-  border: none;
-  outline: none;
-  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
 }
 
 @media screen and (max-width: 1222px) {
@@ -122,6 +116,11 @@
     background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
   }
 }
+@media screen and (max-width: 768px) {
+  .addBtn p {
+    display: none;
+  }
+}
 @media screen and (max-width: 430px) {
   .filterSection ul {
     width: 100%;
@@ -135,5 +134,8 @@
   .filterSection ul li {
     font-size: 12px;
     line-height: 16.6px;
+  }
+  .addBtn p {
+    display: none;
   }
 }

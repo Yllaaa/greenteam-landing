@@ -4,7 +4,7 @@ import styles from "./footer.module.css";
 import footLogo from "@/../public/logo/foot.png";
 import green from "@/../public/ZPLATFORM/header/green.svg";
 import Image from "next/image";
-import cirle from "@/../public/ZPLATFORM/footer/circle.svg";
+
 import Link from "next/link";
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { useLocale, useTranslations } from "next-intl";
@@ -50,7 +50,6 @@ function Footer() {
           </div>
 
           <Image src={green} alt="circles" className={styles.greenApp} />
-          <Image src={cirle} alt="circles" className={styles.circleImage} />
         </div>
         <div className={styles.lower}>
           <div className={styles.content}>

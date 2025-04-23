@@ -8,6 +8,7 @@ import EventCard from "./EventCard";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import EventCards from "./Events/Card/EventCard";
+import AddNewEvent from "./Events/modal/AddNewEvent";
 
 function EventCom() {
   const { accessToken } = getToken() || { accessToken: null };
@@ -17,6 +18,7 @@ function EventCom() {
   const city = useAppSelector((state) => state.currentCommunity.selectedCity);
 
   // State management
+  const [addNew, setAddNew] = useState(false);
   const [section, setSection] = useState<EventCategory>("all");
   const [events, setEvents] = useState<Event[]>([]);
   const [page, setPage] = useState(1);
@@ -167,10 +169,11 @@ function EventCom() {
         setSection={setSection}
         section={section}
         setPage={setPage}
-        // setAddNew={setAddNew}
+        setAddNew={setAddNew}
       >
         <div>{renderContent()}</div>
       </Header>
+      {addNew && <AddNewEvent setAddNew={setAddNew} userType="user" />}
     </>
   );
 }

@@ -2,7 +2,8 @@ import React from "react";
 import styles from "./ProductsFilter.module.css";
 import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-
+import add from "@/../public/icons/add.svg";
+import Image from "next/image";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
@@ -50,8 +51,9 @@ function ProductsFilter(props: ProductsFilterProps) {
           </ul>
         </div>
         {
-          <div className={styles.addBtn}>
-            <button onClick={handleAddNew}>Add Event</button>
+          <div onClick={handleAddNew} className={styles.addBtn}>
+            <Image src={add} alt="add" />
+            <p >Add New Product</p>
           </div>
         }
       </div>
