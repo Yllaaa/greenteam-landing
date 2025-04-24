@@ -1,7 +1,7 @@
 "use client";
 import React from "react";
 import styles from "./allFriends.module.scss";
-import friends from "@/../public/icons/groups.svg";
+import friends from "@/../public/icons/friends.svg";
 import Image from "next/image";
 import FeedSection from "./friend/feeds/FeedSection";
 import FeedSectionF from "./last/feeds/FeedSection";

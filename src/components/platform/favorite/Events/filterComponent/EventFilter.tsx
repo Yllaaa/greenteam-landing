@@ -1,17 +1,16 @@
 import React from "react";
 import styles from "./EventFilter.module.css";
 import { eventFilterProps } from "./eventFilterTypes.data";
-// import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
+import Image from "next/image";
+import events from "@/../public/icons/events.svg";
 function EventFilter(props: eventFilterProps) {
   const { section, setPage, setSection } = props;
-//   const [show, setShow] = React.useState(false);
-  // const handleAddNew = () => {
-  //   setAddNew(true);
-  // };
+
   return (
     <>
       <div className={styles.header}>
         <div className={styles.title}>
+          <Image src={events} alt="events" width={32} height={32} />
           <h3>Events</h3>
         </div>
         <div className={styles.filterSection}>
@@ -70,11 +69,7 @@ function EventFilter(props: eventFilterProps) {
             </li>
           </ul>
         </div>
-        {/* <div className={styles.addBtn}>
-          <button onClick={handleAddNew}>Add Event</button>
-        </div> */}
       </div>
-      {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}
     </>
   );
 }
