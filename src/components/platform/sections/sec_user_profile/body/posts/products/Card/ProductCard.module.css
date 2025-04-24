@@ -1,0 +1,227 @@
+.card {
+  position: relative;
+  min-width: 470px;
+  width: 470px;
+  height: 591px;
+  min-height: 591px;
+  background: #333634;
+  z-index: 9;
+  overflow: hidden;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.slider {
+  position: relative;
+  width: 100%;
+  height: 330px;
+  z-index: 10;
+}
+.postCard {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+.postCard .image {
+  width: 100%;
+  height: 330px;
+  position: relative;
+  z-index: 10;
+  border-radius: 30px 30px 0px 0px;
+  -webkit-border-radius: 30px 30px 0px 0px;
+  -moz-border-radius: 30px 30px 0px 0px;
+  -ms-border-radius: 30px 30px 0px 0px;
+  -o-border-radius: 30px 30px 0px 0px;
+}
+
+.singleImage {
+  width: 100%;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 30px 30px 0px 0px;
+  -webkit-border-radius: 30px 30px 0px 0px;
+  -moz-border-radius: 30px 30px 0px 0px;
+  -ms-border-radius: 30px 30px 0px 0px;
+  -o-border-radius: 30px 30px 0px 0px;
+}
+.dots {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  z-index: 20;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+.dots .dot {
+  width: 10px;
+  height: 10px;
+  background: #fefefe34;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.dots .dot.active {
+  background: #fefefe;
+}
+
+.content {
+  padding: 27px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.category {
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 14px;
+  letter-spacing: 0.03em;
+  text-align: left;
+  color: #fefefe99;
+  text-transform: uppercase;
+}
+
+.details {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20.8px;
+  text-align: left;
+}
+
+.product {
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20.8px;
+  text-align: left;
+  color: #fefefe99;
+}
+.price {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20.8px;
+  text-align: left;
+  color: #97b00f;
+  margin-bottom: 22px;
+}
+.topBtns {
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  width: 90%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  transform: translateX(-50%);
+  -webkit-transform: translateX(-50%);
+  -moz-transform: translateX(-50%);
+  -ms-transform: translateX(-50%);
+  -o-transform: translateX(-50%);
+}
+.messageButton {
+  width: 100%;
+  height: 35px;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.contactButton {
+  width: 100%;
+  height: 35px;
+  color: white;
+  border: 1px solid #97b00f;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 30px;
+  -webkit-border-radius: 30;
+  -moz-border-radius: 30;
+  -ms-border-radius: 30;
+  -o-border-radius: 30;
+}
+
+.chatButton {
+  width: 50px;
+  height: 50px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.chatButton svg {
+  width: 20px;
+  height: 20px;
+  fill: white;
+}
+
+.favorite {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  background: #307040;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.favoriteButton svg {
+  width: 20px;
+  height: 20px;
+  color: yellow;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    min-width: 430px;
+    width: 430px;
+  }
+}

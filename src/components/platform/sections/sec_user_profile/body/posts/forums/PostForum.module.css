@@ -1,0 +1,211 @@
+.header {
+  display: flex;
+  position: relative;
+  padding: 0px 30px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, min-content);
+}
+.header .title {
+  grid-column: 1 / 5;
+  justify-self: flex-start;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 29.26px;
+  letter-spacing: 0%;
+  text-align: center;
+}
+.filterSection {
+  grid-column: 5 / 10;
+  justify-self: flex-start;
+
+  width: fit-content;
+}
+.filterSection ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  list-style: none;
+}
+.filterSection ul li {
+  text-transform: capitalize;
+  cursor: pointer;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 33.6px;
+  letter-spacing: 1%;
+}
+.filterTopics {
+  grid-column: 10 / 13;
+  justify-self: flex-end;
+  width: fit-content;
+}
+.filterTopics .topicsBtn {
+  cursor: pointer;
+  font-family: Roboto;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 33.6px;
+  letter-spacing: 1%;
+}
+.filterTopics .topicsList {
+  position: absolute;
+  background: #1b201c;
+  width: fit-content;
+  top: 100%;
+  right: 0%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 100;
+  height: 200px;
+  overflow-y: auto;
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+}
+.filterTopics form {
+  align-content: center;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  padding: 10px;
+}
+.filterTopics form .filter {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  width: 100%;
+}
+.filterTopics form .filter:hover {
+  background: #3e3e3e;
+}
+.filterTopics form .filter label {
+  text-transform: capitalize;
+  text-wrap: nowrap;
+}
+.body {
+  position: relative;
+
+  min-height: 449px;
+  margin-top: 36px;
+  padding: 0px 20px;
+}
+
+.body .noPosts {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 25.2px;
+  margin: auto;
+  text-align: center;
+}
+.body .sliderBtns {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0px 20px;
+  top: 50%;
+  left: 0;
+  z-index: 10;
+}
+.body .sliderBtns .arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  cursor: pointer;
+}
+.body .content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+@media screen and (max-width: 1024px) {
+  .header {
+    padding: 0px 10px;
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows: repeat(2, min-content);
+    row-gap: 10px;
+  }
+  .header .title {
+    grid-column: 1 / 7;
+    grid-row: 1 / 2;
+    font-size: 16px;
+    line-height: 20.26px;
+    text-align: left;
+  }
+  .filterSection {
+    grid-column: 1 / 13;
+    grid-row: 2 / 3;
+    justify-self: flex-start;
+    width: fit-content;
+  }
+  .filterSection ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    list-style: none;
+  }
+  .filterSection ul li {
+    font-size: 14px;
+    line-height: 20.6px;
+  }
+  .filterTopics {
+    grid-column: 8 / 13;
+  }
+  .filterTopics .topicsBtn {
+    font-size: 14px;
+    line-height: 20.6px;
+  }
+  .filterTopics .topicsList {
+    position: absolute;
+    background: #1b201c;
+    width: fit-content;
+    top: 100%;
+    right: 0%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    z-index: 100;
+    height: 200px;
+    overflow-y: auto;
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+  }
+
+  .body {
+    gap: 15px;
+    min-height: 449px;
+    margin-top: 20px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .body .sliderBtns {
+    display: none;
+  }
+}

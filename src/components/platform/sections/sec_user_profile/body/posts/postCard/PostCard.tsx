@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, {
   lazy,
@@ -12,13 +13,13 @@ import styles from "./postCard.module.css";
 import Image from "next/image";
 import admin from "@/../public/auth/user.png";
 import { useInView } from "react-intersection-observer";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
-import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
 function PostCard(props: Props) {
@@ -27,7 +28,6 @@ function PostCard(props: Props) {
     setCommentsPage,
     setDoItModal,
     mainTopic,
-    subTopic,
     setCommentModal,
     setPostComments,
     rerender,
@@ -60,34 +60,26 @@ function PostCard(props: Props) {
     return localS ? localS.accessToken : null;
   }, []);
 
-  // Scroll handlers with useCallback to prevent recreating on each render
-  const prevSlide = useCallback(() => {
-    if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: -300,
-        behavior: "smooth",
-      });
+  const params = useParams();
+  const prevMainTopicRef = useRef(mainTopic);
+  useEffect(() => {
+    if (prevMainTopicRef.current !== mainTopic && isMounted) {
+      setPage(1);
+      setPostContent([]);
     }
-  }, []);
 
-  const nextSlide = useCallback(() => {
-    if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: 300,
-        behavior: "smooth",
-      });
-    }
-  }, []);
+    prevMainTopicRef.current = mainTopic;
+  }, [mainTopic, isMounted]);
 
   // Fetch posts on subtopic/page change only - but only after component mounts on client
   useEffect(() => {
-    if (!isMounted || !mainTopic) {
+    if (!isMounted) {
       if (!mainTopic) setIsLoading(false);
       return;
     }
 
     fetchPosts(
-      subTopic,
+      params.username,
       mainTopic,
       page,
       limit,
@@ -96,7 +88,7 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [subTopic, page, mainTopic, isLoading, accessToken, isMounted]);
+  }, [page, mainTopic, isLoading, accessToken, isMounted]);
 
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({
@@ -205,8 +197,8 @@ function PostCard(props: Props) {
           >
             <div className={styles.header}>
               <div
-                onClick={() => navigateToProfile(post.author.username)}
-                style={{ cursor: "pointer",zIndex: 100 }}
+                onClick={() => navigateToProfile(post.author.id)}
+                style={{ cursor: "pointer", zIndex: 100 }}
                 className={styles.userAvatar}
               >
                 <Image
@@ -219,7 +211,7 @@ function PostCard(props: Props) {
               </div>
               <div className={styles.details}>
                 <div
-                  onClick={() => navigateToProfile(post.author.username)}
+                  onClick={() => navigateToProfile(post.author.id)}
                   style={{ cursor: "pointer" }}
                   className={styles.userName}
                 >
@@ -236,7 +228,7 @@ function PostCard(props: Props) {
                 {post.media.length > 0 && (
                   <div
                     onClick={() => navigateToPost(post.post.id)}
-                    style={{ cursor: "pointer"}}
+                    style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
@@ -310,16 +302,6 @@ function PostCard(props: Props) {
   return (
     <>
       <div className={styles.postContainer}>
-        {isMounted && (
-          <div className={styles.sliderBtns}>
-            <div className={styles.arrow} onClick={prevSlide}>
-              <IoIosArrowBack />
-            </div>
-            <div className={styles.arrow} onClick={nextSlide}>
-              <IoIosArrowForward />
-            </div>
-          </div>
-        )}
         <div ref={bodyRef} className={styles.body}>
           {renderPostContent}
         </div>

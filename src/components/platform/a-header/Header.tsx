@@ -30,7 +30,6 @@ function Header() {
   const [mounted, setMounted] = useState(false);
   const [userToken, setUserToken] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-
   // Mounted effect
   useEffect(() => {
     if (localS !== "") {
@@ -146,7 +145,7 @@ function Header() {
             >
               <div
                 onClick={() =>
-                  isDropdownOpen && router.push(`/${locale}/profile`)
+                  isDropdownOpen && router.push(`/${locale}/profile/${user?.username}`)
                 }
                 className={styles.userProfile}
               >

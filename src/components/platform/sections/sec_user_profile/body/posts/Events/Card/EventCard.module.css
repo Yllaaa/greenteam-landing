@@ -1,0 +1,140 @@
+.card {
+  position: relative;
+  width: 415px;
+  min-width: 415px;
+  height: 347px;
+  background: #333634;
+  z-index: 9;
+  border-radius: 30px;
+  -webkit-border-radius: 30px;
+  -moz-border-radius: 30px;
+  -ms-border-radius: 30px;
+  -o-border-radius: 30px;
+}
+.img {
+  width: 100%;
+  height: 135px;
+}
+.img .image {
+  width: 100%;
+  height: 100%;
+  border-radius: 30px 30px 0px 0px;
+  -webkit-border-radius: 30px 30px 0px 0px;
+  -moz-border-radius: 30px 30px 0px 0px;
+  -ms-border-radius: 30px 30px 0px 0px;
+  -o-border-radius: 30px 30px 0px 0px;
+}
+
+.content {
+  padding: 19px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.name {
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 18.29px;
+  text-align: left;
+}
+
+.details {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  text-align: left;
+  max-width: 75%;
+  color: #fefefeb2;
+}
+.time,
+.location {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  height: 16px;
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: left;
+}
+.time img,
+.location img {
+  width: 16px;
+  height: 16px;
+}
+.hostedBy {
+  height: 15px;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 14.63px;
+  text-align: left;
+  color: #97b00f;
+}
+
+.joinButton {
+  width: 100%;
+  height: 35px;
+
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+
+  border-radius: 30px;
+  -webkit-border-radius: 30;
+  -moz-border-radius: 30;
+  -ms-border-radius: 30;
+  -o-border-radius: 30;
+}
+
+.favorite {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 10;
+  background: #307040;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  -ms-border-radius: 50%;
+  -o-border-radius: 50%;
+}
+.favoriteButton svg{
+  width: 20px;
+  height: 20px;
+  color: yellow;
+}
+.actions {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+@media screen and (max-width: 768px) {
+  .card {
+    width: 398px;
+    min-width: 398px;
+  }
+}

@@ -15,6 +15,7 @@ function ProfileMenu(props: Props) {
   const { isDropdownOpen, setIsDropdownOpen, handleLogout } = props;
   const router = useRouter();
   const locale = useLocale();
+  
   const dropdownList = [
     {
       id: 1,

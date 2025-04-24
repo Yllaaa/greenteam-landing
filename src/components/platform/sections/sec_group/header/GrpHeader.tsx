@@ -3,6 +3,7 @@ import Image from "next/image";
 import React, { useEffect, useCallback } from "react";
 import styles from "./header.module.scss";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
+import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import AddNew from "./AddNew";
 import {
   getSingleGroupItems,
@@ -87,7 +88,7 @@ function Grpheader(props: { groupId: string }) {
               {data?.recentMembers?.map((member, index) => (
                 <div key={index} className={styles.member}>
                   <Image
-                    src={member.avatar ? member.avatar : cover}
+                    src={member.avatar ? member.avatar : noAvatar}
                     alt={"member"}
                     width={50}
                     height={50}

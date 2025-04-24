@@ -1,0 +1,131 @@
+$max-width: 1024px;
+.filter {
+  display: flex;
+  gap: 15px;
+  padding: 0px 50px;
+  margin-bottom: 35px;
+  @media screen and (max-width: $max-width) {
+    padding: 0px 10px;
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 20px;
+  }
+  .filterItem {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    text-transform: capitalize;
+    text-wrap: nowrap;
+
+    @media screen and (max-width: $max-width) {
+      font-size: 16px;
+      padding: 0px 10px;
+    }
+  }
+  .active {
+    background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    border-bottom: 2px solid #006633;
+  }
+}
+.body {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, min-content);
+  gap: 20px;
+  @media screen and (max-width: $max-width) {
+    grid-template-rows: repeat(2, min-content);
+    gap: 10px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    margin-bottom: 20px;
+  }
+  .side {
+    grid-column: 9 /13;
+    grid-row: 1 / 2;
+    justify-self: center;
+    @media screen and (max-width: $max-width) {
+      grid-column: 1 / 13;
+      grid-row: 1 / 2;
+    }
+    .breifContainer {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      width: 345px;
+      height: 269px;
+      background: #97b00f;
+
+      border-radius: 30px;
+      -webkit-border-radius: 30px;
+      -moz-border-radius: 30px;
+      -ms-border-radius: 30px;
+      -o-border-radius: 30px;
+      .breifHeader {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+        p {
+          font-family: Montserrat;
+          font-weight: 400;
+          font-size: 12px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+        h5 {
+          font-family: Montserrat;
+          font-weight: 700;
+          font-size: 20px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          color: #006633;
+        }
+      }
+      .breifIcon {
+        width: 100%;
+        height: 114px;
+      }
+      .breifText {
+        p {
+          font-family: Montserrat;
+          font-weight: 700;
+          font-size: 60px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          vertical-align: middle;
+          color: #006633;
+          span {
+            font-family: Montserrat;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            color: #fff;
+          }
+        }
+      }
+    }
+  }
+  .mainBody {
+    grid-column: 1 / 9;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 20px;
+    @media screen and (max-width: $max-width) {
+      grid-column: 1 / 13;
+      grid-row: 2 / 3;
+      gap: 10px;
+      justify-self: center;
+    }
+  }
+}
