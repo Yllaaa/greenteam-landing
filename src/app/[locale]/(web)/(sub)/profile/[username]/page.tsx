@@ -1,14 +1,12 @@
 import Profile from "@/components/platform/sections/sec_user_profile/Profile";
 import React from "react";
 
-function page(params: { params: { locale: string; username: string } }) {
+function Page() {
   return (
-  <>
-  <div>
-    <Profile username={params.params.username} />
-  </div>
-  </>
+    <div>
+      <Profile  />
+    </div>
   );
 }
 
-export default page;
+export default Page;

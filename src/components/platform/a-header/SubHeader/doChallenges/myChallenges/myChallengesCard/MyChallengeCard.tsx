@@ -164,7 +164,12 @@ function MyChallengeCard(props: Props) {
         className={styles.challengeHeader}
       >
         <div className={styles.userAvatar}>
-          <Image src={challenge.creator.avatar || noAvatar} alt="userAvatar" />
+          <Image
+            src={challenge.creator.avatar || noAvatar}
+            alt="userAvatar"
+            width={100}
+            height={100}
+          />
         </div>
         <div className={styles.details}>
           <div className={styles.userName}>
