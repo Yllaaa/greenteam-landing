@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./header.module.scss";
 import Image from "next/image";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
@@ -21,6 +21,10 @@ function Header(props: {
   const [open, setOpen] = React.useState(false);
   const token = getToken();
   const accesstoken = token ? token.accessToken : null;
+  const [isFollowed, setIsFollowed] = React.useState(false);
+  useEffect(() => {
+    if (user.userData) setIsFollowed(user.userData.isFollowing);
+  }, [user.userData]);
   const handleClick = () => {
     setOpen(!open);
   };
@@ -53,7 +57,7 @@ function Header(props: {
   const handleFollow = () => {
     axios
       .post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/profile/${user.userData.username}/toggle-follow`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${user.userData.username}/toggle-follow`,
         {},
         {
           headers: {
@@ -63,11 +67,13 @@ function Header(props: {
         }
       )
       .then((res) => {
+        setIsFollowed(!isFollowed);
         console.log(res.data);
         ToastNot("success");
       })
-      .then(() => {
-        window.location.reload();
+      .catch((err) => {
+        console.log(err);
+        ToastNot("error");
       });
   };
   const [report, setReport] = React.useState(false);
@@ -102,7 +108,7 @@ function Header(props: {
             {user.isMyProfile ? null : (
               <div className={styles.visitor}>
                 <button onClick={handleFollow} className={styles.follow}>
-                  Follow
+                  {isFollowed ? "Following" : "Unfollow"}
                 </button>
                 <button className={styles.message}>Send Message</button>
               </div>

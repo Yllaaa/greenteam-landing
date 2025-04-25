@@ -146,7 +146,7 @@ const AddNewPage = (props: addEventProps) => {
             topicId: data.topicId,
             countryId: data.countryId,
             cityId: data.cityId,
-            category: data.category || "Project",
+            category: data.category,
             avatar: data.avatar,
             cover: data.cover,
             websiteUrl: data.websiteUrl,
@@ -328,7 +328,7 @@ const AddNewPage = (props: addEventProps) => {
   const [search, setSearch] = useState<string>("");
 
   const topics = Topics;
-  console.log("topics", topics);
+  
 
   useEffect(() => {
     axios
@@ -703,6 +703,27 @@ const AddNewPage = (props: addEventProps) => {
             )}
           </div>
           {/* CATEGORY */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Category</label>
+            <select
+              className={`${styles.select} ${
+                errors.topicId ? styles.inputError : ""
+              }`}
+              {...register("category", { required: "Topic is required" })}
+            >
+              <option value="" disabled>
+                Select Topic
+              </option>
+              {["Project", "Business"].map((category, index) => (
+                <option key={index} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
+            {errors.category && (
+              <p className={styles.errorText}>{errors.category.message}</p>
+            )}
+          </div>
           <div className={styles.formGroup}>
             <label className={styles.label}>Topic</label>
             <select

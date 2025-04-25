@@ -73,6 +73,18 @@ $mob-width: 430px;
   gap: 24px;
   padding: 20px 54px;
   border-bottom: 1px solid #333634;
+  position: relative;
+  .settings {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    svg {
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+      fill: #006633;
+    }
+  }
   .headerContent {
     display: flex;
     flex-direction: column;
@@ -110,9 +122,17 @@ $mob-width: 430px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    @media screen and (max-width: $mid-width) {
+      flex-direction: column;
+      gap: 20px;
+    }
     .headerAddBtns {
       display: flex;
       gap: 13px;
+      @media screen and (max-width: $mid-width) {
+        gap: 8px;
+      }
+
       button {
         width: 142px;
         height: 42px;
@@ -149,6 +169,10 @@ $mob-width: 430px;
           -moz-transition: all 0.5s ease-in-out;
           -ms-transition: all 0.5s ease-in-out;
           -o-transition: all 0.5s ease-in-out;
+        }
+        @media (max-width: $mid-width) {
+          width: 100px;
+          height: 40px;
         }
       }
     }

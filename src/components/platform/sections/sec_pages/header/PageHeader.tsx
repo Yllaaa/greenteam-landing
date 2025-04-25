@@ -14,10 +14,15 @@ import AddNewEvent from "../body/Events/modal/AddNewEvent";
 import { useAppDispatch } from "@/store/hooks";
 import { setCurrentPage } from "@/store/features/pageDetails/pageDetails";
 import AddNewModal from "../body/feeds/modal/addNew/AddNewModal";
-function Pageheader(props: { pageId: string }) {
+import { IoMdSettings } from "react-icons/io";
+function Pageheader(props: {
+  pageId: string;
+  setSettings: React.Dispatch<React.SetStateAction<boolean>>;
+  settings: boolean;
+}) {
   // const user = useAppSelector((state) => state.login.user);
   const dispatch = useAppDispatch();
-  const { pageId } = props;
+  const { pageId, setSettings, settings } = props;
   const [data, setData] = React.useState<PageItem>({} as PageItem);
   const [initialFollow, setInitialFollow] = useState(false);
   useEffect(() => {
@@ -36,6 +41,10 @@ function Pageheader(props: { pageId: string }) {
     postFllow(pageId).then((res) => {
       setInitialFollow(res.followed);
     });
+  };
+
+  const handleSettingNavigation = () => {
+    if (setSettings) setSettings(!settings);
   };
 
   return (
@@ -114,6 +123,11 @@ function Pageheader(props: { pageId: string }) {
             </button>
           </div>
         </div>
+        {data.isAdmin && (
+          <div onClick={handleSettingNavigation} className={styles.settings}>
+            <IoMdSettings />
+          </div>
+        )}
       </div>
       {/* <AddNew /> */}
       {addNewP && <AddNewProduct setAddNew={setAddNewP} userType="page" />}

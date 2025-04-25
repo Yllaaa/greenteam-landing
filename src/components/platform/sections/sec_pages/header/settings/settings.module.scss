@@ -1,0 +1,271 @@
+$max-width: 1024px;
+.container {
+  width: 100%;
+  height: fit-content;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: repeat(1, min-content);
+  @media screen and (max-width: $max-width) {
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, min-content);
+  }
+  .side {
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+    @media screen and (max-width: $max-width) {
+      grid-column: 1 / 7;
+      grid-row: 1 / 2;
+    }
+    h6 {
+      font-family: Montaserat;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 22px;
+      letter-spacing: -0.7%;
+    }
+    p {
+      font-family: Montserrat;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 160%;
+      letter-spacing: 0%;
+    }
+  }
+  .mainForm {
+    grid-column: 3 / 13;
+    width: 100%;
+    height: fit-content;
+    min-height: 714px;
+    padding: 24px;
+    background: #3d3c3c;
+    border-radius: 32px;
+    -webkit-border-radius: 32px;
+    -moz-border-radius: 32px;
+    -ms-border-radius: 32px;
+    -o-border-radius: 32px;
+    @media screen and (max-width: $max-width) {
+      grid-column: 1 / 7;
+      grid-row: 2 / 3;
+      height: fit-content;
+      padding: 16px;
+    }
+    form {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: flex-start;
+      gap: 28px;
+      %formGroup {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        gap: 8px;
+      }
+      %formLabel {
+        font-family: Montserrat;
+        font-weight: 700;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -0.6%;
+      }
+      .formName {
+        @extend %formGroup;
+        label {
+          @extend %formLabel;
+        }
+        input {
+          width: 100%;
+          height: 48px;
+          background: #ffffff80;
+          height: 48px;
+          min-height: 48px;
+          border-width: 1px;
+          color: #006633;
+          padding: 12px;
+          border-radius: 123px;
+          -webkit-border-radius: 123px;
+          -moz-border-radius: 123px;
+          -ms-border-radius: 123px;
+          -o-border-radius: 123px;
+        }
+        select {
+          width: 100%;
+          height: 48px;
+          background: #ffffff80;
+          height: 48px;
+          min-height: 48px;
+          border-width: 1px;
+          color: #006633;
+          padding: 12px;
+          border-radius: 123px;
+          -webkit-border-radius: 123px;
+          -moz-border-radius: 123px;
+          -ms-border-radius: 123px;
+          -o-border-radius: 123px;
+        }
+      }
+      .formDesc {
+        @extend %formGroup;
+        label {
+          @extend %formLabel;
+        }
+        textarea {
+          width: 100%;
+          height: 170px;
+          resize: none;
+          background: #ffffff80;
+          color: #006633;
+          border-width: 1px;
+          gap: 10px;
+          padding: 24px;
+          border-radius: 32px;
+          -webkit-border-radius: 32px;
+          -moz-border-radius: 32px;
+          -ms-border-radius: 32px;
+          -o-border-radius: 32px;
+        }
+      }
+      .formSection {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-bottom: 16px;
+        border-bottom: 1px solid #e9eaeb80;
+        .formGroup {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          gap: 8px;
+          position: relative;
+          label {
+            @extend %formLabel;
+          }
+          .imageUploadContainer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 240px;
+            background: #ffffff80;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+            border-radius: 32px;
+            -webkit-border-radius: 32px;
+            -moz-border-radius: 32px;
+            -ms-border-radius: 32px;
+            -o-border-radius: 32px;
+            .imagePreviewWrapper {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              z-index: 10;
+              .imagePreview {
+                width: 100%;
+                height: 100%;
+                z-index: 8;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+              .removeImageButton {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: none;
+                border: none;
+                z-index: 10;
+              }
+            }
+            .fileInput {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+              cursor: pointer;
+              z-index: 9;
+            }
+          }
+          .avatarUploadContainer {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 250px;
+            height: 250px;
+            background: #ffffff80;
+            border: 1px solid #d1d5db;
+            overflow: hidden;
+            border-radius: 50%;
+            -webkit-border-radius: 50%;
+            -moz-border-radius: 50%;
+            -ms-border-radius: 50%;
+            -o-border-radius: 50%;
+            .imagepreviewwrapper {
+              position: relative;
+              width: 100%;
+              height: 100%;
+              z-index: 10;
+              .imagePreview {
+                width: 100%;
+                height: 100%;
+                z-index: 8;
+                img {
+                  width: 100%;
+                  height: 100%;
+                  object-fit: cover;
+                }
+              }
+              .removeImageButton {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: none;
+                border: none;
+                z-index: 10;
+              }
+            }
+            .fileInput {
+              position: absolute;
+              top: 0;
+              left: 0;
+              width: 100%;
+              height: 100%;
+              opacity: 0;
+              cursor: pointer;
+              z-index: 9;
+            }
+          }
+        }
+        .uploadPlaceholder {
+          color: #74b243;
+        }
+      }
+    }
+    button {
+      background-color: #006633;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 16px;
+      margin: 4px 2px;
+      cursor: pointer;
+      border-radius: 12px;
+      -webkit-border-radius: 12px;
+      -moz-border-radius: 12px;
+      -ms-border-radius: 12px;
+      -o-border-radius: 12px;
+    }
+  }
+}
