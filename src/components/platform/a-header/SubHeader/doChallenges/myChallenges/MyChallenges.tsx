@@ -136,6 +136,7 @@ import { useInView } from "react-intersection-observer";
 import { useAppSelector } from "@/store/hooks";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { useInfiniteQuery } from "@tanstack/react-query";
+import { useTranslations } from "use-intl";
 
 function MyChallenges(props: DoMainProps) {
   const {
@@ -200,6 +201,8 @@ function MyChallenges(props: DoMainProps) {
     }
   }, [updateState, refetch]);
 
+  const t = useTranslations("web.subHeader.doChallenge");
+
   // Load more data when the last item is in view
   useEffect(() => {
     if (inView && hasNextPage && !isFetchingNextPage) {
@@ -221,7 +224,7 @@ function MyChallenges(props: DoMainProps) {
             className={styles.container}
           >
             <div className={styles.header}>
-              <h2>My Challenges</h2>
+              <h2>{t("myChallenge")}</h2>
             </div>
             <div className={styles.challenges}>
               <MyChallengeCard

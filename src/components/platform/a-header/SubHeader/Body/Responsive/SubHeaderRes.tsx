@@ -11,7 +11,7 @@ import GreenChallenges from "../../Green-Challenges/GreenChallenges";
 import likes from "@/../public/ZPLATFORM/header/like.svg";
 import message from "@/../public/ZPLATFORM/header/message.svg";
 import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import post from "@/../public/ZPLATFORM/header/posts.svg";
 
 type Props = {
@@ -46,27 +46,28 @@ function SubHeaderRes(props: Props) {
   } = props;
 
   const locale = useLocale();
+  const t = useTranslations("web.subHeader.actions");
 
   const actions = [
     {
       icon: likes,
-      title: "Likes",
-      href: "/likes",
+      title: `${t("likes")}`,
+      href: "/mylikes",
     },
     {
       icon: message,
-      title: "Messages",
-      href: "/messages",
+      title: `${t("comments")}`,
+      href: "/mycomments",
     },
     {
       icon: post,
-      title: "Posts",
-      href: "/posts",
+      title: `${t("posts")}`,
+      href: "#",
     },
     {
       icon: addNew,
-      title: "Add post",
-      href: "/add-new",
+      title: t("addPost"),
+      href: `addNew/newPost`,
     },
   ];
 

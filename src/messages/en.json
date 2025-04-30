@@ -165,6 +165,33 @@
     }
   },
   "web": {
+    "header": {
+      "chat": "Chat",
+      "community":"Community",
+      "challenges": "Challenges",
+      "personal" :"Personal",
+      "plans":"Plans",
+      "favorites":"Favorites",
+      "logout":"Logout"
+    },
+    "subHeader":{
+      "actions":{
+        "likes":"Likes",
+        "comments":"Comments",
+        "posts":"Posts",
+        "addPost":"Add Post"
+      },
+      "diamond":{
+        "sustainability":"Your way to sustainability"
+      },
+      "green":{
+        "challenges":"Green Challenges",
+        "share":"Share 3 impactful campaigns to raise awareness and amplify the message of sustainability"
+      },
+      "doChallenge":{
+        "myChallenge":"My Challenge"
+      }
+    },
     "main": {
       "community": {
         "pages": "pages",

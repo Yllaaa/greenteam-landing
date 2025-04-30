@@ -71,7 +71,9 @@ function PostComments(passProps: Props) {
   } = passProps;
 
   const modalRef = React.useRef<HTMLDivElement>(null);
-
+  const preventScroll = (prevent: boolean) => {
+    document.body.style.overflow = prevent ? "hidden" : "unset";
+  };
   // POST SLIDER HANDLER
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -89,13 +91,6 @@ function PostComments(passProps: Props) {
   });
   // END SLIDER HANDLER
 
-  // const [reacted, setReacted] = useState<{
-  //   [commentId: string]: boolean;
-  // }>({});
-  // const [action, setAction] = useState<{
-  //   [commentId: string]: string;
-  // }>({});
-
   // START CLICK OUTSIDE MODAL
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -103,13 +98,21 @@ function PostComments(passProps: Props) {
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        if (setCommentModal) setCommentModal(false);
+        if (setCommentModal) {
+          setCommentModal(false);
+          preventScroll(false); // Re-enable scrolling when modal closes
+        }
       }
     };
+    if (setCommentModal) {
+      // Prevent scrolling when modal opens
+      preventScroll(true);
+    }
     document.addEventListener("mousedown", handleClickOutside);
 
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
+      preventScroll(false); // Re-enable scrolling when component unmounts
     };
   }, [modalRef, setCommentModal]);
   // END CLICK OUTSIDE MODAL

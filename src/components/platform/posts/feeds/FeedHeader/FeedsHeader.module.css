@@ -35,6 +35,9 @@
   justify-self: flex-start;
 
   width: fit-content;
+  max-width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
 .filterSection ul {
   display: flex;

@@ -167,12 +167,13 @@ import styles from "./GreenChallenges.module.css";
 import Challenges from "./allCahalenges/Challenges";
 import AddNewModal from "./modal/addNew/AddNewModal";
 import DoItModal from "../../../modals/toDo/DoItModal";
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import Image from "next/image";
-import star from "@/../public/ZPLATFORM/challenges/star.svg";
+// import ToastNot from "@/Utils/ToastNotification/ToastNot";
+// import Image from "next/image";
+// import star from "@/../public/ZPLATFORM/challenges/star.svg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Challenge } from "./GreenTypes/GreenTypes";
+import { useTranslations } from "next-intl";
 
 function GreenChallenges() {
   const token = getToken();
@@ -219,19 +220,18 @@ function GreenChallenges() {
   const handleModalClose = () => {
     queryClient.invalidateQueries({ queryKey: ['greenChallenges'] });
   };
-
+ const t = useTranslations("web.subHeader.green")
   return (
     <>
       <div className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
-            <h2>Green Challenges</h2>
+            <h2>{t("challenges")}</h2>
             <p>
-              Share 3 impactful campaigns to raise awareness and amplify the
-              message of sustainability
+              {t("share")}
             </p>
           </div>
-          <div className={styles.headerBtn}>
+          {/* <div className={styles.headerBtn}>
             <button
               onClick={() => {
                 ToastNot("Challenge Accepted");
@@ -241,7 +241,7 @@ function GreenChallenges() {
             >
               <Image src={star} alt="star" /> Do It
             </button>
-          </div>
+          </div> */}
         </div>
 
         <div className={`${styles.navigationWrapper}`}>

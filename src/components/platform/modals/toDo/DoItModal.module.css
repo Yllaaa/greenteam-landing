@@ -76,3 +76,14 @@
   color: white;
   cursor: pointer;
 }
+@media screen and (max-width: 768px) {
+  .modalcontent {
+    width: 90%;
+    height: 50%;
+    
+  }
+  .modalButton {
+    width: 80px;
+  }
+  
+}

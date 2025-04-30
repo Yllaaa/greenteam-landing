@@ -13,6 +13,7 @@ import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { useTranslations } from "next-intl";
 
 interface TopicScore {
   topicId: number;
@@ -26,7 +27,7 @@ function Categories() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [topicScores, setTopicScores] = useState<TopicScore[]>([]);
   const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([]);
-
+const t = useTranslations("web.subHeader.diamond")
   // Mapping between component categories and backend topic names
   const categoryMapping = {
     know: { name: "Knowledge And Values" },
@@ -208,7 +209,7 @@ function Categories() {
           })}
         </div>
         <div className={styles.text}>
-          <p>Your way to sustainability</p>
+          <p>{t("sustainability")}</p>
         </div>
       </div>
       {/* Modal */}

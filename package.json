@@ -25,6 +25,7 @@
     "date-fns": "^4.1.0",
     "echarts": "^5.6.0",
     "echarts-for-react": "^3.0.2",
+    "framer-motion": "^12.9.2",
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "leaflet": "^1.9.4",

@@ -13,7 +13,7 @@ import GreenChallenges from "../../Green-Challenges/GreenChallenges";
 import MyChallenges from "../../doChallenges/myChallenges/MyChallenges";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Link from "next/link";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -47,26 +47,27 @@ function SubHeaderWeb(props: Props) {
     userReactions,
   } = props;
   const locale = useLocale();
+  const t = useTranslations("web.subHeader.actions")
 
   const actions = [
     {
       icon: likes,
-      title: `${userReactions?.reactionsCount} Likes`,
+      title: `${userReactions?.reactionsCount} ${t("likes")}`,
       href: "/mylikes",
     },
     {
       icon: message,
-      title: `${userReactions.commentsCount} Comments`,
+      title: `${userReactions.commentsCount} ${t("comments")}`,
       href: "/mycomments",
     },
     {
       icon: post,
-      title: `${userReactions.postsCount} Posts`,
-      href: "/posts",
+      title: `${userReactions.postsCount} ${t("posts")}`,
+      href: "#",
     },
     {
       icon: addNew,
-      title: "Add post",
+      title: t("addPost"),
       href: `addNew/newPost`,
     },
   ];

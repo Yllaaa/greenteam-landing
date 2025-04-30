@@ -4,9 +4,9 @@ import chat from "@/../public/ZPLATFORM/A-Header/navIcons/chat.svg";
 import challenges from "@/../public/ZPLATFORM/A-Header/navIcons/challenges.svg";
 import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
-import settings from "@/../public/ZPLATFORM/A-Header/navIcons/settings.svg";
+import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import Props from "./types/profileMenu.data";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -15,49 +15,44 @@ function ProfileMenu(props: Props) {
   const { isDropdownOpen, setIsDropdownOpen, handleLogout } = props;
   const router = useRouter();
   const locale = useLocale();
-  
+  const t = useTranslations("web.header");
+
   const dropdownList = [
     {
       id: 1,
-      name: "Chat",
+      name: t("chat"),
       icon: chat,
       link: `/${locale}/chat`,
     },
     {
       id: 2,
-      name: "Community",
+      name: t("community"),
       icon: community,
       link: `/${locale}/community`,
     },
     {
       id: 3,
-      name: "Challenges",
+      name: t("community"),
       icon: challenges,
       link: `/${locale}/challenges`,
     },
     {
       id: 6,
-      name: "Personal",
+      name: t("personal"),
       icon: challenges,
       link: `/${locale}/personal_menu`,
     },
     {
       id: 4,
-      name: "Plans",
+      name: t("plans"),
       icon: plans,
       link: `/${locale}/payment`,
     },
     {
       id: 7,
-      name: "Favorites",
-      icon: settings,
+      name: t("favorites"),
+      icon: star,
       link: `/${locale}/favorite`,
-    },
-    {
-      id: 5,
-      name: "Settings",
-      icon: settings,
-      link: `/${locale}/settings`,
     },
   ];
   return (
@@ -89,7 +84,7 @@ function ProfileMenu(props: Props) {
             className={styles.logout}
           >
             <Image src={logout} alt="logout" />
-            <span>Logout</span>
+            <span>{t("logout")}</span>
           </li>
         </ul>
       </div>
