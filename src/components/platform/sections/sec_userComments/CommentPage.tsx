@@ -2,7 +2,7 @@
 import React from "react";
 import FeedSection from "./feeds/FeedSection";
 
-function LikePage() {
+function CommentPage() {
   return (
     <>
       <div>
@@ -13,4 +13,4 @@ function LikePage() {
   );
 }
 
-export default LikePage;
+export default CommentPage;

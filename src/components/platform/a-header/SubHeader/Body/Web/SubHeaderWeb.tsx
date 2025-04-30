@@ -57,7 +57,7 @@ function SubHeaderWeb(props: Props) {
     {
       icon: message,
       title: `${userReactions.commentsCount} Comments`,
-      href: "/comments",
+      href: "/mycomments",
     },
     {
       icon: post,

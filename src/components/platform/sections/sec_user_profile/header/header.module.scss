@@ -86,6 +86,7 @@ $max-width: 1024px;
       .name {
         grid-column: 4 / 6;
         grid-row: 1 / 2;
+        text-wrap: nowrap;
         @media screen and (max-width: $max-width) {
           grid-column: 2 / 6;
           justify-self: flex-start;

@@ -7,7 +7,8 @@ import DoItModal from "../../../../../modals/toDo/DoItModal";
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-
+import Report from "./reportModal/Report";
+import DeleteModal from "./deleteModal/DeleteModal";
 // topics and subtopics
 const topics = Topics;
 
@@ -16,6 +17,8 @@ function FeedSection() {
   //modals
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
   //APIs Data
 
   const [postComments, setPostComments] = useState<Comment[]>([]);
@@ -82,6 +85,10 @@ function FeedSection() {
                 setPostComments={setPostComments}
                 setPostId={setPostId}
                 setPostMedia={setPostMedia}
+                deleteModal={deleteModal}
+                setDeleteModal={setDeleteModal}
+                reportModal={reportModal}
+                setReportModal={setReportModal}
               />
             </div>
           </div>
@@ -99,6 +106,18 @@ function FeedSection() {
           setPostComments={setPostComments}
           postId={postId}
           postMedia={postMedia}
+        />
+      )}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
+      )}
+      {reportModal && (
+        <Report
+          report={reportModal}
+          user=""
+          reportedId={postId}
+          setReport={setReportModal}
+          reportedType="post"
         />
       )}
     </>

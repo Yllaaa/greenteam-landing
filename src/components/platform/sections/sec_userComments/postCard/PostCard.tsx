@@ -12,16 +12,13 @@ import styles from "./postCard.module.css";
 import Image from "next/image";
 import admin from "@/../public/auth/user.png";
 import { useInView } from "react-intersection-observer";
-import { useParams, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
-import { FaTrash } from "react-icons/fa6";
-import { MdOutlineReportProblem } from "react-icons/md";
-import { PiDotsThreeCircleLight } from "react-icons/pi";
-import { useAppSelector } from "@/store/hooks";
+import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
@@ -36,46 +33,20 @@ function PostCard(props: Props) {
     rerender,
     setPostId,
     setPostMedia,
-    deleteModal,
-    setDeleteModal,
-    reportModal,
-    setReportModal,
   } = props;
 
   const router = useRouter();
   const locale = useLocale();
-  const user = useAppSelector((state) => state.login.user?.user.id);
 
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [postContent, setPostContent] = useState<PostsData>([]);
   const [isMounted, setIsMounted] = useState(false);
-  // Track which post's options menu is open
-  const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
-    null
-  );
-  const optionsMenuRef = useRef<HTMLDivElement>(null);
+
   const bodyRef = useRef<HTMLDivElement>(null);
   const limit = 5;
 
-  // Handle clicks outside the options menu to close it
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        optionsMenuRef.current &&
-        !optionsMenuRef.current.contains(event.target as Node)
-      ) {
-        setActiveOptionsPost(null);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
-  
   // Fix hydration mismatch by ensuring client-side only operations
   useEffect(() => {
     setIsMounted(true);
@@ -89,7 +60,25 @@ function PostCard(props: Props) {
     return localS ? localS.accessToken : null;
   }, []);
 
-  const params = useParams();
+  // Scroll handlers with useCallback to prevent recreating on each render
+  const prevSlide = useCallback(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollBy({
+        left: -300,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
+  const nextSlide = useCallback(() => {
+    if (bodyRef.current) {
+      bodyRef.current.scrollBy({
+        left: 300,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   const prevMainTopicRef = useRef(mainTopic);
   useEffect(() => {
     if (prevMainTopicRef.current !== mainTopic && isMounted) {
@@ -100,35 +89,6 @@ function PostCard(props: Props) {
     prevMainTopicRef.current = mainTopic;
   }, [mainTopic, isMounted]);
 
-  // Toggle options menu for a specific post
-  const toggleOptionsMenu = useCallback((postId: string) => {
-    setActiveOptionsPost((prev) => (prev === postId ? null : postId));
-  }, []);
-
-  // Handle delete or report action
-  const handleActionDelete = useCallback(
-    (postId: string) => {
-      if (setDeleteModal && setPostId) {
-        setPostId(postId);
-        setDeleteModal(!deleteModal);
-      }
-      setActiveOptionsPost(null); // Close the menu after action
-    },
-    [deleteModal, setDeleteModal, setPostId]
-  );
-
-  // Handle delete or report action
-  const handleActionReport = useCallback(
-    (postId: string) => {
-      if (setReportModal && setPostId) {
-        setPostId(postId);
-        setReportModal(!reportModal);
-      }
-      setActiveOptionsPost(null); // Close the menu after action
-    },
-    [reportModal, setPostId, setReportModal]
-  );
-  
   // Fetch posts on subtopic/page change only - but only after component mounts on client
   useEffect(() => {
     if (!isMounted) {
@@ -137,7 +97,6 @@ function PostCard(props: Props) {
     }
 
     fetchPosts(
-      params.username,
       mainTopic,
       page,
       limit,
@@ -146,7 +105,7 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [page, mainTopic, isLoading, accessToken, isMounted, params.username]);
+  }, [page, mainTopic, isLoading, accessToken, isMounted]);
 
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({
@@ -192,8 +151,14 @@ function PostCard(props: Props) {
 
   // Navigate to profile helper
   const navigateToProfile = useCallback(
-    (authorId: string) => {
-      router.push(`/${locale}/profile/${authorId}`);
+    (authorId: string, type: string) => {
+      if (type === "user") {
+        router.push(`/${locale}/profile/${authorId}`);
+      } else if (type === "page") {
+        router.push(`/${locale}/pages/${authorId}`);
+      } else {
+        router.push(`/${locale}/profile/${authorId}`);
+      }
     },
     [router, locale]
   );
@@ -253,36 +218,11 @@ function PostCard(props: Props) {
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}
           >
-            <div className={styles.options}>
-              <div
-                onClick={() => toggleOptionsMenu(post.post.id)}
-                className={styles.optionsIcon}
-              >
-                <PiDotsThreeCircleLight fill="#006633" />
-              </div>
-
-              {activeOptionsPost === post.post.id && (
-                <div ref={optionsMenuRef} className={styles.optionsMenu}>
-                  {post.author.id === user && (
-                    <div
-                      onClick={() => handleActionDelete(post.post.id)}
-                      className={styles.optionItem}
-                    >
-                      <FaTrash /> <span>Delete Post</span>
-                    </div>
-                  )}
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={styles.optionItem}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Post</span>
-                  </div>
-                </div>
-              )}
-            </div>
             <div className={styles.header}>
               <div
-                onClick={() => navigateToProfile(post.author.id)}
+                onClick={() =>
+                  navigateToProfile(post.author.id, post.author.type)
+                }
                 style={{ cursor: "pointer", zIndex: 100 }}
                 className={styles.userAvatar}
               >
@@ -296,7 +236,9 @@ function PostCard(props: Props) {
               </div>
               <div className={styles.details}>
                 <div
-                  onClick={() => navigateToProfile(post.author.id)}
+                  onClick={() =>
+                    navigateToProfile(post.author.id, post.author.type)
+                  }
                   style={{ cursor: "pointer" }}
                   className={styles.userName}
                 >
@@ -357,14 +299,15 @@ function PostCard(props: Props) {
       </Suspense>
     );
   }, [
+    setPostMedia,
     isMounted,
     isLoading,
     errorMessage,
     postContent,
     ref,
-    activeOptionsPost,
-    user,
+    navigateToProfile,
     formatTimeDifference,
+    navigateToPost,
     commentsPage,
     setCommentsPage,
     setDoItModal,
@@ -372,12 +315,6 @@ function PostCard(props: Props) {
     setPostComments,
     rerender,
     setPostId,
-    setPostMedia,
-    toggleOptionsMenu,
-    handleActionDelete,
-    handleActionReport,
-    navigateToProfile,
-    navigateToPost,
   ]);
 
   // Handle server-side rendering vs client-side rendering
@@ -392,6 +329,16 @@ function PostCard(props: Props) {
   return (
     <>
       <div className={styles.postContainer}>
+        {isMounted && (
+          <div className={styles.sliderBtns}>
+            <div className={styles.arrow} onClick={prevSlide}>
+              <IoIosArrowBack />
+            </div>
+            <div className={styles.arrow} onClick={nextSlide}>
+              <IoIosArrowForward />
+            </div>
+          </div>
+        )}
         <div ref={bodyRef} className={styles.body}>
           {renderPostContent}
         </div>

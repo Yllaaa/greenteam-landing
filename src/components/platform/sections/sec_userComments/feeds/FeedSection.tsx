@@ -7,7 +7,7 @@ import DoItModal from "../../../modals/toDo/DoItModal";
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-import { FaThumbsUp } from "react-icons/fa6";
+import { FaComment } from "react-icons/fa6";
 
 // topics and subtopics
 const topics = Topics;
@@ -41,7 +41,7 @@ function FeedSection() {
     <>
       <div className={styles.feeds}>
         <div className={styles.topicHeader}>
-        <h2 className={styles.topicTitle}><span><FaThumbsUp/> </span> Likes</h2>
+        <h2 className={styles.topicTitle}><span><FaComment/> </span> Comments</h2>
         <div className={styles.topicFilter}>
           <p
             style={{
