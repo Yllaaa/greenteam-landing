@@ -9,6 +9,8 @@ import { Comment } from "./TYPES/FeedTypes";
 
 import { useParams } from "next/navigation";
 import AddNewModal from "./modal/addNew/AddNewModal";
+import DeleteModal from "./deleteModal/DeleteModal";
+import Report from "./reportModal/Report";
 // import { getAccessToken } from "@/Utils/backendEndpoints/backend-requests";
 
 // topics and subtopics
@@ -27,6 +29,8 @@ function FeedSection() {
   //modals
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
   //APIs Data
 
   const [postComments, setPostComments] = useState<Comment[]>([]);
@@ -64,6 +68,10 @@ function FeedSection() {
                   setPostComments={setPostComments}
                   setPostId={setPostId}
                   setPostMedia={setPostMedia}
+                  deleteModal={deleteModal}
+                  setDeleteModal={setDeleteModal}
+                  reportModal={reportModal}
+                  setReportModal={setReportModal}
                 />
               )}
             </div>
@@ -87,6 +95,18 @@ function FeedSection() {
       )}
       {addNewPost && (
         <AddNewModal setAddNew={setAddNewPost} addNew={addNewPost} id={id} />
+      )}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
+      )}
+      {reportModal && (
+        <Report
+          report={reportModal}
+          user=""
+          reportedId={postId}
+          setReport={setReportModal}
+          reportedType="post"
+        />
       )}
     </>
   );

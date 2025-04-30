@@ -44,6 +44,10 @@ type Props = {
       mediaType: string;
     }[]
   ) => void;
+  deleteModal?: boolean;
+  setDeleteModal?: React.Dispatch<React.SetStateAction<boolean>>;
+  reportModal?: boolean;
+  setReportModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // Media interface for post attachments
@@ -59,6 +63,7 @@ interface Author {
   name: string;
   avatar: string | null;
   username: string;
+  type: string;
 }
 
 // Post details interface
@@ -78,6 +83,8 @@ interface PostItem {
   dislikeCount: string;
   userReactionType: string | null;
   hasDoReaction: boolean;
+  isAuthor: boolean;
+
 }
 
 type PostsData = PostItem[];

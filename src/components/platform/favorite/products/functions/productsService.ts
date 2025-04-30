@@ -25,7 +25,7 @@ export const fetchProducts = async ({
     const topicIdParam = topicId ? `&topicId=${topicId}` : "";
     const countryIdParam = countryId ? `&countryId=${countryId}` : "";
     const districtIdParam = districtId ? `&districtId=${districtId}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${districtIdParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/fav-products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${districtIdParam}`;
 
     const response = await axios.get(url, {
       headers: {

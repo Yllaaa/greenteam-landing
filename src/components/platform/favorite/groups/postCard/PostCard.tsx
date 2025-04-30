@@ -19,6 +19,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import { FaTrash } from "react-icons/fa6";
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
 function PostCard(props: Props) {
@@ -31,6 +32,8 @@ function PostCard(props: Props) {
     rerender,
     setPostId,
     setPostMedia,
+    deleteModal,
+    setDeleteModal,
   } = props;
 
   const router = useRouter();
@@ -79,7 +82,6 @@ function PostCard(props: Props) {
 
   // Fetch posts on subtopic/page change only - but only after component mounts on client
   useEffect(() => {
-
     fetchPosts(
       page,
       limit,
@@ -195,6 +197,19 @@ function PostCard(props: Props) {
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}
           >
+            {post.isAuthor && (
+              <div
+                onClick={() => {
+                  if (setDeleteModal && setPostId) {
+                    setPostId(post.post.id);
+                    setDeleteModal(!deleteModal);
+                  }
+                }}
+                className={styles.trash}
+              >
+                <FaTrash />
+              </div>
+            )}
             <div className={styles.header}>
               <div
                 onClick={() => navigateToProfile(post.author.id)}
@@ -272,15 +287,12 @@ function PostCard(props: Props) {
       </Suspense>
     );
   }, [
-    setPostMedia,
     isMounted,
     isLoading,
     errorMessage,
     postContent,
     ref,
-    navigateToProfile,
     formatTimeDifference,
-    navigateToPost,
     commentsPage,
     setCommentsPage,
     setDoItModal,
@@ -288,6 +300,11 @@ function PostCard(props: Props) {
     setPostComments,
     rerender,
     setPostId,
+    setPostMedia,
+    setDeleteModal,
+    deleteModal,
+    navigateToProfile,
+    navigateToPost,
   ]);
 
   // Handle server-side rendering vs client-side rendering

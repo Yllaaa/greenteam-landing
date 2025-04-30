@@ -39,7 +39,7 @@ export default function Pages() {
         }
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/pages?limit=${limit}&page=${pageNum}`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/followed-pages?limit=${limit}&page=${pageNum}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

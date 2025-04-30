@@ -17,6 +17,8 @@ import ForumFilter from "./filterComponent/ForumFilter";
 import { CommentModal } from "../feeds/commentModal/CommentModal";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import Image from "next/image";
+import DeleteModal from "./deleteModal/DeleteModal";
+import Report from "./reportModal/Report";
 const ForumCard = lazy(() => import("./ForumsCard/ForumCard"));
 
 type Author = {
@@ -59,6 +61,8 @@ function PostForums() {
   const [postId, setPostId] = useState<string>("");
   const [commentsPage, setCommentsPage] = useState(1);
   const [rerender, setRerender] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
 
   const [section, setSection] = useState<"doubt" | "need" | "dream" | "all">(
     "all"
@@ -263,6 +267,10 @@ function PostForums() {
                 setCommentModal={setCommentModal}
                 setPostComments={setPostComments}
                 setPostId={setPostId}
+                deleteModal={deleteModal}
+                setDeleteModal={setDeleteModal}
+                reportModal={reportModal}
+                setReportModal={setReportModal}
               />
             </div>
           ))}
@@ -351,6 +359,18 @@ function PostForums() {
           setPostComments={setPostComments}
           postId={postId}
           postMedia={forums.find((post) => post.id === postId)?.media || []}
+        />
+      )}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
+      )}
+      {reportModal && (
+        <Report
+          report={reportModal}
+          user=""
+          reportedId={postId}
+          setReport={setReportModal}
+          reportedType="forum_publication"
         />
       )}
     </>

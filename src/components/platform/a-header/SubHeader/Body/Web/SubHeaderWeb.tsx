@@ -52,7 +52,7 @@ function SubHeaderWeb(props: Props) {
     {
       icon: likes,
       title: `${userReactions?.reactionsCount} Likes`,
-      href: "/likes",
+      href: "/mylikes",
     },
     {
       icon: message,

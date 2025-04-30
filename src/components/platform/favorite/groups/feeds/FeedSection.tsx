@@ -5,6 +5,7 @@ import styles from "./FeedSection.module.css";
 
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
+import DeleteModal from "./deleteModal/DeleteModal";
 
 function FeedSection() {
   const [mounted, setMouted] = useState(false);
@@ -31,7 +32,7 @@ function FeedSection() {
 
   //pagination
   const [commentsPage, setCommentsPage] = useState(1);
-
+  const [deleteModal, setDeleteModal] = useState(false);
   // request rerender comments
   const [rerender, setRerender] = useState(false);
 
@@ -51,6 +52,8 @@ function FeedSection() {
                   setPostComments={setPostComments}
                   setPostId={setPostId}
                   setPostMedia={setPostMedia}
+                  deleteModal={deleteModal}
+                  setDeleteModal={setDeleteModal}
                 />
               )}
             </div>
@@ -70,6 +73,9 @@ function FeedSection() {
           postId={postId}
           postMedia={postMedia}
         />
+      )}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
       )}
     </>
   );

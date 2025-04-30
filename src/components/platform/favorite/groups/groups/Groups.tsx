@@ -44,7 +44,7 @@ function Groups() {
         }
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/groups?limit=${limit}&page=${pageNum}`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/favorites/joined-groups?limit=${limit}&page=${pageNum}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

@@ -46,9 +46,9 @@
 .filterSection ul li {
   text-transform: capitalize;
   cursor: pointer;
-  font-family: Roboto;
   font-weight: 700;
   font-size: 20px;
+  font-family: Montserrat;
   line-height: 140%;
   letter-spacing: 1%;
   text-wrap: nowrap;
