@@ -11,6 +11,7 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { CommentSection } from "../../feeds/commentModal/CommentModal";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { FaComment } from "react-icons/fa";
+import { useTranslations } from "next-intl";
 
 type Props = {
   id: string;
@@ -47,7 +48,7 @@ function SingleEventPage(props: Props) {
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
-
+const t = useTranslations("web.event.eventDetails")
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
     try {
@@ -198,7 +199,7 @@ function SingleEventPage(props: Props) {
         <div className={styles.content}>
           <div className={styles.hostedBy}>
             <p>
-              Hosted by: <span>{event?.hostedBy}</span>
+              {t("hostedBy")}: <span>{event?.hostedBy}</span>
             </p>
           </div>
           <div className={styles.name}>
@@ -232,7 +233,7 @@ function SingleEventPage(props: Props) {
             <div className={styles.img}></div>
             <div className={styles.text}>
               <p className={styles.username}>{event?.hostName}</p>
-              <p className={styles.usernameTitle}>Organizer</p>
+              <p className={styles.usernameTitle}>{t("organizer")}</p>
             </div>
           </div>
           <div className={styles.actions}>
@@ -240,13 +241,12 @@ function SingleEventPage(props: Props) {
               className={styles.action}
               onClick={isJoined ? handleLeaveEvent : handleJoinEvent}
             >
-              {isJoined ? "Leave" : "Join Event"}
+              {isJoined ? t("leave") : t("join")}
             </button>
-            <button className={styles.action}>Invite</button>
           </div>
         </div>
         <div className={styles.about}>
-          <h3>About Event</h3>
+          <h3>{t("about")}</h3>
           <p>{event?.description}</p>
         </div>
       </div>

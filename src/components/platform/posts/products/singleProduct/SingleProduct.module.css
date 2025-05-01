@@ -70,7 +70,7 @@
   padding: 2px 6px;
   gap: 10px;
   background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-  font-family: Manrope;
+  font-family: Montaserrat;
   font-weight: 600;
   font-size: 9px;
   line-height: 100%;
@@ -98,7 +98,7 @@
   gap: 24px;
 }
 .description .dLabel {
-  font-family: Manrope;
+  font-family: Montaserrat;
   font-weight: 600;
   font-size: 20px;
   line-height: 15px;
@@ -175,4 +175,13 @@
   -moz-border-radius: 32px;
   -ms-border-radius: 32px;
   -o-border-radius: 32px;
+}
+@media screen and (max-width: 1024px) {
+  .product{
+    flex-direction: column;
+  }
+  .content {
+    border: none;
+  }
+  
 }

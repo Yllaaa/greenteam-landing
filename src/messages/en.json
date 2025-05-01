@@ -167,29 +167,51 @@
   "web": {
     "header": {
       "chat": "Chat",
-      "community":"Community",
+      "community": "Community",
       "challenges": "Challenges",
-      "personal" :"Personal",
-      "plans":"Plans",
-      "favorites":"Favorites",
-      "logout":"Logout"
+      "personal": "Personal",
+      "plans": "Plans",
+      "favorites": "Favorites",
+      "logout": "Logout"
     },
-    "subHeader":{
-      "actions":{
-        "likes":"Likes",
-        "comments":"Comments",
-        "posts":"Posts",
-        "addPost":"Add Post"
+    "subHeader": {
+      "actions": {
+        "likes": "Likes",
+        "comments": "Comments",
+        "posts": "Posts",
+        "addPost": "Add Post"
       },
-      "diamond":{
-        "sustainability":"Your way to sustainability"
+      "diamond": {
+        "sustainability": "Your way to sustainability"
       },
-      "green":{
-        "challenges":"Green Challenges",
-        "share":"Share 3 impactful campaigns to raise awareness and amplify the message of sustainability"
+      "green": {
+        "challenges": "Green Challenges",
+        "share": "Share 3 impactful campaigns to raise awareness and amplify the message of sustainability"
       },
-      "doChallenge":{
-        "myChallenge":"My Challenge"
+      "doChallenge": {
+        "myChallenge": "My Challenge"
+      }
+    },
+    "event": {
+      "header":{
+        "event": "Events",
+        "all": "All",
+        "social":"Social",
+        "volunteering": "Volunteering & Work",
+        "talks": "Talks & Workshops",
+        "addEvent": "Add Event"
+      },
+      "card": {
+        "join": "Join Event",
+        "leave": "Leave Event",
+        "details": "Details"
+      },
+      "eventDetails": {
+        "hostedBy": "Hosted By",
+        "about": "About Event",
+        "join": "Join Event",
+        "leave": "Leave Event",
+        "organizer": "Organizer"
       }
     },
     "main": {
@@ -207,7 +229,7 @@
         "walking": "Walking together towards sustainability",
         "joinUs": "Join Us",
         "donate": "Donate",
-        "invite":"Invite a friend",
+        "invite": "Invite a friend",
         "home": "Home",
         "community": "Community",
         "profile": "Profile",

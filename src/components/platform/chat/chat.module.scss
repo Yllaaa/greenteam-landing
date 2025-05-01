@@ -1,5 +1,42 @@
+// .chat {
+//   width: 1370px;
+//   height: 581px;
+//   border-width: 1px;
+//   background: #141414;
+//   border-radius: 8px;
+//   -webkit-border-radius: 8px;
+//   -moz-border-radius: 8px;
+//   -ms-border-radius: 8px;
+//   -o-border-radius: 8px;
+//   margin: 20px auto;
+
+//   .header {
+//     font-family: Inter;
+//     font-weight: 500;
+//     font-size: 16px;
+//     line-height: 19.36px;
+//     letter-spacing: 0%;
+//     background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+//     background-clip: text;
+//     color: transparent;
+//     padding: 24px 32px;
+//     border-bottom: 1px solid #4b5669;
+//   }
+
+//   .content {
+//     display: flex;
+
+//     .messagesView {
+//       display: flex;
+//       flex-direction: column;
+//       gap: 16px;
+//       flex-grow: 1;
+//     }
+//   }
+// }
 .chat {
-  width: 1370px;
+  width: 100%;
+  max-width: 1370px;
   height: 581px;
   border-width: 1px;
   background: #141414;
@@ -21,16 +58,61 @@
     color: transparent;
     padding: 24px 32px;
     border-bottom: 1px solid #4b5669;
+    display: flex;
+    align-items: center;
+    
+    .backButton {
+      display: none;
+      margin-right: 12px;
+      background: none;
+      border: none;
+      color: #74b243;
+      font-size: 16px;
+      cursor: pointer;
+      
+      @media (max-width: 768px) {
+        display: block;
+      }
+    }
   }
 
   .content {
     display: flex;
+    height: calc(100% - 68px); // Adjust based on header height
+    
+    .personsContainer {
+      @media (max-width: 768px) {
+        width: 100%;
+        &.hiddenOnMobile {
+          display: none;
+        }
+      }
+    }
 
     .messagesView {
       display: flex;
       flex-direction: column;
       gap: 16px;
       flex-grow: 1;
+      
+      .noSelection {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        color: #8b8b8b;
+        font-size: 14px;
+      }
+      
+      @media (max-width: 768px) {
+        width: 100%;
+        &.hiddenOnMobile {
+          display: none;
+        }
+        &.visibleOnMobile {
+          display: flex;
+        }
+      }
     }
   }
 }

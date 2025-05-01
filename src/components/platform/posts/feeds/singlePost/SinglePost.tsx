@@ -16,7 +16,6 @@ import { FaCheckSquare } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
-// import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
 
 type Props = {
   postId: string;
@@ -58,8 +57,6 @@ function SinglePost(props: Props) {
       });
   }, [postId, accessToken]);
 
-  // console.log(post && typeof parseInt(post?.likeCount));
-
   const formatTimeDifference = useCallback(
     (targetDate: string): string => {
       if (!isMounted) return ""; // Prevent SSR/CSR mismatch
@@ -87,8 +84,14 @@ function SinglePost(props: Props) {
 
   // Navigate to profile helper
   const navigateToProfile = useCallback(
-    (authorId: string) => {
-      router.push(`/${locale}/profile/${authorId}`);
+    (authorId: string, type: string) => {
+      if (type === "user") {
+        router.push(`/${locale}/profile/${authorId}`);
+      } else if (type === "page") {
+        router.push(`/${locale}/pages/${authorId}`);
+      } else {
+        router.push(`/${locale}/profile/${authorId}`);
+      }
     },
     [router, locale]
   );
@@ -262,7 +265,9 @@ function SinglePost(props: Props) {
         <div className={styles.container}>
           <div className={styles.header}>
             <div
-              onClick={() => navigateToProfile(post.author.id)}
+              onClick={() =>
+                navigateToProfile(post.author.username, post.author.type)
+              }
               style={{ cursor: "pointer" }}
               className={styles.userAvatar}
             >
@@ -275,7 +280,9 @@ function SinglePost(props: Props) {
             </div>
             <div className={styles.details}>
               <div
-                onClick={() => navigateToProfile(post.author.id)}
+                onClick={() =>
+                  navigateToProfile(post.author.username, post.author.type)
+                }
                 style={{ cursor: "pointer" }}
                 className={styles.userName}
               >

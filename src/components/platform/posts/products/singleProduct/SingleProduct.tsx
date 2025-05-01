@@ -119,15 +119,7 @@ function SingleProduct(props: { prodId: string }) {
                 </div>
               )}
             </div>
-            {/* <div className={styles.image}>
-              <Image
-                src={product.imageUrl ? product.imageUrl[0] : image}
-                alt="image"
-                className={styles.image}
-                width={100}
-                height={100}
-              />
-            </div> */}
+          
             <div className={styles.content}>
               <div className={styles.category}>
                 <p>{product.topic.name}</p>

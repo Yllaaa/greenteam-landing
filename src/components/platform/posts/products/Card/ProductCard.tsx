@@ -28,6 +28,7 @@ interface ProductCardProps {
   setSellerType: React.Dispatch<React.SetStateAction<string>>;
   setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
   setContacts: React.Dispatch<React.SetStateAction<any>>;
+  // setSlug: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -37,11 +38,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     page,
     setPage,
     products,
-    setSendMessage,
+    // setSendMessage,
     setSellerId,
-    setSellerType,
+    // setSellerType,
     setShowContacts,
     setContacts,
+    // setSlug,
   } = props;
   const router = useRouter();
 
@@ -63,13 +65,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     router.push(`feeds/products/${product?.id}`);
   };
   const handleJoinNow = async () => {
-    setSendMessage(true);
-    setSellerId(product?.sellerId);
-    setSellerType(product?.sellerType);
+    router.push(`chat?chatId=${product?.sellerId}`);
+    // setSendMessage(true);
+    // setSellerId(product?.sellerId);
+    // setSellerType(product?.sellerType);
   };
   const handleContacts = async () => {
     setContacts(product?.sellerType);
-
+    setSellerId(product?.sellerId);
     setShowContacts(true);
   };
 
@@ -197,9 +200,11 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             Message Seller
           </button>
         )}
-        <button onClick={handleJoinNow} className={styles.chatButton}>
-          <FaMessage />
-        </button>
+        {product?.sellerType === "user" && (
+          <button onClick={handleJoinNow} className={styles.chatButton}>
+            <FaMessage />
+          </button>
+        )}
       </div>
       <div
         onClick={() => handleToggleFavorite(`${product?.id}`)}

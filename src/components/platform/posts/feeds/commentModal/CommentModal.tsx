@@ -964,8 +964,8 @@ export function CommentSection(props: Props) {
               </div>
             )}
           </div>
-          <div className={styles.newComment}>
-            <div className={styles.newCommentContainer}>
+          <div className={`${styles.newComment} ${styles.eventComment}`}>
+            <div className={`${styles.newCommentContainer} ${styles.eventCommentContainer}`}>
               <form onSubmit={handleSubmitComment(onEvenctCommentSubmit)}>
                 <textarea
                   className={styles.commentTextArea}

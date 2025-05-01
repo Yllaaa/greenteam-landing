@@ -188,6 +188,8 @@
 //     </div>
 //   );
 // }
+// /* eslint-disable react-hooks/exhaustive-deps */
+
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import { useRef, useEffect, useState } from "react";
@@ -197,6 +199,7 @@ import Item from "./Item";
 import Empty from "./empty/Empty";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { useSearchParams } from "next/navigation";
 
 export default function Messages({
   chatId,
@@ -206,7 +209,7 @@ export default function Messages({
   setNextCursor,
   selectedUser,
   shouldScrollToBottom,
-  setShouldScrollToBottom
+  setShouldScrollToBottom,
 }: {
   chatId: string;
   messages: Message[];
@@ -219,15 +222,22 @@ export default function Messages({
   setShouldScrollToBottom: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
   const token = getToken();
+  const chatIdParam = useSearchParams().get("chatId");
+  
+  // Use the URL param if available, otherwise use the prop
+  const activeChatId = chatIdParam || chatId;
+
   const [loadingMore, setLoadingMore] = useState(false);
   const [loading, setLoading] = useState(false);
   const messagesDivRef = useRef<HTMLDivElement>(null);
-  
+
   // Ref to track scroll position
   const scrollPositionRef = useRef<number>(0);
   // Ref to store the height before loading more messages
   const prevHeightRef = useRef<number>(0);
-  
+  // Ref to track if initial load has happened
+  const initialLoadCompleted = useRef<boolean>(false);
+
   // Function to scroll to the bottom of messages
   function scrollToBottom() {
     if (messagesDivRef.current) {
@@ -245,19 +255,29 @@ export default function Messages({
 
   // Function to load initial messages
   async function loadMessages() {
-    if (!chatId || loading) return;
+    if (!activeChatId || loading) return;
+    
     setLoading(true);
+    initialLoadCompleted.current = false;
 
     try {
-      const messages = await getMessageItems(chatId, 20);
+      const result = await getMessageItems(activeChatId, 20);
 
       if (
-        messages?.messages?.messages &&
-        messages?.messages?.messages?.length > 0
+        result?.messages?.messages &&
+        result?.messages?.messages?.length > 0
       ) {
         setMessages((prev) => {
+          // Start fresh when loading a new chat
+          if (activeChatId !== chatId) {
+            return [...result.messages.messages].sort(
+              (a, b) => 
+                new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
+            );
+          }
+
           // Combine previous and new messages
-          const combinedMessages = [...prev, ...messages?.messages.messages];
+          const combinedMessages = [...prev, ...result.messages.messages];
 
           // Remove any duplicate messages by ID
           const uniqueMessages = Array.from(
@@ -267,18 +287,18 @@ export default function Messages({
           );
 
           // Sort messages by date, oldest first
-          const sortedMessages = uniqueMessages.sort(
+          return uniqueMessages.sort(
             (a, b) =>
               new Date(a.sentAt).getTime() - new Date(b.sentAt).getTime()
           );
-
-          return sortedMessages;
         });
-        
-        if (messages?.messages?.nextCursor) {
-          setNextCursor(messages?.messages?.nextCursor);
+
+        if (result?.messages?.nextCursor) {
+          setNextCursor(result.messages.nextCursor);
+        } else {
+          setNextCursor(null);
         }
-        
+
         // Set flag to scroll to bottom when initial messages load
         setShouldScrollToBottom(true);
       }
@@ -286,26 +306,29 @@ export default function Messages({
       console.error("Error fetching messages:", error);
     } finally {
       setLoading(false);
+      initialLoadCompleted.current = true;
     }
   }
 
-  // Reset messages when chat or user changes
+  // Reset and load messages when chat changes
   useEffect(() => {
     setMessages([]);
     setNextCursor(null);
     loadMessages();
-  }, [chatId, selectedUser]);
+  }, [activeChatId, selectedUser]);
 
   // Handle scroll event to detect scrolling up to load more messages
   useEffect(() => {
     const messagesDiv = messagesDivRef.current;
-    
+    if (!messagesDiv) return;
+
     const handleScroll = () => {
-      if (!messagesDiv) return;
-      
+      // Don't check for scroll if initial load is not completed
+      if (!initialLoadCompleted.current) return;
+
       // Save current scroll position
       scrollPositionRef.current = messagesDiv.scrollTop;
-      
+
       // Load more messages if user scrolls to the top (with a small threshold)
       if (messagesDiv.scrollTop < 100 && !loadingMore && nextCursor) {
         // Save current scroll height before loading more messages
@@ -313,16 +336,16 @@ export default function Messages({
         setLoadingMore(true);
       }
     };
-    
-    messagesDiv?.addEventListener('scroll', handleScroll);
-    return () => messagesDiv?.removeEventListener('scroll', handleScroll);
-  }, [loadingMore, nextCursor]);
+
+    messagesDiv.addEventListener("scroll", handleScroll);
+    return () => messagesDiv.removeEventListener("scroll", handleScroll);
+  }, [loadingMore, nextCursor, initialLoadCompleted.current]);
 
   // Load more messages when scrolling up
   useEffect(() => {
     const limit = 11;
-    
-    if (!loadingMore || !nextCursor) {
+
+    if (!loadingMore || !nextCursor || !activeChatId) {
       return;
     }
 
@@ -331,7 +354,7 @@ export default function Messages({
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${chatId}/messages?${query}`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${activeChatId}/messages?${query}`,
         {
           headers: {
             Authorization: `Bearer ${token.accessToken}`,
@@ -351,7 +374,7 @@ export default function Messages({
           // Only update if the cursor has changed
           setNextCursor(newCursor);
         }
-        
+
         // Update messages array
         setMessages((prev) => {
           // Combine previous and new messages
@@ -378,18 +401,24 @@ export default function Messages({
           if (messagesDivRef.current) {
             const newHeight = messagesDivRef.current.scrollHeight;
             const heightDifference = newHeight - prevHeightRef.current;
-            messagesDivRef.current.scrollTop = heightDifference + scrollPositionRef.current;
+            messagesDivRef.current.scrollTop =
+              heightDifference + scrollPositionRef.current;
           }
         }, 0);
       })
       .then(() => setLoadingMore(false))
-      .catch((err) => console.error(err));
-  }, [loadingMore, nextCursor, chatId]);
+      .catch((err) => {
+        console.error("Error loading more messages:", err);
+        setLoadingMore(false);
+      });
+  }, [loadingMore, nextCursor, activeChatId]);
 
   return (
     <div className={styles.messages} ref={messagesDivRef}>
-      {loadingMore && <p className={styles.loadingMore}>Loading more messages...</p>}
-      {messages?.length === 0 && <Empty />}
+      {loadingMore && (
+        <p className={styles.loadingMore}>Loading more messages...</p>
+      )}
+      {messages?.length === 0 && !loading && <Empty />}
       {[...messages].map((message, index) => (
         <Item
           index={index}
@@ -399,7 +428,11 @@ export default function Messages({
           messages={messages}
         />
       ))}
-      {loading && <p>Loading messages...</p>}
+      {loading && (
+        <div className={styles.loadingContainer}>
+          <p className={styles.loading}>Loading messages...</p>
+        </div>
+      )}
     </div>
   );
 }

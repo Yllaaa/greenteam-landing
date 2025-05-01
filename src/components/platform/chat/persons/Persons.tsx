@@ -7,6 +7,7 @@ import Item from "./Item";
 // import Search from "./search/Search";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { useRouter } from "next/navigation";
 
 type PersonsProps = {
   chatId: string;
@@ -25,6 +26,7 @@ export default function Persons({
 }: PersonsProps) {
   const [filteredPersons, setFilteredPersons] = useState<Chat[]>([]);
   const token = getToken();
+  const router = useRouter();
   useEffect(() => {
     axios
       .get(
@@ -51,6 +53,9 @@ export default function Persons({
           selected={chatId == chat.id || selectedUser == chat.contact.id}
           onClick={() => {
             setChatId(chat.id);
+            const params = new URLSearchParams();
+            params.set('chatId', chat.id);
+            router.push(`chat?${params.toString()}`);
             setSelectedUser(chat.contact.id);
           }}
           key={index}

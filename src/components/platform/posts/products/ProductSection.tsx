@@ -29,6 +29,7 @@ function ProductSection() {
   const [addNew, setAddNew] = useState(false);
   const [sendMessage, setSendMessage] = useState(false);
   const [sellerId, setSellerId] = useState("");
+  // const [slug, setSlug] = useState("");
   const [sellerType, setSellerType] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -206,6 +207,7 @@ function ProductSection() {
                   setSellerType={setSellerType}
                   setContacts={setContacts}
                   setShowContacts={setShowContacts}
+                  // setSlug={setSlug}
                 />
               </div>
             ))}
@@ -287,7 +289,7 @@ function ProductSection() {
         />
       )}
       {showContacts && (
-        <ContactModal contacts={contacts} setShowContacts={setShowContacts} />
+        <ContactModal contacts={contacts} setShowContacts={setShowContacts} sellerId={sellerId} accessToken={accessToken} />
       )}
     </>
   );

@@ -1,8 +1,10 @@
 import React from "react";
 import styles from "./EventFilter.module.css";
 import { eventFilterProps } from "./eventFilterTypes.data";
+import { useTranslations } from "next-intl";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function EventFilter(props: eventFilterProps) {
+  const t = useTranslations("web.event.header");
   const { section, setPage, setSection, setAddNew } = props;
 //   const [show, setShow] = React.useState(false);
   const handleAddNew = () => {
@@ -12,7 +14,7 @@ function EventFilter(props: eventFilterProps) {
     <>
       <div className={styles.header}>
         <div className={styles.title}>
-          <h3>Events</h3>
+          <h3>{t("event")}</h3>
         </div>
         <div className={styles.filterSection}>
           <ul>
@@ -27,7 +29,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("all");
               }}
             >
-              all
+              {t("all")}
             </li>
             <li
               style={
@@ -40,7 +42,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("social");
               }}
             >
-              social
+              {t("social")}
             </li>
             <li
               style={
@@ -53,7 +55,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("volunteering%26work");
               }}
             >
-              volunteering & work
+              {t("volunteering")}
             </li>
             <li
               style={
@@ -66,12 +68,12 @@ function EventFilter(props: eventFilterProps) {
                 setSection("talks%26workshops");
               }}
             >
-              talks & workshops
+              {t("talks")}
             </li>
           </ul>
         </div>
         <div className={styles.addBtn}>
-          <button onClick={handleAddNew}>Add Event</button>
+          <button onClick={handleAddNew}>{t("addEvent")}</button>
         </div>
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}

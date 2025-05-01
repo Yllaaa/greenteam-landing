@@ -21,17 +21,18 @@ interface Author {
   fullName: string;
   avatar: string | null;
   username: string;
+  type: string;
 }
 
 // Interface for the complete Post with Author and metrics
 export type PostWithDetails = {
   post: Post;
   author: Author;
-  media:{
+  media: {
     id: string;
     mediaUrl: string;
     mediaType: string;
-  }[],
+  }[];
   commentCount: string;
   likeCount: string;
   dislikeCount: string;
