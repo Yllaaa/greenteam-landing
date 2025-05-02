@@ -1177,7 +1177,7 @@ export function PostCommentSection(props: Props) {
               </div>
             )}
           </div>
-          <div className={styles.newComment}>
+          <div className={`${styles.newComment} ${styles.postNewComment}`}>
             <div className={styles.newCommentContainer}>
               <form onSubmit={handleSubmitComment(onSubmit)}>
                 <textarea

@@ -190,6 +190,28 @@
   height: 100%;
   min-height: 40px;
 }
+.postNewComment {
+  border: 1px solid #fff;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+}
+.postNewComment button {
+  border: none;
+  outline: none;
+  background: #97b00f !important;
+  color: #006633 !important;
+  min-width: fit-content;
+  padding: 0px 10px;
+  /* min-height: 40px; */
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+}
 .newCommentContainer {
   position: absolute;
   top: 0;
@@ -421,6 +443,9 @@
     justify-content: center;
     align-items: center;
   }
+  .commentContent {
+    min-height: 350px;
+  }
   .commentsSection {
     grid-column: 1 / 13;
     grid-row: 2 / 3;
@@ -443,6 +468,12 @@
     bottom: 0;
     left: 0;
   }
+  .postNewComment {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
   .eventComment {
     bottom: -30px;
   }

@@ -11,8 +11,10 @@ import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useKeenSlider } from "keen-slider/react";
 import { Product } from "../types/productsTypes.data";
 import "keen-slider/keen-slider.min.css";
+import { useRouter } from "next/navigation";
 function SingleProduct(props: { prodId: string }) {
   const { prodId } = props;
+  const router = useRouter();
   const token = getToken();
 
   const accessToken = token ? token.accessToken : null;
@@ -119,7 +121,7 @@ function SingleProduct(props: { prodId: string }) {
                 </div>
               )}
             </div>
-          
+
             <div className={styles.content}>
               <div className={styles.category}>
                 <p>{product.topic.name}</p>
@@ -150,7 +152,14 @@ function SingleProduct(props: { prodId: string }) {
                 </div>
               </div>
               <div className={styles.actions}>
-                <button className={styles.contactButton}>Message Seller</button>
+                <button
+                  onClick={() => {
+                    router.push(`chat?chatId=${product?.sellerId}`);
+                  }}
+                  className={styles.contactButton}
+                >
+                  Message Seller
+                </button>
                 {product.website && (
                   <button className={styles.webButton}>visit website</button>
                 )}

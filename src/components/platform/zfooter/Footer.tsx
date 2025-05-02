@@ -9,13 +9,15 @@ import Link from "next/link";
 import { FaXTwitter, FaFacebookF, FaInstagram } from "react-icons/fa6";
 import { useLocale, useTranslations } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { useRouter } from "next/navigation";
 
 function Footer() {
   const t = useTranslations("web.main.footer");
-
+  const route = useRouter();
   const locale = useLocale();
 
   const handleDownload = () => {
+    route.push("payment");
     ToastNot("comming soon");
   };
   return (
@@ -36,16 +38,16 @@ function Footer() {
             <p>{t("walking")}</p>
             <div className={styles.actions}>
               <div className={styles.topActions}>
-                <button onClick={handleDownload} className={styles.button}>
+                {/* <button onClick={handleDownload} className={styles.button}>
                   {t("joinUs")}
-                </button>
+                </button> */}
                 <button onClick={handleDownload} className={styles.button}>
                   {t("donate")}
                 </button>
               </div>
-              <button onClick={handleDownload} className={styles.button}>
+              {/* <button onClick={handleDownload} className={styles.button}>
                 {t("invite")}
-              </button>
+              </button> */}
             </div>
           </div>
 
