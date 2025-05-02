@@ -86,7 +86,8 @@ const t = useTranslations("web.subHeader.diamond")
         }
       )
       .then((res) => {
-        // Filter out topics with 0 points and sort by points in descending order
+        console.log(res.data);
+        
         const filteredScores = res.data;
 
         setSubTopicScores(filteredScores);
@@ -236,14 +237,15 @@ const t = useTranslations("web.subHeader.diamond")
               </div>
               <div style={{ zIndex: 1000 }} className={styles.subLabels}>
                 {subTopicScores.map((subTopic, index) => (
-                  <span
+                  <p
                     key={subTopic.topicId}
                     className={` ${styles.subLabel} ${
                       styles[`top${index + 1}${index + 1}`]
                     }`}
                   >
+                    <span>{subTopic.totalPoints} Points</span>
                     {subTopic.topicName}
-                  </span>
+                  </p>
                 ))}
               </div>
             </div>
