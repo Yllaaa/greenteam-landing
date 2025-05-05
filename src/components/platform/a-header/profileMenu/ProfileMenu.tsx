@@ -6,16 +6,33 @@ import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
 import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
+import language from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg"; // Add a language icon
 import { useLocale, useTranslations } from "next-intl";
 import Props from "./types/profileMenu.data";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 
 function ProfileMenu(props: Props) {
   const { isDropdownOpen, setIsDropdownOpen, handleLogout } = props;
   const router = useRouter();
+  const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations("web.header");
+
+  // Function to handle language switching
+  const switchLanguage = () => {
+    // Get the new locale (toggle between en and es)
+    const newLocale = locale === "en" ? "es" : "en";
+    
+    // Extract the path without the locale
+    const pathWithoutLocale = pathname.replace(`/${locale}`, '');
+    
+    // Navigate to the same page but with new locale
+    router.push(`/${newLocale}${pathWithoutLocale}`);
+    
+    // Close the dropdown
+    setIsDropdownOpen(false);
+  };
 
   const dropdownList = [
     {
@@ -32,7 +49,7 @@ function ProfileMenu(props: Props) {
     },
     {
       id: 3,
-      name: t("community"),
+      name: t("challenges"),
       icon: challenges,
       link: `/${locale}/challenges`,
     },
@@ -55,6 +72,7 @@ function ProfileMenu(props: Props) {
       link: `/${locale}/favorite`,
     },
   ];
+
   return (
     <>
       <div
@@ -63,6 +81,19 @@ function ProfileMenu(props: Props) {
         }`}
       >
         <ul>
+          {/* Language toggle button */}
+          <li 
+            onClick={switchLanguage} 
+            className={styles.languageToggle}
+          >
+            <Image src={language} alt="language" />
+            <span>
+              {locale === "en" 
+                ? "Switch to Spanish" 
+                : "Cambiar a Inglés"}
+            </span>
+          </li>
+
           {dropdownList.map((item) => (
             <li
               onClick={() => {

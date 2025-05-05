@@ -10,13 +10,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
 
 function Groups() {
-  // const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
-  // useEffect(()=>{
-
-  //   getGroupItems().then((res) => {
-  //     setGroupsArray(res);
-  //   });
-  // },[])
+ 
   const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
 
   // pagination
@@ -186,7 +180,6 @@ function Groups() {
 
     return null;
   };
-  console.log(groupsArray);
 
   return (
     <>

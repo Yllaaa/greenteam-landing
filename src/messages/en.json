@@ -194,8 +194,15 @@
     },
     "challenges": {
       "all": {
-        "green":"Green team challenges",
+        "green": "Green team challenges",
         "myChallenges": "My Challenges"
+      }
+    },
+    "personal": {
+      "records": {
+        "posts": "Posts",
+        "comments": "Comments",
+        "reacttions": "Reactions"
       }
     },
     "event": {
@@ -205,7 +212,8 @@
         "social": "Social",
         "volunteering": "Volunteering & Work",
         "talks": "Talks & Workshops",
-        "addEvent": "Add Event"
+        "addEvent": "Add Event",
+        "challenges": "Challenges"
       },
       "card": {
         "join": "Join Event",

@@ -1,42 +1,42 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
-"use client";
-import React, { useEffect, useState } from "react";
-import styles from "./categories.module.css";
-import Image from "next/image";
-import diamond from "@/../public/ZPLATFORM/categories/GroupD.png";
-import community from "@/../public/ZPLATFORM/categories/community.svg";
-import art from "@/../public/ZPLATFORM/categories/art.svg";
-import eco from "@/../public/ZPLATFORM/categories/eco.svg";
-import food from "@/../public/ZPLATFORM/categories/food.svg";
-import know from "@/../public/ZPLATFORM/categories/know.svg";
-import physical from "@/../public/ZPLATFORM/categories/physical.svg";
-import axios from "axios";
-import { getToken } from "@/Utils/userToken/LocalToken";
-import { useTranslations } from "next-intl";
+'use client'
+import React, { useEffect, useState } from 'react'
+import styles from './categories.module.css'
+import Image from 'next/image'
+import diamond from '@/../public/ZPLATFORM/categories/GroupD.png'
+import community from '@/../public/ZPLATFORM/categories/community.svg'
+import art from '@/../public/ZPLATFORM/categories/art.svg'
+import eco from '@/../public/ZPLATFORM/categories/eco.svg'
+import food from '@/../public/ZPLATFORM/categories/food.svg'
+import know from '@/../public/ZPLATFORM/categories/know.svg'
+import physical from '@/../public/ZPLATFORM/categories/physical.svg'
+import axios from 'axios'
+import { getToken } from '@/Utils/userToken/LocalToken'
+import { useTranslations } from 'next-intl'
 
 interface TopicScore {
-  topicId: number;
-  topicName: string;
-  totalPoints: string;
+  topicId: number
+  topicName: string
+  totalPoints: string
 }
 
 function Categories() {
-  const token = getToken();
-  const accessToken = token ? token.accessToken : null;
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [topicScores, setTopicScores] = useState<TopicScore[]>([]);
-  const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([]);
-const t = useTranslations("web.subHeader.diamond")
+  const token = getToken()
+  const accessToken = token ? token.accessToken : null
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [topicScores, setTopicScores] = useState<TopicScore[]>([])
+  const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([])
+  const t = useTranslations('web.subHeader.diamond')
   // Mapping between component categories and backend topic names
   const categoryMapping = {
-    know: { name: "Knowledge And Values" },
-    food: { name: "Food And Health" },
-    physical: { name: "Physical And Mental Exercise" },
-    community: { name: "Community And Nature" },
-    art: { name: "Art" },
-    eco: { name: "Ecotechnologies" },
-  };
+    know: { name: 'Knowledge And Values' },
+    food: { name: 'Food And Health' },
+    physical: { name: 'Physical And Mental Exercise' },
+    community: { name: 'Community And Nature' },
+    art: { name: 'Art' },
+    eco: { name: 'Ecotechnologies' },
+  }
 
   useEffect(() => {
     axios
@@ -49,31 +49,30 @@ const t = useTranslations("web.subHeader.diamond")
         }
       )
       .then((res) => {
-        console.log(res.data);
-        setTopicScores(res.data);
+        setTopicScores(res.data)
       })
       .catch((error) => {
-        console.error("Error fetching topic scores:", error);
-      });
-  }, []);
+        console.error('Error fetching topic scores:', error)
+      })
+  }, [])
 
   const [selectedCategory, setSelectedCategory] = useState<
     | keyof typeof categoryMapping
-    | "community"
-    | "food"
-    | "eco"
-    | "know"
-    | "art"
-    | "physical"
-  >("community");
+    | 'community'
+    | 'food'
+    | 'eco'
+    | 'know'
+    | 'art'
+    | 'physical'
+  >('community')
 
-  const modalRef = React.useRef<HTMLDivElement>(null);
+  const modalRef = React.useRef<HTMLDivElement>(null)
 
   const handleCategoryClick = (category: keyof typeof categoryMapping) => {
-    const selectedTopic = categoryMapping[category].name;
+    const selectedTopic = categoryMapping[category].name
     const topicId = topicScores.find(
       (topic) => topic.topicName === selectedTopic
-    )?.topicId;
+    )?.topicId
 
     // Fetch sub-topics for the selected category
     axios
@@ -86,18 +85,16 @@ const t = useTranslations("web.subHeader.diamond")
         }
       )
       .then((res) => {
-        console.log(res.data);
-        
-        const filteredScores = res.data;
+        const filteredScores = res.data
 
-        setSubTopicScores(filteredScores);
-        setSelectedCategory(category);
-        setIsModalOpen(true);
+        setSubTopicScores(filteredScores)
+        setSelectedCategory(category)
+        setIsModalOpen(true)
       })
       .catch((error) => {
-        console.error("Error fetching sub-topic scores:", error);
-      });
-  };
+        console.error('Error fetching sub-topic scores:', error)
+      })
+  }
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -105,39 +102,39 @@ const t = useTranslations("web.subHeader.diamond")
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
       ) {
-        setIsModalOpen(false);
+        setIsModalOpen(false)
       }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
+    }
+    document.addEventListener('mousedown', handleClickOutside)
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [modalRef]);
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [modalRef])
 
   useEffect(() => {
-    const htmlElelemtTag = document.documentElement;
+    const htmlElelemtTag = document.documentElement
     if (isModalOpen) {
-      htmlElelemtTag.style.overflow = "hidden";
+      htmlElelemtTag.style.overflow = 'hidden'
     } else {
-      htmlElelemtTag.style.overflow = "unset";
+      htmlElelemtTag.style.overflow = 'unset'
     }
-  }, [isModalOpen]);
+  }, [isModalOpen])
 
   const closeModal = () => {
-    setIsModalOpen(false);
-    setSelectedCategory("community");
-  };
+    setIsModalOpen(false)
+    setSelectedCategory('community')
+  }
 
-  const HEX_RADIUS = 43;
+  const HEX_RADIUS = 43
 
   const getPoint = (value: number, angle: number) => {
-    const radius = (value / 100) * HEX_RADIUS; // Scale value to adjusted hex radius
-    const radian = (angle - 90) * (Math.PI / 180); // Convert angle to radians
-    const x = 50 + radius * Math.cos(radian); // Center X at 50
-    const y = 50 + radius * Math.sin(radian); // Center Y at 50
-    return `${x},${y}`;
-  };
+    const radius = (value / 100) * HEX_RADIUS // Scale value to adjusted hex radius
+    const radian = (angle - 90) * (Math.PI / 180) // Convert angle to radians
+    const x = 50 + radius * Math.cos(radian) // Center X at 50
+    const y = 50 + radius * Math.sin(radian) // Center Y at 50
+    return `${x},${y}`
+  }
 
   // Get points based on actual topic scores
   const getScaledPoints = (scores?: TopicScore[]) => {
@@ -150,22 +147,22 @@ const t = useTranslations("web.subHeader.diamond")
         getPoint(Math.floor(0), 180),
         getPoint(Math.floor(0), 240),
         getPoint(Math.floor(0), 300),
-      ].join(" ");
+      ].join(' ')
     }
 
     // Map points to create hexagon
     const points = scores.map((score, index) => {
-      const value = Math.min(parseInt(score.totalPoints), 100);
-      return getPoint(value, index * 60);
-    });
+      const value = Math.min(parseInt(score.totalPoints), 100)
+      return getPoint(value, index * 60)
+    })
 
     // If fewer than 6 points, pad with zeros
     while (points.length < 6) {
-      points.push(getPoint(0, points.length * 60));
+      points.push(getPoint(0, points.length * 60))
     }
 
-    return points.join(" ");
-  };
+    return points.join(' ')
+  }
 
   return (
     <>
@@ -190,9 +187,9 @@ const t = useTranslations("web.subHeader.diamond")
               know: know,
               art: art,
               physical: physical,
-            };
+            }
 
-            const iconSrc = categoryIcons[key as keyof typeof categoryIcons];
+            const iconSrc = categoryIcons[key as keyof typeof categoryIcons]
 
             return (
               <span
@@ -206,11 +203,11 @@ const t = useTranslations("web.subHeader.diamond")
               >
                 <Image src={iconSrc} alt={key} />
               </span>
-            );
+            )
           })}
         </div>
         <div className={styles.text}>
-          <p>{t("sustainability")}</p>
+          <p>{t('sustainability')}</p>
         </div>
       </div>
       {/* Modal */}
@@ -253,7 +250,7 @@ const t = useTranslations("web.subHeader.diamond")
         </div>
       )}
     </>
-  );
+  )
 }
 
-export default Categories;
+export default Categories

@@ -6,7 +6,9 @@ import Image from "next/image";
 import noPic from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import { useTranslations } from "next-intl";
 function Recods() {
+  const t = useTranslations("web.personal.records")
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const userDetails = useAppSelector((state) => state.login.user);
@@ -53,15 +55,15 @@ function Recods() {
         <div className={styles.recordDetails}>
           <div className={styles.record}>
             <label>{userReactions?.postsCount}</label>
-            <p>Posts</p>
+            <p>{t("posts")}</p>
           </div>
           <div className={styles.record}>
             <label>{userReactions?.reactionsCount}</label>
-            <p>Reactions</p>
+            <p>{t("reactions")}</p>
           </div>
           <div className={styles.record}>
             <label>{userReactions?.commentsCount}</label>
-            <p>Comments</p>
+            <p>{t("comments")}</p>
           </div>
         </div>
       </div>

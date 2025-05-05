@@ -18,7 +18,7 @@
 .dropdownOpened {
   opacity: 1;
   transform: translateY(0);
-  max-height: 400px;
+  max-height: 450px; /* Increased to accommodate the new language button */
   transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
 }
 
@@ -50,6 +50,7 @@
   transition: background-color 0.2s ease;
   border-bottom: 1px solid rgba(58, 68, 76, 0.5);
 }
+
 .dropdown ul li img {
   width: 20px;
   height: 20px;
@@ -83,6 +84,19 @@
   font-size: 14px;
   font-weight: 500;
   color: #f5f5f5;
+}
+
+/* Language toggle specific styles */
+.languageToggle {
+  background-color: rgba(0, 102, 51, 0.2); /* Subtle green background */
+}
+
+.languageToggle span {
+  color: #74b243 !important; /* Green text color */
+}
+
+.languageToggle:hover {
+  background-color: rgba(0, 102, 51, 0.3) !important; /* Darker green on hover */
 }
 
 .logout {

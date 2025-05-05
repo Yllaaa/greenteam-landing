@@ -4,6 +4,7 @@ import styles from "./userDetails.module.scss";
 import Recods from "./Recods";
 import Breif from "./Breif";
 function UserDetails() {
+  
   return (
     <>
       <div className={styles.container}>

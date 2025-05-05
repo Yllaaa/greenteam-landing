@@ -42,7 +42,6 @@ function AllProfileBody(props: { username: string }) {
   useEffect(() => {
     getProfileData(username)
       .then((data) => {
-        console.log(data);
 
         setUser(data);
       })
