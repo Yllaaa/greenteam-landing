@@ -29,9 +29,7 @@ function SignUpForm() {
   const t = useTranslations("auth.signUp");
   const router = useRouter();
   const locale = useLocale();
-  // register form react-forms
-  // reCAPTCHA state
-  // const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
 
   // yup
   const passwordSchema = yup.object().shape({
@@ -41,10 +39,6 @@ function SignUpForm() {
       .string()
       .required(t("passwordRequired"))
       .min(8, t("passwordMin")),
-    // .matches(/[A-Z]/, t("passwordMatchUpper"))
-    // .matches(/[a-z]/, t("passwordMatchLower"))
-    // .matches(/[0-9]/, t("passwordMatchNumber"))
-    // .matches(/[!@#$%^&*(),.?":{}|<>]/, t("passwordMatchSpecial")),
 
     username: yup
       .string()

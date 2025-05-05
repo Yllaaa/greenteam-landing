@@ -1,3 +1,8 @@
-.single{
-    padding: 40px;
+.single {
+  padding: 40px;
+}
+@media screen and (max-width: 768px) {
+  .single {
+    padding: 10px;
+  }
 }

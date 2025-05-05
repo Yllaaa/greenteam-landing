@@ -192,11 +192,17 @@
         "myChallenge": "My Challenge"
       }
     },
+    "challenges": {
+      "all": {
+        "green":"Green team challenges",
+        "myChallenges": "My Challenges"
+      }
+    },
     "event": {
-      "header":{
+      "header": {
         "event": "Events",
         "all": "All",
-        "social":"Social",
+        "social": "Social",
         "volunteering": "Volunteering & Work",
         "talks": "Talks & Workshops",
         "addEvent": "Add Event"

@@ -20,6 +20,7 @@ export type PageItem = {
   category: string;
   followersCount: number;
   topic: Topic;
+  isOwner: boolean;
 };
 
 export async function getPageItems(): Promise<PageItem[]> {

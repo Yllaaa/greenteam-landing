@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import "keen-slider/keen-slider.min.css";
 // import axios from "axios";
 import styles from "./ProductCard.module.css";
@@ -15,7 +15,10 @@ import { useKeenSlider } from "keen-slider/react";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
-// import { TiStarFullOutline } from "react-icons/ti";
+import { FaTrash } from "react-icons/fa6";
+import { MdOutlineReportProblem } from "react-icons/md";
+import { PiDotsThreeCircleLight } from "react-icons/pi";
+
 interface ProductCardProps {
   limit?: number;
   products: Products[];
@@ -29,6 +32,11 @@ interface ProductCardProps {
   setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
   setContacts: React.Dispatch<React.SetStateAction<any>>;
   // setSlug: React.Dispatch<React.SetStateAction<string>>;
+  deleteModal: boolean;
+  setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
+  reportModal: boolean;
+  setReportModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setPostId: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -38,12 +46,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     page,
     setPage,
     products,
-    // setSendMessage,
     setSellerId,
-    // setSellerType,
     setShowContacts,
     setContacts,
-    // setSlug,
+    deleteModal,
+    setDeleteModal,
+    reportModal,
+    setReportModal,
+    setPostId,
   } = props;
   const router = useRouter();
 
@@ -61,14 +71,58 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       setLoaded(true);
     },
   });
+  // Track which post's options menu is open
+  const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
+    null
+  );
+  const toggleOptionsMenu = useCallback((postId: string) => {
+    setActiveOptionsPost((prev) => (prev === postId ? null : postId));
+  }, []);
+
+  // Handle delete or report action
+  const handleActionDelete = useCallback(
+    (postId: string) => {
+      if (setDeleteModal && setPostId) {
+        setPostId(postId);
+        setDeleteModal(!deleteModal);
+      }
+      setActiveOptionsPost(null); // Close the menu after action
+    },
+    [deleteModal, setDeleteModal, setPostId]
+  );
+  // Handle delete or report action
+  const handleActionReport = useCallback(
+    (postId: string) => {
+      if (setReportModal && setPostId) {
+        setPostId(postId);
+        setReportModal(!reportModal);
+      }
+      setActiveOptionsPost(null); // Close the menu after action
+    },
+    [reportModal, setPostId, setReportModal]
+  );
+  const optionsMenuRef = useRef<HTMLDivElement>(null);
+  // Handle clicks outside the options menu to close it
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        optionsMenuRef.current &&
+        !optionsMenuRef.current.contains(event.target as Node)
+      ) {
+        setActiveOptionsPost(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
   const handleNavigate = () => {
     router.push(`feeds/products/${product?.id}`);
   };
   const handleJoinNow = async () => {
     router.push(`chat?chatId=${product?.sellerId}`);
-    // setSendMessage(true);
-    // setSellerId(product?.sellerId);
-    // setSellerType(product?.sellerType);
   };
   const handleContacts = async () => {
     setContacts(product?.sellerType);
@@ -211,6 +265,33 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         className={styles.favorite}
       >
         <FaStar fill="#FFD700" />
+      </div>
+      <div className={styles.options}>
+        <div
+          onClick={() => toggleOptionsMenu(product.id)}
+          className={styles.optionsIcon}
+        >
+          <PiDotsThreeCircleLight fill="#006633" />
+        </div>
+
+        {activeOptionsPost === product.id && (
+          <div ref={optionsMenuRef} className={styles.optionsMenu}>
+            {product.isAuthor && (
+              <div
+                onClick={() => handleActionDelete(product.id)}
+                className={styles.optionItem}
+              >
+                <FaTrash /> <span>Delete Post</span>
+              </div>
+            )}
+            <div
+              onClick={() => handleActionReport(product.id)}
+              className={styles.optionItem}
+            >
+              <MdOutlineReportProblem /> <span>Report Post</span>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

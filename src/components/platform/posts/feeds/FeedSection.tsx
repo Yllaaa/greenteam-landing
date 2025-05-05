@@ -10,7 +10,6 @@ import FeedsHeader from "./FeedHeader/FeedsHeader";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import DeleteModal from "./deleteModal/DeleteModal";
 import Report from "./reportModal/Report";
-// import { getAccessToken } from "@/Utils/backendEndpoints/backend-requests";
 
 // topics and subtopics
 const topics = Topics;

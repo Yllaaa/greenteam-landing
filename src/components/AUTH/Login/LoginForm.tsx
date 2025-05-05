@@ -72,7 +72,6 @@ function LoginForm() {
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
-    console.log(data);
 
     try {
       axios

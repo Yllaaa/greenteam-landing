@@ -6,7 +6,7 @@ import EventCards from "../card/events/EventCards";
 function GroupSides() {
   return (
     <>
-      <div style={{ display: "flex", flexDirection: "column", gap: "24px" }}>
+      <div style={{ display: "flex", flexDirection: "column", gap: "24px" }} >
         <Notes />
         <AboutGroup />
         <EventCards />

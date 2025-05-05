@@ -162,7 +162,7 @@ function AddNew() {
                 {...register("mainTopicId", { required: true })}
                 onChange={handleTopicChange}
               >
-                <option value="">- Select a Topic -</option>
+                <option selected value="">- Select a Topic -</option>
                 {topics.map((topic) => (
                   <option key={topic.id} value={topic.id}>
                     {topic.name}

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
   Suspense,
@@ -18,6 +19,7 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import { useAppSelector } from "@/store/hooks";
+import ContactModal from "./modal/ContactModal";
 
 function ProductSection() {
   const cityId = useAppSelector((state) => state.currentCommunity.selectedCity);
@@ -35,7 +37,8 @@ function ProductSection() {
   const [isMounted, setIsMounted] = useState(false);
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState<Products[]>([]);
-
+  const [showContacts, setShowContacts] = useState(false);
+  const [contacts, setContacts] = useState<any>();
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -194,6 +197,8 @@ function ProductSection() {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
+                  setShowContacts={setShowContacts}
+                  setContacts={setContacts}
                 />
               </div>
             ))}
@@ -248,6 +253,14 @@ function ProductSection() {
           sellerId={sellerId}
           sellerType={sellerType}
           setMessage={setSendMessage}
+        />
+      )}
+      {showContacts && (
+        <ContactModal
+          contacts={contacts}
+          setShowContacts={setShowContacts}
+          sellerId={sellerId}
+          accessToken={accessToken}
         />
       )}
     </>

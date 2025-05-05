@@ -8,8 +8,10 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
-import LongItem from "./LongItem";
+// import LongItem from "./LongItem";
 import AddNewPage from "./AddPage/AddNewPage";
+import DeleteModal from "./deleteModal/DeleteModal";
+import Report from "./reportModal/Report";
 
 export default function Pages() {
   const city = useAppSelector(
@@ -28,7 +30,9 @@ export default function Pages() {
   const [isPaginationLoading, setIsPaginationLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [endOfResults, setEndOfResults] = useState(false);
-
+const [deleteModal, setDeleteModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
+const [postId, setPostId] = useState<string>("");
   const bodyRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -201,19 +205,24 @@ export default function Pages() {
           <div className={styles.pagesR}>
             {pagesArray.map((pageI, index) => (
               <Item
-                key={pageI.id || index} // Use ID if available for more stable keys
+                key={pageI.id || index} 
                 pageI={pageI}
                 page={page}
                 setPage={setPage}
                 index={index}
                 length={pagesArray.length}
+                setPostId={setPostId}
+                deleteModal={deleteModal}
+                setDeleteModal={setDeleteModal}
+                reportModal={reportModal}
+                setReportModal={setReportModal}
               />
             ))}
           </div>
-          <div className={styles.pagesL}>
+          {/* <div className={styles.pagesL}>
             {pagesArray.map((pageI, index) => (
               <LongItem
-                key={pageI.id || index} // Use ID if available for more stable keys
+                key={pageI.id || index} 
                 pageI={pageI}
                 page={page}
                 setPage={setPage}
@@ -221,7 +230,7 @@ export default function Pages() {
                 length={pagesArray.length}
               />
             ))}
-          </div>
+          </div> */}
 
           {/* Scroll navigation buttons */}
           <div className={styles.scrollControls}>
@@ -271,6 +280,12 @@ export default function Pages() {
         </div>
       </Header>
       {addNew && <AddNewPage setAddNew={setAddNew} />}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
+      )}
+      {reportModal && (
+        <Report report={reportModal} user="" reportedId={postId} setReport={setReportModal} reportedType="page" />
+      )}
     </>
   );
 }

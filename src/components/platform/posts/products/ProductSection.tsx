@@ -19,6 +19,8 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import ContactModal from "./modal/ContactModal";
+import DeleteModal from "./deleteModal/DeleteModal";
+import Report from "./reportModal/Report";
 
 function ProductSection() {
   const [section, setSection] = useState<ProductsCategory>(0);
@@ -37,6 +39,11 @@ function ProductSection() {
   const [endOfResults, setEndOfResults] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
   const [contacts, setContacts] = useState<any>();
+
+  const [deleteModal, setDeleteModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
+  const [postId, setPostId] = useState<string>("");
+
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -207,7 +214,11 @@ function ProductSection() {
                   setSellerType={setSellerType}
                   setContacts={setContacts}
                   setShowContacts={setShowContacts}
-                  // setSlug={setSlug}
+                  deleteModal={deleteModal}
+                  setDeleteModal={setDeleteModal}
+                  reportModal={reportModal}
+                  setReportModal={setReportModal}
+                  setPostId={setPostId}
                 />
               </div>
             ))}
@@ -289,7 +300,24 @@ function ProductSection() {
         />
       )}
       {showContacts && (
-        <ContactModal contacts={contacts} setShowContacts={setShowContacts} sellerId={sellerId} accessToken={accessToken} />
+        <ContactModal
+          contacts={contacts}
+          setShowContacts={setShowContacts}
+          sellerId={sellerId}
+          accessToken={accessToken}
+        />
+      )}
+      {deleteModal && (
+        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
+      )}
+      {reportModal && (
+        <Report
+          report={reportModal}
+          user=""
+          reportedId={postId}
+          setReport={setReportModal}
+          reportedType="product"
+        />
       )}
     </>
   );

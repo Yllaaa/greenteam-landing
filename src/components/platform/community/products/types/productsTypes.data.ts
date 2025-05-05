@@ -32,4 +32,5 @@ export interface Products {
   countryId: number;
   cityId: number;
   topic: Topic;
+  isAuthor: boolean;
 }

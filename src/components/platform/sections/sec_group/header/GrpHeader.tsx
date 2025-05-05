@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import React, { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
 import styles from "./header.module.scss";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
@@ -15,11 +15,37 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { setCurrentGroup } from "@/store/features/groupState/groupState";
 import { setGroupEdit } from "@/store/features/groupState/editGroupSettings";
+import { MdOutlineReportProblem } from "react-icons/md";
+import { FaTrash } from "react-icons/fa6";
+import { BsShieldSlash } from "react-icons/bs";
+import { PiDotsThreeCircleLight } from "react-icons/pi";
+import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal";
+import ReportModal from "@/components/platform/modals/reportModal/ReportModal";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import { useRouter } from "next/navigation";
 
 function Grpheader(props: { groupId: string }) {
   const { groupId } = props;
   const dispatch = useAppDispatch();
+  const router = useRouter();
   const [data, setData] = React.useState<GroupItem>({} as GroupItem);
+  
+  // Options menu state
+  const [showOptions, setShowOptions] = useState(false);
+  
+  // Confirmation modal states
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
+  
+  // Report modal state
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  
+  // Reference for dropdown menu (to handle clicks outside)
+  const optionsMenuRef = useRef<HTMLDivElement>(null);
+  
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
 
   // Function to fetch group data
   const fetchGroupData = useCallback(async () => {
@@ -36,6 +62,23 @@ function Grpheader(props: { groupId: string }) {
   useEffect(() => {
     fetchGroupData();
   }, [fetchGroupData]);
+  
+  // Close the options menu when clicking outside
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        optionsMenuRef.current &&
+        !optionsMenuRef.current.contains(event.target as Node)
+      ) {
+        setShowOptions(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const handleJoinGroup = async () => {
     try {
@@ -65,6 +108,62 @@ function Grpheader(props: { groupId: string }) {
   const activeEdit = () => {
     dispatch(setGroupEdit(!editState));
   };
+  
+  // Toggle options menu
+  const toggleOptionsMenu = () => {
+    setShowOptions(prev => !prev);
+  };
+  
+  // Handle delete action
+  const handleDelete = useCallback(async () => {
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/groups/${groupId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      if (response) {
+        ToastNot("Group deleted successfully");
+        // Redirect to groups list after deletion
+        router.push('/groups');
+      }
+    } catch (error) {
+      console.error("Failed to delete group:", error);
+      ToastNot("Error occurred while deleting group");
+    }
+  }, [groupId, accessToken, router]);
+  
+  // Handle block action
+  const handleBlock = useCallback(async () => {
+    try {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/groups/${groupId}/block`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      if (response) {
+        ToastNot("Group blocked successfully");
+        // Redirect to groups list after blocking
+        router.push('/groups');
+      }
+    } catch (error) {
+      console.error("Failed to block group:", error);
+      ToastNot("Error occurred while blocking group");
+    }
+  }, [groupId, accessToken, router]);
 
   return (
     <>
@@ -76,6 +175,50 @@ function Grpheader(props: { groupId: string }) {
           width={1000}
           height={1000}
         />
+        
+        {/* Group options button */}
+        <div className={styles.groupOptions}>
+          <div
+            onClick={toggleOptionsMenu}
+            className={styles.optionsIcon}
+          >
+            <PiDotsThreeCircleLight fill="#006633" />
+          </div>
+          
+          {showOptions && (
+            <div ref={optionsMenuRef} className={styles.optionsMenu}>
+              {data.isAdmin && (
+                <div
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    setShowOptions(false);
+                  }}
+                  className={styles.optionItem}
+                >
+                  <FaTrash /> <span>Delete Group</span>
+                </div>
+              )}
+              <div
+                onClick={() => {
+                  setIsReportModalOpen(true);
+                  setShowOptions(false);
+                }}
+                className={styles.optionItem}
+              >
+                <MdOutlineReportProblem /> <span>Report Group</span>
+              </div>
+              <div
+                onClick={() => {
+                  setIsBlockModalOpen(true);
+                  setShowOptions(false);
+                }}
+                className={styles.optionItem}
+              >
+                <BsShieldSlash /> <span>Block Group</span>
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       <div className={styles.header}>
         <div className={styles.data}>
@@ -119,6 +262,45 @@ function Grpheader(props: { groupId: string }) {
         </div>
       </div>
       {!editState && <AddNew />}
+      
+      {/* Delete Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={() => router.push('/groups')}
+        title="Are you sure you want to delete this group?"
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+        customAction={handleDelete}
+        successMessage="Group deleted successfully"
+        errorMessage="Error occurred while deleting group"
+      />
+      
+      {/* Block Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isBlockModalOpen}
+        onClose={() => setIsBlockModalOpen(false)}
+        onConfirm={() => router.push('/groups')}
+        title="Are you sure you want to block this group?"
+        confirmButtonText="Block"
+        cancelButtonText="Cancel"
+        customAction={handleBlock}
+        successMessage="Group blocked successfully"
+        errorMessage="Error occurred while blocking group"
+      />
+      
+      {/* Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        reportedId={groupId}
+        reportedType="group"
+        title="Talk about the issue you are facing with this group"
+        successCallback={() => {
+          // Optional success callback
+          ToastNot("Thank you for your report");
+        }}
+      />
     </>
   );
 }

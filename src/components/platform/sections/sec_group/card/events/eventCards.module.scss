@@ -1,9 +1,21 @@
+$max-width: 1024px;
 .sideEvents {
+  width: 424px;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  gap: 10px;
+  overflow-x: scroll !important;
+  background: #000;
+  scrollbar-width: thin;
+  scrollbar-color: #97b00f #000;
+  @media screen and (max-width: $max-width) {
+    width: 100vw;
+  }
   .card {
     width: 424px;
+    min-width: 424px;
+    max-width: 424px;
     height: 347px;
     display: flex;
     flex-direction: column;

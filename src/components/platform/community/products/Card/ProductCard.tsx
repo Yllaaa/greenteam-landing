@@ -1,17 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState } from "react";
+import "keen-slider/keen-slider.min.css";
 // import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
 import image from "@/../public/logo/foot.png";
 import { Products } from "../types/productsTypes.data";
 import { useInView } from "react-intersection-observer";
-import { FaMessage } from "react-icons/fa6";
+import { FaMessage, FaStar } from "react-icons/fa6";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
 import { useKeenSlider } from "keen-slider/react";
-// import { TiStarFullOutline } from "react-icons/ti";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { getToken } from "@/Utils/userToken/LocalToken";
+import axios from "axios";
+
 interface ProductCardProps {
   limit?: number;
   products: Products[];
@@ -22,6 +26,9 @@ interface ProductCardProps {
   setSendMessage: React.Dispatch<React.SetStateAction<boolean>>;
   setSellerId: React.Dispatch<React.SetStateAction<string>>;
   setSellerType: React.Dispatch<React.SetStateAction<string>>;
+  setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
+  setContacts: React.Dispatch<React.SetStateAction<any>>;
+  // setSlug: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -31,12 +38,11 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     page,
     setPage,
     products,
-    setSendMessage,
     setSellerId,
-    setSellerType,
+    setShowContacts,
+    setContacts,
   } = props;
   const router = useRouter();
-  const locale = useLocale();
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -54,12 +60,15 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   });
 
   const handleNavigate = () => {
-    router.push(`/${locale}/feeds/products/${product?.id}`);
+    router.push(`feeds/products/${product?.id}`);
   };
   const handleJoinNow = async () => {
-    setSendMessage(true);
+    router.push(`chat?chatId=${product?.sellerId}`);
+  };
+  const handleContacts = async () => {
+    setContacts(product?.sellerType);
     setSellerId(product?.sellerId);
-    setSellerType(product?.sellerType);
+    setShowContacts(true);
   };
 
   const { ref, inView } = useInView({
@@ -75,6 +84,40 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     }
   }, [inView]);
 
+  const localeS = getToken();
+  const accessToken = localeS ? localeS.accessToken : null;
+  const handleToggleFavorite = (id: string) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products/${id}/toggle-favorite`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          ToastNot(
+            `${
+              response.data.isFavorited
+                ? "Added to favorites!"
+                : "Removed from favorites!"
+            }`
+          );
+        }
+      })
+      .catch((error) => {
+        const err = error as { status: number };
+        if (err.status === 409) {
+          ToastNot("Already in favorites!");
+        }
+        console.error("Error toggling favorite:", error);
+      });
+  };
+
   return (
     <div
       ref={index === products.length - 1 ? ref : null}
@@ -89,7 +132,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             >
               <div className={styles.image}>
                 <Image
-                  src={product.images?.length > 0 ? imageUrl.mediaUrl : image}
+                  src={product.images.length > 0 ? imageUrl.mediaUrl : image}
                   alt={`Post image ${index + 1}`}
                   loading="lazy"
                   width={1000}
@@ -126,11 +169,16 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
           </div>
         )}
       </div>
-      <div onClick={handleNavigate} className={styles.content}>
+
+      <div
+        onClick={handleNavigate}
+        style={{ cursor: "pointer" }}
+        className={styles.content}
+      >
         <h2 className={styles.category}>{product?.marketType}</h2>
         <p className={styles.details}>
-          {product?.name.length > 90
-            ? product?.name.slice(0, 90) + "..."
+          {product?.name.length > 30
+            ? product?.name.slice(0, 30) + "..."
             : product?.name}
         </p>
 
@@ -143,13 +191,21 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
       <div className={styles.topBtns}>
         {product?.sellerType === "page" && (
-          <button onClick={handleJoinNow} className={styles.contactButton}>
+          <button onClick={handleContacts} className={styles.contactButton}>
             Message Seller
           </button>
         )}
-        <button onClick={handleJoinNow} className={styles.chatButton}>
-          <FaMessage />
-        </button>
+        {product?.sellerType === "user" && (
+          <button onClick={handleJoinNow} className={styles.chatButton}>
+            <FaMessage />
+          </button>
+        )}
+      </div>
+      <div
+        onClick={() => handleToggleFavorite(`${product?.id}`)}
+        className={styles.favorite}
+      >
+        <FaStar fill="#FFD700" />
       </div>
     </div>
   );
