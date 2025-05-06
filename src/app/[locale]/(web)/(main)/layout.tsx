@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import Header from "@/components/platform/a-header/Header";
+import BackButton from "@/components/platform/breadcrumb/BackButton";
 import ReactQueryProvider from "@/components/platform/Payment/Plans/providers/plansProvider";
 
 import Footer from "@/components/platform/zfooter/Footer";
@@ -25,6 +26,7 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "1000" }}>
             <Header />
+            <BackButton  />
           </div>
         </header>
         <ReactQueryProvider>{children}</ReactQueryProvider>

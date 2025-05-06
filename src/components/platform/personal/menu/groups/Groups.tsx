@@ -23,8 +23,8 @@ function Groups() {
   const [endOfResults, setEndOfResults] = useState(false);
 
   const bodyRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  // const [canScrollLeft, setCanScrollLeft] = useState(false);
+  // const [canScrollRight, setCanScrollRight] = useState(false);
 
   // Get token only once
   const localeS = useRef(getToken());
@@ -112,8 +112,8 @@ function Groups() {
     const scrollLeft = container.scrollLeft;
 
     // Update scroll button states
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+    // setCanScrollLeft(scrollLeft > 0);
+    // setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
 
     // Load more when user has scrolled to 80% of the content
     if (
@@ -132,9 +132,9 @@ function Groups() {
       currentRef.addEventListener("scroll", handleScroll);
 
       // Initial scroll state check
-      const scrollWidth = currentRef.scrollWidth;
-      const clientWidth = currentRef.clientWidth;
-      setCanScrollRight(scrollWidth > clientWidth);
+      // const scrollWidth = currentRef.scrollWidth;
+      // const clientWidth = currentRef.clientWidth;
+      // setCanScrollRight(scrollWidth > clientWidth);
 
       return () => {
         currentRef.removeEventListener("scroll", handleScroll);
@@ -143,14 +143,14 @@ function Groups() {
   }, [handleScroll]);
 
   // Manual scroll handlers for arrow buttons
-  const handleManualScroll = (direction: "left" | "right") => {
-    if (!bodyRef.current) return;
+  // const handleManualScroll = (direction: "left" | "right") => {
+  //   if (!bodyRef.current) return;
 
-    bodyRef.current.scrollBy({
-      left: direction === "left" ? -300 : +300,
-      behavior: "smooth",
-    });
-  };
+  //   bodyRef.current.scrollBy({
+  //     left: direction === "left" ? -300 : +300,
+  //     behavior: "smooth",
+  //   });
+  // };
 
   // Render content based on state
   const renderContent = () => {
@@ -198,7 +198,7 @@ function Groups() {
         </div>
       </div>
       {/* Scroll navigation buttons */}
-      <div className={styles.scrollControls}>
+      {/* <div className={styles.scrollControls}>
         <button
           onClick={() => handleManualScroll("left")}
           disabled={!canScrollLeft}
@@ -219,7 +219,7 @@ function Groups() {
         >
           &rarr;
         </button>
-      </div>
+      </div> */}
 
       <div ref={bodyRef} className={styles.content}>
         {renderContent()}

@@ -20,7 +20,8 @@ import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import ContactModal from "./modal/ContactModal";
 
-function ProductSection() {
+function ProductSection(props:{ username: string }) {
+  const { username } = props;
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -61,6 +62,7 @@ function ProductSection() {
           limit: LIMIT,
           accessToken,
           topicId: section,
+          username: username
         });
 
         // Check if we've reached the end of available products
@@ -87,7 +89,7 @@ function ProductSection() {
         setIsPaginationLoading(false);
       }
     },
-    [section, LIMIT, accessToken]
+    [accessToken, section, username]
   );
 
   // Initial load and section change handler

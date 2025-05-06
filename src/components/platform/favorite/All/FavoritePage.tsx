@@ -22,7 +22,7 @@ function FavoritePage() {
         <div className={styles.allPages}>
           <EventSection />
         </div>
-        <div className={styles.allPages}>
+        <div style={{ marginTop: "70px" , marginBottom:"150px"}} className={styles.allPages}>
           <ProductSection />
         </div>
       </div>

@@ -13,6 +13,7 @@ import message from "@/../public/ZPLATFORM/header/message.svg";
 import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
 import { useLocale, useTranslations } from "next-intl";
 import post from "@/../public/ZPLATFORM/header/posts.svg";
+import { useAppSelector } from "@/store/hooks";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -27,6 +28,13 @@ type Props = {
   rerender: boolean;
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   commentModal: boolean;
+  setPostMedia: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]>
+  >;
 };
 
 function SubHeaderRes(props: Props) {
@@ -43,7 +51,9 @@ function SubHeaderRes(props: Props) {
     rerender,
     setPostId,
     commentModal,
+    setPostMedia,
   } = props;
+  const user = useAppSelector((state) => state.login.user?.user.username);
 
   const locale = useLocale();
   const t = useTranslations("web.subHeader.actions");
@@ -62,7 +72,7 @@ function SubHeaderRes(props: Props) {
     {
       icon: post,
       title: `${t("posts")}`,
-      href: "#",
+     href: `/profile/${user}`,
     },
     {
       icon: addNew,
@@ -134,6 +144,7 @@ function SubHeaderRes(props: Props) {
             rerender={rerender}
             setPostId={setPostId}
             commentModal={commentModal}
+            setPostMedia={setPostMedia}
           />
         </Suspense>
       </div>

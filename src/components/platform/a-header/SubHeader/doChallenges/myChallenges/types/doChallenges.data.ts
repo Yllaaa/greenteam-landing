@@ -39,6 +39,7 @@ type DoMainProps = {
   rerender: boolean;
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   commentModal: boolean;
+  setPostMedia: React.Dispatch<React.SetStateAction<any>>;
 };
 
 export type { Creator, Post, Posts, DoMainProps };

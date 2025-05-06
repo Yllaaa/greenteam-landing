@@ -1,5 +1,6 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
 import PostCard from "../postCard/PostCard";
 import styles from "./FeedSection.module.css";
 
@@ -15,6 +16,14 @@ import Report from "./reportModal/Report";
 const topics = Topics;
 
 function FeedSection() {
+  // Get search parameters from URL
+  const searchParams = useSearchParams();
+  const categoryId = searchParams.get('category');
+  const subcategoryId = searchParams.get('subcategory');
+  
+  // References for scrolling to sections
+const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});
+
   // Define state variables
   //modals
   const [doItModal, setDoItModal] = useState(false);
@@ -50,11 +59,52 @@ function FeedSection() {
     6: "all",
   });
 
+  // Initialize refs for each topic
+  useEffect(() => {
+    topics.forEach(topic => {
+      topicRefs.current[topic.id] = React.createRef();
+    });
+  }, []);
+
+  // Handle URL parameters on component mount
+  useEffect(() => {
+    if (categoryId) {
+      // If there's a category ID in the URL, find it in the topics
+      const categoryIdNum = Number(categoryId);
+      const foundTopic = topics.find(topic => topic.id === categoryIdNum);
+      
+      if (foundTopic) {
+        // If subcategory is provided, select it
+        if (subcategoryId) {
+          setSelectedSubtopics(prev => ({
+            ...prev,
+            [categoryIdNum]: subcategoryId
+          }));
+        }
+        
+        // Scroll to the section after a short delay to ensure rendering
+        setTimeout(() => {
+          if (topicRefs.current[categoryIdNum]?.current) {
+            topicRefs.current[categoryIdNum].current?.scrollIntoView({ 
+              behavior: 'smooth',
+              block: 'start' 
+            });
+          }
+        }, 300);
+      }
+    }
+  }, [categoryId, subcategoryId]);
+
   return (
     <>
       <div className={styles.feeds}>
         {topics.map((topic, index) => (
-          <div key={index} className={styles.container}>
+          <div 
+            key={index} 
+            className={styles.container}
+            ref={topicRefs.current[topic.id]}
+            id={`topic-${topic.id}`}
+          >
             {/* Header */}
             <FeedsHeader
               topic={topic}

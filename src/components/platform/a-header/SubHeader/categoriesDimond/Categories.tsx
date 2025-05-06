@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 import React, { useEffect, useState } from 'react'
 import styles from './categories.module.css'
@@ -14,6 +13,8 @@ import physical from '@/../public/ZPLATFORM/categories/physical.svg'
 import axios from 'axios'
 import { getToken } from '@/Utils/userToken/LocalToken'
 import { useTranslations } from 'next-intl'
+import { StaticImageData } from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface TopicScore {
   topicId: number
@@ -21,21 +22,28 @@ interface TopicScore {
   totalPoints: string
 }
 
+interface CategoryInfo {
+  name: string
+  icon: StaticImageData
+}
+
 function Categories() {
+  const router = useRouter()
   const token = getToken()
   const accessToken = token ? token.accessToken : null
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [topicScores, setTopicScores] = useState<TopicScore[]>([])
   const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([])
   const t = useTranslations('web.subHeader.diamond')
-  // Mapping between component categories and backend topic names
-  const categoryMapping = {
-    know: { name: 'Knowledge And Values' },
-    food: { name: 'Food And Health' },
-    physical: { name: 'Physical And Mental Exercise' },
-    community: { name: 'Community And Nature' },
-    art: { name: 'Art' },
-    eco: { name: 'Ecotechnologies' },
+  
+  // Mapping between component categories and backend topic names with icons
+  const categoryMapping: Record<string, CategoryInfo> = {
+    know: { name: 'Knowledge And Values', icon: know },
+    food: { name: 'Food And Health', icon: food },
+    physical: { name: 'Physical And Mental Exercise', icon: physical },
+    community: { name: 'Community And Nature', icon: community },
+    art: { name: 'Art', icon: art },
+    eco: { name: 'Ecotechnologies', icon: eco },
   }
 
   useEffect(() => {
@@ -57,14 +65,9 @@ function Categories() {
   }, [])
 
   const [selectedCategory, setSelectedCategory] = useState<
-    | keyof typeof categoryMapping
-    | 'community'
-    | 'food'
-    | 'eco'
-    | 'know'
-    | 'art'
-    | 'physical'
+    keyof typeof categoryMapping
   >('community')
+  const [selectedCategoryId, setSelectedCategoryId] = useState<number | null>(null)
 
   const modalRef = React.useRef<HTMLDivElement>(null)
 
@@ -74,26 +77,48 @@ function Categories() {
       (topic) => topic.topicName === selectedTopic
     )?.topicId
 
-    // Fetch sub-topics for the selected category
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/score/sub-topics/${topicId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      )
-      .then((res) => {
-        const filteredScores = res.data
+    if (topicId) {
+      setSelectedCategoryId(topicId)
+      
+      // Fetch sub-topics for the selected category
+      axios
+        .get(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/score/sub-topics/${topicId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        )
+        .then((res) => {
+          const filteredScores = res.data
+          setSubTopicScores(filteredScores)
+          setSelectedCategory(category)
+          setIsModalOpen(true)
+        })
+        .catch((error) => {
+          console.error('Error fetching sub-topic scores:', error)
+        })
+    }
+  }
 
-        setSubTopicScores(filteredScores)
-        setSelectedCategory(category)
-        setIsModalOpen(true)
-      })
-      .catch((error) => {
-        console.error('Error fetching sub-topic scores:', error)
-      })
+  const handleSubCategoryClick = (subTopicId: number) => {
+    if (selectedCategoryId) {
+      // Close the modal
+      closeModal()
+      
+      // Navigate to home page with category and subcategory parameters
+      router.push(`?category=${selectedCategoryId}&subcategory=${subTopicId}`);
+      
+      // Optional: If you want to scroll to a specific section on the home page
+      // You can add a setTimeout and use the scrollIntoView method
+      setTimeout(() => {
+        const section = document.getElementById(`section-${subTopicId}`);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 300);
+    }
   }
 
   useEffect(() => {
@@ -180,17 +205,6 @@ function Categories() {
         </div>
         <div style={{ zIndex: 1000 }} className={styles.labels}>
           {Object.entries(categoryMapping).map(([key, value]) => {
-            const categoryIcons = {
-              community: community,
-              food: food,
-              eco: eco,
-              know: know,
-              art: art,
-              physical: physical,
-            }
-
-            const iconSrc = categoryIcons[key as keyof typeof categoryIcons]
-
             return (
               <span
                 key={key}
@@ -201,7 +215,7 @@ function Categories() {
                   styles[`top${Object.keys(categoryMapping).indexOf(key) + 1}`]
                 }`}
               >
-                <Image src={iconSrc} alt={key} />
+                <Image src={value.icon} alt={key} />
               </span>
             )
           })}
@@ -211,44 +225,65 @@ function Categories() {
         </div>
       </div>
       {/* Modal */}
-      {isModalOpen && selectedCategory && (
-        <div className={styles.modal}>
-          <div ref={modalRef} className={styles.modalContent}>
-            <button className={styles.closeButton} onClick={closeModal}>
-              &times;
-            </button>
+{isModalOpen && selectedCategory && (
+  <div className={styles.modal}>
+    <div ref={modalRef} className={styles.modalContent}>
+      <button className={styles.closeButton} onClick={closeModal} aria-label="Close modal">
+        &times;
+      </button>
 
-            <div className={styles.subCategories}>
-              <h2>{categoryMapping[selectedCategory].name.toUpperCase()}</h2>
+      <div className={styles.subCategories}>
+        <div className={styles.categoryHeader}>
+          <Image 
+            src={categoryMapping[selectedCategory].icon} 
+            alt={selectedCategory}
+            width={40}
+            height={40}
+            className={styles.categoryIcon}
+          />
+          <h2>{categoryMapping[selectedCategory].name.toUpperCase()}</h2>
+        </div>
 
-              <div style={{ zIndex: 11 }} className={styles.chart}>
-                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-                  <polygon
-                    points={getScaledPoints(subTopicScores)}
-                    className={styles.filledArea}
-                  />
-                </svg>
-              </div>
-              <div style={{ zIndex: 10 }} className={styles.diamondShapeModal}>
-                <Image src={diamond} alt="diamond" />
-              </div>
-              <div style={{ zIndex: 1000 }} className={styles.subLabels}>
-                {subTopicScores.map((subTopic, index) => (
-                  <p
-                    key={subTopic.topicId}
-                    className={` ${styles.subLabel} ${
-                      styles[`top${index + 1}${index + 1}`]
-                    }`}
-                  >
-                    <span>{subTopic.totalPoints} Points</span>
-                    {subTopic.topicName}
-                  </p>
-                ))}
-              </div>
-            </div>
+        <div style={{ position: 'relative', height: '450px' }}>
+          {/* Charts */}
+          <div style={{ zIndex: 11 }} className={styles.chart}>
+            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+              <polygon
+                points={getScaledPoints(subTopicScores)}
+                className={styles.filledArea}
+              />
+            </svg>
+          </div>
+          
+          {/* Diamond shape */}
+          <div style={{ zIndex: 10 }} className={styles.diamondShapeModal}>
+            <Image src={diamond} alt="diamond" />
+          </div>
+          
+          {/* Sub category cards */}
+          <div style={{ zIndex: 1000 }} className={styles.subLabels}>
+            {subTopicScores.map((subTopic, index) => {
+              // Position class based on index
+              const positionClass = styles[`top${index + 1}${index + 1}`];
+              
+              return (
+                <div
+                  key={subTopic.topicId}
+                  className={`${styles.subLabel} ${positionClass} ${styles.clickableSubLabel}`}
+                  onClick={() => handleSubCategoryClick(subTopic.topicId)}
+                >
+                  <span>{subTopic.totalPoints}</span>
+                  <div className={styles.pointsText}>Points</div>
+                     <div className={styles.subTopicName}>{subTopic.topicName}</div>
+                </div>
+              );
+            })}
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
     </>
   )
 }

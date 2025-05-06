@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useMemo } from "react";
 import styles from "./MyChallengeCard.module.css";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Image from "next/image";
@@ -25,6 +25,13 @@ type Props = {
   postId: string;
   index: number;
   length: number;
+  setPostMedia: React.Dispatch<
+    React.SetStateAction<{
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]>
+  >;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -38,6 +45,7 @@ function MyChallengeCard(props: Props) {
     ref,
     index,
     length,
+    setPostMedia,
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -49,37 +57,51 @@ function MyChallengeCard(props: Props) {
   // API base URL constant
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
+  const uniqueMedia = useMemo(
+      () =>
+         challenge.media && challenge.media.length > 0
+      ? challenge.media.filter(
+          (item, index, self) =>
+            index === self.findIndex((t) => t.id === item.id)
+        )
+      : [],
+  [challenge.media]
+    );
+
   // Fetch comments with error handling and loading state
-  const fetchComments = useCallback(
-    async (postId: string, page: number) => {
-      const limit = 10;
-      if (!accessToken || !postId || !setPostComments) return;
+ const fetchComments = useCallback(
+  async (postId: string, page: number) => {
+    const limit = 10;
+    if (!accessToken || !postId || !setPostComments) return;
 
-      try {
-        const response = await axios.get(
-          `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=${limit}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        );
+    try {
+      const response = await axios.get(
+        `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=${limit}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
 
-        setPostComments((prev: any) => {
-          if (page === 1) return response.data;
-          return [...prev, ...response.data];
-        });
-
-        return response.data;
-      } catch (error) {
-        console.error("Error fetching comments:", error);
-        return [];
-      }
-    },
-    [API_BASE_URL, accessToken, setPostComments]
-  );
+      setPostComments((prev: any) => {
+        if (page === 1) return response.data;
+        return [...prev, ...response.data];
+      });
+      
+      // Set media for the current post
+      setPostMedia(uniqueMedia);
+      
+      return response.data;
+    } catch (error) {
+      console.error("Error fetching comments:", error);
+      return [];
+    }
+  },
+  [API_BASE_URL, accessToken, setPostComments, setPostMedia, uniqueMedia]
+);
 
   // Load comments when page changes
   useEffect(() => {

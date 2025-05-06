@@ -85,7 +85,7 @@ function AllProfileBody(props: { username: string }) {
                 {/* body content */}
                 {currentSection === "your posts" && <FeedSection />}
                 {currentSection === "events" && <EventSection />}
-                {currentSection === "products" && <ProductSection />}
+                {currentSection === "products" && <ProductSection username={username} />}
                 {currentSection === "groups" && <Groups username={username} />}
                 {currentSection === "pages" && <Pages username={username} />}
               </div>

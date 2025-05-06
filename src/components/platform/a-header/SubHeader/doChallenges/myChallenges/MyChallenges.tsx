@@ -145,6 +145,7 @@ function MyChallenges(props: DoMainProps) {
     setPostId,
     commentPage,
     setCommentPage,
+    setPostMedia,
   } = props;
 
   const token = getToken();
@@ -239,6 +240,7 @@ function MyChallenges(props: DoMainProps) {
                 commentPage={commentPage}
                 setCommentPage={setCommentPage}
                 postId={challenge.id}
+                setPostMedia={setPostMedia}
               />
             </div>
           </div>

@@ -14,6 +14,7 @@ import MyChallenges from "../../doChallenges/myChallenges/MyChallenges";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
+import { useAppSelector } from "@/store/hooks";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -29,6 +30,15 @@ type Props = {
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   commentModal: boolean;
   userReactions: any;
+  setPostMedia: React.Dispatch<
+    React.SetStateAction<
+      {
+        id: string;
+        mediaUrl: string;
+        mediaType: string;
+      }[]
+    >
+  >;
 };
 function SubHeaderWeb(props: Props) {
   const {
@@ -45,7 +55,9 @@ function SubHeaderWeb(props: Props) {
     setPostId,
     commentModal,
     userReactions,
+    setPostMedia,
   } = props;
+  const user = useAppSelector((state) => state.login.user?.user.username);
   const locale = useLocale();
   const t = useTranslations("web.subHeader.actions")
 
@@ -63,7 +75,7 @@ function SubHeaderWeb(props: Props) {
     {
       icon: post,
       title: `${userReactions.postsCount} ${t("posts")}`,
-      href: "#",
+      href: `/profile/${user}`,
     },
     {
       icon: addNew,
@@ -138,6 +150,7 @@ function SubHeaderWeb(props: Props) {
                 rerender={rerender}
                 setPostId={setPostId}
                 commentModal={commentModal}
+                setPostMedia={setPostMedia}
               />
             </Suspense>
           </div>

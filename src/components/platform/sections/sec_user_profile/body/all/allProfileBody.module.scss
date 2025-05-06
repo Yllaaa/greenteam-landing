@@ -3,12 +3,14 @@ $max-width: 1024px;
   display: flex;
   gap: 15px;
   padding: 0px 50px;
+  margin-top: 35px;
   margin-bottom: 35px;
   @media screen and (max-width: $max-width) {
     padding: 0px 10px;
     gap: 10px;
     overflow-x: auto;
     scrollbar-width: none;
+    margin-top: 20px;
     margin-bottom: 20px;
   }
   .filterItem {
@@ -121,6 +123,7 @@ $max-width: 1024px;
     flex-direction: column;
     width: 100%;
     gap: 20px;
+    margin: 80px auto 150px auto;
     @media screen and (max-width: $max-width) {
       grid-column: 1 / 13;
       grid-row: 2 / 3;
@@ -129,3 +132,4 @@ $max-width: 1024px;
     }
   }
 }
+

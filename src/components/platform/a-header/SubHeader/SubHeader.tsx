@@ -19,6 +19,13 @@ function SubHeader() {
   const [repliesPage, setRepliesPage] = React.useState(1);
   const [rerender, setRerender] = React.useState(false);
   const [userReactions, setUserReactions] = React.useState([]);
+const [postMedia, setPostMedia] = React.useState<
+    {
+      id: string;
+      mediaUrl: string;
+      mediaType: string;
+    }[]
+  >([]);
 
   React.useEffect(() => {
     axios
@@ -48,6 +55,7 @@ function SubHeader() {
           setCommentPage={setCommentPage}
           commentPage={commentPage}
           setRepliesPage={setRepliesPage}
+          setPostMedia={setPostMedia}
           repliesPage={repliesPage}
           setRerender={setRerender}
           rerender={rerender}
@@ -66,6 +74,7 @@ function SubHeader() {
           setCommentPage={setCommentPage}
           commentPage={commentPage}
           setRepliesPage={setRepliesPage}
+          setPostMedia={setPostMedia}
           repliesPage={repliesPage}
           setRerender={setRerender}
           rerender={rerender}
@@ -84,7 +93,7 @@ function SubHeader() {
           repliesPage={repliesPage}
           setRerender={setRerender}
           rerender={rerender}
-          postMedia={[]}
+          postMedia={postMedia}
         />
       )}
     </>

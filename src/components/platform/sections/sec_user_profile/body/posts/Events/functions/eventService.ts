@@ -7,6 +7,7 @@ interface FetchEventsParams {
   limit: number;
   category?: EventCategory;
   accessToken?: string | null;
+  username?: string;
 }
 
 export const fetchEvents = async ({
@@ -14,10 +15,11 @@ export const fetchEvents = async ({
   limit,
   category,
   accessToken,
+  username,
 }: FetchEventsParams): Promise<Event[]> => {
   try {
     const categoryParam = category ? `&category=${category}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${categoryParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${username}/events?page=${page}&limit=${limit}${categoryParam}`;
 
     const response = await axios.get(url, {
       headers: {

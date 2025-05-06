@@ -17,11 +17,11 @@ export default function PersonalMenu() {
   return (
     <>
       <UserDetails />
-      <MenuSection title="Notifications" href="#">
+      <MenuSection title="Notifications" href="">
         <Notifications />
       </MenuSection>
       <Divider />
-      <MenuSection title="Messages" href="#">
+      <MenuSection title="Messages" href="">
         <Messages />
       </MenuSection>
       <Divider />

@@ -253,33 +253,33 @@ function PostCard(props: Props) {
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}
           >
-            <div className={styles.options}>
-              <div
-                onClick={() => toggleOptionsMenu(post.post.id)}
-                className={styles.optionsIcon}
-              >
-                <PiDotsThreeCircleLight fill="#006633" />
-              </div>
+           <div className={styles.options}>
+  <div
+    onClick={() => toggleOptionsMenu(post.post.id)}
+    className={styles.optionsIcon}
+  >
+    <PiDotsThreeCircleLight fill="#97b007" />
+  </div>
 
-              {activeOptionsPost === post.post.id && (
-                <div ref={optionsMenuRef} className={styles.optionsMenu}>
-                  {post.author.id === user && (
-                    <div
-                      onClick={() => handleActionDelete(post.post.id)}
-                      className={styles.optionItem}
-                    >
-                      <FaTrash /> <span>Delete Post</span>
-                    </div>
-                  )}
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={styles.optionItem}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Post</span>
-                  </div>
-                </div>
-              )}
-            </div>
+  {activeOptionsPost === post.post.id && (
+    <div ref={optionsMenuRef} className={styles.optionsMenu}>
+      {post.author.id === user && (
+        <div
+          onClick={() => handleActionDelete(post.post.id)}
+          className={`${styles.optionItem} ${styles.deleteOption}`}
+        >
+          <FaTrash /> <span>Delete Post</span>
+        </div>
+      )}
+      <div
+        onClick={() => handleActionReport(post.post.id)}
+        className={`${styles.optionItem} ${styles.reportOption}`}
+      >
+        <MdOutlineReportProblem /> <span>Report Post</span>
+      </div>
+    </div>
+  )}
+</div>
             <div className={styles.header}>
               <div
                 onClick={() => navigateToProfile(post.author.id)}

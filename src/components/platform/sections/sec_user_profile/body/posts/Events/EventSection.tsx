@@ -31,12 +31,15 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 // Styles
 import styles from "./EventSection.module.css";
 import Image from "next/image";
+import { useParams } from "next/navigation";
 
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
+const params = useParams()
 
-  // State management
+
+// State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");
   const [page, setPage] = useState(1);
@@ -60,6 +63,7 @@ function EventSection() {
           limit: LIMIT,
           category: section !== "all" ? section : undefined,
           accessToken,
+          username: params?.username as string
         });
 
         // Check if we've reached the end of available events
@@ -82,7 +86,7 @@ function EventSection() {
         setIsLoading(false);
       }
     },
-    [section, LIMIT, accessToken]
+    [section, accessToken, params?.username]
   );
 
   // Initial load and section change handler

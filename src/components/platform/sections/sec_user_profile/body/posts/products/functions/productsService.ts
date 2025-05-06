@@ -9,6 +9,7 @@ interface FetchEventsParams {
   districtId?: number | undefined;
   accessToken?: string | null;
   section?: number;
+  username?: string
 }
 
 export const fetchProducts = async ({
@@ -18,6 +19,7 @@ export const fetchProducts = async ({
   countryId,
   districtId,
   accessToken,
+  username
   // section,
 }: FetchEventsParams): Promise<Products[]> => {
   try {
@@ -25,7 +27,7 @@ export const fetchProducts = async ({
     const topicIdParam = topicId ? `&topicId=${topicId}` : "";
     const countryIdParam = countryId ? `&countryId=${countryId}` : "";
     const districtIdParam = districtId ? `&districtId=${districtId}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${districtIdParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${username}/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${districtIdParam}`;
 
     const response = await axios.get(url, {
       headers: {

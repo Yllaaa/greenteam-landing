@@ -6,7 +6,7 @@ import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
 import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
-import language from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg"; // Add a language icon
+import language from "@/../public/ZPLATFORM/A-Header/navIcons/language.svg"; // Add a language icon
 import { useLocale, useTranslations } from "next-intl";
 import Props from "./types/profileMenu.data";
 import { useRouter, usePathname } from "next/navigation";
