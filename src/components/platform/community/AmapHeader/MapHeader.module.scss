@@ -83,6 +83,97 @@ $max-width: 1024px;
           -ms-border-radius: 10px;
           -o-border-radius: 10px;
         }
+        
+        // New city search dropdown styles
+        .citySearchWrapper {
+          position: relative;
+          width: 100%;
+          
+          .cityInputContainer {
+            position: relative;
+            width: 100%;
+            cursor: pointer;
+            
+            .cityInput {
+              width: 100%;
+              height: 73px;
+              padding: 15px;
+              padding-right: 40px;
+              border: none;
+              background-color: #363636;
+              color: #97b00f;
+              border-radius: 10px;
+              cursor: pointer;
+              
+              &:disabled {
+                opacity: 0.7;
+                cursor: not-allowed;
+              }
+            }
+            
+            .inputIcon {
+              position: absolute;
+              right: 15px;
+              top: 50%;
+              transform: translateY(-50%);
+              color: #97b00f;
+              
+              .icon {
+                width: 20px;
+                height: 20px;
+              }
+            }
+          }
+          
+          .cityDropdown {
+            position: absolute;
+            top: 75px;
+            left: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: auto;
+            background-color: #363636;
+            border-radius: 10px;
+            z-index: 12;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            
+            .cityOption {
+              padding: 12px 15px;
+              cursor: pointer;
+              color: #97b00f;
+              
+              &:hover {
+                background-color: #444444;
+              }
+            }
+            
+            .selectedOption {
+              background-color: #444444;
+              font-weight: bold;
+            }
+            
+            .noResults {
+              padding: 15px;
+              text-align: center;
+              color: #97b00f;
+              font-style: italic;
+            }
+            
+            &::-webkit-scrollbar {
+              width: 8px;
+            }
+            
+            &::-webkit-scrollbar-track {
+              background: #363636;
+              border-radius: 10px;
+            }
+            
+            &::-webkit-scrollbar-thumb {
+              background: #97b00f;
+              border-radius: 10px;
+            }
+          }
+        }
       }
     }
   }

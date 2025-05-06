@@ -206,8 +206,7 @@
 
 .about {
   height: fit-content;
-  min-height: 550px;
-  margin-top: 50px;
+  margin: 50px auto;
 }
 .bar {
   width: 96%;

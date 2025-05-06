@@ -9,8 +9,10 @@ import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import EventCards from "./Events/Card/EventCard";
 import AddNewEvent from "./Events/modal/AddNewEvent";
+import { useTranslations } from 'next-intl';
 
 function EventCom() {
+  const terror = useTranslations("web.errors")
   const { accessToken } = getToken() || { accessToken: null };
   const country = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
@@ -110,7 +112,7 @@ function EventCom() {
     if (events.length === 0) {
       return (
         <div className={styles.emptyField}>
-          <p>No events found</p>
+          <p>{terror("notfound")}</p>
         </div>
       );
     }

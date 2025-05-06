@@ -12,6 +12,8 @@ import {
   clearSelectedCity,
   setCurrentDestination,
 } from "@/store/features/communitySection/currentCommunity";
+import { FaSearch } from "react-icons/fa";
+import { IoMdArrowDropdown } from "react-icons/io";
 
 interface CountryData {
   lat: number;
@@ -39,10 +41,7 @@ export default function MapHeader() {
   const [countryId, setCountryId] = useState<number | undefined>(undefined);
   const [cities, setCities] = useState<City[]>([]);
 
-  const [selectedCityId, setSelectedCityId] = useState<number | undefined>(
-    undefined
-  );
-
+  const [selectedCityId, setSelectedCityId] = useState<number | undefined>(undefined);
   const [selectedCountryName, setSelectedCountryName] = useState<string>("");
   const [selectedCityName, setSelectedCityName] = useState<string>("");
 
@@ -52,9 +51,25 @@ export default function MapHeader() {
   const mapInstanceRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
   const [citySearchText, setCitySearchText] = useState<string>("");
+  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Flag to track if we should update the map
   const shouldUpdateMap = useRef<boolean>(false);
+
+  // Handle clicks outside the dropdown to close it
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
 
   const searchLocation = async () => {
     if (!selectedCountryName) return;
@@ -189,7 +204,7 @@ export default function MapHeader() {
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${citySearchText}&limit=5`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${citySearchText}&limit=10`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -240,29 +255,17 @@ export default function MapHeader() {
   };
 
   // Handle city selection
-  const handleCityChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+  const handleCitySelect = (cityId: number, cityName: string) => {
+    setSelectedCityId(cityId);
+    setSelectedCityName(cityName);
+    setCitySearchText(cityName);
+    setIsDropdownOpen(false);
 
-    if (!value) {
-      setSelectedCityId(undefined);
-      setSelectedCityName("");
-      return;
-    }
+    // Update Redux state
+    dispatch(setCurrentDestination({ selectedCity: cityId }));
 
-    const newCityId = parseInt(value);
-    const selectedCity = cities.find((c) => c.id === newCityId);
-
-    if (selectedCity) {
-      // Update city state
-      setSelectedCityId(newCityId);
-      setSelectedCityName(selectedCity.name);
-
-      // Update Redux state
-      dispatch(setCurrentDestination({ selectedCity: newCityId }));
-
-      // Set flag to update map on next render
-      shouldUpdateMap.current = true;
-    }
+    // Set flag to update map on next render
+    shouldUpdateMap.current = true;
   };
 
   return (
@@ -288,34 +291,58 @@ export default function MapHeader() {
                 ))}
               </select>
             </div>
-            {/* CITY */}
+            
+            {/* CITY - With dropdown and search */}
             <div className={styles.formGroup}>
-              <div className={styles.citySearchContainer}>
-                <input
-                  type="text"
-                  placeholder="Search cities"
-                  className={styles.input}
-                  onChange={(e) => setCitySearchText(e.target.value)}
-                  value={citySearchText}
-                  disabled={!countryId}
-                />
-                <select
-                  onChange={handleCityChange}
-                  className={`${styles.select}`}
-                  value={selectedCityId || ""}
-                  disabled={!countryId}
+              <div className={styles.citySearchWrapper} ref={dropdownRef}>
+                <div 
+                  className={styles.cityInputContainer}
+                  onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
                 >
-                  <option value="" disabled>
-                    City
-                  </option>
-                  {cities.map((city) => (
-                    <option key={city.id} value={city.id}>
-                      {city.name}
-                    </option>
-                  ))}
-                </select>
+                  <input
+                    type="text"
+                    placeholder={countryId ? "Search cities..." : "Select a country first"}
+                    className={styles.cityInput}
+                    value={citySearchText}
+                    onChange={(e) => {
+                      setCitySearchText(e.target.value);
+                      if (!isDropdownOpen) setIsDropdownOpen(true);
+                    }}
+                    disabled={!countryId}
+                  />
+                  <div className={styles.inputIcon}>
+                    {isDropdownOpen ? (
+                      <FaSearch className={styles.icon} />
+                    ) : (
+                      <IoMdArrowDropdown className={styles.icon} />
+                    )}
+                  </div>
+                </div>
+                
+                {isDropdownOpen && countryId && (
+                  <div className={styles.cityDropdown}>
+                    {cities.length > 0 ? (
+                      cities.map((city) => (
+                        <div
+                          key={city.id}
+                          className={`${styles.cityOption} ${
+                            selectedCityId === city.id ? styles.selectedOption : ""
+                          }`}
+                          onClick={() => handleCitySelect(city.id, city.name)}
+                        >
+                          {city.name}
+                        </div>
+                      ))
+                    ) : (
+                      <div className={styles.noResults}>
+                        {citySearchText ? "No cities found" : "Type to search cities"}
+                      </div>
+                    )}
+                  </div>
+                )}
               </div>
             </div>
+            
             {error && <div className={styles.error}>{error}</div>}
           </div>
         </div>

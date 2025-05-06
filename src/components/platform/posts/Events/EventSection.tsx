@@ -1,6 +1,3 @@
-/**
- * src/features/events/components/EventSection.tsx
- */
 "use client";
 
 import React, {
@@ -12,16 +9,13 @@ import React, {
   useCallback,
 } from "react";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
-
 // Services and Utils
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { fetchEvents } from "./functions/eventService";
-
 // Components
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import EventFilter from "./filterComponent/EventFilter";
 const EventCard = lazy(() => import("./Card/EventCard"));
-
 // Modals
 import AddNewEvent from "./modal/AddNewEvent";
 
@@ -31,11 +25,12 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 // Styles
 import styles from "./EventSection.module.css";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-
+const terror = useTranslations("web.errors")
   // State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");
@@ -163,7 +158,7 @@ function EventSection() {
     if (events.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No events found</p>
+          <p>{terror("notfound")}</p>
         </div>
       );
     }

@@ -48,7 +48,7 @@ function SingleEventPage(props: Props) {
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
-const t = useTranslations("web.event.eventDetails")
+  const t = useTranslations("web.event.eventDetails")
   const [event, setEvent] = useState<Event>();
   useEffect(() => {
     try {

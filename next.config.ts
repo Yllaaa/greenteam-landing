@@ -11,6 +11,7 @@ const nextConfig = {
       "lh3.googleusercontent.com",
       "lh3.googleusercontent.com",
       "example.com",
+      "images.remotePatterns",
     ],
   },
   async rewrites() {

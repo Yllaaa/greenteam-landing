@@ -9,44 +9,42 @@ import clock from "@/../public/ZPLATFORM/event/clock.svg";
 import locationIcon from "@/../public/ZPLATFORM/event/location.svg";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-// import { FaStar } from "react-icons/fa6";
-// import { getToken } from "@/Utils/userToken/LocalToken";
+import { FaStar } from "react-icons/fa6";
 
 type Props = {
   events: {
     id?: string;
     creatorId?: string;
-    creatorType?: string; // Assuming possible creator types
+    creatorType?: string;
     title?: string;
     description?: string;
     location?: string;
-    startDate?: string; // ISO date string (e.g., "2025-03-10T09:00:00.000Z")
-    endDate?: string; // ISO date string
-    category?: string; // Assuming categories can be predefined
-    poster?: string | null; // Nullable in case there is no poster image
-    priority?: number; // Assuming priority is an integer
+    startDate?: string;
+    endDate?: string;
+    category?: string;
+    poster?: string | null;
+    priority?: number;
     topicId?: number;
-    createdAt?: string; // ISO date string
+    createdAt?: string;
     posterUrl?: string | null;
   }[];
   event: {
     id?: string;
     creatorId?: string;
-    creatorType?: string; // Assuming possible creator types
+    creatorType?: string;
     title?: string;
     description?: string;
     location?: string;
-    startDate?: string; // ISO date string (e.g., "2025-03-10T09:00:00.000Z")
-    endDate?: string; // ISO date string
-    category?: string; // Assuming categories can be predefined
-    poster?: string | null; // Nullable in case there is no poster image
-    priority?: number; // Assuming priority is an integer
-    topicId?: number;
-    createdAt?: string; // ISO date string
+    startDate?: string;
+    endDate?: string;
+    category?: string;
+    poster?: string | null;
+    priority?: number;
+    createdAt?: string;
     posterUrl?: string | null;
-    isJoined: boolean; // Assuming this is a boolean indicating if the user has joined the event
+    isJoined: boolean;
   };
   page: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
@@ -55,6 +53,7 @@ type Props = {
 };
 function EventCard(props: Props) {
   const locale = useLocale();
+  const t = useTranslations("web.event.card");
   // const token = getToken();
   const localeS = localStorage.getItem("user");
   const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
@@ -142,15 +141,40 @@ function EventCard(props: Props) {
     router.push(`/${locale}/event/${event?.id}`);
   };
 
+  const handleToggleFavorite = (id: string) => {
+    axios
+      .post(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/toggle-favorite`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          ToastNot("Added to favorites!");
+        }
+      })
+      .catch((error) => {
+        const err = error as { status: number };
+        if (err.status === 409) {
+          ToastNot("Already in favorites!");
+        }
+        console.error("Error toggling favorite:", error);
+      });
+  };
+
   return (
     <>
-      {/* {events.map((event, index) => ( */}
       <div
         ref={index === events.length - 1 ? ref : null}
         key={index}
         className={styles.card}
       >
-        <div className={styles.img}>
+        <div onClick={handleEventDetails} className={styles.img}>
           <Image
             src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
@@ -181,8 +205,8 @@ function EventCard(props: Props) {
           </p>
           <p className={styles.hostedBy}>
             {event?.creatorType
-              ? `Hosted by: ${event?.creatorType}`
-              : "Hosted by GreenTeam"}
+              ? `${t("hostedby")}: ${event?.creatorType}`
+              : `${t("hostedby")} GreenTeam`}
           </p>
           <div className={styles.actions}>
             <button
@@ -192,20 +216,23 @@ function EventCard(props: Props) {
                   : handleJoinNow(`${event?.id}`)
               }
               className={styles.joinButton}
+              style={{
+                color: isJoined ? "red" : "",
+              }}
             >
-              {isJoined ? "Leave" : "Join"}
+              {isJoined ? t("leave") : t("join")}
             </button>
             <button onClick={handleEventDetails} className={styles.joinButton}>
-              See Details
+              {t("details")}
             </button>
           </div>
         </div>
-        {/* <button
-          onClick={handleToggleFavorite}
-          className={styles.favoriteButton}
+        <div
+          onClick={() => handleToggleFavorite(`${event?.id}`)}
+          className={styles.favorite}
         >
-          <FaStar />
-        </button> */}
+          <FaStar fill="#FFD700" />
+        </div>
       </div>
     </>
   );

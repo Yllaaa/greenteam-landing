@@ -25,6 +25,16 @@ import { PiDotsThreeCircleLight } from "react-icons/pi";
 
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
+const LoadingState = () => (
+  <div className={styles.postContainer}>
+    <div className={styles.body}>
+      <div className={styles.noPosts}>
+        <LoadingTree />
+      </div>
+    </div>
+  </div>
+);
+
 function PostCard(props: Props) {
   const {
     commentsPage,
@@ -46,98 +56,89 @@ function PostCard(props: Props) {
   const router = useRouter();
   const locale = useLocale();
 
+  // State management
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");
   const [postContent, setPostContent] = useState<PostsData>([]);
   const [isMounted, setIsMounted] = useState(false);
-  // Track which post's options menu is open
-  const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
-    null
-  );
+  const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(null);
 
+  // Refs
   const optionsMenuRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const limit = 5;
 
-  // Handle clicks outside the options menu to close it
+  // Click outside handler for options menu
   useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
+    if (!isMounted) return;
+
+    const handleClickOutside = (event: MouseEvent) => {
       if (
         optionsMenuRef.current &&
         !optionsMenuRef.current.contains(event.target as Node)
       ) {
         setActiveOptionsPost(null);
       }
-    }
+    };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMounted]);
 
-  // Fix hydration mismatch by ensuring client-side only operations
+  // Mount effect
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  // Memoize token to prevent unnecessary recalculations
+  // Token management
   const accessToken = useMemo(() => {
-    // Only run on client side
     if (typeof window === "undefined") return null;
     const localS = getToken();
     return localS ? localS.accessToken : null;
   }, []);
 
-  // Scroll handlers with useCallback to prevent recreating on each render
+  // Scroll handlers
   const prevSlide = useCallback(() => {
     if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: -300,
-        behavior: "smooth",
-      });
+      bodyRef.current.scrollBy({ left: -300, behavior: "smooth" });
     }
   }, []);
 
   const nextSlide = useCallback(() => {
     if (bodyRef.current) {
-      bodyRef.current.scrollBy({
-        left: 300,
-        behavior: "smooth",
-      });
+      bodyRef.current.scrollBy({ left: 300, behavior: "smooth" });
     }
   }, []);
 
-  // Toggle options menu for a specific post
+  // Options menu handlers
   const toggleOptionsMenu = useCallback((postId: string) => {
     setActiveOptionsPost((prev) => (prev === postId ? null : postId));
   }, []);
 
-  // Handle delete or report action
   const handleActionDelete = useCallback(
     (postId: string) => {
       if (setDeleteModal && setPostId) {
         setPostId(postId);
         setDeleteModal(!deleteModal);
       }
-      setActiveOptionsPost(null); // Close the menu after action
+      setActiveOptionsPost(null);
     },
     [deleteModal, setDeleteModal, setPostId]
   );
-  // Handle delete or report action
+
   const handleActionReport = useCallback(
     (postId: string) => {
       if (setReportModal && setPostId) {
         setPostId(postId);
         setReportModal(!reportModal);
       }
-      setActiveOptionsPost(null); // Close the menu after action
+      setActiveOptionsPost(null);
     },
     [reportModal, setPostId, setReportModal]
   );
 
-  // Fetch posts on subtopic/page change only - but only after component mounts on client
+  // Data fetching
   useEffect(() => {
     if (!isMounted || !mainTopic) {
       if (!mainTopic) setIsLoading(false);
@@ -154,9 +155,9 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [subTopic, page, mainTopic, isLoading, accessToken, isMounted]);
+  }, [subTopic, page, mainTopic, isMounted, accessToken]);
 
-  // IntersectionObserver for infinite scroll
+  // Infinite scroll
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: false,
@@ -172,47 +173,33 @@ function PostCard(props: Props) {
     }
   }, [inView, handlePages, isMounted]);
 
-  // Memoize time formatter to prevent recreation on each render
+  // Time formatter
   const formatTimeDifference = useCallback(
     (targetDate: string): string => {
-      if (!isMounted) return ""; // Prevent SSR/CSR mismatch
+      if (!isMounted) return "";
 
       const target = new Date(targetDate);
       const now = new Date();
       const differenceInMs = now.getTime() - target.getTime();
       const differenceInSeconds = Math.floor(differenceInMs / 1000);
 
-      if (differenceInSeconds < 60) {
-        return `${differenceInSeconds}S`;
-      } else if (differenceInSeconds < 3600) {
-        const minutes = Math.floor(differenceInSeconds / 60);
-        return `${minutes}m`;
-      } else if (differenceInSeconds < 86400) {
-        const hours = Math.floor(differenceInSeconds / 3600);
-        return `${hours}hr`;
-      } else {
-        const days = Math.floor(differenceInSeconds / 86400);
-        return `${days}D`;
-      }
+      if (differenceInSeconds < 60) return `${differenceInSeconds}S`;
+      if (differenceInSeconds < 3600) return `${Math.floor(differenceInSeconds / 60)}m`;
+      if (differenceInSeconds < 86400) return `${Math.floor(differenceInSeconds / 3600)}hr`;
+      return `${Math.floor(differenceInSeconds / 86400)}D`;
     },
     [isMounted]
   );
 
-  // Navigate to profile helper
+  // Navigation handlers
   const navigateToProfile = useCallback(
     (authorId: string, type: string) => {
-      if (type === "user") {
-        router.push(`/${locale}/profile/${authorId}`);
-      } else if (type === "page") {
-        router.push(`/${locale}/pages/${authorId}`);
-      } else {
-        router.push(`/${locale}/profile/${authorId}`);
-      }
+      const path = type === "page" ? "pages" : "profile";
+      router.push(`/${locale}/${path}/${authorId}`);
     },
     [router, locale]
   );
 
-  // Navigate to post helper
   const navigateToPost = useCallback(
     (postId: string) => {
       router.push(`/${locale}/feeds/posts/${postId}`);
@@ -220,24 +207,13 @@ function PostCard(props: Props) {
     [router, locale]
   );
 
+  // Content renderer
   const renderPostContent = useMemo(() => {
-    if (!isMounted) {
-      return (
-        <div className={styles.noPosts}>
-          <LoadingTree />
-        </div>
-      );
+    if (!isMounted || isLoading) {
+      return <LoadingState />;
     }
 
-    if (isLoading) {
-      return (
-        <div className={styles.noPosts}>
-          <LoadingTree />
-        </div>
-      );
-    }
-
-    if (errorMessage && isMounted) {
+    if (errorMessage) {
       return (
         <div className={styles.noPosts}>
           <p>Error Loading posts</p>
@@ -254,19 +230,14 @@ function PostCard(props: Props) {
     }
 
     return (
-      <Suspense
-        fallback={
-          <div className={styles.noPosts}>
-            <LoadingTree />
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingState />}>
         {postContent.map((post, index) => (
           <div
             key={post.post.id}
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}
           >
+            {/* Post content structure */}
             <div className={styles.options}>
               <div
                 onClick={() => toggleOptionsMenu(post.post.id)}
@@ -294,12 +265,12 @@ function PostCard(props: Props) {
                 </div>
               )}
             </div>
+
             <div className={styles.header}>
               <div
                 onClick={() =>
                   navigateToProfile(post.author.username, post.author.type)
                 }
-                style={{ cursor: "pointer", zIndex: 100 }}
                 className={styles.userAvatar}
               >
                 <Image
@@ -310,28 +281,23 @@ function PostCard(props: Props) {
                   priority={index < 3}
                 />
               </div>
+
               <div className={styles.details}>
                 <div
                   onClick={() =>
                     navigateToProfile(post.author.username, post.author.type)
                   }
-                  style={{ cursor: "pointer" }}
                   className={styles.userName}
                 >
                   <p>
                     {post.author.username} <span>@{post.author.username}</span>
-                    {isMounted && (
-                      <span>
-                        {" "}
-                        . {formatTimeDifference(post.post.createdAt)}
-                      </span>
-                    )}
+                    <span> . {formatTimeDifference(post.post.createdAt)}</span>
                   </p>
                 </div>
+
                 {post.media.length > 0 && (
                   <div
                     onClick={() => navigateToPost(post.post.id)}
-                    style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
@@ -346,63 +312,77 @@ function PostCard(props: Props) {
                 )}
               </div>
             </div>
+
             <div className={styles.media}>
               <div className={styles.postslider}>
-                {isMounted && (
-                  <PostSlider
-                    media={post.media}
-                    content={post.post.content}
-                    commentPage={commentsPage}
-                    setCommentPage={setCommentsPage}
-                    likes={post.likeCount}
-                    dislikes={post.dislikeCount}
-                    comments={post.commentCount}
-                    userReactionType={post.userReactionType}
-                    hasDoReaction={post.hasDoReaction}
-                    setDoItModal={setDoItModal}
-                    setCommentModal={setCommentModal}
-                    setPostComments={setPostComments}
-                    postId={post.post.id}
-                    rerender={rerender}
-                    setPostId={setPostId}
-                    setPostMedia={setPostMedia}
-                  />
-                )}
+                <PostSlider
+                  media={post.media}
+                  content={post.post.content}
+                  commentPage={commentsPage}
+                  setCommentPage={setCommentsPage}
+                  likes={post.likeCount}
+                  dislikes={post.dislikeCount}
+                  comments={post.commentCount}
+                  userReactionType={post.userReactionType}
+                  hasDoReaction={post.hasDoReaction}
+                  setDoItModal={setDoItModal}
+                  setCommentModal={setCommentModal}
+                  setPostComments={setPostComments}
+                  postId={post.post.id}
+                  rerender={rerender}
+                  setPostId={setPostId}
+                  setPostMedia={setPostMedia}
+                />
               </div>
             </div>
           </div>
         ))}
       </Suspense>
     );
-  }, [isMounted, isLoading, errorMessage, postContent, ref, activeOptionsPost, formatTimeDifference, commentsPage, setCommentsPage, setDoItModal, setCommentModal, setPostComments, rerender, setPostId, setPostMedia, toggleOptionsMenu, handleActionDelete, handleActionReport, navigateToProfile, navigateToPost]);
+  }, [
+    isMounted,
+    isLoading,
+    errorMessage,
+    postContent,
+    activeOptionsPost,
+    commentsPage,
+    setCommentsPage,
+    setDoItModal,
+    setCommentModal,
+    setPostComments,
+    rerender,
+    setPostId,
+    setPostMedia,
+    ref,
+    formatTimeDifference,
+    navigateToProfile,
+    navigateToPost,
+    toggleOptionsMenu,
+    handleActionDelete,
+    handleActionReport,
+  ]);
 
-  // Handle server-side rendering vs client-side rendering
-  if (typeof window === "undefined") {
-    return (
-      <div className={styles.noPosts}>
-        <LoadingTree />
-      </div>
-    );
+  // Initial server-side render
+  if (!isMounted) {
+    return <LoadingState />;
   }
 
   return (
-    <>
-      <div className={styles.postContainer}>
-        {isMounted && (
-          <div className={styles.sliderBtns}>
-            <div className={styles.arrow} onClick={prevSlide}>
-              <IoIosArrowBack />
-            </div>
-            <div className={styles.arrow} onClick={nextSlide}>
-              <IoIosArrowForward />
-            </div>
+    <div className={styles.postContainer}>
+      {isMounted && (
+        <div className={styles.sliderBtns}>
+          <div className={styles.arrow} onClick={prevSlide}>
+            <IoIosArrowBack />
           </div>
-        )}
-        <div ref={bodyRef} className={styles.body}>
-          {renderPostContent}
+          <div className={styles.arrow} onClick={nextSlide}>
+            <IoIosArrowForward />
+          </div>
         </div>
+      )}
+      <div ref={bodyRef} className={styles.body}>
+        {renderPostContent}
       </div>
-    </>
+    </div>
   );
 }
 
