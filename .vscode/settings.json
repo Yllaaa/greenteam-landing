@@ -1,11 +1,8 @@
 {
-  "prettier.semi": false,
   "prettier.enable": false,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "prettier.ignorePath": "",
-  "prettier.singleQuote": true,
-  "prettier.trailingComma": "es5",
-  "prettier.withNodeModules": true,
-  "notebook.defaultFormatter": "esbenp.prettier-vscode"
+  "notebook.defaultFormatter": "svipas.prettier-plus",
+  "editor.formatOnPaste": true
 }

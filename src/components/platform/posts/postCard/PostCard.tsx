@@ -10,7 +10,7 @@ import React, {
 } from "react";
 import styles from "./postCard.module.css";
 import Image from "next/image";
-import admin from "@/../public/auth/user.png";
+  import admin from "@/../public/auth/user.png";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
@@ -30,7 +30,7 @@ const LoadingState = () => (
     <div className={styles.body}>
       <div className={styles.noPosts}>
         <LoadingTree />
-      </div>
+        </div>
     </div>
   </div>
 );
