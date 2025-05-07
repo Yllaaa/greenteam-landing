@@ -1,119 +1,169 @@
+// Variables
+$primary-color: #006633;
+$secondary-color: #74b243;
+$background-dark: #3d3c3c;
+$text-light: #ffffff;
+$input-background: rgba(255, 255, 255, 0.5);
+$border-color: rgba(233, 234, 235, 0.5);
+$transition-speed: 0.3s;
+$border-radius-large: 32px;
+$border-radius-medium: 16px;
+$border-radius-small: 12px;
+$border-radius-pill: 123px;
+$max-width: 1024px;
+
 .container {
   width: 100%;
+  max-width: 1200px;
   height: fit-content;
+  margin: 40px auto;
+  padding: 0 20px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
-  grid-template-rows: repeat(1, min-content);
+  grid-template-rows: auto;
+  gap: 30px;
+  
+  @media (max-width: $max-width) {
+    grid-template-columns: 1fr;
+    padding: 0 16px;
+    gap: 20px;
+  }
+  
   .side {
     grid-column: 1 / 3;
     grid-row: 1 / 2;
-    h6 {
-      font-family: Montaserat;
-      font-weight: 700;
-      font-size: 16px;
-      line-height: 22px;
-      letter-spacing: -0.7%;
+    padding: 20px 0;
+    
+    @media (max-width: $max-width) {
+      grid-column: 1;
+      text-align: center;
+      padding: 10px 0;
     }
+    
+    h6 {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      line-height: 1.3;
+      letter-spacing: -0.7%;
+      margin-bottom: 12px;
+      color: $primary-color;
+    }
+    
     p {
-      font-family: Montserrat;
+      font-family: 'Montserrat', sans-serif;
       font-weight: 400;
-      font-size: 14px;
-      line-height: 160%;
-      letter-spacing: 0%;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(0, 0, 0, 0.75);
     }
   }
+  
   .mainForm {
     grid-column: 3 / 13;
     width: 100%;
     height: fit-content;
     min-height: 714px;
-    padding: 24px;
-    background: #3d3c3c;
-    border-radius: 32px;
-    -webkit-border-radius: 32px;
-    -moz-border-radius: 32px;
-    -ms-border-radius: 32px;
-    -o-border-radius: 32px;
+    padding: 32px;
+    background: $background-dark;
+    border-radius: $border-radius-large;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    transition: all $transition-speed ease;
+    
+    @media (max-width: $max-width) {
+      grid-column: 1;
+      padding: 24px 16px;
+      min-height: auto;
+    }
+    
     form {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       justify-content: flex-start;
-      gap: 28px;
+      gap: 32px;
+      
       %formGroup {
         width: 100%;
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: flex-start;
-        gap: 8px;
+        gap: 12px;
       }
+      
       %formLabel {
-        font-family: Montserrat;
-        font-weight: 700;
-        font-size: 14px;
-        line-height: 20px;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 1.4;
         letter-spacing: -0.6%;
+        color: $text-light;
       }
-      .formName {
+      
+      .formName, .formDesc {
         @extend %formGroup;
+        
         label {
           @extend %formLabel;
         }
+        
+        input, textarea {
+          width: 100%;
+          background: $input-background;
+          border: 1px solid transparent;
+          color: $primary-color;
+          font-family: 'Montserrat', sans-serif;
+          font-size: 15px;
+          transition: all $transition-speed ease;
+          
+          &:focus {
+            outline: none;
+            border-color: $secondary-color;
+            box-shadow: 0 0 0 2px rgba(116, 178, 67, 0.3);
+          }
+          
+          &::placeholder {
+            color: rgba(0, 102, 51, 0.6);
+          }
+        }
+        
         input {
-          width: 100%;
-          height: 48px;
-          background: #ffffff80;
-          height: 48px;
-          min-height: 48px;
-          border-width: 1px;
-          color: #006633;
-          padding: 12px;
-          border-radius: 123px;
-          -webkit-border-radius: 123px;
-          -moz-border-radius: 123px;
-          -ms-border-radius: 123px;
-          -o-border-radius: 123px;
+          height: 52px;
+          min-height: 52px;
+          padding: 0 20px;
+          border-radius: $border-radius-pill;
         }
-      }
-      .formDesc {
-        @extend %formGroup;
-        label {
-          @extend %formLabel;
-        }
+        
         textarea {
-          width: 100%;
-          height: 170px;
+          height: 180px;
           resize: none;
-          background: #ffffff80;
-          color: #006633;
-          border-width: 1px;
-          gap: 10px;
-          padding: 24px;
-          border-radius: 32px;
-          -webkit-border-radius: 32px;
-          -moz-border-radius: 32px;
-          -ms-border-radius: 32px;
-          -o-border-radius: 32px;
+          padding: 20px;
+          border-radius: $border-radius-large;
+          line-height: 1.5;
         }
       }
+      
       .formSection {
         width: 100%;
         display: flex;
         flex-direction: column;
-        gap: 16px;
-        padding-bottom: 16px;
-        border-bottom: 1px solid #e9eaeb80;
+        gap: 20px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid $border-color;
+        
         .formGroup {
           width: 100%;
           display: flex;
           flex-direction: column;
-          gap: 8px;
+          gap: 12px;
           position: relative;
+          
           label {
             @extend %formLabel;
           }
+          
           .imageUploadContainer {
             position: relative;
             display: flex;
@@ -121,38 +171,96 @@
             align-items: center;
             width: 100%;
             height: 240px;
-            background: #ffffff80;
-            border: 1px solid #d1d5db;
+            background: $input-background;
+            border: 2px dashed rgba(209, 213, 219, 0.7);
             overflow: hidden;
-            border-radius: 32px;
-            -webkit-border-radius: 32px;
-            -moz-border-radius: 32px;
-            -ms-border-radius: 32px;
-            -o-border-radius: 32px;
+            border-radius: $border-radius-medium;
+            transition: all $transition-speed ease;
+            cursor: pointer;
+            
+            &:hover {
+              border-color: $secondary-color;
+              background: rgba(255, 255, 255, 0.6);
+            }
+            
+            &.dragging {
+              border-color: $secondary-color;
+              background: rgba(255, 255, 255, 0.7);
+            }
+            
             .imagePreviewWrapper {
               position: relative;
               width: 100%;
               height: 100%;
               z-index: 10;
+              
               .imagePreview {
                 width: 100%;
                 height: 100%;
                 z-index: 8;
+                
                 img {
                   width: 100%;
                   height: 100%;
                   object-fit: cover;
                 }
               }
+              
               .removeImageButton {
                 position: absolute;
-                top: 10px;
-                right: 10px;
-                background: none;
+                top: 12px;
+                right: 12px;
+                background: rgba(0, 0, 0, 0.5);
                 border: none;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
                 z-index: 10;
+                transition: all $transition-speed ease;
+                cursor: pointer;
+                color: white;
+                
+                &:hover {
+                  background: rgba(255, 0, 0, 0.7);
+                  transform: scale(1.1);
+                }
+                
+                .removeIcon {
+                  width: 18px;
+                  height: 18px;
+                }
               }
             }
+            
+            .uploadPlaceholder {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              color: $secondary-color;
+              font-family: 'Montserrat', sans-serif;
+              
+              p {
+                font-size: 16px;
+                margin-top: 15px;
+                
+                &::before {
+                  content: '';
+                  display: block;
+                  width: 50px;
+                  height: 50px;
+                  margin: 0 auto 10px;
+                  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2374b243' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12'/%3E%3C/svg%3E");
+                  background-repeat: no-repeat;
+                  background-position: center;
+                  background-size: contain;
+                }
+              }
+            }
+            
             .fileInput {
               position: absolute;
               top: 0;
@@ -165,27 +273,42 @@
             }
           }
         }
-        .uploadPlaceholder {
-          color: #74b243;
+      }
+      
+      button[type="submit"] {
+        background-color: $primary-color;
+        border: none;
+        color: white;
+        padding: 15px 36px;
+        text-align: center;
+        font-family: 'Montserrat', sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: $border-radius-small;
+        transition: all $transition-speed ease;
+        align-self: center;
+        margin-top: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        
+        &:hover {
+          background-color: darken($primary-color, 5%);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+        }
+        
+        &:disabled {
+          background-color: darken($primary-color, 20%);
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
         }
       }
-    }
-    button {
-      background-color: #006633;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 12px;
-      -webkit-border-radius: 12px;
-      -moz-border-radius: 12px;
-      -ms-border-radius: 12px;
-      -o-border-radius: 12px;
     }
   }
 }
