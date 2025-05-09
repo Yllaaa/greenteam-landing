@@ -11,7 +11,7 @@ import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { FaStar } from "react-icons/fa6";
+// import { FaStar } from "react-icons/fa6";
 
 type Props = {
   events: {
@@ -99,6 +99,7 @@ function EventCard(props: Props) {
     }
   };
   const handleLeaveEvent = async (id: string) => {
+
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/leave`,
@@ -141,31 +142,31 @@ function EventCard(props: Props) {
     router.push(`/${locale}/event/${event?.id}`);
   };
 
-  const handleToggleFavorite = (id: string) => {
-    axios
-      .post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/toggle-favorite`,
-        {},
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((response) => {
-        if (response.data) {
-          ToastNot("Added to favorites!");
-        }
-      })
-      .catch((error) => {
-        const err = error as { status: number };
-        if (err.status === 409) {
-          ToastNot("Already in favorites!");
-        }
-        console.error("Error toggling favorite:", error);
-      });
-  };
+  // const handleToggleFavorite = (id: string) => {
+  //   axios
+  //     .post(
+  //       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/toggle-favorite`,
+  //       {},
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${accessToken}`,
+  //           "Access-Control-Allow-Origin": "*",
+  //         },
+  //       }
+  //     )
+  //     .then((response) => {
+  //       if (response.data) {
+  //         ToastNot("Added to favorites!");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       const err = error as { status: number };
+  //       if (err.status === 409) {
+  //         ToastNot("Already in favorites!");
+  //       }
+  //       console.error("Error toggling favorite:", error);
+  //     });
+  // };
 
   return (
     <>
@@ -174,8 +175,10 @@ function EventCard(props: Props) {
         ref={index === events.length - 1 ? ref : null}
         key={index}
         className={styles.card}
+        onClick={handleEventDetails}
+        style={{ cursor: 'pointer' }}
       >
-        <div onClick={handleEventDetails} className={styles.img}>
+        <div className={styles.img}>
           <Image
             src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
@@ -195,8 +198,8 @@ function EventCard(props: Props) {
             <Image src={clock} alt="clock" />{" "}
             {event?.startDate && event?.endDate
               ? `${formatDate(event?.startDate)} | ${getHour(
-                  event?.startDate
-                )} - ${getHour(event?.endDate)}
+                event?.startDate
+              )} - ${getHour(event?.endDate)}
                 `
               : "Not Selected"}
           </p>
@@ -211,11 +214,15 @@ function EventCard(props: Props) {
           </p>
           <div className={styles.actions}>
             <button
-              onClick={() =>
-                isJoined
-                  ? handleLeaveEvent(`${event?.id}`)
-                  : handleJoinNow(`${event?.id}`)
-              }
+              onClick={(e) => {
+                e.stopPropagation();
+                if (isJoined) {
+                  handleLeaveEvent(`${event?.id}`)
+                } else {
+
+                  handleJoinNow(`${event?.id}`)
+                }
+              }}
               className={styles.joinButton}
               style={{
                 color: isJoined ? "red" : "",
@@ -223,17 +230,21 @@ function EventCard(props: Props) {
             >
               {isJoined ? t("leave") : t("join")}
             </button>
-            <button onClick={handleEventDetails} className={styles.joinButton}>
+            <button onClick={(e) => {
+              e.stopPropagation()
+              handleEventDetails()
+            }}
+              className={styles.joinButton}>
               {t("details")}
             </button>
           </div>
         </div>
-        <div
+        {/* <div
           onClick={() => handleToggleFavorite(`${event?.id}`)}
           className={styles.favorite}
         >
           <FaStar fill="#FFD700" />
-        </div>
+        </div> */}
       </div>
     </>
   );

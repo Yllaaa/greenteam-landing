@@ -6,13 +6,14 @@ $max-width: 1024px;
   justify-content: flex-start;
   gap: 10px;
   overflow-x: scroll !important;
-  background: #000;
+
   scrollbar-width: thin;
   scrollbar-color: #97b00f #000;
   @media screen and (max-width: $max-width) {
     width: 100vw;
   }
   .card {
+    position: relative;
     width: 424px;
     min-width: 424px;
     max-width: 424px;
@@ -25,6 +26,13 @@ $max-width: 1024px;
     -moz-border-radius: 30px;
     -ms-border-radius: 30px;
     -o-border-radius: 30px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+    }
+
     .img {
       width: 100%;
       height: 135px;
@@ -41,6 +49,10 @@ $max-width: 1024px;
     }
     .content {
       padding: 20px;
+      display: flex;
+      flex-direction: column;
+      height: calc(100% - 135px);
+
       .name {
         font-family: Montserrat;
         font-weight: 600;
@@ -56,6 +68,12 @@ $max-width: 1024px;
         font-size: 12px;
         line-height: 16px;
         letter-spacing: 0%;
+        margin-bottom: 10px;
+        overflow: hidden;
+        display: -webkit-box;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
       }
       .time {
         display: flex;
@@ -66,6 +84,7 @@ $max-width: 1024px;
         font-size: 10px;
         line-height: 16px;
         letter-spacing: 0%;
+        margin-bottom: 5px;
         svg {
           fill: #006633;
         }
@@ -79,6 +98,7 @@ $max-width: 1024px;
         font-size: 10px;
         line-height: 16px;
         letter-spacing: 0%;
+        margin-bottom: 10px;
         svg {
           fill: #006633;
         }
@@ -90,7 +110,114 @@ $max-width: 1024px;
         line-height: 100%;
         letter-spacing: 0%;
         color: #006633;
+        margin-bottom: auto;
+      }
+
+      .actions {
+        display: flex;
+        gap: 12px;
+        margin-top: 15px;
+
+        .joinButton {
+          flex: 1;
+          height: 35px;
+          border: none;
+          border-radius: 20px;
+          font-family: Montserrat;
+          font-weight: 600;
+          font-size: 11px;
+          line-height: 100%;
+          letter-spacing: 0.5px;
+          cursor: pointer;
+          transition: all 0.2s ease;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          &:first-child {
+            background: #006633;
+            color: white;
+
+            &:hover {
+              background: darken(#006633, 5%);
+              transform: translateY(-2px);
+            }
+
+            &:active {
+              transform: translateY(0);
+            }
+
+            &:disabled {
+              background: rgba(0, 102, 51, 0.7);
+              cursor: not-allowed;
+              transform: none;
+            }
+
+            // For the Leave button state
+            &[style*='color: red'] {
+              background: #fff;
+              color: #d32f2f !important;
+              border: 1px solid #d32f2f;
+
+              &:hover {
+                background: rgba(211, 47, 47, 0.1);
+              }
+            }
+          }
+
+          &:last-child {
+            background: #ffffff;
+            color: #006633;
+            border: 1px solid #006633;
+
+            &:hover {
+              background: rgba(0, 102, 51, 0.1);
+              transform: translateY(-2px);
+            }
+
+            &:active {
+              transform: translateY(0);
+            }
+          }
+        }
+      }
+    }
+
+    // Add loading indicator
+    .joinButton {
+      position: relative;
+
+      &:disabled::after {
+        content: '';
+        position: absolute;
+        width: 12px;
+        height: 12px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: white;
+        border-radius: 50%;
+        right: 10px;
+        animation: spin 1s linear infinite;
+      }
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
     }
   }
+}
+
+// Add a custom scrollbar for webkit browsers
+.sideEvents::-webkit-scrollbar {
+  height: 6px;
+}
+
+.sideEvents::-webkit-scrollbar-track {
+  background: #000;
+}
+
+.sideEvents::-webkit-scrollbar-thumb {
+  background-color: #97b00f;
+  border-radius: 6px;
 }
