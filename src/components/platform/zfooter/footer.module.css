@@ -6,6 +6,7 @@
   align-items: center;
   height: fit-content;
   width: fit-content;
+  overflow-x: hidden;
 }
 .containerDiscover {
   position: relative;

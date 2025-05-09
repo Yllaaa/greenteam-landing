@@ -90,9 +90,7 @@ function EventCard(props: Props) {
     }
   };
 
-  const handleToggleFavorite = () => {
-    // axios.post("/api/toggleFavorite", { eventId: id });
-  };
+
   // handle dates:
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -112,7 +110,7 @@ function EventCard(props: Props) {
   const handleEventDetails = () => {
     router.push(`/${locale}/event/${event?.id}`);
   };
-  
+
 
   return (
     <>
@@ -120,6 +118,8 @@ function EventCard(props: Props) {
         ref={index === events.length - 1 ? ref : null}
         key={index}
         className={styles.card}
+        onClick={handleEventDetails}
+        style={{ cursor: "pointer" }}
       >
         <div className={styles.img}>
           <Image
@@ -141,8 +141,8 @@ function EventCard(props: Props) {
             <Image src={clock} alt="clock" />{" "}
             {event?.startDate && event?.endDate
               ? `${formatDate(event?.startDate)} | ${getHour(
-                  event?.startDate
-                )} - ${getHour(event?.endDate)}
+                event?.startDate
+              )} - ${getHour(event?.endDate)}
                 `
               : "Not Selected"}
           </p>
@@ -157,23 +157,23 @@ function EventCard(props: Props) {
           </p>
           <div className={styles.actions}>
             <button
-              onClick={() => handleJoinNow(`${event?.id}`)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleJoinNow(`${event?.id}`)
+              }}
               className={styles.joinButton}
             >
               {event.isJoined ? "Join event" : "Joined"}
             </button>
-            <button onClick={handleEventDetails} className={styles.joinButton}>
+            <button onClick={(e) => {
+              e.stopPropagation();
+              handleEventDetails()
+            }} className={styles.joinButton}>
               See Details
             </button>
           </div>
         </div>
-        <button
-          onClick={handleToggleFavorite}
-          className={styles.favoriteButton}
-        >
-          x
-        </button>
-      </div>
+      </div >
     </>
   );
 }
