@@ -1,4 +1,6 @@
 $max-width: 1024px;
+$min-width: 768px;
+$mob-width: 430px;
 .container {
   position: relative;
   width: 100%;
@@ -188,9 +190,9 @@ $max-width: 1024px;
     .userActions {
       position: absolute;
       top: 25px;
-      right: 25px;
-      width: 44px;
-      height: 44px;
+      right: 50px;
+      width: 60px;
+      height: 60px;
 
       @media screen and (max-width: $max-width) {
         right: 10px;
@@ -202,6 +204,8 @@ $max-width: 1024px;
       .settings {
         width: 100%;
         height: 100%;
+        min-width: 60px;
+        min-height: 60px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -213,6 +217,8 @@ $max-width: 1024px;
         -o-border-radius: 50%;
         svg {
           fill: #006633;
+          min-width: 50px;
+        min-height: 50px;
         }
       }
       .droplist {
@@ -269,6 +275,151 @@ $max-width: 1024px;
           height: 0px;
           min-height: 0px;
           display: none;
+        }
+      }
+    }
+  }
+}
+.groupForm {
+  background: #363636;
+  padding: 30px 35px;
+  border-bottom-right-radius: 10px;
+  border-bottom-left-radius: 10px;
+
+  .contentBar {
+    width: 100%;
+
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    .textArea {
+      width: 100%;
+      height: 56px;
+      padding: 10px;
+      outline: none;
+      border: 1px solid #97b00f;
+      background: transparent;
+      color: #97b00f;
+      resize: none;
+      border-radius: 6px;
+      -webkit-border-radius: 6px;
+      -moz-border-radius: 6px;
+      -ms-border-radius: 6px;
+      -o-border-radius: 6px;
+    }
+    .addAndCategory {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .checkboxLabel {
+      width: fit-content;
+      background: #000;
+      padding: 10px;
+      font-size: 15px;
+      position: relative;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+    .checkboxLabel input {
+      opacity: 0;
+      position: absolute;
+    }
+    .selectCategory {
+      height: fit-content;
+
+      width: 155px;
+      height: 42.44px;
+    }
+    .selectCategory select {
+      width: 100%;
+      height: 100%;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      background-color: #141414;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+    }
+
+    .selectSubCategory {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px;
+      width: 200px;
+      height: 100%;
+      overflow-x: auto;
+      scrollbar-width: none;
+      min-height: 43px;
+      outline: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -moz-border-radius: 10px;
+      -ms-border-radius: 10px;
+      -o-border-radius: 10px;
+      .checkboxLabel {
+        width: fit-content;
+        text-wrap: nowrap;
+        background: #000;
+        padding: 10px;
+        font-size: 15px;
+        position: relative;
+        border-radius: 10px;
+        -webkit-border-radius: 10px;
+        -moz-border-radius: 10px;
+        -ms-border-radius: 10px;
+        -o-border-radius: 10px;
+      }
+    }
+    .postActions {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      input {
+        width: 195px;
+        height: 48px;
+        background: #006633;
+        outline: none;
+        border: none;
+        cursor: pointer;
+
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 15px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        vertical-align: middle;
+        color: #97b00f;
+
+        border-radius: 6px;
+        -webkit-border-radius: 6px;
+        -moz-border-radius: 6px;
+        -ms-border-radius: 6px;
+        -o-border-radius: 6px;
+
+        &:hover {
+          background: #97b00f;
+          color: #006633;
+          transition: all 0.5s ease-in-out;
+          -webkit-transition: all 0.5s ease-in-out;
+          -moz-transition: all 0.5s ease-in-out;
+          -ms-transition: all 0.5s ease-in-out;
+          -o-transition: all 0.5s ease-in-out;
+        }
+        @media (max-width: $min-width) {
+          width: 120px;
+          height: 40px;
         }
       }
     }

@@ -191,14 +191,14 @@ function EventCard(props: Props) {
             {event.title ? event?.title : "Community Beach Cleanup"}
           </h2>
           <p className={styles.details}>
-            {event?.description ? event?.description : "JNo Description!"}
+            {event?.description ? event.description.length > 30 ? event?.description.slice(0, 30) + "..." : event?.description : "JNo Description!"}
           </p>
           <p className={styles.time}>
             <Image src={clock} alt="clock" />{" "}
             {event?.startDate && event?.endDate
               ? `${formatDate(event?.startDate)} | ${getHour(
-                  event?.startDate
-                )} - ${getHour(event?.endDate)}
+                event?.startDate
+              )} - ${getHour(event?.endDate)}
                 `
               : "Not Selected"}
           </p>

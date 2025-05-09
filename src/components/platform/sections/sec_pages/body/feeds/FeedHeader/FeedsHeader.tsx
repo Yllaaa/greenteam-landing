@@ -11,6 +11,7 @@ import food from "@/../public/ZPLATFORM/categories/food.svg";
 import know from "@/../public/ZPLATFORM/categories/know.svg";
 import physical from "@/../public/ZPLATFORM/categories/physical.svg";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import { useAppSelector } from "@/store/hooks";
 
 function FeedsHeader(props: {
   topic?: SingleTopicsData | any;
@@ -28,7 +29,7 @@ function FeedsHeader(props: {
     addNewPost,
     setAddNewPost,
   } = props;
-
+  const pageStatus = useAppSelector((state) => state.pageState);
   const allMainTopics = Topics;
   const topicDetails =
     topic.id !== 0 && allMainTopics.find((item) => item.id === topic.id);
@@ -90,7 +91,7 @@ function FeedsHeader(props: {
                   key={index}
                   style={
                     selectedSubtopics[Number(topic.id)] ===
-                    subtopic.id.toString()
+                      subtopic.id.toString()
                       ? { color: "#97B00F", opacity: 1 }
                       : { color: "" }
                   }
@@ -106,15 +107,17 @@ function FeedsHeader(props: {
               ))}
           </ul>
         </div>
-        <div className={styles.addPost}>
-          <button
-            onClick={() => {
-              toggleAddNewPost();
-            }}
-          >
-            Add Post
-          </button>
-        </div>
+        {pageStatus && pageStatus.isAdmin && (
+          <div className={styles.addPost}>
+            <button
+              onClick={() => {
+                toggleAddNewPost();
+              }}
+            >
+              Add Post
+            </button>
+          </div>
+        )}
       </div>
     </>
   );

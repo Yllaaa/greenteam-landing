@@ -135,7 +135,7 @@ function EventCard(props: Props) {
             {event.title ? event?.title : "Community Beach Cleanup"}
           </h2>
           <p className={styles.details}>
-            {event?.description ? event?.description : "JNo Description!"}
+            {event?.description ? event.description.length > 30 ? event?.description.slice(0, 30) + "..." : event?.description : "JNo Description!"}
           </p>
           <p className={styles.time}>
             <Image src={clock} alt="clock" />{" "}

@@ -237,6 +237,10 @@ function Pageheader(props: {
             <h5>What:</h5>
             <h6>{data.what}</h6>
           </div>
+          <div className={styles.headerWhat}>
+            <h5>Description:</h5>
+            <h6>{data.description}</h6>
+          </div>
         </div>
         <div className={styles.headerActions}>
           <div className={styles.headerAddBtns}>

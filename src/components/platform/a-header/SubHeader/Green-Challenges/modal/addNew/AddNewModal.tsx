@@ -109,7 +109,7 @@ function AddNewModal(props: {
                 width={20}
                 height={20}
               />
-              Talk about these challenge
+              Build sustainable culture Sharing your experience
             </h2>
             {/* Text Area */}
             <textarea

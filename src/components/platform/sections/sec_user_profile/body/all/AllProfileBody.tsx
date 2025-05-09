@@ -10,6 +10,7 @@ import Groups from "../groups/Groups";
 import Pages from "../pages/Pages";
 import Breif from "./side/Breif";
 import Settings from "../settings/Settings";
+import AddNew from "../../header/AddNew";
 
 type Sections = "your posts" | "events" | "products" | "groups" | "pages";
 function AllProfileBody(props: { username: string }) {
@@ -56,6 +57,7 @@ function AllProfileBody(props: { username: string }) {
         {/* header */}
         <div className={styles.header}>
           <Header user={user} settings={settings} setSettings={setSettings} />
+          <AddNew />
         </div>
         {/* filter */}
         {!settings ? (
@@ -64,11 +66,10 @@ function AllProfileBody(props: { username: string }) {
               {sections.map((section) => (
                 <div
                   key={section.name}
-                  className={`${styles.filterItem} ${
-                    currentSection === section.name
+                  className={`${styles.filterItem} ${currentSection === section.name
                       ? styles.active
                       : styles.notActive
-                  }`}
+                    }`}
                   onClick={() => setCurrentSection(section.name as Sections)}
                 >
                   <span>{section.name}</span>
