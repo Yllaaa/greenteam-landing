@@ -38,9 +38,9 @@ function Footer() {
             <p>{t("walking")}</p>
             <div className={styles.actions}>
               <div className={styles.topActions}>
-                {/* <button onClick={handleDownload} className={styles.button}>
-                  {t("joinUs")}
-                </button> */}
+                <button onClick={handleDownload} className={styles.button}>
+                  {t("business")}
+                </button>
                 <button onClick={handleDownload} className={styles.button}>
                   {t("donate")}
                 </button>

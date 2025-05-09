@@ -19,6 +19,7 @@ import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
 import ProfileMenu from "./profileMenu/ProfileMenu";
+import NotificationIcon from "./notifications/NotificationIcon";
 
 function Header() {
   // constants
@@ -133,11 +134,13 @@ function Header() {
             />
           </div>
         </div>
+        <div className={styles.search}>
+          <NotificationIcon />
+        </div>
         <div className={styles.profile}>
           <div
-            className={`${styles.headerMenu} ${
-              isDropdownOpen ? styles.open : ""
-            }`}
+            className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""
+              }`}
           >
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
@@ -150,7 +153,7 @@ function Header() {
                 className={styles.userProfile}
               >
                 <div className={styles.avatar}>
-                  {user && user?.avatar !==null ? (
+                  {user && user?.avatar !== null ? (
                     <Image
                       src={user?.avatar}
                       alt={`${user.fullName}`}
@@ -181,9 +184,8 @@ function Header() {
                 </div>
               </div>
               <div
-                className={`${styles.arrow} ${
-                  isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
-                }`}
+                className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
+                  }`}
               >
                 <Image src={drop} alt="arrow" />
               </div>

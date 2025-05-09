@@ -5,6 +5,7 @@ import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import styles from "./groups.module.css";
 import Grpheader from "@/components/platform/sections/sec_group/header/GrpHeader";
+import BackButton from "@/components/platform/breadcrumb/BackButton";
 
 export default async function RootLayout({
   children,
@@ -24,6 +25,7 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
+            <BackButton shouldHideOnFeeds={true} />
           </div>
           <div style={{ position: "relative", zIndex: "9", marginTop: "50px" }}>
             <Grpheader groupId={groupId} />

@@ -453,6 +453,8 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 import { FaCheckSquare } from "react-icons/fa";
 import { useAppSelector } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 type Author = {
   id: string;
@@ -524,7 +526,7 @@ function ForumCard(props: Discussion) {
     isAuthor = post.author.id === user, // Default check for author
     onActionSelect
   } = props;
-  
+
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
@@ -540,7 +542,7 @@ function ForumCard(props: Discussion) {
         setOptionsMenuOpen(false);
       }
     }
-    
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
@@ -752,6 +754,13 @@ function ForumCard(props: Discussion) {
       setUserSigned(true);
     }
   };
+  const router = useRouter()
+  const locale = useLocale()
+  const navigateToProfile = () => {
+    if (post.author.username) {
+      router.push(`/${locale}/profile/${post.author.username}`);
+    }
+  }
 
   return (
     <>
@@ -767,7 +776,7 @@ function ForumCard(props: Discussion) {
           >
             <PiDotsThreeCircleLight fill="#006633" />
           </div>
-          
+
           {optionsMenuOpen && (
             <div ref={optionsMenuRef} className={styles.optionsMenu}>
               {isAuthor && (
@@ -787,7 +796,7 @@ function ForumCard(props: Discussion) {
             </div>
           )}
         </div>
-      
+
         <div className={styles.header}>
           <div className={styles.user}>
             <div className={styles.avatar}>
@@ -805,8 +814,8 @@ function ForumCard(props: Discussion) {
             </div>
             <div className={styles.data}>
               <div className={styles.username}>
-                <p>{post.author.username}</p> {" . "}
-                <span>Add friend</span>
+                <p onClick={navigateToProfile} style={{ cursor: "pointer" }}>{post.author.username}</p> {" . "}
+                {/* <span>Add friend</span> */}
               </div>
               <div className={styles.job}>{post.author.fullName}</div>
             </div>
@@ -817,8 +826,8 @@ function ForumCard(props: Discussion) {
                 post.section === "need"
                   ? need
                   : post.section === "dream"
-                  ? dream
-                  : question
+                    ? dream
+                    : question
               }
               alt="image"
               loading="lazy"
@@ -834,16 +843,16 @@ function ForumCard(props: Discussion) {
           </div>
           {post.media.length > 0
             ? post.media[0].mediaUrl && (
-                <div className={styles.image}>
-                  <Image
-                    src={post.media[0].mediaUrl}
-                    alt="image"
-                    loading="lazy"
-                    width={400}
-                    height={300}
-                  />
-                </div>
-              )
+              <div className={styles.image}>
+                <Image
+                  src={post.media[0].mediaUrl}
+                  alt="image"
+                  loading="lazy"
+                  width={400}
+                  height={300}
+                />
+              </div>
+            )
             : null}
         </div>
         <div className={styles.reactionBtns}>
@@ -889,11 +898,10 @@ function ForumCard(props: Discussion) {
 
         <div
           id={post.id}
-          className={`${
-            commentSection === post.id
-              ? styles.showCommentSection
-              : styles.hideCommentSection
-          } ${styles.commentSection}`}
+          className={`${commentSection === post.id
+            ? styles.showCommentSection
+            : styles.hideCommentSection
+            } ${styles.commentSection}`}
         >
           <div className={styles.commentContainer}>
             <p
@@ -907,14 +915,14 @@ function ForumCard(props: Discussion) {
               <textarea
                 className={styles.commentTextArea}
                 placeholder={"newComment"}
-                // onChange={(e) => setNewComment(e.target.value)}
+              // onChange={(e) => setNewComment(e.target.value)}
               />
               <div className={styles.addImage}>
                 <input
                   id="image"
                   type="file"
                   accept="image/*"
-                  // onChange={(e) => setNewCommentImage(e.target.files[0])}
+                // onChange={(e) => setNewCommentImage(e.target.files[0])}
                 />
                 <label htmlFor="image">
                   <FaCameraRetro />

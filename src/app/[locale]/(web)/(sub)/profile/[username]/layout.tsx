@@ -4,6 +4,7 @@ import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
 import styles from "./personal.module.css";
+import BackButton from "@/components/platform/breadcrumb/BackButton";
 
 export default async function RootLayout({
   children,
@@ -23,6 +24,7 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
+            <BackButton shouldHideOnFeeds={true} />
           </div>
         </header>
         <div className={styles.container}>

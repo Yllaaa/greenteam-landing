@@ -23,7 +23,7 @@ export const groups = {
   singleGroup: withId(`${host}/api/v1/groups`),
   joinGroup: withMidId(`${host}/api/v1/groups`, `members/join`),
   leaveGroup: withMidId(`${host}/api/v1/groups`, `members/leave`),
-  notes: withMidId(`${host}/api/v1/groups`, `notes`),
+  notes: withMidId(`${host}/api/v1/groups`, `note`),
   events: withMidId(`${host}/api/v1/groups`, `events`),
   editGroup: withId(`${host}/api/v1/groups`),
   deleteGroup: withId(`${host}/api/v1/groups`),
