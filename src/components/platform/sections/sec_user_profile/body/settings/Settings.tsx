@@ -14,8 +14,10 @@ interface FormData {
   cover: File | null;
 }
 
-function Settings() {
+function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<boolean>> }) {
   const accessToken = useAppSelector((state) => state.login.accessToken);
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
 
   // React Hook Form setup
   const { register, handleSubmit, setValue, reset } = useForm<FormData>({
@@ -201,10 +203,17 @@ function Settings() {
     }
   };
 
+  // Handle cancel
+  const handleCancel = () => {
+    props.setSettings(false);
+  };
+
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
 
     if (!accessToken) return;
+
+    setIsSubmitting(true);
 
     try {
       const formData = new FormData();
@@ -227,7 +236,7 @@ function Settings() {
         )
         .then((res) => {
           console.log(res.data);
-          ToastNot("Group updated successfully");
+          ToastNot("Profile updated successfully");
           reset();
         })
         .then(() => {
@@ -235,19 +244,33 @@ function Settings() {
         })
         .catch((err) => {
           console.log(err);
-          ToastNot("Error updating group");
+          ToastNot("Error updating profile");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
     } catch (err) {
       console.log(err);
+      setIsSubmitting(false);
     }
   };
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.side}>
-          <h6>Profile Settings</h6>
-          <p>Manage your profile</p>
+        <div className={styles.header}>
+          <div className={styles.side}>
+            <h6>Profile Settings</h6>
+
+            <p>Manage your profile</p>
+            <button
+              type="button"
+              className={styles.cancelButton}
+              onClick={handleCancel}
+            >
+              Cancel
+            </button>
+          </div>
         </div>
         <div className={styles.mainForm}>
           <form onSubmit={handleSubmit(onSubmit)}>
@@ -255,9 +278,8 @@ function Settings() {
               <div className={styles.formGroup}>
                 <label className={styles.label}>Avatar</label>
                 <div
-                  className={`${styles.avatarUploadContainer} ${
-                    isDraggingAvatar ? styles.dragging : ""
-                  }`}
+                  className={`${styles.avatarUploadContainer} ${isDraggingAvatar ? styles.dragging : ""
+                    }`}
                   onClick={handleAvatarClick}
                   onDragEnter={handleAvatarDragEnter}
                   onDragOver={handleAvatarDragOver}
@@ -309,9 +331,8 @@ function Settings() {
               <div className={styles.formGroup}>
                 <label className={styles.label}>Cover</label>
                 <div
-                  className={`${styles.imageUploadContainer} ${
-                    isDraggingCover ? styles.dragging : ""
-                  }`}
+                  className={`${styles.imageUploadContainer} ${isDraggingCover ? styles.dragging : ""
+                    }`}
                   onClick={handleCoverClick}
                   onDragEnter={handleCoverDragEnter}
                   onDragOver={handleCoverDragOver}
@@ -363,18 +384,33 @@ function Settings() {
               <label htmlFor="name">Full Name</label>
               <input
                 type="text"
-                placeholder="Enter group name"
+                placeholder="Enter your full name"
                 {...register("fullName")}
               />
             </div>
             <div className={styles.formDesc}>
-              <label htmlFor="groupDesc">Bio</label>
+              <label htmlFor="bio">Bio</label>
               <textarea
-                placeholder="Enter group descripton"
+                placeholder="Tell us about yourself"
                 {...register("bio")}
               />
             </div>
-            <button type="submit">Submit</button>
+            <div className={styles.formActions}>
+              <button
+                type="submit"
+                className={styles.saveButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Saving..." : "Save Changes"}
+              </button>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>

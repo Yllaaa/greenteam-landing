@@ -93,7 +93,7 @@ function AllProfileBody(props: { username: string }) {
           </>
         ) : (
           <>
-            <Settings />
+            <Settings setSettings={setSettings} />
           </>
         )}
       </div>

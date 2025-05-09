@@ -15,61 +15,130 @@
   position: relative;
 }
 /* Add these styles to your postCard.module.css file */
+.options {
+  position: absolute;
+  top: 22px;
+  left: 22px;
+  z-index: 100;
+}
 
 .optionsIcon {
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
-  transition: background-color 0.2s;
-  position: relative;
+  background-color: rgba(48, 112, 64, 0.8);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease;
+  border: 1px solid rgba(151, 176, 15, 0.3);
 }
 
 .optionsIcon:hover {
-  background-color: rgba(0, 102, 51, 0.1);
+  background-color: rgba(48, 112, 64, 1);
+  transform: rotate(90deg);
+  border-color: rgba(151, 176, 15, 0.7);
+}
+
+.optionsIcon svg {
+  font-size: 22px;
+  color: #ffffff;
 }
 
 .optionsMenu {
   position: absolute;
-  top: 35px;
+  top: 44px;
   left: 0;
-  background-color: #031e09;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 150px;
+  background-color: #272927;
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  width: 180px;
   z-index: 1000;
   overflow: hidden;
+  border: 1px solid rgba(151, 176, 15, 0.2);
+  animation: fadeInOptions 0.2s ease-out forwards;
+}
+
+@keyframes fadeInOptions {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .optionItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 15px;
+  gap: 12px;
+  padding: 14px 16px;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.optionItem:hover {
-  background-color: rgba(0, 102, 51, 0.05);
-}
-
-.optionItem svg {
-  font-size: 16px;
+  transition: all 0.2s;
+  color: #f5f5f5;
+  border-left: 3px solid transparent;
 }
 
 .optionItem span {
   font-size: 14px;
+  font-weight: 500;
 }
 
-/* Adjust these existing elements if needed */
-.options {
-  position: absolute;
-  top: 10px;
-  left: 10px;
-  z-index: 100;
+/* Delete option styling */
+.deleteOption {
+  color: #ff5252;
+  border-bottom: 1px solid rgba(255, 82, 82, 0.1);
+}
+
+.deleteOption:hover {
+  background-color: rgba(255, 82, 82, 0.1);
+  border-left-color: #ff5252;
+}
+
+.deleteIcon {
+  color: #ff5252;
+  font-size: 16px;
+}
+
+/* Report option styling */
+.reportOption {
+  color: #faad14;
+}
+
+.reportOption:hover {
+  background-color: rgba(250, 173, 20, 0.1);
+  border-left-color: #faad14;
+}
+
+.reportIcon {
+  color: #faad14;
+  font-size: 18px;
+}
+
+/* This ensures the options menu doesn't get hidden by other elements */
+.card {
+  position: relative;
+  min-width: 470px;
+  width: 470px;
+  height: 591px;
+  min-height: 591px;
+  background: #333634;
+  z-index: 9;
+  overflow: visible; /* Changed from 'hidden' to ensure menu is visible */
+  border-radius: 30px;
+}
+
+/* Only make the inner content overflow hidden */
+.cardInner {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 30px;
+  position: relative;
 }
 .slider {
   position: relative;

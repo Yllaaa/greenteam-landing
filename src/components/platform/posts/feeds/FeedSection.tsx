@@ -1,16 +1,18 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { useSearchParams } from "next/navigation";
 import PostCard from "../postCard/PostCard";
 import styles from "./FeedSection.module.css";
-
 import DoItModal from "../../modals/toDo/DoItModal";
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-import DeleteModal from "./deleteModal/DeleteModal";
-import Report from "./reportModal/Report";
+import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal"; // Import reusable modal
+import ReportModal from "@/components/platform/modals/reportModal/ReportModal"; // Import reusable modal
+import { getToken } from "@/Utils/userToken/LocalToken";
+import axios from "axios";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 // topics and subtopics
 const topics = Topics;
@@ -22,16 +24,16 @@ function FeedSection() {
   const subcategoryId = searchParams.get('subcategory');
   
   // References for scrolling to sections
-const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});
+  const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});
 
   // Define state variables
   //modals
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [reportModal, setReportModal] = useState(false);
-  //APIs Data
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Renamed for clarity
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false); // Renamed for clarity
 
+  //APIs Data
   const [postComments, setPostComments] = useState<Comment[]>([]);
   const [postId, setPostId] = useState<string>("");
   const [postMedia, setPostMedia] = useState<
@@ -47,6 +49,11 @@ const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null>
 
   // request rerender comments
   const [rerender, setRerender] = useState(false);
+  
+  // Token for API calls
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
+  
   // State to track the selected subtopic for each topic
   const [selectedSubtopics, setSelectedSubtopics] = useState<{
     [key: number]: string;
@@ -94,6 +101,38 @@ const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null>
       }
     }
   }, [categoryId, subcategoryId]);
+  
+  // Handler for deleting posts
+  const handleDeletePost = useCallback(async () => {
+    if (!postId || !accessToken) return;
+    
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      
+      if (response) {
+        ToastNot("Post deleted successfully");
+        // Trigger a rerender to refresh the post list
+        setRerender(prev => !prev);
+      }
+    } catch (error) {
+      console.error("Failed to delete post:", error);
+      ToastNot("Error occurred while deleting post");
+    }
+  }, [postId, accessToken]);
+  
+  // Handle successful report submission
+  const handleReportSuccess = useCallback(() => {
+    ToastNot("Thank you for your report. Our team will review it.");
+  }, []);
 
   return (
     <>
@@ -125,17 +164,20 @@ const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null>
                   setPostComments={setPostComments}
                   setPostId={setPostId}
                   setPostMedia={setPostMedia}
-                  deleteModal={deleteModal}
-                  setDeleteModal={setDeleteModal}
-                  reportModal={reportModal}
-                  setReportModal={setReportModal}
+                  deleteModal={isDeleteModalOpen}
+                  setDeleteModal={setIsDeleteModalOpen}
+                  reportModal={isReportModalOpen}
+                  setReportModal={setIsReportModalOpen}
                 />
               </div>
             </div>
           </div>
         ))}
       </div>
+      
+      {/* Modals */}
       {doItModal && <DoItModal setDoItModal={setDoItModal} />}
+      
       {commentModal && (
         <CommentModal
           commentsPage={commentsPage}
@@ -149,12 +191,29 @@ const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null>
           postMedia={postMedia}
         />
       )}
-      {deleteModal && (
-        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
-      )}
-      {reportModal && (
-        <Report report={reportModal} user="" reportedId={postId} setReport={setReportModal} reportedType="post" />
-      )}
+      
+      {/* Enhanced Delete Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={() => setRerender(prev => !prev)}
+        title="Are you sure you want to delete this post?"
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+        customAction={handleDeletePost}
+        successMessage="Post deleted successfully"
+        errorMessage="Error occurred while deleting post"
+      />
+      
+      {/* Enhanced Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        reportedId={postId}
+        reportedType="post"
+        title="Tell us why you're reporting this post"
+        successCallback={handleReportSuccess}
+      />
     </>
   );
 }

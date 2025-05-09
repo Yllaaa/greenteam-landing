@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
@@ -19,8 +20,10 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import ContactModal from "./modal/ContactModal";
-import DeleteModal from "./deleteModal/DeleteModal";
-import Report from "./reportModal/Report";
+import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal"; // Import reusable modal
+import ReportModal from "@/components/platform/modals/reportModal/ReportModal"; // Import reusable modal
+import axios from "axios";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function ProductSection() {
   const [section, setSection] = useState<ProductsCategory>(0);
@@ -31,7 +34,6 @@ function ProductSection() {
   const [addNew, setAddNew] = useState(false);
   const [sendMessage, setSendMessage] = useState(false);
   const [sellerId, setSellerId] = useState("");
-  // const [slug, setSlug] = useState("");
   const [sellerType, setSellerType] = useState("");
   const [isMounted, setIsMounted] = useState(false);
   const [hasMore, setHasMore] = useState(true);
@@ -40,9 +42,10 @@ function ProductSection() {
   const [showContacts, setShowContacts] = useState(false);
   const [contacts, setContacts] = useState<any>();
 
-  const [deleteModal, setDeleteModal] = useState(false);
-  const [reportModal, setReportModal] = useState(false);
-  const [postId, setPostId] = useState<string>("");
+  // Enhanced modal states
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
+  const [productId, setProductId] = useState<string>("");
 
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -51,6 +54,43 @@ function ProductSection() {
   const bodyRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
+
+  // Client-side only effects
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Function to handle product deletion
+  const handleDeleteProduct = useCallback(async () => {
+    if (!productId || !accessToken) return;
+
+    try {
+      const response = await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products/${productId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            "Accessss-Control-Allow-Origin": "*",
+          },
+        }
+      );
+
+      if (response) {
+        ToastNot("Product deleted successfully");
+        // Refresh product list
+        loadProducts(1, true);
+      }
+    } catch (error) {
+      console.error("Failed to delete product:", error);
+      ToastNot("Error occurred while deleting product");
+    }
+  }, [productId, accessToken]);
+
+  // Handle successful report submission
+  const handleReportSuccess = useCallback(() => {
+    ToastNot("Thank you for your report. Our team will review it.");
+  }, []);
 
   // Fetch events data
   const loadProducts = useCallback(
@@ -148,18 +188,11 @@ function ProductSection() {
     }
   }, [handleScroll]);
 
-  // Client-side only effects
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
   // Manual scroll handlers for arrow buttons
   const handleManualScroll = (direction: "left" | "right") => {
     if (!bodyRef.current) return;
 
     const container = bodyRef.current;
-    // const scrollAmount = container.clientWidth * 0.8; // Scroll 80% of container width
-
     container.scrollBy({
       left: direction === "left" ? -340 : +340,
       behavior: "smooth",
@@ -214,11 +247,11 @@ function ProductSection() {
                   setSellerType={setSellerType}
                   setContacts={setContacts}
                   setShowContacts={setShowContacts}
-                  deleteModal={deleteModal}
-                  setDeleteModal={setDeleteModal}
-                  reportModal={reportModal}
-                  setReportModal={setReportModal}
-                  setPostId={setPostId}
+                  deleteModal={isDeleteModalOpen}
+                  setDeleteModal={setIsDeleteModalOpen}
+                  reportModal={isReportModalOpen}
+                  setReportModal={setIsReportModalOpen}
+                  setPostId={setProductId}
                 />
               </div>
             ))}
@@ -263,9 +296,8 @@ function ProductSection() {
         {products.length > 0 && (
           <div className={styles.sliderBtns}>
             <div
-              className={`${styles.arrow} ${
-                !canScrollLeft ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("left")}
             >
               <Image
@@ -277,9 +309,8 @@ function ProductSection() {
               />
             </div>
             <div
-              className={`${styles.arrow} ${
-                !canScrollRight ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("right")}
             >
               <Image src={toRight} alt="right arrow" width={100} height={100} />
@@ -291,7 +322,10 @@ function ProductSection() {
           {renderContent()}
         </div>
       </div>
+
+      {/* Modals */}
       {addNew && <AddNewProduct setAddNew={setAddNew} userType="user" />}
+
       {sendMessage && (
         <MessageModal
           sellerId={sellerId}
@@ -299,6 +333,7 @@ function ProductSection() {
           setMessage={setSendMessage}
         />
       )}
+
       {showContacts && (
         <ContactModal
           contacts={contacts}
@@ -307,18 +342,29 @@ function ProductSection() {
           accessToken={accessToken}
         />
       )}
-      {deleteModal && (
-        <DeleteModal postId={postId} setDoItModal={setDeleteModal} />
-      )}
-      {reportModal && (
-        <Report
-          report={reportModal}
-          user=""
-          reportedId={postId}
-          setReport={setReportModal}
-          reportedType="product"
-        />
-      )}
+
+      {/* Enhanced Delete Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => setIsDeleteModalOpen(false)}
+        onConfirm={() => loadProducts(1, true)}
+        title="Are you sure you want to delete this product?"
+        confirmButtonText="Delete"
+        cancelButtonText="Cancel"
+        customAction={handleDeleteProduct}
+        successMessage="Product deleted successfully"
+        errorMessage="Error occurred while deleting product"
+      />
+
+      {/* Enhanced Report Modal */}
+      <ReportModal
+        isOpen={isReportModalOpen}
+        onClose={() => setIsReportModalOpen(false)}
+        reportedId={productId}
+        reportedType="product"
+        title="Tell us why you're reporting this product"
+        successCallback={handleReportSuccess}
+      />
     </>
   );
 }

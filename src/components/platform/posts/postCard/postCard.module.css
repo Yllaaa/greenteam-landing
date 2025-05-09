@@ -83,61 +83,108 @@
   position: relative;
 }
 /* Add these styles to your postCard.module.css file */
+.options {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 100;
+}
 
 .optionsIcon {
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 5px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  transition: background-color 0.2s;
-  position: relative;
+  background-color: rgba(3, 30, 9, 0.7);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(116, 178, 67, 0.3);
+  transition: all 0.2s ease;
 }
 
 .optionsIcon:hover {
-  background-color: rgba(0, 102, 51, 0.1);
+  background-color: rgba(3, 30, 9, 0.9);
+  transform: rotate(90deg);
+  border-color: rgba(116, 178, 67, 0.7);
+}
+
+.optionsIcon svg {
+  font-size: 22px;
+  color: #74b243;
 }
 
 .optionsMenu {
   position: absolute;
-  top: 35px;
+  top: 44px;
   right: 0;
-  background-color: #031e09;
+  background-color: #1a1e1c;
   border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  width: 150px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  width: 180px;
   z-index: 1000;
   overflow: hidden;
+  border: 1px solid #3a444c;
+  animation: fadeInMenu 0.2s ease-out forwards;
+}
+
+@keyframes fadeInMenu {
+  from {
+    opacity: 0;
+    transform: translateY(-10px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
 .optionItem {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 10px 15px;
+  gap: 12px;
+  padding: 14px 16px;
   cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.optionItem:hover {
-  background-color: rgba(0, 102, 51, 0.05);
-}
-
-.optionItem svg {
-  font-size: 16px;
+  transition: all 0.2s;
+  color: #f5f5f5;
+  border-left: 3px solid transparent;
 }
 
 .optionItem span {
   font-size: 14px;
+  font-weight: 500;
 }
 
-/* Adjust these existing elements if needed */
-.options {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  z-index: 100;
+/* Delete option styling */
+.deleteOption {
+  color: #ff5252;
+  border-bottom: 1px solid rgba(255, 82, 82, 0.1);
+}
+
+.deleteOption:hover {
+  background-color: rgba(255, 82, 82, 0.1);
+  border-left-color: #ff5252;
+}
+
+.deleteIcon {
+  color: #ff5252;
+  font-size: 16px;
+}
+
+/* Report option styling */
+.reportOption {
+  color: #faad14;
+}
+
+.reportOption:hover {
+  background-color: rgba(250, 173, 20, 0.1);
+  border-left-color: #faad14;
+}
+
+.reportIcon {
+  color: #faad14;
+  font-size: 18px;
 }
 .header {
   width: 100%;

@@ -1,8 +1,33 @@
 {
-  "prettier.enable": false,
+  "prettier.enable": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
   "prettier.ignorePath": "",
-  "notebook.defaultFormatter": "svipas.prettier-plus",
-  "editor.formatOnPaste": true
+  "notebook.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnPaste": true,
+  "editor.formatOnType": true,
+  "diffEditor.experimental.showEmptyDecorations": false,
+  "reactSnippets.settings.prettierEnabled": true,
+  "prettier.experimentalTernaries": false,
+  "less.format.enable": false,
+  "notebook.formatOnCellExecution": false,
+  "notebook.formatOnSave.enabled": true,
+  "javascript.format.enable": true,
+  "prettier.arrowParens": "always",
+  "prettier.bracketSpacing": false,
+  "prettier.enableDebugLogs": true,
+  "prettier.insertPragma": true,
+  "prettier.jsxSingleQuote": true,
+  "prettier.prettierPath": "",
+  "prettier.requireConfig": false,
+  "prettier.resolveGlobalModules": true,
+  "prettier.semi": true,
+  "prettier.singleAttributePerLine": true,
+  "prettier.singleQuote": true,
+  "prettier.vueIndentScriptAndStyle": true,
+  "prettier.useTabs": true,
+  "prettier.withNodeModules": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  }
 }

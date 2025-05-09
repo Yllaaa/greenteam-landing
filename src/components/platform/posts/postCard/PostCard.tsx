@@ -239,32 +239,35 @@ function PostCard(props: Props) {
           >
             {/* Post content structure */}
             <div className={styles.options}>
-              <div
-                onClick={() => toggleOptionsMenu(post.post.id)}
-                className={styles.optionsIcon}
-              >
-                <PiDotsThreeCircleLight fill="#006633" />
-              </div>
+  <div
+    onClick={() => toggleOptionsMenu(post.post.id)}
+    className={styles.optionsIcon}
+    aria-label="Post options"
+  >
+    <PiDotsThreeCircleLight />
+  </div>
 
-              {activeOptionsPost === post.post.id && (
-                <div ref={optionsMenuRef} className={styles.optionsMenu}>
-                  {post.isAuthor && (
-                    <div
-                      onClick={() => handleActionDelete(post.post.id)}
-                      className={styles.optionItem}
-                    >
-                      <FaTrash /> <span>Delete Post</span>
-                    </div>
-                  )}
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={styles.optionItem}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Post</span>
-                  </div>
-                </div>
-              )}
-            </div>
+  {activeOptionsPost === post.post.id && (
+    <div ref={optionsMenuRef} className={styles.optionsMenu}>
+      {post.isAuthor && (
+        <div
+          onClick={() => handleActionDelete(post.post.id)}
+          className={`${styles.optionItem} ${styles.deleteOption}`}
+        >
+          <FaTrash className={styles.deleteIcon} /> 
+          <span>Delete Post</span>
+        </div>
+      )}
+      <div
+        onClick={() => handleActionReport(post.post.id)}
+        className={`${styles.optionItem} ${styles.reportOption}`}
+      >
+        <MdOutlineReportProblem className={styles.reportIcon} /> 
+        <span>Report Post</span>
+      </div>
+    </div>
+  )}
+</div>
 
             <div className={styles.header}>
               <div

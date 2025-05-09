@@ -26,7 +26,7 @@ export default async function RootLayout({
         <header>
           <div style={{ position: "relative", zIndex: "1000" }}>
             <Header />
-            <BackButton  />
+            <BackButton shouldHideOnFeeds={true} />
           </div>
         </header>
         <ReactQueryProvider>{children}</ReactQueryProvider>

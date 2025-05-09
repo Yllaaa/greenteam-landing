@@ -4,8 +4,9 @@ import Image from "next/image";
 import { X, Upload } from "lucide-react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { setGroupEdit } from "@/store/features/groupState/editGroupSettings";
 
 interface FormData {
   name: string;
@@ -14,10 +15,11 @@ interface FormData {
 }
 
 function Settings() {
+  const dispatch = useAppDispatch();
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const groupId = useAppSelector((state) => state.groupState.id);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // React Hook Form setup
   const { register, handleSubmit, setValue, reset } = useForm<FormData>({
     defaultValues: {
@@ -33,6 +35,11 @@ function Settings() {
   const [bannerChanged, setBannerChanged] = useState<boolean>(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const dropAreaRef = useRef<HTMLDivElement>(null);
+
+  // Handle closing settings
+  const handleCancel = () => {
+    dispatch(setGroupEdit(false));
+  };
 
   // Handle image selection - updated to handle the file properly
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,14 +135,14 @@ function Settings() {
   const onSubmit = async (data: FormData) => {
     if (!groupId || !accessToken) return;
     setIsSubmitting(true);
-    
+
     try {
       // Create a FormData object to handle file upload
       const formData = new FormData();
-      
+
       // Only append values that exist (not empty strings)
       // This is the key change - checking if values exist
-      
+
       // Handle banner upload (either file or removal)
       if (data.banner) {
         formData.append("banner", data.banner);
@@ -143,23 +150,23 @@ function Settings() {
         // If banner was explicitly removed, send an empty string
         formData.append("banner", "");
       }
-      
+
       // Only append name if it's not empty
       if (data.name.trim()) {
         formData.append("name", data.name);
       }
-      
+
       // Only append description if it's not empty
       if (data.description.trim()) {
         formData.append("description", data.description);
       }
-      
+
       // Check if we have any data to submit
-      const hasDataToSubmit = 
-        formData.has("banner") || 
-        formData.has("name") || 
+      const hasDataToSubmit =
+        formData.has("banner") ||
+        formData.has("name") ||
         formData.has("description");
-      
+
       if (!hasDataToSubmit) {
         ToastNot("No changes to update");
         setIsSubmitting(false);
@@ -177,14 +184,17 @@ function Settings() {
           },
         }
       );
-      
+
       console.log(response.data);
       ToastNot("Group updated successfully");
       reset();
-      
+
       // Reset state
       setBannerChanged(false);
-      
+
+      // Close settings instead of reloading
+      dispatch(setGroupEdit(false));
+
       // Reload page to see changes
       window.location.reload();
     } catch (err) {
@@ -197,9 +207,19 @@ function Settings() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.side}>
-        <h6>Group Settings</h6>
-        <p>Manage your group settings</p>
+      <div className={styles.header}>
+        <div className={styles.side}>
+          <h6>Group Settings</h6>
+          <p>Manage your group settings</p>
+        </div>
+        {/* Cancel button */}
+        <button
+          type="button"
+          onClick={handleCancel}
+          className={styles.cancelButton}
+        >
+          Cancel
+        </button>
       </div>
       <div className={styles.mainForm}>
         <form onSubmit={handleSubmit(onSubmit)}>
@@ -223,9 +243,8 @@ function Settings() {
               <label className={styles.label}>Group Banner</label>
               <div
                 ref={dropAreaRef}
-                className={`${styles.imageUploadContainer} ${
-                  isDragging ? styles.dragging : ""
-                }`}
+                className={`${styles.imageUploadContainer} ${isDragging ? styles.dragging : ""
+                  }`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
@@ -275,13 +294,22 @@ function Settings() {
               </div>
             </div>
           </div>
-          <button 
-            type="submit" 
-            disabled={isSubmitting}
-            className={isSubmitting ? styles.submitting : ''}
-          >
-            {isSubmitting ? "Updating..." : "Save Changes"}
-          </button>
+          <div className={styles.formActions}>
+            <button
+              type="submit"
+              disabled={isSubmitting}
+              className={`${styles.saveButton} ${isSubmitting ? styles.submitting : ''}`}
+            >
+              {isSubmitting ? "Updating..." : "Save Changes"}
+            </button>
+            <button
+              type="button"
+              onClick={handleCancel}
+              className={styles.cancelButtonMobile}
+            >
+              Cancel
+            </button>
+          </div>
         </form>
       </div>
     </div>

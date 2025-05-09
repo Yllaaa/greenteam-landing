@@ -8,34 +8,66 @@ $transition-speed: 0.3s;
 
 .container {
   width: 100%;
-  max-width: 1200px;
   height: fit-content;
   margin: 50px auto;
   padding: 0 50px;
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   gap: 30px;
-  
+
   @media screen and (max-width: $max-width) {
     grid-template-columns: 1fr;
     padding: 0 20px;
     gap: 20px;
   }
-  
+  .header {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    @media (max-width: $max-width) {
+      gap: 10px;
+    }
+    button[type='button'] {
+      background-color: transparent;
+      color: white;
+      font-family: Montserrat, sans-serif;
+      font-weight: 600;
+      font-size: 16px;
+      padding: 14px 36px;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: all $transition-speed ease;
+      align-self: center;
+      margin-top: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border: 1px solid $primary-color;
+      &:hover {
+        background-color: darken($primary-color, 5%);
+        transform: translateY(-2px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+      }
+
+      &:active {
+        transform: translateY(0);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
   .side {
     grid-column: 1 / 4;
     padding: 24px;
     position: sticky;
     top: 80px;
     height: fit-content;
-    
+
     @media screen and (max-width: $max-width) {
       grid-column: 1;
       position: static;
       padding: 16px 0;
       text-align: center;
     }
-    
+
     h6 {
       font-family: Montserrat, sans-serif;
       font-weight: 700;
@@ -43,9 +75,10 @@ $transition-speed: 0.3s;
       line-height: 1.4;
       letter-spacing: -0.7%;
       margin-bottom: 12px;
+      text-wrap: nowrap;
       color: $primary-color;
     }
-    
+
     p {
       font-family: Montserrat, sans-serif;
       font-weight: 400;
@@ -55,7 +88,7 @@ $transition-speed: 0.3s;
       color: rgba(0, 0, 0, 0.7);
     }
   }
-  
+
   .mainForm {
     grid-column: 4 / 13;
     width: 100%;
@@ -65,26 +98,26 @@ $transition-speed: 0.3s;
     border-radius: 32px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
     transition: all $transition-speed ease;
-    
+
     @media screen and (max-width: $max-width) {
       grid-column: 1;
       padding: 24px 16px;
     }
-    
+
     form {
       width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 32px;
-      
+
       %formGroup {
         width: 100%;
         display: flex;
         flex-direction: column;
         gap: 10px;
       }
-      
+
       %formLabel {
         font-family: Montserrat, sans-serif;
         font-weight: 600;
@@ -93,16 +126,18 @@ $transition-speed: 0.3s;
         letter-spacing: -0.6%;
         color: white;
       }
-      
-      .formName, .formDesc {
+
+      .formName,
+      .formDesc {
         @extend %formGroup;
         width: 100%;
-        
+
         label {
           @extend %formLabel;
         }
-        
-        input, textarea {
+
+        input,
+        textarea {
           width: 100%;
           background: $input-background;
           border: 1px solid transparent;
@@ -110,24 +145,24 @@ $transition-speed: 0.3s;
           font-family: Montserrat, sans-serif;
           font-size: 15px;
           transition: all $transition-speed ease;
-          
+
           &:focus {
             outline: none;
             border-color: $secondary-color;
             box-shadow: 0 0 0 2px rgba(116, 178, 67, 0.3);
           }
-          
+
           &::placeholder {
             color: rgba(0, 102, 51, 0.7);
           }
         }
-        
+
         input {
           height: 50px;
           padding: 0 20px;
           border-radius: 25px;
         }
-        
+
         textarea {
           height: 170px;
           resize: none;
@@ -135,7 +170,7 @@ $transition-speed: 0.3s;
           border-radius: 24px;
         }
       }
-      
+
       .formSection {
         width: 100%;
         display: flex;
@@ -143,19 +178,20 @@ $transition-speed: 0.3s;
         gap: 24px;
         padding-bottom: 24px;
         border-bottom: 1px solid $border-light;
-        
+
         .formGroup {
           width: 100%;
           display: flex;
           flex-direction: column;
           gap: 12px;
           position: relative;
-          
+
           label {
             @extend %formLabel;
           }
-          
-          .imageUploadContainer, .avatarUploadContainer {
+
+          .imageUploadContainer,
+          .avatarUploadContainer {
             position: relative;
             display: flex;
             justify-content: center;
@@ -165,30 +201,31 @@ $transition-speed: 0.3s;
             border: 2px dashed rgba(209, 213, 219, 0.7);
             cursor: pointer;
             transition: all $transition-speed ease;
-            
-            &:hover, &.dragging {
+
+            &:hover,
+            &.dragging {
               border-color: $secondary-color;
               background: rgba(255, 255, 255, 0.6);
             }
-            
+
             .imagePreviewWrapper {
               position: relative;
               width: 100%;
               height: 100%;
               z-index: 10;
-              
+
               .imagePreview {
                 width: 100%;
                 height: 100%;
                 z-index: 8;
-                
+
                 img {
                   width: 100%;
                   height: 100%;
                   object-fit: cover;
                 }
               }
-              
+
               .removeImageButton {
                 position: absolute;
                 top: 10px;
@@ -205,19 +242,19 @@ $transition-speed: 0.3s;
                 z-index: 10;
                 transition: all $transition-speed ease;
                 cursor: pointer;
-                
+
                 &:hover {
                   background: rgba(255, 0, 0, 0.7);
                   transform: scale(1.1);
                 }
-                
+
                 .removeIcon {
                   width: 16px;
                   height: 16px;
                 }
               }
             }
-            
+
             .uploadPlaceholder {
               display: flex;
               flex-direction: column;
@@ -225,42 +262,43 @@ $transition-speed: 0.3s;
               justify-content: center;
               color: $secondary-color;
               font-family: Montserrat, sans-serif;
-              
+
               p {
                 font-size: 16px;
                 text-align: center;
                 margin: 10px 0;
               }
-              
+
               &::before {
                 content: '';
                 display: block;
                 width: 50px;
                 height: 50px;
-                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2374b243' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12'/%3E%3C/svg%3E") no-repeat center center;
+                background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2374b243' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12'/%3E%3C/svg%3E")
+                  no-repeat center center;
                 margin-bottom: 15px;
               }
             }
           }
-          
+
           .imageUploadContainer {
             height: 240px;
             width: 100%;
             border-radius: 16px;
           }
-          
+
           .avatarUploadContainer {
             width: 200px;
             height: 200px;
             border-radius: 50%;
             margin: 0 auto;
-            
+
             .uploadPlaceholder {
               p {
                 font-size: 14px;
                 max-width: 120px;
               }
-              
+
               &::before {
                 width: 40px;
                 height: 40px;
@@ -269,8 +307,12 @@ $transition-speed: 0.3s;
           }
         }
       }
-      
-      button[type="submit"] {
+      .formActions {
+        display: flex;
+        gap: 16px;
+        margin-top: 16px;
+      }
+      button[type='submit'] {
         background-color: $primary-color;
         color: white;
         font-family: Montserrat, sans-serif;
@@ -284,13 +326,39 @@ $transition-speed: 0.3s;
         align-self: center;
         margin-top: 8px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        
+
         &:hover {
           background-color: darken($primary-color, 5%);
           transform: translateY(-2px);
           box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
         }
-        
+
+        &:active {
+          transform: translateY(0);
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+      }
+      button[type='button'] {
+        background-color: transparent;
+        color: white;
+        font-family: Montserrat, sans-serif;
+        font-weight: 600;
+        font-size: 16px;
+        padding: 14px 36px;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        transition: all $transition-speed ease;
+        align-self: center;
+        margin-top: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: 1px solid $primary-color;
+        &:hover {
+          background-color: darken($primary-color, 5%);
+          transform: translateY(-2px);
+          box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
         &:active {
           transform: translateY(0);
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -299,3 +367,73 @@ $transition-speed: 0.3s;
     }
   }
 }
+// Add this to your existing SCSS file
+// .formActions {
+//   width: 100%;
+//   display: flex;
+//   justify-content: center;
+//   gap: 16px;
+//   margin-top: 16px;
+
+//   @media screen and (max-width: $max-width) {
+//     flex-direction: column;
+//   }
+
+//   .saveButton,
+//   .cancelButton {
+//     font-family: Montserrat, sans-serif;
+//     font-weight: 600;
+//     font-size: 16px;
+//     padding: 14px 36px;
+//     border-radius: 25px;
+//     cursor: pointer;
+//     transition: all $transition-speed ease;
+//     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+//     &:hover {
+//       transform: translateY(-2px);
+//       box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+//     }
+
+//     &:active {
+//       transform: translateY(0);
+//       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+//     }
+
+//     &:disabled {
+//       opacity: 0.7;
+//       cursor: not-allowed;
+//     }
+
+//     @media screen and (max-width: $max-width) {
+//       width: 100%;
+//     }
+//   }
+
+//   .saveButton {
+//     background-color: $primary-color;
+//     color: white;
+//     border: none;
+
+//     &:hover:not(:disabled) {
+//       background-color: darken($primary-color, 5%);
+//     }
+//   }
+
+//   .cancelButton {
+//     background-color: transparent;
+//     color: white;
+//     border: 1px solid rgba(255, 255, 255, 0.3);
+
+//     &:hover {
+//       background-color: rgba(255, 255, 255, 0.1);
+//       border-color: white;
+//     }
+//   }
+// }
+
+// And remove or comment out the original submit button style
+// since it's now handled in the formActions styles
+// button[type="submit"] {
+//   // Comment out or remove these styles
+// }

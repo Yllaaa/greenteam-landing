@@ -11,7 +11,6 @@ import { Topics } from "@/components/Assets/topics/Topics.data";
 interface FormData {
   name: string;
   description: string;
-
   what: string;
   why: string;
   how: string;
@@ -25,6 +24,8 @@ function Settings(props: { slug: string }) {
   const { slug } = props;
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const topics = Topics;
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
   // React Hook Form setup
   const {
     register,
@@ -36,13 +37,11 @@ function Settings(props: { slug: string }) {
     defaultValues: {
       name: "",
       description: "",
-
       what: "",
       why: "",
       how: "",
       topicId: "",
       category: "",
-
       avatar: null,
       cover: null,
     },
@@ -223,9 +222,9 @@ function Settings(props: { slug: string }) {
   };
 
   const onSubmit = (data: FormData) => {
-    console.log("Form submitted:", data);
-
     if (!accessToken) return;
+
+    setIsSubmitting(true);
 
     try {
       const formData = new FormData();
@@ -262,28 +261,46 @@ function Settings(props: { slug: string }) {
         .catch((err) => {
           console.log(err);
           ToastNot("Error updating group");
+        })
+        .finally(() => {
+          setIsSubmitting(false);
         });
     } catch (err) {
       console.log(err);
+      setIsSubmitting(false);
     }
+  };
+
+  // Cancel handler
+  const handleCancel = () => {
+    // Navigate back or to a specific location
+    window.history.back();
   };
 
   return (
     <>
       <div className={styles.container}>
+        <div className={styles.header}>
         <div className={styles.side}>
           <h6>Profile Settings</h6>
           <p>Manage your profile</p>
         </div>
+        <button
+          type="button"
+          className={styles.cancelButton}
+          onClick={handleCancel}
+        >
+          Cancel
+          </button>
+          </div>
         <div className={styles.mainForm}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={styles.formSection}>
               <div className={styles.formGroup}>
                 <label className={styles.label}>Avatar</label>
                 <div
-                  className={`${styles.avatarUploadContainer} ${
-                    isDraggingAvatar ? styles.dragging : ""
-                  }`}
+                  className={`${styles.avatarUploadContainer} ${isDraggingAvatar ? styles.dragging : ""
+                    }`}
                   onClick={handleAvatarClick}
                   onDragEnter={handleAvatarDragEnter}
                   onDragOver={handleAvatarDragOver}
@@ -335,9 +352,8 @@ function Settings(props: { slug: string }) {
               <div className={styles.formGroup}>
                 <label className={styles.label}>Cover</label>
                 <div
-                  className={`${styles.imageUploadContainer} ${
-                    isDraggingCover ? styles.dragging : ""
-                  }`}
+                  className={`${styles.imageUploadContainer} ${isDraggingCover ? styles.dragging : ""
+                    }`}
                   onClick={handleCoverClick}
                   onDragEnter={handleCoverDragEnter}
                   onDragOver={handleCoverDragOver}
@@ -425,9 +441,8 @@ function Settings(props: { slug: string }) {
             <div className={styles.formName}>
               <label className={styles.label}>Topic</label>
               <select
-                className={`${styles.select} ${
-                  errors.topicId ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.topicId ? styles.inputError : ""
+                  }`}
                 {...register("topicId", { required: "Topic is required" })}
               >
                 <option value="" disabled>
@@ -447,9 +462,8 @@ function Settings(props: { slug: string }) {
             <div className={styles.formName}>
               <label className={styles.label}>Category</label>
               <select
-                className={`${styles.select} ${
-                  errors.topicId ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.topicId ? styles.inputError : ""
+                  }`}
                 {...register("category", { required: "Topic is required" })}
               >
                 <option value="" disabled>
@@ -466,7 +480,22 @@ function Settings(props: { slug: string }) {
               )}
             </div>
 
-            <button type="submit">Submit</button>
+            <div className={styles.formActions}>
+              <button
+                type="submit"
+                className={styles.saveButton}
+                disabled={isSubmitting}
+              >
+                {isSubmitting ? "Saving..." : "Submit"}
+              </button>
+              <button
+                type="button"
+                className={styles.cancelButton}
+                onClick={handleCancel}
+              >
+                Cancel
+              </button>
+            </div>
           </form>
         </div>
       </div>

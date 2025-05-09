@@ -1,25 +1,33 @@
-'use client';
+"use client";
+import React from "react";
+import styles from "./Breadcrumb.module.css";
+import { useRouter, usePathname } from "next/navigation";
+import { FaBackspace } from "react-icons/fa";
 
-import { useRouter } from 'next/navigation';
+interface BackButtonProps {
+  shouldHideOnFeeds?: boolean;
+}
 
-const BackButton: React.FC = () => {
+const BackButton: React.FC<BackButtonProps> = ({ shouldHideOnFeeds = false }) => {
   const router = useRouter();
+  const pathname = usePathname();
+
+  // Check if we should hide the button based on the path
+  const shouldHide = shouldHideOnFeeds && pathname.includes("/feeds");
+
+  if (shouldHide) {
+    return null;
+  }
 
   return (
-    <button 
-      type="button"
-      onClick={() => router.back()}
-      style={{
-        padding: '6px 16px',
-        borderRadius: '4px',
-        border: 'none',
-        background:"transparent",
-        cursor: 'pointer'
-      }}
-      aria-label="Go back"
-    >
-      ← Back
-    </button>
+    <div className={styles.breadcrumb}>
+      <div className={styles.container}>
+        <button onClick={() => router.back()} className={styles.back}>
+          <FaBackspace />
+          <p>Back</p>
+        </button>
+      </div>
+    </div>
   );
 };
 

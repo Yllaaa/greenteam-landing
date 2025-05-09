@@ -267,32 +267,35 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         <FaStar fill="#FFD700" />
       </div>
       <div className={styles.options}>
-        <div
-          onClick={() => toggleOptionsMenu(product.id)}
-          className={styles.optionsIcon}
-        >
-          <PiDotsThreeCircleLight fill="#006633" />
-        </div>
+  <div
+    onClick={() => toggleOptionsMenu(product.id)}
+    className={styles.optionsIcon}
+    aria-label="Product options"
+  >
+    <PiDotsThreeCircleLight />
+  </div>
 
-        {activeOptionsPost === product.id && (
-          <div ref={optionsMenuRef} className={styles.optionsMenu}>
-            {product.isAuthor && (
-              <div
-                onClick={() => handleActionDelete(product.id)}
-                className={styles.optionItem}
-              >
-                <FaTrash /> <span>Delete Post</span>
-              </div>
-            )}
-            <div
-              onClick={() => handleActionReport(product.id)}
-              className={styles.optionItem}
-            >
-              <MdOutlineReportProblem /> <span>Report Post</span>
-            </div>
-          </div>
-        )}
+  {activeOptionsPost === product.id && (
+    <div ref={optionsMenuRef} className={styles.optionsMenu}>
+      {product.isAuthor && (
+        <div
+          onClick={() => handleActionDelete(product.id)}
+          className={`${styles.optionItem} ${styles.deleteOption}`}
+        >
+          <FaTrash className={styles.deleteIcon} /> 
+          <span>Delete Product</span>
+        </div>
+      )}
+      <div
+        onClick={() => handleActionReport(product.id)}
+        className={`${styles.optionItem} ${styles.reportOption}`}
+      >
+        <MdOutlineReportProblem className={styles.reportIcon} /> 
+        <span>Report Product</span>
       </div>
+    </div>
+  )}
+</div>
     </div>
   );
 };

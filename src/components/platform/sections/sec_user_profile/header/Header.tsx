@@ -11,6 +11,7 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Report from "./modal/addNew/Report";
+import { FaX } from "react-icons/fa6";
 
 function Header(props: {
   user: ProfileResponse;
@@ -32,8 +33,7 @@ function Header(props: {
   const handleBlock = () => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/actions/${
-          isBlocked ? "unblock" : "block"
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/actions/${isBlocked ? "unblock" : "block"
         }/${user.userData.id}`,
 
         {
@@ -124,7 +124,8 @@ function Header(props: {
                 onClick={handleSettingNavigation}
                 className={styles.settings}
               >
-                <IoMdSettings />
+                {settings ? <FaX /> : <IoMdSettings />}
+
               </div>
             ) : (
               <div className={styles.droplist}>
@@ -132,9 +133,8 @@ function Header(props: {
                   <HiDotsVertical />
                 </div>
                 <div
-                  className={`${styles.dropDown} ${
-                    open ? styles.active : styles.notActive
-                  }`}
+                  className={`${styles.dropDown} ${open ? styles.active : styles.notActive
+                    }`}
                 >
                   <p onClick={() => setReport(true)}>Report</p>
                   <p

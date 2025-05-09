@@ -1,0 +1,23 @@
+.breadcrumb{
+    width: 100%;
+    margin: auto 50px;
+}
+.container{
+    width: 100%;
+    padding: 10px 0px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.container button{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: flex-start;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+}

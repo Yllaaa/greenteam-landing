@@ -30,20 +30,20 @@ function Grpheader(props: { groupId: string }) {
   const dispatch = useAppDispatch();
   const router = useRouter();
   const [data, setData] = React.useState<GroupItem>({} as GroupItem);
-  
+
   // Options menu state
   const [showOptions, setShowOptions] = useState(false);
-  
+
   // Confirmation modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
-  
+
   // Report modal state
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-  
+
   // Reference for dropdown menu (to handle clicks outside)
   const optionsMenuRef = useRef<HTMLDivElement>(null);
-  
+
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
 
@@ -62,7 +62,7 @@ function Grpheader(props: { groupId: string }) {
   useEffect(() => {
     fetchGroupData();
   }, [fetchGroupData]);
-  
+
   // Close the options menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -108,12 +108,12 @@ function Grpheader(props: { groupId: string }) {
   const activeEdit = () => {
     dispatch(setGroupEdit(!editState));
   };
-  
+
   // Toggle options menu
   const toggleOptionsMenu = () => {
     setShowOptions(prev => !prev);
   };
-  
+
   // Handle delete action
   const handleDelete = useCallback(async () => {
     try {
@@ -127,7 +127,7 @@ function Grpheader(props: { groupId: string }) {
           },
         }
       );
-      
+
       if (response) {
         ToastNot("Group deleted successfully");
         // Redirect to groups list after deletion
@@ -138,7 +138,7 @@ function Grpheader(props: { groupId: string }) {
       ToastNot("Error occurred while deleting group");
     }
   }, [groupId, accessToken, router]);
-  
+
   // Handle block action
   const handleBlock = useCallback(async () => {
     try {
@@ -153,7 +153,7 @@ function Grpheader(props: { groupId: string }) {
           },
         }
       );
-      
+
       if (response) {
         ToastNot("Group blocked successfully");
         // Redirect to groups list after blocking
@@ -175,7 +175,7 @@ function Grpheader(props: { groupId: string }) {
           width={1000}
           height={1000}
         />
-        
+
         {/* Group options button */}
         <div className={styles.groupOptions}>
           <div
@@ -184,7 +184,7 @@ function Grpheader(props: { groupId: string }) {
           >
             <PiDotsThreeCircleLight fill="#006633" />
           </div>
-          
+
           {showOptions && (
             <div ref={optionsMenuRef} className={styles.optionsMenu}>
               {data.isAdmin && (
@@ -262,7 +262,7 @@ function Grpheader(props: { groupId: string }) {
         </div>
       </div>
       {!editState && <AddNew />}
-      
+
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
@@ -275,7 +275,7 @@ function Grpheader(props: { groupId: string }) {
         successMessage="Group deleted successfully"
         errorMessage="Error occurred while deleting group"
       />
-      
+
       {/* Block Confirmation Modal */}
       <ConfirmationModal
         isOpen={isBlockModalOpen}
@@ -288,7 +288,7 @@ function Grpheader(props: { groupId: string }) {
         successMessage="Group blocked successfully"
         errorMessage="Error occurred while blocking group"
       />
-      
+
       {/* Report Modal */}
       <ReportModal
         isOpen={isReportModalOpen}
