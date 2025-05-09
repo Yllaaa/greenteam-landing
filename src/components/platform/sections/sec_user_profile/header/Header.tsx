@@ -12,6 +12,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Report from "./modal/addNew/Report";
 import { FaX } from "react-icons/fa6";
+import AddNew from "./AddNew";
 
 function Header(props: {
   user: ProfileResponse;
@@ -150,6 +151,7 @@ function Header(props: {
           </div>
         </div>
       </div>
+      {user.isMyProfile && <AddNew/>}
       {report && (
         <Report
           setReport={setReport}

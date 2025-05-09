@@ -30,7 +30,7 @@ interface ProductCardProps {
   setSellerId: React.Dispatch<React.SetStateAction<string>>;
   setSellerType: React.Dispatch<React.SetStateAction<string>>;
   setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
-  setContacts: React.Dispatch<React.SetStateAction<any>>;
+  setContacts?: React.Dispatch<React.SetStateAction<any>>;
   // setSlug: React.Dispatch<React.SetStateAction<string>>;
   deleteModal: boolean;
   setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -48,7 +48,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     products,
     setSellerId,
     setShowContacts,
-    setContacts,
+    // setContacts,
     deleteModal,
     setDeleteModal,
     reportModal,
@@ -125,7 +125,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     router.push(`chat?chatId=${product?.sellerId}`);
   };
   const handleContacts = async () => {
-    setContacts(product?.sellerType);
+    // setContacts(product?.sellerType);
     setSellerId(product?.sellerId);
     setShowContacts(true);
   };

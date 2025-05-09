@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
   Suspense,
@@ -19,7 +18,7 @@ import Image from "next/image";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
-import ContactModal from "./modal/ContactModal";
+import ContactModal from "@/components/platform/modals/contactModal/ContactModal";
 import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal"; // Import reusable modal
 import ReportModal from "@/components/platform/modals/reportModal/ReportModal"; // Import reusable modal
 import axios from "axios";
@@ -40,7 +39,7 @@ function ProductSection() {
   const [products, setProducts] = useState<Products[]>([]);
   const [endOfResults, setEndOfResults] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
-  const [contacts, setContacts] = useState<any>();
+  // const [contacts, setContacts] = useState<any>();
 
   // Enhanced modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -245,7 +244,7 @@ function ProductSection() {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
-                  setContacts={setContacts}
+                  // setContacts={setContacts}
                   setShowContacts={setShowContacts}
                   deleteModal={isDeleteModalOpen}
                   setDeleteModal={setIsDeleteModalOpen}
@@ -336,8 +335,8 @@ function ProductSection() {
 
       {showContacts && (
         <ContactModal
-          contacts={contacts}
-          setShowContacts={setShowContacts}
+          isOpen={showContacts}
+          onClose={() => setShowContacts(false)}
           sellerId={sellerId}
           accessToken={accessToken}
         />

@@ -10,7 +10,7 @@ import Groups from "../groups/Groups";
 import Pages from "../pages/Pages";
 import Breif from "./side/Breif";
 import Settings from "../settings/Settings";
-import AddNew from "../../header/AddNew";
+// import AddNew from "../../header/AddNew";
 
 type Sections = "your posts" | "events" | "products" | "groups" | "pages";
 function AllProfileBody(props: { username: string }) {
@@ -57,7 +57,7 @@ function AllProfileBody(props: { username: string }) {
         {/* header */}
         <div className={styles.header}>
           <Header user={user} settings={settings} setSettings={setSettings} />
-          <AddNew />
+          {/* <AddNew /> */}
         </div>
         {/* filter */}
         {!settings ? (

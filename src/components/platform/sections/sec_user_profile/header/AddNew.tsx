@@ -26,7 +26,6 @@ function AddNew() {
   // Get user info
   const userInfo1 = getToken();
   const userInfo = userInfo1 ? userInfo1.accessToken : null;
-  console.log(userInfo);
 
   // topics and subtopics
   const topics = Topics;
