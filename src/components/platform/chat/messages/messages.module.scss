@@ -122,4 +122,30 @@
       }
     }
   }
+
+  &.self {
+    align-self: flex-end;
+    flex-direction: row-reverse;
+    gap: 0px;
+
+    .avatar {
+      display: none;
+    }
+
+    .arrow {
+      display: block;
+    }
+
+    .content {
+      background: #006633;
+
+      .header {
+        display: none;
+      }
+
+      .time {
+        color: #f1f4f9;
+      }
+    }
+  }
 }
