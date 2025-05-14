@@ -15,7 +15,9 @@ function page() {
       <div className={srtyles.feedSection}>
         <FeedSection />
       </div>
-
+      <div className={srtyles.artSection}>
+        <PostForums />
+      </div>
       <div
         style={{
           padding: "32.5px 0px",
@@ -35,9 +37,7 @@ function page() {
         <ProductSection />
       </div>
       {/* done lesa likes/comment/do/unlike */}
-      <div className={srtyles.artSection}>
-        <PostForums />
-      </div>
+      
     </section>
   );
 }
