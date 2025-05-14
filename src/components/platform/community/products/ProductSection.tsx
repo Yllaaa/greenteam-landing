@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
   Suspense,
@@ -19,13 +18,21 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import { useAppSelector } from "@/store/hooks";
-import ContactModal from "./modal/ContactModal";
+import ContactModal from "@/components/platform/modals/contactModal/ContactModal";
+import { FaTimesCircle } from "react-icons/fa";
+import { useAppDispatch } from "@/store/hooks";
+import { clearSelectedCategory, resetDestination } from "@/store/features/communitySection/currentCommunity";
 
 function ProductSection() {
+  const dispatch = useAppDispatch();
   const cityId = useAppSelector((state) => state.currentCommunity.selectedCity);
   const countryId = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
   );
+  const marketType = useAppSelector(
+    (state) => state.currentCommunity.selectedCategory
+  ); // Get the selected category from Redux
+
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -38,7 +45,7 @@ function ProductSection() {
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState<Products[]>([]);
   const [showContacts, setShowContacts] = useState(false);
-  const [contacts, setContacts] = useState<any>();
+  // const [contacts, setContacts] = useState<any>();
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -47,7 +54,7 @@ function ProductSection() {
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
 
-  // Fetch events data
+  // Fetch products data
   const loadProducts = useCallback(
     async (pageNum: number, replace: boolean = false) => {
       try {
@@ -59,6 +66,7 @@ function ProductSection() {
           topicId: section,
           cityId: cityId,
           countryId: countryId,
+          marketType: marketType, // Pass the market type to the API
         });
 
         // Check if we've reached the end of available events
@@ -75,14 +83,24 @@ function ProductSection() {
           return [...prev, ...data];
         });
       } catch (error) {
-        console.error("Failed to fetch events:", error);
+        console.error("Failed to fetch products:", error);
         setErrorMessage("An Error Occurred");
       } finally {
         setIsLoading(false);
       }
     },
-    [accessToken, section, cityId, countryId]
+    [accessToken, section, cityId, countryId, marketType] // Added marketType to dependency array
   );
+
+  // Reset the category filter
+  const handleClearCategoryFilter = () => {
+    dispatch(clearSelectedCategory());
+  };
+
+  // Reset all filters
+  const handleResetAllFilters = () => {
+    dispatch(resetDestination());
+  };
 
   // Initial load and section change handler
   useEffect(() => {
@@ -177,7 +195,7 @@ function ProductSection() {
     if (products.length === 0) {
       return (
         <div className={styles.emptyField}>
-          <p>No events found</p>
+          <p>No products found</p>
         </div>
       );
     }
@@ -198,7 +216,7 @@ function ProductSection() {
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
                   setShowContacts={setShowContacts}
-                  setContacts={setContacts}
+                // setContacts={setContacts}
                 />
               </div>
             ))}
@@ -216,12 +234,38 @@ function ProductSection() {
           setSection={setSection}
           setAddNew={setAddNew}
         />
+
+        {/* Category filter indicator */}
+        {marketType && (
+          <div className={styles.activeFilters}>
+            <div className={styles.filterBadge}>
+              <span>{marketType === "local" ? "Local" : "Online"}</span>
+              <button
+                onClick={handleClearCategoryFilter}
+                className={styles.clearFilterBtn}
+                title="Clear category filter"
+              >
+                <FaTimesCircle />
+              </button>
+            </div>
+
+            {(cityId || countryId) && (
+              <button
+                onClick={handleResetAllFilters}
+                className={styles.resetAllBtn}
+                title="Reset all filters"
+              >
+                Reset All Filters
+              </button>
+            )}
+          </div>
+        )}
+
         {products.length > 0 && (
           <div className={styles.sliderBtns}>
             <div
-              className={`${styles.arrow} ${
-                !canScrollLeft ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("left")}
             >
               <Image
@@ -233,9 +277,8 @@ function ProductSection() {
               />
             </div>
             <div
-              className={`${styles.arrow} ${
-                !canScrollRight ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("right")}
             >
               <Image src={toRight} alt="right arrow" width={100} height={100} />
@@ -257,8 +300,8 @@ function ProductSection() {
       )}
       {showContacts && (
         <ContactModal
-          contacts={contacts}
-          setShowContacts={setShowContacts}
+          isOpen={showContacts}
+          onClose={() => setShowContacts(false)}
           sellerId={sellerId}
           accessToken={accessToken}
         />

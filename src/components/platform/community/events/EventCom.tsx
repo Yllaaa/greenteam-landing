@@ -1,7 +1,7 @@
 "use client";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import React, { Suspense, useCallback, useEffect, useState } from "react";
-import { Event, EventCategory, fetchEvents } from "./eventCom.data";
+import { Event, EventCategory, EventMode, fetchEvents } from "./eventCom.data";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import styles from "./eventCom.module.scss";
 // import EventCard from "./EventCard";
@@ -18,6 +18,9 @@ function EventCom() {
     (state) => state.currentCommunity.selectedCountry
   );
   const city = useAppSelector((state) => state.currentCommunity.selectedCity);
+  const eventMode = useAppSelector(
+    (state) => state.currentCommunity.selectedCategory
+  ) as EventMode; // Get the selected category from Redux
 
   // State management
   const [addNew, setAddNew] = useState(false);
@@ -43,6 +46,7 @@ function EventCom() {
           country: country !== undefined ? country : "",
           accessToken,
           category: section,
+          eventMode: eventMode, // Pass the event mode (local/online) to the API
         });
 
         // Check if we've reached the end of available events
@@ -65,7 +69,7 @@ function EventCom() {
         setIsLoading(false);
       }
     },
-    [accessToken, city, country, section]
+    [accessToken, city, country, section, eventMode] // Added eventMode to the dependency array
   );
 
   // Load more events when page changes
@@ -80,13 +84,6 @@ function EventCom() {
     setPage(1);
     loadEvents(1, true);
   }, [loadEvents]);
-
-  // Handle load more - triggered by the last EventCard's inView
-  // const handleLoadMore = () => {
-  //   if (!isLoading && hasMore) {
-  //     setPage((prevPage) => prevPage + 1);
-  //   }
-  // };
 
   // Render loading state
   const renderLoading = () => (
@@ -119,27 +116,6 @@ function EventCom() {
 
     return (
       <Suspense fallback={renderLoading()}>
-        {/* <div className={styles.eventsContainerW}>
-          {events.map((event, index) => (
-            <EventCard
-              key={event.id || index}
-              limit={LIMIT}
-              events={events}
-              event={event}
-              index={index}
-              page={page}
-              setPage={setPage}
-              onLastItemVisible={handleLoadMore}
-              isLastItem={index === events.length - 1}
-              hasMore={hasMore}
-            />
-          ))}
-          {isLoading && events.length > 0 && (
-            <div className={styles.loadingMore}>
-              <LoadingTree />
-            </div>
-          )}
-        </div> */}
         <div className={styles.eventsContainerR}>
           {events.map((event, index) => (
             <EventCards

@@ -1,7 +1,10 @@
-import axios from "axios";
+import axios from 'axios';
 
 // Event Category Types
-export type EventCategory = "volunteering&work" | "talks&workshops" | string; // Including string for potential future categories
+export type EventCategory = 'volunteering&work' | 'talks&workshops' | string; // Including string for potential future categories
+
+// Event Mode Type
+export type EventMode = 'local' | 'online' | undefined;
 
 // Event Interface
 export interface Event {
@@ -12,6 +15,7 @@ export interface Event {
   startDate: string;
   endDate: string;
   category: EventCategory;
+  eventMode?: EventMode; // Added event mode field
   posterUrl: string | null;
   hostedBy: string | null;
   isJoined: boolean;
@@ -30,6 +34,7 @@ export interface EventsResponse {
 // Event Request Parameters (for fetching events)
 export interface EventsRequestParams {
   category?: EventCategory;
+  eventMode?: EventMode; // Added event mode parameter
   startDate?: string;
   endDate?: string;
   search?: string;
@@ -49,6 +54,7 @@ export interface EventFormData {
   startDate: string;
   endDate: string;
   category: EventCategory;
+  eventMode?: EventMode; // Added event mode field
   poster?: File | null;
 }
 
@@ -67,33 +73,37 @@ export const fetchEvents = async ({
   category,
   city,
   country,
+  eventMode, // Added event mode parameter
 }: {
   page?: number;
   limit?: number;
   accessToken?: string | null;
-
   category: EventCategory;
   city: number | string;
   country: number | string;
+  eventMode?: EventMode; // Added to parameters
 }): Promise<Event[]> => {
   try {
-    const categoryParam = category !== "all" ? `&category=${category}` : "";
+    const categoryParam = category !== 'all' ? `&category=${category}` : '';
     const countryParam =
-      country !== "" && country ? `&countryId=${country}` : "";
-    const cityParam = city !== "" && city ? `&cityId=${city}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${cityParam}${countryParam}${categoryParam}`;
+      country !== '' && country ? `&countryId=${country}` : '';
+    const cityParam = city !== '' && city ? `&cityId=${city}` : '';
+    // Add event mode param for local/online filtering
+    const eventModeParam = eventMode ? `&eventMode=${eventMode}` : '';
+
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${cityParam}${countryParam}${categoryParam}${eventModeParam}`;
 
     const response = await axios.get(url, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: accessToken ? `Bearer ${accessToken}` : "",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        Authorization: accessToken ? `Bearer ${accessToken}` : '',
+        'Access-Control-Allow-Origin': '*',
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.error('Error fetching events:', error);
     throw error;
   }
 };

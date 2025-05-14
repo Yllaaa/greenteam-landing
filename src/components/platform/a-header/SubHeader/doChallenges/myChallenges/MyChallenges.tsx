@@ -219,8 +219,8 @@ function MyChallenges(props: DoMainProps) {
   return (
     <div className={styles.MyContainer}>
       <div className={styles.header}>
-              <h2>{t("myChallenge")}</h2>
-            </div>
+          <h2>{t("myChallenge")}</h2>
+      </div>
             <div className={styles.challengesContainer}>
       {challenges.length > 0 &&
         challenges.map((challenge: Post, index: number) => (

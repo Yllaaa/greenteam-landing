@@ -280,7 +280,7 @@ function SinglePost(props: Props) {
                 className={styles.userName}
               >
                 <p>
-                  {post.author.fullName} <span>@{post.author.username}</span>
+                  {post.author.fullName || post.author.username || post.author.name} <span>@{post.author.username}</span>
                   {isMounted && (
                     <span> . {formatTimeDifference(post.post.createdAt)}</span>
                   )}
@@ -298,8 +298,8 @@ function SinglePost(props: Props) {
                   uniqueImages?.length === 1
                     ? styles.singleGrid
                     : uniqueImages?.length === 2
-                    ? styles.doubleGrid
-                    : styles.grid
+                      ? styles.doubleGrid
+                      : styles.grid
                 }
               >
                 {uniqueImages &&
@@ -310,8 +310,8 @@ function SinglePost(props: Props) {
                         media.mediaType === "image"
                           ? media.mediaUrl
                           : media.mediaType === "document"
-                          ? attached
-                          : foot
+                            ? attached
+                            : foot
                       }
                       alt="Post Media"
                       width={300}
@@ -322,8 +322,8 @@ function SinglePost(props: Props) {
                         media.mediaType === "image"
                           ? openFullscreen(media.mediaUrl)
                           : media.mediaType === "document"
-                          ? downloadPdf(media.mediaUrl)
-                          : null
+                            ? downloadPdf(media.mediaUrl)
+                            : null
                       }
                     />
                   ))}
@@ -332,9 +332,8 @@ function SinglePost(props: Props) {
           )}
           {/* Fullscreen overlay */}
           <div
-            className={`${styles.fullscreenOverlay} ${
-              fullscreenImage ? styles.active : ""
-            }`}
+            className={`${styles.fullscreenOverlay} ${fullscreenImage ? styles.active : ""
+              }`}
             onClick={closeFullscreen}
           >
             {fullscreenImage && (

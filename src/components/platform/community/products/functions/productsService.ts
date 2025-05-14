@@ -11,7 +11,7 @@ interface FetchEventsParams {
   countryId?: number | undefined;
   cityId?: number | undefined;
   accessToken?: string | null;
-  // slug: string;
+  marketType?: string | undefined; // Add marketType parameter
 }
 
 export const fetchProducts = async ({
@@ -21,26 +21,27 @@ export const fetchProducts = async ({
   countryId,
   cityId,
   accessToken,
-}: // slug,
-FetchEventsParams): Promise<Products[]> => {
+  marketType, // Add to function parameters
+}: FetchEventsParams): Promise<Products[]> => {
   try {
-    // const sectionParam = section !== 0 ? `&section=${section}` : "";
-    const topicIdParam = topicId ? `&topicId=${topicId}` : "";
-    const countryIdParam = countryId ? `&countryId=${countryId}` : "";
-    const cityIdParam = cityId ? `&cityId=${cityId}` : "";
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${cityIdParam}`;
+    const topicIdParam = topicId ? `&topicId=${topicId}` : '';
+    const countryIdParam = countryId ? `&countryId=${countryId}` : '';
+    const cityIdParam = cityId ? `&cityId=${cityId}` : '';
+    const marketTypeParam = marketType ? `&marketType=${marketType}` : ''; // Add market type parameter
+
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${cityIdParam}${marketTypeParam}`;
 
     const response = await axios.get(url, {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: accessToken ? `Bearer ${accessToken}` : "",
-        "Access-Control-Allow-Origin": "*",
+        'Content-Type': 'application/json',
+        Authorization: accessToken ? `Bearer ${accessToken}` : '',
+        'Access-Control-Allow-Origin': '*',
       },
     });
 
     return response.data;
   } catch (error) {
-    console.error("Error fetching events:", error);
+    console.error('Error fetching events:', error);
     throw error;
   }
 };

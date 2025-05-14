@@ -127,7 +127,7 @@ function PostCard(props: Props) {
     },
     [deleteModal, setDeleteModal, setPostId]
   );
-  
+
   // Handle delete or report action
   const handleActionReport = useCallback(
     (postId: string) => {
@@ -323,7 +323,7 @@ function PostCard(props: Props) {
                   className={styles.userName}
                 >
                   <p>
-                    {post.author.username} <span>@{post.author.username}</span>
+                    {post.author.name || post.author.username} <span>@{post.author.username}</span>
                     {isMounted && (
                       <span>
                         {" "}

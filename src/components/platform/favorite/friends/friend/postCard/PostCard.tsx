@@ -216,7 +216,7 @@ function PostCard(props: Props) {
                   className={styles.userName}
                 >
                   <p>
-                    {post.author.username} <span>@{post.author.username}</span>
+                    {post.author.name || post.author.username} <span>@{post.author.username}</span>
                     {isMounted && (
                       <span>
                         {" "}

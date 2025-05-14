@@ -6,10 +6,6 @@
   justify-content: flex-start;
   width: 100%;
   height: auto;
-  /* overflow-x: auto; */
-  /* scrollbar-width: thin; */
-  /* scrollbar-color: #97b00f #1b201c; */
-  /* overflow-y: hidden; */
   padding-bottom: 16px;
 }
 .challengesContainer{
@@ -76,6 +72,11 @@
 .header {
   width: 100%;
   height: fit-content;
+  transform: translateY(20px);
+  -webkit-transform: translateY(20px);
+  -moz-transform: translateY(20px);
+  -ms-transform: translateY(20px);
+  -o-transform: translateY(20px);
 }
 .header h2 {
   text-align: left;

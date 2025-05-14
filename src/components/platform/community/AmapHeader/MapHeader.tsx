@@ -10,9 +10,11 @@ import { useLocale } from "next-intl";
 import { useAppDispatch } from "@/store/hooks";
 import {
   clearSelectedCity,
+  clearSelectedCategory,
+  resetDestination,
   setCurrentDestination,
 } from "@/store/features/communitySection/currentCommunity";
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaTimesCircle, FaExclamationTriangle } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
 
 interface CountryData {
@@ -40,6 +42,7 @@ export default function MapHeader() {
   const [countries, setCountries] = useState<Country[]>([]);
   const [countryId, setCountryId] = useState<number | undefined>(undefined);
   const [cities, setCities] = useState<City[]>([]);
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
 
   const [selectedCityId, setSelectedCityId] = useState<number | undefined>(undefined);
   const [selectedCountryName, setSelectedCountryName] = useState<string>("");
@@ -70,6 +73,10 @@ export default function MapHeader() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const dismissError = () => {
+    setError(null);
+  };
 
   const searchLocation = async () => {
     if (!selectedCountryName) return;
@@ -105,6 +112,35 @@ export default function MapHeader() {
       setError("Error fetching location data. Please try again later.");
       console.error(err);
     }
+  };
+
+  // Reset all filters
+  const handleResetFilters = () => {
+    // Reset local state
+    setCountryId(undefined);
+    setSelectedCountryName("");
+    setSelectedCityId(undefined);
+    setSelectedCityName("");
+    setCitySearchText("");
+    setSelectedCategory(undefined);
+    setError(null);
+
+    // Reset Redux state
+    dispatch(resetDestination());
+
+    // Reset the map view to world view
+    if (mapInstanceRef.current) {
+      mapInstanceRef.current.setView([0, 0], 2);
+
+      // Remove any existing marker
+      if (markerRef.current) {
+        markerRef.current.remove();
+        markerRef.current = null;
+      }
+    }
+
+    // Clear the country data
+    setCountryData(null);
   };
 
   useEffect(() => {
@@ -268,6 +304,23 @@ export default function MapHeader() {
     shouldUpdateMap.current = true;
   };
 
+  // Handle category selection
+  const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+
+    if (!value) {
+      setSelectedCategory(undefined);
+      dispatch(clearSelectedCategory());
+      return;
+    }
+
+    setSelectedCategory(value);
+    dispatch(setCurrentDestination({ selectedCategory: value }));
+  };
+
+  // Check if any filters are applied
+  const hasActiveFilters = countryId !== undefined || selectedCategory !== undefined;
+
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -291,11 +344,11 @@ export default function MapHeader() {
                 ))}
               </select>
             </div>
-            
+
             {/* CITY - With dropdown and search */}
             <div className={styles.formGroup}>
               <div className={styles.citySearchWrapper} ref={dropdownRef}>
-                <div 
+                <div
                   className={styles.cityInputContainer}
                   onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
                 >
@@ -318,16 +371,15 @@ export default function MapHeader() {
                     )}
                   </div>
                 </div>
-                
+
                 {isDropdownOpen && countryId && (
                   <div className={styles.cityDropdown}>
                     {cities.length > 0 ? (
                       cities.map((city) => (
                         <div
                           key={city.id}
-                          className={`${styles.cityOption} ${
-                            selectedCityId === city.id ? styles.selectedOption : ""
-                          }`}
+                          className={`${styles.cityOption} ${selectedCityId === city.id ? styles.selectedOption : ""
+                            }`}
                           onClick={() => handleCitySelect(city.id, city.name)}
                         >
                           {city.name}
@@ -342,8 +394,50 @@ export default function MapHeader() {
                 )}
               </div>
             </div>
-            
-            {error && <div className={styles.error}>{error}</div>}
+
+            {/* CATEGORY */}
+            <div className={styles.formGroup}>
+              <select
+                className={`${styles.select}`}
+                onChange={handleCategoryChange}
+                value={selectedCategory || ""}
+              >
+                <option value="" disabled>
+                  Category
+                </option>
+                <option value="local">Local</option>
+                <option value="online">Online</option>
+              </select>
+            </div>
+
+            {/* RESET FILTERS BUTTON */}
+            {hasActiveFilters && (
+              <button
+                className={styles.resetButton}
+                onClick={handleResetFilters}
+                title="Reset all filters"
+              >
+                <FaTimesCircle className={styles.resetIcon} />
+                <span>Reset Filters</span>
+              </button>
+            )}
+
+            {/* Styled Error Message */}
+            {error && (
+              <div className={styles.errorContainer}>
+                <div className={styles.errorContent}>
+                  <FaExclamationTriangle className={styles.errorIcon} />
+                  <span className={styles.errorText}>{error}</span>
+                </div>
+                <button
+                  className={styles.errorDismiss}
+                  onClick={dismissError}
+                  title="Dismiss"
+                >
+                  <FaTimesCircle />
+                </button>
+              </div>
+            )}
           </div>
         </div>
 
