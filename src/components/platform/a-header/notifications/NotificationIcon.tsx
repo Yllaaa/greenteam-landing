@@ -1,15 +1,15 @@
 "use client"
 import { useEffect, useState } from 'react';
-
 import io from 'socket.io-client';
 import { useLocale } from 'next-intl';
 import { useRouter } from 'next/navigation';
+import styles from './NotificationIcon.module.scss';
 
 const NotificationIcon = () => {
     const [notificationCount, setNotificationCount] = useState(0);
-    // const [socket, setSocket] = useState(null);
+    const [isShaking, setIsShaking] = useState(false);
     const router = useRouter();
-    const locale = useLocale() // Default to 'en' if locale is undefined
+    const locale = useLocale();
 
     useEffect(() => {
         // Get the correct backend URL
@@ -24,8 +24,6 @@ const NotificationIcon = () => {
                 transports: ['websocket', 'polling']
             });
 
-            // setSocket(socketInstance);
-
             // Connection event handlers
             socketInstance.on('connect', () => {
                 console.log('Socket connected successfully');
@@ -39,6 +37,10 @@ const NotificationIcon = () => {
             socketInstance.on('notification', (data) => {
                 console.log('Received notification:', data);
                 setNotificationCount(prevCount => prevCount + 1);
+
+                // Add shake animation when new notification arrives
+                setIsShaking(true);
+                setTimeout(() => setIsShaking(false), 500);
             });
 
             // Clean up on component unmount
@@ -54,55 +56,27 @@ const NotificationIcon = () => {
 
     const handleIconClick = () => {
         router.push(`/${locale}/personal_menu`);
+        // Optionally reset the notification count when clicked
+        // setNotificationCount(0);
     };
 
     return (
-        <div className="notification-icon-container" onClick={handleIconClick}>
-            <div className="notification-icon">
+        <div
+            className={`${styles['notification-icon-container']} ${isShaking ? styles['notification-shake'] : ''}`}
+            onClick={handleIconClick}
+        >
+            <div className={styles['notification-icon']}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
                     <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
                 </svg>
 
                 {notificationCount > 0 && (
-                    <div className="notification-badge">
+                    <div className={styles['notification-badge']}>
                         {notificationCount > 99 ? '99+' : notificationCount}
                     </div>
                 )}
             </div>
-
-            <style jsx>{`
-        .notification-icon-container {
-          position: relative;
-          cursor: pointer;
-          width: 24px;
-          height: 24px;
-          margin: 0 10px;
-        }
-        
-        .notification-icon {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
-        
-        .notification-badge {
-          position: absolute;
-          top: -8px;
-          right: -8px;
-          background-color: #ff4d4f;
-          color: white;
-          border-radius: 50%;
-          min-width: 18px;
-          height: 18px;
-          font-size: 12px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          padding: 0 4px;
-          font-weight: bold;
-        }
-      `}</style>
         </div>
     );
 };

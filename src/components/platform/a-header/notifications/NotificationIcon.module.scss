@@ -1,0 +1,136 @@
+$max-width: 768px;
+
+.notification-icon-container {
+  position: relative;
+  cursor: pointer;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.2s ease;
+  @media screen and (max-width: $max-width) {
+    width: 18px;
+    height: 22px;
+    margin: 0;
+  }
+
+  &:hover {
+    transform: scale(1.1);
+
+    .notification-icon svg {
+      color: #97b00f;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+}
+
+.notification-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  svg {
+    transition: color 0.2s ease;
+    color: currentColor;
+
+    // Add subtle shine animation to the bell
+    &:hover {
+      filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.5));
+    }
+  }
+}
+
+.notification-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #ff4d4f;
+  color: white;
+  border-radius: 50%;
+  min-width: 18px;
+  height: 18px;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  font-weight: bold;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  animation: pulse 2s infinite;
+
+  // Make it look nicer with a small pop-in animation when it appears
+  @keyframes appear {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    50% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  animation: appear 0.3s ease-out, pulse 2s infinite 0.3s;
+}
+
+// Pulse animation for the notification badge
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 79, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(255, 77, 79, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 77, 79, 0);
+  }
+}
+
+// Add a subtle notification animation
+.notification-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(2px, 0, 0);
+  }
+}
+
+// For dark mode compatibility
+@media (prefers-color-scheme: dark) {
+  .notification-icon svg {
+    color: #fff;
+  }
+}
+
+// // For smaller screens
+// @media (max-width: 768px) {
+//   .notification-icon-container {
+//     margin: 0 8px;
+//   }
+// }

@@ -1,0 +1,326 @@
+// Mixins for common styles
+@mixin flex($direction: row, $justify: flex-start, $align: center, $gap: 0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify;
+  align-items: $align;
+  gap: $gap;
+}
+
+@mixin transition($props...) {
+  transition-property: $props;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// Base container styles
+.MyContainer {
+  @include flex(row, flex-start, flex-start, 25px);
+  padding: 0 16px 16px 16px;
+  width: 100%;
+  height: auto;
+  position: relative;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #97b00f #1b201c;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  
+  // Window mode for larger screens (automatically applied)
+  @media screen and (min-width: 1025px) {
+    &.windowMode {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 100;
+      height: 600px; // Adjust based on your needs
+      max-height: 50vh;
+      padding: 20px;
+      background: rgba(27, 32, 28, 0.95);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.3);
+      border-top: 1px solid rgba(151, 176, 15, 0.5);
+      transform: translateY(0);
+      will-change: transform;
+      @include transition(transform);
+      
+      // Collapsed state
+      &.collapsed {
+        transform: translateY(calc(100% - 60px));
+        
+        // Show a handle when collapsed
+        &::before {
+          content: "My Challenges";
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 60px;
+          background: rgba(27, 32, 28, 0.95);
+          backdrop-filter: blur(10px);
+          border-top: 1px solid rgba(151, 176, 15, 0.5);
+          color: #97b00f;
+          font-weight: bold;
+          font-size: 18px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          cursor: pointer;
+        }
+      }
+      
+      // Content container in window mode
+      .challengesContainer {
+        height: 100%;
+        overflow-y: hidden;
+      }
+    }
+    
+    // Normal scrolling list
+    &:not(.windowMode) {
+      padding: 0 16px 16px 16px;
+    }
+  }
+  
+  // Scrollbar styling for webkit browsers
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: #1b201c;
+    border-radius: 10px;
+    margin: 0 10px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background-color: #97b00f;
+    border-radius: 10px;
+    margin: 0 2px;
+  }
+}
+
+// Challenge card container
+.container {
+  width: 389px;
+  min-width: 389px;
+  height: 560px;
+  border: 1px solid rgba(152, 176, 15, 0.2);
+  background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
+  backdrop-filter: blur(60px);
+  padding: 20px 10px;
+  @include flex(column, flex-start, center, 15px);
+  text-align: center;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: translateZ(0); // Promote to own layer
+  @include transition(transform, box-shadow);
+  
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(152, 176, 15, 0.4);
+  }
+  
+  // Appear animation for cards
+  animation: cardAppear 0.5s backwards;
+  
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{($i - 1) * 0.1}s;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    min-width: 312px;
+    height: 437px;
+    justify-content: space-between;
+  }
+}
+
+// Header section
+.header {
+  width: 100%;
+  height: fit-content;
+  
+  h2 {
+    text-align: left;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 140%;
+    
+    @media screen and (max-width: 768px) {
+      font-size: 14px;
+      line-height: 16.2px;
+    }
+  }
+}
+
+// Window handle
+.windowHandle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  @include flex(row, center, center);
+  cursor: pointer;
+  
+  .handleIcon {
+    width: 50px;
+    height: 6px;
+    background-color: rgba(151, 176, 15, 0.5);
+    border-radius: 3px;
+    @include transition(background-color);
+  }
+  
+  &:hover .handleIcon {
+    background-color: #97b00f;
+  }
+}
+
+// Challenges content
+.challenges {
+  height: fit-content;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+}
+
+// Navigation arrows
+.navArrows {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  @include flex(row, center, center, 40px);
+  z-index: 5;
+  opacity: 0;
+  @include transition(opacity);
+  pointer-events: none;
+  
+  .MyContainer:hover & {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.arrow {
+  @include flex(row, center, center);
+  width: 50px;
+  height: 50px;
+  background: rgba(151, 176, 15, 0.9);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  transform: translateY(0);
+  @include transition(transform, background, opacity);
+  
+  &:hover {
+    transform: translateY(-3px);
+    background: #97b00f;
+  }
+  
+  &:active {
+    transform: translateY(0);
+  }
+  
+  &.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: translateY(0);
+      background: rgba(151, 176, 15, 0.9);
+    }
+  }
+  
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: #fff;
+  }
+}
+
+// Toggle window button
+.toggleWindow {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #97b00f;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 101;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  @include transition(transform);
+  
+  &:hover {
+    transform: scale(1.1);
+  }
+  
+  @media screen and (max-width: 1024px) {
+    display: none;
+  }
+}
+
+// Loading and empty states
+.loaderContainer {
+  @include flex(row, center, center);
+  width: 100%;
+  min-width: 389px;
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 14px;
+  
+  p {
+    @include transition(opacity);
+    animation: fadeIn 0.5s ease-in-out;
+  }
+}
+
+// Animations
+@keyframes cardAppear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100%);
+  }
+}

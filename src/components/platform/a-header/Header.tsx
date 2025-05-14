@@ -1,7 +1,8 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState, useCallback, useRef } from "react";
 import styles from "./header.module.css";
+import modalStyles from "./modal.module.css";
 import Image from "next/image";
 import handsLogo from "@/../public/ZPLATFORM/A-Header/HandLogo.svg";
 import FootLogo from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
@@ -9,7 +10,7 @@ import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import drop from "@/../public/ZPLATFORM/A-Header/navIcons/dropArrow.svg";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
-
+import { IoIosAddCircle } from "react-icons/io";
 import {
   clearUserLoginData,
   setUserLoginData,
@@ -20,6 +21,9 @@ import { useLocale } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
 import ProfileMenu from "./profileMenu/ProfileMenu";
 import NotificationIcon from "./notifications/NotificationIcon";
+import { FaStar } from "react-icons/fa6";
+import ChatIcon from "./chatIcon/ChatIcon";
+import AddNew from "../addNew/post/AddNew";
 
 function Header() {
   // constants
@@ -31,6 +35,42 @@ function Header() {
   const [mounted, setMounted] = useState(false);
   const [userToken, setUserToken] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [addPost, setAddPost] = useState(false);
+  // Scroll handling state
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  const lastScrollY = useRef(0);
+  const scrollThreshold = 30; // Minimum scroll amount before hiding/showing
+
+  // Handle scroll events
+  const handleScroll = useCallback(() => {
+    const currentScrollY = window.scrollY;
+
+    // Only check if we've scrolled more than threshold
+    if (Math.abs(currentScrollY - lastScrollY.current) > scrollThreshold) {
+      // Scrolling down - hide header
+      if (currentScrollY > lastScrollY.current) {
+        setIsHeaderVisible(false);
+      }
+      // Scrolling up - show header
+      else {
+        setIsHeaderVisible(true);
+      }
+
+      // Update last scroll position
+      lastScrollY.current = currentScrollY;
+    }
+  }, []);
+
+  // Add scroll event listener
+  useEffect(() => {
+    // Use passive: true for better scroll performance
+    window.addEventListener("scroll", handleScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [handleScroll]);
+
   // Mounted effect
   useEffect(() => {
     if (localS !== "") {
@@ -115,9 +155,14 @@ function Header() {
     };
   }, []);
 
+  const handleAddPost = () => {
+    setAddPost(!addPost);
+  }
+
   return (
     <>
-      <div className={styles.container}>
+      <div className={styles.spacer}></div>
+      <div className={`${styles.container} ${isHeaderVisible ? styles.headerVisible : styles.headerHidden}`}>
         <div className={styles.logos}>
           <div className={styles.footLogo}>
             <Image
@@ -126,22 +171,32 @@ function Header() {
               alt="Logo"
             />
           </div>
-          <div className={styles.handsLogo}>
+          <div onClick={() => router.push(`/${locale}/community`)} className={styles.handsLogo}>
             <Image
               src={handsLogo}
               alt="community"
-              onClick={() => router.push(`/${locale}/community`)}
             />
+            <p>Community</p>
+          </div>
+          <div onClick={() => router.push(`/${locale}/favorite`)} className={styles.starFav}>
+            <FaStar fill="yellow" />
+            <p>Favorite</p>
           </div>
         </div>
-        <div className={styles.search}>
-          <NotificationIcon />
-        </div>
+
         <div className={styles.profile}>
-          <div
-            className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""
-              }`}
-          >
+          <div className={styles.icons}>
+            <div onClick={handleAddPost} className={styles.notification}>
+              <IoIosAddCircle />
+            </div>
+            <div className={styles.notification}>
+              <NotificationIcon />
+            </div>
+            <div className={styles.notification}>
+              <ChatIcon />
+            </div>
+          </div>
+          <div className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}>
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className={styles.profileIcon}
@@ -169,19 +224,7 @@ function Header() {
                     />
                   )}
                 </div>
-                <div className={styles.userData}>
-                  <div className={styles.name}>
-                    <h5>
-                      {user && user?.fullName ? user?.fullName : "username"}
-                    </h5>
-                  </div>
 
-                  <div className={styles.username}>
-                    <h5>
-                      @{user && user?.username ? user?.username : "username"}
-                    </h5>
-                  </div>
-                </div>
               </div>
               <div
                 className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
@@ -199,6 +242,19 @@ function Header() {
           </div>
         </div>
       </div>
+      {addPost && (
+        <div className={modalStyles.modalOverlay} onClick={() => setAddPost(false)}>
+          <div className={modalStyles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <button
+              className={modalStyles.closeButton}
+              onClick={() => setAddPost(false)}
+            >
+              &times;
+            </button>
+            <AddNew />
+          </div>
+        </div>
+      )}
     </>
   );
 }

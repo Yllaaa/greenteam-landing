@@ -107,6 +107,7 @@ function EventCard(props: Props) {
           headers: {
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "*",
+
           },
         }
       );
