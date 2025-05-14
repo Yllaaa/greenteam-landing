@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useCallback } from "react";
 import styles from "./Breadcrumb.module.css";
 import { useRouter, usePathname } from "next/navigation";
 import { FaBackspace } from "react-icons/fa";
@@ -15,6 +15,24 @@ const BackButton: React.FC<BackButtonProps> = ({ shouldHideOnFeeds = false }) =>
   // Check if we should hide the button based on the path
   const shouldHide = shouldHideOnFeeds && pathname.includes("/feeds");
 
+  // Enhanced back handler that combines navigation with scrolling
+  const handleBack = useCallback(() => {
+    router.back();
+
+    // Use a small timeout to ensure scrolling happens after navigation starts
+    // This is because router.back() is asynchronous
+    setTimeout(() => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Use 'auto' for instant scrolling if preferred
+      });
+    }, 100);
+
+    // Alternative approach - manually navigate back through history API
+    // window.history.back();
+    // window.scrollTo(0, 0);
+  }, [router]);
+
   if (shouldHide) {
     return null;
   }
@@ -22,7 +40,7 @@ const BackButton: React.FC<BackButtonProps> = ({ shouldHideOnFeeds = false }) =>
   return (
     <div className={styles.breadcrumb}>
       <div className={styles.container}>
-        <button onClick={() => router.back()} className={styles.back}>
+        <button onClick={handleBack} className={styles.back}>
           <FaBackspace />
           <p>Back</p>
         </button>

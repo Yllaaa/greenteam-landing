@@ -136,7 +136,7 @@ import { useInView } from "react-intersection-observer";
 import { useAppSelector } from "@/store/hooks";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { useInfiniteQuery } from "@tanstack/react-query";
-// import { useTranslations } from "use-intl";
+import { useTranslations } from "use-intl";
 
 function MyChallenges(props: DoMainProps) {
   const {
@@ -202,7 +202,7 @@ function MyChallenges(props: DoMainProps) {
     }
   }, [updateState, refetch]);
 
-  // const t = useTranslations("web.subHeader.doChallenge");
+  const t = useTranslations("web.subHeader.doChallenge");
 
   // Load more data when the last item is in view
   useEffect(() => {
@@ -218,15 +218,17 @@ function MyChallenges(props: DoMainProps) {
 
   return (
     <div className={styles.MyContainer}>
+      <div className={styles.header}>
+              <h2>{t("myChallenge")}</h2>
+            </div>
+            <div className={styles.challengesContainer}>
       {challenges.length > 0 &&
         challenges.map((challenge: Post, index: number) => (
           <div
             key={`challenge-${challenge.id}-${index}`}
             className={styles.container}
           >
-            {/* <div className={styles.header}>
-              <h2>{t("myChallenge")}</h2>
-            </div> */}
+           
             <div className={styles.challenges}>
               <MyChallengeCard
                 length={challenges.length}
@@ -251,6 +253,7 @@ function MyChallenges(props: DoMainProps) {
           <LoadingTree />
         </div>
       )}
+      
 
       {!hasNextPage && challenges.length > 0 && (
         <div className={styles.loaderContainer}>
@@ -263,6 +266,7 @@ function MyChallenges(props: DoMainProps) {
           <p>No challenges found</p>
         </div>
       )}
+    </div>
     </div>
   );
 }

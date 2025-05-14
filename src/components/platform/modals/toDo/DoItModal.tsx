@@ -69,7 +69,7 @@ function DoItModal(props: any) {
     <>
       <div className={styles.modal}>
         <div ref={modalRef} className={styles.modalcontent}>
-          <p>Are You Sure You Want To Do It</p>
+          <p>Do It and create an impact on this word</p>
           <div className={styles.buttons}>
             <button
               onClick={() => {

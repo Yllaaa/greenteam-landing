@@ -45,9 +45,9 @@ function Footer() {
                   {t("donate")}
                 </button>
               </div>
-              {/* <button onClick={handleDownload} className={styles.button}>
+              <button onClick={handleDownload} className={styles.button}>
                 {t("invite")}
-              </button> */}
+              </button>
             </div>
           </div>
 

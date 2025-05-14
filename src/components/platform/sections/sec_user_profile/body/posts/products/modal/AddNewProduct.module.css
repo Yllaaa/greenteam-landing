@@ -38,7 +38,7 @@
   border-width: 1px;
 }
 .formTitle {
-  font-family: Inter;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 18px;
   line-height: 28px;
@@ -46,7 +46,7 @@
   color: #006633;
 }
 .formDescription {
-  font-family: Inter;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 14px;
   line-height: 20px;
@@ -75,7 +75,7 @@
 }
 
 .label {
-  font-family: Inter;
+  font-family: Montserrat;
   width: 30%;
   display: block;
 
@@ -299,7 +299,7 @@
 .cancelButton {
   background: transparent;
   border: 1px solid #006633;
-  font-family: Inter;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;
@@ -311,7 +311,7 @@
 
   border: none;
   outline: none;
-  font-family: Inter;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 16px;
   line-height: 24px;

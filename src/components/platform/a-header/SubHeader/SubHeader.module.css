@@ -45,7 +45,7 @@
 .subcontainer {
   position: relative;
   z-index: 10;
-  width: 80vw;
+  /* width: 80vw; */
   min-height: fit-content;
   display: flex;
   align-items: flex-start;
@@ -70,23 +70,25 @@
   -o-border-radius: 15px ;
 }
 .closeWindow {
-  transform: translateX(0%);
+  width: 18vw;
+  /* transform: translateX(0%);
   -webkit-transform: translateX(0%);
   -moz-transform: translateX(0%);
   -ms-transform: translateX(0%);
-  -o-transform: translateX(0%);
+  -o-transform: translateX(0%); */
 }
 .openWindow {
-  transform: translateX(-61vw);
-  -webkit-transform: translateX(-61vw);
-  -moz-transform: translateX(-61vw);
-  -ms-transform: translateX(-61vw);
-  -o-transform: translateX(-61vw);
+  width: 87vw;
+  transform: translateX(-68vw);
+  -webkit-transform: translateX(-68vw);
+  -moz-transform: translateX(-68vw);
+  -ms-transform: translateX(-68vw);
+  -o-transform: translateX(-68vw);
 }
 .diamond {
   justify-self: flex-start;
   width: 39.4vw;
-  max-width: 568px;
+  /* max-width: 568px; */
   min-width: 468px;
   height: 575px;
 }
@@ -166,7 +168,7 @@
 .greenChallenge {
   justify-self: flex-start;
   width: 40.13vw;
-  max-width: 578px;
+  /* max-width: 578px; */
   min-width: 478px;
   height: 575px;
 }

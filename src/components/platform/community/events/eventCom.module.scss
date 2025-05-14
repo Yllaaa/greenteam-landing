@@ -38,7 +38,7 @@ $max-width: 1024px;
   }
 }
 .eventsContainerR {
-  @media screen and (max-width: $max-width) {
+  // @media screen and (max-width: $max-width) {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -65,8 +65,8 @@ $max-width: 1024px;
         }
       }
     }
-  }
-  display: none;
+  // }
+  // display: none;
 }
 .card {
   width: 100%;

@@ -4,7 +4,7 @@ import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { Event, EventCategory, fetchEvents } from "./eventCom.data";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import styles from "./eventCom.module.scss";
-import EventCard from "./EventCard";
+// import EventCard from "./EventCard";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import EventCards from "./Events/Card/EventCard";
@@ -82,11 +82,11 @@ function EventCom() {
   }, [loadEvents]);
 
   // Handle load more - triggered by the last EventCard's inView
-  const handleLoadMore = () => {
-    if (!isLoading && hasMore) {
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
+  // const handleLoadMore = () => {
+  //   if (!isLoading && hasMore) {
+  //     setPage((prevPage) => prevPage + 1);
+  //   }
+  // };
 
   // Render loading state
   const renderLoading = () => (
@@ -119,7 +119,7 @@ function EventCom() {
 
     return (
       <Suspense fallback={renderLoading()}>
-        <div className={styles.eventsContainerW}>
+        {/* <div className={styles.eventsContainerW}>
           {events.map((event, index) => (
             <EventCard
               key={event.id || index}
@@ -139,7 +139,7 @@ function EventCom() {
               <LoadingTree />
             </div>
           )}
-        </div>
+        </div> */}
         <div className={styles.eventsContainerR}>
           {events.map((event, index) => (
             <EventCards

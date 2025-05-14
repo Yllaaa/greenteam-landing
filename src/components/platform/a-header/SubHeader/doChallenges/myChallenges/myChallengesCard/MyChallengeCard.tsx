@@ -252,7 +252,7 @@ function MyChallengeCard(props: Props) {
           }}
           className={styles.challengeButton}
         >
-          Do it
+          Done
         </button>
         <button
           onClick={() => {

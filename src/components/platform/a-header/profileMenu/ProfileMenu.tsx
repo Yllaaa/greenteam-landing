@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./ProfileMenu.module.css";
-import chat from "@/../public/ZPLATFORM/A-Header/navIcons/chat.svg";
+// import chat from "@/../public/ZPLATFORM/A-Header/navIcons/chat.svg";
 import challenges from "@/../public/ZPLATFORM/A-Header/navIcons/challenges.svg";
-import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
+// import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
-import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
+// import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
 import language from "@/../public/ZPLATFORM/A-Header/navIcons/language.svg"; // Add a language icon
 import { useLocale, useTranslations } from "next-intl";
@@ -35,18 +35,18 @@ function ProfileMenu(props: Props) {
   };
 
   const dropdownList = [
-    {
-      id: 1,
-      name: t("chat"),
-      icon: chat,
-      link: `/${locale}/chat`,
-    },
-    {
-      id: 2,
-      name: t("community"),
-      icon: community,
-      link: `/${locale}/community`,
-    },
+    // {
+    //   id: 1,
+    //   name: t("chat"),
+    //   icon: chat,
+    //   link: `/${locale}/chat`,
+    // },
+    // {
+    //   id: 2,
+    //   name: t("community"),
+    //   icon: community,
+    //   link: `/${locale}/community`,
+    // },
     {
       id: 3,
       name: t("challenges"),
@@ -65,12 +65,12 @@ function ProfileMenu(props: Props) {
       icon: plans,
       link: `/${locale}/payment`,
     },
-    {
-      id: 7,
-      name: t("favorites"),
-      icon: star,
-      link: `/${locale}/favorite`,
-    },
+    // {
+    //   id: 7,
+    //   name: t("favorites"),
+    //   icon: star,
+    //   link: `/${locale}/favorite`,
+    // },
   ];
 
   return (

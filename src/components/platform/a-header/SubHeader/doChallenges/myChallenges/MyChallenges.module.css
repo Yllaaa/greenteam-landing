@@ -1,5 +1,19 @@
 .MyContainer {
   display: flex;
+  flex-direction: column;
+  gap: 25px;
+  padding: 0px 16px 0px 16px;
+  justify-content: flex-start;
+  width: 100%;
+  height: auto;
+  /* overflow-x: auto; */
+  /* scrollbar-width: thin; */
+  /* scrollbar-color: #97b00f #1b201c; */
+  /* overflow-y: hidden; */
+  padding-bottom: 16px;
+}
+.challengesContainer{
+  display: flex;
   gap: 25px;
   padding: 0px 16px 0px 16px;
   justify-content: flex-start;
@@ -39,9 +53,9 @@
 }
 
 .container {
-  width: 389px;
+  width: 18vw;
   min-width: 389px;
-  height: 560px;
+  height: 100%;
   border: 1px solid #98b00f31;
   background: linear-gradient(126.97deg, #1a3a0e 28.26%, #313a0e 91.2%);
   backdrop-filter: blur(60px);
