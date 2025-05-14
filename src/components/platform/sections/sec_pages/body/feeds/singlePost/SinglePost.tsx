@@ -287,7 +287,7 @@ function SinglePost(props: Props) {
                 className={styles.userName}
               >
                 <p>
-                  {post.author.fullName || post.author.username || post.author.name} <span>@{post.author.username}</span>
+                  {post.author.fullName || post.author.username} <span>@{post.author.username}</span>
                   {isMounted && (
                     <span> . {formatTimeDifference(post.post.createdAt)}</span>
                   )}
