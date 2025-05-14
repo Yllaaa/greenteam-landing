@@ -46,7 +46,7 @@ function Settings(props: { slug: string }) {
       cover: null,
     },
   });
-
+const currentPage = useAppSelector((state) => state.pageState);
   // Separate state for avatar and cover previews
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
   const [avatarPreview, setAvatarPreview] = useState<string | null>(null);
@@ -406,7 +406,7 @@ function Settings(props: { slug: string }) {
               <label htmlFor="name">Name</label>
               <input
                 type="text"
-                placeholder="Enter page name"
+                placeholder={`${currentPage?.name}`}
                 {...register("name")}
               />
             </div>
@@ -415,7 +415,7 @@ function Settings(props: { slug: string }) {
             <div className={styles.formDesc}>
               <label htmlFor="groupDesc">Description</label>
               <textarea
-                placeholder="Enter group descripton"
+                placeholder={`${currentPage?.description}`}
                 {...register("description")}
               />
             </div>
@@ -423,19 +423,19 @@ function Settings(props: { slug: string }) {
             {/* ,,,,,,,,,,,,,,,,,,,,, */}
             <div className={styles.formName}>
               <label htmlFor="name">Why</label>
-              <input type="text" placeholder="Why" {...register("why")} />
+              <input type="text" placeholder={`${currentPage?.why}`} {...register("why")} />
             </div>
             {/* /////////////////// */}
             {/* ,,,,,,,,,,,,,,,,,,,,, */}
             <div className={styles.formName}>
               <label htmlFor="name">What</label>
-              <input type="text" placeholder="What" {...register("what")} />
+              <input type="text" placeholder={`${currentPage?.what}`} {...register("what")} />
             </div>
             {/* /////////////////// */}
             {/* ,,,,,,,,,,,,,,,,,,,,, */}
             <div className={styles.formName}>
               <label htmlFor="name">How</label>
-              <input type="text" placeholder="How" {...register("how")} />
+              <input type="text" placeholder={`${currentPage?.how}`} {...register("how")} />
             </div>
             {/* /////////////////// */}
             <div className={styles.formName}>

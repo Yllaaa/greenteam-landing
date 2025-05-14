@@ -111,7 +111,7 @@ function Pageheader(props: {
       
       if (response) {
         ToastNot("Page deleted successfully");
-        // Redirect to last page
+        
         router.back();
       }
     } catch (error) {

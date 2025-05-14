@@ -41,6 +41,9 @@ function Header() {
   const lastScrollY = useRef(0);
   const scrollThreshold = 30; // Minimum scroll amount before hiding/showing
 
+  // Manage user state
+  const user = useAppSelector((state) => state.login.user?.user);
+
   // Handle scroll events
   const handleScroll = useCallback(() => {
     const currentScrollY = window.scrollY;
@@ -137,9 +140,6 @@ function Header() {
     }
   }, [userToken, dispatch]);
 
-  // Manage user state
-  const user = useAppSelector((state) => state.login.user?.user);
-
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -158,6 +158,13 @@ function Header() {
   const handleAddPost = () => {
     setAddPost(!addPost);
   }
+
+  // Handle direct navigation to user profile
+  const goToProfile = () => {
+    if (user?.username) {
+      router.push(`/${locale}/profile/${user.username}`);
+    }
+  };
 
   return (
     <>
@@ -202,9 +209,7 @@ function Header() {
               className={styles.profileIcon}
             >
               <div
-                onClick={() =>
-                  isDropdownOpen && router.push(`/${locale}/profile/${user?.username}`)
-                }
+                onClick={goToProfile}
                 className={styles.userProfile}
               >
                 <div className={styles.avatar}>
@@ -224,11 +229,9 @@ function Header() {
                     />
                   )}
                 </div>
-
               </div>
               <div
-                className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
-                  }`}
+                className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed}`}
               >
                 <Image src={drop} alt="arrow" />
               </div>
@@ -238,6 +241,7 @@ function Header() {
               isDropdownOpen={isDropdownOpen}
               setIsDropdownOpen={setIsDropdownOpen}
               handleLogout={handleLogout}
+              user={user ?? {}}
             />
           </div>
         </div>

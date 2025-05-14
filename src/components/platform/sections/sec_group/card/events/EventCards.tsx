@@ -21,52 +21,23 @@ function EventCards() {
   const localeS = typeof window !== 'undefined' ? localStorage.getItem("user") : null;
   const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
 
-  // Track join status for each event using a Map with event IDs as keys
-  const [joinedEvents, setJoinedEvents] = useState<Map<string, boolean>>(new Map());
-  const [loadingEvents, setLoadingEvents] = useState<Map<string, boolean>>(new Map());
+  // State for events and loading
   const [events, setEvents] = useState<Events>([]);
+  const [loadingEventId, setLoadingEventId] = useState<string | null>(null);
 
-  // Fetch events and check joining status
+  // Fetch events
   useEffect(() => {
     const fetchEvents = async () => {
       try {
         const eventsList = await getEvents(groupId);
         setEvents(eventsList);
-
-        // Check if user is joined to each event if logged in
-        if (accessToken) {
-          const joinStatusMap = new Map<string, boolean>();
-
-          // For each event, check if the user has joined
-          for (const event of eventsList) {
-            if (event.id) {
-              try {
-                const response = await axios.get(
-                  `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${event.id}/check-join`,
-                  {
-                    headers: {
-                      Authorization: `Bearer ${accessToken}`,
-                      "Access-Control-Allow-Origin": "*",
-                    },
-                  }
-                );
-                joinStatusMap.set(event.id, response.data.isJoined);
-              } catch (error) {
-                joinStatusMap.set(event.id, false);
-                console.error(`Error checking join status for event ${event.id}:`, error);
-              }
-            }
-          }
-
-          setJoinedEvents(joinStatusMap);
-        }
       } catch (error) {
         console.error("Error fetching events:", error);
       }
     };
 
     fetchEvents();
-  }, [groupId, accessToken]);
+  }, [groupId]);
 
   // Handler for joining an event
   const handleJoinNow = async (eventId: string) => {
@@ -76,7 +47,7 @@ function EventCards() {
     }
 
     // Set loading state for this event
-    setLoadingEvents(prev => new Map(prev).set(eventId, true));
+    setLoadingEventId(eventId);
 
     try {
       const response = await axios.post(
@@ -93,24 +64,34 @@ function EventCards() {
       if (response.data) {
         ToastNot(`${response.data.message}`);
 
-        // Update join status for this event
-        setJoinedEvents(prev => new Map(prev).set(eventId, true));
+        // Update the event's join status in the state
+        setEvents(prevEvents =>
+          prevEvents.map(event =>
+            event.id === eventId
+              ? { ...event, isJoined: true }
+              : event
+          )
+        );
       }
     } catch (error: any) {
       if (error.response?.status === 409) {
         ToastNot(`You've already joined this event`);
-        setJoinedEvents(prev => new Map(prev).set(eventId, true));
+
+        // Update the event's join status in the state
+        setEvents(prevEvents =>
+          prevEvents.map(event =>
+            event.id === eventId
+              ? { ...event, isJoined: true }
+              : event
+          )
+        );
       } else {
         ToastNot(`Error joining event: ${error.response?.data?.message || 'Please try again'}`);
       }
       console.error("Error joining event:", error);
     } finally {
       // Clear loading state
-      setLoadingEvents(prev => {
-        const updated = new Map(prev);
-        updated.delete(eventId);
-        return updated;
-      });
+      setLoadingEventId(null);
     }
   };
 
@@ -122,7 +103,7 @@ function EventCards() {
     }
 
     // Set loading state for this event
-    setLoadingEvents(prev => new Map(prev).set(eventId, true));
+    setLoadingEventId(eventId);
 
     try {
       const response = await axios.delete(
@@ -138,23 +119,21 @@ function EventCards() {
       if (response.data) {
         ToastNot(`${response.data.message}`);
 
-        // Update join status for this event
-        setJoinedEvents(prev => {
-          const updated = new Map(prev);
-          updated.set(eventId, false);
-          return updated;
-        });
+        // Update the event's join status in the state
+        setEvents(prevEvents =>
+          prevEvents.map(event =>
+            event.id === eventId
+              ? { ...event, isJoined: false }
+              : event
+          )
+        );
       }
     } catch (error: any) {
       ToastNot(`Error leaving event: ${error.response?.data?.message || 'Please try again'}`);
       console.error("Error leaving event:", error);
     } finally {
       // Clear loading state
-      setLoadingEvents(prev => {
-        const updated = new Map(prev);
-        updated.delete(eventId);
-        return updated;
-      });
+      setLoadingEventId(null);
     }
   };
 
@@ -183,8 +162,7 @@ function EventCards() {
     <div className={styles.sideEvents}>
       {events.map((event, index) => {
         const eventId = event.id || "";
-        const isEventJoined = joinedEvents.get(eventId) || false;
-        const isLoading = loadingEvents.get(eventId) || false;
+        const isLoading = loadingEventId === eventId;
 
         return (
           <div
@@ -231,7 +209,7 @@ function EventCards() {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (isEventJoined) {
+                    if (event.isJoined) {
                       handleLeaveEvent(eventId);
                     } else {
                       handleJoinNow(eventId);
@@ -239,13 +217,13 @@ function EventCards() {
                   }}
                   className={styles.joinButton}
                   style={{
-                    color: isEventJoined ? "red" : "",
+                    color: event.isJoined ? "red" : "",
                     opacity: isLoading ? 0.7 : 1,
                     cursor: isLoading ? "not-allowed" : "pointer"
                   }}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Processing..." : isEventJoined ? "Leave" : "Join"}
+                  {isLoading ? "Processing..." : event.isJoined ? "Leave" : "Join"}
                 </button>
                 <button
                   onClick={(e) => {

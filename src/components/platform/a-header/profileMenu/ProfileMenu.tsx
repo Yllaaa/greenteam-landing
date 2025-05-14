@@ -1,19 +1,26 @@
 import React from "react";
 import styles from "./ProfileMenu.module.css";
-// import chat from "@/../public/ZPLATFORM/A-Header/navIcons/chat.svg";
 import challenges from "@/../public/ZPLATFORM/A-Header/navIcons/challenges.svg";
-// import community from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
-// import star from "@/../public/ZPLATFORM/A-Header/navIcons/star.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
-import language from "@/../public/ZPLATFORM/A-Header/navIcons/language.svg"; // Add a language icon
+import language from "@/../public/ZPLATFORM/A-Header/navIcons/language.svg";
 import { useLocale, useTranslations } from "next-intl";
-import Props from "./types/profileMenu.data";
 import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
+import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
+
+// Update Props interface to include user info
+interface Props {
+  isDropdownOpen: boolean;
+  setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  handleLogout: () => void;
+  user: {
+    id?: string; avatar?: string; bio?: string; email?: string; fullName?: string; username?: string;
+  };
+}
 
 function ProfileMenu(props: Props) {
-  const { isDropdownOpen, setIsDropdownOpen, handleLogout } = props;
+  const { isDropdownOpen, setIsDropdownOpen, handleLogout, user } = props;
   const router = useRouter();
   const pathname = usePathname();
   const locale = useLocale();
@@ -23,30 +30,26 @@ function ProfileMenu(props: Props) {
   const switchLanguage = () => {
     // Get the new locale (toggle between en and es)
     const newLocale = locale === "en" ? "es" : "en";
-    
+
     // Extract the path without the locale
     const pathWithoutLocale = pathname.replace(`/${locale}`, '');
-    
+
     // Navigate to the same page but with new locale
     router.push(`/${newLocale}${pathWithoutLocale}`);
-    
+
     // Close the dropdown
     setIsDropdownOpen(false);
   };
 
+  // Navigate to user profile
+  const goToProfile = () => {
+    if (user?.username) {
+      router.push(`/${locale}/profile/${user.username}`);
+      setIsDropdownOpen(false);
+    }
+  };
+
   const dropdownList = [
-    // {
-    //   id: 1,
-    //   name: t("chat"),
-    //   icon: chat,
-    //   link: `/${locale}/chat`,
-    // },
-    // {
-    //   id: 2,
-    //   name: t("community"),
-    //   icon: community,
-    //   link: `/${locale}/community`,
-    // },
     {
       id: 3,
       name: t("challenges"),
@@ -65,31 +68,44 @@ function ProfileMenu(props: Props) {
       icon: plans,
       link: `/${locale}/payment`,
     },
-    // {
-    //   id: 7,
-    //   name: t("favorites"),
-    //   icon: star,
-    //   link: `/${locale}/favorite`,
-    // },
   ];
 
   return (
     <>
       <div
-        className={` ${styles.dropdown} ${
-          isDropdownOpen ? styles.dropdownOpened : styles.dropdownClosed
-        }`}
+        className={` ${styles.dropdown} ${isDropdownOpen ? styles.dropdownOpened : styles.dropdownClosed}`}
       >
+        {/* User profile section at the top */}
+        {user && (
+          <div className={styles.userProfileSection} onClick={goToProfile}>
+            <div className={styles.userAvatar}>
+              <Image
+                src={user.avatar || noAvatar}
+                alt="User avatar"
+                width={50}
+                height={50}
+                className={styles.avatarImage}
+              />
+            </div>
+            <div className={styles.userName}>
+              {user.fullName || user.username}
+            </div>
+            <div className={styles.viewProfileBtn}>
+              View Profile
+            </div>
+          </div>
+        )}
+
         <ul>
           {/* Language toggle button */}
-          <li 
-            onClick={switchLanguage} 
+          <li
+            onClick={switchLanguage}
             className={styles.languageToggle}
           >
             <Image src={language} alt="language" />
             <span>
-              {locale === "en" 
-                ? "Switch to Spanish" 
+              {locale === "en"
+                ? "Switch to Spanish"
                 : "Cambiar a Inglés"}
             </span>
           </li>

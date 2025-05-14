@@ -19,6 +19,7 @@ function Settings() {
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const groupId = useAppSelector((state) => state.groupState.id);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const currentGroup = useAppSelector((state) => state.groupState);
 
   // React Hook Form setup
   const { register, handleSubmit, setValue, reset } = useForm<FormData>({
@@ -227,14 +228,14 @@ function Settings() {
             <label htmlFor="name">Group Name</label>
             <input
               type="text"
-              placeholder="Enter group name (optional)"
+              placeholder={`${currentGroup?.name}`}
               {...register("name")}
             />
           </div>
           <div className={styles.formDesc}>
             <label htmlFor="groupDesc">Group Description</label>
             <textarea
-              placeholder="Enter group description (optional)"
+              placeholder={`${currentGroup?.description}`}
               {...register("description")}
             />
           </div>

@@ -2,13 +2,14 @@
   position: absolute;
   right: 0;
   top: 100%;
-  width: 220px;
+  width: 260px;
   background-color: #1a1e1c;
-  border-radius: 8px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
   z-index: 100;
   overflow: hidden;
   margin-top: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .dropdownContent {
@@ -18,7 +19,7 @@
 .dropdownOpened {
   opacity: 1;
   transform: translateY(0);
-  max-height: 450px; /* Increased to accommodate the new language button */
+  max-height: 500px; /* Increased to accommodate the user profile section */
   transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
 }
 
@@ -30,6 +31,72 @@
   transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.3s ease;
 }
 
+/* User profile section styling */
+.userProfileSection {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    to bottom,
+    rgba(76, 175, 80, 0.2),
+    rgba(0, 0, 0, 0)
+  );
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  position: relative;
+}
+
+.userProfileSection:hover {
+  background: linear-gradient(
+    to bottom,
+    rgba(76, 175, 80, 0.3),
+    rgba(0, 0, 0, 0)
+  );
+}
+
+.userAvatar {
+  margin-bottom: 12px;
+  border-radius: 50%;
+  overflow: hidden;
+  width: 65px;
+  height: 65px;
+  border: 3px solid #97b00f;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.avatarImage {
+  object-fit: cover;
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}
+
+.userName {
+  font-weight: 600;
+  color: #fff;
+  font-size: 16px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
+.viewProfileBtn {
+  font-size: 13px;
+  color: #97b00f;
+  background-color: rgba(151, 176, 15, 0.15);
+  padding: 5px 12px;
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  margin-top: 4px;
+}
+
+.userProfileSection:hover .viewProfileBtn {
+  background-color: rgba(151, 176, 15, 0.25);
+}
+
+/* List styling */
 .dropdown ul {
   list-style: none;
   display: flex;
@@ -96,11 +163,17 @@
 }
 
 .languageToggle:hover {
-  background-color: rgba(0, 102, 51, 0.3) !important; /* Darker green on hover */
+  background-color: rgba(
+    0,
+    102,
+    51,
+    0.3
+  ) !important; /* Darker green on hover */
 }
 
 .logout {
   color: #ff5252 !important;
+  margin-top: auto; /* Push to bottom */
 }
 
 .logout span {
@@ -127,4 +200,16 @@
     opacity: 0;
     transform: translateY(-10px);
   }
+}
+
+/* New hover effects */
+.dropdownItem:hover span,
+.languageToggle:hover span {
+  transform: translateX(3px);
+  transition: transform 0.2s ease;
+}
+
+.dropdownItem span,
+.languageToggle span {
+  transition: transform 0.2s ease;
 }

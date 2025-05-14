@@ -18,6 +18,9 @@ interface Event {
   category: string;
   posterUrl: string | null;
   group: Group;
+  hostedBy: string | null;
+  isJoined: boolean;
+  hostName: string;
 }
 
 // The provided JSON represents an array of Events
