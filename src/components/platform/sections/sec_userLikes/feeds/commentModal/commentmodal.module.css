@@ -156,7 +156,7 @@
   gap: 15px;
 }
 .comment .commentFooter .upper p .username {
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 13px;
   line-height: 18px;
@@ -164,7 +164,7 @@
   text-align: center;
 }
 .comment .commentFooter .upper p .commentText {
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -175,7 +175,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
@@ -316,7 +316,7 @@
   gap: 15px;
 }
 .replyContent .upper p .username {
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 600;
   font-size: 13px;
   line-height: 18px;
@@ -324,7 +324,7 @@
   text-align: center;
 }
 .replyContent .upper p .commentText {
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
@@ -335,7 +335,7 @@
   justify-content: flex-start;
   align-items: flex-start;
   gap: 10px;
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;

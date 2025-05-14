@@ -49,7 +49,7 @@
 .filterSection ul li {
   text-transform: capitalize;
   cursor: pointer;
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 24px;
   line-height: 33.6px;
@@ -62,7 +62,7 @@
 }
 .filterTopics .topicsBtn {
   cursor: pointer;
-  font-family: Roboto;
+  font-family: Montserrat;
   font-weight: 400;
   font-size: 24px;
   line-height: 33.6px;

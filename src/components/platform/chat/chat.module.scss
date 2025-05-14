@@ -11,7 +11,7 @@
 //   margin: 20px auto;
 
 //   .header {
-//     font-family: Inter;
+//     font-family: Montserrat;
 //     font-weight: 500;
 //     font-size: 16px;
 //     line-height: 19.36px;
@@ -48,7 +48,7 @@
   margin: 20px auto;
 
   .header {
-    font-family: Inter;
+    font-family: Montserrat;
     font-weight: 500;
     font-size: 16px;
     line-height: 19.36px;
@@ -60,7 +60,7 @@
     border-bottom: 1px solid #4b5669;
     display: flex;
     align-items: center;
-    
+
     .backButton {
       display: none;
       margin-right: 12px;
@@ -69,7 +69,7 @@
       color: #74b243;
       font-size: 16px;
       cursor: pointer;
-      
+
       @media (max-width: 768px) {
         display: block;
       }
@@ -79,7 +79,7 @@
   .content {
     display: flex;
     height: calc(100% - 68px); // Adjust based on header height
-    
+
     .personsContainer {
       @media (max-width: 768px) {
         width: 100%;
@@ -94,7 +94,7 @@
       flex-direction: column;
       gap: 16px;
       flex-grow: 1;
-      
+
       .noSelection {
         display: flex;
         justify-content: center;
@@ -103,7 +103,7 @@
         color: #8b8b8b;
         font-size: 14px;
       }
-      
+
       @media (max-width: 768px) {
         width: 100%;
         &.hiddenOnMobile {

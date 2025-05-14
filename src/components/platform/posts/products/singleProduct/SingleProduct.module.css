@@ -148,7 +148,7 @@
   -webkit-text-fill-color: transparent;
 }
 .user .details .dLable {
-  font-family: Manrope;
+  font-family: Montserrat;
   font-weight: 500;
   font-size: 12px;
   line-height: 100%;
@@ -177,11 +177,10 @@
   -o-border-radius: 32px;
 }
 @media screen and (max-width: 1024px) {
-  .product{
+  .product {
     flex-direction: column;
   }
   .content {
     border: none;
   }
-  
 }
