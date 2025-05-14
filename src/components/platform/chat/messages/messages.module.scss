@@ -84,6 +84,7 @@
         color: #ffffff;
       }
 
+<<<<<<< HEAD
       .time {
         width: 100%;
         font-family: Montserrat;
@@ -94,6 +95,79 @@
         text-align: end;
         color: #5d6778;
       }
+=======
+            .header {
+                display: flex;
+                gap: 8px;
+                align-items: flex-end;
+
+                .name {
+                    font-family: Montserrat;
+                    font-weight: 500;
+                    font-size: 14px;
+                    line-height: 16.94px;
+                    letter-spacing: 0%;
+                    color: #006633;
+                }
+
+                .details {
+                    margin-left: 8px;
+                    font-family: Montserrat;
+                    font-weight: 400;
+                    font-size: 12px;
+                    line-height: 14.52px;
+                    letter-spacing: -0.4%;
+                    color: #5D6778;
+                }
+            }
+
+            .text {
+                font-family: Montserrat;
+                font-weight: 400;
+                font-size: 14px;
+                line-height: 24.5px;
+                letter-spacing: 0%;
+                color: #FFFFFF;
+            }
+
+            .time {
+                width: 100%;
+                font-family: Montserrat;
+                font-weight: 400;
+                font-size: 12px;
+                line-height: 14.52px;
+                letter-spacing: -0.4%;
+                text-align: end;
+                color: #5D6778;
+            }
+        }
+
+        &.self {
+            align-self: flex-end;
+            flex-direction: row-reverse;
+            gap: 0px;
+
+            .avatar {
+                display: none;
+            }
+
+            .arrow {
+                display: block;
+            }
+
+            .content {
+                background: #006633;
+
+                .header {
+                    display: none;
+                }
+
+                .time {
+                    color: #F1F4F9;
+                }
+            }
+        }
+>>>>>>> b29b31d9f557422c96492c9865d344b522a8feb3
     }
 
     &.self {

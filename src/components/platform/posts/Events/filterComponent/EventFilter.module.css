@@ -28,7 +28,11 @@
 .filterSection ul li {
   text-transform: capitalize;
   cursor: pointer;
+<<<<<<< HEAD
   font-family: Montaserrat;
+=======
+  font-family: Montserrat;
+>>>>>>> b29b31d9f557422c96492c9865d344b522a8feb3
   font-weight: 400;
   font-size: 24px;
   line-height: 33.6px;

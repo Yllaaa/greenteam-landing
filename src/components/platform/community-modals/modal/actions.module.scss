@@ -42,6 +42,7 @@
       }
     }
 
+<<<<<<< HEAD
     .cancel {
       border: 1px solid #006633;
       box-shadow: 0px 1px 2px 0px #0a0d120d;
@@ -52,6 +53,59 @@
       letter-spacing: 0%;
       color: #414651;
       background-color: transparent;
+=======
+    .content {
+        width: 688;
+        height: 68;
+        padding-right: 24px;
+        padding-bottom: 24px;
+        padding-left: 24px;
+        gap: 12px;
+        display: flex;
+        justify-content: center;
+
+        button {
+            width: 314;
+            height: 44;
+            padding-top: 10px;
+            padding-right: 18px;
+            padding-bottom: 10px;
+            padding-left: 18px;
+            gap: 8px;
+            border-radius: 8px;
+            border-width: 1px;
+            cursor: pointer;
+
+            &:hover {
+                scale: 1.05;
+            }
+        }
+
+        .cancel {
+            border: 1px solid #006633;
+            box-shadow: 0px 1px 2px 0px #0A0D120D;
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0%;
+            color: #414651;
+            background-color: transparent;
+        }
+
+        .confirm {
+            background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            border: 1px solid;
+            border-image-source: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
+            box-shadow: 0px 1px 2px 0px #0A0D120D;
+            font-family: Montserrat;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 0%;
+            color: #FFFFFF;
+        }
+>>>>>>> b29b31d9f557422c96492c9865d344b522a8feb3
     }
 
     .confirm {
