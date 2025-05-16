@@ -33,13 +33,14 @@
 .filterSection {
   grid-column: 5 / 13;
   justify-self: flex-start;
-
+overflow-x: auto;
+  scrollbar-width: none;
   width: fit-content;
 }
 .filterSection ul {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 15px;
   list-style: none;
 }

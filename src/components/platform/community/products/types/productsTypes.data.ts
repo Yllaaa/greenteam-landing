@@ -33,4 +33,5 @@ export interface Products {
   cityId: number;
   topic: Topic;
   isAuthor: boolean;
+  isFavorited: boolean;
 }

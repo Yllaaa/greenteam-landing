@@ -1,0 +1,11 @@
+.content-link {
+    color: #4AAF57;
+    text-decoration: none;
+    cursor: pointer;
+    font-weight: 500;
+    word-break: break-all;
+  }
+  
+  .content-link:hover {
+    text-decoration: underline;
+  }

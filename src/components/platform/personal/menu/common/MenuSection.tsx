@@ -3,6 +3,8 @@
 import styles from "./common.module.scss";
 import { ReactNode, Suspense } from "react";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import add from "@/../public/icons/add.svg";
+import Image from "next/image";
 
 type propsType = {
   title: string;
@@ -18,14 +20,14 @@ function MenuSection({ children, ...props }: propsType) {
         <div className={styles.title}>
           <label>{props.title}</label>
         </div>
-        <div>
-          <button
-            onClick={() => props.setAddNew && props.setAddNew(true)}
-            className={styles.seeAll}
-          >
-            {props.href}
-          </button>
+        <div
+          onClick={() => props.setAddNew && props.setAddNew(true)}
+          className={styles.path}
+        >
+          <Image src={add} alt="tag" />
+          <p>{props.href}</p>
         </div>
+
       </div>
       <div>
         <Suspense

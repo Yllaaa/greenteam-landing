@@ -219,7 +219,7 @@
   position: relative;
 }
 .header .line .lineBefore::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   right: 0;
@@ -233,7 +233,7 @@
   background-color: #394646;
 }
 .header .line .lineAfter::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0;
@@ -390,22 +390,39 @@
   -webkit-text-fill-color: transparent;
 }
 .form .agreeSection .radioBtnContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 18px;
   height: 18px;
-  background: #3c6060;
-  border: 2px solid #495c5c;
-  cursor: pointer;
+  background: #96b032;
   border-radius: 3px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   -ms-border-radius: 3px;
   -o-border-radius: 3px;
 }
+.form .agreeSection .radioBtnContainer.checked {
+  background-color: #307040;
+}
 .form .agreeSection .radioBtnContainer .radio {
+  position: absolute;
   opacity: 0;
   width: 100%;
   height: 100%;
   cursor: pointer;
+}
+.checkmark {
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
 }
 .form button {
   width: 100%;

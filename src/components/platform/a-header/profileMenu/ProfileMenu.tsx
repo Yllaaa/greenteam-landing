@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./ProfileMenu.module.css";
 import challenges from "@/../public/ZPLATFORM/A-Header/navIcons/challenges.svg";
+import personal from "@/../public/ZPLATFORM/A-Header/navIcons/community.svg";
 import plans from "@/../public/ZPLATFORM/A-Header/navIcons/plans.svg";
 import logout from "@/../public/ZPLATFORM/A-Header/navIcons/logout.svg";
 import language from "@/../public/ZPLATFORM/A-Header/navIcons/language.svg";
@@ -56,12 +57,12 @@ function ProfileMenu(props: Props) {
       icon: challenges,
       link: `/${locale}/challenges`,
     },
-    // {
-    //   id: 6,
-    //   name: t("personal"),
-    //   icon: challenges,
-    //   link: `/${locale}/personal_menu`,
-    // },
+    {
+      id: 6,
+      name: t("space"),
+      icon: personal,
+      link: `/${locale}/personal_menu`,
+    },
     {
       id: 4,
       name: t("plans"),

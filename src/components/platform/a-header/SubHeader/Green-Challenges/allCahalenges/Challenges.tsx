@@ -8,6 +8,8 @@ import Image from "next/image";
 
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { Props } from "./types/ChallengeTypes.data";
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
 
 function Challenges(props: Props) {
   const {
@@ -18,13 +20,21 @@ function Challenges(props: Props) {
     setSection,
   } = props;
 
+  const router = useRouter()
+  const locale = useLocale()
+
+  const handleNavigation = () => {
+    router.push(`/${locale}/challenges`)
+
+  }
+
   return (
     <>
       <div className={styles.container}>
         {/*  */}
         {challenges.map((challenge) => (
           <div key={challenge.id} className={styles.challenge}>
-            <div className={styles.challengeDetails}>
+            <div style={{cursor: 'pointer'}} onClick={handleNavigation} className={styles.challengeDetails}>
               <div className={styles.challengeImage}>
                 <Image src={noAvatar} alt="image1" />
               </div>

@@ -5,7 +5,7 @@ import MenuSection from "./common/MenuSection";
 // import Community from "./community/Community";
 import Groups from "./groups/Groups";
 // import Messages from "./messages/Messages";
-import Notifications from "./notifications/Notifications";
+// import Notifications from "./notifications/Notifications";
 import Pages from "./pages/Pages";
 import AddNewPage from "./AddPage/AddNewPage";
 import AddNewGroup from "./AddGroup/AddNewGroup";
@@ -17,9 +17,9 @@ export default function PersonalMenu() {
   return (
     <>
       <UserDetails />
-      <MenuSection title="Notifications" href="">
+      {/* <MenuSection title="Notifications" href="">
         <Notifications />
-      </MenuSection>
+      </MenuSection> */}
       <Divider />
       {/* <MenuSection title="Messages" href="">
         <Messages />

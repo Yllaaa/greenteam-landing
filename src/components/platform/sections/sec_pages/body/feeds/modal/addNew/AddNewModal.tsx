@@ -7,7 +7,6 @@ import { useAppSelector } from "@/store/hooks";
 import axios from "axios";
 import preventBackgroundScroll from "@/hooks/preventScroll/preventBackroundScroll";
 import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
-import { useParams } from "next/navigation";
 import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
@@ -17,8 +16,6 @@ function AddNewModal(props: {
   addNew: boolean;
   slug: string | string[] | undefined;
 }) {
-  const params = useParams();
-  console.log(params);
   const topic = useAppSelector((state) => state.pageState.topic);
   const allMainTopics = Topics;
   const topicDetails =
@@ -94,8 +91,6 @@ function AddNewModal(props: {
     });
 
     try {
-      // Fix: Don't convert formDataToSend to a new FormData object
-      // The correct usage is to just pass formDataToSend directly
 
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${slug}/posts/publish-post`,

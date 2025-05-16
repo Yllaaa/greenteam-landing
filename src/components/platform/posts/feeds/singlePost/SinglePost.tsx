@@ -16,6 +16,8 @@ import { FaCheckSquare } from "react-icons/fa";
 import { FaComment } from "react-icons/fa6";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
+import linkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 type Props = {
   postId: string;
@@ -296,7 +298,11 @@ function SinglePost(props: Props) {
             </div>
           </div>
           <div className={styles.postContent}>
-            <p>{post.post.content}</p>
+            <p>{linkifyText(post.post.content, {
+              className: linkifyStyles['content-link'],
+              target: "_blank",
+
+            })}</p>
           </div>
           {post.media.length > 0 && (
             <div className={styles.postImages}>

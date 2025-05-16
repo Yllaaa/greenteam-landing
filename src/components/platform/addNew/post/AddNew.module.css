@@ -41,12 +41,13 @@
   padding: 15px;
 
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 28px; /* Increased from 24px to 28px */
   font-weight: 600;
-  line-height: 25.6px;
+  line-height: 32px; /* Adjusted line height for better readability */
   text-align: left;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
+  color: #b4b7c9; /* Added for better visibility */
 
   margin-bottom: 24px;
   border-radius: 10px;
@@ -62,13 +63,14 @@
   min-height: 43px;
   display: flex;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center; /* Changed to center for vertical alignment */
   gap: 10px;
+  flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .checkboxLabel {
   background: #000;
-  padding: 10px;
+  padding: 10px 15px;
   font-size: 15px;
   position: relative;
   border-radius: 10px;
@@ -76,82 +78,112 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  border: 1px solid #333;
+  margin: 2px;
+}
+.checkboxLabel:hover {
+  background-color: #1a1a1a;
 }
 .checkboxLabel input {
   opacity: 0;
   position: absolute;
 }
-.insertImage {
-  position: relative;
-  width: 123.79px;
-  height: fit-content;
-  min-height: 42.44px;
 
-  display: flex;
-  justify-content: center;
-  z-index: 10;
-}
-.insertImage .imageButton {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  height: fit-content;
-
-  display: flex;
-  justify-content: center;
-  z-index: 8;
-  width: 123.79px;
-  height: 42.44px;
-  cursor: pointer;
-}
-.insertImage .imageButton button {
-  width: 100%;
-  height: 100%;
-  background-color: #141414;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  border-radius: 9.22px;
-  -webkit-border-radius: 9.22px;
-  -moz-border-radius: 9.22px;
-  -ms-border-radius: 9.22px;
-  -o-border-radius: 9.22px;
-}
-.insertImage .imageFunc {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  height: fit-content;
-  min-height: 43px;
-  display: flex;
-  justify-content: center;
-  z-index: 9;
-  cursor: pointer;
-  opacity: 0;
-}
 .selectCategory {
+  position: relative;
   height: fit-content;
-
-  width: 155px;
+  width: 200px; /* Increased for better visibility */
   height: 42.44px;
 }
-.selectCategory select {
+
+/* Hidden original select */
+.hiddenSelect {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Custom select styling */
+.customSelect {
   width: 100%;
   height: 100%;
-  outline: none;
-  border: none;
-  cursor: pointer;
   background-color: #141414;
+  border: 1px solid #333;
   border-radius: 10px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  -ms-border-radius: 10px;
-  -o-border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  transition: all 0.2s ease;
+}
+
+.customSelect:hover {
+  background-color: #1a1a1a;
+  border-color: #444;
+}
+
+.placeholder {
+  color: #666;
+  font-size: 14px;
+}
+
+.selectedValue {
+  color: #fff;
+  font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 85%;
+}
+
+.dropdownIcon {
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.dropdownIcon.open {
+  transform: rotate(180deg);
+}
+
+.dropdownOptions {
+  position: absolute;
+  top: 115%;
+  left: 0;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  background-color: #141414;
+  border: 1px solid #333;
+  border-radius: 8px;
+  z-index: 100;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.option {
+  padding: 10px 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  font-size: 14px;
+}
+
+.option:hover {
+  background-color: #1f1f1f;
+}
+
+.option:not(:last-child) {
+  border-bottom: 1px solid #333;
 }
 
 .selectSubCategory {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   gap: 10px;
   width: fit-content;
@@ -165,12 +197,20 @@
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   -o-border-radius: 10px;
+  flex: 1; /* Added flex grow */
+  flex-wrap: wrap; /* Allow items to wrap */
+  padding: 5px 0;
+}
+
+.noSubtopics {
+  color: #666;
+  font-style: italic;
+  padding: 5px 0;
 }
 
 .submit {
-  align-self: flex-end;
+  height: 42.44px; /* Match height with category selector */
   width: 161px;
-  height: 42px;
   padding: 8px 16px 8px 16px;
   border: none;
   outline: none;
@@ -181,7 +221,27 @@
   -moz-border-radius: 30px;
   -ms-border-radius: 30px;
   -o-border-radius: 30px;
+  margin-left: auto; /* Push to the right */
+  font-weight: 600;
+  transition: all 0.2s ease;
 }
+
+.submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(116, 178, 67, 0.3);
+}
+
+.submit:active {
+  transform: translateY(0);
+}
+
+.addActions{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
 @media screen and (max-width: 768px) {
   .container {
     width: 100%;
@@ -211,42 +271,7 @@
     justify-content: flex-start;
     align-items: center;
   }
-  .container .forumBody .forumForm .boxContainer {
-    width: 100%;
-    height: fit-content;
-    min-height: 125px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 10px;
-    margin-bottom: 24px;
-  }
-  .container .forumBody .forumForm .boxContainer .userAvatar {
-    width: 46px;
-    height: 46px;
-    min-width: 46px;
-    min-height: 46px;
-    outline: #fefefe solid 2px;
-    outline-offset: 2px;
-    margin: auto 0px;
-    align-content: center;
-    justify-self: center;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-  }
-  .container .forumBody .forumForm .boxContainer .userAvatar img {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    -ms-border-radius: 50%;
-    -o-border-radius: 50%;
-  }
+
   .container .forumBody .forumForm .textArea {
     width: 100%;
     height: 100%;
@@ -255,9 +280,9 @@
     padding: 15px;
     background-color: #141414;
     color: #b4b7c9;
-    font-size: 14px;
+    font-size: 20px; /* Increased for mobile too */
     font-weight: 600;
-    line-height: 20.6px;
+    line-height: 25px;
     text-align: left;
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -274,51 +299,109 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 5px;
+    gap: 10px;
   }
 
   .selectCategory {
-    height: fit-content;
-    width: fit-content;
-    min-height: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 5px;
     width: 100%;
+    height: 42px;
+    margin-bottom: 10px;
   }
-  .selectCategory select {
+
+  .customSelect {
     width: 100%;
-    min-width: 100%;
-    max-width: 100%;
-    height: 100%;
-    min-height: 36px;
-    outline: none;
-    border: none;
-    cursor: pointer;
-    background-color: #141414;
-    border-radius: 10px;
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    -ms-border-radius: 10px;
-    -o-border-radius: 10px;
+    height: 42px;
+  }
+
+  .dropdownOptions {
+    max-height: 180px;
+  }
+
+  .option {
+    padding: 12px;
   }
 
   .selectSubCategory {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     width: 100%;
     height: 100%;
     min-height: 26px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+
+  .checkboxLabel {
+    padding: 8px 12px;
+    font-size: 13px;
+    margin-bottom: 5px;
   }
 
   .submit {
-    align-self: flex-end;
     width: 100%;
-    height: 42px;
+    height: 44px;
     margin-top: 15px;
+    font-size: 16px;
+    font-weight: 600;
   }
+
+  .addActions {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+/* Add a medium breakpoint for better responsiveness */
+@media screen and (min-width: 769px) and (max-width: 1024px) {
+  .selectCategory {
+    width: 180px;
+  }
+
+  .submit {
+    width: 140px;
+  }
+
+  .addActions {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Animation for dropdown */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownOptions {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+/* Scrollbar styling for dropdown options */
+.dropdownOptions::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dropdownOptions::-webkit-scrollbar-track {
+  background: #0a0a0a;
+  border-radius: 5px;
+}
+
+.dropdownOptions::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 5px;
+}
+
+.dropdownOptions::-webkit-scrollbar-thumb:hover {
+  background: #444;
 }

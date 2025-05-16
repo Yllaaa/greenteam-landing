@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Item from "./Item";
@@ -6,9 +7,11 @@ import styles from "./pages.module.scss";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { useAppSelector } from "@/store/hooks";
 
 export default function Pages() {
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
+  const user = useAppSelector(state => state.login.user?.user);
 
   // pagination
   const limit = 5;
@@ -19,6 +22,8 @@ export default function Pages() {
   const [errorMessage, setErrorMessage] = useState("");
   const [endOfResults, setEndOfResults] = useState(false);
 
+  // Refs for scrolling and navigation
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(false);
@@ -27,8 +32,25 @@ export default function Pages() {
   const localeS = useRef(getToken());
   const accessToken = localeS.current ? localeS.current.accessToken : null;
 
+  // Request cancellation
+  const abortControllerRef = useRef<AbortController | null>(null);
+
   const fetchPages = useCallback(
     async (pageNum: number, replace: boolean = false) => {
+      // Return early if username is not available
+      if (!user?.username) {
+        console.log("Username not available yet");
+        return;
+      }
+
+      // Cancel any ongoing requests
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+
+      // Create new abort controller for this request
+      abortControllerRef.current = new AbortController();
+
       try {
         // Use different loading state for initial vs pagination loading
         if (replace) {
@@ -39,12 +61,13 @@ export default function Pages() {
         }
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages?limit=${limit}&page=${pageNum}`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${user.username}/pages?limit=${limit}&page=${pageNum}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
             },
+            signal: abortControllerRef.current.signal
           }
         );
 
@@ -68,27 +91,44 @@ export default function Pages() {
         });
 
         return data;
-      } catch (error) {
-        console.error("Failed to fetch forums:", error);
-        setErrorMessage("An Error Occurred");
-        throw error;
+      } catch (error: any) {
+        // Don't set error message if it was a canceled request
+        if (error.name !== 'AbortError') {
+          console.error("Failed to fetch pages:", error);
+          setErrorMessage(error.response?.data?.message || "An Error Occurred");
+        }
       } finally {
         setIsLoading(false);
         setIsPaginationLoading(false);
       }
     },
-    [accessToken] // Only include accessToken in dependencies
+    [accessToken, user?.username, limit]
   );
 
-  // Initial load - use a ref to ensure this only runs once
-  const initialFetchRef = useRef(false);
-
+  // Reset and fetch when user changes
   useEffect(() => {
-    if (!initialFetchRef.current) {
-      initialFetchRef.current = true;
-      fetchPages(1, true);
-    }
-  }, [fetchPages]);
+    const initialFetch = async () => {
+      if (user?.username) {
+        // Reset pagination state
+        setPage(1);
+        setHasMore(true);
+        setEndOfResults(false);
+        setErrorMessage("");
+
+        // Fetch first page
+        await fetchPages(1, true);
+      }
+    };
+
+    initialFetch();
+
+    // Cleanup function to cancel any pending requests when component unmounts
+    return () => {
+      if (abortControllerRef.current) {
+        abortControllerRef.current.abort();
+      }
+    };
+  }, [fetchPages, user?.username]);
 
   // Load more pages when page changes
   useEffect(() => {
@@ -98,19 +138,34 @@ export default function Pages() {
     }
   }, [page, fetchPages, isLoading]);
 
+  // Function to update scroll button states
+  const updateScrollButtonsState = useCallback(() => {
+    if (!scrollContainerRef.current) return;
+
+    const container = scrollContainerRef.current;
+    const scrollLeft = container.scrollLeft;
+    const scrollWidth = container.scrollWidth;
+    const clientWidth = container.clientWidth;
+
+    // A small threshold to ensure the left button appears when there's some scrolling
+    const leftThreshold = 10;
+
+    setCanScrollLeft(scrollLeft > leftThreshold);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - leftThreshold);
+  }, []);
+
   // Scroll event handler for infinite scrolling and scroll button state
   const handleScroll = useCallback(() => {
-    if (!bodyRef.current || !hasMore || isLoading || isPaginationLoading)
+    if (!scrollContainerRef.current || !hasMore || isLoading || isPaginationLoading)
       return;
 
-    const container = bodyRef.current;
+    const container = scrollContainerRef.current;
     const scrollWidth = container.scrollWidth;
     const clientWidth = container.clientWidth;
     const scrollLeft = container.scrollLeft;
 
     // Update scroll button states
-    setCanScrollLeft(scrollLeft > 0);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth);
+    updateScrollButtonsState();
 
     // Load more when user has scrolled to 80% of the content
     if (
@@ -120,33 +175,52 @@ export default function Pages() {
     ) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [hasMore, isLoading, isPaginationLoading]);
+  }, [hasMore, isLoading, isPaginationLoading, updateScrollButtonsState]);
 
   // Add scroll event listener
   useEffect(() => {
-    const currentRef = bodyRef.current;
+    const currentRef = scrollContainerRef.current;
     if (currentRef) {
-      currentRef.addEventListener("scroll", handleScroll);
+      // Add direct event listener without debounce for accurate state
+      currentRef.addEventListener("scroll", updateScrollButtonsState);
+
+      // Debounce function for the performance-heavy operations
+      let timeoutId: NodeJS.Timeout;
+      const debouncedScroll = () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(handleScroll, 100);
+      };
+
+      currentRef.addEventListener("scroll", debouncedScroll);
 
       // Initial scroll state check
-      const scrollWidth = currentRef.scrollWidth;
-      const clientWidth = currentRef.clientWidth;
-      setCanScrollRight(scrollWidth > clientWidth);
+      updateScrollButtonsState();
 
       return () => {
-        currentRef.removeEventListener("scroll", handleScroll);
+        currentRef.removeEventListener("scroll", updateScrollButtonsState);
+        clearTimeout(timeoutId);
+        currentRef.removeEventListener("scroll", debouncedScroll);
       };
     }
-  }, [handleScroll]);
+  }, [handleScroll, updateScrollButtonsState]);
 
-  // Manual scroll handlers for arrow buttons
+  // Manual scroll handlers for arrow buttons with forced state update
   const handleManualScroll = (direction: "left" | "right") => {
-    if (!bodyRef.current) return;
+    if (!scrollContainerRef.current) return;
 
-    bodyRef.current.scrollBy({
-      left: direction === "left" ? -300 : +300,
+    const container = scrollContainerRef.current;
+    const scrollAmount = direction === "left" ? -300 : 300;
+
+    container.scrollBy({
+      left: scrollAmount,
       behavior: "smooth",
     });
+
+    // Force update the scroll button states after scrolling
+    // Use setTimeout to wait for the smooth scroll to complete
+    setTimeout(() => {
+      updateScrollButtonsState();
+    }, 500);
   };
 
   // Render content based on state
@@ -167,10 +241,10 @@ export default function Pages() {
       );
     }
 
-    if (pagesArray.length === 0) {
+    if (pagesArray.length === 0 && !isLoading) {
       return (
         <div className={styles.noPosts}>
-          <p>No posts found</p>
+          <p>No pages found</p>
         </div>
       );
     }
@@ -179,49 +253,67 @@ export default function Pages() {
   };
 
   return (
-    <div className={styles.pagesContainer}>
-      <div className={styles.pages}>
-        {pagesArray.map((pageI, index) => (
-          <Item
-            key={pageI.id || index} // Use ID if available for more stable keys
-            pageI={pageI}
-            page={page}
-            setPage={setPage}
-            index={index}
-            length={pagesArray.length}
-          />
-        ))}
-      </div>
+    <div className={styles.pagesWrapper}>
+      <div className={styles.pagesContainer}>
+        {/* Left arrow navigation button - outside the scrollable area */}
+        {pagesArray.length > 0 && (
+          <button
+            onClick={() => handleManualScroll("left")}
+            disabled={!canScrollLeft}
+            className={`${styles.navArrow} ${styles.leftArrow} ${canScrollLeft ? styles.active : ""}`}
+            aria-label="Scroll left"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
 
-      {/* Scroll navigation buttons */}
-      <div className={styles.scrollControls}>
-        <button
-          onClick={() => handleManualScroll("left")}
-          disabled={!canScrollLeft}
-          className={`${styles.scrollButton} ${
-            canScrollLeft ? styles.active : ""
-          }`}
-          aria-label="Scroll left"
+        {/* Right arrow navigation button - outside the scrollable area */}
+        {pagesArray.length > 0 && (
+          <button
+            onClick={() => handleManualScroll("right")}
+            disabled={!canScrollRight}
+            className={`${styles.navArrow} ${styles.rightArrow} ${canScrollRight ? styles.active : ""}`}
+            aria-label="Scroll right"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </button>
+        )}
+
+        {/* Scrollable container for items only */}
+        <div
+          ref={scrollContainerRef}
+          className={styles.scrollContainer}
+          onScroll={updateScrollButtonsState} // Add direct onScroll handler for immediate updates
         >
-          &larr;
-        </button>
-        <button
-          onClick={() => handleManualScroll("right")}
-          disabled={!canScrollRight}
-          className={`${styles.scrollButton} ${
-            canScrollRight ? styles.active : ""
-          }`}
-          aria-label="Scroll right"
-        >
-          &rarr;
-        </button>
+          <div className={styles.pages}>
+            {pagesArray.map((pageI, index) => (
+              <Item
+                key={pageI.id || `page-${index}`}
+                pageI={pageI}
+                page={page}
+                setPage={setPage}
+                index={index}
+                length={pagesArray.length}
+              />
+            ))}
+
+            {isPaginationLoading && (
+              <div className={styles.paginationIndicator}>
+                <LoadingTree />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
 
       <div ref={bodyRef} className={styles.content}>
         {renderContent()}
-        {/* {isPaginationLoading && <div className={styles.paginationLoader}><LoadingTree /></div>} */}
-        {endOfResults && (
-          <p style={{ display: "none" }} className={styles.endMessage}>
+        {endOfResults && pagesArray.length > 0 && (
+          <p className={styles.endMessage}>
             End of results
           </p>
         )}

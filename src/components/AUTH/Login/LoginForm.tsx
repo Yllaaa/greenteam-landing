@@ -210,12 +210,11 @@ function LoginForm() {
               <div className={styles.agreeSectionAll}>
                 <div className={styles.agreeSection}>
                   <div
-                    style={
-                      selectedOption
-                        ? { backgroundColor: "#307040" }
-                        : { backgroundColor: "#96b032" }
-                    }
-                    className={styles.radioBtnContainer}
+                    className={`${styles.radioBtnContainer} ${selectedOption ? styles.checked : ''}`}
+                    onClick={() => {
+                      setSelectedOption(!selectedOption);
+                      setSelectedOptionError("");
+                    }}
                   >
                     <input
                       type="radio"
@@ -226,11 +225,11 @@ function LoginForm() {
                       onChange={() => {
                         handleRadioClick();
                       }}
-                      onClick={() => {
-                        setSelectedOption(!selectedOption);
-                      }}
                       className={styles.radio}
                     />
+                    {selectedOption && (
+                      <span className={styles.checkmark}>✓</span>
+                    )}
                   </div>
                   <p>
                     {t("IAgree")}{" "}

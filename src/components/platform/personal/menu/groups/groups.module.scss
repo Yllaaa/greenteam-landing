@@ -1,28 +1,103 @@
 $min-width: 1024px;
+$tablet-width: 768px;
+
+.groupsWrapper {
+  position: relative;
+  width: 100%;
+}
 
 .groupsContainer {
-  @media (min-width: $min-width) {
+  width: 100%;
+  position: relative;
+  margin-bottom: 16px;
+
+  // Navigation arrows styling - Moved outside the scrollable area
+  .navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 52px;
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    -ms-border-radius: 10px;
+    -o-border-radius: 10px;
+    background: linear-gradient(
+      127.36deg,
+      #0f3b18 0.8%,
+      #0c2311 50%,
+      #031e09 99.2%
+    );
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    color: #74b243;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    svg {
+      width: 30px;
+      height: 30px;
+      fill: #74b243;
+    }
+    &:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: #333634;
+      transform: translateY(-50%) scale(1);
+      box-shadow: none;
+    }
+
+    &.leftArrow {
+      left: 5px;
+    }
+
+    &.rightArrow {
+      right: 5px;
+    }
+
+    // Hide on mobile and tablet, show only on desktop
+    display: none;
+    @media (min-width: $min-width) {
+      display: flex;
+    }
+
+    // Explicitly hide on tablet even if min-width is triggered
+    @media (max-width: $tablet-width) {
+      display: none !important;
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
+
+      path {
+        stroke: #ffffff;
+        stroke-width: 2.5;
+      }
+    }
+  }
+
+  // Scrollable container for groups only
+  .scrollContainer {
     width: 100%;
-    overflow-x: scroll;
-    margin-bottom: 16px;
+    overflow-x: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
 
+    /* Hide scrollbar for Chrome, Safari and Opera */
     &::-webkit-scrollbar {
-      height: 10px;
+      display: none;
       width: 0;
-
-      &-track {
-        background-color: transparent;
-        border-radius: 10px;
-      }
-
-      &-thumb {
-        background-color: #307040;
-        border-radius: 10px;
-
-        &:hover {
-          background-color: #74b243;
-        }
-      }
+      height: 0;
     }
   }
 
@@ -30,11 +105,17 @@ $min-width: 1024px;
     display: flex;
     flex-direction: column;
     gap: 24px;
+    padding: 0 15px;
 
     @media (min-width: $min-width) {
       flex-direction: row;
       width: fit-content;
       margin-bottom: 16px;
+      padding: 0 45px; /* Add padding for desktop to accommodate arrows */
+    }
+
+    @media (max-width: $tablet-width) {
+      padding: 0 15px; /* Reduce padding on tablet since arrows are hidden */
     }
 
     .item {
@@ -131,4 +212,30 @@ $min-width: 1024px;
       }
     }
   }
+}
+
+// Loading indicator
+.paginationIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px;
+  height: 299px; // Match the height of the item
+  padding: 0 20px;
+}
+
+.noPosts {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: #fefefe;
+  font-size: 16px;
+}
+
+.endMessage {
+  text-align: center;
+  color: #fefefe;
+  opacity: 0.7;
+  padding: 10px 0;
 }

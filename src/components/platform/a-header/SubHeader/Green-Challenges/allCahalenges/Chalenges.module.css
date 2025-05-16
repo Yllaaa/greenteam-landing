@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  gap: 5px;
+  gap: 10px;
 }
 .challenge .challengeDetails .challengeImage {
   width: 56px;

@@ -3,7 +3,6 @@
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import "keen-slider/keen-slider.min.css";
-// import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
 import image from "@/../public/logo/foot.png";
@@ -57,13 +56,15 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   } = props;
   const router = useRouter();
 
+  // Add local favorite state
+  const [isFavorite, setIsFavorite] = useState(product?.isFavorited || false);
+
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
     loop: true,
     slides: { perView: 1 },
-
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -71,6 +72,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       setLoaded(true);
     },
   });
+
+  // Set initial favorite state from product data
+  useEffect(() => {
+    setIsFavorite(product?.isFavorited || false);
+  }, [product?.isFavorited]);
+
   // Track which post's options menu is open
   const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
     null
@@ -90,6 +97,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     },
     [deleteModal, setDeleteModal, setPostId]
   );
+
   // Handle delete or report action
   const handleActionReport = useCallback(
     (postId: string) => {
@@ -101,7 +109,9 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     },
     [reportModal, setPostId, setReportModal]
   );
+
   const optionsMenuRef = useRef<HTMLDivElement>(null);
+
   // Handle clicks outside the options menu to close it
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -118,12 +128,15 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
   const handleNavigate = () => {
     router.push(`feeds/products/${product?.id}`);
   };
+
   const handleJoinNow = async () => {
     router.push(`chat?chatId=${product?.sellerId}`);
   };
+
   const handleContacts = async () => {
     // setContacts(product?.sellerType);
     setSellerId(product?.sellerId);
@@ -133,6 +146,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
+
   const handlePages = React.useCallback(() => {
     setPage(products && products.length < 5 ? 1 : page + 1);
   }, [page]);
@@ -145,7 +159,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
+
   const handleToggleFavorite = (id: string) => {
+    // Immediately toggle the local state for instant feedback
+    setIsFavorite(prevState => !prevState);
+
+    // Make the API call in the background
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products/${id}/toggle-favorite`,
@@ -159,19 +178,24 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       )
       .then((response) => {
         if (response.data) {
+          // Update toast with confirmation
           ToastNot(
-            `${
-              response.data.isFavorited
-                ? "Added to favorites!"
-                : "Removed from favorites!"
+            `${response.data.isFavorited
+              ? "Added to favorites!"
+              : "Removed from favorites!"
             }`
           );
         }
       })
       .catch((error) => {
+        // If there's an error, revert the local state
+        setIsFavorite(prevState => !prevState);
+
         const err = error as { status: number };
         if (err.status === 409) {
           ToastNot("Already in favorites!");
+        } else {
+          ToastNot("Failed to update favorites. Please try again.");
         }
         console.error("Error toggling favorite:", error);
       });
@@ -219,9 +243,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
               <button
                 key={idx}
                 onClick={() => instanceRef.current?.moveToIdx(idx)}
-                className={`${styles.dot} ${
-                  currentSlide === idx ? styles.active : ""
-                }`}
+                className={`${styles.dot} ${currentSlide === idx ? styles.active : ""
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
@@ -262,40 +285,40 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
       <div
         onClick={() => handleToggleFavorite(`${product?.id}`)}
-        className={styles.favorite}
+        className={`${styles.favorite} ${isFavorite ? styles.favoriteActive : ''}`}
       >
-        <FaStar fill="#FFD700" />
+        <FaStar fill={isFavorite ? "#FFD700" : "#FFF"} />
       </div>
       <div className={styles.options}>
-  <div
-    onClick={() => toggleOptionsMenu(product.id)}
-    className={styles.optionsIcon}
-    aria-label="Product options"
-  >
-    <PiDotsThreeCircleLight />
-  </div>
-
-  {activeOptionsPost === product.id && (
-    <div ref={optionsMenuRef} className={styles.optionsMenu}>
-      {product.isAuthor && (
         <div
-          onClick={() => handleActionDelete(product.id)}
-          className={`${styles.optionItem} ${styles.deleteOption}`}
+          onClick={() => toggleOptionsMenu(product.id)}
+          className={styles.optionsIcon}
+          aria-label="Product options"
         >
-          <FaTrash className={styles.deleteIcon} /> 
-          <span>Delete Product</span>
+          <PiDotsThreeCircleLight />
         </div>
-      )}
-      <div
-        onClick={() => handleActionReport(product.id)}
-        className={`${styles.optionItem} ${styles.reportOption}`}
-      >
-        <MdOutlineReportProblem className={styles.reportIcon} /> 
-        <span>Report Product</span>
+
+        {activeOptionsPost === product.id && (
+          <div ref={optionsMenuRef} className={styles.optionsMenu}>
+            {product.isAuthor && (
+              <div
+                onClick={() => handleActionDelete(product.id)}
+                className={`${styles.optionItem} ${styles.deleteOption}`}
+              >
+                <FaTrash className={styles.deleteIcon} />
+                <span>Delete Product</span>
+              </div>
+            )}
+            <div
+              onClick={() => handleActionReport(product.id)}
+              className={`${styles.optionItem} ${styles.reportOption}`}
+            >
+              <MdOutlineReportProblem className={styles.reportIcon} />
+              <span>Report Product</span>
+            </div>
+          </div>
+        )}
       </div>
-    </div>
-  )}
-</div>
     </div>
   );
 };

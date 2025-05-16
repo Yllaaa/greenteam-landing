@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+// /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, {
   Suspense,
@@ -18,7 +18,7 @@ import Image from "next/image";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
-import ContactModal from "./modal/ContactModal";
+// import ContactModal from "./modal/ContactModal";
 import { ProfileResponse } from "../../all/all.data";
 
 function ProductSection(props: {
@@ -38,8 +38,8 @@ function ProductSection(props: {
   const [hasMore, setHasMore] = useState(true);
   const [products, setProducts] = useState<Products[]>([]);
   const [endOfResults, setEndOfResults] = useState(false);
-  const [showContacts, setShowContacts] = useState(false);
-  const [contacts, setContacts] = useState<any>();
+  // const [showContacts, setShowContacts] = useState(false);
+
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -209,8 +209,7 @@ function ProductSection(props: {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
-                  setContacts={setContacts}
-                  setShowContacts={setShowContacts}
+
                 />
               </div>
             ))}
@@ -290,9 +289,9 @@ function ProductSection(props: {
           setMessage={setSendMessage}
         />
       )}
-      {showContacts && (
+      {/* {showContacts && (
         <ContactModal contacts={contacts} setShowContacts={setShowContacts} />
-      )}
+      )} */}
     </>
   );
 }

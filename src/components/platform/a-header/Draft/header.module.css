@@ -113,11 +113,7 @@
   grid-row: 1 / 2;
   justify-self: center;
   align-self: center;
-  /* transform: translateX(-23px);
-  -webkit-transform: translateX(-23px);
-  -moz-transform: translateX(-23px);
-  -ms-transform: translateX(-23px);
-  -o-transform: translateX(-23px); */
+
 }
 .container .top .profile {
   grid-column: 8 / 13;

@@ -30,7 +30,7 @@ body {
   overflow-x: hidden !important;
   scroll-behavior: smooth;
   /* overflow: hidden; */
-  font-family: var(--monta);
+  font-family: 'Montserrat', sans-serif !important;
 }
 
 body {

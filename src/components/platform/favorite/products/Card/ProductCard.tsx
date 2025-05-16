@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "keen-slider/keen-slider.min.css";
-// import axios from "axios";
 import styles from "./ProductCard.module.css";
 import Image from "next/image";
 import image from "@/../public/logo/foot.png";
@@ -15,7 +14,8 @@ import { useKeenSlider } from "keen-slider/react";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
-// import { TiStarFullOutline } from "react-icons/ti";
+import { useLocale } from 'next-intl';
+
 interface ProductCardProps {
   limit?: number;
   products: Products[];
@@ -37,13 +37,22 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     page,
     setPage,
     products,
-    setSendMessage,
-    setSellerId,
-    setSellerType,
+    // setSendMessage,
+    // setSellerId,
+    // setSellerType,
     setShowContacts,
     setContacts,
   } = props;
   const router = useRouter();
+  const locale = useLocale()
+
+  // Add local favorite state
+  const [isFavorite, setIsFavorite] = useState(product?.isFavorited || false);
+
+  // Set initial favorite state from product data
+  useEffect(() => {
+    setIsFavorite(product?.isFavorited || false);
+  }, [product?.isFavorited]);
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
@@ -51,7 +60,6 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     initial: 0,
     loop: true,
     slides: { perView: 1 },
-
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
     },
@@ -59,23 +67,24 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       setLoaded(true);
     },
   });
+
   const handleNavigate = () => {
-    router.push(`feeds/products/${product?.id}`);
+    router.push(`/${locale}/feeds/products/${product?.id}`);
   };
+
   const handleJoinNow = async () => {
-    setSendMessage(true);
-    setSellerId(product?.sellerId);
-    setSellerType(product?.sellerType);
+    router.push(`/${locale}/chat?chatId=${product?.sellerId}`);
   };
+
   const handleContacts = async () => {
     setContacts(product?.sellerType);
-
     setShowContacts(true);
   };
 
   const { ref, inView } = useInView({
     threshold: 0.5,
   });
+
   const handlePages = React.useCallback(() => {
     setPage(products && products.length < 5 ? 1 : page + 1);
   }, [page]);
@@ -88,7 +97,12 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
 
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
+
   const handleToggleFavorite = (id: string) => {
+    // Immediately toggle the local state for instant feedback
+    setIsFavorite(prevState => !prevState);
+
+    // Make the API call in the background
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/marketplace/products/${id}/toggle-favorite`,
@@ -102,19 +116,24 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       )
       .then((response) => {
         if (response.data) {
+          // Show toast notification based on response
           ToastNot(
-            `${
-              response.data.isFavorited
-                ? "Added to favorites!"
-                : "Removed from favorites!"
+            `${response.data.isFavorited
+              ? "Added to favorites!"
+              : "Removed from favorites!"
             }`
           );
         }
       })
       .catch((error) => {
+        // If there's an error, revert the local state
+        setIsFavorite(prevState => !prevState);
+
         const err = error as { status: number };
         if (err.status === 409) {
           ToastNot("Already in favorites!");
+        } else {
+          ToastNot("Failed to update favorites. Please try again.");
         }
         console.error("Error toggling favorite:", error);
       });
@@ -162,9 +181,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
               <button
                 key={idx}
                 onClick={() => instanceRef.current?.moveToIdx(idx)}
-                className={`${styles.dot} ${
-                  currentSlide === idx ? styles.active : ""
-                }`}
+                className={`${styles.dot} ${currentSlide === idx ? styles.active : ""
+                  }`}
                 aria-label={`Go to slide ${idx + 1}`}
               />
             ))}
@@ -203,9 +221,9 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       </div>
       <div
         onClick={() => handleToggleFavorite(`${product?.id}`)}
-        className={styles.favorite}
+        className={`${styles.favorite} ${isFavorite ? styles.favoriteActive : ''}`}
       >
-        <FaStar fill="#FFD700" />
+        <FaStar fill={isFavorite ? "#FFD700" : "#FFF"} />
       </div>
     </div>
   );

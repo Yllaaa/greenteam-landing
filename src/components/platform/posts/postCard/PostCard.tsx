@@ -22,6 +22,8 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
+import linkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
@@ -258,13 +260,15 @@ function PostCard(props: Props) {
                       <span>Delete Post</span>
                     </div>
                   )}
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={`${styles.optionItem} ${styles.reportOption}`}
-                  >
-                    <MdOutlineReportProblem className={styles.reportIcon} />
-                    <span>Report Post</span>
-                  </div>
+                  {!post.isAuthor &&
+                    <div
+                      onClick={() => handleActionReport(post.post.id)}
+                      className={`${styles.optionItem} ${styles.reportOption}`}
+                    >
+                      <MdOutlineReportProblem className={styles.reportIcon} />
+                      <span>Report Post</span>
+                    </div>
+                  }
                 </div>
               )}
             </div>
@@ -305,12 +309,20 @@ function PostCard(props: Props) {
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
-                      <p>
-                        {post.post.content.slice(0, 40)}{" "}
-                        <span>Read More... </span>
+                      <p style={{ cursor: "pointer" }}>
+                        {linkifyText(post.post.content.slice(0, 40), {
+                          className: linkifyStyles['content-link'],
+                          target: "_blank"
+                        })}{" "}
+                        <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
-                      <p>{post.post.content}</p>
+                      <p style={{ cursor: "pointer" }}>
+                        {linkifyText(post.post.content, {
+                          className: linkifyStyles['content-link'],
+                          target: "_blank"
+                        })}
+                      </p>
                     )}
                   </div>
                 )}

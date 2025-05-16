@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "./userDetails.module.scss";
 import Recods from "./Recods";
-import Breif from "./Breif";
+// import Breif from "./Breif";
 function UserDetails() {
   
   return (
@@ -11,9 +11,9 @@ function UserDetails() {
         <div className={styles.records}>
           <Recods />
         </div>
-        <div className={styles.breif}>
+        {/* <div className={styles.breif}>
           <Breif />
-        </div>
+        </div> */}
       </div>
     </>
   );

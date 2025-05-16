@@ -1,0 +1,304 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    overflow-y: auto;
+    animation: fadeIn 0.3s ease;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  .modalContent {
+    background: #006633;
+    padding: 72px 42px;
+    width: 90%;
+    max-width: 1230px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    margin: auto;
+    border-radius: 30px;
+    animation: slideIn 0.3s ease;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    
+    /* Scrollbar styling */
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: #74b243;
+      border-radius: 10px;
+      
+      &:hover {
+        background: #96b032;
+      }
+    }
+  }
+  
+  @keyframes slideIn {
+    from { transform: translateY(-20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    color: white;
+    font-size: 24px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background: rgba(0, 0, 0, 0.5);
+      transform: scale(1.1);
+    }
+  }
+  
+  .postForm {
+    width: 93%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  .title {
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 43px;
+    
+    .plusIconWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+      border-radius: 50%;
+    }
+  }
+  
+  .textArea {
+    width: 100%;
+    height: 100%;
+    min-height: 302px;
+    resize: none;
+    padding: 15px;
+    background-color: #141414;
+    color: #b4b7c9;
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 20.6px;
+    text-align: left;
+    margin-bottom: 35px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    
+    &:focus {
+      box-shadow: 0 0 0 2px rgba(116, 178, 67, 0.5);
+    }
+  }
+  
+  .selectedFiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 20px;
+    
+    .filePreview {
+      position: relative;
+      
+      .imagePreview {
+        width: 80px;
+        height: 80px;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+        
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      
+      .fileInfo {
+        background: #141414;
+        padding: 8px 12px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 12px;
+        color: #fff;
+        max-width: 150px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      
+      .removeFile {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: rgba(255, 0, 0, 0.8);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: none;
+        cursor: pointer;
+        font-size: 12px;
+        z-index: 5;
+        
+        &:hover {
+          background: red;
+        }
+      }
+    }
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .fileUpload {
+    width: 30%;
+  }
+  
+  .selectSubCategory {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    height: 100%;
+    min-height: 43px;
+    outline: none;
+    border: none;
+    cursor: pointer;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-radius: 10px;
+    -webkit-scrollbar-width: none;
+    
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .checkboxLabel {
+      background: #000;
+      padding: 10px;
+      font-size: 15px;
+      position: relative;
+      border-radius: 10px;
+      transition: background-color 0.2s ease;
+      white-space: nowrap;
+      
+      &:hover {
+        background: #1a1a1a;
+      }
+      
+      input {
+        opacity: 0;
+        position: absolute;
+      }
+    }
+    
+    .noSubtopics {
+      color: #b4b7c9;
+      font-size: 14px;
+    }
+  }
+  
+  .submit {
+    width: 161px;
+    height: 42px;
+    border: none;
+    outline: none;
+    background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+    letter-spacing: 0px;
+    cursor: pointer;
+    border-radius: 30px;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transform: translateY(-2px);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+    
+    &:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+    }
+  }
+  
+  @media screen and (max-width: 768px) {
+    .modalContent {
+      padding: 10px;
+      height: auto;
+      min-height: fit-content;
+      width: 95%;
+      max-height: 80vh;
+    }
+    
+    .closeButton {
+      top: 10px;
+      right: 10px;
+      width: 30px;
+      height: 30px;
+      font-size: 18px;
+    }
+    
+    .postForm {
+      width: 100%;
+      padding: 40px 10px;
+    }
+  }

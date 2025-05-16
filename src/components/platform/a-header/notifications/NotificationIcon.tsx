@@ -1,15 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client"
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef, MouseEvent } from 'react';
 import io from 'socket.io-client';
-import { useLocale } from 'next-intl';
-import { useRouter } from 'next/navigation';
+// import { useLocale } from 'next-intl';
+// import { useRouter } from 'next/navigation';
 import styles from './NotificationIcon.module.scss';
+import Notifications from './notifications/Notifications'; // Import the Notifications component
 
 const NotificationIcon = () => {
     const [notificationCount, setNotificationCount] = useState(0);
     const [isShaking, setIsShaking] = useState(false);
-    const router = useRouter();
-    const locale = useLocale();
+    const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+    // const router = useRouter();
+    // const locale = useLocale();
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
         // Get the correct backend URL
@@ -54,29 +58,68 @@ const NotificationIcon = () => {
         }
     }, []);
 
-    const handleIconClick = () => {
-        router.push(`/${locale}/personal_menu`);
-        // Optionally reset the notification count when clicked
-        // setNotificationCount(0);
+    // Handle clicks outside the dropdown to close it
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent | any) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+                setIsDropdownOpen(false);
+            }
+        };
+
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [dropdownRef]);
+
+    const handleIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
+        e.stopPropagation();
+        setIsDropdownOpen(prevState => !prevState);
+
+        // Optionally reset the notification count when opened
+        if (!isDropdownOpen) {
+            setNotificationCount(0);
+        }
     };
 
-    return (
-        <div
-            className={`${styles['notification-icon-container']} ${isShaking ? styles['notification-shake'] : ''}`}
-            onClick={handleIconClick}
-        >
-            <div className={styles['notification-icon']}>
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-                    <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-                </svg>
+    // const handleViewAllClick = () => {
+    //     router.push(`/${locale}/personal_menu`);
+    //     setIsDropdownOpen(false);
+    // };
 
-                {notificationCount > 0 && (
-                    <div className={styles['notification-badge']}>
-                        {notificationCount > 99 ? '99+' : notificationCount}
-                    </div>
-                )}
+    return (
+        <div className={styles['notification-wrapper']} ref={dropdownRef}>
+            <div
+                className={`${styles['notification-icon-container']} ${isShaking ? styles['notification-shake'] : ''}`}
+                onClick={handleIconClick}
+            >
+                <div className={styles['notification-icon']}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                        <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                    </svg>
+
+                    {notificationCount > 0 && (
+                        <div className={styles['notification-badge']}>
+                            {notificationCount > 99 ? '99+' : notificationCount}
+                        </div>
+                    )}
+                </div>
             </div>
+
+            {isDropdownOpen && (
+                <div className={styles['notification-dropdown']}>
+                    <div className={styles['dropdown-header']}>
+                        <h3>Notifications</h3>
+                        {/* <button onClick={handleViewAllClick} className={styles['view-all-btn']}>
+                            View All
+                        </button> */}
+                    </div>
+                    <div className={styles['dropdown-content']}>
+                        <Notifications />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

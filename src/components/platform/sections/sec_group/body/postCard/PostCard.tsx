@@ -312,12 +312,12 @@ function PostCard(props: Props) {
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
-                      <p>
+                      <p style={{ cursor: "pointer" }}>
                         {post.post.content.slice(0, 40)}{" "}
-                        <span>Read More... </span>
+                        <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
-                      <p>{post.post.content}</p>
+                      <p style={{ cursor: "pointer" }}>{post.post.content}</p>
                     )}
                   </div>
                 )}

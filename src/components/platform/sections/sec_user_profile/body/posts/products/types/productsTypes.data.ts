@@ -1,11 +1,4 @@
-export type ProductsCategory =
-  | 1
-  | 2
-  | 3
-  | 4
-  | 5
-  | 6
-  | 0
+export type ProductsCategory = 1 | 2 | 3 | 4 | 5 | 6 | 0;
 
 // Topic type represents the associated topic of a market item
 type Topic = {
@@ -15,14 +8,14 @@ type Topic = {
 
 // Enum for market type to ensure type safety
 enum MarketType {
-  SecondHand = "second_hand",
-  LocalBusiness = "local_business",
+  SecondHand = 'second_hand',
+  LocalBusiness = 'local_business',
 }
 
 // Enum for seller type to ensure type safety
 enum SellerType {
-  User = "user",
-  Page = "page",
+  User = 'user',
+  Page = 'page',
 }
 export interface Products {
   id: string;
@@ -36,13 +29,13 @@ export interface Products {
   countryId: number;
   cityId: number;
   topic: Topic;
-  images:{
+  images: {
     id: string;
     mediaUrl: string;
     mediaType: string;
-  }[]
+  }[];
+  isFavorited: boolean;
 }
-
 
 // Image/Media type definition
 interface ProductImage {
@@ -74,4 +67,3 @@ export interface Product {
   seller: Seller;
   website?: string; // Optional field for website URL
 }
-

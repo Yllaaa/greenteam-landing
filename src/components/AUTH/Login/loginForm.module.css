@@ -168,7 +168,7 @@
   position: relative;
 }
 .header .line .lineBefore::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   right: 0;
@@ -182,7 +182,7 @@
   background-color: #394646;
 }
 .header .line .lineAfter::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 50%;
   left: 0;
@@ -339,22 +339,38 @@
   -webkit-text-fill-color: transparent;
 }
 .form .agreeSection .radioBtnContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 18px;
   height: 18px;
-  background: #3c6060;
-  border: 2px solid #495c5c;
-  cursor: pointer;
   border-radius: 3px;
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  -ms-border-radius: 3px;
-  -o-border-radius: 3px;
+  cursor: pointer;
+  background-color: #96b032;
+  transition: background-color 0.2s ease;
+  -webkit-transition: background-color 0.2s ease;
+  -moz-transition: background-color 0.2s ease;
+  -ms-transition: background-color 0.2s ease;
+  -o-transition: background-color 0.2s ease;
+}
+.form .agreeSection .radioBtnContainer.checked {
+  background-color: #307040;
 }
 .form .agreeSection .radioBtnContainer .radio {
+  position: absolute;
   opacity: 0;
-  width: 100%;
-  height: 100%;
   cursor: pointer;
+  height: 0;
+  width: 0;
+}
+.checkmark {
+  color: white;
+  font-size: 14px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .form button {
   width: 100%;
@@ -401,10 +417,10 @@
   text-align: center;
 }
 .createAccount a {
-    background: linear-gradient(45deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  background: linear-gradient(45deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 /* side Image */

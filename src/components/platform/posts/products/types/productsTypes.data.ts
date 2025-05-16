@@ -8,14 +8,14 @@ type Topic = {
 
 // Enum for market type to ensure type safety
 enum MarketType {
-  SecondHand = "second_hand",
-  LocalBusiness = "local_business",
+  SecondHand = 'second_hand',
+  LocalBusiness = 'local_business',
 }
 
 // Enum for seller type to ensure type safety
 enum SellerType {
-  User = "user",
-  Page = "page",
+  User = 'user',
+  Page = 'page',
 }
 export interface Products {
   id: string;
@@ -35,6 +35,7 @@ export interface Products {
     mediaType: string;
   }[];
   isAuthor: boolean;
+  isFavorited: boolean;
 }
 
 // Image/Media type definition
