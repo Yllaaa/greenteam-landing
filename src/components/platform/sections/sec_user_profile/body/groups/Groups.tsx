@@ -8,9 +8,10 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
 import AddNewGroup from "./AddGroup/AddNewGroup"; // Import the AddNewGroup component
 import { FaPlus } from "react-icons/fa"; // Import plus icon
+import { ProfileResponse } from '../all/all.data';
 
-function Groups(props: { username: string }) {
-  const { username } = props;
+function Groups(props: { username: string, user: ProfileResponse }) {
+  const { username, user } = props;
   const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
   const [showAddNewGroup, setShowAddNewGroup] = useState(false); // State for controlling modal visibility
 
@@ -174,18 +175,19 @@ function Groups(props: { username: string }) {
       </>
     );
   };
-  console.log(groupsArray);
 
   return (
     <>
       <div className={styles.header}>
         <h2 className={styles.sectionTitle}>Groups</h2>
-        <button
-          className={styles.createGroupButton}
-          onClick={() => setShowAddNewGroup(true)}
-        >
-          <FaPlus /> Create Group
-        </button>
+        {user.isMyProfile &&
+          <button
+            className={styles.createGroupButton}
+            onClick={() => setShowAddNewGroup(true)}
+          >
+            <FaPlus /> Create Group
+          </button>
+        }
       </div>
 
       <div ref={bodyRef} className={styles.content}>

@@ -9,4 +9,5 @@ export type eventFilterProps = {
     >
   >;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  admin: boolean;
 };

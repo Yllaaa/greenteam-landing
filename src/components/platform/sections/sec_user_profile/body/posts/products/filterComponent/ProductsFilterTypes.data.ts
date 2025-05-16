@@ -5,4 +5,5 @@ export type ProductsFilterProps = {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setSection: any;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  admin: boolean;
 };

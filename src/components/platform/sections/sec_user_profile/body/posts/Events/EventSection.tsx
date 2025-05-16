@@ -32,14 +32,16 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 import styles from "./EventSection.module.css";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { ProfileResponse } from '../../../../../../../../greenteam-landing/src/components/platform/sections/sec_user_profile/body/all/all.data';
 
-function EventSection() {
+function EventSection(props: { user: ProfileResponse }) {
+  const { user } = props
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-const params = useParams()
+  const params = useParams()
 
 
-// State management
+  // State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");
   const [page, setPage] = useState(1);
@@ -197,12 +199,15 @@ const params = useParams()
   return (
     <>
       <div className={styles.container}>
+        {/* {user.isMyProfile &&  */}
         <EventFilter
           section={section}
           setPage={setPage}
           setSection={setSection}
           setAddNew={setAddNew}
+          admin={user.isMyProfile}
         />
+        
 
         {isMounted && (
           <div className={styles.sliderBtns}>

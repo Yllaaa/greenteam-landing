@@ -4,7 +4,7 @@ import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
-  const { section, setPage, setSection, setAddNew } = props;
+  const { section, setPage, setSection, setAddNew,admin } = props;
 
   const topics = Topics;
 
@@ -48,9 +48,11 @@ function ProductsFilter(props: ProductsFilterProps) {
             ))}
           </ul>
         </div>
+        {admin &&
         <div className={styles.addBtn}>
           <button onClick={handleAddNew}>Add Product</button>
         </div>
+        }
       </div>
       {/* <AddNewEvent show={show} onClose={() => setShow(false)} /> */}
     </>

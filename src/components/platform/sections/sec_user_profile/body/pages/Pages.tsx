@@ -8,9 +8,9 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaPlus } from "react-icons/fa"; // Import plus icon
 import AddNewPage from "./AddPage/AddNewPage"; // Import the AddNewPage component (similar to AddNewGroup)
-
-export default function Pages(props: { username: string }) {
-  const { username } = props;
+import { ProfileResponse } from "../all/all.data";
+export default function Pages(props: { username: string, user: ProfileResponse }) {
+  const { username, user } = props;
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   const [showAddNewPage, setShowAddNewPage] = useState(false); // State for controlling modal visibility
 
@@ -187,12 +187,15 @@ export default function Pages(props: { username: string }) {
       {/* Header with Create Page button */}
       <div className={styles.header}>
         <h2 className={styles.sectionTitle}>Pages</h2>
-        <button
-          className={styles.createPageButton}
-          onClick={() => setShowAddNewPage(true)}
-        >
-          <FaPlus /> Create Page
-        </button>
+        {user.isMyProfile && (
+
+          <button
+            className={styles.createPageButton}
+            onClick={() => setShowAddNewPage(true)}
+          >
+            <FaPlus /> Create Page
+          </button>
+        )}
       </div>
 
       <div className={styles.pagesContainer}>

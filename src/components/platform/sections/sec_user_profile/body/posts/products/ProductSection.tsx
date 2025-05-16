@@ -19,9 +19,12 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import ContactModal from "./modal/ContactModal";
+import { ProfileResponse } from "../../all/all.data";
 
-function ProductSection(props:{ username: string }) {
-  const { username } = props;
+function ProductSection(props: {
+  username: string, user: ProfileResponse
+}) {
+  const { username, user } = props;
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -248,13 +251,13 @@ function ProductSection(props:{ username: string }) {
           setPage={setPage}
           setSection={setSection}
           setAddNew={setAddNew}
+          admin={user.isMyProfile}
         />
         {products.length > 0 && (
           <div className={styles.sliderBtns}>
             <div
-              className={`${styles.arrow} ${
-                !canScrollLeft ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("left")}
             >
               <Image
@@ -266,9 +269,8 @@ function ProductSection(props:{ username: string }) {
               />
             </div>
             <div
-              className={`${styles.arrow} ${
-                !canScrollRight ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("right")}
             >
               <Image src={toRight} alt="right arrow" width={100} height={100} />
