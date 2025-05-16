@@ -283,7 +283,7 @@ const AddNewGroup = (props: addEventProps) => {
             <Image src={addlogo} alt="addlogo" />
           </div>
           <div className={styles.titleText}>
-            <h2 className={styles.formTitle}>Host Your Event</h2>
+            <h2 className={styles.formTitle}>Host Your Group</h2>
             <p className={styles.formDescription}>
               Plan and promote your upcoming event. Share details to help
               attendees find and join your event
@@ -294,7 +294,7 @@ const AddNewGroup = (props: addEventProps) => {
           <div className={styles.formSection}>
             {/* name */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Page Name</label>
+              <label className={styles.label}>Group Name</label>
               <input
                 type="text"
                 className={`${styles.input} ${
@@ -316,7 +316,7 @@ const AddNewGroup = (props: addEventProps) => {
             {/* media */}
             <div className={styles.formSection}>
               <div className={styles.formGroup}>
-                <label className={styles.label}>Page Media</label>
+                <label className={styles.label}>Group Media</label>
                 <div className={styles.media}>
                   {/* banner */}
                   <div
@@ -485,7 +485,7 @@ const AddNewGroup = (props: addEventProps) => {
               Cancel
             </button>
             <button type="submit" className={styles.submitButton}>
-              Create Event
+              Create Group
             </button>
           </div>
         </form>

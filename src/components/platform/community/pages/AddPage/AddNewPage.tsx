@@ -382,7 +382,7 @@ const AddNewPage = (props: addEventProps) => {
             <Image src={addlogo} alt="addlogo" />
           </div>
           <div className={styles.titleText}>
-            <h2 className={styles.formTitle}>Host Your Event</h2>
+            <h2 className={styles.formTitle}>Host Your Page</h2>
             <p className={styles.formDescription}>
               Plan and promote your upcoming event. Share details to help
               attendees find and join your event
@@ -733,7 +733,7 @@ const AddNewPage = (props: addEventProps) => {
               Cancel
             </button>
             <button type="submit" className={styles.submitButton}>
-              Create Event
+              Create Page
             </button>
           </div>
         </form>

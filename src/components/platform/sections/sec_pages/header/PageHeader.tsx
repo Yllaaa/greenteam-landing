@@ -34,20 +34,20 @@ function Pageheader(props: {
   const { pageId, setSettings, settings } = props;
   const [data, setData] = React.useState<PageItem>({} as PageItem);
   const [initialFollow, setInitialFollow] = useState(false);
-  
+
   // Options menu state
   const [showOptions, setShowOptions] = useState(false);
-  
+
   // Confirmation modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isBlockModalOpen, setIsBlockModalOpen] = useState(false);
-  
+
   // Report modal state
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
-  
+
   // Reference for dropdown menu (to handle clicks outside)
   const optionsMenuRef = useRef<HTMLDivElement>(null);
-  
+
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
 
@@ -58,7 +58,7 @@ function Pageheader(props: {
       setInitialFollow(res.isFollowing);
     });
   }, []);
-  
+
   // Close the options menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -75,7 +75,7 @@ function Pageheader(props: {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
+
   const [addNewP, setAddNewP] = useState(false);
   const [addNewE, setAddNewE] = useState(false);
   const [addNewPost, setAddNewPost] = useState(false);
@@ -89,12 +89,12 @@ function Pageheader(props: {
   const handleSettingNavigation = () => {
     if (setSettings) setSettings(!settings);
   };
-  
+
   // Toggle options menu
   const toggleOptionsMenu = () => {
     setShowOptions(prev => !prev);
   };
-  
+
   // Handle delete action
   const handleDelete = useCallback(async () => {
     try {
@@ -108,10 +108,10 @@ function Pageheader(props: {
           },
         }
       );
-      
+
       if (response) {
         ToastNot("Page deleted successfully");
-        
+
         router.back();
       }
     } catch (error) {
@@ -119,7 +119,7 @@ function Pageheader(props: {
       ToastNot("Error occurred while deleting page");
     }
   }, [pageId, accessToken, router]);
-  
+
   // Handle block action
   const handleBlock = useCallback(async () => {
     try {
@@ -137,7 +137,7 @@ function Pageheader(props: {
           },
         }
       );
-      
+
       if (response) {
         ToastNot("Page blocked successfully");
         // Redirect to pages list after blocking
@@ -148,7 +148,7 @@ function Pageheader(props: {
       ToastNot("Error occurred while blocking page");
     }
   }, [pageId, accessToken, router]);
-  
+
 
   return (
     <>
@@ -177,7 +177,7 @@ function Pageheader(props: {
           <div className={styles.name}>
             <p>{data.name}</p>
           </div>
-          
+
           {/* Page options button */}
           <div className={styles.pageOptions}>
             <div
@@ -186,7 +186,7 @@ function Pageheader(props: {
             >
               <PiDotsThreeCircleLight fill="#006633" />
             </div>
-            
+
             {showOptions && (
               <div ref={optionsMenuRef} className={styles.optionsMenu}>
                 {data.isAdmin && (
@@ -241,6 +241,13 @@ function Pageheader(props: {
             <h5>Description:</h5>
             <h6>{data.description}</h6>
           </div>
+          <div className={styles.headerWhat}>
+            <h5>Website:</h5>
+            {data.websiteUrl ?
+              <h6 style={{ cursor: "pointer" }} onClick={() => window.open(data.websiteUrl, "_blank")}>data.websiteUrl</h6>
+              : <h6>No Website</h6>
+            }
+          </div>
         </div>
         <div className={styles.headerActions}>
           <div className={styles.headerAddBtns}>
@@ -252,7 +259,7 @@ function Pageheader(props: {
               >
                 Add Post
               </button>
-            ) }
+            )}
 
             {data.isAdmin && (
               <button
@@ -293,7 +300,7 @@ function Pageheader(props: {
           slug={pageId}
         />
       )}
-      
+
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
@@ -306,7 +313,7 @@ function Pageheader(props: {
         successMessage="Page deleted successfully"
         errorMessage="Error occurred while deleting page"
       />
-      
+
       {/* Block Confirmation Modal */}
       <ConfirmationModal
         isOpen={isBlockModalOpen}
@@ -319,7 +326,7 @@ function Pageheader(props: {
         successMessage="Page blocked successfully"
         errorMessage="Error occurred while blocking page"
       />
-      
+
       {/* Report Modal */}
       <ReportModal
         isOpen={isReportModalOpen}

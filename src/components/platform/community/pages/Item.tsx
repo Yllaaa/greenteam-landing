@@ -176,7 +176,7 @@ export default function Item({
               {pageI.followersCount} Followers
             </div>
           </div>
-          <button className={styles.like}>Post</button>
+          <button className={styles.like}>Visit</button>
         </div>
       </div>
     </div>

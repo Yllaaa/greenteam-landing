@@ -283,7 +283,7 @@ const AddNewGroup = (props: addEventProps) => {
             <Image src={addlogo} alt="addlogo" />
           </div>
           <div className={styles.titleText}>
-            <h2 className={styles.formTitle}>Host Your Event</h2>
+            <h2 className={styles.formTitle}>Host Your Group</h2>
             <p className={styles.formDescription}>
               Plan and promote your upcoming event. Share details to help
               attendees find and join your event
@@ -294,12 +294,11 @@ const AddNewGroup = (props: addEventProps) => {
           <div className={styles.formSection}>
             {/* name */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Page Name</label>
+              <label className={styles.label}>Group Name</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.name ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.name ? styles.inputError : ""
+                  }`}
                 {...register("name", {
                   required: "name is required",
                   maxLength: {
@@ -316,14 +315,13 @@ const AddNewGroup = (props: addEventProps) => {
             {/* media */}
             <div className={styles.formSection}>
               <div className={styles.formGroup}>
-                <label className={styles.label}>Page Media</label>
+                <label className={styles.label}>Group Media</label>
                 <div className={styles.media}>
                   {/* banner */}
                   <div
                     ref={dropAreaRef}
-                    className={`${styles.imageUploadContainer} ${
-                      errors.banner ? styles.inputError : ""
-                    } ${isDragging ? styles.dragging : ""}`}
+                    className={`${styles.imageUploadContainer} ${errors.banner ? styles.inputError : ""
+                      } ${isDragging ? styles.dragging : ""}`}
                     onClick={handleImageClick}
                     onDragEnter={handleDragEnter}
                     onDragOver={handleDragOver}
@@ -381,9 +379,8 @@ const AddNewGroup = (props: addEventProps) => {
           <div className={styles.formGroup}>
             <label className={styles.label}>Country</label>
             <select
-              className={`${styles.select} ${
-                errors.countryId ? styles.inputError : ""
-              }`}
+              className={`${styles.select} ${errors.countryId ? styles.inputError : ""
+                }`}
               {...register("countryId", { required: "Country is required" })}
               onChange={(e) => setCountryId(parseInt(e.target.value))}
             >
@@ -412,9 +409,8 @@ const AddNewGroup = (props: addEventProps) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
               <select
-                className={`${styles.select} ${
-                  errors.cityId ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.cityId ? styles.inputError : ""
+                  }`}
                 {...register("cityId", { required: "city is required" })}
               >
                 <option value="" disabled>
@@ -439,9 +435,8 @@ const AddNewGroup = (props: addEventProps) => {
             <label className={styles.label}>Description</label>
             <textarea
               rows={4}
-              className={`${styles.textarea} ${
-                errors.description ? styles.inputError : ""
-              }`}
+              className={`${styles.textarea} ${errors.description ? styles.inputError : ""
+                }`}
               {...register("description", {
                 required: "Description is required",
                 minLength: {
@@ -458,9 +453,8 @@ const AddNewGroup = (props: addEventProps) => {
           <div className={styles.formGroup}>
             <label className={styles.label}>Topic</label>
             <select
-              className={`${styles.select} ${
-                errors.topicId ? styles.inputError : ""
-              }`}
+              className={`${styles.select} ${errors.topicId ? styles.inputError : ""
+                }`}
               {...register("topicId", { required: "Topic is required" })}
             >
               <option value="" disabled>
