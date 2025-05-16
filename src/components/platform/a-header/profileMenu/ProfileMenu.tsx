@@ -15,7 +15,7 @@ interface Props {
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
   handleLogout: () => void;
   user: {
-    id?: string; avatar?: string; bio?: string; email?: string; fullName?: string; username?: string;
+    id: string; avatar: string; bio: string; email: string; fullName: string; username: string;
   };
 }
 

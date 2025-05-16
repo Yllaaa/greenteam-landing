@@ -236,13 +236,14 @@ function Header() {
                 <Image src={drop} alt="arrow" />
               </div>
             </div>
-
-            <ProfileMenu
-              isDropdownOpen={isDropdownOpen}
-              setIsDropdownOpen={setIsDropdownOpen}
-              handleLogout={handleLogout}
-              user={user ?? {}}
-            />
+            {user &&
+              <ProfileMenu
+                isDropdownOpen={isDropdownOpen}
+                setIsDropdownOpen={setIsDropdownOpen}
+                handleLogout={handleLogout}
+                user={user}
+              />
+            }
           </div>
         </div>
       </div>
