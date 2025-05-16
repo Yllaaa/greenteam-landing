@@ -18,6 +18,7 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
+  const user = useAppSelector((state) => state.login.user?.user);
 
   // React Hook Form setup
   const { register, handleSubmit, setValue, reset } = useForm<FormData>({
@@ -261,7 +262,6 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
         <div className={styles.header}>
           <div className={styles.side}>
             <h6>Profile Settings</h6>
-
             <p>Manage your profile</p>
             <button
               type="button"
@@ -384,14 +384,14 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
               <label htmlFor="name">Full Name</label>
               <input
                 type="text"
-                placeholder="Enter your full name"
+                placeholder={`${user?.fullName}`}
                 {...register("fullName")}
               />
             </div>
             <div className={styles.formDesc}>
               <label htmlFor="bio">Bio</label>
               <textarea
-                placeholder="Tell us about yourself"
+                placeholder={`${user?.bio}`}
                 {...register("bio")}
               />
             </div>

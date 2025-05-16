@@ -56,12 +56,12 @@ function ProfileMenu(props: Props) {
       icon: challenges,
       link: `/${locale}/challenges`,
     },
-    {
-      id: 6,
-      name: t("personal"),
-      icon: challenges,
-      link: `/${locale}/personal_menu`,
-    },
+    // {
+    //   id: 6,
+    //   name: t("personal"),
+    //   icon: challenges,
+    //   link: `/${locale}/personal_menu`,
+    // },
     {
       id: 4,
       name: t("plans"),
@@ -98,17 +98,7 @@ function ProfileMenu(props: Props) {
 
         <ul>
           {/* Language toggle button */}
-          <li
-            onClick={switchLanguage}
-            className={styles.languageToggle}
-          >
-            <Image src={language} alt="language" />
-            <span>
-              {locale === "en"
-                ? "Switch to Spanish"
-                : "Cambiar a Inglés"}
-            </span>
-          </li>
+
 
           {dropdownList.map((item) => (
             <li
@@ -123,6 +113,17 @@ function ProfileMenu(props: Props) {
               <span>{item.name}</span>
             </li>
           ))}
+          <li
+            onClick={switchLanguage}
+            className={styles.languageToggle}
+          >
+            <Image src={language} alt="language" />
+            <span>
+              {locale === "en"
+                ? "Switch to Spanish"
+                : "Cambiar a Inglés"}
+            </span>
+          </li>
           <li
             onClick={() => {
               setIsDropdownOpen(false);

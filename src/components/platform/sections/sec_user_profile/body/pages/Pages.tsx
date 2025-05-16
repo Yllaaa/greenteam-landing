@@ -6,10 +6,13 @@ import styles from "./pages.module.scss";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { FaPlus } from "react-icons/fa"; // Import plus icon
+import AddNewPage from "./AddPage/AddNewPage"; // Import the AddNewPage component (similar to AddNewGroup)
 
 export default function Pages(props: { username: string }) {
   const { username } = props;
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
+  const [showAddNewPage, setShowAddNewPage] = useState(false); // State for controlling modal visibility
 
   // pagination
   const limit = 5;
@@ -180,53 +183,69 @@ export default function Pages(props: { username: string }) {
   };
 
   return (
-    <div className={styles.pagesContainer}>
-      <div className={styles.pages}>
-        {pagesArray.map((pageI, index) => (
-          <Item
-            key={pageI.id || index} // Use ID if available for more stable keys
-            pageI={pageI}
-            page={page}
-            setPage={setPage}
-            index={index}
-            length={pagesArray.length}
-          />
-        ))}
-      </div>
-
-      {/* Scroll navigation buttons */}
-      <div className={styles.scrollControls}>
+    <div className={styles.pagesMainContainer}>
+      {/* Header with Create Page button */}
+      <div className={styles.header}>
+        <h2 className={styles.sectionTitle}>Pages</h2>
         <button
-          onClick={() => handleManualScroll("left")}
-          disabled={!canScrollLeft}
-          className={`${styles.scrollButton} ${
-            canScrollLeft ? styles.active : ""
-          }`}
-          aria-label="Scroll left"
+          className={styles.createPageButton}
+          onClick={() => setShowAddNewPage(true)}
         >
-          &larr;
-        </button>
-        <button
-          onClick={() => handleManualScroll("right")}
-          disabled={!canScrollRight}
-          className={`${styles.scrollButton} ${
-            canScrollRight ? styles.active : ""
-          }`}
-          aria-label="Scroll right"
-        >
-          &rarr;
+          <FaPlus /> Create Page
         </button>
       </div>
 
-      <div ref={bodyRef} className={styles.content}>
-        {renderContent()}
-        {/* {isPaginationLoading && <div className={styles.paginationLoader}><LoadingTree /></div>} */}
-        {endOfResults && (
-          <p style={{ display: "none" }} className={styles.endMessage}>
-            End of results
-          </p>
-        )}
+      <div className={styles.pagesContainer}>
+        <div className={styles.pages}>
+          {pagesArray.map((pageI, index) => (
+            <Item
+              key={pageI.id || index} // Use ID if available for more stable keys
+              pageI={pageI}
+              page={page}
+              setPage={setPage}
+              index={index}
+              length={pagesArray.length}
+            />
+          ))}
+        </div>
+
+        {/* Scroll navigation buttons */}
+        <div className={styles.scrollControls}>
+          <button
+            onClick={() => handleManualScroll("left")}
+            disabled={!canScrollLeft}
+            className={`${styles.scrollButton} ${canScrollLeft ? styles.active : ""
+              }`}
+            aria-label="Scroll left"
+          >
+            &larr;
+          </button>
+          <button
+            onClick={() => handleManualScroll("right")}
+            disabled={!canScrollRight}
+            className={`${styles.scrollButton} ${canScrollRight ? styles.active : ""
+              }`}
+            aria-label="Scroll right"
+          >
+            &rarr;
+          </button>
+        </div>
+
+        <div ref={bodyRef} className={styles.content}>
+          {renderContent()}
+          {/* {isPaginationLoading && <div className={styles.paginationLoader}><LoadingTree /></div>} */}
+          {endOfResults && (
+            <p style={{ display: "none" }} className={styles.endMessage}>
+              End of results
+            </p>
+          )}
+        </div>
       </div>
+
+      {/* Modal for creating new page */}
+      {showAddNewPage && (
+        <AddNewPage setAddNew={setShowAddNewPage} />
+      )}
     </div>
   );
 }

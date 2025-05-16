@@ -1,17 +1,18 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-
 import { CommunityGroups } from "./groups.data";
-
 import styles from "./groups.module.scss";
 import Item from "./Item";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
+import AddNewGroup from "./AddGroup/AddNewGroup"; // Import the AddNewGroup component
+import { FaPlus } from "react-icons/fa"; // Import plus icon
 
 function Groups(props: { username: string }) {
   const { username } = props;
   const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
+  const [showAddNewGroup, setShowAddNewGroup] = useState(false); // State for controlling modal visibility
 
   // pagination
   const limit = 5;
@@ -177,10 +178,24 @@ function Groups(props: { username: string }) {
 
   return (
     <>
+      <div className={styles.header}>
+        <h2 className={styles.sectionTitle}>Groups</h2>
+        <button
+          className={styles.createGroupButton}
+          onClick={() => setShowAddNewGroup(true)}
+        >
+          <FaPlus /> Create Group
+        </button>
+      </div>
+
       <div ref={bodyRef} className={styles.content}>
         {renderContent()}
-        {/* {isPaginationLoading && <div className={styles.paginationLoader}><LoadingTree /></div>} */}
       </div>
+
+      {/* Modal for creating new group */}
+      {showAddNewGroup && (
+        <AddNewGroup setAddNew={setShowAddNewGroup} />
+      )}
     </>
   );
 }

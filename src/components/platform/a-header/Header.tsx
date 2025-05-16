@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import React, { useEffect, useState, useCallback, useRef } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./header.module.css";
 import modalStyles from "./modal.module.css";
 import Image from "next/image";
@@ -37,42 +37,42 @@ function Header() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [addPost, setAddPost] = useState(false);
   // Scroll handling state
-  const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  const lastScrollY = useRef(0);
-  const scrollThreshold = 30; // Minimum scroll amount before hiding/showing
+  // const [isHeaderVisible, setIsHeaderVisible] = useState(true);
+  // const lastScrollY = useRef(0);
+  // const scrollThreshold = 30; // Minimum scroll amount before hiding/showing
 
   // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
 
   // Handle scroll events
-  const handleScroll = useCallback(() => {
-    const currentScrollY = window.scrollY;
+  // const handleScroll = useCallback(() => {
+  //   const currentScrollY = window.scrollY;
 
-    // Only check if we've scrolled more than threshold
-    if (Math.abs(currentScrollY - lastScrollY.current) > scrollThreshold) {
-      // Scrolling down - hide header
-      if (currentScrollY > lastScrollY.current) {
-        setIsHeaderVisible(false);
-      }
-      // Scrolling up - show header
-      else {
-        setIsHeaderVisible(true);
-      }
+  //   // Only check if we've scrolled more than threshold
+  //   if (Math.abs(currentScrollY - lastScrollY.current) > scrollThreshold) {
+  //     // Scrolling down - hide header
+  //     if (currentScrollY > lastScrollY.current) {
+  //       setIsHeaderVisible(false);
+  //     }
+  //     // Scrolling up - show header
+  //     else {
+  //       setIsHeaderVisible(true);
+  //     }
 
-      // Update last scroll position
-      lastScrollY.current = currentScrollY;
-    }
-  }, []);
+  //     // Update last scroll position
+  //     lastScrollY.current = currentScrollY;
+  //   }
+  // }, []);
 
   // Add scroll event listener
-  useEffect(() => {
-    // Use passive: true for better scroll performance
-    window.addEventListener("scroll", handleScroll, { passive: true });
+  // useEffect(() => {
+  //   // Use passive: true for better scroll performance
+  //   window.addEventListener("scroll", handleScroll, { passive: true });
 
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [handleScroll]);
+  //   return () => {
+  //     window.removeEventListener("scroll", handleScroll);
+  //   };
+  // }, [handleScroll]);
 
   // Mounted effect
   useEffect(() => {
@@ -160,16 +160,16 @@ function Header() {
   }
 
   // Handle direct navigation to user profile
-  const goToProfile = () => {
-    if (user?.username) {
-      router.push(`/${locale}/profile/${user.username}`);
-    }
-  };
+  // const goToProfile = () => {
+  //   if (user?.username) {
+  //     router.push(`/${locale}/profile/${user.username}`);
+  //   }
+  // };
 
   return (
     <>
       <div className={styles.spacer}></div>
-      <div className={`${styles.container} ${isHeaderVisible ? styles.headerVisible : styles.headerHidden}`}>
+      <div className={`${styles.container} ${styles.headerVisible}`}>
         <div className={styles.logos}>
           <div className={styles.footLogo}>
             <Image
@@ -209,7 +209,7 @@ function Header() {
               className={styles.profileIcon}
             >
               <div
-                onClick={goToProfile}
+                // onClick={goToProfile}
                 className={styles.userProfile}
               >
                 <div className={styles.avatar}>

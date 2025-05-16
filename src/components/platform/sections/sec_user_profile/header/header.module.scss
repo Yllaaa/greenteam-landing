@@ -1,7 +1,82 @@
 $max-width: 1024px;
 $min-width: 768px;
 $mob-width: 430px;
+
+// Modal Styles
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modalContent {
+  background-color: #1e1e1e;
+  border-radius: 10px;
+  width: 80%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #1e1e1e;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #006633;
+    border-radius: 4px;
+  }
+}
+
+.modalHeader {
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #333;
+
+  h3 {
+    color: #97b00f;
+    margin: 0;
+    font-family: Montserrat;
+    font-weight: 600;
+  }
+}
+
+.closeButton {
+  background: transparent;
+  border: none;
+  color: #97b00f;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    color: #006633;
+  }
+}
+
+.modalBody {
+  padding: 0;
+}
+
+// Existing Header Styles
 .container {
+  margin-top: 0px;
   position: relative;
   width: 100%;
   height: fit-content;
@@ -191,19 +266,17 @@ $mob-width: 430px;
       position: absolute;
       top: 25px;
       right: 50px;
-      width: 60px;
-      height: 60px;
+      display: flex;
+      gap: 15px;
 
       @media screen and (max-width: $max-width) {
         right: 10px;
-        width: 30px;
-        height: 30px;
       }
 
       //
       .settings {
-        width: 100%;
-        height: 100%;
+        width: 60px;
+        height: 60px;
         min-width: 60px;
         min-height: 60px;
         display: flex;
@@ -215,16 +288,60 @@ $mob-width: 430px;
         -moz-border-radius: 50%;
         -ms-border-radius: 50%;
         -o-border-radius: 50%;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        @media screen and (max-width: $max-width) {
+          width: 40px;
+          height: 40px;
+          min-width: 40px;
+          min-height: 40px;
+        }
+
         svg {
           fill: #006633;
-          min-width: 50px;
-        min-height: 50px;
+          width: 24px;
+          height: 24px;
+
+          @media screen and (max-width: $max-width) {
+            width: 18px;
+            height: 18px;
+          }
+        }
+
+        &:hover {
+          background-color: rgba(0, 102, 51, 0.1);
         }
       }
+
+      .addNewButton {
+        background-color: #006633;
+        border-color: #97b00f;
+
+        svg {
+          fill: #97b00f;
+        }
+
+        &:hover {
+          background-color: #97b00f;
+          border-color: #006633;
+
+          svg {
+            fill: #006633;
+          }
+        }
+      }
+
       .droplist {
         position: relative;
-        width: 100%;
-        height: 100%;
+        width: 60px;
+        height: 60px;
+
+        @media screen and (max-width: $max-width) {
+          width: 40px;
+          height: 40px;
+        }
+
         .options {
           width: 100%;
           height: 100%;
@@ -237,14 +354,23 @@ $mob-width: 430px;
           -moz-border-radius: 50%;
           -ms-border-radius: 50%;
           -o-border-radius: 50%;
+          cursor: pointer;
+
           svg {
             fill: #006633;
+            width: 24px;
+            height: 24px;
+
+            @media screen and (max-width: $max-width) {
+              width: 18px;
+              height: 18px;
+            }
           }
         }
         .dropDown {
           position: absolute;
-          top: 20px;
-          right: 100%;
+          top: 70px;
+          right: 0;
           background: #141414;
           z-index: 10;
           padding: 20px;
@@ -257,12 +383,40 @@ $mob-width: 430px;
           -moz-border-radius: 8px;
           -ms-border-radius: 8px;
           -o-border-radius: 8px;
+          box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+
           p {
             font-family: Montserrat;
             font-weight: 600;
             font-size: 16px;
             line-height: 100%;
             letter-spacing: 0%;
+            padding: 10px 0;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.2s ease;
+
+            &:hover {
+              color: #97b00f;
+            }
+          }
+
+          button {
+            margin-top: 10px;
+            padding: 8px 15px;
+            background: #006633;
+            color: #97b00f;
+            border: none;
+            border-radius: 6px;
+            font-family: Montserrat;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+
+            &:hover {
+              background: #97b00f;
+              color: #006633;
+            }
           }
         }
         .active {
@@ -280,38 +434,71 @@ $mob-width: 430px;
     }
   }
 }
+
 .groupForm {
   background: #363636;
   padding: 30px 35px;
   border-bottom-right-radius: 10px;
   border-bottom-left-radius: 10px;
 
+  // For modal version
+  .modal & {
+    border-radius: 0;
+    padding-top: 20px;
+    margin-top: 0;
+  }
+
   .contentBar {
     width: 100%;
-
     align-items: center;
     gap: 12px;
     margin-bottom: 20px;
+
+    .forumForm {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
     .textArea {
       width: 100%;
-      height: 56px;
-      padding: 10px;
+      height: 120px;
+      padding: 15px;
       outline: none;
       border: 1px solid #97b00f;
-      background: transparent;
-      color: #97b00f;
+      background: rgba(0, 0, 0, 0.2);
+      color: #ffffff;
       resize: none;
       border-radius: 6px;
       -webkit-border-radius: 6px;
       -moz-border-radius: 6px;
       -ms-border-radius: 6px;
       -o-border-radius: 6px;
+      font-family: Montserrat;
+      font-size: 14px;
+
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.6);
+      }
+
+      &:focus {
+        border-color: #006633;
+        box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.25);
+      }
     }
+
     .addAndCategory {
       display: flex;
-      gap: 12px;
+      flex-wrap: wrap;
+      gap: 15px;
       align-items: center;
       justify-content: space-between;
+      margin: 10px 0;
+
+      @media screen and (max-width: $min-width) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
     }
 
     .checkboxLabel {
@@ -325,29 +512,54 @@ $mob-width: 430px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
       -o-border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #333;
+      }
     }
+
     .checkboxLabel input {
       opacity: 0;
       position: absolute;
     }
+
     .selectCategory {
       height: fit-content;
-
       width: 155px;
-      height: 42.44px;
+      height: 42px;
+
+      @media screen and (max-width: $min-width) {
+        width: 100%;
+      }
     }
+
     .selectCategory select {
       width: 100%;
       height: 100%;
       outline: none;
       border: none;
       cursor: pointer;
+      padding: 0 10px;
       background-color: #141414;
+      color: #ffffff;
+      font-family: Montserrat;
+      font-size: 14px;
       border-radius: 10px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
       -o-border-radius: 10px;
+
+      &:focus {
+        box-shadow: 0 0 0 2px rgba(0, 102, 51, 0.25);
+      }
+
+      option {
+        background-color: #141414;
+        color: #ffffff;
+      }
     }
 
     .selectSubCategory {
@@ -355,19 +567,32 @@ $mob-width: 430px;
       justify-content: flex-start;
       align-items: center;
       gap: 10px;
-      width: 200px;
-      height: 100%;
+      width: 100%;
       overflow-x: auto;
-      scrollbar-width: none;
+      scrollbar-width: thin;
+      scrollbar-color: #006633 #141414;
+      padding: 10px 0;
       min-height: 43px;
-      outline: none;
-      border: none;
-      cursor: pointer;
       border-radius: 10px;
       -webkit-border-radius: 10px;
       -moz-border-radius: 10px;
       -ms-border-radius: 10px;
       -o-border-radius: 10px;
+
+      &::-webkit-scrollbar {
+        height: 6px;
+      }
+
+      &::-webkit-scrollbar-track {
+        background: #141414;
+        border-radius: 3px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        background: #006633;
+        border-radius: 3px;
+      }
+
       .checkboxLabel {
         width: fit-content;
         text-wrap: nowrap;
@@ -381,11 +606,21 @@ $mob-width: 430px;
         -ms-border-radius: 10px;
         -o-border-radius: 10px;
       }
+
+      .noSubtopics {
+        color: rgba(255, 255, 255, 0.6);
+        font-family: Montserrat;
+        font-style: italic;
+      }
     }
+
     .postActions {
       width: 100%;
       display: flex;
       align-items: center;
+      justify-content: flex-end;
+      margin-top: 10px;
+
       input {
         width: 195px;
         height: 48px;
@@ -393,7 +628,6 @@ $mob-width: 430px;
         outline: none;
         border: none;
         cursor: pointer;
-
         font-family: Montserrat;
         font-weight: 600;
         font-size: 15px;
@@ -401,7 +635,6 @@ $mob-width: 430px;
         letter-spacing: 0%;
         vertical-align: middle;
         color: #97b00f;
-
         border-radius: 6px;
         -webkit-border-radius: 6px;
         -moz-border-radius: 6px;
@@ -411,14 +644,15 @@ $mob-width: 430px;
         &:hover {
           background: #97b00f;
           color: #006633;
-          transition: all 0.5s ease-in-out;
-          -webkit-transition: all 0.5s ease-in-out;
-          -moz-transition: all 0.5s ease-in-out;
-          -ms-transition: all 0.5s ease-in-out;
-          -o-transition: all 0.5s ease-in-out;
+          transition: all 0.3s ease;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
         }
+
         @media (max-width: $min-width) {
-          width: 120px;
+          width: 100%;
           height: 40px;
         }
       }

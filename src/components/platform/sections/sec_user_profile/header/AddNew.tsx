@@ -1,52 +1,55 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState } from "react";
-import styles from "./header.module.scss";
+import React, { useCallback, useEffect, useState } from "react";
+import styles from "./AddNewModal.module.css";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { number } from "yup";
-import { Topics } from "@/components/Assets/topics/Topics.data";
-import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload"; // Updated import
+import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import Image from "next/image";
+import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
+import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
+import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 
-
-// types
-type PostType = {
-  content: string;
-  mainTopicId: string;
-  subtopicIds: string[];
-  creatorType: "user";
-  mediaFiles: File[];
-  fileType: "image" | "pdf";
-};
-
-function AddNew() {
+function AddNew(props: {
+  onPostComplete?: () => void;
+  isOpen: boolean;
+  onClose: () => void;
+}) {
+  const { onPostComplete, isOpen, onClose } = props;
 
   // Get user info
   const userInfo1 = getToken();
   const userInfo = userInfo1 ? userInfo1.accessToken : null;
 
-  // topics and subtopics
-  const topics = Topics;
-  const [selectedMainTopic, setSelectedMainTopic] = useState<string | any>();
-  const [selectedSubtopics, setSelectedSubtopics] = useState<string[] | any>(
-    []
-  );
+  // Handle modal close
+  const closeModal = useCallback(() => {
+    onClose();
+  }, [onClose]);
+
+  const modalRef = useOutsideClick(closeModal);
+
+  // Prevent background scrolling
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
+
+  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
 
   // Form handling
-  const { register, reset, handleSubmit, setValue } = useForm<PostType | any>({
+  const { register, reset, handleSubmit, setValue } = useForm<any>({
     defaultValues: {
       content: "",
-      mainTopicId: number,
-      subtopicIds: [number],
+      images: selectedFiles,
       creatorType: "user",
-      mediaFiles: [],
-      fileType: "image",
     },
   });
 
-  const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [fileType, setFileType] = useState<"image" | "pdf">("image");
 
   const handleFilesSelected = (files: File[], type: "image" | "pdf") => {
@@ -55,22 +58,13 @@ function AddNew() {
     setValue("fileType", type);
   };
 
-  const onSubmit = async (formData: PostType) => {
+  const onSubmit = async (formData: any) => {
     try {
       // Create FormData object
       const formDataToSend = new FormData();
 
       // Append text fields
       formDataToSend.append("content", formData.content);
-      formDataToSend.append(
-        "mainTopicId",
-        String(Number(formData.mainTopicId))
-      );
-
-      // Append subtopicIds as an array
-      formData.subtopicIds.forEach((id, index) => {
-        formDataToSend.append(`subtopicIds[${index}]`, String(Number(id)));
-      });
 
       // Append each media file
       if (fileType === "image") {
@@ -99,114 +93,54 @@ function AddNew() {
       reset();
       setSelectedFiles([]);
       setFileType("image");
-      setSelectedMainTopic("");
-      setSelectedSubtopics([]);
+
+      // Call onPostComplete if provided
+      if (onPostComplete) {
+        onPostComplete();
+      }
+
+      // Close modal
+      onClose();
     } catch (err) {
       console.log(err);
       ToastNot("Error occurred while adding post");
     }
   };
 
-  // Handle topic selection
-  const handleTopicChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const topicId = Number(event.target.value);
-
-    setSelectedMainTopic(topicId);
-    setValue("mainTopicId", topicId);
-    setSelectedSubtopics([]); // Reset selected subtopics
-    setValue("subtopicIds", []); // Clear selected options in form state
-  };
-
-  // Handle subtopic selection
-  const handleSubtopicChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value, checked } = event.target;
-    let updatedSubtopics = [...selectedSubtopics];
-
-    if (checked) {
-      updatedSubtopics.push(value);
-    } else {
-      updatedSubtopics = updatedSubtopics.filter((id) => id !== value);
-    }
-
-    setSelectedSubtopics(updatedSubtopics);
-    setValue("subtopicIds", updatedSubtopics);
-  };
-
-  // Get subtopics based on selected topic
-  const selectedTopic = topics.find((topic) => topic.id == selectedMainTopic);
-  const subtopics = selectedTopic?.subtopics || [];
+  if (!isOpen) return null;
 
   return (
-    <div className={styles.groupForm}>
-      <div className={styles.contentBar}>
+    <div className={styles.modal}>
+      <div ref={modalRef} className={styles.modalcontent}>
         <form className={styles.forumForm} onSubmit={handleSubmit(onSubmit)}>
+          <h2 className={styles.title}>
+            <Image
+              src={plusIcon}
+              alt="plusIcon"
+              loading="lazy"
+              width={48}
+              height={48}
+            />
+            Build sustainable culture Sharing your experience
+          </h2>
           {/* Text Area */}
           <textarea
             placeholder="Add your experiences and tips to make a better future."
             className={styles.textArea}
             {...register("content", { required: true })}
           />
-
-          <div className={styles.addAndCategory}>
+          <div className={styles.buttons}>
+            {/* File Upload */}
             <FileUpload
               onFilesSelected={handleFilesSelected}
               maxImages={4}
               maxSizeInMB={2}
             />
-
-            {/* Main Topic Selection */}
-            <div className={styles.selectCategory}>
-              <select
-                {...register("mainTopicId", { required: true })}
-                onChange={handleTopicChange}
-              >
-                <option selected value="">- Select a Topic -</option>
-                {topics.map((topic) => (
-                  <option key={topic.id} value={topic.id}>
-                    {topic.name}
-                  </option>
-                ))}
-              </select>
-            </div>
-
-            {/* Subtopic Selection (Checkboxes) */}
-            {selectedMainTopic && (
-              <div className={styles.selectSubCategory}>
-                {subtopics.length > 0 ? (
-                  subtopics.map((subtopic) => (
-                    <label
-                      style={
-                        selectedSubtopics.includes(`${subtopic.id}`)
-                          ? { backgroundColor: "green" }
-                          : {}
-                      }
-                      key={subtopic.id}
-                      className={styles.checkboxLabel}
-                    >
-                      <input
-                        type="checkbox"
-                        value={`${subtopic.id}`}
-                        checked={selectedSubtopics.includes(`${subtopic.id}`)}
-                        onChange={handleSubtopicChange}
-                      />
-                      {subtopic.name}
-                    </label>
-                  ))
-                ) : (
-                  <p className={styles.noSubtopics}>
-                    No subtopics available for this topic.
-                  </p>
-                )}
-              </div>
-            )}
-          </div>
-
-          {/* Submit Button */}
-          <div className={styles.postActions}>
+            {/* Submit Button */}
             <input
               type="submit"
               className={styles.submit}
-              value="Publish Post"
+              value="Post"
             />
           </div>
         </form>

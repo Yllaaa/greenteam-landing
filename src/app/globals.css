@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap");
-@import url("https://unpkg.com/leaflet@1.9.4/dist/leaflet.css");
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
+@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
 :root {
   --white: #fefefe;
   --textSec: #b5b5b5;
@@ -40,7 +40,7 @@ body {
   direction: ltr; /* Default to LTR */
 }
 
-[lang="ar"] {
+[lang='ar'] {
   direction: rtl;
   text-align: right;
 }
@@ -83,8 +83,11 @@ a {
     #031e09 99.2%
   );
 }
-.VIpgJd-ZVi9od-ORHb {
-  display: none !important;
+input {
+  color: #006633 !important;
+}
+textarea {
+  color: #006633 !important;
 }
 @media (prefers-color-scheme: dark) {
   html {

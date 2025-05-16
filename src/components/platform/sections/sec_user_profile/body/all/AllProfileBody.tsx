@@ -66,6 +66,7 @@ function AllProfileBody(props: { username: string }) {
               {sections.map((section) => (
                 <div
                   key={section.name}
+                  style={{ cursor: "pointer" }}
                   className={`${styles.filterItem} ${currentSection === section.name
                       ? styles.active
                       : styles.notActive

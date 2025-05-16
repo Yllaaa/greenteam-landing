@@ -291,6 +291,7 @@ function PostCard(props: Props) {
                     navigateToProfile(post.author.username, post.author.type)
                   }
                   className={styles.userName}
+                  style={{ cursor: "pointer" }}
                 >
                   <p>
                     {post.author.name || post.author.username} <span>@{post.author.username}</span>
