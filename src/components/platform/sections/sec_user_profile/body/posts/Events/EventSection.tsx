@@ -32,7 +32,7 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 import styles from "./EventSection.module.css";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import { ProfileResponse } from '../../../../../../../../greenteam-landing/src/components/platform/sections/sec_user_profile/body/all/all.data';
+import { ProfileResponse } from '../../all/all.data';
 
 function EventSection(props: { user: ProfileResponse }) {
   const { user } = props
@@ -207,7 +207,7 @@ function EventSection(props: { user: ProfileResponse }) {
           setAddNew={setAddNew}
           admin={user.isMyProfile}
         />
-        
+
 
         {isMounted && (
           <div className={styles.sliderBtns}>

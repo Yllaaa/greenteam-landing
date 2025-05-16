@@ -248,7 +248,6 @@ function MyChallengeCard(props: Props) {
         <button
           onClick={() => {
             handleDoIt();
-            ToastNot("Challenge Accepted");
           }}
           className={styles.challengeButton}
         >
