@@ -44,7 +44,7 @@ function PostCard(props: Props) {
   const router = useRouter();
   const locale = useLocale();
   const id = useParams().groupId;
-  const user = useAppSelector((state) => state.login.user?.user.id);
+  const user = useAppSelector((state) => state.login.user?.user)?.id;
 
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);

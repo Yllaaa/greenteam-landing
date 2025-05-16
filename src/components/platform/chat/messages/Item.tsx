@@ -36,7 +36,7 @@ export default function Item({
     }
   }, [inView, index, setLoadingMore]);
 
-  const currentUser = useAppSelector((state) => state.login.user?.user.id);
+  const currentUser = useAppSelector((state) => state.login.user?.user)?.id;
 
   return (
     <div

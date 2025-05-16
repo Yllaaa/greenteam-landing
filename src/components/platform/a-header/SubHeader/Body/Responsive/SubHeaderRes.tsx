@@ -53,7 +53,7 @@ function SubHeaderRes(props: Props) {
     commentModal,
     setPostMedia,
   } = props;
-  const user = useAppSelector((state) => state.login.user?.user.username);
+  const user = useAppSelector((state) => state.login.user?.user)?.username;
 
   const locale = useLocale();
   const t = useTranslations("web.subHeader.actions");

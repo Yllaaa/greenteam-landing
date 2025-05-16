@@ -57,7 +57,7 @@ function SubHeaderWeb(props: Props) {
     userReactions,
     setPostMedia,
   } = props;
-  const user = useAppSelector((state) => state.login.user?.user.username);
+  const user = useAppSelector((state) => state.login.user?.user)?.username;
   const locale = useLocale();
   const t = useTranslations("web.subHeader.actions")
 
@@ -125,9 +125,8 @@ function SubHeaderWeb(props: Props) {
         </div>
 
         <div
-          className={`${styles.subcontainer} ${
-            isOpen ? styles.openWindow : styles.closeWindow
-          }`}
+          className={`${styles.subcontainer} ${isOpen ? styles.openWindow : styles.closeWindow
+            }`}
         >
           <div className={styles.challenges}>
             <Suspense

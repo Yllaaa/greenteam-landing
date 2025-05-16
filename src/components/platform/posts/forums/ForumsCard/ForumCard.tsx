@@ -506,7 +506,7 @@ type Discussion = {
 
 function ForumCard(props: Discussion) {
   const token = getToken();
-  const user = useAppSelector((state) => state.login.user?.user.id);
+  const user = useAppSelector((state) => state.login.user?.user)?.id;
   const accessToken = token ? token.accessToken : null;
   const {
     post,
