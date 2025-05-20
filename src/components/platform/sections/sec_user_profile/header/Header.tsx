@@ -184,6 +184,9 @@ import Report from "./modal/addNew/Report";
 import { FaX } from "react-icons/fa6";
 import AddNew from "./AddNew";
 import Modal from "./modal/newAdd/Modal";
+import { useRouter } from 'next/navigation';
+import { useLocale } from "next-intl";
+
 
 function Header(props: {
   user: ProfileResponse;
@@ -196,7 +199,8 @@ function Header(props: {
   const accesstoken = token ? token.accessToken : null;
   const [isFollowed, setIsFollowed] = React.useState(false);
   const [isAddNewModalOpen, setIsAddNewModalOpen] = useState(false);
-
+  const router = useRouter()
+  const locale = useLocale()
   useEffect(() => {
     if (user.userData) setIsFollowed(user.userData.isFollowing);
   }, [user.userData]);
@@ -255,7 +259,9 @@ function Header(props: {
   };
 
   const [report, setReport] = React.useState(false);
-
+  const handleChat = () => {
+    router.push(`/${locale}/chat?id=${user.userData.id}`)
+  }
   return (
     <>
       <div className={styles.container}>
@@ -285,10 +291,10 @@ function Header(props: {
             </div>
             {user.isMyProfile ? null : (
               <div className={styles.visitor}>
-                <button onClick={handleFollow} className={styles.follow}>
+                <button onClick={handleFollow} className={styles.message}>
                   {isFollowed ? "Following" : "Unfollow"}
                 </button>
-                <button className={styles.message}>Send Message</button>
+                <button onClick={handleChat} className={styles.follow}>Send Message</button>
               </div>
             )}
 
