@@ -2,7 +2,7 @@
 import React, { useCallback } from "react";
 import styles from "./Breadcrumb.module.css";
 import { useRouter, usePathname } from "next/navigation";
-import { FaBackspace } from "react-icons/fa";
+import { IoArrowBack } from "react-icons/io5";
 
 interface BackButtonProps {
   shouldHideOnFeeds?: boolean;
@@ -41,7 +41,7 @@ const BackButton: React.FC<BackButtonProps> = ({ shouldHideOnFeeds = false }) =>
     <div className={styles.breadcrumb}>
       <div className={styles.container}>
         <button onClick={handleBack} className={styles.back}>
-          <FaBackspace />
+          <IoArrowBack />
           <p>Back</p>
         </button>
       </div>

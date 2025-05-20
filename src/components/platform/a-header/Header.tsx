@@ -169,7 +169,7 @@ function Header() {
   return (
     <>
       <div className={styles.spacer}></div>
-      <div className={`${styles.container} ${styles.headerVisible}`}>
+      <div style={{zIndex: "9999"}} className={`${styles.container} ${styles.headerVisible}`}>
         <div className={styles.logos}>
           <div className={styles.footLogo}>
             <Image

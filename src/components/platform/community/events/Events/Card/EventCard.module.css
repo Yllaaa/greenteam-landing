@@ -138,3 +138,7 @@
     min-width: 398px;
   }
 }
+
+.favorite {
+ display: none;
+}

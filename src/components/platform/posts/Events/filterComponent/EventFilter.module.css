@@ -28,11 +28,12 @@
 .filterSection ul li {
   text-transform: capitalize;
   cursor: pointer;
-  font-family: Montaserrat;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 33.6px;
+  font-weight: 700;
+  font-size: 20px;
+  font-family: Montserrat;
+  line-height: 140%;
   letter-spacing: 1%;
+  text-wrap: nowrap;
   opacity: 0.5;
   transition: all 0.4s;
   -webkit-transition: all 0.4s;

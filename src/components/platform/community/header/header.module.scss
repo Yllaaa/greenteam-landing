@@ -30,6 +30,10 @@ $max-width: 1024px;
       grid-row: 1 / 2;
       grid-column: 1 / 6;
     }
+    img{
+      width: 24px;
+      height: 24px;
+    }
   }
   .filterSection {
     grid-column: 3 / 10;

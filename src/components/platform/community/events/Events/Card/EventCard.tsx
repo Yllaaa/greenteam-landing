@@ -54,7 +54,6 @@ type Props = {
 function EventCard(props: Props) {
   const locale = useLocale();
   const t = useTranslations("web.event.card");
-  // const token = getToken();
   const localeS = localStorage.getItem("user");
   const accessToken = localeS ? JSON.parse(localeS).accessToken : null;
 
@@ -74,7 +73,8 @@ function EventCard(props: Props) {
 
   //local Join Status
   const [isJoined, setIsJoined] = useState(event.isJoined);
-  const handleJoinNow = async (id: string) => {
+  const handleJoinNow = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation(); // Prevent card navigation when clicking the button
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/join`,
@@ -98,7 +98,9 @@ function EventCard(props: Props) {
       console.error("Error joining event:", error);
     }
   };
-  const handleLeaveEvent = async (id: string) => {
+
+  const handleLeaveEvent = async (e: React.MouseEvent, id: string) => {
+    e.stopPropagation(); // Prevent card navigation when clicking the button
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/leave`,
@@ -118,9 +120,6 @@ function EventCard(props: Props) {
     }
   };
 
-  // const handleToggleFavorite = () => {
-  //   ToastNot("Added to favorites!");
-  // };
   // handle dates:
   function formatDate(dateString: string): string {
     const date = new Date(dateString);
@@ -132,16 +131,19 @@ function EventCard(props: Props) {
       year: "numeric",
     }).format(date);
   }
+
   function getHour(dateString: string): string {
     const date = new Date(dateString);
     return date.toLocaleTimeString("en-US", { hour: "2-digit", hour12: true });
   }
+
   const router = useRouter();
   const handleEventDetails = () => {
     router.push(`/${locale}/event/${event?.id}`);
   };
 
-  const handleToggleFavorite = (id: string) => {
+  const handleToggleFavorite = (e: React.MouseEvent, id: string) => {
+    e.stopPropagation(); // Prevent card navigation when clicking the favorite button
     axios
       .post(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/${id}/toggle-favorite`,
@@ -173,8 +175,10 @@ function EventCard(props: Props) {
         ref={index === events.length - 1 ? ref : null}
         key={index}
         className={styles.card}
+        onClick={handleEventDetails}
+        style={{ cursor: 'pointer' }}
       >
-        <div onClick={handleEventDetails} className={styles.img}>
+        <div className={styles.img}>
           <Image
             src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
@@ -188,14 +192,14 @@ function EventCard(props: Props) {
             {event.title ? event?.title : "Community Beach Cleanup"}
           </h2>
           <p className={styles.details}>
-            {event?.description ? event?.description : "JNo Description!"}
+            {event?.description ? event?.description : "No Description!"}
           </p>
           <p className={styles.time}>
             <Image src={clock} alt="clock" />{" "}
             {event?.startDate && event?.endDate
               ? `${formatDate(event?.startDate)} | ${getHour(
-                  event?.startDate
-                )} - ${getHour(event?.endDate)}
+                event?.startDate
+              )} - ${getHour(event?.endDate)}
                 `
               : "Not Selected"}
           </p>
@@ -210,10 +214,10 @@ function EventCard(props: Props) {
           </p>
           <div className={styles.actions}>
             <button
-              onClick={() =>
+              onClick={(e) =>
                 isJoined
-                  ? handleLeaveEvent(`${event?.id}`)
-                  : handleJoinNow(`${event?.id}`)
+                  ? handleLeaveEvent(e, `${event?.id}`)
+                  : handleJoinNow(e, `${event?.id}`)
               }
               className={styles.joinButton}
               style={{
@@ -222,13 +226,19 @@ function EventCard(props: Props) {
             >
               {isJoined ? t("leave") : t("join")}
             </button>
-            <button onClick={handleEventDetails} className={styles.joinButton}>
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent double navigation
+                handleEventDetails();
+              }}
+              className={styles.joinButton}
+            >
               {t("details")}
             </button>
           </div>
         </div>
         <div
-          onClick={() => handleToggleFavorite(`${event?.id}`)}
+          onClick={(e) => handleToggleFavorite(e, `${event?.id}`)}
           className={styles.favorite}
         >
           <FaStar fill="#FFD700" />

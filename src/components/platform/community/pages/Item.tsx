@@ -37,60 +37,60 @@ export default function Item({
   const router = useRouter();
   const locale = useLocale();
   const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
-      null
-    );
-  
-    const optionsMenuRef = useRef<HTMLDivElement>(null);
-  
-  // Handle clicks outside the options menu to close it
-    useEffect(() => {
-      function handleClickOutside(event: MouseEvent) {
-        if (
-          optionsMenuRef.current &&
-          !optionsMenuRef.current.contains(event.target as Node)
-        ) {
-          setActiveOptionsPost(null);
-        }
-      }
-  
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
+    null
+  );
 
-     // Toggle options menu for a specific post
-      const toggleOptionsMenu = useCallback((postId: string) => {
-        setActiveOptionsPost((prev) => (prev === postId ? null : postId));
-      }, []);
-    
-      // Handle delete or report action
-      const handleActionDelete = useCallback(
-        (postId: string) => {
-          if (setDeleteModal && setPostId) {
-            setPostId(postId);
-            setDeleteModal(!deleteModal);
-          }
-          setActiveOptionsPost(null); // Close the menu after action
-        },
-        [deleteModal, setDeleteModal, setPostId]
-      );
-      // Handle delete or report action
-      const handleActionReport = useCallback(
-        (postId: string) => {
-          if (setReportModal && setPostId) {
-            setPostId(postId);
-            setReportModal(!reportModal);
-          }
-          setActiveOptionsPost(null); // Close the menu after action
-        },
-        [reportModal, setPostId, setReportModal]
-      );
+  const optionsMenuRef = useRef<HTMLDivElement>(null);
+
+  // Handle clicks outside the options menu to close it
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        optionsMenuRef.current &&
+        !optionsMenuRef.current.contains(event.target as Node)
+      ) {
+        setActiveOptionsPost(null);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  // Toggle options menu for a specific post
+  const toggleOptionsMenu = useCallback((postId: string) => {
+    setActiveOptionsPost((prev) => (prev === postId ? null : postId));
+  }, []);
+
+  // Handle delete or report action
+  const handleActionDelete = useCallback(
+    (postId: string) => {
+      if (setDeleteModal && setPostId) {
+        setPostId(postId);
+        setDeleteModal(!deleteModal);
+      }
+      setActiveOptionsPost(null); // Close the menu after action
+    },
+    [deleteModal, setDeleteModal, setPostId]
+  );
+  // Handle delete or report action
+  const handleActionReport = useCallback(
+    (postId: string) => {
+      if (setReportModal && setPostId) {
+        setPostId(postId);
+        setReportModal(!reportModal);
+      }
+      setActiveOptionsPost(null); // Close the menu after action
+    },
+    [reportModal, setPostId, setReportModal]
+  );
 
 
   // Track if pagination has already been triggered
   const hasPaginatedRef = useRef(false);
-  
+
   const handleNavigate = () => {
     router.push(`/${locale}/pages/${pageI.slug}`);
   };
@@ -118,32 +118,32 @@ export default function Item({
   return (
     <div ref={index === length - 1 ? ref : null} className={styles.item}>
       <div className={styles.options}>
-              <div
-                onClick={() => toggleOptionsMenu(pageI.id)}
-                className={styles.optionsIcon}
-              >
-                <PiDotsThreeCircleLight fill="#006633" />
-              </div>
+        <div
+          onClick={() => toggleOptionsMenu(pageI.id)}
+          className={styles.optionsIcon}
+        >
+          <PiDotsThreeCircleLight fill="#006633" />
+        </div>
 
-              {activeOptionsPost === pageI.id && (
-                <div ref={optionsMenuRef} className={styles.optionsMenu}>
-                  {pageI.isOwner && (
-                    <div
-                      onClick={() => handleActionDelete(pageI.slug)}
-                      className={styles.optionItem}
-                    >
-                      <FaTrash /> <span>Delete Page</span>
-                    </div>
-                  )}
-                  <div
-                    onClick={() => handleActionReport(pageI.slug)}
-                    className={styles.optionItem}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Page</span>
-                  </div>
-                </div>
-              )}
+        {activeOptionsPost === pageI.id && (
+          <div ref={optionsMenuRef} className={styles.optionsMenu}>
+            {pageI.isOwner && (
+              <div
+                onClick={() => handleActionDelete(pageI.slug)}
+                className={styles.optionItem}
+              >
+                <FaTrash /> <span>Delete Page</span>
+              </div>
+            )}
+            <div
+              onClick={() => handleActionReport(pageI.slug)}
+              className={styles.optionItem}
+            >
+              <MdOutlineReportProblem /> <span>Report Page</span>
             </div>
+          </div>
+        )}
+      </div>
       <div className={styles.header}>
         <div className={styles.logo}>
           <Image src={logo} alt={pageI.name} />

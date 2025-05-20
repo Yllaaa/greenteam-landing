@@ -1,4 +1,147 @@
+// $min-width: 1024px;
+
+// .emptyField {
+//   height: fit-content;
+//   min-height: 350px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   margin: auto;
+// }
+
+// .groupsContainer {
+//   // @media (min-width: $min-width) {
+//   width: 100%;
+//   overflow-x: scroll;
+//   margin-bottom: 16px;
+
+//   &::-webkit-scrollbar {
+//     height: 10px;
+//     width: 0;
+
+//     &-track {
+//       background-color: transparent;
+//       border-radius: 10px;
+//     }
+
+//     &-thumb {
+//       background-color: #307040;
+//       border-radius: 10px;
+
+//       &:hover {
+//         background-color: #74b243;
+//       }
+//     }
+//     // }
+//   }
+
+//   .groups {
+//     display: flex;
+//     // flex-direction: column;
+//     gap: 24px;
+
+//     flex-direction: row;
+//     width: fit-content;
+//     margin-bottom: 16px;
+
+//     .item {
+//       position: relative;
+//       height: 299px;
+//       border-radius: 30px;
+//       background: #333634;
+//       display: flex;
+//       flex-direction: column;
+//       gap: 8px;
+//       align-items: stretch;
+//       z-index: 10;
+//       @media (min-width: $min-width) {
+//         width: 637px;
+//       }
+
+//       .logo {
+//         width: 100%;
+//         height: 135px;
+//         border-top-left-radius: 30px;
+//         border-top-right-radius: 30px;
+//       }
+
+//       .content {
+//         display: flex;
+//         flex-direction: column;
+//         gap: 8px;
+//         align-items: stretch;
+//         padding: 0 16px;
+
+//         .title {
+//           height: 18px;
+//           font-family: Montserrat;
+//           font-weight: 600;
+//           font-size: 15px;
+//           line-height: 18.29px;
+//           letter-spacing: 0%;
+//           text-decoration: underline;
+//           text-decoration-style: solid;
+//           text-decoration-thickness: Auto;
+//           color: #fefefe;
+//         }
+
+//         .description {
+//           height: 31;
+//           font-family: Montserrat;
+//           font-weight: 400;
+//           font-size: 12px;
+//           line-height: 16px;
+//           letter-spacing: 0%;
+//           color: #fefefeb2;
+//         }
+
+//         .members {
+//           width: 569;
+//           height: 15;
+//           font-family: Montserrat;
+//           font-weight: 400;
+//           font-size: 12px;
+//           line-height: 14.63px;
+//           letter-spacing: 0%;
+//           color: #97b00f;
+//         }
+
+//         .action {
+//           width: 90%;
+//           height: 35px;
+//           border-radius: 30px;
+//           background: linear-gradient(
+//             90deg,
+//             #307040 0%,
+//             #74b243 45.5%,
+//             #96b032 80%
+//           );
+//           font-family: Montserrat;
+//           font-weight: 600;
+//           font-size: 10px;
+//           line-height: 16px;
+//           letter-spacing: 0%;
+//           color: #fefefefe;
+//           display: flex;
+//           justify-content: center;
+//           align-items: center;
+//           position: absolute;
+//           left: 50%;
+//           bottom: 10px;
+//           z-index: 12;
+//           transform: translateX(-50%);
+//           -webkit-transform: translateX(-50%);
+//           -moz-transform: translateX(-50%);
+//           -ms-transform: translateX(-50%);
+//           -o-transform: translateX(-50%);
+//         }
+//       }
+//     }
+//   }
+// }
+
 $min-width: 1024px;
+$tablet-width: 768px;
 
 .emptyField {
   height: fit-content;
@@ -10,36 +153,131 @@ $min-width: 1024px;
 }
 
 .groupsContainer {
-  // @media (min-width: $min-width) {
   width: 100%;
-  overflow-x: scroll;
+  height: fit-content;
+  min-height: 350px;
+  position: relative;
   margin-bottom: 16px;
 
-  &::-webkit-scrollbar {
-    height: 10px;
-    width: 0;
+  /* Navigation arrows - positioned absolute so they don't scroll with content */
+  .navArrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 46px;
+    height: 52px;
+    border-radius: 10px;
+    background: linear-gradient(
+      127.36deg,
+      #0f3b18 0.8%,
+      #0c2311 50%,
+      #031e09 99.2%
+    );
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 20;
+    transition: all 0.3s ease;
+    color: #74b243;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 
-    &-track {
-      background-color: transparent;
-      border-radius: 10px;
+    svg {
+      width: 24px;
+      height: 24px;
+      fill: #74b243;
     }
 
-    &-thumb {
-      background-color: #307040;
-      border-radius: 10px;
-
-      &:hover {
-        background-color: #74b243;
-      }
+    &:hover {
+      transform: translateY(-50%) scale(1.1);
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
     }
-    // }
+
+    &:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      background: #333634;
+      transform: translateY(-50%) scale(1);
+      box-shadow: none;
+    }
+
+    &.leftArrow {
+      left: 5px;
+    }
+
+    &.rightArrow {
+      right: 5px;
+    }
+
+    // Show on desktop and larger tablets
+    display: none;
+    @media (min-width: $min-width) {
+      display: flex;
+    }
+  }
+
+  /* The content area with scrolling */
+  .content {
+    width: 100%;
+    height: fit-content;
+    overflow-x: scroll;
+    padding: 0;
+
+    /* Hide scrollbar but keep functionality */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    &::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
+    @media screen and (max-width: 768px) {
+      overflow-x: hidden;
+    }
+    @media (min-width: $min-width) {
+      padding: 0 50px;
+      overflow-x: hidden;
+    }
+  }
+
+  // Container for the pagination loader and end message
+  .paginationContainer {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 120px;
+    height: 299px; // Match the height of the group items
+    margin-left: 10px;
+    padding: 0 20px;
+  }
+
+  // Loading indicator styles
+  .paginationLoader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 120px;
+    height: 100%;
+  }
+
+  // End message styles
+  .endMessage {
+    text-align: center;
+    color: #959595;
+    font-size: 14px;
+    min-width: 120px;
+    padding: 20px;
+    background: rgba(51, 54, 52, 0.3);
+    border-radius: 10px;
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
   }
 
   .groups {
     display: flex;
-    // flex-direction: column;
     gap: 24px;
-
     flex-direction: row;
     width: fit-content;
     margin-bottom: 16px;
@@ -71,6 +309,7 @@ $min-width: 1024px;
         gap: 8px;
         align-items: stretch;
         padding: 0 16px;
+        overflow: visible; /* Override parent's overflow property */
 
         .title {
           height: 18px;
@@ -136,6 +375,67 @@ $min-width: 1024px;
           -o-transform: translateX(-50%);
         }
       }
+    }
+  }
+}
+
+// Add animation for scroll buttons
+@keyframes arrowPulse {
+  0% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  50% {
+    box-shadow: 0 4px 12px rgba(116, 178, 67, 0.3);
+  }
+  100% {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.groupsContainer .navArrow:not(:disabled) {
+  animation: arrowPulse 2s infinite ease-in-out;
+}
+
+// Responsive adjustments for navigation arrows
+@media (max-width: $tablet-width) {
+  .groupsContainer {
+    .navArrow {
+      display: none !important; // Ensure arrows are hidden on mobile
+    }
+
+    .content {
+      padding: 0; // Remove padding on mobile
+    }
+
+    .groups {
+      gap: 16px;
+      flex-wrap: wrap; // Allow cards to wrap on smaller screens
+      justify-content: center; // Center the cards when wrapped
+
+      .item {
+        width: 100%; // Full width on mobile
+        max-width: 400px; // Limit max width
+      }
+    }
+  }
+}
+
+// Media queries for tablets
+@media (min-width: $tablet-width) and (max-width: $min-width) {
+  .groupsContainer {
+    .groups {
+      .item {
+        width: 480px; // Slightly smaller on tablets
+      }
+    }
+  }
+}
+
+// Media query for desktops
+@media (min-width: $min-width) {
+  .groupsContainer {
+    .content {
+      padding: 0 50px; // Space for navigation arrows
     }
   }
 }

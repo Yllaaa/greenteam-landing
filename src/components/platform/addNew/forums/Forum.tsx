@@ -11,7 +11,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 import { FaChevronDown, FaPaperPlane, FaTimes } from 'react-icons/fa';
-import { motion, AnimatePresence } from 'framer-motion'; // Import framer-motion for animations
+import { motion, AnimatePresence } from 'framer-motion';
 
 type PostType = {
   headline: string;

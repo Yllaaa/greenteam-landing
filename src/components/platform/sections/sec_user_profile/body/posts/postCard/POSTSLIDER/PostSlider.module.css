@@ -13,7 +13,7 @@
 .textPost {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 551px;
   padding: 15px;
   z-index: 10;
   font-family: Montserrat;
@@ -30,6 +30,9 @@
   -moz-border-radius: 16px;
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .postCard {
   width: 100%;
@@ -139,5 +142,8 @@
     -moz-border-radius: 8px;
     -ms-border-radius: 8px;
     -o-border-radius: 8px;
+  }
+  .textPost{
+    height: 100%;
   }
 }

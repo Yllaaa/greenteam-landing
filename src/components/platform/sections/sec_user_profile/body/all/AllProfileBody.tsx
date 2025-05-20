@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styles from "./allProfileBody.module.scss";
 import { getProfileData, ProfileResponse } from "./all.data";
 import Header from "../../header/Header";
@@ -43,14 +43,16 @@ function AllProfileBody(props: { username: string }) {
   useEffect(() => {
     getProfileData(username)
       .then((data) => {
-
         setUser(data);
       })
       .catch((error) => {
         console.error("Error fetching profile data:", error);
       });
   }, [username]);
+
   const [settings, setSettings] = useState(false);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
   return (
     <>
       <div className={styles.container}>
@@ -62,28 +64,32 @@ function AllProfileBody(props: { username: string }) {
         {/* filter */}
         {!settings ? (
           <>
-            <div className={styles.filter}>
-              {sections.map((section) => (
-                <div
-                  key={section.name}
-                  style={{ cursor: "pointer" }}
-                  className={`${styles.filterItem} ${currentSection === section.name
-                      ? styles.active
-                      : styles.notActive
-                    }`}
-                  onClick={() => setCurrentSection(section.name as Sections)}
-                >
-                  <span>{section.name}</span>
-                </div>
-              ))}
+            <div className={styles.filterWrapper}>
+              <div className={styles.filter}>
+                {sections.map((section) => (
+                  <div
+                    key={section.name}
+                    style={{ cursor: "pointer" }}
+                    className={`${styles.filterItem} ${currentSection === section.name
+                        ? styles.active
+                        : styles.notActive
+                      }`}
+                    onClick={() => setCurrentSection(section.name as Sections)}
+                  >
+                    <span>{section.name}</span>
+                  </div>
+                ))}
+              </div>
             </div>
             <div className={styles.body}>
               {user.isMyProfile && (
-                <div className={styles.side}>
-                  <Breif score={user.userScore} />
+                <div style={{ position: "sticky" , display:`${currentSection === "your posts" ?"block":"none" }` }} className={styles.side} ref={sidebarRef}>
+                  <div className={styles.stickyContent}>
+                     <Breif score={user.userScore} />
+                  </div>
                 </div>
               )}
-              <div className={styles.mainBody}>
+              <div className={`${currentSection === "your posts" ? `${styles.mainBody}` : `${styles.mainBodyWithoutSide}`}`}>
                 {/* body content */}
                 {currentSection === "your posts" && <FeedSection />}
                 {currentSection === "events" && <EventSection user={user} />}
