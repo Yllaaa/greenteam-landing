@@ -163,10 +163,12 @@ const AddNewPage = (props: addEventProps) => {
           console.log(res.data);
           ToastNot("Page created successfully");
           reset();
-        })
+        }).then(()=>
+          window.location.reload()
+        )
         .catch((err) => {
           console.log(err);
-          ToastNot("Error creating page");
+          ToastNot(`${err.response.data.message}`);
         });
     } catch (err) {
       console.log(err);
@@ -413,7 +415,9 @@ const AddNewPage = (props: addEventProps) => {
             </div>
             {/* slug */}
             <div className={styles.formGroup}>
+              
               <label className={styles.label}>Page Slug</label>
+              
               <input
                 type="text"
                 className={`${styles.input} ${
@@ -430,6 +434,8 @@ const AddNewPage = (props: addEventProps) => {
               {errors.slug && (
                 <p className={styles.errorText}>{errors.slug.message}</p>
               )}
+              
+            
             </div>
             {/* website */}
             <div className={styles.formGroup}>

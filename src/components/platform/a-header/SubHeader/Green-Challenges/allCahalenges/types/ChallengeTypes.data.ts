@@ -6,5 +6,5 @@ export type Props = {
   setChallengeId: React.Dispatch<React.SetStateAction<string>>;
   setDoItModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSection: React.Dispatch<React.SetStateAction<string>>;
-  acceptDo: any;
+  acceptDo?: any;
 };

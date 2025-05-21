@@ -12,6 +12,19 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useLocale } from "next-intl";
 // Define types for better TypeScript support
+// interface FormData {
+//   creatorType: string;
+//   title: string;
+//   description: string;
+//   location: string;
+//   startDate: string;
+//   endDate: string;
+//   category: string;
+//   topicId: string | number;
+//   countryId: string | number;
+//   cityId: string | number;
+//   poster: File | null;
+// }
 interface FormData {
   creatorType: string;
   title: string;
@@ -24,8 +37,8 @@ interface FormData {
   countryId: string | number;
   cityId: string | number;
   poster: File | null;
+  eventMode: string; // Add this new field
 }
-
 interface DateSelection {
   start: Date | null;
   end: Date | null;
@@ -81,6 +94,7 @@ const AddNewEvent = (props: addEventProps) => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -94,6 +108,7 @@ const AddNewEvent = (props: addEventProps) => {
       poster: null,
       countryId: "",
       cityId: "",
+      eventMode: "",
     },
   });
 
@@ -141,6 +156,7 @@ const AddNewEvent = (props: addEventProps) => {
             poster: data.poster,
             countryId: Number(data.countryId),
             cityId: Number(data.cityId),
+            eventMode: data.eventMode
           },
           {
             headers: {
@@ -418,9 +434,8 @@ const AddNewEvent = (props: addEventProps) => {
               <label className={styles.label}>Event Name</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.title ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.title ? styles.inputError : ""
+                  }`}
                 {...register("title", {
                   required: "Title is required",
                   maxLength: {
@@ -437,18 +452,17 @@ const AddNewEvent = (props: addEventProps) => {
             <div className={styles.formGroup}>
               <label className={styles.label}>Date Range</label>
               <div
-                className={`${styles.datePickerInput} ${
-                  errors.startDate || errors.endDate ? styles.inputError : ""
-                }`}
+                className={`${styles.datePickerInput} ${errors.startDate || errors.endDate ? styles.inputError : ""
+                  }`}
                 onClick={toggleDatePicker}
               >
                 <span>
                   {selectedDates.start
                     ? selectedDates.end
                       ? `${format(
-                          selectedDates.start,
-                          "MMM dd, yyyy"
-                        )} - ${format(selectedDates.end, "MMM dd, yyyy")}`
+                        selectedDates.start,
+                        "MMM dd, yyyy"
+                      )} - ${format(selectedDates.end, "MMM dd, yyyy")}`
                       : format(selectedDates.start, "MMM dd, yyyy")
                     : "Select date range"}
                 </span>
@@ -524,9 +538,8 @@ const AddNewEvent = (props: addEventProps) => {
               <label className={styles.label}>Event Image</label>
               <div
                 ref={dropAreaRef}
-                className={`${styles.imageUploadContainer} ${
-                  errors.poster ? styles.inputError : ""
-                } ${isDragging ? styles.dragging : ""}`}
+                className={`${styles.imageUploadContainer} ${errors.poster ? styles.inputError : ""
+                  } ${isDragging ? styles.dragging : ""}`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
@@ -577,13 +590,53 @@ const AddNewEvent = (props: addEventProps) => {
               )}
             </div>
           </div>
+          {/* EVENT TYPE */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Event Type</label>
+            <div className={styles.toggleContainer}>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "local" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "local")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-local"
+                  value="local"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: "Event type is required" })}
+                />
+                <label htmlFor="eventMode-local" className={styles.toggleLabel}>
+
+                  Local
+                </label>
+              </div>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "online" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "online")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-online"
+                  value="online"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: "Event type is required" })}
+                />
+                <label htmlFor="eventMode-online" className={styles.toggleLabel}>
+
+                  Online
+                </label>
+              </div>
+            </div>
+            {errors.eventMode && (
+              <p className={styles.errorText}>{errors.eventMode.message}</p>
+            )}
+          </div>
           {/* COUNTRY */}
           <div className={styles.formGroup}>
             <label className={styles.label}>Country</label>
             <select
-              className={`${styles.select} ${
-                errors.countryId ? styles.inputError : ""
-              }`}
+              className={`${styles.select} ${errors.countryId ? styles.inputError : ""
+                }`}
               {...register("countryId", { required: "Country is required" })}
               onChange={(e) => setCountryId(parseInt(e.target.value))}
             >
@@ -612,9 +665,8 @@ const AddNewEvent = (props: addEventProps) => {
                 onChange={(e) => setSearch(e.target.value)}
               />
               <select
-                className={`${styles.select} ${
-                  errors.cityId ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.cityId ? styles.inputError : ""
+                  }`}
                 {...register("cityId", { required: "city is required" })}
               >
                 <option value="" disabled>
@@ -640,9 +692,8 @@ const AddNewEvent = (props: addEventProps) => {
               <label className={styles.label}>Location</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.location ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.location ? styles.inputError : ""
+                  }`}
                 {...register("location", { required: "Location is required" })}
               />
               {errors.location && (
@@ -654,9 +705,8 @@ const AddNewEvent = (props: addEventProps) => {
               <label className={styles.label}>Description</label>
               <textarea
                 rows={4}
-                className={`${styles.textarea} ${
-                  errors.description ? styles.inputError : ""
-                }`}
+                className={`${styles.textarea} ${errors.description ? styles.inputError : ""
+                  }`}
                 {...register("description", {
                   required: "Description is required",
                   minLength: {
@@ -673,9 +723,8 @@ const AddNewEvent = (props: addEventProps) => {
             <div className={styles.formGroup}>
               <label className={styles.label}>Category</label>
               <select
-                className={`${styles.select} ${
-                  errors.category ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.category ? styles.inputError : ""
+                  }`}
                 {...register("category", { required: "Category is required" })}
               >
                 <option value="" disabled>
