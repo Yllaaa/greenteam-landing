@@ -10,6 +10,7 @@
   overflow-y: auto;
   scrollbar-width: none;
   .challengeItem {
+    position: relative;
     width: 100%;
     min-height: 128px;
     background: #1a1e1c;
@@ -39,6 +40,47 @@
         line-height: 20px;
         letter-spacing: -0.4%;
         color: #fefefe;
+      }
+    }
+    .action {
+      position: absolute;
+      right: 16px;
+      top: 50%;
+      width: fit-content;
+      height: fit-content;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: auto;
+
+      transform: translateY(-50%);
+      -webkit-transform: translateY(-50%);
+      -moz-transform: translateY(-50%);
+      -ms-transform: translateY(-50%);
+      -o-transform: translateY(-50%);
+      .accept {
+        width: 132px;
+        height: 44px;
+        background: #97b00f;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: -0.4%;
+        color: #ffffff;
       }
     }
   }

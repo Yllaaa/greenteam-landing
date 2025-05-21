@@ -6,6 +6,7 @@ import { getToken } from '@/Utils/userToken/LocalToken'
 import styles from './AllChallenges.module.scss'
 import logo from '@/../public/personal/menu/notifications/logo.png'
 import Image from 'next/image'
+import ToastNot from '@/Utils/ToastNotification/ToastNot'
 function AllChallenges() {
   const token = getToken()
   const accessToken = token ? token.accessToken : null
@@ -89,6 +90,40 @@ function AllChallenges() {
     }
   }, [page, fetchChallenges])
 
+  const handleDone = (challengeId: string) => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI
+          }/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          if (res) {
+            ToastNot("challenge marked as done");
+            // setDoItModal(false);
+          }
+        }).then(
+          () => {
+            window.location.reload();
+          }
+        )
+        .catch((err) => {
+          console.log(err);
+          ToastNot("error occurred while marking challenge as done");
+        });
+    } catch {
+      ToastNot("error occurred while marking challenge as done");
+    }
+  }
+
   return (
     <div className={styles.container}>
       {error && <p className={styles.error}>{error}</p>}
@@ -110,6 +145,10 @@ function AllChallenges() {
                 <h2>{challenge.title}</h2>
                 <p>{challenge.description}</p>
               </div>
+              <div className={styles.action}>
+                <button onClick={() => handleDone(challenge.id)} className={styles.accept}>Done</button>
+
+              </div>
             </div>
           )
         } else {
@@ -121,6 +160,10 @@ function AllChallenges() {
               <div className={styles.text}>
                 <h2>{challenge.title}</h2>
                 <p>{challenge.description}</p>
+              </div>
+              <div className={styles.action}>
+                <button onClick={() => handleDone(challenge.id)} className={styles.accept}>Done</button>
+
               </div>
             </div>
           )

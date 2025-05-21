@@ -89,7 +89,7 @@
 //           />
 
 //           <>
-//             <Arrow
+//             <Arro w  
 //               left
 //               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
 //             />
@@ -166,7 +166,7 @@ import axios from "axios";
 import styles from "./GreenChallenges.module.css";
 import Challenges from "./allCahalenges/Challenges";
 import AddNewModal from "./modal/addNew/AddNewModal";
-import DoItModal from "../../../modals/toDo/DoItModal";
+// import DoItModal from "../../../modals/toDo/DoItModal";
 // import ToastNot from "@/Utils/ToastNotification/ToastNot";
 // import Image from "next/image";
 // import star from "@/../public/ZPLATFORM/challenges/star.svg";
@@ -186,7 +186,7 @@ function GreenChallenges() {
   // modals
   const [addNew, setAddNew] = React.useState(false);
   const [challengeId, setChallengeId] = React.useState("");
-  const [doItModal, setDoItModal] = React.useState(false);
+  // const [doItModal, setDoItModal] = React.useState(false);
   const [section, setSection] = React.useState("");
 
   // Fetch green challenges with React Query
@@ -230,7 +230,7 @@ function GreenChallenges() {
         .then((res) => {
           if (res) {
             ToastNot("challenge marked as done");
-            setDoItModal(false);
+            // setDoItModal(false);
           }
         }).then(
           () => {
@@ -290,7 +290,7 @@ function GreenChallenges() {
               challenges={challenges as Challenge[]}
               setAddNew={setAddNew}
               setChallengeId={setChallengeId}
-              setDoItModal={setDoItModal}
+              // setDoItModal={setDoItModal}
               setSection={setSection}
               acceptDo={acceptDo}
 
@@ -322,7 +322,7 @@ function GreenChallenges() {
           challengeId={challengeId}
         />
       )}
-      {doItModal && (
+      {/* {doItModal && (
         <DoItModal
           setDoItModal={(value: boolean) => {
             setDoItModal(value);
@@ -332,7 +332,7 @@ function GreenChallenges() {
           challengeId={challengeId}
           section={section}
         />
-      )}
+      )} */}
     </>
   );
 }
