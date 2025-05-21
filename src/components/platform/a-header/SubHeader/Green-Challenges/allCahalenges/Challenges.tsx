@@ -16,8 +16,9 @@ function Challenges(props: Props) {
     challenges,
     setAddNew,
     setChallengeId,
-    setDoItModal,
+    // setDoItModal,
     setSection,
+    acceptDo
   } = props;
 
   const router = useRouter()
@@ -51,9 +52,10 @@ function Challenges(props: Props) {
             <div className={styles.challengeActions}>
               <button
                 onClick={() => {
-                  setDoItModal(true);
+                  // setDoItModal(true);
                   setSection("green-challenges");
                   setChallengeId(challenge.id);
+                  acceptDo();
                 }}
                 className={styles.challengeButton}
               >

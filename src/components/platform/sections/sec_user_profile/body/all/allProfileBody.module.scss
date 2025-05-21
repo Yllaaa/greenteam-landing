@@ -4,6 +4,7 @@ $max-width: 1024px;
   position: relative;
   display: flex;
   flex-direction: column;
+  z-index: 1;
 }
 
 .filterWrapper {
@@ -21,7 +22,7 @@ $max-width: 1024px;
   padding: 0px 50px;
   margin-top: 35px;
   margin-bottom: 35px;
-  
+
   @media screen and (max-width: $max-width) {
     padding: 0px 10px;
     gap: 10px;
@@ -29,15 +30,13 @@ $max-width: 1024px;
     scrollbar-width: none;
     margin-top: 20px;
     margin-bottom: 20px;
+    z-index: 1;
     &::-webkit-scrollbar {
       display: none;
     }
   }
-  
+
   .filterItem {
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
     text-transform: capitalize;
     text-wrap: nowrap;
 
@@ -45,8 +44,17 @@ $max-width: 1024px;
       font-size: 16px;
       padding: 0px 10px;
     }
+    span {
+      color: #65676b;
+      text-align: center;
+      font-family: Montserrat;
+      font-size: 15px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: normal;
+    }
   }
-  
+
   .active {
     background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
     background-clip: text;
@@ -61,39 +69,39 @@ $max-width: 1024px;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(1, min-content);
   gap: 20px;
-  
+
   @media screen and (max-width: $max-width) {
     grid-template-rows: repeat(2, min-content);
     gap: 10px;
     overflow-x: auto;
     scrollbar-width: none;
     margin-bottom: 20px;
-    
+
     &::-webkit-scrollbar {
       display: none;
     }
   }
-  
+
   .side {
     grid-column: 9 /13;
     grid-row: 1 / 2;
     justify-self: center;
-    
+
     @media screen and (max-width: $max-width) {
       grid-column: 1 / 13;
       grid-row: 1 / 2;
     }
-    
+
     .stickyContent {
       position: sticky;
       top: 120px; // Adjust this value to control where it sticks below the filter
-      
+
       @media screen and (max-width: $max-width) {
         position: relative;
         top: 0;
       }
     }
-    
+
     .breifContainer {
       position: relative;
       display: flex;
@@ -108,7 +116,7 @@ $max-width: 1024px;
       -moz-border-radius: 30px;
       -ms-border-radius: 30px;
       -o-border-radius: 30px;
-      
+
       .breifHeader {
         display: flex;
         align-items: center;
@@ -116,7 +124,7 @@ $max-width: 1024px;
         flex-direction: column;
         width: 100%;
         gap: 10px;
-        
+
         p {
           font-family: Montserrat;
           font-weight: 400;
@@ -124,7 +132,7 @@ $max-width: 1024px;
           line-height: 100%;
           letter-spacing: 0%;
         }
-        
+
         h5 {
           font-family: Montserrat;
           font-weight: 700;
@@ -134,12 +142,12 @@ $max-width: 1024px;
           color: #006633;
         }
       }
-      
+
       .breifIcon {
         width: 100%;
         height: 114px;
       }
-      
+
       .breifText {
         p {
           font-family: Montserrat;
@@ -149,7 +157,7 @@ $max-width: 1024px;
           letter-spacing: 0%;
           vertical-align: middle;
           color: #006633;
-          
+
           span {
             font-family: Montserrat;
             font-weight: 400;
@@ -162,7 +170,7 @@ $max-width: 1024px;
       }
     }
   }
-  
+
   .mainBody {
     grid-column: 1 / 9;
     display: flex;
@@ -170,7 +178,7 @@ $max-width: 1024px;
     width: 100%;
     gap: 20px;
     margin: 32px auto 150px auto;
-    
+
     @media screen and (max-width: $max-width) {
       grid-column: 1 / 13;
       grid-row: 2 / 3;
@@ -178,19 +186,72 @@ $max-width: 1024px;
       justify-self: center;
     }
   }
-  .mainBodyWithoutSide{
+  .mainBodyWithoutSide {
     grid-column: 1 / 13;
     display: flex;
     flex-direction: column;
     width: 100%;
     gap: 20px;
     margin: 32px auto 150px auto;
-    
+
     @media screen and (max-width: $max-width) {
       grid-column: 1 / 13;
       grid-row: 2 / 3;
       gap: 10px;
       justify-self: center;
     }
+  }
+}
+.blocked {
+  width: 100%;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  
+  .blockedContent {
+    background: #1a1a1a;
+    border-radius: 12px;
+    padding: 30px;
+    text-align: center;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.4s ease-out;
+    
+    h1 {
+      color: #e74c3c;
+      font-family: Montserrat;
+      font-weight: 600;
+      margin-bottom: 15px;
+    }
+    
+    p {
+      color: rgba(255, 255, 255, 0.7);
+      margin-bottom: 25px;
+      font-family: Montserrat;
+    }
+    
+    .unblockButton {
+      background: #006633;
+      color: #97b00f;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-family: Montserrat;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      
+      &:hover {
+        background: #97b00f;
+        color: #006633;
+      }
+    }
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
   }
 }

@@ -28,7 +28,7 @@
 //   const [doItModal, setDoItModal] = React.useState(false);
 //   const [section, setSection] = React.useState("");
 //   useEffect(() => {
-    
+
 //     axios
 //       .get(
 //         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges?page=${page}&limit=3`,
@@ -174,6 +174,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Challenge } from "./GreenTypes/GreenTypes";
 import { useTranslations } from "next-intl";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function GreenChallenges() {
   const token = getToken();
@@ -200,14 +201,49 @@ function GreenChallenges() {
         },
       }
     );
-    
+
     // If no challenges are returned and we're not on page 1, reset to page 1
     if (response.data.length === 0 && page > 1) {
       setPage(1);
       return [];
     }
-    
+
     return response.data;
+  };
+
+  const acceptDo = () => {
+    try {
+      axios
+        .post(
+          `${process.env.NEXT_PUBLIC_BACKENDAPI
+          }/api/v1/challenges/green-challenges/${challengeId}/${section === "green-challenges" ? "add-to-do" : "mark-as-done"
+          }`,
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
+        .then((res) => {
+          if (res) {
+            ToastNot("challenge marked as done");
+            setDoItModal(false);
+          }
+        }).then(
+          () => {
+            window.location.reload();
+          }
+        )
+        .catch((err) => {
+          console.log(err);
+          ToastNot("error occurred while marking challenge as done");
+        });
+    } catch {
+      ToastNot("error occurred while marking challenge as done");
+    }
   };
 
   const { data: challenges = [], isLoading, error } = useQuery({
@@ -220,7 +256,7 @@ function GreenChallenges() {
   const handleModalClose = () => {
     queryClient.invalidateQueries({ queryKey: ['greenChallenges'] });
   };
- const t = useTranslations("web.subHeader.green")
+  const t = useTranslations("web.subHeader.green")
   return (
     <>
       <div className={styles.container}>
@@ -256,6 +292,8 @@ function GreenChallenges() {
               setChallengeId={setChallengeId}
               setDoItModal={setDoItModal}
               setSection={setSection}
+              acceptDo={acceptDo}
+
             />
           )}
 
@@ -266,7 +304,7 @@ function GreenChallenges() {
               disabled={page === 1}
             />
 
-            <Arrow 
+            <Arrow
               onClick={() => setPage(page + 1)}
               disabled={challenges.length < 3} // Disable if we have fewer items than the limit
             />
@@ -301,17 +339,16 @@ function GreenChallenges() {
 
 export default GreenChallenges;
 
-function Arrow(props: { 
-  left?: boolean; 
+function Arrow(props: {
+  left?: boolean;
   onClick: () => void;
   disabled?: boolean;
 }) {
   return (
     <div
       onClick={props.disabled ? undefined : props.onClick}
-      className={`${styles.arrow} ${
-        props.left ? styles.arrowLeft : styles.arrowRight
-      } ${props.disabled ? styles.arrowDisabled : ''}`}
+      className={`${styles.arrow} ${props.left ? styles.arrowLeft : styles.arrowRight
+        } ${props.disabled ? styles.arrowDisabled : ''}`}
     >
       {props.left && (
         <div

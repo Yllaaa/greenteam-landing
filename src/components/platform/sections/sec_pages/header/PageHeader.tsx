@@ -153,6 +153,49 @@ function Pageheader(props: {
   return (
     <>
       <div className={styles.cover}>
+        {/* Page options button */}
+        <div className={styles.pageOptions}>
+          <div
+            onClick={toggleOptionsMenu}
+            className={styles.optionsIcon}
+          >
+            <PiDotsThreeCircleLight fill="#006633" />
+          </div>
+
+          {showOptions && (
+            <div ref={optionsMenuRef} className={styles.optionsMenu}>
+              {data.isAdmin && (
+                <div
+                  onClick={() => {
+                    setIsDeleteModalOpen(true);
+                    setShowOptions(false);
+                  }}
+                  className={styles.optionItem}
+                >
+                  <FaTrash /> <span>Delete Page</span>
+                </div>
+              )}
+              <div
+                onClick={() => {
+                  setIsReportModalOpen(true);
+                  setShowOptions(false);
+                }}
+                className={styles.optionItem}
+              >
+                <MdOutlineReportProblem /> <span>Report Page</span>
+              </div>
+              <div
+                onClick={() => {
+                  setIsBlockModalOpen(true);
+                  setShowOptions(false);
+                }}
+                className={styles.optionItem}
+              >
+                <BsShieldSlash /> <span>Block Page</span>
+              </div>
+            </div>
+          )}
+        </div>
         <div className={styles.coverSection}>
           <Image
             src={data.cover ? data.cover : cover}
@@ -178,7 +221,7 @@ function Pageheader(props: {
             <p>{data.name}</p>
           </div>
 
-          {/* Page options button */}
+          {/* Page options button
           <div className={styles.pageOptions}>
             <div
               onClick={toggleOptionsMenu}
@@ -220,7 +263,7 @@ function Pageheader(props: {
                 </div>
               </div>
             )}
-          </div>
+          </div> */}
         </div>
       </div>
       <div className={styles.header}>

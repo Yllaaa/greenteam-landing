@@ -9,6 +9,7 @@
   overflow-x: auto;
   scrollbar-width: none;
   position: relative;
+  z-index: 1;
 }
 .sliderBtns {
   width: 100%;

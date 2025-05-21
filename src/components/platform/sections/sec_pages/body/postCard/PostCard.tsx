@@ -271,12 +271,14 @@ function PostCard(props: Props) {
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}
           >
+            {/* Post content structure */}
             <div className={styles.options}>
               <div
                 onClick={() => toggleOptionsMenu(post.post.id)}
                 className={styles.optionsIcon}
+                aria-label="Post options"
               >
-                <PiDotsThreeCircleLight fill="#006633" />
+                <PiDotsThreeCircleLight />
               </div>
 
               {activeOptionsPost === post.post.id && (
@@ -284,17 +286,21 @@ function PostCard(props: Props) {
                   {post.isAuthor && (
                     <div
                       onClick={() => handleActionDelete(post.post.id)}
-                      className={styles.optionItem}
+                      className={`${styles.optionItem} ${styles.deleteOption}`}
                     >
-                      <FaTrash /> <span>Delete Post</span>
+                      <FaTrash className={styles.deleteIcon} />
+                      <span>Delete Post</span>
                     </div>
                   )}
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={styles.optionItem}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Post</span>
-                  </div>
+                  {!post.isAuthor &&
+                    <div
+                      onClick={() => handleActionReport(post.post.id)}
+                      className={`${styles.optionItem} ${styles.reportOption}`}
+                    >
+                      <MdOutlineReportProblem className={styles.reportIcon} />
+                      <span>Report Post</span>
+                    </div>
+                  }
                 </div>
               )}
             </div>

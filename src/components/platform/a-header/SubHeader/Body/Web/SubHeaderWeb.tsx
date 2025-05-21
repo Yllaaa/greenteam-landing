@@ -15,6 +15,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAppSelector } from "@/store/hooks";
+import Breif from "../../../breif/Breif";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -171,6 +172,10 @@ function SubHeaderWeb(props: Props) {
             </Link>
           </div>
         ))}
+        <div className={styles.link}>
+
+            <Breif/>
+        </div>
       </div>
     </>
   );

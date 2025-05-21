@@ -10,11 +10,15 @@ import Groups from "../groups/Groups";
 import Pages from "../pages/Pages";
 import Breif from "./side/Breif";
 import Settings from "../settings/Settings";
+import axios from "axios";
+import { getToken } from "@/Utils/userToken/LocalToken";
 // import AddNew from "../../header/AddNew";
 
 type Sections = "your posts" | "events" | "products" | "groups" | "pages";
 function AllProfileBody(props: { username: string }) {
   const { username } = props;
+  const token = getToken();
+  const accessToken = token ? token.accessToken : null;
   const sections = [
     { name: "your posts", icon: "" },
     { name: "events", icon: "" },
@@ -62,47 +66,97 @@ function AllProfileBody(props: { username: string }) {
           {/* <AddNew /> */}
         </div>
         {/* filter */}
-        {!settings ? (
-          <>
-            <div className={styles.filterWrapper}>
-              <div className={styles.filter}>
-                {sections.map((section) => (
-                  <div
-                    key={section.name}
-                    style={{ cursor: "pointer" }}
-                    className={`${styles.filterItem} ${currentSection === section.name
+        {user.userData.isBlocked ? (
+          <div className={styles.blocked}>
+            <div className={styles.blockedContent}>
+              <h1>User Blocked</h1>
+              <p>You have blocked this user. Their content is not visible.</p>
+              <button
+                className={styles.unblockButton}
+                onClick={() => {
+                  // API call to unblock user
+                  axios.delete(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/actions/unblock`, {
+
+                    headers: {
+                      'Authorization': `Bearer ${accessToken}`,
+                      'Content-Type': 'application/json'
+                    },
+                    data: {
+                      blockedId: user.userData.id,
+
+                    }
+                  })
+
+                    .then(res => {
+                      if (res.data) {
+                        // Update local state
+                        setUser(prev => ({
+                          ...prev,
+                          userData: {
+                            ...prev.userData,
+                            isBlocked: false
+                          }
+                        }));
+                      }
+                    })
+                    .catch(err => console.error("Error unblocking user:", err));
+                }}
+              >
+                Unblock User
+              </button>
+            </div>
+          </div>
+        ) : (
+          !settings ? (
+            <>
+              <div className={styles.filterWrapper}>
+                <div className={styles.filter}>
+                  {sections.map((section) => (
+                    <div
+                      key={section.name}
+                      style={{ cursor: "pointer" }}
+                      className={`${styles.filterItem} ${currentSection === section.name
                         ? styles.active
                         : styles.notActive
-                      }`}
-                    onClick={() => setCurrentSection(section.name as Sections)}
-                  >
-                    <span>{section.name}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className={styles.body}>
-              {user.isMyProfile && (
-                <div style={{ position: "sticky" , display:`${currentSection === "your posts" ?"block":"none" }` }} className={styles.side} ref={sidebarRef}>
-                  <div className={styles.stickyContent}>
-                     <Breif score={user.userScore} />
-                  </div>
+                        }`}
+                      onClick={() => setCurrentSection(section.name as Sections)}
+                    >
+                      <span>{section.name}</span>
+                    </div>
+                  ))}
                 </div>
-              )}
-              <div className={`${currentSection === "your posts" ? `${styles.mainBody}` : `${styles.mainBodyWithoutSide}`}`}>
-                {/* body content */}
-                {currentSection === "your posts" && <FeedSection />}
-                {currentSection === "events" && <EventSection user={user} />}
-                {currentSection === "products" && <ProductSection username={username} user={user} />}
-                {currentSection === "groups" && <Groups username={username} user={user} />}
-                {currentSection === "pages" && <Pages username={username} user={user} />}
               </div>
-            </div>
-          </>
-        ) : (
-          <>
+              <div className={styles.body}>
+                {user.isMyProfile && (
+                  <div
+                    style={{
+                      position: "sticky",
+                      display: currentSection === "your posts" ? "block" : "none"
+                    }}
+                    className={styles.side}
+                    ref={sidebarRef}
+                  >
+                    <div className={styles.stickyContent}>
+                      <Breif score={user.userScore} />
+                    </div>
+                  </div>
+                )}
+                <div className={`${currentSection === "your posts"
+                  ? styles.mainBody
+                  : styles.mainBodyWithoutSide
+                  }`}>
+                  {/* body content */}
+                  {currentSection === "your posts" && <FeedSection />}
+                  {currentSection === "events" && <EventSection user={user} />}
+                  {currentSection === "products" && <ProductSection username={username} user={user} />}
+                  {currentSection === "groups" && <Groups username={username} user={user} />}
+                  {currentSection === "pages" && <Pages username={username} user={user} />}
+                </div>
+              </div>
+            </>
+          ) : (
             <Settings setSettings={setSettings} />
-          </>
+          )
         )}
       </div>
     </>

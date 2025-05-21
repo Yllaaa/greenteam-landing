@@ -258,7 +258,7 @@ function Grpheader(props: { groupId: string }) {
             </button>
           )}
 
-          <button>Invite</button>
+
         </div>
       </div>
       {!editState && <AddNew />}
