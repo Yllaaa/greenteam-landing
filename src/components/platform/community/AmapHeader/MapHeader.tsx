@@ -16,6 +16,8 @@ import {
 } from "@/store/features/communitySection/currentCommunity";
 import { FaSearch, FaTimesCircle, FaExclamationTriangle } from "react-icons/fa";
 import { IoMdArrowDropdown } from "react-icons/io";
+// Add these imports for the enhanced UI
+import { FaFilter, FaCheck, FaMapMarkerAlt, FaGlobe, FaTag, FaShieldAlt } from "react-icons/fa";
 
 interface CountryData {
   lat: number;
@@ -50,6 +52,9 @@ export default function MapHeader() {
 
   const [error, setError] = useState<string | null>(null);
   const [countryData, setCountryData] = useState<CountryData | null>(null);
+
+  const [verificationFilter, setVerificationFilter] = useState<string>("all");
+
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
@@ -124,6 +129,7 @@ export default function MapHeader() {
     setCitySearchText("");
     setSelectedCategory(undefined);
     setError(null);
+    setVerificationFilter("all");
 
     // Reset Redux state
     dispatch(resetDestination());
@@ -304,6 +310,12 @@ export default function MapHeader() {
     shouldUpdateMap.current = true;
   };
 
+  const handleVerificationFilterChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setVerificationFilter(value);
+    dispatch(setCurrentDestination({ verificationStatus: value }));
+  };
+
   // Handle category selection
   const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
@@ -319,8 +331,188 @@ export default function MapHeader() {
   };
 
   // Check if any filters are applied
-  const hasActiveFilters = countryId !== undefined || selectedCategory !== undefined;
+  // const hasActiveFilters = countryId !== undefined || selectedCategory !== undefined;
+  // Update the hasActiveFilters check to include verification filter
+  const hasActiveFilters =
+    countryId !== undefined ||
+    selectedCategory !== undefined ||
+    verificationFilter !== "all";
 
+  return (
+    <div className={styles.container}>
+      <main className={styles.main}>
+        <div className={styles.searchContainer}>
+          <div className={styles.filterHeader}>
+            <FaFilter className={styles.filterIcon} />
+            <h2>Filters</h2>
+            {hasActiveFilters && (
+              <div className={styles.activeFiltersCount}>
+                {(countryId ? 1 : 0) +
+                  (selectedCityId ? 1 : 0) +
+                  (selectedCategory ? 1 : 0) +
+                  (verificationFilter !== "all" ? 1 : 0)}
+              </div>
+            )}
+          </div>
+
+          <div className={styles.searchBox}>
+            {/* COUNTRY */}
+            <div className={styles.formGroup}>
+              <label className={styles.filterLabel}>
+                <FaGlobe className={styles.labelIcon} />
+                <span>Country</span>
+              </label>
+              <select
+                className={`${styles.select} ${countryId ? styles.activeSelect : ''}`}
+                onChange={handleCountryChange}
+                value={countryId || ""}
+              >
+                <option value="" disabled>Select a country</option>
+                {countries.map((country) => (
+                  <option key={country.id} value={country.id}>
+                    {country.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* CITY - With dropdown and search */}
+            <div className={styles.formGroup}>
+              <label className={styles.filterLabel}>
+                <FaMapMarkerAlt className={styles.labelIcon} />
+                <span>City</span>
+              </label>
+              <div className={styles.citySearchWrapper} ref={dropdownRef}>
+                <div
+                  className={`${styles.cityInputContainer} ${selectedCityId ? styles.activeInput : ''}`}
+                  onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
+                >
+                  <input
+                    type="text"
+                    placeholder={countryId ? "Search cities..." : "Select a country first"}
+                    className={styles.cityInput}
+                    value={citySearchText}
+                    onChange={(e) => {
+                      setCitySearchText(e.target.value);
+                      if (!isDropdownOpen) setIsDropdownOpen(true);
+                    }}
+                    disabled={!countryId}
+                  />
+                  <div className={styles.inputIcon}>
+                    {isDropdownOpen ? (
+                      <FaSearch className={styles.icon} />
+                    ) : (
+                      <IoMdArrowDropdown className={styles.icon} />
+                    )}
+                  </div>
+                </div>
+
+                {isDropdownOpen && countryId && (
+                  <div className={styles.cityDropdown}>
+                    {cities.length > 0 ? (
+                      cities.map((city) => (
+                        <div
+                          key={city.id}
+                          className={`${styles.cityOption} ${selectedCityId === city.id ? styles.selectedOption : ""}`}
+                          onClick={() => handleCitySelect(city.id, city.name)}
+                        >
+                          {city.name}
+                          {selectedCityId === city.id && <FaCheck className={styles.checkIcon} />}
+                        </div>
+                      ))
+                    ) : (
+                      <div className={styles.noResults}>
+                        {citySearchText ? "No cities found" : "Type to search cities"}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* CATEGORY */}
+            <div className={styles.formGroup}>
+              <label className={styles.filterLabel}>
+                <FaTag className={styles.labelIcon} />
+                <span>Category</span>
+              </label>
+              <select
+                className={`${styles.select} ${selectedCategory ? styles.activeSelect : ''}`}
+                onChange={handleCategoryChange}
+                value={selectedCategory || ""}
+              >
+                <option value="" disabled>Select a category</option>
+                <option value="local">Local</option>
+                <option value="online">Online</option>
+              </select>
+            </div>
+
+            {/* VERIFICATION FILTER */}
+            <div className={styles.formGroup}>
+              <label className={styles.filterLabel}>
+                <FaShieldAlt className={styles.labelIcon} />
+                <span>Verification</span>
+              </label>
+              <div className={styles.toggleFilter}>
+                <button
+                  className={`${styles.toggleButton} ${verificationFilter === "all" ? styles.activeToggle : ''}`}
+                  onClick={() => {
+                    setVerificationFilter("all");
+                    dispatch(setCurrentDestination({ verificationStatus: "all" }));
+                  }}
+                >
+                  All Content
+                </button>
+                <button
+                  className={`${styles.toggleButton} ${verificationFilter === "verified" ? styles.activeToggle : ''}`}
+                  onClick={() => {
+                    setVerificationFilter("verified");
+                    dispatch(setCurrentDestination({ verificationStatus: "verified" }));
+                  }}
+                >
+                  Verified Only
+                </button>
+              </div>
+            </div>
+
+            {/* RESET FILTERS BUTTON */}
+            {hasActiveFilters && (
+              <button
+                className={styles.resetButton}
+                onClick={handleResetFilters}
+                title="Reset all filters"
+              >
+                <FaTimesCircle className={styles.resetIcon} />
+                <span>Clear All Filters</span>
+              </button>
+            )}
+
+            {/* Styled Error Message */}
+            {error && (
+              <div className={styles.errorContainer}>
+                <div className={styles.errorContent}>
+                  <FaExclamationTriangle className={styles.errorIcon} />
+                  <span className={styles.errorText}>{error}</span>
+                </div>
+                <button
+                  className={styles.errorDismiss}
+                  onClick={dismissError}
+                  title="Dismiss"
+                >
+                  <FaTimesCircle />
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
+
+        <div className={styles.allMapContainer}>
+          <div className={styles.mapOverlay}></div>
+          <div ref={mapRef} className={styles.mapContainer}></div>
+        </div>
+      </main>
+    </div>
+  );
   return (
     <div className={styles.container}>
       <main className={styles.main}>
@@ -409,7 +601,17 @@ export default function MapHeader() {
                 <option value="online">Online</option>
               </select>
             </div>
-
+            {/* VERIFICATION FILTER - Add this new section */}
+            <div className={styles.formGroup}>
+              <select
+                className={`${styles.select}`}
+                onChange={handleVerificationFilterChange}
+                value={verificationFilter}
+              >
+                <option value="all">All Content</option>
+                <option value="verified">Verified Only</option>
+              </select>
+            </div>
             {/* RESET FILTERS BUTTON */}
             {hasActiveFilters && (
               <button
