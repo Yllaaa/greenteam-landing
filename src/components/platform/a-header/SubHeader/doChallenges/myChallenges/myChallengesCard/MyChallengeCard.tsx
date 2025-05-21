@@ -2,7 +2,7 @@
 "use client";
 import React, { useCallback, useEffect, useMemo } from "react";
 import styles from "./MyChallengeCard.module.css";
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
+// import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useRouter } from "next/navigation";
@@ -10,8 +10,8 @@ import { useLocale } from "next-intl";
 import { Post } from "../types/doChallenges.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
-import { useAppDispatch } from "@/store/hooks";
-import { setUpdateState } from "@/store/features/update/updateSlice";
+// import { useAppDispatch } from "@/store/hooks";
+// import { setUpdateState } from "@/store/features/update/updateSlice";
 
 type Props = {
   ref: any;
@@ -32,6 +32,7 @@ type Props = {
       mediaType: string;
     }[]>
   >;
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -46,12 +47,13 @@ function MyChallengeCard(props: Props) {
     index,
     length,
     setPostMedia,
+    setAddNew
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
   const router = useRouter();
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
   const [isMounted, setIsMounted] = React.useState(false);
   // API base URL constant
@@ -156,27 +158,29 @@ function MyChallengeCard(props: Props) {
   );
 
   const handleDoIt = () => {
-    try {
-      axios
-        .put(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/mark-as-done`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(setUpdateState());
-          console.log(res.data);
-          ToastNot("Challenge Accepted");
-        });
-    } catch (err) {
-      console.error("Error handling do it:", err);
-    }
+    setAddNew(true)
+    setPostId(challenge.id)
+    // try {
+    //   axios
+    //     .put(
+    //       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/mark-as-done`,
+    //       {},
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${accessToken}`,
+    //           "Access-Control-Allow-Origin": "*",
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       dispatch(setUpdateState());
+    //       console.log(res.data);
+    //       ToastNot("Challenge Accepted");
+    //     });
+    // } catch (err) {
+    //   console.error("Error handling do it:", err);
+    // }
   };
 
   return (

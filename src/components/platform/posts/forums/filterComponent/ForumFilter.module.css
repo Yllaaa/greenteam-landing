@@ -28,17 +28,13 @@
 .filterSection ul li {
   text-transform: capitalize;
   cursor: pointer;
+  font-weight: 700;
+  font-size: 20px;
   font-family: Montserrat;
-  font-weight: 400;
-  font-size: 24px;
-  line-height: 33.6px;
+  line-height: 140%;
   letter-spacing: 1%;
+  text-wrap: nowrap;
   opacity: 0.5;
-  transition: all 0.4s;
-  -webkit-transition: all 0.4s;
-  -moz-transition: all 0.4s;
-  -ms-transition: all 0.4s;
-  -o-transition: all 0.4s;
 }
 .filterSection ul li:hover {
   opacity: 1;

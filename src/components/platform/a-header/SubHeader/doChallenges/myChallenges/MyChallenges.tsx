@@ -138,6 +138,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { useTranslations } from "use-intl";
 
+
 function MyChallenges(props: DoMainProps) {
   const {
     setCommentModal,
@@ -146,6 +147,7 @@ function MyChallenges(props: DoMainProps) {
     commentPage,
     setCommentPage,
     setPostMedia,
+    setAddNew
   } = props;
 
   const token = getToken();
@@ -243,6 +245,7 @@ function MyChallenges(props: DoMainProps) {
                 setCommentPage={setCommentPage}
                 postId={challenge.id}
                 setPostMedia={setPostMedia}
+                setAddNew={setAddNew}
               />
             </div>
           </div>
@@ -266,7 +269,8 @@ function MyChallenges(props: DoMainProps) {
           <p>No challenges found</p>
         </div>
       )}
-    </div>
+      </div>
+      
     </div>
   );
 }

@@ -35,6 +35,7 @@ type Props = {
       mediaType: string;
     }[]>
   >;
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 function SubHeaderRes(props: Props) {
@@ -52,6 +53,7 @@ function SubHeaderRes(props: Props) {
     setPostId,
     commentModal,
     setPostMedia,
+    setAddNew,
   } = props;
   const user = useAppSelector((state) => state.login.user?.user)?.username;
 
@@ -72,7 +74,7 @@ function SubHeaderRes(props: Props) {
     {
       icon: post,
       title: `${t("posts")}`,
-     href: `/profile/${user}`,
+      href: `/profile/${user}`,
     },
     {
       icon: addNew,
@@ -145,6 +147,7 @@ function SubHeaderRes(props: Props) {
             setPostId={setPostId}
             commentModal={commentModal}
             setPostMedia={setPostMedia}
+            setAddNew={setAddNew}
           />
         </Suspense>
       </div>

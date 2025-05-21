@@ -8,6 +8,7 @@ import SubHeaderRes from "./Body/Responsive/SubHeaderRes";
 import { CommentModal } from "@/components/platform/posts/feeds/commentModal/CommentModal";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import AddNewModal from './doChallenges/myChallenges/modal/addNew/AddNewModal';
 function SubHeader() {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -19,7 +20,7 @@ function SubHeader() {
   const [repliesPage, setRepliesPage] = React.useState(1);
   const [rerender, setRerender] = React.useState(false);
   const [userReactions, setUserReactions] = React.useState([]);
-const [postMedia, setPostMedia] = React.useState<
+  const [postMedia, setPostMedia] = React.useState<
     {
       id: string;
       mediaUrl: string;
@@ -42,6 +43,8 @@ const [postMedia, setPostMedia] = React.useState<
       });
   }, []);
 
+  const [addNew, setAddNew] = React.useState(false);
+
   return (
     <>
       {/* web */}
@@ -61,6 +64,7 @@ const [postMedia, setPostMedia] = React.useState<
           rerender={rerender}
           setPostId={setPostId}
           userReactions={userReactions}
+          setAddNew={setAddNew}
         />
       </div>
       {/* responsive */}
@@ -79,6 +83,7 @@ const [postMedia, setPostMedia] = React.useState<
           setRerender={setRerender}
           rerender={rerender}
           setPostId={setPostId}
+          setAddNew={setAddNew}
         />
       </div>
       {commentModal && (
@@ -94,6 +99,14 @@ const [postMedia, setPostMedia] = React.useState<
           setRerender={setRerender}
           rerender={rerender}
           postMedia={postMedia}
+        />
+      )}
+      {addNew && (
+        <AddNewModal
+          setAddNew={setAddNew}
+
+          addNew={addNew}
+          challengeId={postId}
         />
       )}
     </>

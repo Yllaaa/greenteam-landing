@@ -40,6 +40,7 @@ type Props = {
       }[]
     >
   >;
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>
 };
 function SubHeaderWeb(props: Props) {
   const {
@@ -57,6 +58,7 @@ function SubHeaderWeb(props: Props) {
     commentModal,
     userReactions,
     setPostMedia,
+    setAddNew
   } = props;
   const user = useAppSelector((state) => state.login.user?.user)?.username;
   const locale = useLocale();
@@ -151,6 +153,7 @@ function SubHeaderWeb(props: Props) {
                 setPostId={setPostId}
                 commentModal={commentModal}
                 setPostMedia={setPostMedia}
+                setAddNew={setAddNew}
               />
             </Suspense>
           </div>
@@ -173,7 +176,6 @@ function SubHeaderWeb(props: Props) {
           </div>
         ))}
         <div className={styles.link}>
-
             <Breif/>
         </div>
       </div>
