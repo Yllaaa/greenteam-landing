@@ -5,9 +5,9 @@ $max-width: 768px;
   cursor: pointer;
   width: 100%;
   height: 100%;
-  // display: flex;
-  // align-items: center;
-  // justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   &:hover .chatIcon {
     color: #97b00f;

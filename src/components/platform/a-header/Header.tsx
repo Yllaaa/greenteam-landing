@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useEffect, useState, useCallback } from "react";
@@ -11,6 +12,7 @@ import drop from "@/../public/ZPLATFORM/A-Header/navIcons/dropArrow.svg";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoIosAddCircle } from "react-icons/io";
+import { FaBars, FaTimes } from "react-icons/fa";
 import {
   clearUserLoginData,
   setUserLoginData,
@@ -36,43 +38,29 @@ function Header() {
   const [userToken, setUserToken] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [addPost, setAddPost] = useState(false);
-  // Scroll handling state
-  // const [isHeaderVisible, setIsHeaderVisible] = useState(true);
-  // const lastScrollY = useRef(0);
-  // const scrollThreshold = 30; // Minimum scroll amount before hiding/showing
+  const [windowWidth, setWindowWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 768
+  );
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
 
-  // Handle scroll events
-  // const handleScroll = useCallback(() => {
-  //   const currentScrollY = window.scrollY;
+  // Handle window resize
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      // Close mobile menu if window is resized larger
+      if (window.innerWidth > 768) {
+        setMobileMenuOpen(false);
+      }
+    };
 
-  //   // Only check if we've scrolled more than threshold
-  //   if (Math.abs(currentScrollY - lastScrollY.current) > scrollThreshold) {
-  //     // Scrolling down - hide header
-  //     if (currentScrollY > lastScrollY.current) {
-  //       setIsHeaderVisible(false);
-  //     }
-  //     // Scrolling up - show header
-  //     else {
-  //       setIsHeaderVisible(true);
-  //     }
-
-  //     // Update last scroll position
-  //     lastScrollY.current = currentScrollY;
-  //   }
-  // }, []);
-
-  // Add scroll event listener
-  // useEffect(() => {
-  //   // Use passive: true for better scroll performance
-  //   window.addEventListener("scroll", handleScroll, { passive: true });
-
-  //   return () => {
-  //     window.removeEventListener("scroll", handleScroll);
-  //   };
-  // }, [handleScroll]);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   // Mounted effect
   useEffect(() => {
@@ -93,6 +81,9 @@ function Header() {
 
     // Clear any other user-related data
     localStorage.removeItem("user");
+
+    // Close mobile menu if open
+    setMobileMenuOpen(false);
 
     // Redirect to /locale route
     router.replace(`/${locale}`);
@@ -142,9 +133,9 @@ function Header() {
 
   // Close dropdown when clicking outside
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: any) => {
       const dropdownElement = document.querySelector(`.${styles.headerMenu}`);
-      if (dropdownElement && !dropdownElement.contains(event.target as Node)) {
+      if (dropdownElement && !dropdownElement.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
@@ -157,41 +148,63 @@ function Header() {
 
   const handleAddPost = () => {
     setAddPost(!addPost);
-  }
+    setMobileMenuOpen(false); // Close mobile menu when opening add post
+  };
 
-  // Handle direct navigation to user profile
-  // const goToProfile = () => {
-  //   if (user?.username) {
-  //     router.push(`/${locale}/profile/${user.username}`);
-  //   }
-  // };
+  const handleMenuItemClick = (path: string) => {
+    router.push(path);
+    setMobileMenuOpen(false); // Close mobile menu after navigation
+  };
 
   return (
     <>
       <div className={styles.spacer}></div>
-      <div style={{zIndex: "9999"}} className={`${styles.container} ${styles.headerVisible}`}>
+      <div
+        style={{ zIndex: "9999" }}
+        className={styles.container}
+      >
         <div className={styles.logos}>
-          <div className={styles.footLogo}>
-            <Image
-              onClick={() => router.push(`/${locale}/feeds`)}
-              src={FootLogo}
-              alt="Logo"
-            />
+          <div className={styles.logoItem}>
+            <div className={styles.footLogo}>
+              <Image
+                onClick={() => router.push(`/${locale}/feeds`)}
+                src={FootLogo}
+                alt="Logo"
+                width={60}
+                height={60}
+              />
+            </div>
           </div>
-          <div onClick={() => router.push(`/${locale}/community`)} className={styles.handsLogo}>
-            <Image
-              src={handsLogo}
-              alt="community"
-            />
-            <p>Community</p>
-          </div>
-          <div onClick={() => router.push(`/${locale}/favorite`)} className={styles.starFav}>
-            <FaStar fill="yellow" />
-            <p>Favorite</p>
-          </div>
+
+          {windowWidth > 768 && (
+            <>
+              <div className={styles.logoItem}>
+                <div onClick={() => router.push(`/${locale}/community`)} className={styles.handsLogo}>
+                  <Image src={handsLogo} alt="community" width={60} height={48} />
+                  <p>Community</p>
+                </div>
+              </div>
+
+              <div className={styles.logoItem}>
+                <div onClick={() => router.push(`/${locale}/favorite`)} className={styles.starFav}>
+                  <FaStar size={100} color="yellow" />
+                  <p>Favorite</p>
+                </div>
+              </div>
+            </>
+          )}
         </div>
 
         <div className={styles.profile}>
+          {windowWidth <= 768 && (
+            <div
+              className={styles.mobileMenuToggle}
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            >
+              {mobileMenuOpen ? <FaTimes /> : <FaBars />}
+            </div>
+          )}
+
           <div className={styles.icons}>
             <div onClick={handleAddPost} className={styles.notification}>
               <IoIosAddCircle />
@@ -203,15 +216,15 @@ function Header() {
               <ChatIcon />
             </div>
           </div>
-          <div className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}>
+
+          <div
+            className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}
+          >
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
               className={styles.profileIcon}
             >
-              <div
-                // onClick={goToProfile}
-                className={styles.userProfile}
-              >
+              <div className={styles.userProfile}>
                 <div className={styles.avatar}>
                   {user && user?.avatar !== null ? (
                     <Image
@@ -231,25 +244,70 @@ function Header() {
                 </div>
               </div>
               <div
-                className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed}`}
+                className={`${styles.arrow} ${isDropdownOpen ? styles.arrowOpened : styles.arrowClosed
+                  }`}
               >
                 <Image src={drop} alt="arrow" />
               </div>
             </div>
-            {user &&
+            {user && (
               <ProfileMenu
                 isDropdownOpen={isDropdownOpen}
                 setIsDropdownOpen={setIsDropdownOpen}
                 handleLogout={handleLogout}
                 user={user}
               />
-            }
+            )}
           </div>
         </div>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      {mobileMenuOpen && windowWidth <= 768 && (
+        <div className={styles.mobileMenuOverlay}>
+          <div className={styles.mobileMenuContent}>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={() => handleMenuItemClick(`/${locale}/community`)}
+            >
+              <Image src={handsLogo} alt="community" width={24} height={24} />
+              <p>Community</p>
+            </div>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={() => handleMenuItemClick(`/${locale}/favorite`)}
+            >
+              <FaStar size={24} color="yellow" />
+              <p>Favorite</p>
+            </div>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={handleAddPost}
+            >
+              <IoIosAddCircle size={24} />
+              <p>Add Post</p>
+            </div>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={handleLogout}
+            >
+              <span className={styles.logoutIcon}>🚪</span>
+              <p>Logout</p>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Add Post Modal */}
       {addPost && (
-        <div className={modalStyles.modalOverlay} onClick={() => setAddPost(false)}>
-          <div className={modalStyles.modalContent} onClick={(e) => e.stopPropagation()}>
+        <div
+          className={modalStyles.modalOverlay}
+          onClick={() => setAddPost(false)}
+        >
+          <div
+            className={modalStyles.modalContent}
+            onClick={(e) => e.stopPropagation()}
+          >
             <button
               className={modalStyles.closeButton}
               onClick={() => setAddPost(false)}

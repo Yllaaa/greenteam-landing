@@ -128,7 +128,7 @@
   min-height: 591px;
   background: #333634;
   z-index: 9;
-  overflow: visible; /* Changed from 'hidden' to ensure menu is visible */
+  overflow: hidden; /* Changed from 'hidden' to ensure menu is visible */
   border-radius: 30px;
 }
 
@@ -348,7 +348,7 @@
 
 @media screen and (max-width: 768px) {
   .card {
-    min-width: 430px;
-    width: 430px;
+    min-width: 340px;
+    width: 340px;
   }
 }

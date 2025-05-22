@@ -1,12 +1,8 @@
-import { SetStateAction } from "react";
+import { SetStateAction } from 'react';
 
 export type eventFilterProps = {
   section: string;
   setPage: React.Dispatch<React.SetStateAction<number>>;
-  setSection: React.Dispatch<
-    SetStateAction<
-      "social" | "volunteering%26work" | "talks%26workshops" | "all"
-    >
-  >;
+  setSection: React.Dispatch<SetStateAction<string>>;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
