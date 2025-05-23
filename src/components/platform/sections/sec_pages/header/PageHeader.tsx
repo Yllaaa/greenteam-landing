@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import Image from "next/image";
 import React, { useEffect, useState, useRef, useCallback } from "react";
@@ -16,6 +15,7 @@ import { MdOutlineReportProblem } from "react-icons/md";
 import { FaTrash } from "react-icons/fa6";
 import { BsShieldSlash } from "react-icons/bs";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
+import { FaPlus } from "react-icons/fa";
 import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal";
 import ReportModal from "@/components/platform/modals/reportModal/ReportModal";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
@@ -30,15 +30,16 @@ function Pageheader(props: {
   setSettings: React.Dispatch<React.SetStateAction<boolean>>;
   settings: boolean;
 }) {
-  // const user = useAppSelector((state) => state.login.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { pageId, setSettings, settings } = props;
   const [data, setData] = React.useState<PageItem>({} as PageItem);
   const [initialFollow, setInitialFollow] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   // Options menu state
   const [showOptions, setShowOptions] = useState(false);
+  const [showMobileActions, setShowMobileActions] = useState(false);
 
   // Confirmation modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -47,19 +48,31 @@ function Pageheader(props: {
   // Report modal state
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
-  // Reference for dropdown menu (to handle clicks outside)
+  // References for dropdown menus (to handle clicks outside)
   const optionsMenuRef = useRef<HTMLDivElement>(null);
+  const mobileActionsRef = useRef<HTMLDivElement>(null);
 
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
 
   useEffect(() => {
-    getSinglePageItems(pageId).then((res) => {
-      dispatch(setCurrentPage(res));
-      setData(res);
-      setInitialFollow(res.isFollowing);
-    });
-  }, []);
+    const fetchData = async () => {
+      setLoading(true);
+      try {
+        const res = await getSinglePageItems(pageId);
+        dispatch(setCurrentPage(res));
+        setData(res);
+        setInitialFollow(res.isFollowing);
+      } catch (error) {
+        console.error("Error fetching page data:", error);
+        ToastNot("Failed to load page information");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, [pageId, dispatch]);
 
   // Close the options menu when clicking outside
   useEffect(() => {
@@ -69,6 +82,13 @@ function Pageheader(props: {
         !optionsMenuRef.current.contains(event.target as Node)
       ) {
         setShowOptions(false);
+      }
+
+      if (
+        mobileActionsRef.current &&
+        !mobileActionsRef.current.contains(event.target as Node)
+      ) {
+        setShowMobileActions(false);
       }
     }
 
@@ -82,10 +102,15 @@ function Pageheader(props: {
   const [addNewE, setAddNewE] = useState(false);
   const [addNewPost, setAddNewPost] = useState(false);
 
-  const handleFollow = () => {
-    postFllow(pageId).then((res) => {
+  const handleFollow = async () => {
+    try {
+      const res = await postFllow(pageId);
       setInitialFollow(res.followed);
-    });
+      ToastNot(res.followed ? "Following page" : "Unfollowed page");
+    } catch (error) {
+      console.error("Error following/unfollowing page:", error);
+      ToastNot("Failed to update follow status");
+    }
   };
 
   const handleSettingNavigation = () => {
@@ -95,6 +120,13 @@ function Pageheader(props: {
   // Toggle options menu
   const toggleOptionsMenu = () => {
     setShowOptions(prev => !prev);
+    if (showMobileActions) setShowMobileActions(false);
+  };
+
+  // Toggle mobile actions menu
+  const toggleMobileActions = () => {
+    setShowMobileActions(prev => !prev);
+    if (showOptions) setShowOptions(false);
   };
 
   // Handle delete action
@@ -113,7 +145,6 @@ function Pageheader(props: {
 
       if (response) {
         ToastNot("Page deleted successfully");
-
         router.back();
       }
     } catch (error) {
@@ -142,7 +173,6 @@ function Pageheader(props: {
 
       if (response) {
         ToastNot("Page blocked successfully");
-        // Redirect to pages list after blocking
         router.push('/pages');
       }
     } catch (error) {
@@ -151,6 +181,12 @@ function Pageheader(props: {
     }
   }, [pageId, accessToken, router]);
 
+  if (loading) {
+    return <div className={styles.loadingContainer}>
+      <div className={styles.loadingSpinner}></div>
+      <p>Loading page information...</p>
+    </div>;
+  }
 
   return (
     <>
@@ -160,8 +196,9 @@ function Pageheader(props: {
           <div
             onClick={toggleOptionsMenu}
             className={styles.optionsIcon}
+            aria-label="Page options"
           >
-            <PiDotsThreeCircleLight fill="#006633" />
+            <PiDotsThreeCircleLight />
           </div>
 
           {showOptions && (
@@ -173,6 +210,8 @@ function Pageheader(props: {
                     setShowOptions(false);
                   }}
                   className={styles.optionItem}
+                  role="button"
+                  aria-label="Delete page"
                 >
                   <FaTrash /> <span>Delete Page</span>
                 </div>
@@ -183,6 +222,8 @@ function Pageheader(props: {
                   setShowOptions(false);
                 }}
                 className={styles.optionItem}
+                role="button"
+                aria-label="Report page"
               >
                 <MdOutlineReportProblem /> <span>Report Page</span>
               </div>
@@ -192,155 +233,162 @@ function Pageheader(props: {
                   setShowOptions(false);
                 }}
                 className={styles.optionItem}
+                role="button"
+                aria-label="Block page"
               >
                 <BsShieldSlash /> <span>Block Page</span>
               </div>
             </div>
           )}
         </div>
+
         <div className={styles.coverSection}>
           <Image
             src={data.cover ? data.cover : cover}
-            alt={"cover"}
+            alt={`${data.name || 'Page'} cover image`}
             className={styles.coverImg}
             width={1000}
             height={1000}
-            loading="lazy"
+            priority
           />
         </div>
+
         <div className={styles.pageInfo}>
           <div className={styles.image}>
             <Image
               src={data.avatar ? data.avatar : cover}
-              alt={"cover"}
-              className={styles.coverImg}
-              loading="lazy"
+              alt={`${data.name || 'Page'} profile image`}
+              className={styles.profileImg}
               width={135}
               height={135}
+              loading="lazy"
             />
           </div>
-          <div className={styles.name}>
-            <p>{data.name}</p>
-          </div>
-
-          {/* Page options button
-          <div className={styles.pageOptions}>
-            <div
-              onClick={toggleOptionsMenu}
-              className={styles.optionsIcon}
-            >
-              <PiDotsThreeCircleLight fill="#006633" />
+          <div className={styles.nameContainer}>
+            <h1 className={styles.name}>{data.name}</h1>
+            <div className={styles.followButtonMobile}>
+              <button onClick={handleFollow} className={styles.likeBtn}>
+                {initialFollow ? "Unfollow" : "Follow"}
+              </button>
             </div>
-
-            {showOptions && (
-              <div ref={optionsMenuRef} className={styles.optionsMenu}>
-                {data.isAdmin && (
-                  <div
-                    onClick={() => {
-                      setIsDeleteModalOpen(true);
-                      setShowOptions(false);
-                    }}
-                    className={styles.optionItem}
-                  >
-                    <FaTrash /> <span>Delete Page</span>
-                  </div>
-                )}
-                <div
-                  onClick={() => {
-                    setIsReportModalOpen(true);
-                    setShowOptions(false);
-                  }}
-                  className={styles.optionItem}
-                >
-                  <MdOutlineReportProblem /> <span>Report Page</span>
-                </div>
-                <div
-                  onClick={() => {
-                    setIsBlockModalOpen(true);
-                    setShowOptions(false);
-                  }}
-                  className={styles.optionItem}
-                >
-                  <BsShieldSlash /> <span>Block Page</span>
-                </div>
-              </div>
-            )}
-          </div> */}
+          </div>
         </div>
       </div>
+
       <div className={styles.header}>
+        {data.isAdmin && (
+          <div className={styles.mobileActionsToggle} onClick={toggleMobileActions}>
+            <FaPlus />
+            <span>Actions</span>
+          </div>
+        )}
+
+        {showMobileActions && data.isAdmin && (
+          <div ref={mobileActionsRef} className={styles.mobileActionsMenu}>
+            <div onClick={() => {
+              setAddNewPost(!addNewPost);
+              setShowMobileActions(false);
+            }}>Add Post</div>
+            <div onClick={() => {
+              setAddNewP(!addNewP);
+              setShowMobileActions(false);
+            }}>Add Product</div>
+            <div onClick={() => {
+              setAddNewE(!addNewE);
+              setShowMobileActions(false);
+            }}>Add Event</div>
+          </div>
+        )}
+
         <div className={styles.headerContent}>
-          <div className={styles.headerWhy}>
-            <h5>Why:</h5>
-            <h6>{data.why}</h6>
-          </div>
-          <div className={styles.headerHow}>
-            <h5>How:</h5>
-            <h6>{data.how}</h6>
-          </div>
-          <div className={styles.headerWhat}>
-            <h5>What:</h5>
-            <h6>{data.what}</h6>
-          </div>
-          <div className={styles.headerWhat}>
-            <h5>Description:</h5>
-            <h6>{data.description}</h6>
-          </div>
-          <div className={styles.headerWhat}>
+          {data.why && (
+            <div className={styles.infoItem}>
+              <h5>Why:</h5>
+              <h6>{data.why}</h6>
+            </div>
+          )}
+
+          {data.how && (
+            <div className={styles.infoItem}>
+              <h5>How:</h5>
+              <h6>{data.how}</h6>
+            </div>
+          )}
+
+          {data.what && (
+            <div className={styles.infoItem}>
+              <h5>What:</h5>
+              <h6>{data.what}</h6>
+            </div>
+          )}
+
+          {data.description && (
+            <div className={styles.infoItem}>
+              <h5>Description:</h5>
+              <h6>{data.description}</h6>
+            </div>
+          )}
+
+          <div className={styles.infoItem}>
             <h5>Website:</h5>
-            {data.websiteUrl ?
-              <h6 style={{ cursor: "pointer" }} >
+            {data.websiteUrl ? (
+              <h6>
                 {linkifyText(data.websiteUrl, {
                   className: linkifyStyles['content-link'],
-                  target: "_blank"
+                  target: "_blank",
+                  rel: "noopener noreferrer"
                 })}
               </h6>
-              : <h6>No Website</h6>
-            }
+            ) : (
+              <h6>No Website</h6>
+            )}
           </div>
         </div>
+
         <div className={styles.headerActions}>
           <div className={styles.headerAddBtns}>
-            {/* Add Post button - only for admins */}
             {data.isAdmin && (
-              <button
-                onClick={() => setAddNewPost(!addNewPost)}
-                className={styles.addPost}
-              >
-                Add Post
-              </button>
-            )}
-
-            {data.isAdmin && (
-              <button
-                onClick={() => setAddNewP(!addNewP)}
-                className={styles.addProduct}
-              >
-                Add Product
-              </button>
-            )}
-            {data.isAdmin && (
-              <button
-                onClick={() => setAddNewE(!addNewE)}
-                className={styles.addEvent}
-              >
-                Add Event
-              </button>
+              <>
+                <button
+                  onClick={() => setAddNewPost(!addNewPost)}
+                  className={styles.addPost}
+                >
+                  Add Post
+                </button>
+                <button
+                  onClick={() => setAddNewP(!addNewP)}
+                  className={styles.addProduct}
+                >
+                  Add Product
+                </button>
+                <button
+                  onClick={() => setAddNewE(!addNewE)}
+                  className={styles.addEvent}
+                >
+                  Add Event
+                </button>
+              </>
             )}
           </div>
+
           <div className={styles.headerLike}>
             <button onClick={handleFollow} className={styles.likeBtn}>
               {initialFollow ? "Unfollow" : "Follow"}
             </button>
           </div>
         </div>
+
         {data.isAdmin && (
-          <div onClick={handleSettingNavigation} className={styles.settings}>
+          <div
+            onClick={handleSettingNavigation}
+            className={styles.settings}
+            aria-label="Page settings"
+          >
             <IoMdSettings />
           </div>
         )}
       </div>
-      {/* <AddNew /> */}
+
       {addNewP && <AddNewProduct setAddNew={setAddNewP} userType="page" />}
       {addNewE && <AddNewEvent setAddNew={setAddNewE} userType="page" />}
       {addNewPost && data.isAdmin && (
@@ -385,7 +433,6 @@ function Pageheader(props: {
         reportedType="page"
         title="Talk about the issue you are facing with this page"
         successCallback={() => {
-          // Optional success callback
           ToastNot("Thank you for your report");
         }}
       />
