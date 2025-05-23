@@ -1,10 +1,44 @@
 $max-width: 1024px;
+$tablet-width: 768px;
+$mobile-width: 480px;
+
+$primary-color: #97b00f;
+$secondary-color: #363636;
+$accent-color: darken($primary-color, 10%);
+$text-on-dark: $primary-color;
+$text-on-light: $secondary-color;
+$error-color: #d24d4d;
+$disabled-color: rgba($secondary-color, 0.5);
+
+@mixin box-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+@mixin transition {
+  transition: all 0.25s ease-in-out;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
 
 .container {
   height: fit-content;
   min-height: 432px;
   width: 100%;
   margin-bottom: 32px;
+  position: relative;
 }
 
 .main {
@@ -12,272 +46,476 @@ $max-width: 1024px;
   margin: 0 auto;
   position: relative;
   z-index: 10;
-  .searchContainer {
-    width: 326px;
-    height: 100%;
-    overflow-y: auto;
+}
+
+// Mobile filter toggle - new element
+.mobileFilterToggle {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 20px;
+  background-color: $primary-color;
+  color: $text-on-light;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  z-index: 20;
+  @include box-shadow;
+  
+  .filterIcon {
+    margin-right: 10px;
+  }
+  
+  .chevronIcon {
+    transition: transform 0.3s ease;
+  }
+  
+  .activeFiltersCount {
+    background-color: $secondary-color;
+    color: $text-on-dark;
+    font-size: 12px;
+    font-weight: bold;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 50px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: #97b00f;
-    z-index: 10;
+    align-items: center;
+    justify-content: center;
+    margin-left: 10px;
+  }
+  
+  @media screen and (max-width: $tablet-width) {
+    display: flex;
+  }
+}
+
+.searchContainer {
+  width: 350px;
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 30px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: $primary-color;
+  z-index: 15;
+  padding: 25px;
+  border-radius: 0 0 15px 0;
+  @include box-shadow;
+  animation: fadeIn 0.3s ease-out;
+  
+  @media screen and (max-width: $tablet-width) {
+    width: 100%;
+    height: auto;
+    max-height: 80vh;
+    overflow-y: auto;
+    top: auto;
+    position: relative;
+    border-radius: 0;
     padding: 20px;
-    p {
-      font-family: Montserrat;
+    gap: 20px;
+    
+    &.mobileHidden {
+      display: none;
+    }
+    
+    &.mobileVisible {
+      display: flex;
+      animation: slideUp 0.3s ease-out;
+    }
+  }
+  
+  .filterHeader {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+    
+    h2 {
+      font-family: Montserrat, sans-serif;
       font-weight: 700;
       font-size: 24px;
-      line-height: 100%;
-      letter-spacing: 0%;
-      text-align: center;
-      vertical-align: middle;
-      color: #363636;
-      @media screen and (max-width: $max-width) {
-        margin-bottom: 25px;
+      color: $text-on-light;
+      margin: 0 10px;
+    }
+    
+    .filterIcon {
+      font-size: 20px;
+      color: $text-on-light;
+    }
+    
+    .activeFiltersCount {
+      position: absolute;
+      right: 0;
+      top: 0;
+      background-color: $secondary-color;
+      color: $text-on-dark;
+      font-size: 12px;
+      font-weight: bold;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: pulse 2s infinite;
+    }
+    
+    @media screen and (max-width: $tablet-width) {
+      h2 {
+        font-size: 20px;
       }
     }
-    @media screen and (max-width: $max-width) {
-      width: 100%;
-      height: fit-content;
-      top: auto;
-      bottom: 0;
-      padding: 20px 20px 30px 20px; // Added more padding at bottom for mobile
+  }
+  
+  .searchBox {
+    z-index: 16;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    
+    @media screen and (max-width: $mobile-width) {
+      gap: 15px;
     }
-    .searchBox {
-      z-index: 11;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      position: relative;
-      flex-direction: column;
-      gap: 24px;
-      .formGroup {
-        display: flex;
-        flex-direction: column;
-        gap: 8px;
+  }
+}
 
-        .label {
-          font-size: 14px;
-          color: #006633;
-        }
-        .input {
-          width: 100%;
-          padding: 10px;
-          margin-bottom: 10px;
-          border: none;
-          background-color: #363636;
-          color: #97b00f;
-          border-radius: 10px;
-          -webkit-border-radius: 10px;
-          -moz-border-radius: 10px;
-          -ms-border-radius: 10px;
-          -o-border-radius: 10px;
-        }
-        .select {
-          width: 100%;
-          height: 73px;
-          padding: 15px;
-          border: none;
-          background-color: #363636;
-          color: #97b00f;
-          border-radius: 10px;
-          -webkit-border-radius: 10px;
-          -moz-border-radius: 10px;
-          -ms-border-radius: 10px;
-          -o-border-radius: 10px;
+// Enhanced form groups
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+  
+  .filterLabel {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-on-light;
+    margin-bottom: 4px;
+    
+    .labelIcon {
+      margin-right: 8px;
+      font-size: 16px;
+    }
+    
+    .infoIcon {
+      margin-left: 8px;
+      font-size: 14px;
+      opacity: 0.7;
+      cursor: help;
+      
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+  
+  .selectWrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .select {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    border: 2px solid transparent;
+    background-color: $secondary-color;
+    color: $text-on-dark;
+    border-radius: 10px;
+    font-size: 15px;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%2397b00f' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    cursor: pointer;
+    @include transition;
+    
+    &:focus {
+      border-color: $primary-color;
+      outline: none;
+    }
+    
+    option {
+      background-color: $secondary-color;
+      color: $text-on-dark;
+      padding: 10px;
+    }
+  }
+  
+  .loadingSelect {
+    width: 100%;
+    height: 50px;
+    padding: 0 15px;
+    background-color: $secondary-color;
+    color: $text-on-dark;
+    border-radius: 10px;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.8;
+    
+    .spinnerIcon {
+      margin-right: 10px;
+      animation: spin 1s linear infinite;
+    }
+  }
+  
+  .activeSelect, .activeInput {
+    border-left: 4px solid $primary-color !important;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .disabledInput {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  
+  // City search styles
+  .citySearchWrapper {
+    position: relative;
+    width: 100%;
+    
+    .cityInputContainer {
+      position: relative;
+      width: 100%;
+      cursor: pointer;
+      
+      .cityInput {
+        width: 100%;
+        height: 50px;
+        padding: 0 40px 0 15px;
+        border: 2px solid transparent;
+        background-color: $secondary-color;
+        color: $text-on-dark;
+        border-radius: 10px;
+        font-size: 15px;
+        @include transition;
+        
+        &:focus {
+          border-color: $primary-color;
+          outline: none;
         }
         
-        // New city search dropdown styles
-        .citySearchWrapper {
-          position: relative;
-          width: 100%;
-          
-          .cityInputContainer {
-            position: relative;
-            width: 100%;
-            cursor: pointer;
-            
-            .cityInput {
-              width: 100%;
-              height: 73px;
-              padding: 15px;
-              padding-right: 40px;
-              border: none;
-              background-color: #363636;
-              color: #97b00f;
-              border-radius: 10px;
-              cursor: pointer;
-              
-              &:disabled {
-                opacity: 0.7;
-                cursor: not-allowed;
-              }
-            }
-            
-            .inputIcon {
-              position: absolute;
-              right: 15px;
-              top: 50%;
-              transform: translateY(-50%);
-              color: #97b00f;
-              
-              .icon {
-                width: 20px;
-                height: 20px;
-              }
-            }
-          }
-          
-          .cityDropdown {
-            position: absolute;
-            top: 75px;
-            left: 0;
-            width: 100%;
-            max-height: 300px;
-            overflow-y: auto;
-            background-color: #363636;
-            border-radius: 10px;
-            z-index: 12;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            
-            .cityOption {
-              padding: 12px 15px;
-              cursor: pointer;
-              color: #97b00f;
-              
-              &:hover {
-                background-color: #444444;
-              }
-            }
-            
-            .selectedOption {
-              background-color: #444444;
-              font-weight: bold;
-            }
-            
-            .noResults {
-              padding: 15px;
-              text-align: center;
-              color: #97b00f;
-              font-style: italic;
-            }
-            
-            &::-webkit-scrollbar {
-              width: 8px;
-            }
-            
-            &::-webkit-scrollbar-track {
-              background: #363636;
-              border-radius: 10px;
-            }
-            
-            &::-webkit-scrollbar-thumb {
-              background: #97b00f;
-              border-radius: 10px;
-            }
-          }
+        &:disabled {
+          cursor: not-allowed;
+          opacity: 0.7;
+        }
+        
+        &::placeholder {
+          color: rgba($text-on-dark, 0.5);
+        }
+      }
+      
+      .inputIcon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-on-dark;
+        
+        .icon {
+          width: 16px;
+          height: 16px;
+        }
+        
+        .spinnerIcon {
+          animation: spin 1s linear infinite;
+        }
+      }
+    }
+    
+    .cityDropdown {
+      position: absolute;
+      top: 55px;
+      left: 0;
+      width: 100%;
+      max-height: 250px;
+      overflow-y: auto;
+      background-color: $secondary-color;
+      border-radius: 10px;
+      z-index: 20;
+      @include box-shadow;
+      animation: slideDown 0.2s ease-out;
+      
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: $secondary-color;
+        border-radius: 10px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: $primary-color;
+        border-radius: 10px;
+      }
+      
+      .cityOption {
+        padding: 12px 15px;
+        cursor: pointer;
+        color: $text-on-dark;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        @include transition;
+        
+        &:hover {
+          background-color: rgba($primary-color, 0.1);
+        }
+        
+        .checkIcon {
+          font-size: 14px;
+        }
+      }
+      
+      .selectedOption {
+        background-color: rgba($primary-color, 0.2);
+        font-weight: 600;
+      }
+      
+      .noResults {
+        padding: 15px;
+        text-align: center;
+        color: rgba($text-on-dark, 0.7);
+        font-style: italic;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        .dropdownSpinner {
+          margin-right: 10px;
+          animation: spin 1s linear infinite;
         }
       }
     }
   }
-  .allMapContainer {
+  
+  // Toggle filter buttons
+  .toggleFilter {
+    display: flex;
     width: 100%;
-    height: 432px;
-    border: 2px solid #97b00f;
+    background-color: $secondary-color;
+    border-radius: 10px;
     overflow: hidden;
-    position: relative;
-    z-index: 9;
-    @media screen and (max-width: $max-width) {
-      height: 864px; // Consider increasing this for the additional form element
+    height: 50px;
+    @include box-shadow;
+    
+    .toggleButton {
+      flex: 1;
+      background: none;
+      border: none;
+      padding: 0 12px;
+      color: $text-on-dark;
+      font-size: 14px;
+      cursor: pointer;
+      @include transition;
+      
+      &:hover {
+        background-color: rgba($primary-color, 0.1);
+      }
+      
+      &:first-child {
+        border-right: 1px solid darken($secondary-color, 5%);
+      }
     }
-    .mapOverlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: transparent;
-      z-index: 10;
+    
+    .activeToggle {
+      background-color: rgba($primary-color, 0.2);
+      font-weight: 600;
     }
-    .mapContainer {
-      width: 100%;
-      height: 100%;
-      border: 2px solid #97b00f;
-      overflow: hidden;
-      position: relative;
-      z-index: 1;
+  }
+  
+  @media screen and (max-width: $mobile-width) {
+    .toggleFilter {
+      flex-direction: column;
+      height: auto;
+      
+      .toggleButton {
+        padding: 12px;
+        
+        &:first-child {
+          border-right: none;
+          border-bottom: 1px solid darken($secondary-color, 5%);
+        }
+      }
     }
   }
 }
 
-.button {
-  background-color: #3b82f6;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-  cursor: pointer;
-  border: none;
-
-  &:hover {
-    background-color: #2563eb;
-  }
-}
-
-.buttonDisabled {
-  background-color: #93c5fd;
-  cursor: not-allowed;
-}
-
-.error {
-  margin-top: 0.5rem;
-  color: #ef4444;
-}
-
-.success {
-  margin-top: 0.5rem;
-  color: #10b981;
-}
-// Add these styles to your existing SCSS file
-
+// Reset button
 .resetButton {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #363636;
-  color: #97b00f;
-  border: none;
+  background-color: rgba($error-color, 0.1);
+  color: $error-color;
+  border: 1px solid rgba($error-color, 0.3);
   border-radius: 10px;
-  padding: 10px 15px;
+  padding: 12px 15px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.2s ease;
-  margin-top: 10px;
+  font-weight: 500;
+  @include transition;
   width: 100%;
   height: 50px;
+  margin-top: 5px;
   
   &:hover {
-    background-color: #444444;
+    background-color: rgba($error-color, 0.2);
   }
   
   .resetIcon {
     margin-right: 8px;
     font-size: 16px;
   }
+}
+
+// Apply filters button (mobile only)
+.applyFiltersButton {
+  display: none;
+  width: 100%;
+  height: 50px;
+  background-color: $accent-color;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+  @include transition;
+  @include box-shadow;
   
-  span {
-    font-weight: 500;
+  &:hover {
+    background-color: darken($accent-color, 5%);
+  }
+  
+  @media screen and (max-width: $tablet-width) {
+    display: block;
   }
 }
 
+// Error container
 .errorContainer {
   margin-top: 15px;
   padding: 12px 15px;
-  background-color: rgba(210, 77, 77, 0.15);
-  border-left: 4px solid #d24d4d;
+  background-color: rgba($error-color, 0.15);
+  border-left: 4px solid $error-color;
   border-radius: 6px;
   display: flex;
   align-items: center;
@@ -291,14 +529,14 @@ $max-width: 1024px;
   }
   
   .errorIcon {
-    color: #d24d4d;
+    color: $error-color;
     font-size: 18px;
     margin-right: 10px;
     flex-shrink: 0;
   }
   
   .errorText {
-    color: #d24d4d;
+    color: $error-color;
     font-size: 14px;
     font-weight: 500;
   }
@@ -306,13 +544,13 @@ $max-width: 1024px;
   .errorDismiss {
     background: transparent;
     border: none;
-    color: #d24d4d;
+    color: $error-color;
     cursor: pointer;
     padding: 0;
     margin-left: 10px;
     font-size: 16px;
     opacity: 0.7;
-    transition: opacity 0.2s ease;
+    @include transition;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -323,192 +561,100 @@ $max-width: 1024px;
   }
 }
 
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// You might want to update your existing error class to make sure it's not used elsewhere
-.error {
-  margin-top: 0.5rem;
-  color: #ef4444;
-  // This can stay for other uses, as we're now using the errorContainer for the main errors
-}
-
-// Add these styles to your existing SCSS file
-
-// Enhanced filter section header
-.filterHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  // margin-bottom: 20px;
+// Map container
+.allMapContainer {
+  width: 100%;
+  height: 432px;
+  border: 2px solid $primary-color;
+  overflow: hidden;
   position: relative;
+  z-index: 9;
+  border-radius: 10px;
+  @include box-shadow;
   
-  h2 {
-    font-family: Montserrat;
-    font-weight: 700;
-    font-size: 24px;
-    color: #363636;
-    margin: 0 10px;
+  @media screen and (max-width: $tablet-width) {
+    height: 500px;
+    margin-top: -10px;
   }
   
-  .filterIcon {
-    font-size: 20px;
-    color: #363636;
+  @media screen and (max-width: $mobile-width) {
+    height: 400px;
   }
   
-  .activeFiltersCount {
+  // Overlay to block all map interactions
+  .mapInteractionBlocker {
     position: absolute;
-    right: 0;
     top: 0;
-    background-color: #363636;
-    color: #97b00f;
-    font-size: 12px;
-    font-weight: bold;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 11; // Higher than the map, lower than loading overlay
+    cursor: not-allowed;
+    
+    // Optional message to explain why the map isn't interactive
+    .mapMessage {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background-color: rgba($secondary-color, 0.8);
+      color: $text-on-dark;
+      padding: 8px 12px;
+      border-radius: 5px;
+      font-size: 12px;
+      display: flex;
+      align-items: center;
+      @include box-shadow;
+      
+      .mapIcon {
+        margin-right: 8px;
+      }
+    }
+  }  
+  .mapLoadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba($secondary-color, 0.7);
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    animation: pulse 2s infinite;
-  }
-}
-
-// Enhanced form group with labels
-.formGroup {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  
-  .filterLabel {
-    display: flex;
-    align-items: center;
-    font-size: 14px;
-    font-weight: 600;
-    color: #363636;
-    margin-bottom: 4px;
+    z-index: 12;
+    color: $text-on-dark;
     
-    .labelIcon {
-      margin-right: 8px;
-      font-size: 16px;
+    .mapLoadingSpinner {
+      font-size: 40px;
+      margin-bottom: 15px;
+      animation: spin 1.5s linear infinite;
     }
   }
   
-  .select, .cityInput {
+  .mapOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 350px;
+    height: 100%;
+    background-color: transparent;
+    z-index: 10;
+    
+    @media screen and (max-width: $tablet-width) {
+      width: 100%;
+      height: 60px;
+    }
+  }
+  
+  .mapContainer {
     width: 100%;
-    height: 60px; // Slightly smaller for better spacing
-    padding: 12px 15px;
-    border: 2px solid transparent;
-    background-color: #363636;
-    color: #97b00f;
-    border-radius: 10px;
-    font-size: 15px;
-    transition: all 0.2s ease-in-out;
-    
-    &:focus {
-      border-color: #97b00f;
-      outline: none;
-    }
-  }
-  
-  .activeSelect, .activeInput {
-    border-left: 4px solid #97b00f !important;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  // New toggle button filter style for verification
-  .toggleFilter {
-    display: flex;
-    width: 100%;
-    background-color: #363636;
-    border-radius: 10px;
-    overflow: hidden;
-    height: 60px;
-    
-    .toggleButton {
-      flex: 1;
-      background: none;
-      border: none;
-      padding: 12px;
-      color: #97b00f;
-      font-size: 14px;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      
-      &:hover {
-        background-color: rgba(151, 176, 15, 0.1);
-      }
-      
-      &:first-child {
-        border-right: 1px solid #2a2a2a;
-      }
-    }
-    
-    .activeToggle {
-      background-color: rgba(151, 176, 15, 0.2);
-      font-weight: bold;
-    }
+    height: 100%;
+    z-index: 1;
   }
 }
 
-// Improved city dropdown
-.cityOption {
-  padding: 12px 15px;
-  cursor: pointer;
-  color: #97b00f;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  
-  &:hover {
-    background-color: #444444;
-  }
-  
-  .checkIcon {
-    font-size: 14px;
-  }
-}
-
-// Enhanced reset button
-.resetButton {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #363636;
-  color: #d24d4d;
-  border: 1px solid rgba(210, 77, 77, 0.3);
-  border-radius: 10px;
-  padding: 12px 15px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: all 0.2s ease;
-  margin-top: 15px;
-  width: 100%;
-  height: 50px;
-  
-  &:hover {
-    background-color: rgba(210, 77, 77, 0.1);
-  }
-  
-  .resetIcon {
-    margin-right: 8px;
-    font-size: 16px;
-  }
-  
-  span {
-    font-weight: 500;
-  }
-}
-
-// Animation for active filters count
+// Animations
 @keyframes pulse {
   0% {
     transform: scale(1);
@@ -521,38 +667,6 @@ $max-width: 1024px;
   }
 }
 
-// Make sure the search container is tall enough for mobile
-@media screen and (max-width: $max-width) {
-  .searchContainer {
-    height: auto !important;
-    min-height: 500px; // Adjust this as needed
-  }
-  
-  .allMapContainer {
-    height: 600px !important; // Adjust map height for mobile
-  }
-  
-  // Stack the toggle buttons on mobile
-  .toggleFilter {
-    flex-direction: column !important;
-    height: auto !important;
-    
-    .toggleButton {
-      padding: 15px !important;
-      
-      &:first-child {
-        border-right: none !important;
-        border-bottom: 1px solid #2a2a2a !important;
-      }
-    }
-  }
-}
-
-// Subtle animations for dropdowns
-.cityDropdown {
-  animation: slideDown 0.2s ease-out;
-}
-
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -561,5 +675,87 @@ $max-width: 1024px;
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+// Responsive adjustments for different screen sizes
+@media screen and (max-width: $tablet-width) {
+  .container {
+    min-height: 550px;
+  }
+  
+  .searchContainer {
+    padding: 15px;
+  }
+  
+  .formGroup {
+    .select, .cityInput, .toggleFilter {
+      height: 45px;
+    }
+  }
+  
+  .resetButton {
+    height: 45px;
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .container {
+    min-height: 500px;
+    margin-bottom: 20px;
+  }
+  
+  .searchContainer {
+    padding: 12px;
+    max-height: 70vh;
+  }
+  
+  .filterHeader {
+    h2 {
+      font-size: 18px;
+    }
+    
+    .filterIcon {
+      font-size: 16px;
+    }
+  }
+  
+  .formGroup {
+    .filterLabel {
+      font-size: 12px;
+      
+      .labelIcon {
+        font-size: 14px;
+      }
+    }
+    
+    .select, .cityInput {
+      font-size: 14px;
+      height: 40px;
+    }
+  }
+  
+  .resetButton, .applyFiltersButton {
+    height: 40px;
+    font-size: 13px;
+  }
+  
+  .errorContainer {
+    padding: 10px;
+    
+    .errorText {
+      font-size: 12px;
+    }
+  }
+}
+
+// CSS to apply dark theme to OpenStreetMap tiles
+.darkModeMap {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+  
+  // Fix the controls and attribution that also get inverted
+  :global(.leaflet-control-attribution) {
+    filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(90%);
+    background-color: rgba(255, 255, 255, 0.8) !important;
   }
 }
