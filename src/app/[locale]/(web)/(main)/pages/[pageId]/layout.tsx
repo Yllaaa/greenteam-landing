@@ -19,7 +19,6 @@ export default async function RootLayout({
   return (
     <section className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
-       
         <div className={styles.childern}>{children}</div>
       </NextIntlClientProvider>
     </section>

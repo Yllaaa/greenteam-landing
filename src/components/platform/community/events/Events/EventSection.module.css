@@ -10,7 +10,6 @@
 .sliderBtns {
   position: absolute;
   top: 50%;
- 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -38,26 +37,12 @@
   overflow-x: auto;
   overflow-y: hidden;
   scrollbar-width: none;
-  /* scrollbar-color: #e3e4e3 #00310758;  */
   height: fit-content;
   min-height: fit-content;
   margin-top: 36px;
   padding: 0px 20px;
 }
-.body::-webkit-scrollbar {
-  height: 10px;
-}
-.body::-webkit-scrollbar-track {
-  background: #00310758;
-  border-radius: 6px;
-}
-.body::-webkit-scrollbar-thumb {
-  background: #00510c; /* Grey thumb */
-  border-radius: 6px; /* Rounded corners */
-}
-.body::-webkit-scrollbar-thumb:hover {
-  background: #555; /* Darker grey on hover */
-}
+
 .body .noPosts {
   width: 100%;
   height: 100%;

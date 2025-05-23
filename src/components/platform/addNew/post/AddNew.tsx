@@ -25,7 +25,8 @@ type PostType = {
   fileType: "image" | "pdf";
 };
 
-function AddNew() {
+function AddNew(props:{setAddPost:React.Dispatch<React.SetStateAction<boolean>>}) {
+  const { setAddPost } = props;
   const router = useRouter();
   const locale = useLocale();
 
@@ -98,13 +99,13 @@ function AddNew() {
         }
       );
 
-      console.log(response.data);
       ToastNot(`Post added successfully`);
 
       // Reset form and state
       reset();
       setSelectedFiles([]);
       setFileType("image");
+      setAddPost(false);
       setSelectedMainTopic("");
       setSelectedSubtopics([]);
 

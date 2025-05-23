@@ -327,7 +327,7 @@ function Header() {
             >
               &times;
             </button>
-            <AddNew />
+            <AddNew setAddPost={setAddPost} />
           </div>
         </div>
       )}

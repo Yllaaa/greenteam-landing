@@ -399,7 +399,7 @@ const AddNewEvent = (props: addEventProps) => {
   };
 
   return (
-    <div className={styles.modal}>
+    <div style={{zIndex: "1000"}} className={styles.modal}>
       <div ref={modalRef} className={styles.formContainer}>
         <div className={styles.formTitleContainer}>
           <div className={styles.titleIcon}>

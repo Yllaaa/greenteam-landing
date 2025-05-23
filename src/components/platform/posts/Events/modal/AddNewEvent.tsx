@@ -11,6 +11,7 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useLocale } from "next-intl";
+import { useRouter } from 'next/navigation';
 
 interface FormData {
   creatorType: string;
@@ -60,6 +61,7 @@ const AddNewEvent = (props: addEventProps) => {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
+  const router = useRouter()
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -154,7 +156,7 @@ const AddNewEvent = (props: addEventProps) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          router.push(`/${locale}/events/${res.data[0].id}`);
           ToastNot("Event added successfully");
           reset();
         })

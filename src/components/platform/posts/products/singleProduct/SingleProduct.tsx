@@ -12,9 +12,11 @@ import { useKeenSlider } from "keen-slider/react";
 import { Product } from "../types/productsTypes.data";
 import "keen-slider/keen-slider.min.css";
 import { useRouter } from "next/navigation";
+import { useLocale } from 'next-intl';
 function SingleProduct(props: { prodId: string }) {
   const { prodId } = props;
   const router = useRouter();
+  const locale = useLocale();
   const token = getToken();
 
   const accessToken = token ? token.accessToken : null;
@@ -154,7 +156,7 @@ function SingleProduct(props: { prodId: string }) {
               <div className={styles.actions}>
                 <button
                   onClick={() => {
-                    router.push(`chat?chatId=${product?.sellerId}`);
+                    router.push(`/${locale}/chat?chatId=${product?.sellerId}`);
                   }}
                   className={styles.contactButton}
                 >

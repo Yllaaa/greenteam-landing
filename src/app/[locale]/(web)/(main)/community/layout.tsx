@@ -18,7 +18,6 @@ export default async function RootLayout({
   return (
     <section className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
-        <header></header>
         <div>{children}</div>
       </NextIntlClientProvider>
     </section>

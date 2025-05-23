@@ -134,8 +134,8 @@
 
 @media screen and (max-width: 768px) {
   .card {
-    width: 398px;
-    min-width: 398px;
+    width: 330px;
+    min-width: 330px;
   }
 }
 

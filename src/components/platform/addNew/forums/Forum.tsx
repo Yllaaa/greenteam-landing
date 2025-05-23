@@ -12,7 +12,8 @@ import { Topics } from "@/components/Assets/topics/Topics.data";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 import { FaChevronDown, FaPaperPlane, FaTimes } from 'react-icons/fa';
 import { motion, AnimatePresence } from 'framer-motion';
-
+import { useRouter } from "next/navigation";
+import { useLocale } from 'next-intl';
 type PostType = {
   headline: string;
   content: string;
@@ -26,7 +27,8 @@ function Forums() {
   const userInfo1 = getToken();
   const userInfo = userInfo1 ? userInfo1 : null;
   const dropdownRef = useRef<HTMLDivElement | null>(null);
-
+  const router = useRouter()
+  const locale = useLocale()
   // get topics and sub topics
   const topics = Topics;
 
@@ -169,7 +171,7 @@ function Forums() {
         }
       );
 
-      console.log("data", response.data);
+      router.push(`/${locale}/feeds`);
 
       // Show success message with animation
       setShowSuccessMessage(true);

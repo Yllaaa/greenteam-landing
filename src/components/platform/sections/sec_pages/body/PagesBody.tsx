@@ -12,7 +12,7 @@ function PagesBody(props: { pageId: string }) {
   return (
     <>
       <section className={styles.body}>
-        <div style={{ position: "relative", zIndex: "900", marginTop: "50px" }}>
+        <div style={{ marginTop: "15px" }}>
           <Pageheader
             pageId={pageId}
             setSettings={setSettings}
