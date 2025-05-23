@@ -292,8 +292,9 @@ $tablet-width: 768px;
       gap: 8px;
       align-items: stretch;
       z-index: 10;
-      @media (min-width: $min-width) {
-        width: 637px;
+      width: 637px;
+      @media screen and (max-width: $tablet-width) {
+        width: 100%;
       }
 
       .logo {
@@ -397,8 +398,10 @@ $tablet-width: 768px;
 }
 
 // Responsive adjustments for navigation arrows
-@media (max-width: $tablet-width) {
+@media screen and (max-width: $tablet-width) {
   .groupsContainer {
+    width: 100%;
+
     .navArrow {
       display: none !important; // Ensure arrows are hidden on mobile
     }
@@ -411,22 +414,11 @@ $tablet-width: 768px;
       gap: 16px;
       flex-wrap: wrap; // Allow cards to wrap on smaller screens
       justify-content: center; // Center the cards when wrapped
-
-      .item {
-        width: 100%; // Full width on mobile
-        max-width: 400px; // Limit max width
-      }
-    }
-  }
-}
-
-// Media queries for tablets
-@media (min-width: $tablet-width) and (max-width: $min-width) {
-  .groupsContainer {
-    .groups {
-      .item {
-        width: 480px; // Slightly smaller on tablets
-      }
+      width: 100%;
+      // .item {
+      //   // width: 100%; // Full width on mobile
+      //   // max-width: 400px; // Limit max width
+      // }
     }
   }
 }

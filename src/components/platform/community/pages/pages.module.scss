@@ -119,6 +119,14 @@ $tablet-width: 768px;
 		-moz-border-radius: 30px;
 		-ms-border-radius: 30px;
 		-o-border-radius: 30px;
+
+		@media screen and (max-width: $tablet-width) {
+			width: 100%;
+			min-width: 100%;
+			max-width: 100%;
+			
+		}
+
 		.options {
 			position: absolute;
 			top: 10px;
@@ -720,6 +728,7 @@ justify-content: center;
 align-items: center;
 margin: 20px auto;
 width: 100%;
+min-width: 340px;
 }
 
 // End message styles

@@ -22,6 +22,8 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
+import linkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 function Pageheader(props: {
   pageId: string;
@@ -287,7 +289,12 @@ function Pageheader(props: {
           <div className={styles.headerWhat}>
             <h5>Website:</h5>
             {data.websiteUrl ?
-              <h6 style={{ cursor: "pointer" }} onClick={() => window.open(data.websiteUrl, "_blank")}>data.websiteUrl</h6>
+              <h6 style={{ cursor: "pointer" }} >
+                {linkifyText(data.websiteUrl, {
+                  className: linkifyStyles['content-link'],
+                  target: "_blank"
+                })}
+              </h6>
               : <h6>No Website</h6>
             }
           </div>

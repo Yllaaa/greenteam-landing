@@ -6,10 +6,10 @@ import logo from "@/../public/personal/menu/pages/logo.svg";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useInView } from "react-intersection-observer";
-import { useCallback, useEffect, useRef, useState } from "react";
-import { MdOutlineReportProblem } from "react-icons/md";
-import { FaTrash } from "react-icons/fa6";
-import { PiDotsThreeCircleLight } from "react-icons/pi";
+import { useCallback, useEffect, useRef } from "react";
+// import { MdOutlineReportProblem } from "react-icons/md";
+// import { FaTrash } from "react-icons/fa6";
+// import { PiDotsThreeCircleLight } from "react-icons/pi";
 
 export default function Item({
   pageI,
@@ -17,11 +17,11 @@ export default function Item({
   setPage,
   length,
   index,
-  deleteModal,
-  setDeleteModal,
-  reportModal,
-  setReportModal,
-  setPostId,
+  // deleteModal,
+  // setDeleteModal,
+  // reportModal,
+  // setReportModal,
+  // setPostId,
 }: {
   pageI: PageItem;
   page: number;
@@ -36,56 +36,56 @@ export default function Item({
 }) {
   const router = useRouter();
   const locale = useLocale();
-  const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
-    null
-  );
+  // const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
+  //   null
+  // );
 
-  const optionsMenuRef = useRef<HTMLDivElement>(null);
+  // const optionsMenuRef = useRef<HTMLDivElement>(null);
 
   // Handle clicks outside the options menu to close it
-  useEffect(() => {
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        optionsMenuRef.current &&
-        !optionsMenuRef.current.contains(event.target as Node)
-      ) {
-        setActiveOptionsPost(null);
-      }
-    }
+  // useEffect(() => {
+  //   function handleClickOutside(event: MouseEvent) {
+  //     if (
+  //       optionsMenuRef.current &&
+  //       !optionsMenuRef.current.contains(event.target as Node)
+  //     ) {
+  //       // setActiveOptionsPost(null);
+  //     }
+  //   }
 
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, []);
+  //   document.addEventListener("mousedown", handleClickOutside);
+  //   return () => {
+  //     document.removeEventListener("mousedown", handleClickOutside);
+  //   };
+  // }, []);
 
   // Toggle options menu for a specific post
-  const toggleOptionsMenu = useCallback((postId: string) => {
-    setActiveOptionsPost((prev) => (prev === postId ? null : postId));
-  }, []);
+  // const toggleOptionsMenu = useCallback((postId: string) => {
+  //   setActiveOptionsPost((prev) => (prev === postId ? null : postId));
+  // }, []);
 
   // Handle delete or report action
-  const handleActionDelete = useCallback(
-    (postId: string) => {
-      if (setDeleteModal && setPostId) {
-        setPostId(postId);
-        setDeleteModal(!deleteModal);
-      }
-      setActiveOptionsPost(null); // Close the menu after action
-    },
-    [deleteModal, setDeleteModal, setPostId]
-  );
+  // const handleActionDelete = useCallback(
+  //   (postId: string) => {
+  //     if (setDeleteModal && setPostId) {
+  //       setPostId(postId);
+  //       setDeleteModal(!deleteModal);
+  //     }
+  //     setActiveOptionsPost(null); // Close the menu after action
+  //   },
+  //   [deleteModal, setDeleteModal, setPostId]
+  // );
   // Handle delete or report action
-  const handleActionReport = useCallback(
-    (postId: string) => {
-      if (setReportModal && setPostId) {
-        setPostId(postId);
-        setReportModal(!reportModal);
-      }
-      setActiveOptionsPost(null); // Close the menu after action
-    },
-    [reportModal, setPostId, setReportModal]
-  );
+  // const handleActionReport = useCallback(
+  //   (postId: string) => {
+  //     if (setReportModal && setPostId) {
+  //       setPostId(postId);
+  //       setReportModal(!reportModal);
+  //     }
+  //     setActiveOptionsPost(null); // Close the menu after action
+  //   },
+  //   [reportModal, setPostId, setReportModal]
+  // );
 
 
   // Track if pagination has already been triggered
@@ -117,7 +117,7 @@ export default function Item({
 
   return (
     <div ref={index === length - 1 ? ref : null} className={styles.item}>
-      <div className={styles.options}>
+      {/* <div className={styles.options}>
         <div
           onClick={() => toggleOptionsMenu(pageI.id)}
           className={styles.optionsIcon}
@@ -143,7 +143,7 @@ export default function Item({
             </div>
           </div>
         )}
-      </div>
+      </div> */}
       <div className={styles.header}>
         <div className={styles.logo}>
           <Image src={logo} alt={pageI.name} />
