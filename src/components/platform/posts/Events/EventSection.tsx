@@ -33,7 +33,7 @@ function EventSection() {
 const terror = useTranslations("web.errors")
   // State management
   const [events, setEvents] = useState<Event[]>([]);
-  const [section, setSection] = useState<EventCategory>();
+  const [section, setSection] = useState<EventCategory>("all");
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState("");

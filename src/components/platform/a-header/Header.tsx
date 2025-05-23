@@ -149,6 +149,19 @@ function Header() {
   const handleAddPost = () => {
     setAddPost(!addPost);
     setMobileMenuOpen(false); // Close mobile menu when opening add post
+
+    // Toggle body scroll lock when modal opens/closes
+    if (!addPost) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
+  };
+
+  // Add this to handle modal close properly
+  const closeModal = () => {
+    setAddPost(false);
+    document.body.classList.remove('modal-open');
   };
 
   const handleMenuItemClick = (path: string) => {
@@ -302,7 +315,7 @@ function Header() {
       {addPost && (
         <div
           className={modalStyles.modalOverlay}
-          onClick={() => setAddPost(false)}
+          onClick={closeModal}
         >
           <div
             className={modalStyles.modalContent}
@@ -310,7 +323,7 @@ function Header() {
           >
             <button
               className={modalStyles.closeButton}
-              onClick={() => setAddPost(false)}
+              onClick={closeModal}
             >
               &times;
             </button>

@@ -4,36 +4,94 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.7);
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 10000; /* Higher than header z-index (9999) */
+  overflow: hidden;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 .modalContent {
-  background: linear-gradient(127deg, #1a3a0e 28.26%, #313a0e 91.2%);
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #006633;
+  padding: 30px 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
   position: relative;
   width: 90%;
-  /* max-width: 600px; */
-  /* max-height: 90vh; */
+  max-width: 800px;
+  max-height: 85vh;
   overflow-y: auto;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
 }
 
 .closeButton {
   position: absolute;
-  top: 10px;
-  right: 10px;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 28px;
   cursor: pointer;
-  color: #666;
+  color: #fff;
+  z-index: 1;
+  transition: all 0.2s ease;
 }
 
 .closeButton:hover {
-  color: #000;
+  color: #97b00f;
+  transform: scale(1.1);
+}
+
+/* Styled scrollbar for modal content */
+.modalContent::-webkit-scrollbar {
+  width: 8px;
+}
+
+.modalContent::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+}
+
+.modalContent::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+}
+
+.modalContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+@media screen and (max-width: 768px) {
+  .modalContent {
+    width: 95%;
+    max-height: 80vh;
+    padding: 25px 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modalContent {
+    width: 95%;
+    max-height: 75vh;
+    padding: 20px 15px 20px 15px;
+    border-radius: 10px;
+  }
+  
+  .closeButton {
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+  }
 }

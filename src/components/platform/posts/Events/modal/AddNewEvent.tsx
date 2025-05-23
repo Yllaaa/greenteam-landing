@@ -11,20 +11,7 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useLocale } from "next-intl";
-// Define types for better TypeScript support
-// interface FormData {
-//   creatorType: string;
-//   title: string;
-//   description: string;
-//   location: string;
-//   startDate: string;
-//   endDate: string;
-//   category: string;
-//   topicId: string | number;
-//   countryId: string | number;
-//   cityId: string | number;
-//   poster: File | null;
-// }
+
 interface FormData {
   creatorType: string;
   title: string;
