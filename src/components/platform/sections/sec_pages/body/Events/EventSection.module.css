@@ -10,7 +10,6 @@
 .sliderBtns {
   position: absolute;
   top: 50%;
- 
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -25,7 +24,6 @@
   -ms-transform: translateY(-50%);
   -o-transform: translateY(-50%);
 }
-
 
 .body {
   display: flex;
@@ -99,5 +97,8 @@
   .filterSection ul li {
     font-size: 14px;
     line-height: 20.6px;
+  }
+  .sliderBtns {
+    display: none;
   }
 }

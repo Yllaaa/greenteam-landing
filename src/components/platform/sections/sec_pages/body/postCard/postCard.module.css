@@ -361,6 +361,9 @@
     overflow: hidden;
     z-index: 8;
   }
+  .sliderBtns {
+    display: none;
+  }
 }
 @media screen and (max-width: 430px) {
   .image .postslider {
