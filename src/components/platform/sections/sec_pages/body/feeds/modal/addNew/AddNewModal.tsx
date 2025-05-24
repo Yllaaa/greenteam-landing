@@ -11,11 +11,15 @@ import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
   slug: string | string[] | undefined;
 }) {
+  const router = useRouter();
+  const locale = useLocale()
   const topic = useAppSelector((state) => state.pageState.topic);
   const allMainTopics = Topics;
   const topicDetails =
@@ -47,11 +51,10 @@ function AddNewModal(props: {
     },
   });
 
-  // const [fileType, setFileType] = useState<"image" | "pdf">("image");
+  
 
   const handleFilesSelected = (files: File[], type: "image" | "pdf") => {
     setSelectedFiles((prev) => [...prev, ...files]);
-    // setFileType(type);
     setValue("fileType", type);
   };
   const [selectedSubtopics, setSelectedSubtopics] = useState<string[] | any>(
@@ -107,6 +110,9 @@ function AddNewModal(props: {
         ToastNot(`Post added successfully`);
         reset();
         setAddNew(false);
+        setSelectedFiles([]);
+        setSelectedSubtopics([]);
+        router.push(`${locale}/feeds/posts/${response.data[0].id}`);
       }
     } catch (err) {
       console.log(err);

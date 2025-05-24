@@ -10,9 +10,10 @@ import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
-import { useParams } from "next/navigation";
-import { useLocale } from 'next-intl';
-// Define types for better TypeScript support
+import { useLocale } from "next-intl";
+import { useRouter } from 'next/navigation';
+import { useAppSelector } from '../../../../../../../store/hooks';
+
 interface FormData {
   creatorType: string;
   title: string;
@@ -25,8 +26,8 @@ interface FormData {
   countryId: string | number;
   cityId: string | number;
   poster: File | null;
+  eventMode: string; // Add this new field
 }
-
 interface DateSelection {
   start: Date | null;
   end: Date | null;
@@ -60,60 +61,9 @@ const category: Category[] = [
 const AddNewEvent = (props: addEventProps) => {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
-
-  const params = useParams();
-  const slug = params.pageId;
-  const locale = useLocale()
-
-  const [country, setCountry] = useState<Country[]>();
-  const [countryId, setCountryId] = useState<number | undefined>(undefined);
-  const [city, setCity] = useState<City[]>();
-
-  const [search, setSearch] = useState<string>("");
-
-  useEffect(() => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries?locale=${locale}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        setCountry(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        ToastNot("Error fetching countries");
-      });
-  }, [accessToken, locale]);
-
-  useEffect(() => {
-    if (countryId === undefined) return;
-
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${search}&limit=5`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      )
-      .then((res) => {
-        setCity(res.data);
-      })
-      .catch((err) => {
-        console.log(err);
-        ToastNot("Error fetching cities");
-      });
-  }, [accessToken, countryId, search]);
+  const locale = useLocale();
+  const router = useRouter();
+  const slug = useAppSelector((state) => state.pageState.slug);
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -135,6 +85,7 @@ const AddNewEvent = (props: addEventProps) => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -146,6 +97,9 @@ const AddNewEvent = (props: addEventProps) => {
       endDate: "",
       category: "",
       poster: null,
+      countryId: "",
+      cityId: "",
+      eventMode: "",
     },
   });
 
@@ -193,6 +147,7 @@ const AddNewEvent = (props: addEventProps) => {
             poster: data.poster,
             countryId: Number(data.countryId),
             cityId: Number(data.cityId),
+            eventMode: data.eventMode
           },
           {
             headers: {
@@ -206,6 +161,7 @@ const AddNewEvent = (props: addEventProps) => {
           console.log(res.data);
           ToastNot("Event added successfully");
           reset();
+          router.push(`/${locale}/event/${res.data[0].id}`);
         })
         .catch((err) => {
           console.log(err);
@@ -303,6 +259,56 @@ const AddNewEvent = (props: addEventProps) => {
     );
   };
 
+  const [country, setCountry] = useState<Country[]>();
+  const [countryId, setCountryId] = useState<number | undefined>(undefined);
+  const [city, setCity] = useState<City[]>();
+
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries?locale=${locale}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCountry(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching countries");
+      });
+  }, [accessToken, locale]);
+
+  useEffect(() => {
+    if (countryId === undefined) return;
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${search}&limit=5`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCity(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching cities");
+      });
+  }, [accessToken, countryId, search]);
+
   // Updated image upload state and refs
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
@@ -399,7 +405,7 @@ const AddNewEvent = (props: addEventProps) => {
   };
 
   return (
-    <div style={{zIndex: "1000"}} className={styles.modal}>
+    <div className={styles.modal}>
       <div ref={modalRef} className={styles.formContainer}>
         <div className={styles.formTitleContainer}>
           <div className={styles.titleIcon}>
@@ -575,6 +581,47 @@ const AddNewEvent = (props: addEventProps) => {
                 <p className={styles.errorText}>{errors.poster.message}</p>
               )}
             </div>
+          </div>
+          {/* EVENT TYPE */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>Event Type</label>
+            <div className={styles.toggleContainer}>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "local" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "local")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-local"
+                  value="local"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: "Event type is required" })}
+                />
+                <label htmlFor="eventMode-local" className={styles.toggleLabel}>
+
+                  Local
+                </label>
+              </div>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "online" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "online")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-online"
+                  value="online"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: "Event type is required" })}
+                />
+                <label htmlFor="eventMode-online" className={styles.toggleLabel}>
+
+                  Online
+                </label>
+              </div>
+            </div>
+            {errors.eventMode && (
+              <p className={styles.errorText}>{errors.eventMode.message}</p>
+            )}
           </div>
           {/* COUNTRY */}
           <div className={styles.formGroup}>
