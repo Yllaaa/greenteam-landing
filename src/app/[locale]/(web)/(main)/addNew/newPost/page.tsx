@@ -7,7 +7,7 @@ function page() {
     <>
       <div className={styles.container}>
         <div className={styles.addNew}>
-          <AddNew />
+          <AddNew  />
         </div>
       </div>
     </>

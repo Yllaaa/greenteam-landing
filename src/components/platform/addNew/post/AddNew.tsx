@@ -25,7 +25,7 @@ type PostType = {
   fileType: "image" | "pdf";
 };
 
-function AddNew(props:{setAddPost:React.Dispatch<React.SetStateAction<boolean>>}) {
+function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolean>> }) {
   const { setAddPost } = props;
   const router = useRouter();
   const locale = useLocale();
@@ -105,10 +105,11 @@ function AddNew(props:{setAddPost:React.Dispatch<React.SetStateAction<boolean>>}
       reset();
       setSelectedFiles([]);
       setFileType("image");
-      setAddPost(false);
       setSelectedMainTopic("");
       setSelectedSubtopics([]);
-
+      if (setAddPost) {
+        setAddPost(false);
+      }
       // Redirect to the new post
       if (response.data && response.data.id) {
         router.push(`/${locale}/feeds/posts/${response.data.id}`);
