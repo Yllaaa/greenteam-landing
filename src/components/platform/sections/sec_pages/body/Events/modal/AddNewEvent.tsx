@@ -12,7 +12,8 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useLocale } from "next-intl";
 import { useRouter } from 'next/navigation';
-import { useAppSelector } from '../../../../../../../store/hooks';
+import { useParams } from "next/navigation";
+
 
 interface FormData {
   creatorType: string;
@@ -61,9 +62,11 @@ const category: Category[] = [
 const AddNewEvent = (props: addEventProps) => {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
-  const locale = useLocale();
-  const router = useRouter();
-  const slug = useAppSelector((state) => state.pageState.slug);
+
+  const params = useParams();
+  const slug = params.pageId;
+  const locale = useLocale()
+  const router = useRouter()
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -156,12 +159,16 @@ const AddNewEvent = (props: addEventProps) => {
               "Access-Control-Allow-Origin": "*",
             },
           }
+
         )
         .then((res) => {
-          console.log(res.data);
+          console.log("Event created successfully:", res.data);
           ToastNot("Event added successfully");
           reset();
-          router.push(`/${locale}/event/${res.data[0].id}`);
+          if (res) {
+
+            router.push(`/${locale}/event/${res.data.id}`);
+          }
         })
         .catch((err) => {
           console.log(err);

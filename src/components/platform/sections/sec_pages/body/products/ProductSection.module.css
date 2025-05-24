@@ -203,4 +203,7 @@
     padding-left: 12px;
     margin-top: 25px;
   }
+  .sliderBtns{
+    display: none;
+  }
 }

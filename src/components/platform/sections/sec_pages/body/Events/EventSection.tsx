@@ -229,7 +229,7 @@ function EventSection(props: { slug: string }) {
           {renderContent()}
         </div>
       </div>
-      {addNew && <AddNewEvent setAddNew={setAddNew} userType="user" />}
+      {addNew && <AddNewEvent setAddNew={setAddNew} userType="page" />}
     </>
   );
 }

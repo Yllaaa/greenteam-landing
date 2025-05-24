@@ -51,7 +51,7 @@ function ProductsFilter(props: ProductsFilterProps) {
         </div>
         {pageStatus && pageStatus.isAdmin && (
           <div className={styles.addBtn}>
-            <button onClick={handleAddNew}>Add Event</button>
+            <button onClick={handleAddNew}>Add Product</button>
           </div>
         )}
       </div>

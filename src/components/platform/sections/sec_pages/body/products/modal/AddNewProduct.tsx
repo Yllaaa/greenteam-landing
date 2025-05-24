@@ -11,6 +11,8 @@ import { Topics } from "@/components/Assets/topics/Topics.data";
 import { postPageProduct } from "../functions/productsService";
 import { useParams } from "next/navigation";
 import { Globe, MapPin } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 // Define types
 interface FormData {
   name: string;
@@ -35,6 +37,8 @@ type AddProductProps = {
 const AddNewProduct = ({ setAddNew }: AddProductProps) => {
   const params = useParams();
   const slug = params?.pageId;
+  const router = useRouter()
+  const locale = useLocale()
   const MAX_IMAGES = 4;
   const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
 
@@ -82,6 +86,11 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
       if (!formData.price) newErrors.price = "Price is required";
       else if (formData.price <= 0) newErrors.price = "Price must be greater than 0";
       if (!formData.images.length) newErrors.images = "At least one image is required";
+      // if (!formData.marketType) newErrors.marketType = "Listing type is required";
+    }
+    else if (currentStep === 2) {
+      if (!formData.description) newErrors.description = "Description is required";
+      if (!formData.topicId) newErrors.topicId = "Category is required";
       if (!formData.marketType) newErrors.marketType = "Listing type is required";
     }
 
@@ -157,6 +166,7 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
 
         // Check if response exists
         if (res && res.status === 200) {
+          console.log(res.data)
           ToastNot(res.message || "Product created successfully!");
           // Reset form
           setFormData({
@@ -169,6 +179,7 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
           });
           setImagePreviews([]);
           setAddNew(false);
+          router.push(`${locale}/feeds/products/${res.data.id}`);
         } else {
           // Handle case where response doesn't have expected structure
           ToastNot(res?.message || "Error creating product. Please try again.");
