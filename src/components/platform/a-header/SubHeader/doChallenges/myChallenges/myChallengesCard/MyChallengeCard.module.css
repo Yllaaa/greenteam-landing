@@ -6,6 +6,7 @@
   align-items: center;
   justify-content: flex-start;
   margin-bottom: 12px;
+  position: relative;
 }
 .challengeHeader .userAvatar {
   width: 35px;
@@ -119,6 +120,29 @@
   -o-border-radius: 20px;
 }
 
+.deleteButtonContainer {
+  margin-left: auto; /* Push to the right side */
+}
+
+.deleteButton {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.deleteButton:hover {
+  background-color: #c0392b;
+}
+
+.deleteButton:disabled {
+  background-color: #95a5a6;
+  cursor: not-allowed;
+}
 @media screen and (max-width: 768px) {
   .challengeHeader {
     width: 100%;
@@ -202,5 +226,10 @@
     -moz-border-radius: 20px;
     -ms-border-radius: 20px;
     -o-border-radius: 20px;
+  }
+
+  .deleteButton {
+    font-size: 10px;
+    padding: 4px 8px;
   }
 }

@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useCallback, useEffect, useMemo } from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import styles from "./MyChallengeCard.module.css";
-// import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useRouter } from "next/navigation";
@@ -10,8 +9,9 @@ import { useLocale } from "next-intl";
 import { Post } from "../types/doChallenges.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
-// import { useAppDispatch } from "@/store/hooks";
-// import { setUpdateState } from "@/store/features/update/updateSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { setUpdateState } from "@/store/features/update/updateSlice";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 type Props = {
   ref: any;
@@ -53,32 +53,66 @@ function MyChallengeCard(props: Props) {
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
   const router = useRouter();
-  // const dispatch = useAppDispatch();
+  const dispatch = useAppDispatch();
 
   const [isMounted, setIsMounted] = React.useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   // API base URL constant
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
   const uniqueMedia = useMemo(
-      () =>
-         challenge.media && challenge.media.length > 0
-      ? challenge.media.filter(
+    () =>
+      challenge.media && challenge.media.length > 0
+        ? challenge.media.filter(
           (item, index, self) =>
             index === self.findIndex((t) => t.id === item.id)
         )
-      : [],
-  [challenge.media]
-    );
+        : [],
+    [challenge.media]
+  );
 
   // Fetch comments with error handling and loading state
- const fetchComments = useCallback(
-  async (postId: string, page: number) => {
-    const limit = 10;
-    if (!accessToken || !postId || !setPostComments) return;
+  const fetchComments = useCallback(
+    async (postId: string, page: number) => {
+      const limit = 10;
+      if (!accessToken || !postId || !setPostComments) return;
 
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=${limit}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        );
+
+        setPostComments((prev: any) => {
+          if (page === 1) return response.data;
+          return [...prev, ...response.data];
+        });
+
+        // Set media for the current post
+        setPostMedia(uniqueMedia);
+
+        return response.data;
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+        return [];
+      }
+    },
+    [API_BASE_URL, accessToken, setPostComments, setPostMedia, uniqueMedia]
+  );
+
+  // Handle delete challenge post
+  const handleDelete = async () => {
+
+    setIsDeleting(true);
     try {
-      const response = await axios.get(
-        `${API_BASE_URL}/api/v1/posts/${postId}/comments?page=${page}&limit=${limit}`,
+      await axios.delete(
+        `${API_BASE_URL}/api/v1/challenges/do-posts/${challenge.id}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -88,23 +122,16 @@ function MyChallengeCard(props: Props) {
         }
       );
 
-      setPostComments((prev: any) => {
-        if (page === 1) return response.data;
-        return [...prev, ...response.data];
-      });
-      
-      // Set media for the current post
-      setPostMedia(uniqueMedia);
-      
-      return response.data;
-    } catch (error) {
-      console.error("Error fetching comments:", error);
-      return [];
-    }
-  },
-  [API_BASE_URL, accessToken, setPostComments, setPostMedia, uniqueMedia]
-);
+      // If you have a state update function from Redux, you could use it here
+      dispatch(setUpdateState());
 
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      ToastNot("Failed to delete post. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
   // Load comments when page changes
   useEffect(() => {
     if (commentPage > 1) {
@@ -227,6 +254,15 @@ function MyChallengeCard(props: Props) {
               )
             ) : null}
           </div>
+        </div>
+        <div className={styles.deleteButtonContainer}>
+          <button
+            onClick={handleDelete}
+            className={styles.deleteButton}
+            disabled={isDeleting}
+          >
+            {isDeleting ? "Deleting..." : "Delete"}
+          </button>
         </div>
       </div>
       <div className={styles.challengeImage}>
