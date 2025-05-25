@@ -7,6 +7,7 @@ import styles from './AllChallenges.module.scss'
 import logo from '@/../public/personal/menu/notifications/logo.png'
 import Image from 'next/image'
 import ToastNot from '@/Utils/ToastNotification/ToastNot'
+
 function AllChallenges() {
   const token = getToken()
   const accessToken = token ? token.accessToken : null
@@ -15,6 +16,7 @@ function AllChallenges() {
   const [loading, setLoading] = useState(false)
   const [hasMore, setHasMore] = useState(true)
   const [error, setError] = useState('')
+  const [actionInProgress, setActionInProgress] = useState<string | null>(null)
 
   // Reference to the last challenge element for intersection observer
   const observer = useRef<IntersectionObserver | null>(null)
@@ -90,37 +92,49 @@ function AllChallenges() {
     }
   }, [page, fetchChallenges])
 
-  const handleDone = (challengeId: string) => {
+  const handleDone = async (challengeId: string, message: string, isDelete = false) => {
     try {
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI
-          }/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          if (res) {
-            ToastNot("challenge marked as done");
-            // setDoItModal(false);
-          }
-        }).then(
-          () => {
-            window.location.reload();
-          }
-        )
-        .catch((err) => {
-          console.log(err);
-          ToastNot("error occurred while marking challenge as done");
-        });
-    } catch {
-      ToastNot("error occurred while marking challenge as done");
+      // setActionInProgress(challengeId)
+
+      // Determine the API endpoint based on the action (delete or mark as done)
+      // Note: You might need to update this endpoint for delete action
+      const endpoint = isDelete
+        ? `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/delete`
+        : `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`;
+
+      const response = await axios.post(
+        endpoint,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response) {
+        ToastNot(`${message}`);
+
+        // Update the challenges list by removing the completed/deleted challenge
+        setAllChallenges((prevChallenges) =>
+          prevChallenges.filter(challenge => challenge.id !== challengeId)
+        );
+
+        // If our list becomes too short after removing an item, fetch more
+        if (allChallenges.length <= 3) {
+          // Reset page to 1 to refresh the entire list
+          setPage(1);
+          setHasMore(true);
+          fetchChallenges(1);
+        }
+      }
+    } catch (error) {
+      console.error("Error handling action:", error);
+      ToastNot("Error occurred");
+    } finally {
+      setActionInProgress(null);
     }
   }
 
@@ -146,8 +160,20 @@ function AllChallenges() {
                 <p>{challenge.description}</p>
               </div>
               <div className={styles.action}>
-                <button onClick={() => handleDone(challenge.id)} className={styles.accept}>Done</button>
-
+                <button
+                  onClick={() => handleDone(challenge.id, "Challenge deleted successfully", false)}
+                  className={styles.delete}
+                  disabled={actionInProgress === challenge.id}
+                >
+                  {actionInProgress === challenge.id ? 'Processing...' : 'Delete'}
+                </button>
+                <button
+                  onClick={() => handleDone(challenge.id, "Challenge completed successfully", false)}
+                  className={styles.accept}
+                  disabled={actionInProgress === challenge.id}
+                >
+                  {actionInProgress === challenge.id ? 'Processing...' : 'Done'}
+                </button>
               </div>
             </div>
           )
@@ -162,8 +188,20 @@ function AllChallenges() {
                 <p>{challenge.description}</p>
               </div>
               <div className={styles.action}>
-                <button onClick={() => handleDone(challenge.id)} className={styles.accept}>Done</button>
-
+                <button
+                  onClick={() => handleDone(challenge.id, "Challenge deleted successfully", false)}
+                  className={styles.delete}
+                  disabled={actionInProgress === challenge.id}
+                >
+                  {actionInProgress === challenge.id ? 'Processing...' : 'Delete'}
+                </button>
+                <button
+                  onClick={() => handleDone(challenge.id, "Challenge completed successfully", false)}
+                  className={styles.accept}
+                  disabled={actionInProgress === challenge.id}
+                >
+                  {actionInProgress === challenge.id ? 'Processing...' : 'Done'}
+                </button>
               </div>
             </div>
           )

@@ -53,7 +53,7 @@
       align-items: center;
       justify-content: center;
       margin: auto;
-
+      gap: 8px;
       transform: translateY(-50%);
       -webkit-transform: translateY(-50%);
       -moz-transform: translateY(-50%);
@@ -81,6 +81,57 @@
         line-height: 20px;
         letter-spacing: -0.4%;
         color: #ffffff;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        //hover
+        &:hover {
+          background: #74b243;
+          transition: all 0.3s ease;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+        }
+      }
+      .delete {
+        width: 132px;
+        height: 44px;
+        background: red;
+        border-radius: 30px;
+        -webkit-border-radius: 30px;
+        -moz-border-radius: 30px;
+        -ms-border-radius: 30px;
+        -o-border-radius: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        font-family: Montserrat;
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 20px;
+        letter-spacing: -0.4%;
+        color: #ffffff;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        //hover
+        &:hover {
+          background: darkred;
+          transition: all 0.3s ease;
+          -webkit-transition: all 0.3s ease;
+          -moz-transition: all 0.3s ease;
+          -ms-transition: all 0.3s ease;
+          -o-transition: all 0.3s ease;
+        }
       }
     }
   }
