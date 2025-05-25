@@ -53,8 +53,9 @@
   z-index: 1;
 }
 .postCard .image {
-  width: 100%;
-  height: 663px;
+  /* width: 100%; */
+  width: 564.896px;
+  height: 597.33px;
   position: relative;
   z-index: 10;
 }
