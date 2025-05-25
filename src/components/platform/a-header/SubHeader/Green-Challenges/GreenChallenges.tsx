@@ -102,7 +102,7 @@ function GreenChallenges() {
         )
         .then((res) => {
           if (res) {
-            ToastNot("challenge marked as done");
+            ToastNot("challenge added to your to-do list");
             // setDoItModal(false);
           }
         }).then(
@@ -112,10 +112,10 @@ function GreenChallenges() {
         )
         .catch((err) => {
           console.log(err);
-          ToastNot("error occurred while marking challenge as done");
+          ToastNot("error occurred while adding challenge to your to-do list");
         });
     } catch {
-      ToastNot("error occurred while marking challenge as done");
+      ToastNot("error occurred while adding challenge to your to-do list");
     }
   };
 
