@@ -90,7 +90,7 @@ function GreenChallenges() {
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI
-          }/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`,
+          }/api/v1/challenges/green-challenges/${challengeId}/add-to-do`,
           {},
           {
             headers: {
