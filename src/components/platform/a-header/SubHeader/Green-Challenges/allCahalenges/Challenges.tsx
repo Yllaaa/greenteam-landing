@@ -10,9 +10,9 @@ import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { Props } from "./types/ChallengeTypes.data";
 import { useRouter } from 'next/navigation';
 import { useLocale } from 'next-intl';
-import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import axios from "axios";
-import { getToken } from "@/Utils/userToken/LocalToken";
+// import ToastNot from "@/Utils/ToastNotification/ToastNot";
+// import axios from "axios";
+// import { getToken } from "@/Utils/userToken/LocalToken";
 
 function Challenges(props: Props) {
   const {
@@ -20,53 +20,54 @@ function Challenges(props: Props) {
     setAddNew,
     setChallengeId,
     // setDoItModal,
-    setSection,
+    // setSection,
     // acceptDo
+    acceptDoit,
   } = props;
 
   const router = useRouter();
   const locale = useLocale();
-  const token = getToken();
-  const accessToken = token ? token.accessToken : null
+  // const token = getToken();
+  // const accessToken = token ? token.accessToken : null
 
   const handleNavigation = () => {
     router.push(`/${locale}/challenges`)
 
   }
-  const acceptDo = (challengeId: string) => {
-    try {
-      axios
-        .post(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI
-          }/api/v1/challenges/green-challenges/${challengeId}/add-to-do
-          }`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-              "Content-Type": "application/json",
-            },
-          }
-        )
-        .then((res) => {
-          if (res) {
-            ToastNot("challenge marked as done");
-            // setDoItModal(false);
-          }
-        }).then(
-          () => {
-            window.location.reload();
-          }
-        )
-        .catch((err) => {
-          console.log(err);
-          ToastNot("error occurred while marking challenge as done");
-        });
-    } catch {
-      ToastNot("error occurred while marking challenge as done");
-    }
-  };
+  // const acceptDo = (challengeId: string) => {
+  //   try {
+  //     axios
+  //       .post(
+  //         `${process.env.NEXT_PUBLIC_BACKENDAPI
+  //         }/api/v1/challenges/green-challenges/${challengeId}/add-to-do
+  //         }`,
+  //         {},
+  //         {
+  //           headers: {
+  //             Authorization: `Bearer ${accessToken}`,
+  //             "Access-Control-Allow-Origin": "*",
+  //             "Content-Type": "application/json",
+  //           },
+  //         }
+  //       )
+  //       .then((res) => {
+  //         if (res) {
+  //           ToastNot("challenge marked as done");
+  //           // setDoItModal(false);
+  //         }
+  //       }).then(
+  //         () => {
+  //           window.location.reload();
+  //         }
+  //       )
+  //       .catch((err) => {
+  //         console.log(err);
+  //         ToastNot("error occurred while marking challenge as done");
+  //       });
+  //   } catch {
+  //     ToastNot("error occurred while marking challenge as done");
+  //   }
+  // };
   return (
     <>
       <div className={styles.container}>
@@ -91,9 +92,9 @@ function Challenges(props: Props) {
               <button
                 onClick={() => {
                   // setDoItModal(true);
-                  setSection("green-challenges");
+                  // setSection("green-challenges");
                   // setChallengeId(challenge.id);
-                  acceptDo(challenge.id);
+                  acceptDoit(challenge.id);
                 }}
                 className={styles.challengeButton}
               >

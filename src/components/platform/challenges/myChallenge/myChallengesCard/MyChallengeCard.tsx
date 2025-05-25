@@ -46,6 +46,7 @@ function MyChallengeCard(props: Props) {
   const dispatch = useAppDispatch();
 
   const [isMounted, setIsMounted] = React.useState(false);
+  const [isDeleting, setIsDeleting] = React.useState(false);
   // API base URL constant
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
 
@@ -87,6 +88,38 @@ function MyChallengeCard(props: Props) {
       fetchComments(postId, commentPage);
     }
   }, [commentPage, postId, fetchComments]);
+
+  const handleDelete = async () => {
+  
+      setIsDeleting(true);
+      try {
+        await axios.delete(
+          `${API_BASE_URL}/api/v1/challenges/do-posts/${challenge.id}`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+              "Access-Control-Allow-Origin": "*",
+            },
+          }
+        );
+  
+        // If you have a state update function from Redux, you could use it here
+        dispatch(setUpdateState());
+  
+      } catch (error) {
+        console.error("Error deleting post:", error);
+        ToastNot("Failed to delete post. Please try again.");
+      } finally {
+        setIsDeleting(false);
+      }
+    };
+    // Load comments when page changes
+    useEffect(() => {
+      if (commentPage > 1) {
+        fetchComments(postId, commentPage);
+      }
+    }, [commentPage, postId, fetchComments]);
 
   // Handle comment button click
   const handleComment = async (postId: string) => {
@@ -158,92 +191,100 @@ function MyChallengeCard(props: Props) {
   };
 
   return (
-    <>
-      <div
-        ref={index === length - 1 ? ref : null}
-        className={styles.challengeHeader}
-      >
-        <div className={styles.userAvatar}>
-          <Image
-            src={challenge.creator.avatar || noAvatar}
-            alt="userAvatar"
-            width={100}
-            height={100}
-          />
-        </div>
-        <div className={styles.details}>
-          <div className={styles.userName}>
-            <p>
-              {challenge.creator.username}{" "}
-              <span>@{challenge.creator.name}</span>
-              <span>
-                {" . "}
-                {formatTimeDifference(challenge.createdAt)}
-              </span>
-            </p>
+      <>
+        <div
+          ref={index === length - 1 ? ref : null}
+          className={styles.challengeHeader}
+        >
+          <div className={styles.userAvatar}>
+            <Image
+              src={challenge.creator.avatar || noAvatar}
+              alt="userAvatar"
+              width={100}
+              height={100}
+            />
           </div>
-          <div className={styles.post}>
-            {challenge.media?.length > 0 ? (
-              challenge.content.length > 50 ? (
-                <p>
-                  {challenge.content.slice(0, 40)}{" "}
-                  <span
-                    onClick={() => {
-                      router.push(`/${locale}/posts/${challenge.id}`);
-                    }}
-                    className={styles.readMore}
-                  >
-                    Read More...{" "}
-                  </span>
-                </p>
-              ) : (
-                <p>{challenge.content}</p>
-              )
-            ) : null}
+          <div className={styles.details}>
+            <div className={styles.userName}>
+              <p>
+                {challenge.creator.username}{" "}
+                <span>@{challenge.creator.name}</span>
+                <span>
+                  {" . "}
+                  {formatTimeDifference(challenge.createdAt)}
+                </span>
+              </p>
+            </div>
+            <div className={styles.post}>
+              {challenge.media?.length > 0 ? (
+                challenge.content.length > 50 ? (
+                  <p>
+                    {challenge.content.slice(0, 40)}{" "}
+                    <span
+                      onClick={() => {
+                        router.push(`/${locale}/posts/${challenge.id}`);
+                      }}
+                      className={styles.readMore}
+                    >
+                      Read More...{" "}
+                    </span>
+                  </p>
+                ) : (
+                  <p>{challenge.content}</p>
+                )
+              ) : null}
+            </div>
+          </div>
+          <div className={styles.deleteButtonContainer}>
+            <button
+              onClick={handleDelete}
+              className={styles.deleteButton}
+              disabled={isDeleting}
+            >
+              {isDeleting ? "Deleting..." : "Delete"}
+            </button>
           </div>
         </div>
-      </div>
-      <div className={styles.challengeImage}>
-        {challenge.media?.length > 0 ? (
-          <Image
-            src={challenge.media[0].mediaUrl}
-            alt="challengeImage"
-            width={500}
-            height={500}
-          />
-        ) : (
-          <div
+        <div className={styles.challengeImage}>
+          {challenge.media?.length > 0 ? (
+            <Image
+              src={challenge.media[0].mediaUrl}
+              alt="challengeImage"
+              width={500}
+              height={500}
+            />
+          ) : (
+            <div
+              onClick={() => {
+                router.push(`/${locale}/posts/${challenge.id}`);
+              }}
+              className={styles.noImage}
+            >
+              <p>{challenge.content}</p>
+            </div>
+          )}
+        </div>
+        <div className={styles.challengeActions}>
+          <button
             onClick={() => {
-              router.push(`/${locale}/posts/${challenge.id}`);
+              handleDoIt();
             }}
-            className={styles.noImage}
+            className={styles.challengeButton}
           >
-            <p>{challenge.content}</p>
-          </div>
-        )}
-      </div>
-      <div className={styles.challengeActions}>
-        <button
-          onClick={() => {
-            handleDoIt();
-            ToastNot("Challenge Accepted");
-          }}
-          className={styles.challengeButton}
-        >
-          Do it
-        </button>
-        <button
-          onClick={() => {
-            handleComment(challenge.id);
-            // ToastNot("Challenge Accepted");
-          }}
-          className={styles.challengeButton}
-        >
-          Comment
-        </button>
-      </div>
-    </>
-  );
-}
-
-export default MyChallengeCard;
+            Done
+          </button>
+          <button
+            onClick={() => {
+              handleComment(challenge.id);
+              // ToastNot("Challenge Accepted");
+            }}
+            className={styles.challengeButton}
+          >
+            Comment
+          </button>
+        </div>
+      </>
+    );
+  }
+  
+  export default MyChallengeCard;

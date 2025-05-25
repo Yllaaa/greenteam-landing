@@ -7,4 +7,5 @@ export type Props = {
   setDoItModal?: React.Dispatch<React.SetStateAction<boolean>>;
   setSection: React.Dispatch<React.SetStateAction<string>>;
   acceptDo?: any;
+  acceptDoit?: any;
 };
