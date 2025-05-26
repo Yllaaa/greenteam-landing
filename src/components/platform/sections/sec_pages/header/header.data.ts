@@ -25,6 +25,14 @@ export type PageItem = {
   topic: Topic;
   isAdmin: boolean;
   isFollowing: boolean;
+   country: {
+      id: number;
+      name: string;
+    };
+    city: {
+      id: number;
+      nameEn: string;
+    };
 };
 
 export function getSinglePageItems(id: string): Promise<PageItem> {

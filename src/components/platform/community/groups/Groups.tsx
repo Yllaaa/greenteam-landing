@@ -18,6 +18,9 @@ function Groups() {
   const country = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
   )?.toString();
+  const verified = useAppSelector(
+    (state)=> state.currentCommunity.verificationStatus
+  )
   const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
 
   // pagination
@@ -45,6 +48,8 @@ function Groups() {
         const countryParam =
           country !== "" && country ? `&countryId=${country}` : "";
         const cityParam = city !== "" && city ? `&cityId=${city}` : "";
+        // Add verified param if needed
+        const verifiedParam = verified !== "all" ? `&verified=true` : '';
 
         // Use different loading state for initial vs pagination loading
         if (replace) {
@@ -53,12 +58,9 @@ function Groups() {
         } else {
           setIsPaginationLoading(true);
         }
-        console.log(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/groups?limit=${limit}&page=${pageNum}${countryParam}${cityParam}`
-        );
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/groups?limit=${limit}&page=${pageNum}${countryParam}${cityParam}`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/groups?limit=${limit}&page=${pageNum}${countryParam}${cityParam}${verifiedParam}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -100,7 +102,7 @@ function Groups() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accessToken, city, country]
+    [accessToken, city, country, verified]
   );
 
   // Initial load
@@ -118,7 +120,7 @@ function Groups() {
 
     // Fetch new data with the updated location
     fetchPages(1, true);
-  }, [city, country, fetchPages]);
+  }, [city, country, fetchPages, verified]);
 
   // Load more pages when page changes
   useEffect(() => {

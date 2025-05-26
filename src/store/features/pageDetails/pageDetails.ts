@@ -1,5 +1,5 @@
 // features/userSignup/userSignupSlice.ts
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface Page {
   id: string;
@@ -21,31 +21,47 @@ interface Page {
     name: string;
   };
   isAdmin: boolean;
+  country: {
+    id: number;
+    name: string;
+  };
+  city: {
+    id: number;
+    nameEn: string;
+  };
 }
 
 const initialState: Page = {
-  id: "",
-  name: "",
-  description: "",
-  slug: "",
-  websiteUrl: "",
-  why: "",
-  what: "",
-  how: "",
-  avatar: "",
-  cover: "",
-  category: "",
-  createdAt: "",
+  id: '',
+  name: '',
+  description: '',
+  slug: '',
+  websiteUrl: '',
+  why: '',
+  what: '',
+  how: '',
+  avatar: '',
+  cover: '',
+  category: '',
+  createdAt: '',
   followersCount: 0,
   isFollowing: false,
   topic: {
     id: 0,
-    name: "",
+    name: '',
   },
   isAdmin: false,
+  country: {
+    id: 0,
+    name: '',
+  },
+  city: {
+    id: 0,
+    nameEn: '',
+  },
 };
 const pageDetails = createSlice({
-  name: "currentPage",
+  name: 'currentPage',
   initialState,
   reducers: {
     setCurrentPage: (state, action: PayloadAction<Page>) => {

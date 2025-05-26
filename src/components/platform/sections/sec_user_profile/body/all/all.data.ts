@@ -12,12 +12,23 @@ export type UserData = {
   isFollowing: boolean;
   isFollower: boolean;
   isBlocked: boolean;
+  location: {
+    city: {
+      id: number;
+      nameEn: string;
+    };
+    country: {
+      id: number;
+      name: string;
+    };
+  };
 };
 
 export type ProfileResponse = {
   userData: UserData;
   isMyProfile: boolean;
   userScore: number;
+  
 };
 const token = getToken();
 const accessToken = token ? token.accessToken : null;

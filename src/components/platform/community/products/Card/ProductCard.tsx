@@ -142,7 +142,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       className={styles.card}
     >
       <div ref={sliderRef} className={`keen-slider ${styles.slider}`}>
-        {product.images.length > 0 ? (
+        {product?.images?.length > 0 ? (
           product.images.map((imageUrl, index) => (
             <div
               key={imageUrl.id || index}
@@ -170,7 +170,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             className={styles.singleImage}
           />
         )}
-        {loaded && instanceRef.current && product.images.length > 1 && (
+        {loaded && instanceRef.current && product?.images?.length > 1 && (
           <div className={styles.dots}>
             {[
               ...Array(instanceRef.current.track.details.slides.length).keys(),

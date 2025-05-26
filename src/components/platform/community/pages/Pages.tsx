@@ -21,6 +21,9 @@ export default function Pages() {
   const country = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
   )?.toString();
+  const verified = useAppSelector(
+    (state) => state.currentCommunity.verificationStatus
+  );
 
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   const limit = 5;
@@ -50,6 +53,8 @@ export default function Pages() {
         const countryParam =
           country !== "" && country ? `&countryId=${country}` : "";
         const cityParam = city !== "" && city ? `&cityId=${city}` : "";
+        // Add verified param if needed
+        const verifiedParam = verified !== "all" ? `&verified=true` : '';
 
         // Use different loading state for initial vs pagination loading
         if (replace) {
@@ -60,7 +65,7 @@ export default function Pages() {
         }
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/pages?limit=${limit}&page=${pageNum}${countryParam}${cityParam}`,
+          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/pages?limit=${limit}&page=${pageNum}${countryParam}${cityParam}${verifiedParam}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -102,7 +107,7 @@ export default function Pages() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accessToken, city, country]
+    [accessToken, city, country, verified]
   );
 
   // Initial load

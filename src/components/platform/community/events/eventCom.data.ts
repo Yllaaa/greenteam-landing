@@ -73,7 +73,8 @@ export const fetchEvents = async ({
   category,
   city,
   country,
-  eventMode, // Added event mode parameter
+  eventMode,
+  verified,
 }: {
   page?: number;
   limit?: number;
@@ -81,7 +82,8 @@ export const fetchEvents = async ({
   category: EventCategory;
   city: number | string;
   country: number | string;
-  eventMode?: EventMode; // Added to parameters
+  eventMode?: EventMode;
+  verified?: string;
 }): Promise<Event[]> => {
   try {
     const categoryParam = category !== 'all' ? `&category=${category}` : '';
@@ -90,8 +92,10 @@ export const fetchEvents = async ({
     const cityParam = city !== '' && city ? `&cityId=${city}` : '';
     // Add event mode param for local/online filtering
     const eventModeParam = eventMode ? `&eventMode=${eventMode}` : '';
+    // Add verified param if needed
+    const verifiedParam = verified !=="all" ? `&verified=true` : '';
 
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${cityParam}${countryParam}${categoryParam}${eventModeParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${cityParam}${countryParam}${categoryParam}${eventModeParam}${verifiedParam}`;
 
     const response = await axios.get(url, {
       headers: {

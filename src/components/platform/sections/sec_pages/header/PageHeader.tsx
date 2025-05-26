@@ -187,6 +187,8 @@ function Pageheader(props: {
       <p>Loading page information...</p>
     </div>;
   }
+  console.log("Page data:", data);
+  
 
   return (
     <>
@@ -341,6 +343,17 @@ function Pageheader(props: {
               </h6>
             ) : (
               <h6>No Website</h6>
+            )}
+          </div>
+        
+          <div className={styles.infoItem}>
+            <h5>Location:</h5>
+            {data.country && data.city ? (
+              <h6>
+                {data.country.name}, {data.city.nameEn}
+              </h6>
+            ) : (
+              <h6>No Location</h6>
             )}
           </div>
         </div>

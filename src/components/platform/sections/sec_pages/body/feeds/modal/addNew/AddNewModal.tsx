@@ -112,7 +112,7 @@ function AddNewModal(props: {
         setAddNew(false);
         setSelectedFiles([]);
         setSelectedSubtopics([]);
-        router.push(`${locale}/feeds/posts/${response.data[0].id}`);
+        router.push(`/${locale}/feeds/posts/${response.data.id}`);
       }
     } catch (err) {
       console.log(err);

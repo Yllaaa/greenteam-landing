@@ -7,11 +7,26 @@ import axios from "axios";
 import { useAppSelector } from "@/store/hooks";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
+// Add interfaces for Country and City
+interface Country {
+  id: number;
+  name: string;
+  iso: string;
+}
+
+interface City {
+  id: number;
+  name: string;
+}
+
 interface FormData {
   fullName: string;
   bio: string;
   avatar: File | null;
   cover: File | null;
+  // Add the new fields for location
+  countryId: string | number;
+  cityId: string | number;
 }
 
 function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<boolean>> }) {
@@ -27,6 +42,8 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
       bio: "",
       avatar: null,
       cover: null,
+      countryId: "",
+      cityId: "",
     },
   });
 
@@ -41,6 +58,60 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
   // Separate refs for both file inputs
   const coverInputRef = useRef<HTMLInputElement>(null);
   const avatarInputRef = useRef<HTMLInputElement>(null);
+
+  // Add state for countries and cities
+  const [countries, setCountries] = useState<Country[]>([]);
+  const [cities, setCities] = useState<City[]>([]);
+  const [countryId, setCountryId] = useState<number | undefined>(undefined);
+  const [citySearch, setCitySearch] = useState<string>("");
+
+  // Fetch countries on component mount
+  useEffect(() => {
+    if (!accessToken) return;
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCountries(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching countries");
+      });
+  }, [accessToken]);
+
+  // Fetch cities when countryId changes
+  useEffect(() => {
+    if (!accessToken || countryId === undefined) return;
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${citySearch}&limit=5`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCities(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching cities");
+      });
+  }, [accessToken, countryId, citySearch]);
 
   // Handle cover image selection
   const handleImageCover = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -220,8 +291,11 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
       const formData = new FormData();
       if (data.cover) formData.append("cover", data.cover);
       if (data.avatar) formData.append("avatar", data.avatar);
-      formData.append("fullName", data.fullName);
-      formData.append("bio", data.bio);
+      if (data.fullName) formData.append("fullName", data.fullName);
+      if (data.bio) formData.append("bio", data.bio);
+      // Add the location data to the form
+      if (data.countryId) formData.append("countryId", data.countryId.toString());
+      if (data.cityId) formData.append("cityId", data.cityId.toString());
 
       axios
         .put(
@@ -395,6 +469,52 @@ function Settings(props: { setSettings: React.Dispatch<React.SetStateAction<bool
                 {...register("bio")}
               />
             </div>
+
+            {/* Add Country Selection */}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>Country</label>
+              <select
+                className={styles.select}
+                {...register("countryId")}
+                onChange={(e) => setCountryId(parseInt(e.target.value))}
+              >
+                <option value="" disabled>
+                  Select Country
+                </option>
+                {countries?.map((country, index) => (
+                  <option key={index} value={country.id}>
+                    {country.iso}_{country.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            {/* Add City Selection */}
+            <div className={styles.formGroup}>
+              <label className={styles.label}>City</label>
+              <div className={styles.searchContainer}>
+                <input
+                  type="text"
+                  placeholder="Search city"
+                  className={styles.input}
+                  onChange={(e) => setCitySearch(e.target.value)}
+                />
+                <select
+                  className={styles.select}
+                  {...register("cityId")}
+                >
+                  <option value="" disabled>
+                    Select City
+                  </option>
+                  {cities?.map((city, index) => (
+                    <option key={index} value={city.id}>
+                      {city.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+
             <div className={styles.formActions}>
               <button
                 type="submit"

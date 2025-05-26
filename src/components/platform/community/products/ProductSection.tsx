@@ -32,6 +32,9 @@ function ProductSection() {
   const marketType = useAppSelector(
     (state) => state.currentCommunity.selectedCategory
   ); // Get the selected category from Redux
+  const verified = useAppSelector(
+    (state) => state.currentCommunity.verificationStatus
+  );
 
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
@@ -67,6 +70,7 @@ function ProductSection() {
           cityId: cityId,
           countryId: countryId,
           marketType: marketType, // Pass the market type to the API
+          verified: verified,
         });
 
         // Check if we've reached the end of available events
@@ -89,7 +93,7 @@ function ProductSection() {
         setIsLoading(false);
       }
     },
-    [accessToken, section, cityId, countryId, marketType] // Added marketType to dependency array
+    [accessToken, section, cityId, countryId, marketType, verified] // Added marketType to dependency array
   );
 
   // Reset the category filter

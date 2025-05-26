@@ -39,9 +39,20 @@ function AllProfileBody(props: { username: string }) {
       isFollowing: false,
       isFollower: false,
       isBlocked: false,
+      location: {
+        city: {
+          id: 0,
+          nameEn: ""
+        },
+        country: {
+          id: 0,
+          name: ""
+        },
+      }
     },
     userScore: 0,
     isMyProfile: false,
+   
   });
 
   useEffect(() => {

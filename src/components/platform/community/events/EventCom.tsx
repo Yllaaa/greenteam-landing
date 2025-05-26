@@ -18,6 +18,9 @@ function EventCom() {
     (state) => state.currentCommunity.selectedCountry
   );
   const city = useAppSelector((state) => state.currentCommunity.selectedCity);
+  const verified = useAppSelector(
+    (state) => state.currentCommunity.verificationStatus
+  );
   const eventMode = useAppSelector(
     (state) => state.currentCommunity.selectedCategory
   ) as EventMode;
@@ -53,6 +56,7 @@ function EventCom() {
           accessToken,
           category: section,
           eventMode: eventMode,
+          verified: verified,
         });
 
         // Check if we've reached the end of available events
@@ -79,7 +83,7 @@ function EventCom() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accessToken, city, country, section, eventMode]
+    [accessToken, city, country, section, eventMode, verified]
   );
 
   // Check scroll position to update navigation button states

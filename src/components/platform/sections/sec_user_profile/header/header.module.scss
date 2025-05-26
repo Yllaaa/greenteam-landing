@@ -249,6 +249,35 @@ $mob-width: 430px;
           justify-content: center;
           text-align: start;
         }
+        
+        p {
+          font-family: Montserrat;
+          font-weight: 400;
+          font-size: 18px;
+          line-height: 160%;
+          letter-spacing: 0%;
+          color: #fefefe80;
+          @media screen and (max-width: $max-width) {
+            font-size: 14px;
+          }
+        }
+      }
+      .location {
+        grid-column: 4 / 10;
+        grid-row: 3 / 4;
+        max-width: 812px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-start;
+        align-self: flex-start;
+        @media screen and (max-width: $max-width) {
+          grid-column: 1 / 12;
+          grid-row: 2 / 3;
+          max-width: none;
+          align-items: center;
+          justify-content: center;
+          text-align: start;
+        }
         p {
           font-family: Montserrat;
           font-weight: 400;
@@ -299,7 +328,7 @@ $mob-width: 430px;
         }
 
         svg {
-          fill: #006633;
+          fill: #96b032;
           width: 24px;
           height: 24px;
 
@@ -374,7 +403,7 @@ $mob-width: 430px;
     }
 
     svg {
-      fill: #006633;
+      fill: #96b032;
       width: 24px;
       height: 24px;
 
@@ -439,7 +468,7 @@ $mob-width: 430px;
       align-items: center;
       gap: 12px;
       transition: background-color 0.2s ease;
-z-index: 1000;
+      z-index: 1000;
       &:hover {
         background-color: #2a2a2a;
       }

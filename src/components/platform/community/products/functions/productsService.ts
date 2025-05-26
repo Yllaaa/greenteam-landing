@@ -4,14 +4,15 @@ import { Products } from "../types/productsTypes.data";
 import { postRequest } from "@/Utils/backendEndpoints/backend-requests";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
-interface FetchEventsParams {
+interface FetchProductsParams {
   page: number;
   limit: number;
   topicId?: number | undefined;
   countryId?: number | undefined;
   cityId?: number | undefined;
   accessToken?: string | null;
-  marketType?: string | undefined; // Add marketType parameter
+  marketType?: string | undefined;
+  verified?: string | undefined;
 }
 
 export const fetchProducts = async ({
@@ -21,15 +22,18 @@ export const fetchProducts = async ({
   countryId,
   cityId,
   accessToken,
-  marketType, // Add to function parameters
-}: FetchEventsParams): Promise<Products[]> => {
+  marketType,
+  verified,
+}: FetchProductsParams): Promise<Products[]> => {
   try {
     const topicIdParam = topicId ? `&topicId=${topicId}` : '';
     const countryIdParam = countryId ? `&countryId=${countryId}` : '';
     const cityIdParam = cityId ? `&cityId=${cityId}` : '';
-    const marketTypeParam = marketType ? `&marketType=${marketType}` : ''; // Add market type parameter
+    const marketTypeParam = marketType ? `&marketType=${marketType}` : '';
+    // Add verified param if needed
+    const verifiedParam = verified !=="all" ? `&verified=true` : '';
 
-    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${cityIdParam}${marketTypeParam}`;
+    const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/community/products?page=${page}&limit=${limit}${topicIdParam}${countryIdParam}${cityIdParam}${marketTypeParam}${verifiedParam}`;
 
     const response = await axios.get(url, {
       headers: {

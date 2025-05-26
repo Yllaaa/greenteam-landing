@@ -10,7 +10,7 @@ $mob-width: 430px;
   justify-content: center;
   height: 200px;
   width: 100%;
-  
+
   .loadingSpinner {
     width: 40px;
     height: 40px;
@@ -20,11 +20,13 @@ $mob-width: 430px;
     animation: spin 1s ease-in-out infinite;
     margin-bottom: 15px;
   }
-  
+
   @keyframes spin {
-    to { transform: rotate(360deg); }
+    to {
+      transform: rotate(360deg);
+    }
   }
-  
+
   p {
     color: #333634;
   }
@@ -37,19 +39,19 @@ $mob-width: 430px;
   position: relative;
   border-radius: 8px 8px 0 0;
   // Removed overflow: hidden
-  
+
   @media (max-width: $mid-width) {
     height: 380px;
   }
-  
+
   @media (max-width: $min-width) {
     height: 220px;
   }
-  
+
   @media (max-width: $mob-width) {
     height: 180px;
   }
-  
+
   .coverSection {
     width: 100%;
     height: 100%;
@@ -57,13 +59,13 @@ $mob-width: 430px;
     overflow: hidden;
     border-radius: 8px 8px 0 0;
   }
-  
+
   .coverImg {
     width: 100%;
     height: 100%;
     object-fit: cover;
   }
-  
+
   .pageInfo {
     position: absolute;
     left: 54px;
@@ -72,18 +74,18 @@ $mob-width: 430px;
     align-items: flex-end;
     gap: 16px;
     z-index: 10;
-    
+
     @media (max-width: $mid-width) {
       left: 30px;
       bottom: -40px;
     }
-    
+
     @media (max-width: $min-width) {
       left: 20px;
       bottom: -35px;
       gap: 10px;
     }
-    
+
     @media (max-width: $mob-width) {
       left: 50%;
       transform: translateX(-50%);
@@ -91,28 +93,28 @@ $mob-width: 430px;
       align-items: center;
       bottom: -75px;
     }
-    
+
     .image {
       width: 135px;
       height: 135px;
       border-radius: 50%;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-      
+
       @media (max-width: $mid-width) {
         width: 120px;
         height: 120px;
       }
-      
+
       @media (max-width: $min-width) {
         width: 100px;
         height: 100px;
       }
-      
+
       @media (max-width: $mob-width) {
         width: 90px;
         height: 90px;
       }
-      
+
       .profileImg {
         width: 100%;
         height: 100%;
@@ -121,59 +123,62 @@ $mob-width: 430px;
         border-radius: 50%;
       }
     }
-    
+
     .nameContainer {
       display: flex;
       flex-direction: column;
       gap: 8px;
-      
+
       @media (max-width: $mob-width) {
         align-items: center;
         margin-top: 5px;
       }
-      
+
       .name {
-        font-family: 'Segoe UI', sans-serif;
         font-weight: 700;
         font-size: 28px;
         line-height: 1.2;
         // Enhanced name color
-        color: #006633;
-        text-shadow: 0 1px 1px rgba(255, 255, 255, 0.6);
-        
+        color: #fff;
+
         @media (max-width: $mid-width) {
           font-size: 24px;
         }
-        
+
         @media (max-width: $min-width) {
           font-size: 20px;
         }
-        
+
         @media (max-width: $mob-width) {
           font-size: 18px;
           text-align: center;
         }
       }
-      
+
       .followButtonMobile {
         display: none;
-        
+
         @media (max-width: $mob-width) {
           display: block;
           width: 100%;
           margin-top: 8px;
-          
+
           .likeBtn {
             width: 120px;
             height: 36px;
             font-size: 14px;
-            background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+            background: linear-gradient(
+              90deg,
+              #307040 0%,
+              #74b243 45.5%,
+              #96b032 80%
+            );
             color: #fff;
             border: none;
             border-radius: 6px;
             cursor: pointer;
             font-weight: 600;
-            
+
             &:hover {
               opacity: 0.9;
             }
@@ -182,19 +187,19 @@ $mob-width: 430px;
       }
     }
   }
-  
+
   // Page options menu styling
   .pageOptions {
     position: absolute;
     top: 20px;
     right: 20px;
     z-index: 10;
-    
+
     @media (max-width: $min-width) {
       top: 15px;
       right: 15px;
     }
-    
+
     .optionsIcon {
       cursor: pointer;
       display: flex;
@@ -206,22 +211,22 @@ $mob-width: 430px;
       border-radius: 50%;
       background-color: rgba(0, 0, 0, 0.3);
       transition: background-color 0.2s;
-      
+
       &:hover {
         background-color: rgba(0, 0, 0, 0.5);
       }
-      
+
       svg {
         font-size: 24px;
         color: #006633;
-        fill: #006633;
-        
+        fill: #96b032;
+
         @media (max-width: $min-width) {
           font-size: 20px;
         }
       }
     }
-    
+
     .optionsMenu {
       position: absolute;
       top: 45px;
@@ -232,20 +237,26 @@ $mob-width: 430px;
       width: 180px;
       z-index: 1000;
       overflow: hidden;
-      border: 1px solid #4A4C49;
+      border: 1px solid #4a4c49;
       animation: fadeIn 0.2s ease-out;
-      
+
       @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      
+
       @media (max-width: $min-width) {
         width: 160px;
         top: 40px;
       }
     }
-    
+
     .optionItem {
       display: flex;
       align-items: center;
@@ -253,39 +264,39 @@ $mob-width: 430px;
       padding: 12px 15px;
       cursor: pointer;
       transition: background-color 0.2s;
-      color: #FEFEFE;
-      
+      color: #fefefe;
+
       &:hover {
         background-color: rgba(0, 102, 51, 0.2);
       }
-      
+
       svg {
         font-size: 18px;
-        
+
         @media (max-width: $min-width) {
           font-size: 16px;
         }
       }
-      
+
       span {
         font-size: 14px;
         font-weight: 500;
-        
+
         @media (max-width: $min-width) {
           font-size: 13px;
         }
       }
-      
+
       &:first-child svg {
-        color: #FF4D4F;
+        color: #ff4d4f;
       }
-      
+
       &:nth-child(2) svg {
-        color: #FAAD14;
+        color: #faad14;
       }
-      
+
       &:last-child svg {
-        color: #1890FF;
+        color: #1890ff;
       }
     }
   }
@@ -300,52 +311,52 @@ $mob-width: 430px;
   border-bottom: 1px solid #333634;
   position: relative;
   // overflow: hidden removed
-  
+
   @media (max-width: $mid-width) {
     padding: 55px 30px 20px;
     gap: 20px;
     margin-top: 65px;
   }
-  
+
   @media (max-width: $min-width) {
     padding: 50px 20px 20px;
     gap: 16px;
     margin-top: 70px;
   }
-  
+
   @media (max-width: $mob-width) {
     padding: 80px 15px 15px;
     gap: 14px;
   }
-  
+
   // Settings icon
   .settings {
     position: absolute;
     top: 20px;
     right: 30px;
     cursor: pointer;
-    
+
     @media (max-width: $min-width) {
       top: 15px;
       right: 20px;
     }
-    
+
     svg {
       width: 30px;
       height: 30px;
-      fill: #006633;
-      
+      fill: #96b032;
+
       @media (max-width: $min-width) {
         width: 24px;
         height: 24px;
       }
     }
   }
-  
+
   // Mobile actions toggle - Kept in original position
   .mobileActionsToggle {
     display: none;
-    
+
     @media (max-width: $min-width) {
       display: flex;
       align-items: center;
@@ -354,28 +365,33 @@ $mob-width: 430px;
       top: 15px;
       left: 20px;
       padding: 8px 12px;
-      background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+      background: linear-gradient(
+        90deg,
+        #307040 0%,
+        #74b243 45.5%,
+        #96b032 80%
+      );
       border-radius: 6px;
       color: white;
       font-size: 14px;
       font-weight: 600;
       cursor: pointer;
       z-index: 5;
-      
+
       svg {
         font-size: 14px;
       }
-      
+
       &:active {
         opacity: 0.9;
       }
     }
   }
-  
+
   // Mobile actions menu - Kept dropdown style
   .mobileActionsMenu {
     display: none;
-    
+
     @media (max-width: $min-width) {
       display: block;
       position: absolute;
@@ -387,46 +403,52 @@ $mob-width: 430px;
       z-index: 10;
       overflow: hidden;
       animation: slideDown 0.2s ease-out;
-      
+
       @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to { opacity: 1; transform: translateY(0); }
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
       }
-      
+
       div {
         padding: 12px 16px;
         white-space: nowrap;
         font-size: 14px;
         cursor: pointer;
         transition: background-color 0.2s;
-        color: #FEFEFE;
-        
+        color: #fefefe;
+
         &:hover {
           background-color: rgba(0, 102, 51, 0.2);
         }
       }
     }
   }
-  
+
   // Header content
   .headerContent {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
-    
+
     @media (max-width: $min-width) {
       gap: 12px;
       margin-top: 25px;
     }
-    
+
     .infoItem {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       gap: 8px;
       width: 100%;
-      
+
       @media (max-width: $min-width) {
         gap: 5px;
       }
@@ -437,16 +459,16 @@ $mob-width: 430px;
         font-weight: 600;
         font-size: 20px;
         line-height: 100%;
-        
+
         @media (max-width: $mid-width) {
           font-size: 18px;
         }
-        
+
         @media (max-width: $min-width) {
           font-size: 16px;
         }
       }
-      
+
       h6 {
         font-family: Montserrat, sans-serif;
         font-weight: 600;
@@ -454,18 +476,18 @@ $mob-width: 430px;
         line-height: 100%;
         width: 100%;
         word-wrap: break-word;
-        
+
         @media (max-width: $mid-width) {
           font-size: 18px;
         }
-        
+
         @media (max-width: $min-width) {
           font-size: 16px;
         }
       }
     }
   }
-  
+
   // Header actions
   .headerActions {
     display: flex;
@@ -473,25 +495,25 @@ $mob-width: 430px;
     align-items: center;
     margin-top: 20px;
     gap: 20px; // Added gap between elements
-    
+
     @media (max-width: $mid-width) {
       flex-direction: column;
       align-items: flex-end; // Changed from flex-start to flex-end
       gap: 15px;
     }
-    
+
     // Add buttons container
     .headerAddBtns {
       display: flex;
       gap: 13px;
       flex-wrap: wrap;
       order: 2; // Changed order to put buttons after follow button
-      
+
       @media (max-width: $mid-width) {
         gap: 8px;
         order: 1; // On smaller screens, buttons come first
       }
-      
+
       @media (max-width: $min-width) {
         display: none;
       }
@@ -499,7 +521,12 @@ $mob-width: 430px;
       button {
         width: 142px;
         height: 42px;
-        background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+        background: linear-gradient(
+          90deg,
+          #307040 0%,
+          #74b243 45.5%,
+          #96b032 80%
+        );
         outline: none;
         border: none;
         cursor: pointer;
@@ -510,32 +537,32 @@ $mob-width: 430px;
         color: #fff;
         border-radius: 6px;
         transition: all 0.3s ease;
-        
+
         &:hover {
           opacity: 0.8;
           color: #006633;
         }
-        
+
         @media (max-width: $mid-width) {
           width: 100px;
           height: 40px;
         }
       }
     }
-    
+
     // Follow button container
     .headerLike {
       order: 1; // Changed order to put follow button first
-      
+
       @media (max-width: $mid-width) {
         width: auto; // Changed from 100% to auto
         order: 2; // On smaller screens, follow button comes second
       }
-      
+
       @media (max-width: $mob-width) {
         display: none;
       }
-      
+
       button {
         width: 200px; // Changed from 315px to 200px
         height: 42px;
@@ -548,14 +575,19 @@ $mob-width: 430px;
         font-size: 15px;
         line-height: 100%;
         color: #fff;
-        background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-        
+        background: linear-gradient(
+          90deg,
+          #307040 0%,
+          #74b243 45.5%,
+          #96b032 80%
+        );
+
         &:hover {
           opacity: 0.8;
           color: #006633;
           transition: all 0.5s ease-in-out;
         }
-        
+
         @media (max-width: $mid-width) {
           width: 150px; // Changed from 100% to 150px
         }
@@ -572,11 +604,11 @@ $mob-width: 430px;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-  
+
   @media (max-width: $min-width) {
     justify-content: center;
   }
-  
+
   button {
     width: 195px;
     height: 48px;
@@ -591,12 +623,12 @@ $mob-width: 430px;
     color: #97b00f;
     border-radius: 6px;
     transition: all 0.5s ease-in-out;
-    
+
     &:hover {
       background: #97b00f;
       color: #006633;
     }
-    
+
     @media (max-width: $min-width) {
       width: 120px;
       height: 40px;
