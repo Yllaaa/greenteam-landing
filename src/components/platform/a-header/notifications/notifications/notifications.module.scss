@@ -11,8 +11,6 @@
 
   .item {
     height: fit-content;
-    // min-height: 78px;
-    // max-height: 78px;
     background: #1a1e1c;
     display: flex;
     align-items: center;
@@ -80,4 +78,142 @@
       }
     }
   }
+}
+.notificationsContainer {
+  width: 100%;
+  position: relative;
+  border-radius: 12px;
+  background-color: rgba(26, 30, 28, 0.5);
+  overflow: hidden;
+  
+  // Dynamic shadow for better depth perception
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  // Responsive padding
+  padding: 8px;
+  
+  @media (min-width: 768px) {
+    padding: 12px;
+  }
+}
+
+.notifications {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  width: 100%;
+  overflow-y: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch; // Smooth scrolling on iOS
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+  
+  // Adjust container to be responsive
+  @media (max-width: 768px) {
+    gap: 8px;
+  }
+
+  .item {
+    height: fit-content;
+    background: #1a1e1c;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 16px;
+    padding: 12px;
+    border-radius: 20px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    
+    // Add hover effect for desktop
+    @media (min-width: 768px) {
+      &:hover {
+        background: #232825;
+        transform: translateY(-2px);
+      }
+    }
+    
+    // Responsive adjustments for mobile
+    @media (max-width: 768px) {
+      gap: 12px;
+      padding: 10px;
+      border-radius: 16px;
+    }
+    
+    .avatarImage {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      
+      @media (max-width: 768px) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+    
+    .content {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex: 1;
+      
+      .message {
+        font-family: Montserrat, sans-serif;
+        font-weight: 600;
+        font-size: 18px;
+        line-height: 1.2;
+        letter-spacing: -0.4%;
+        color: #fefefe;
+        word-break: break-word;
+        
+        @media (max-width: 768px) {
+          font-size: 16px;
+        }
+      }
+      
+      .time {
+        font-family: Montserrat, sans-serif;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 1.2;
+        letter-spacing: -0.4%;
+        color: rgba(254, 254, 254, 0.7);
+        
+        @media (max-width: 768px) {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+}
+
+// Add styles for loading states
+.noNotifications, .paginationLoader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px 0;
+  text-align: center;
+  color: rgba(254, 254, 254, 0.8);
+  font-family: Montserrat, sans-serif;
+  
+  p {
+    font-size: 16px;
+    
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
+  }
+}
+
+.endMessage {
+  text-align: center;
+  padding: 12px 0;
+  font-size: 14px;
+  color: rgba(254, 254, 254, 0.6);
+  font-family: Montserrat, sans-serif;
+  font-style: italic;
 }

@@ -7,8 +7,10 @@ $max-width: 1024px;
   gap: 10px;
   overflow-x: scroll !important;
 
-  scrollbar-width: thin;
-  scrollbar-color: #97b00f #000;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
   @media screen and (max-width: $max-width) {
     width: 100vw;
   }

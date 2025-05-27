@@ -24,7 +24,24 @@ export default function Notifications() {
   // Refs
   const bodyRef = useRef<HTMLDivElement>(null);
   const initialFetchRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
+  // Add this useEffect for dynamic height adjustment
+  useEffect(() => {
+    const updateContainerHeight = () => {
+      if (containerRef.current) {
+        // Adjust height based on viewport - more dynamic than fixed height
+        const viewportHeight = window.innerHeight;
+        // const headerHeight = 120; // Estimate header height
+        const idealHeight = Math.min(350, viewportHeight * 0.6);
+        containerRef.current.style.height = `${idealHeight}px`;
+      }
+    };
+
+    updateContainerHeight();
+    window.addEventListener('resize', updateContainerHeight);
+    return () => window.removeEventListener('resize', updateContainerHeight);
+  }, []);
   // Get token
   const localeS = useRef(getToken());
   const accessToken = localeS.current ? localeS.current.accessToken : null;
@@ -149,21 +166,21 @@ export default function Notifications() {
   };
 
   return (
-    <div ref={bodyRef} className={styles.notificationsContainer}>
-      <div className={styles.notifications}>
+    <div ref={containerRef} className={styles.notificationsContainer}>
+      <div ref={bodyRef} className={styles.notifications}>
         {notifications.map((notification) => (
           <Item key={notification.id} {...notification} />
         ))}
       </div>
-      
+
       {renderContent()}
-      
+
       {isPaginationLoading && (
         <div className={styles.paginationLoader}>
           <LoadingTree />
         </div>
       )}
-      
+
       {endOfResults && (
         <p className={styles.endMessage}>End of results</p>
       )}
