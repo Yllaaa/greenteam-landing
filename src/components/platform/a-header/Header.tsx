@@ -43,8 +43,55 @@ function Header() {
   );
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
+  // Header visibility states
+  const [showHeader, setShowHeader] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
+
   // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
+
+  // Handle scroll behavior for header visibility
+  useEffect(() => {
+    const controlHeader = () => {
+      if (typeof window !== "undefined") {
+        const currentScrollY = window.scrollY;
+
+        // Always show header when at the top
+        if (currentScrollY < 5) {
+          setShowHeader(true);
+        } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+          // Scrolling down & past 100px
+          setShowHeader(false);
+        } else if (currentScrollY < lastScrollY) {
+          // Scrolling up
+          setShowHeader(true);
+        }
+
+        setLastScrollY(currentScrollY);
+      }
+    };
+
+    const handleScroll = () => {
+      // Clear existing timeout
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+
+      // Set a new timeout for better performance
+      const timeout = setTimeout(controlHeader, 10);
+      setScrollTimeout(timeout);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      if (scrollTimeout) {
+        clearTimeout(scrollTimeout);
+      }
+    };
+  }, [lastScrollY, scrollTimeout]);
 
   // Handle window resize
   useEffect(() => {
@@ -174,7 +221,7 @@ function Header() {
       <div className={styles.spacer}></div>
       <div
         style={{ zIndex: "9999" }}
-        className={styles.container}
+        className={`${styles.container} ${!showHeader ? styles.hidden : ''}`}
       >
         <div className={styles.logos}>
           <div className={styles.logoItem}>

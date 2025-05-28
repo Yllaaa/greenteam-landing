@@ -16,8 +16,13 @@
     #0c2311 50%,
     #031e09 99.2%
   );
+  transition: transform 0.3s ease-in-out;
+  will-change: transform;
 }
-
+/* Hidden state for header */
+.container.hidden {
+  transform: translateY(-100%);
+}
 /* Add spacing for the content to prevent it from hiding underneath the header */
 .spacer {
   height: 119px;
@@ -282,6 +287,14 @@
   .container {
     min-height: 70px;
     padding: 12px 16px;
+    transition: transform 0.3s ease-in-out;
+    -webkit-transition: transform 0.3s ease-in-out;
+    -moz-transition: transform 0.3s ease-in-out;
+    -ms-transition: transform 0.3s ease-in-out;
+    -o-transition: transform 0.3s ease-in-out;
+  }
+  .container.hidden {
+    transform: translateY(-100%);
   }
 
   .spacer {
@@ -426,8 +439,6 @@
 }
 /* Additional CSS for header.module.css */
 
-
-
 /* Smooth transitions for mobile menu */
 .mobileMenuOverlay {
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -444,9 +455,11 @@
   .container {
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
   }
-  
+
   /* Improve tap targets for mobile */
-  .notification, .profileIcon, .mobileMenuToggle {
+  .notification,
+  .profileIcon,
+  .mobileMenuToggle {
     min-width: 44px;
     min-height: 44px;
   }
