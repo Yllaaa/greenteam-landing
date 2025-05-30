@@ -91,10 +91,10 @@ function Footer() {
                 <Link href={`/${locale}/feeds`}>{t("home")}</Link>
               </li>
               <li>
-                <Link href="#">{t("community")}</Link>
+                <Link href={`/${locale}/about`}>{t("community")}</Link>
               </li>
               <li>
-                <Link href="#">{t("profile")}</Link>
+                <Link href={`/${locale}/goal`}>{t("profile")}</Link>
               </li>
               <li>
                 <Link href="#">{t("privacyAndPolicy")}</Link>

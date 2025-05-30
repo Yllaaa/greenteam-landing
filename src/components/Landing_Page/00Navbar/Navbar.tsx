@@ -8,65 +8,66 @@ import Image from "next/image";
 import LangBtn from "./languageBtn/LangBtn";
 import Link from "next/link";
 import { ScreenBreakpoints } from "@/Utils/screenBreakPoints/ScreenBreakPoints";
-import axios from "axios";
-import { useRouter, useSearchParams } from "next/navigation";
-import { setUserLoginData } from "@/store/features/login/userLoginSlice";
-import { useAppDispatch } from "@/store/hooks";
+// import axios from "axios";
+import { useRouter } from "next/navigation";
+// import { useRouter, useSearchParams } from "next/navigation";
+// import { setUserLoginData } from "@/store/features/login/userLoginSlice";
+// import { useAppDispatch } from "@/store/hooks";
 
 function Navbar() {
   const t = useTranslations("landing.navbar");
   const locale = useLocale();
-  const params = useSearchParams();
+  // const params = useSearchParams();
 
   const router = useRouter();
 
-  console.log(params.get("token"));
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (localStorage.getItem("user")) {
-      const user = localStorage.getItem("user");
-      const userObj = JSON.parse(user!);
-      console.log(userObj);
-      router.push(`/${locale}/feeds`);
+  // console.log(params.get("token"));
+  // const dispatch = useAppDispatch();
+  // useEffect(() => {
+  //   if (localStorage.getItem("user")) {
+  //     const user = localStorage.getItem("user");
+  //     const userObj = JSON.parse(user!);
+  //     console.log(userObj);
+  //     router.push(`/${locale}/feeds`);
 
-      axios
-        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
-          headers: {
-            Authorization: `Bearer ${userObj.accessToken}`,
-          },
-        })
-        .then((res) => {
-          console.log(res);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-    if (params.get("token")) {
-      const userObj = params.get("token");
-      console.log(userObj);
-      // router.push(`/${locale}/feeds`);
+  //     axios
+  //       .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+  //         headers: {
+  //           Authorization: `Bearer ${userObj.accessToken}`,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         console.log(res);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  //   if (params.get("token")) {
+  //     const userObj = params.get("token");
+  //     console.log(userObj);
+  //     // router.push(`/${locale}/feeds`);
 
-      axios
-        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
-          headers: {
-            Authorization: `Bearer ${userObj}`,
-          },
-        })
-        .then((res) => {
-          router.push(`/${locale}/feeds`);
-          const finalRes = {
-            ...res.data,
-            accessToken: userObj,
-          };
-          localStorage.setItem("user", JSON.stringify(finalRes));
-          dispatch(setUserLoginData(finalRes));
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  }, []);
+  //     axios
+  //       .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+  //         headers: {
+  //           Authorization: `Bearer ${userObj}`,
+  //         },
+  //       })
+  //       .then((res) => {
+  //         router.push(`/${locale}/feeds`);
+  //         const finalRes = {
+  //           ...res.data,
+  //           accessToken: userObj,
+  //         };
+  //         localStorage.setItem("user", JSON.stringify(finalRes));
+  //         dispatch(setUserLoginData(finalRes));
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // }, []);
   const [isOpen, setIsOpen] = useState(false);
 
   const menuRef = useRef<HTMLDivElement>(null);
@@ -100,7 +101,7 @@ function Navbar() {
     <>
       <div className={styles.container}>
         <div className={styles.logo}>
-          <Image src={logo} alt="logo" />
+          <Image onClick={() => router.push(`/${locale}`)} src={logo} alt="logo" />
         </div>
         <div className={styles.links}>
           <p onClick={redirectToDownloadLink}>{t("downloadApp")}</p>

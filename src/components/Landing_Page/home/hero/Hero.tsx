@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React from "react";
 import styles from "./hero.module.css";
@@ -11,15 +12,67 @@ import { AOSInit } from "@/Utils/aos/aos";
 import "aos/dist/aos.css";
 import { FaArrowRightLong } from "react-icons/fa6";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { useSearchParams } from "next/navigation";
+import { setUserLoginData } from "@/store/features/login/userLoginSlice";
+import { useAppDispatch } from "@/store/hooks";
+import { useRouter } from "next/navigation";
+import axios from "axios";
+import { useEffect } from "react";
 function Hero() {
   const t = useTranslations('landing.hero');
   const locale = useLocale();
   React.useEffect(() => {
     AOSInit(1500);
   }, []);
-
+  const params = useSearchParams();
+  const router = useRouter();
+  const dispatch = useAppDispatch();
   const [logoLoaded, setLogoLoaded] = React.useState(false);
-  
+  useEffect(() => {
+    if (localStorage.getItem("user")) {
+      const user = localStorage.getItem("user");
+      const userObj = JSON.parse(user!);
+      console.log(userObj);
+      router.push(`/${locale}/feeds`);
+
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+          headers: {
+            Authorization: `Bearer ${userObj.accessToken}`,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+    if (params.get("token")) {
+      const userObj = params.get("token");
+      console.log(userObj);
+      // router.push(`/${locale}/feeds`);
+
+      axios
+        .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
+          headers: {
+            Authorization: `Bearer ${userObj}`,
+          },
+        })
+        .then((res) => {
+          router.push(`/${locale}/feeds`);
+          const finalRes = {
+            ...res.data,
+            accessToken: userObj,
+          };
+          localStorage.setItem("user", JSON.stringify(finalRes));
+          dispatch(setUserLoginData(finalRes));
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, []);
   return (
     <>
       <div className={styles.container}>
