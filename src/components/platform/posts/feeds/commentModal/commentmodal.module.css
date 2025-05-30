@@ -1,4 +1,4 @@
-.modale {
+.modal {
   margin-top: 50px auto;
   position: fixed;
   top: 0;
@@ -387,7 +387,7 @@
 }
 
 @media screen and (max-width: 1024px) {
-  .modale {
+  .modal {
     margin-top: 50px auto;
     align-items: flex-start;
   }
