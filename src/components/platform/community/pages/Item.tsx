@@ -25,7 +25,7 @@ export default function Item({
 }: {
   pageI: PageItem;
   page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  setPage: (page: number) => void;
   length: number;
   index: number;
   deleteModal: boolean;
@@ -146,9 +146,9 @@ export default function Item({
       </div> */}
       <div className={styles.header}>
         <div className={styles.logo}>
-          <Image src={logo} alt={pageI.name} />
+          <Image src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
         </div>
-        <div className={styles.ecoVillage}>EcoVillage</div>
+        <div className={styles.ecoVillage}>{pageI.topic.name}</div>
       </div>
       <div className={styles.content}>
         <div onClick={handleNavigate} className={styles.text}>

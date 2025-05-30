@@ -1,18 +1,24 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import Item from "./Item";
-import { PageItem } from "./pages.data";
+// import { PageItem } from "./pages.data";
 import styles from "./pages.module.scss";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Header from "../header/Header";
-import { useAppSelector } from "@/store/hooks";
+import { useAppSelector, useAppDispatch } from "@/store/hooks";
 import AddNewPage from "./AddPage/AddNewPage";
 import DeleteModal from "./deleteModal/DeleteModal";
 import Report from "./reportModal/Report";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import {
+  setPages,
+  setLoading,
+  setPaginationLoading,
+  setHasMore,
+  setCurrentPage,
+} from '@/store/features/pageFilter/pageFillterSlice';
 export default function Pages() {
   const city = useAppSelector(
     (state) => state.currentCommunity.selectedCity
@@ -25,13 +31,22 @@ export default function Pages() {
     (state) => state.currentCommunity.verificationStatus
   );
 
-  const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
+  const dispatch = useAppDispatch();
+
+  // Redux state
+  const filteredPages = useAppSelector(state => state.pageFilter.filteredPages);
+  const isLoading = useAppSelector(state => state.pageFilter.isLoading);
+  const isPaginationLoading = useAppSelector(state => state.pageFilter.isPaginationLoading);
+  const hasMore = useAppSelector(state => state.pageFilter.hasMore);
+  const currentPage = useAppSelector(state => state.pageFilter.currentPage);
+
+  // const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   const limit = 5;
   const [addNew, setAddNew] = useState(false);
-  const [page, setPage] = useState(1);
-  const [hasMore, setHasMore] = useState(true);
-  const [isLoading, setIsLoading] = useState(true);
-  const [isPaginationLoading, setIsPaginationLoading] = useState(false);
+  // const [page, setPage] = useState(1);
+  // const [hasMore, setHasMore] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
+  // const [isPaginationLoading, setIsPaginationLoading] = useState(false);
   // const [errorMessage, setErrorMessage] = useState("");
   const [endOfResults, setEndOfResults] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
@@ -47,21 +62,31 @@ export default function Pages() {
   const localeS = useRef(getToken());
   const accessToken = localeS.current ? localeS.current.accessToken : null;
 
+  // Check scroll position to update navigation button states
+  const updateScrollButtonStates = useCallback(() => {
+    if (!bodyRef.current) return;
+
+    const container = bodyRef.current;
+    const scrollLeft = container.scrollLeft;
+    const scrollWidth = container.scrollWidth;
+    const clientWidth = container.clientWidth;
+
+    setCanScrollLeft(scrollLeft > 10); // Add a small threshold
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10); // Add a small threshold
+  }, []);
+
   const fetchPages = useCallback(
     async (pageNum: number, replace: boolean = false) => {
       try {
-        const countryParam =
-          country !== "" && country ? `&countryId=${country}` : "";
+        const countryParam = country !== "" && country ? `&countryId=${country}` : "";
         const cityParam = city !== "" && city ? `&cityId=${city}` : "";
-        // Add verified param if needed
         const verifiedParam = verified !== "all" ? `&verified=true` : '';
 
-        // Use different loading state for initial vs pagination loading
         if (replace) {
-          setIsLoading(true);
+          dispatch(setLoading(true));
           setEndOfResults(false);
         } else {
-          setIsPaginationLoading(true);
+          dispatch(setPaginationLoading(true));
         }
 
         const response = await axios.get(
@@ -76,77 +101,62 @@ export default function Pages() {
 
         const data = response.data;
 
-        // Check if we've reached the end of available pagesArray
         if (data.length < limit) {
-          setHasMore(false);
+          dispatch(setHasMore(false));
           if (data.length === 0 && pageNum > 1) {
             setEndOfResults(true);
           }
         } else {
-          setHasMore(true);
+          dispatch(setHasMore(true));
         }
 
-        setPagesArray((prev) => {
-          if (replace) {
-            return data;
-          }
-          return [...prev, ...data];
-        });
-
-        // Check scroll states after data is loaded
+        dispatch(setPages({ pages: data, replace }));
         setTimeout(updateScrollButtonStates, 300);
 
         return data;
       } catch (error) {
         console.error("Failed to fetch forums:", error);
-        // setErrorMessage("An Error Occurred");
         throw error;
       } finally {
-        setIsLoading(false);
-        setIsPaginationLoading(false);
+        dispatch(setLoading(false));
+        dispatch(setPaginationLoading(false));
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [accessToken, city, country, verified]
+    [country, city, verified, accessToken, dispatch, updateScrollButtonStates]
   );
+
 
   // Initial load
   useEffect(() => {
     fetchPages(1, true);
   }, [fetchPages]);
-
   // Reset and refetch when city or country changes
   useEffect(() => {
-    // Reset pagination state
-    setPage(1);
-    setHasMore(true);
+    dispatch(setCurrentPage(1));
+    dispatch(setHasMore(true));
     setEndOfResults(false);
-    // setErrorMessage("");
-
-    // Fetch new data with the updated location
     fetchPages(1, true);
-  }, [city, country, fetchPages]);
+  }, [city, country, fetchPages, dispatch]);
+  // // Reset and refetch when city or country changes
+  // useEffect(() => {
+  //   // Reset pagination state
+  //   setPage(1);
+  //   setHasMore(true);
+  //   setEndOfResults(false);
+  //   // setErrorMessage("");
+
+  //   // Fetch new data with the updated location
+  //   fetchPages(1, true);
+  // }, [city, country, fetchPages]);
 
   // Load more pages when page changes
   useEffect(() => {
-    // Skip the initial page load since we handle that separately
-    if (page > 1 && !isLoading) {
-      fetchPages(page, false);
+    if (currentPage > 1 && !isLoading) {
+      fetchPages(currentPage, false);
     }
-  }, [page, fetchPages, isLoading]);
+  }, [currentPage, fetchPages, isLoading]);
 
-  // Check scroll position to update navigation button states
-  const updateScrollButtonStates = useCallback(() => {
-    if (!bodyRef.current) return;
-
-    const container = bodyRef.current;
-    const scrollLeft = container.scrollLeft;
-    const scrollWidth = container.scrollWidth;
-    const clientWidth = container.clientWidth;
-
-    setCanScrollLeft(scrollLeft > 10); // Add a small threshold
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 10); // Add a small threshold
-  }, []);
+ 
 
   // Handle scroll event to check if we need to load more and update button states
   const handleScroll = useCallback(() => {
@@ -157,18 +167,17 @@ export default function Pages() {
     const clientWidth = container.clientWidth;
     const scrollLeft = container.scrollLeft;
 
-    // Update scroll button states
     updateScrollButtonStates();
 
-    // Load more when user has scrolled to 80% of the content
     if (
       scrollLeft + clientWidth >= scrollWidth * 0.8 &&
       !isPaginationLoading &&
       hasMore
     ) {
-      setPage((prevPage) => prevPage + 1);
+      dispatch(setCurrentPage(currentPage + 1));
     }
-  }, [hasMore, isLoading, isPaginationLoading, updateScrollButtonStates]);
+  }, [hasMore, isLoading, isPaginationLoading, updateScrollButtonStates, dispatch, currentPage]);
+
 
   // Add scroll event listener and check initial scroll states
   useEffect(() => {
@@ -193,7 +202,7 @@ export default function Pages() {
   useEffect(() => {
     // Only update after the array has been rendered
     setTimeout(updateScrollButtonStates, 300);
-  }, [pagesArray, updateScrollButtonStates]);
+  }, [filteredPages, updateScrollButtonStates]);
 
   // Scroll handlers for the navigation buttons
   const handleScrollDirection = (direction: "left" | "right") => {
@@ -211,60 +220,14 @@ export default function Pages() {
     setTimeout(updateScrollButtonStates, 500);
   };
 
-  // Render content based on state
-  // const renderContent = () => {
-  //   if (isLoading && pagesArray.length === 0) {
-  //     return (
-  //       <div className={styles.emptyField}>
-  //         <LoadingTree />
-  //       </div>
-  //     );
-  //   }
-
-  //   if (errorMessage && pagesArray.length === 0) {
-  //     return (
-  //       <div className={styles.emptyField}>
-  //         <p>{errorMessage}</p>
-  //       </div>
-  //     );
-  //   }
-
-  //   if (pagesArray.length === 0) {
-  //     return (
-  //       <div className={styles.emptyField}>
-  //         <p>No posts found</p>
-  //       </div>
-  //     );
-  //   }
-
-  //   return (
-  //     <div className={styles.pagesR}>
-  //       {pagesArray.map((pageI, index) => (
-  //         <Item
-  //           key={pageI.id || index}
-  //           pageI={pageI}
-  //           page={page}
-  //           setPage={setPage}
-  //           index={index}
-  //           length={pagesArray.length}
-  //           setPostId={setPostId}
-  //           deleteModal={deleteModal}
-  //           setDeleteModal={setDeleteModal}
-  //           reportModal={reportModal}
-  //           setReportModal={setReportModal}
-  //         />
-  //       ))}
-  //     </div>
-  //   );
-  // };
 
   return (
     <>
       <Header
         tag="Pages"
-        setPage={setPage}
+        // setPage={(page) => dispatch(setCurrentPage(page))}
         path={"Create new page"}
-        withFilter={false}
+        withFilter={false} // Enable filter
         setAddNew={setAddNew}
       >
         <div className={styles.pagesContainer}>
@@ -290,14 +253,14 @@ export default function Pages() {
           {/* Scrollable content area */}
           <div ref={bodyRef} className={styles.content}>
             <div className={styles.pagesR}>
-              {pagesArray.map((pageI, index) => (
+              {filteredPages.map((pageI, index) => (
                 <Item
                   key={pageI.id || index}
                   pageI={pageI}
-                  page={page}
-                  setPage={setPage}
+                  page={currentPage}
+                  setPage={(page) => dispatch(setCurrentPage(page))}
                   index={index}
-                  length={pagesArray.length}
+                  length={filteredPages.length}
                   setPostId={setPostId}
                   deleteModal={deleteModal}
                   setDeleteModal={setDeleteModal}
@@ -315,7 +278,7 @@ export default function Pages() {
                 </div>
               )}
 
-              {!isPaginationLoading && endOfResults && pagesArray.length > 0 && (
+              {!isPaginationLoading && endOfResults && filteredPages.length > 0 && (
                 <div className={styles.paginationContainer}>
                   <div className={styles.endMessage}>
                     End of results

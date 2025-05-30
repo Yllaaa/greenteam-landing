@@ -156,7 +156,7 @@ const AddNewEvent = (props: addEventProps) => {
           }
         )
         .then((res) => {
-          router.push(`/${locale}/events/${res.data[0].id}`);
+          router.push(`/${locale}/event/${res.data.id}`);
           ToastNot("Event added successfully");
           reset();
         })

@@ -6,7 +6,7 @@ import updateState from "./features/update/updateSlice";
 import pageDetails from "./features/pageDetails/pageDetails";
 import groupState from "./features/groupState/groupState";
 import groupEdit from "./features/groupState/editGroupSettings";
-
+import pageFilterSlice from "./features/pageFilter/pageFillterSlice";
 export const store = () => {
   return configureStore({
     reducer: {
@@ -17,6 +17,7 @@ export const store = () => {
       pageState: pageDetails,
       groupState: groupState,
       groupEdit: groupEdit,
+      pageFilter: pageFilterSlice,
     },
   });
 };
