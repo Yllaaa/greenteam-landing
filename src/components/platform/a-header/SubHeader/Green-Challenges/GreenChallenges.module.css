@@ -150,7 +150,9 @@
 }
 
 /* Modal Styles */
-.modal {
+.modale {
+  margin-top: 50px auto;
+  margin-top: 50px auto;
   inset: 0;
   position: fixed;
   top: 0;
@@ -305,7 +307,7 @@
   .arrowLeft {
     left: 37%;
   }
-  
+
   .arrowRight {
     left: auto;
     right: 37%;

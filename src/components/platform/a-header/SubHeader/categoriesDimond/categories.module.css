@@ -140,7 +140,9 @@
 }
 
 /* Modal Styles */
-.modal {
+.modale {
+  margin-top: 50px auto;
+  margin-top: 50px auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -158,8 +160,12 @@
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modalContent {
@@ -181,8 +187,14 @@
 }
 
 @keyframes slideIn {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .closeButton {
@@ -370,7 +382,6 @@
   position: absolute;
   bottom: -2%;
   left: 42.5%;
-  
 }
 
 .top55 {
@@ -391,47 +402,47 @@
     padding: 20px;
     min-height: 550px;
   }
-  
+
   .chart {
     width: 320px;
     height: 320px;
   }
-  
+
   .diamondShapeModal {
     width: 200px; /* Reduced */
     height: 220px; /* Reduced */
   }
-  
+
   .subLabel {
     min-width: 110px;
     max-width: 130px;
     padding: 12px;
     font-size: 14px;
   }
-  
+
   .subLabel span {
     font-size: 20px;
   }
-  
+
   .subLabel .pointsText {
     font-size: 12px;
   }
-  
+
   /* Adjust positioning for medium screens */
   .top22 {
     right: 8%;
   }
-  
+
   .top33 {
     bottom: 25%;
     right: 8%;
   }
-  
+
   .top55 {
     bottom: 25%;
     left: 8%;
   }
-  
+
   .top66 {
     top: 25%;
     left: 8%;
@@ -457,7 +468,7 @@
     left: 2%;
     width: 150px;
   }
-  
+
   .text p {
     font-family: Montserrat;
     font-weight: 600;
@@ -465,7 +476,7 @@
     line-height: 24px;
     letter-spacing: 0%;
   }
-  
+
   .closeButton {
     top: 10px;
     right: 10px;
@@ -473,16 +484,16 @@
     height: 30px;
     font-size: 18px;
   }
-  
+
   .categoryHeader {
     margin-bottom: 20px;
     padding-bottom: 10px;
   }
-  
+
   .subCategories h2 {
     font-size: 18px;
   }
-  
+
   .chart {
     width: 220px;
     height: 220px;
@@ -492,7 +503,7 @@
     width: 180px;
     height: 180px;
   }
-  
+
   .diamondShapeModal {
     width: 160px; /* Reduced */
     height: 180px; /* Reduced */
@@ -508,23 +519,23 @@
     text-wrap: wrap;
     font-size: 10px;
   }
-  
+
   .label img {
     width: 50px;
     height: 50px;
   }
-  
+
   .subLabel {
     min-width: 90px;
     max-width: 110px;
     padding: 10px;
     font-size: 12px;
   }
-  
+
   .subLabel span {
     font-size: 18px;
   }
-  
+
   .subLabel .pointsText {
     font-size: 11px;
   }
@@ -549,28 +560,28 @@
     left: 50%;
     transform: translateX(-50%);
   }
-  
+
   .top22 {
     top: 25%;
     right: 5%;
   }
-  
+
   .top33 {
     bottom: 25%;
     right: 5%;
   }
-  
+
   .top44 {
     bottom: 10%;
     left: 50%;
     transform: translateX(-50%);
   }
-  
+
   .top55 {
     bottom: 25%;
     left: 5%;
   }
-  
+
   .top66 {
     top: 25%;
     left: 5%;
@@ -581,69 +592,69 @@
   .container {
     height: 350px;
   }
-  
+
   .chart {
     width: 180px;
     height: 180px;
   }
-  
+
   .diamondShape {
     width: 150px;
     height: 150px;
   }
-  
+
   .diamondShapeModal {
     width: 120px; /* Even smaller for small screens */
     height: 130px;
   }
-  
+
   .label img {
     width: 45px;
     height: 45px;
   }
-  
+
   .text p {
     font-size: 12px;
     line-height: 18px;
   }
-  
+
   .modalContent {
     padding: 10px;
     min-height: 400px;
   }
-  
+
   .categoryHeader {
     gap: 8px;
     margin-bottom: 15px;
     padding-bottom: 8px;
   }
-  
+
   .categoryIcon {
     width: 30px;
     height: 30px;
   }
-  
+
   .subCategories h2 {
     font-size: 14px;
   }
-  
+
   .subLabel {
     min-width: 80px;
     max-width: 90px;
     padding: 8px;
     font-size: 10px;
   }
-  
+
   .subLabel span {
     font-size: 16px;
     margin-bottom: 2px;
   }
-  
+
   .subLabel .pointsText {
     font-size: 9px;
     margin-bottom: 2px;
   }
-  
+
   .closeButton {
     top: 5px;
     right: 5px;
@@ -651,31 +662,31 @@
     height: 25px;
     font-size: 14px;
   }
-  
+
   /* Further adjust positioning for very small screens */
   .top11 {
     top: 8%;
   }
-  
+
   .top22 {
     top: 25%;
     right: 2%;
   }
-  
+
   .top33 {
     bottom: 25%;
     right: 2%;
   }
-  
+
   .top44 {
     bottom: 8%;
   }
-  
+
   .top55 {
     bottom: 25%;
     left: 2%;
   }
-  
+
   .top66 {
     top: 25%;
     left: 2%;
@@ -688,54 +699,54 @@
     width: 150px;
     height: 150px;
   }
-  
+
   .diamondShape {
     width: 120px;
     height: 120px;
   }
-  
+
   .diamondShapeModal {
     width: 100px; /* Much smaller for tiny screens */
     height: 110px;
   }
-  
+
   .label img {
     width: 35px;
     height: 35px;
   }
-  
+
   .subLabel {
     min-width: 70px;
     max-width: 80px;
     padding: 6px;
     font-size: 9px;
   }
-  
+
   .subLabel span {
     font-size: 14px;
   }
-  
+
   .subLabel .pointsText {
     font-size: 8px;
   }
-  
+
   .modalContent {
     min-height: 350px;
   }
-  
+
   .categoryHeader {
     margin-bottom: 10px;
   }
-  
+
   .subCategories h2 {
     font-size: 12px;
   }
-  
+
   /* Adjust positions for very small screens */
   .top11 {
     top: 5%;
   }
-  
+
   .top44 {
     bottom: 5%;
   }

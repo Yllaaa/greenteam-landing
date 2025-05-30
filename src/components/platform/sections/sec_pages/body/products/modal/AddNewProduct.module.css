@@ -1,4 +1,5 @@
-.modal {
+.modale {
+  margin-top: 50px auto;
   position: fixed;
   top: 0;
   left: 0;
@@ -408,7 +409,8 @@
   margin-bottom: 8px;
 }
 
-.uploadIcon, .addIcon {
+.uploadIcon,
+.addIcon {
   color: #74b243;
 }
 
@@ -499,7 +501,8 @@
   margin-top: 16px;
 }
 
-.cancelButton, .backButton {
+.cancelButton,
+.backButton {
   background: transparent;
   border: 1px solid #3a3a3a;
   border-radius: 8px;
@@ -517,12 +520,14 @@
   justify-content: center;
 }
 
-.cancelButton:hover, .backButton:hover {
+.cancelButton:hover,
+.backButton:hover {
   border-color: #d1d5db;
   color: #ffffff;
 }
 
-.nextButton, .submitButton {
+.nextButton,
+.submitButton {
   background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
   border: none;
   border-radius: 8px;
@@ -541,7 +546,8 @@
   gap: 8px;
 }
 
-.nextButton:hover, .submitButton:hover {
+.nextButton:hover,
+.submitButton:hover {
   opacity: 0.9;
   transform: translateY(-1px);
 }
@@ -556,55 +562,59 @@
 }
 
 @media screen and (max-width: 768px) {
-  .modal {
+  .modale {
+    margin-top: 50px auto;
     padding: 16px;
     align-items: flex-start;
     overflow-y: auto;
   }
-  
+
   .formContainer {
     width: 100%;
     max-height: 90vh;
     margin: 16px 0;
   }
-  
+
   .formHeader {
     padding: 16px;
   }
-  
+
   .formTitle {
     font-size: 16px;
     line-height: 24px;
   }
-  
+
   .formDescription {
     font-size: 12px;
     line-height: 18px;
   }
-  
+
   .formGroup {
     flex-direction: column;
   }
-  
+
   .label {
     width: 100%;
     margin-bottom: 8px;
     padding-top: 0;
   }
-  
+
   .inputWrapper {
     width: 100%;
   }
-  
+
   .imageUploadContainer {
     height: 150px;
   }
-  
+
   .navigationButtons {
     flex-direction: column;
   }
-  
-  .cancelButton, .backButton, .nextButton, .submitButton {
+
+  .cancelButton,
+  .backButton,
+  .nextButton,
+  .submitButton {
     width: 100%;
   }
 }
@@ -614,51 +624,54 @@
     width: 36px;
     height: 36px;
   }
-  
+
   .formTitle {
     font-size: 16px;
     line-height: 22px;
   }
-  
+
   .formDescription {
     font-size: 12px;
     line-height: 16px;
   }
-  
+
   .formSection {
     gap: 16px;
     padding-bottom: 16px;
   }
-  
+
   .form {
     padding: 16px;
     gap: 16px;
   }
-  
+
   .progressIndicator {
     padding: 16px 16px 8px;
   }
-  
+
   .stepNumber {
     width: 24px;
     height: 24px;
     font-size: 12px;
   }
-  
+
   .stepLabel {
     font-size: 10px;
   }
-  
-  .input, .select, .textarea, .priceInput {
+
+  .input,
+  .select,
+  .textarea,
+  .priceInput {
     padding: 10px;
     font-size: 14px;
   }
-  
+
   .currencySymbol {
     top: 10px;
     left: 10px;
   }
-  
+
   .imageGrid {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(4, 1fr);
@@ -666,7 +679,10 @@
 }
 
 /* Focused animation states for better interactivity */
-.input:focus, .select:focus, .textarea:focus, .priceInput:focus {
+.input:focus,
+.select:focus,
+.textarea:focus,
+.priceInput:focus {
   transform: translateY(-1px);
   transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
@@ -703,7 +719,7 @@
 }
 
 .tooltip::after {
-  content: "";
+  content: '';
   position: absolute;
   top: 100%;
   left: 50%;
@@ -775,7 +791,7 @@
 
 /* Form field auto-completion styling */
 .input:-webkit-autofill,
-.input:-webkit-autofill:hover, 
+.input:-webkit-autofill:hover,
 .input:-webkit-autofill:focus {
   -webkit-text-fill-color: #ffffff;
   transition: background-color 5000s ease-in-out 0s;
@@ -802,12 +818,18 @@
     width: 32px;
     height: 32px;
   }
-  
-  .input, .select, .textarea, .priceInput {
+
+  .input,
+  .select,
+  .textarea,
+  .priceInput {
     min-height: 48px;
   }
-  
-  .cancelButton, .backButton, .nextButton, .submitButton {
+
+  .cancelButton,
+  .backButton,
+  .nextButton,
+  .submitButton {
     min-height: 48px;
   }
 }
@@ -817,17 +839,20 @@
   .formContainer {
     background-color: #141414;
   }
-  
-  .input, .select, .textarea, .priceInput {
+
+  .input,
+  .select,
+  .textarea,
+  .priceInput {
     background-color: #1e1e1e;
     border-color: #3a3a3a;
     color: #ffffff;
   }
-  
+
   .label {
     color: #d1d5db;
   }
-  
+
   .imageUploadContainer {
     background-color: #1e1e1e;
     border-color: #3a3a3a;
@@ -836,7 +861,8 @@
 
 /* Print styles */
 @media print {
-  .modal, .formContainer {
+  .modal,
+  .formContainer {
     position: static;
     overflow: visible;
     height: auto;
@@ -844,22 +870,26 @@
     background: white;
     color: black;
   }
-  
-  .navigationButtons, .closeButton, .removeImageButton {
+
+  .navigationButtons,
+  .closeButton,
+  .removeImageButton {
     display: none;
   }
-  
+
   .formTitle {
     color: black;
   }
-  
-  .input, .select, .textarea, .priceInput {
+
+  .input,
+  .select,
+  .textarea,
+  .priceInput {
     border: 1px solid #ddd;
     background: white;
     color: black;
   }
 }
-
 
 .toggleContainer {
   display: flex;
@@ -923,7 +953,7 @@
   .toggleContainer {
     flex-direction: row;
   }
-  
+
   .toggleOption {
     flex: 1;
   }
