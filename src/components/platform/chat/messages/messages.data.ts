@@ -14,11 +14,11 @@ export type Message = {
   id: string;
   content: string;
   conversationId: string;
-  isReceived: boolean;
-  mediaUrl: string | null;
-  seenAt: string | null;
-  sender: Sender;
-  senderType: SenderType;
+  isReceived?: boolean;
+  mediaUrl?: string | null;
+  seenAt?: string | null;
+  sender?: Sender;
+  senderType?: SenderType;
   sentAt: Date;
 };
 export type NextCursor = {

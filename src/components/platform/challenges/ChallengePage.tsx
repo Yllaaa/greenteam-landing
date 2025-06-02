@@ -5,6 +5,7 @@ import { CommentModal } from '../posts/feeds/commentModal/CommentModal'
 import AllChallenges from './allChallenges/AllChallenges'
 import styles from './ChallengePage.module.scss'
 import { useTranslations } from 'next-intl'
+import AddNewModal from '../a-header/SubHeader/Green-Challenges/modal/addNew/AddNewModal'
 function ChallengePage() {
   const t = useTranslations("web.challenges.all");
   const [commentModal, setCommentModal] = React.useState(false)
@@ -13,6 +14,10 @@ function ChallengePage() {
   const [commentPage, setCommentPage] = React.useState(1)
   const [repliesPage, setRepliesPage] = React.useState(1)
   const [rerender, setRerender] = React.useState(false)
+
+  const [addNew, setAddNew] = React.useState(false);
+  const [challengeId, setChallengeId] = React.useState("");
+
   return (
     <>
       <section className={styles.container}>
@@ -21,7 +26,7 @@ function ChallengePage() {
             <h2>{t("green")}</h2>
           </div>
           <div className={styles.challenges}>
-            <AllChallenges />
+            <AllChallenges addNew={addNew} setChallengeId={setChallengeId} setAddNew={setAddNew} />
           </div>
         </div>
         <div className={styles.divider}></div>
@@ -60,6 +65,16 @@ function ChallengePage() {
           setRerender={setRerender}
           rerender={rerender}
           postMedia={[]}
+        />
+      )}
+      {addNew && (
+        <AddNewModal
+          setAddNew={(value) => {
+            setAddNew(value);
+            if (!value) setChallengeId("");
+          }}
+          addNew={addNew}
+          challengeId={challengeId}
         />
       )}
     </>

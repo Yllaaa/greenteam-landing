@@ -8,7 +8,12 @@ import logo from '@/../public/personal/menu/notifications/logo.png'
 import Image from 'next/image'
 import ToastNot from '@/Utils/ToastNotification/ToastNot'
 
-function AllChallenges() {
+function AllChallenges(props:{
+  setChallengeId: React.Dispatch<React.SetStateAction<string>>,
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>,
+  addNew: boolean
+}) {
+  const { setChallengeId, setAddNew, addNew } = props
   const token = getToken()
   const accessToken = token ? token.accessToken : null
   const [allChallenges, setAllChallenges] = useState<Challenge[]>([])
@@ -77,7 +82,8 @@ function AllChallenges() {
         setLoading(false)
       }
     },
-    [accessToken]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [accessToken, addNew]
   )
 
   // Load initial data
@@ -92,7 +98,19 @@ function AllChallenges() {
     }
   }, [page, fetchChallenges])
 
-  const handleDone = async (challengeId: string, message: string, isDelete = false) => {
+  const handleDone = async (challengeId: string) => {
+    setChallengeId(challengeId)
+    try {
+      setAddNew(true)
+     
+    } catch (error) {
+      console.error("Error handling action:", error);
+      ToastNot("Error occurred");
+    } finally {
+      setActionInProgress(null);
+    }
+  }
+  const handleDel = async (challengeId: string, message: string, isDelete = false) => {
     try {
       // setActionInProgress(challengeId)
 
@@ -161,14 +179,14 @@ function AllChallenges() {
               </div>
               <div className={styles.action}>
                 <button
-                  onClick={() => handleDone(challenge.id, "Challenge deleted successfully", false)}
+                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", false)}
                   className={styles.delete}
                   disabled={actionInProgress === challenge.id}
                 >
                   {actionInProgress === challenge.id ? 'Processing...' : 'Delete'}
                 </button>
                 <button
-                  onClick={() => handleDone(challenge.id, "Challenge completed successfully", false)}
+                  onClick={() => handleDone(challenge.id)}
                   className={styles.accept}
                   disabled={actionInProgress === challenge.id}
                 >
@@ -189,14 +207,14 @@ function AllChallenges() {
               </div>
               <div className={styles.action}>
                 <button
-                  onClick={() => handleDone(challenge.id, "Challenge deleted successfully", false)}
+                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", false)}
                   className={styles.delete}
                   disabled={actionInProgress === challenge.id}
                 >
                   {actionInProgress === challenge.id ? 'Processing...' : 'Delete'}
                 </button>
                 <button
-                  onClick={() => handleDone(challenge.id, "Challenge completed successfully", false)}
+                  onClick={() => handleDone(challenge.id)}
                   className={styles.accept}
                   disabled={actionInProgress === challenge.id}
                 >
@@ -215,6 +233,7 @@ function AllChallenges() {
       )}
     </div>
   )
+
 }
 
 export default AllChallenges

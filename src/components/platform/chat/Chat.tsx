@@ -1,266 +1,3 @@
-// /* eslint-disable react-hooks/exhaustive-deps */
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// "use client";
-
-// import { useEffect, useState, useRef } from "react";
-// import io, { Socket } from "socket.io-client";
-// import styles from "./chat.module.scss";
-// import Input from "./input/Input";
-// import Messages from "./messages/Messages";
-// import Persons from "./persons/Persons";
-// import { getToken } from "@/Utils/userToken/LocalToken";
-// import { Message, NextCursor } from "./messages/messages.data";
-// const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
-
-// export default function Chat() {
-//   const token = getToken();
-//   const socketRef = useRef<Socket | null>(null);
-
-//   const [chatId, setChatId] = useState<string>("");
-//   const [selectedUser, setSelectedUser] = useState<any | null>(null);
-
-//   const [messages, setMessages] = useState<Message[]>([]);
-//   const [nextCursor, setNextCursor] = useState<NextCursor | null>(null);
-//   const [newMessage, setNewMessage] = useState("");
-//   const [inputValue, setInputValue] = useState(true);
-//   useEffect(() => {
-//     if (!selectedUser) return;
-
-//     const accessToken = token.accessToken;
-
-//     // Function to initialize WebSocket connection
-//     const connectSocket = () => {
-//       socketRef.current = io(SOCKET_URL, {
-//         transports: ["websocket"],
-//         auth: { token: accessToken },
-//       });
-
-//       socketRef.current.on("connect", () =>
-//         console.log("Connected to WebSocket")
-//       );
-
-//       socketRef.current.on("newMessage", (message: any) => {
-
-//         if (message.conversationId === chatId) {
-//           setMessages((prev) => [...prev, message]);
-//         }
-//       });
-
-//       socketRef.current.on("exception", (error: any) =>
-//         console.error("Socket exception:", error)
-//       );
-//     };
-
-//     connectSocket();
-
-//     return () => {
-//       // clearInterval(interval);
-//       socketRef.current?.disconnect();
-//     };
-//   }, [selectedUser]);
-
-//   const sendMessage = async () => {
-//     if (!newMessage.trim() || !selectedUser || !socketRef.current?.connected)
-//       return;
-
-//     const messageData:
-//       | {
-//           content: string;
-//           recipient: { id: string; type: string };
-//         }
-//       | any = {
-//       content: newMessage,
-//       recipient: { id: selectedUser, type: "user" },
-//     };
-
-//     socketRef.current.emit("sendMessage", messageData, (response: any) => {
-//       if (response?.success) {
-//         // console.log(
-//         //   "Message sent successfully:",
-//         //   response,
-//         //   "response",
-//         //   messageData
-//         // );
-//         // setMessages((prev) => [messageData.content, ...prev]);
-//         setNewMessage("");
-//       } else {
-//         console.log(response);
-//         console.error("Failed to send message", response?.error);
-//       }
-//     });
-//   };
-
-//   return (
-//     <div className={styles.chat}>
-//       <div className={styles.header}>Messages</div>
-//       <div className={styles.content}>
-//         <Persons
-//           chatId={chatId}
-//           setChatId={setChatId}
-//           selectedUser={selectedUser}
-//           setSelectedUser={setSelectedUser}
-//           newMessage={newMessage}
-//         />
-//         <div className={styles.messagesView}>
-//           <Messages
-//             chatId={chatId}
-//             messages={messages}
-//             setMessages={setMessages}
-//             newMessage={newMessage}
-//             nextCursor={nextCursor}
-//             setNextCursor={setNextCursor}
-//             selectedUser={selectedUser}
-//           />
-//           <Input
-//             chatId={chatId}
-//             selectedUser={selectedUser}
-//             setMessages={setMessages}
-//             setNewMessage={setNewMessage}
-//             inputValue={inputValue}
-//             setInputValue={setInputValue}
-//             newMessage={newMessage}
-//             sendMessageHandler={sendMessage}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
-// First, let's update your Chat.tsx component to handle scrolling to new messages
-
-///////////////////////////
-// "use client";
-
-// import { useEffect, useState, useRef } from "react";
-// import io, { Socket } from "socket.io-client";
-// import styles from "./chat.module.scss";
-// import Input from "./input/Input";
-// import Messages from "./messages/Messages";
-// import Persons from "./persons/Persons";
-// import { getToken } from "@/Utils/userToken/LocalToken";
-// import { Message, NextCursor } from "./messages/messages.data";
-// import { useSearchParams } from "next/navigation";
-// const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
-
-// export default function Chat() {
-//   const token = getToken();
-//   const socketRef = useRef<Socket | null>(null);
-//   const searchParams = useSearchParams();
-//   console.log("searchParams", searchParams.get("chatId"));
-
-//   const [chatId, setChatId] = useState<string>("");
-//   const [selectedUser, setSelectedUser] = useState<any | null>(null);
-
-//   const [messages, setMessages] = useState<Message[]>([]);
-//   const [nextCursor, setNextCursor] = useState<NextCursor | null>(null);
-//   const [newMessage, setNewMessage] = useState("");
-//   const [inputValue, setInputValue] = useState(true);
-//   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
-
-//   useEffect(() => {
-//     if (!selectedUser) return;
-
-//     const accessToken = token.accessToken;
-
-//     // Function to initialize WebSocket connection
-//     const connectSocket = () => {
-//       socketRef.current = io(SOCKET_URL, {
-//         transports: ["websocket"],
-//         auth: { token: accessToken },
-//       });
-
-//       socketRef.current.on("connect", () =>
-//         console.log("Connected to WebSocket")
-//       );
-
-//       socketRef.current.on("newMessage", (message: any) => {
-//         if (message.conversationId === chatId) {
-//           setMessages((prev) => [...prev, message]);
-//           // Set flag to scroll to bottom when new message arrives
-//           setShouldScrollToBottom(true);
-//         }
-//       });
-
-//       socketRef.current.on("exception", (error: any) =>
-//         console.error("Socket exception:", error)
-//       );
-//     };
-
-//     connectSocket();
-
-//     return () => {
-//       socketRef.current?.disconnect();
-//     };
-//   }, [selectedUser]);
-
-//   const sendMessage = async () => {
-//     if (!newMessage.trim() || !selectedUser || !socketRef.current?.connected)
-//       return;
-
-//     const messageData:
-//       | {
-//           content: string;
-//           recipient: { id: string; type: string };
-//         }
-//       | any = {
-//       content: newMessage,
-//       recipient: { id: selectedUser, type: "user" },
-//     };
-
-//     socketRef.current.emit("sendMessage", messageData, (response: any) => {
-//       if (response?.success) {
-//         setNewMessage("");
-//         // Set flag to scroll to bottom when message is sent
-//         setShouldScrollToBottom(true);
-//       } else {
-//         console.error("Failed to send message", response?.error);
-//       }
-//     });
-//   };
-//   useEffect(() => {
-//     if (searchParams.get("chatId")) {
-//       setChatId(searchParams.get("chatId") as string);
-//     }
-//   }, []);
-//   return (
-//     <div className={styles.chat}>
-//       <div className={styles.header}>Messages</div>
-//       <div className={styles.content}>
-//         <Persons
-//           chatId={chatId}
-//           setChatId={setChatId}
-//           selectedUser={selectedUser}
-//           setSelectedUser={setSelectedUser}
-//           newMessage={newMessage}
-//         />
-//         <div className={styles.messagesView}>
-//           <Messages
-//             chatId={chatId}
-//             messages={messages}
-//             setMessages={setMessages}
-//             newMessage={newMessage}
-//             nextCursor={nextCursor}
-//             setNextCursor={setNextCursor}
-//             selectedUser={selectedUser}
-//             shouldScrollToBottom={shouldScrollToBottom}
-//             setShouldScrollToBottom={setShouldScrollToBottom}
-//           />
-//           <Input
-//             chatId={chatId}
-//             selectedUser={selectedUser}
-//             setMessages={setMessages}
-//             setNewMessage={setNewMessage}
-//             inputValue={inputValue}
-//             setInputValue={setInputValue}
-//             newMessage={newMessage}
-//             sendMessageHandler={sendMessage}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
@@ -274,10 +11,12 @@ import Persons from "./persons/Persons";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Message, NextCursor } from "./messages/messages.data";
 import { useSearchParams, useRouter } from "next/navigation";
+import axios from "axios";
 const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
 
 export default function Chat() {
   const token = getToken();
+  const accessToken = token ? token.accessToken : null;
   const socketRef = useRef<Socket | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
@@ -290,6 +29,33 @@ export default function Chat() {
   const [newMessage, setNewMessage] = useState("");
   const [inputValue, setInputValue] = useState(true);
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
+  const [refresh, setRefresh] = useState(false);
+
+
+  useEffect(() => {
+    const paramChatId = searchParams.get("chatId");
+    if (paramChatId) {
+      setChatId(paramChatId);
+      setShowMessages(true);
+
+      // Fetch the conversation to get the user info
+      axios.get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${paramChatId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      )
+        .then((res) => {
+          // Assuming the response contains the contact/user info
+          if (res.data?.contact?.id) {
+            setSelectedUser(res.data.contact.id);
+          }
+        })
+        .catch((err) => console.error("Error fetching conversation:", err));
+    }
+  }, [searchParams]);
 
   // Handle URL params on initial load and when they change
   useEffect(() => {
@@ -301,7 +67,7 @@ export default function Chat() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!selectedUser) return;
+    if (!chatId) return;
 
     const accessToken = token.accessToken;
 
@@ -317,9 +83,18 @@ export default function Chat() {
       );
 
       socketRef.current.on("newMessage", (message: any) => {
+        console.log("Received new message:", message);
+
         if (message.conversationId === chatId) {
-          setMessages((prev) => [...prev, message]);
-          // Set flag to scroll to bottom when new message arrives
+          setMessages((prev) => {
+            // Check if message already exists to avoid duplicates
+            const messageExists = prev.some(m => m.id === message.id);
+            if (!messageExists) {
+              return [...prev, message];
+            }
+            return prev;
+          });
+
           setShouldScrollToBottom(true);
         }
       });
@@ -334,27 +109,41 @@ export default function Chat() {
     return () => {
       socketRef.current?.disconnect();
     };
-  }, [selectedUser, chatId]);
+  }, [chatId]);
 
   const sendMessage = async () => {
-    if (!newMessage.trim() || !selectedUser || !socketRef.current?.connected)
-      return;
+    console.log("sendMessage called", {
+      newMessage,
+      chatId,
+      // selectedUser,
+      socketConnected: socketRef.current?.connected,
+      socketRef: socketRef.current
+    });
 
-    const messageData:
-      | {
-          content: string;
-          recipient: { id: string; type: string };
-        }
-      | any = {
+    if (!newMessage.trim() || !chatId || !socketRef.current?.connected) {
+      console.log("Message not sent - missing requirements:", {
+        hasMessage: !!newMessage.trim(),
+        hasChatId: !!chatId,
+        isConnected: socketRef.current?.connected
+      });
+      return;
+    }
+
+    // If you have a chatId but no selectedUser, you might need to handle this differently
+    const messageData = chatId && {
       content: newMessage,
-      recipient: { id: selectedUser, type: "user" },
+      recipient: { id: chatId, type: "user" },
     };
 
+    console.log("Sending message data:", messageData);
+
     socketRef.current.emit("sendMessage", messageData, (response: any) => {
+      console.log("Send message response:", response);
       if (response?.success) {
         setNewMessage("");
-        // Set flag to scroll to bottom when message is sent
         setShouldScrollToBottom(true);
+        setRefresh(!refresh); // Trigger a refresh to update messages
+        console.log("Message sent successfully");
       } else {
         console.error("Failed to send message", response?.error);
       }
@@ -380,9 +169,8 @@ export default function Chat() {
       </div>
       <div className={styles.content}>
         <div
-          className={`${styles.personsContainer} ${
-            showMessages ? styles.hiddenOnMobile : ""
-          }`}
+          className={`${styles.personsContainer} ${showMessages ? styles.hiddenOnMobile : ""
+            }`}
         >
           <Persons
             chatId={chatId}
@@ -396,7 +184,7 @@ export default function Chat() {
             newMessage={newMessage}
           />
         </div>
-        <div
+        {/* <div
           className={`${styles.messagesView} ${
             showMessages ? styles.visibleOnMobile : styles.hiddenOnMobile
           }`}
@@ -413,6 +201,43 @@ export default function Chat() {
                 selectedUser={selectedUser}
                 shouldScrollToBottom={shouldScrollToBottom}
                 setShouldScrollToBottom={setShouldScrollToBottom}
+              />
+              <Input
+                chatId={chatId}
+                selectedUser={selectedUser}
+                setMessages={setMessages}
+                setNewMessage={setNewMessage}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+                newMessage={newMessage}
+                sendMessageHandler={sendMessage}
+              />
+            </>
+          ) : (
+            <div className={styles.noSelection}>
+              Select a conversation to start messaging
+            </div>
+          )}
+        </div> */}
+
+        <div
+          className={`${styles.messagesView} ${showMessages ? styles.visibleOnMobile : styles.hiddenOnMobile
+            }`}
+        >
+          {chatId ? (  // Changed from selectedUser to chatId
+            <>
+              <Messages
+                chatId={chatId}
+                messages={messages}
+                setMessages={setMessages}
+                newMessage={newMessage}
+                nextCursor={nextCursor}
+                setNextCursor={setNextCursor}
+                selectedUser={selectedUser}
+                shouldScrollToBottom={shouldScrollToBottom}
+                setShouldScrollToBottom={setShouldScrollToBottom}
+                refresh={refresh}
+                
               />
               <Input
                 chatId={chatId}

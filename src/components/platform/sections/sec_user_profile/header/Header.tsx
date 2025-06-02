@@ -136,7 +136,7 @@ function Header(props: {
   };
 
   const handleChat = () => {
-    router.push(`/${locale}/chat?id=${user.userData.id}`);
+    router.push(`/${locale}/chat?chatId=${user.userData.id}`);
   };
 
   return (

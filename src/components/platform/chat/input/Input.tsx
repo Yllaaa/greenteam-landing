@@ -1,61 +1,3 @@
-// /* eslint-disable @typescript-eslint/no-explicit-any */
-// "use client";
-// import Image from "next/image";
-// import styles from "./input.module.scss";
-// import sendIcon from "@/../public/chat/send.svg";
-// // import microphoneIcon from "@/../public/chat/microphone.svg";
-// import { useRef } from "react";
-// // import { sendMessage } from "./input.data";
-// import classNames from "classnames";
-// // import { Socket } from "socket.io-client";
-
-// export default function Input({
-//   chatId,
-//   // selectedUser,
-//   // setMessages,
-//   newMessage,
-//   sendMessageHandler,
-//   // inputValue,
-//   // setInputValue,
-//   setNewMessage,
-// }: {
-//   chatId: string;
-//   selectedUser: string;
-//   newMessage: string;
-//   inputValue: boolean;
-//   setInputValue: (message: any) => void;
-//   setMessages: (messages: any) => void;
-//   sendMessageHandler: (message: any) => void;
-//   setNewMessage: (message: any) => void;
-// }) {
-//   const inputRef = useRef<HTMLInputElement>(null);
-
-//   return (
-//     <div
-//       className={classNames(styles.input, { [styles.hidden]: chatId === "" })}
-//     >
-//       <div className={styles.inputField}>
-//         <input
-//           ref={inputRef}
-//           type="text"
-//           placeholder="Type a message..."
-//           value={newMessage}
-//           onChange={(e) => setNewMessage(e.target.value)}
-//         />
-//         <div className={styles.sendButton} onClick={sendMessageHandler}>
-//           <Image
-//             className={styles.icon}
-//             src={sendIcon}
-//             alt="send"
-//             width={20}
-//             height={20}
-//           />
-//         </div>
-//       </div>
-//     </div>
-//   );
-// }
-
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
@@ -67,12 +9,8 @@ import classNames from "classnames";
 
 export default function Input({
   chatId,
-  // selectedUser,
-  // setMessages,
   newMessage,
   sendMessageHandler,
-  // inputValue,
-  // setInputValue,
   setNewMessage,
 }: {
   chatId: string;
@@ -120,3 +58,4 @@ export default function Input({
     </div>
   );
 }
+

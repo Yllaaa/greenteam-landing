@@ -8,19 +8,22 @@ import Challenges from "./allCahalenges/Challenges";
 import AddNewModal from "./modal/addNew/AddNewModal";
 // import DoItModal from "../../../modals/toDo/DoItModal";
 // import ToastNot from "@/Utils/ToastNotification/ToastNot";
-// import Image from "next/image";
-// import star from "@/../public/ZPLATFORM/challenges/star.svg";
+import Image from "next/image";
+import star from "@/../public/ZPLATFORM/challenges/star.svg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Challenge } from "./GreenTypes/GreenTypes";
 import { useTranslations } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { useRouter } from "next/navigation";
+import { useLocale } from "next-intl";
 
 function GreenChallenges() {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const queryClient = useQueryClient();
-
+  const router = useRouter();
+  const locale = useLocale();
   const [page, setPage] = useState(1);
 
   // modals
@@ -140,17 +143,17 @@ function GreenChallenges() {
               {t("share")}
             </p>
           </div>
-          {/* <div className={styles.headerBtn}>
+          <div className={styles.headerBtn}>
             <button
               onClick={() => {
-                ToastNot("Challenge Accepted");
-                setDoItModal(true);
+                router.push(`/${locale}/challenges`)
+                // setDoItModal(true);
               }}
               className={styles.challengeButton}
             >
-              <Image src={star} alt="star" /> Do It
+              <Image src={star} alt="star" /> Todo
             </button>
-          </div> */}
+          </div>
         </div>
 
         <div className={`${styles.navigationWrapper}`}>

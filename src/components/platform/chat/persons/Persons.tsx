@@ -39,7 +39,7 @@ export default function Persons({
         }
       )
       .then((res) => {
-        // console.log("persons", res.data);
+        console.log("persons", res.data);
 
         setFilteredPersons(res.data);
       })
@@ -54,9 +54,9 @@ export default function Persons({
           onClick={() => {
             setChatId(chat.id);
             const params = new URLSearchParams();
-            params.set('chatId', chat.id);
+            params.set('chatId', chat.contact.id);
             router.push(`chat?${params.toString()}`);
-            setSelectedUser(chat.contact.id);
+            setSelectedUser(chat.id);
           }}
           key={index}
           {...chat}
