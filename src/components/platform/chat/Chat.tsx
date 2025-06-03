@@ -115,7 +115,7 @@ export default function Chat() {
     console.log("sendMessage called", {
       newMessage,
       chatId,
-      // selectedUser,
+      selectedUser,
       socketConnected: socketRef.current?.connected,
       socketRef: socketRef.current
     });
@@ -144,6 +144,7 @@ export default function Chat() {
         setShouldScrollToBottom(true);
         setRefresh(!refresh); // Trigger a refresh to update messages
         console.log("Message sent successfully");
+        setSelectedUser(response?.conversationId)
       } else {
         console.error("Failed to send message", response?.error);
       }
