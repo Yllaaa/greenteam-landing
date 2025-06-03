@@ -9,7 +9,7 @@ import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { Props } from "./types/ChallengeTypes.data";
 import { useRouter } from 'next/navigation';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 // import ToastNot from "@/Utils/ToastNotification/ToastNot";
 // import axios from "axios";
 // import { getToken } from "@/Utils/userToken/LocalToken";
@@ -27,6 +27,7 @@ function Challenges(props: Props) {
 
   const router = useRouter();
   const locale = useLocale();
+  const t = useTranslations("web.subHeader.green")
   // const token = getToken();
   // const accessToken = token ? token.accessToken : null
 
@@ -98,7 +99,7 @@ function Challenges(props: Props) {
                 }}
                 className={styles.challengeButton}
               >
-                Do it
+                {t("doit")}
               </button>
               <button
                 onClick={() => {
@@ -107,7 +108,7 @@ function Challenges(props: Props) {
                 }}
                 className={styles.challengeButton}
               >
-                Done
+                {t("done")}
               </button>
             </div>
           </div>

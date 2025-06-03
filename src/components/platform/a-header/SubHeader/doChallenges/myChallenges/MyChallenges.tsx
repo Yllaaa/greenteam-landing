@@ -205,6 +205,7 @@ function MyChallenges(props: DoMainProps) {
   }, [updateState, refetch]);
 
   const t = useTranslations("web.subHeader.doChallenge");
+  const te = useTranslations("web.errors");
 
   // Load more data when the last item is in view
   useEffect(() => {
@@ -260,13 +261,13 @@ function MyChallenges(props: DoMainProps) {
 
       {!hasNextPage && challenges.length > 0 && (
         <div className={styles.loaderContainer}>
-          <p>No more challenges to load</p>
+          <p>{te("noMore")}</p>
         </div>
       )}
 
       {!isLoading && challenges.length === 0 && (
         <div className={styles.loaderContainer}>
-          <p>No challenges found</p>
+          <p>{te("notFound")}</p>
         </div>
       )}
       </div>

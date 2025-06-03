@@ -5,7 +5,7 @@ import styles from "./MyChallengeCard.module.css";
 import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Post } from "../types/doChallenges.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
@@ -210,6 +210,8 @@ function MyChallengeCard(props: Props) {
     // }
   };
 
+  const t = useTranslations("web.subHeader.green");
+
   return (
     <>
       <div
@@ -246,7 +248,7 @@ function MyChallengeCard(props: Props) {
                     }}
                     className={styles.readMore}
                   >
-                    Read More...{" "}
+                    {t("readMore")}{" "}
                   </span>
                 </p>
               ) : (
@@ -261,7 +263,7 @@ function MyChallengeCard(props: Props) {
             className={styles.deleteButton}
             disabled={isDeleting}
           >
-            {isDeleting ? "Deleting..." : "Delete"}
+            {isDeleting ? "Deleting..." : t("delete")}
           </button>
         </div>
       </div>
@@ -291,7 +293,7 @@ function MyChallengeCard(props: Props) {
           }}
           className={styles.challengeButton}
         >
-          Done
+          {t("done")}
         </button>
         <button
           onClick={() => {
@@ -300,7 +302,7 @@ function MyChallengeCard(props: Props) {
           }}
           className={styles.challengeButton}
         >
-          Comment
+          {t("comment")}
         </button>
       </div>
     </>

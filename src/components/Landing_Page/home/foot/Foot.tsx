@@ -9,7 +9,7 @@ function FootMarquee() {
   return (
     <>
       <div className={styles.marqueeContainer}>
-        <Marquee speed={50} autoFill={true} gradient={false}>
+        <Marquee speed={50} autoFill={true} gradient={false} direction="right">
           <Image src={foot} alt="arrow" className={styles.marqueeFoot} />
         </Marquee>
       </div>

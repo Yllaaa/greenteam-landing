@@ -11,7 +11,7 @@ import { useParams } from "next/navigation";
 import plusIcon from "@/../public/ZPLATFORM/madal/plusIcon.svg";
 import Image from "next/image";
 import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
-
+import { useTranslations } from "next-intl";
 function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
@@ -95,7 +95,7 @@ function AddNewModal(props: {
       ToastNot("Error occurred while adding post");
     }
   };
-
+const t = useTranslations("web.subHeader.green");
   return (
     <>
       <div className={styles.modal}>
@@ -109,7 +109,7 @@ function AddNewModal(props: {
                 width={20}
                 height={20}
               />
-              Build sustainable culture Sharing your experience
+              {t("build")}
             </h2>
             {/* Text Area */}
             <textarea
@@ -125,7 +125,7 @@ function AddNewModal(props: {
                 maxSizeInMB={2}
               />
               {/* Submit Button */}
-              <input type="submit" className={styles.submit} value="Post" />
+              <input type="submit" className={styles.submit} value={t("post")} />
             </div>
           </form>
         </div>

@@ -166,9 +166,11 @@
   },
   "web": {
     "errors": {
-      "notfound": "Not found",
-      "unauthorized": "Unauthorized",
-      "nomore": "No more"
+      "notFound": "Not found",
+      "unauthorized": "Unauthorized access",
+      "noMore": "No more content available",
+      "loadingError": "Error loading content, please try again later",
+      "loading": "Loading..."
     },
     "header": {
       "chat": "Chat",
@@ -177,7 +179,56 @@
       "space": "My projects",
       "plans": "Plans",
       "favorites": "Favorites",
-      "logout": "Logout"
+      "logout": "Logout",
+      "addPost":"Add Post",
+      "notAvailable": "Not available",
+      "topics":{
+        
+        "sustainability": "Sustainability",
+        "food": "Food and Health",
+        "physical": "Physical And Mental Exercise",
+        "community": "Community And Nature",
+        "art": "Art",
+        "eco": "Ecotechnologies",
+        "knowledge":"Knowledge and Values",
+        "craft": "Crafts",
+        "music":" Music",
+        "show":"Show",
+        "dance":"Dance",
+        "literature":"Literature",
+        "cinema":"Cinema",
+        "natural":"Natural Medicine",
+        "nutrition":"Nutrition",
+        "hygiene":"Hygiene",
+        "growing":"Growing",
+        "cooking":"Cooking",
+        "preserving":"Preserving",
+        "astronomy":"Astronomy",
+        "biology":"Biology",
+        "geography":"Geography",
+        "others":"Others",
+        "philosiphy":"Philosophy And Psychology",
+        "history":"History And Culture",
+        "games":"Games",
+        "warmUp":"Warm Up",
+        "sports":"Sports",
+        "active":"Active Meditation",
+        "passive":"Passive Meditation",
+        "aerobics":"Aerobics",
+        "water":"Water",
+        "sustainable":"Sustainable Fashion",
+        "energy":"Energy",
+        "waste":"Waste",
+        "bioconstruction":"Bioconstruction",
+        "durable":"Durable Tools",
+        "together":"Together",
+        "nature":"Nature",
+        "volunteering":"Volunteering",
+        "ecotourism":"Ecotourism",
+        "warning":"Warming",
+        "cooperatives":"Cooperatives"
+
+      }
     },
     "subHeader": {
       "actions": {
@@ -187,14 +238,36 @@
         "addPost": "Add Post"
       },
       "diamond": {
-        "sustainability": "Your way to sustainability"
+        "sustainability": "Your way to sustainability",
+        "know": "Knowledge and values",
+        "food": "Food and health",
+        "physical": "Physical And Mental Exercise",
+        "community": "Community And Nature",
+        "art": "Art",
+        "eco": "Ecotechnologies"
       },
       "green": {
         "challenges": "Green Challenges",
-        "share": "Share 3 impactful campaigns to raise awareness and amplify the message of sustainability"
+        "share": "Share 3 impactful campaigns to raise awareness and amplify the message of sustainability",
+        "todo": "To Do",
+        "done": "Done",
+        "doit": "Do it",
+        "build":"Build sustainable culture Sharing your experience",
+        "post": "Post",
+        "delete": "Delete",
+        "comment": "Comment"
       },
       "doChallenge": {
-        "myChallenge": "My Challenge"
+        "myChallenge": "My Challenge",
+        "delete":"Delete",
+        "readMore": "Read more...",
+        "done":"Done",
+        "comment":"Comment"
+      },
+      "breif":{
+        "yourPoints": "Your Points",
+        "track":"Track Your Impact!",
+        "points":"Points"
       }
     },
     "challenges": {

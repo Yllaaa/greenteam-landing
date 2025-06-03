@@ -133,6 +133,7 @@ function GreenChallenges() {
     queryClient.invalidateQueries({ queryKey: ['greenChallenges'] });
   };
   const t = useTranslations("web.subHeader.green")
+  const te = useTranslations("web.errors")
   return (
     <>
       <div className={styles.container}>
@@ -151,16 +152,16 @@ function GreenChallenges() {
               }}
               className={styles.challengeButton}
             >
-              <Image src={star} alt="star" /> Todo
+              <Image src={star} alt="star" /> {t("todo")}
             </button>
           </div>
         </div>
 
         <div className={`${styles.navigationWrapper}`}>
           {isLoading ? (
-            <div>Loading challenges...</div>
+            <div>{te("loading")}</div>
           ) : error ? (
-            <div>Error loading challenges: {(error as Error).message}</div>
+            <div>{te("loadingError")}: {(error as Error).message}</div>
           ) : (
             <Challenges
               challenges={challenges as Challenge[]}

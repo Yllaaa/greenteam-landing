@@ -25,6 +25,7 @@ interface TopicScore {
 interface CategoryInfo {
   name: string
   icon: StaticImageData
+  value: string
 }
 
 function Categories() {
@@ -35,15 +36,15 @@ function Categories() {
   const [topicScores, setTopicScores] = useState<TopicScore[]>([])
   const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([])
   const t = useTranslations('web.subHeader.diamond')
-  
+
   // Mapping between component categories and backend topic names with icons
   const categoryMapping: Record<string, CategoryInfo> = {
-    know: { name: 'Knowledge And Values', icon: know },
-    food: { name: 'Food And Health', icon: food },
-    physical: { name: 'Physical And Mental Exercise', icon: physical },
-    community: { name: 'Community And Nature', icon: community },
-    art: { name: 'Art', icon: art },
-    eco: { name: 'Ecotechnologies', icon: eco },
+    know: { name: 'Knowledge And Values', value: t("know"), icon: know },
+    food: { name: 'Food And Health', value: t("food"), icon: food },
+    physical: { name: 'Physical And Mental Exercise', value: t("physical"), icon: physical },
+    community: { name: 'Community And Nature', value: t("community"), icon: community },
+    art: { name: 'Art', value: t("art"), icon: art },
+    eco: { name: 'Ecotechnologies', value: t("eco"), icon: eco },
   }
 
   useEffect(() => {
@@ -79,7 +80,7 @@ function Categories() {
 
     if (topicId) {
       setSelectedCategoryId(topicId)
-      
+
       // Fetch sub-topics for the selected category
       axios
         .get(
@@ -106,10 +107,10 @@ function Categories() {
     if (selectedCategoryId) {
       // Close the modal
       closeModal()
-      
+
       // Navigate to home page with category and subcategory parameters
       router.push(`?category=${selectedCategoryId}&subcategory=${subTopicId}`);
-      
+
       // Optional: If you want to scroll to a specific section on the home page
       // You can add a setTimeout and use the scrollIntoView method
       setTimeout(() => {
@@ -211,9 +212,8 @@ function Categories() {
                 onClick={() =>
                   handleCategoryClick(key as keyof typeof categoryMapping)
                 }
-                className={`${styles.label} ${
-                  styles[`top${Object.keys(categoryMapping).indexOf(key) + 1}`]
-                }`}
+                className={`${styles.label} ${styles[`top${Object.keys(categoryMapping).indexOf(key) + 1}`]
+                  }`}
               >
                 <Image src={value.icon} alt={key} />
               </span>
@@ -225,65 +225,65 @@ function Categories() {
         </div>
       </div>
       {/* Modal */}
-{isModalOpen && selectedCategory && (
-  <div className={styles.modal}>
-    <div ref={modalRef} className={styles.modalContent}>
-      <button className={styles.closeButton} onClick={closeModal} aria-label="Close modal">
-        &times;
-      </button>
+      {isModalOpen && selectedCategory && (
+        <div className={styles.modal}>
+          <div ref={modalRef} className={styles.modalContent}>
+            <button className={styles.closeButton} onClick={closeModal} aria-label="Close modal">
+              &times;
+            </button>
 
-      <div className={styles.subCategories}>
-        <div className={styles.categoryHeader}>
-          <Image 
-            src={categoryMapping[selectedCategory].icon} 
-            alt={selectedCategory}
-            width={40}
-            height={40}
-            className={styles.categoryIcon}
-          />
-          <h2>{categoryMapping[selectedCategory].name.toUpperCase()}</h2>
-        </div>
+            <div className={styles.subCategories}>
+              <div className={styles.categoryHeader}>
+                <Image
+                  src={categoryMapping[selectedCategory].icon}
+                  alt={selectedCategory}
+                  width={40}
+                  height={40}
+                  className={styles.categoryIcon}
+                />
+                <h2>{categoryMapping[selectedCategory].value.toUpperCase()}</h2>
+              </div>
 
-        <div style={{ position: 'relative', height: '450px' }}>
-          {/* Charts */}
-          <div style={{ zIndex: 11 }} className={styles.chart}>
-            <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-              <polygon
-                points={getScaledPoints(subTopicScores)}
-                className={styles.filledArea}
-              />
-            </svg>
-          </div>
-          
-          {/* Diamond shape */}
-          <div style={{ zIndex: 10 }} className={styles.diamondShapeModal}>
-            <Image src={diamond} alt="diamond" />
-          </div>
-          
-          {/* Sub category cards */}
-          <div style={{ zIndex: 1000 }} className={styles.subLabels}>
-            {subTopicScores.map((subTopic, index) => {
-              // Position class based on index
-              const positionClass = styles[`top${index + 1}${index + 1}`];
-              
-              return (
-                <div
-                  key={subTopic.topicId}
-                  className={`${styles.subLabel} ${positionClass} ${styles.clickableSubLabel}`}
-                  onClick={() => handleSubCategoryClick(subTopic.topicId)}
-                >
-                  <span>{subTopic.totalPoints}</span>
-                  <div className={styles.pointsText}>Points</div>
-                     <div className={styles.subTopicName}>{subTopic.topicName}</div>
+              <div style={{ position: 'relative', height: '450px' }}>
+                {/* Charts */}
+                <div style={{ zIndex: 11 }} className={styles.chart}>
+                  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <polygon
+                      points={getScaledPoints(subTopicScores)}
+                      className={styles.filledArea}
+                    />
+                  </svg>
                 </div>
-              );
-            })}
+
+                {/* Diamond shape */}
+                <div style={{ zIndex: 10 }} className={styles.diamondShapeModal}>
+                  <Image src={diamond} alt="diamond" />
+                </div>
+
+                {/* Sub category cards */}
+                <div style={{ zIndex: 1000 }} className={styles.subLabels}>
+                  {subTopicScores.map((subTopic, index) => {
+                    // Position class based on index
+                    const positionClass = styles[`top${index + 1}${index + 1}`];
+
+                    return (
+                      <div
+                        key={subTopic.topicId}
+                        className={`${styles.subLabel} ${positionClass} ${styles.clickableSubLabel}`}
+                        onClick={() => handleSubCategoryClick(subTopic.topicId)}
+                      >
+                        <span>{subTopic.totalPoints}</span>
+                        <div className={styles.pointsText}>Points</div>
+                        <div className={styles.subTopicName}>{subTopic.topicName}</div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
-)}
+      )}
     </>
   )
 }

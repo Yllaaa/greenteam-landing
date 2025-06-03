@@ -1,188 +1,189 @@
+// Topics.data.ts
 type ItemType = {
-    id: number;
-    name: string;
-    parentId?: string;
-    subtopics?: ItemType[]; // Subtopics now included inside topics
-  };
+  id: number;
+  name: string;
+  parentId?: string;
+  subtopics?: ItemType[];
+};
 
-export const Topics : ItemType[] = [
+export const Topics: ItemType[] = [
   {
     id: 5,
-    name: "Art",
+    name: "art",
     subtopics: [
       {
         id: 29,
-        name: "Crafts",
+        name: "craft",
       },
       {
         id: 30,
-        name: "Music",
+        name: "music",
       },
       {
         id: 31,
-        name: "Show",
+        name: "show",
       },
       {
         id: 37,
-        name: "Dance",
+        name: "dance",
       },
       {
         id: 38,
-        name: "Literature",
+        name: "literature",
       },
       {
         id: 39,
-        name: "Cinema",
+        name: "cinema",
       },
     ],
   },
   {
     id: 1,
-    name: "Food And Health",
+    name: "food",
     subtopics: [
       {
         id: 10,
-        name: "Natural Medicine",
+        name: "natural",
       },
       {
         id: 11,
-        name: "Nutrition",
+        name: "nutrition",
       },
       {
         id: 12,
-        name: "Hygiene",
+        name: "hygiene",
       },
       {
         id: 7,
-        name: "Growing",
+        name: "growing",
       },
       {
         id: 8,
-        name: "Cooking",
+        name: "cooking",
       },
       {
         id: 9,
-        name: "Preserving",
+        name: "preserving",
       },
     ],
   },
   {
     id: 2,
-    name: "Knowledge And Values",
+    name: "knowledge", // You might need to add this key to your translations
     subtopics: [
       {
         id: 14,
-        name: "Astronomy",
+        name: "astronomy",
       },
       {
         id: 15,
-        name: "Biology",
+        name: "biology",
       },
       {
         id: 16,
-        name: "Geology",
+        name: "geography", // Note: Your translation has "geography" not "geology"
       },
       {
         id: 20,
-        name: "Others",
+        name: "others",
       },
       {
         id: 13,
-        name: "Philosophy And Psychology",
+        name: "philosiphy", // Note: matches your translation key (with typo)
       },
       {
         id: 17,
-        name: "History And Culture",
+        name: "history",
       },
     ],
   },
   {
     id: 3,
-    name: "Physical And Mental Exercise",
+    name: "physical",
     subtopics: [
       {
         id: 18,
-        name: "Games",
+        name: "games",
       },
       {
         id: 19,
-        name: "Warm-up",
+        name: "warmUp",
       },
       {
         id: 21,
-        name: "Sports",
+        name: "sports",
       },
       {
         id: 22,
-        name: "Active Meditation",
+        name: "active",
       },
       {
         id: 23,
-        name: "Passive Meditation",
+        name: "passive",
       },
       {
         id: 36,
-        name: "Aerobics",
+        name: "aerobics",
       },
     ],
   },
   {
     id: 6,
-    name: "Ecotechnologies",
+    name: "eco",
     subtopics: [
       {
         id: 33,
-        name: "Water",
+        name: "water",
       },
       {
         id: 40,
-        name: "Sustainable Fashion",
+        name: "sustainable",
       },
       {
         id: 41,
-        name: "Energy",
+        name: "energy",
       },
       {
         id: 42,
-        name: "Waste",
+        name: "waste",
       },
       {
         id: 32,
-        name: "Bioconstruction",
+        name: "bioconstruction",
       },
       {
         id: 34,
-        name: "Durable Tools",
+        name: "durable",
       },
     ],
   },
   {
     id: 4,
-    name: "Community And Nature",
+    name: "community",
     subtopics: [
       {
         id: 24,
-        name: "Together",
+        name: "together",
       },
       {
         id: 25,
-        name: "Nature",
+        name: "nature",
       },
       {
         id: 26,
-        name: "Volunteering",
+        name: "volunteering",
       },
       {
         id: 27,
-        name: "Ecotourism",
+        name: "ecotourism",
       },
       {
         id: 28,
-        name: "Warning",
+        name: "warning",
       },
       {
         id: 35,
-        name: "Cooperatives",
+        name: "cooperatives",
       },
     ],
   },

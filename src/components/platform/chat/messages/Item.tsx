@@ -43,7 +43,7 @@ export default function Item({
       // Only attach the ref to the first (oldest) message
       ref={index === 0 ? ref : undefined}
       className={classNames(styles.item, {
-        [styles.self]: message.sender.id === currentUser ,
+        [styles.self]: message.sender&&message.sender.id === currentUser ,
       })}
       onClick={() => {
         if (index === 1) {
@@ -63,7 +63,7 @@ export default function Item({
       </div>
       <div className={styles.content}>
         <div className={styles.header}>
-          <div className={styles.name}>{message.sender.username}</div>
+          <div className={styles.name}>{message.sender && message.sender.username}</div>
           <div className={styles.details}>{message.senderType}</div>
         </div>
         <div className={styles.text}>{message.content}</div>

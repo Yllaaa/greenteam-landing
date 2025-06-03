@@ -4,6 +4,7 @@ import React, { useEffect } from 'react'
 import styles from './userDetails.module.scss'
 import axios from 'axios'
 import { getToken } from '@/Utils/userToken/LocalToken'
+import { useTranslations } from 'next-intl'
 function Breif() {
   const token = getToken()
   const accessToken = token ? token.accessToken : null
@@ -22,18 +23,19 @@ function Breif() {
         setScore(response.data.userScore)
       })
   }, [])
+  const t = useTranslations("web.subHeader.breif")
   return (
     <>
       <div className={styles.breifContainer}>
         <div className={styles.breifHeader}>
-          <p>Your Points</p>
-          <h5>Track Your Impact!</h5>
+          <p>{t("yourPoints")}</p>
+          <h5>{t("track")}</h5>
         </div>
 
 
         <div className={styles.breifText}>
           <p>
-            {score} <span>Points</span>
+            {score} <span>{t("points")}</span>
           </p>
         </div>
       </div>

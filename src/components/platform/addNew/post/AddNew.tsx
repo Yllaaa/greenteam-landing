@@ -14,7 +14,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { FaChevronDown } from 'react-icons/fa'; // Import chevron icon
-
+import { useTranslations } from "next-intl";
 // types
 type PostType = {
   content: string;
@@ -36,6 +36,8 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
 
   // topics and subtopics
   const topics = Topics;
+  const tt = useTranslations("web.header.topics")
+  const t = useTranslations("web.header")
   const [selectedMainTopic, setSelectedMainTopic] = useState<string | any>();
   const [selectedSubtopics, setSelectedSubtopics] = useState<string[] | any>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -160,7 +162,7 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
     <div className={styles.container}>
       <div className={styles.header}>
         <h2>
-          <Image src={addIcon} alt="addIcon" /> <span>Add New Post</span>
+          <Image src={addIcon} alt="addIcon" /> <span>{t("addPost")}</span>
         </h2>
       </div>
       <div className={styles.forumBody}>
@@ -205,7 +207,7 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
                             setIsDropdownOpen(false);
                           }}
                         >
-                          {topic.name}
+                          {tt(topic.name)}
                         </div>
                       ))}
                     </div>
@@ -222,7 +224,7 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
                   <option value="">- Select a Category -</option>
                   {topics.map((topic) => (
                     <option key={topic.id} value={topic.id}>
-                      {topic.name}
+                      {tt(topic.name)}
                     </option>
                   ))}
                 </select>
@@ -248,19 +250,19 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
                           checked={selectedSubtopics.includes(`${subtopic.id}`)}
                           onChange={handleSubtopicChange}
                         />
-                        {subtopic.name}
+                        {tt(subtopic.name)}
                       </label>
                     ))
                   ) : (
                     <p className={styles.noSubtopics}>
-                      No subtopics available for this topic.
+                      {t("notAvailable")}
                     </p>
                   )}
                 </div>
               )}
 
               {/* Submit Button - Aligned with category button */}
-              <button type="submit" className={styles.submit}>Publish Post</button>
+              <button type="submit" className={styles.submit}>{t("addPost")}</button>
             </div>
           </div>
         </form>

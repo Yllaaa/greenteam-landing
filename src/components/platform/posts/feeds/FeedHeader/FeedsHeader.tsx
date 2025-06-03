@@ -11,6 +11,7 @@ import know from "@/../public/ZPLATFORM/categories/physical.svg";
 import physical from "@/../public/ZPLATFORM/categories/eco.svg";
 import eco from "@/../public/ZPLATFORM/categories/know.svg";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
+import { useTranslations } from "next-intl";
 
 function FeedsHeader(props: {
   topic?: SingleTopicsData | any;
@@ -23,6 +24,7 @@ function FeedsHeader(props: {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('category');
   const subcategoryId = searchParams.get('subcategory');
+  const tt = useTranslations("web.header.topics");
 
   const topicLogo: { id: number; logo: string }[] = [
     { id: 1, logo: food },
@@ -79,7 +81,7 @@ function FeedsHeader(props: {
                 height={30}
               />
             </span>{" "}
-            <span className={styles.titleText}>{topic?.name}</span>
+            <span className={styles.titleText}>{tt(topic?.name)}</span>
           </h3>
         </div>
         <div className={styles.filterSection}>
@@ -108,7 +110,7 @@ function FeedsHeader(props: {
                   handleSubTopicChange(Number(topic.id), subtopic.id.toString())
                 }
               >
-                {subtopic.name}
+                {tt(subtopic.name)}
               </li>
             ))}
           </ul>

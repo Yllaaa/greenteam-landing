@@ -19,7 +19,7 @@ import {
 } from "@/store/features/login/userLoginSlice";
 import { useRouter } from "next/navigation";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
 import ProfileMenu from "./profileMenu/ProfileMenu";
 import NotificationIcon from "./notifications/NotificationIcon";
@@ -28,6 +28,7 @@ import ChatIcon from "./chatIcon/ChatIcon";
 import AddNew from "../addNew/post/AddNew";
 
 function Header() {
+  const t = useTranslations("web.header");
   // constants
   const locale = useLocale();
   const router = useRouter();
@@ -241,14 +242,14 @@ function Header() {
               <div className={styles.logoItem}>
                 <div onClick={() => router.push(`/${locale}/community`)} className={styles.handsLogo}>
                   <Image src={handsLogo} alt="community" width={60} height={48} />
-                  <p>Community</p>
+                  <p>{t("community")}</p>
                 </div>
               </div>
 
               <div className={styles.logoItem}>
                 <div onClick={() => router.push(`/${locale}/favorite`)} className={styles.starFav}>
                   <FaStar size={100} color="yellow" />
-                  <p>Favorite</p>
+                  <p>{t("favorites")}</p>
                 </div>
               </div>
             </>
@@ -331,28 +332,28 @@ function Header() {
               onClick={() => handleMenuItemClick(`/${locale}/community`)}
             >
               <Image src={handsLogo} alt="community" width={24} height={24} />
-              <p>Community</p>
+              <p>{t("community")}</p>
             </div>
             <div
               className={styles.mobileMenuItem}
               onClick={() => handleMenuItemClick(`/${locale}/favorite`)}
             >
               <FaStar size={24} color="yellow" />
-              <p>Favorite</p>
+              <p>{t("favorites")}</p>
             </div>
             <div
               className={styles.mobileMenuItem}
               onClick={handleAddPost}
             >
               <IoIosAddCircle size={24} />
-              <p>Add Post</p>
+              <p>{t("addPost")}</p>
             </div>
             <div
               className={styles.mobileMenuItem}
               onClick={handleLogout}
             >
               <span className={styles.logoutIcon}>🚪</span>
-              <p>Logout</p>
+              <p>{t("logout")}</p>
             </div>
           </div>
         </div>
