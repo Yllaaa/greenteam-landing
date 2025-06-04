@@ -12,6 +12,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { Message, NextCursor } from "./messages/messages.data";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
+import { useLocale } from "next-intl";
 const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
 
 export default function Chat() {
@@ -20,6 +21,7 @@ export default function Chat() {
   const socketRef = useRef<Socket | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
+  const locale = useLocale()
 
   const [chatId, setChatId] = useState<string>("");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
@@ -177,7 +179,7 @@ export default function Chat() {
             chatId={chatId}
             setChatId={(id) => {
               setChatId(id);
-              router.push(`/chat?chatId=${id}`);
+              router.push(`/${locale}/chat?chatId=${id}`);
               setShowMessages(true);
             }}
             selectedUser={selectedUser}
@@ -238,7 +240,7 @@ export default function Chat() {
                 shouldScrollToBottom={shouldScrollToBottom}
                 setShouldScrollToBottom={setShouldScrollToBottom}
                 refresh={refresh}
-                
+
               />
               <Input
                 chatId={chatId}

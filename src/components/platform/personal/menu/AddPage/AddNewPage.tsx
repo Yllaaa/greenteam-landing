@@ -163,7 +163,7 @@ const AddNewPage = (props: addEventProps) => {
           console.log(res.data);
           ToastNot("Page created successfully");
           reset();
-        }).then(()=>
+        }).then(() =>
           window.location.reload()
         )
         .catch((err) => {
@@ -330,7 +330,7 @@ const AddNewPage = (props: addEventProps) => {
   const [search, setSearch] = useState<string>("");
 
   const topics = Topics;
-  
+
 
   useEffect(() => {
     axios
@@ -398,9 +398,8 @@ const AddNewPage = (props: addEventProps) => {
               <label className={styles.label}>Page Name</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.name ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.name ? styles.inputError : ""
+                  }`}
                 {...register("name", {
                   required: "name is required",
                   maxLength: {
@@ -415,14 +414,13 @@ const AddNewPage = (props: addEventProps) => {
             </div>
             {/* slug */}
             <div className={styles.formGroup}>
-              
+
               <label className={styles.label}>Page Slug</label>
-              
+
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.slug ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.slug ? styles.inputError : ""
+                  }`}
                 {...register("slug", {
                   required: "slug is required",
                   maxLength: {
@@ -434,17 +432,16 @@ const AddNewPage = (props: addEventProps) => {
               {errors.slug && (
                 <p className={styles.errorText}>{errors.slug.message}</p>
               )}
-              
-            
+
+
             </div>
             {/* website */}
             <div className={styles.formGroup}>
               <label className={styles.label}>Page Website</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.websiteUrl ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.websiteUrl ? styles.inputError : ""
+                  }`}
                 {...register("websiteUrl", {
                   required: "webtite is required",
                 })}
@@ -462,9 +459,8 @@ const AddNewPage = (props: addEventProps) => {
                 {/* avatar */}
                 <div
                   ref={dropAreaRef}
-                  className={`${styles.AvatarUploadContainer} ${
-                    errors.avatar ? styles.inputError : ""
-                  } ${isDragging ? styles.dragging : ""}`}
+                  className={`${styles.AvatarUploadContainer} ${errors.avatar ? styles.inputError : ""
+                    } ${isDragging ? styles.dragging : ""}`}
                   onClick={handleAvatarClick}
                   onDragEnter={handleDragEnter}
                   onDragOver={handleDragOver}
@@ -513,9 +509,8 @@ const AddNewPage = (props: addEventProps) => {
                 {/* cover */}
                 <div
                   ref={dropAreaRef}
-                  className={`${styles.imageUploadContainer} ${
-                    errors.cover ? styles.inputError : ""
-                  } ${isDragging ? styles.dragging : ""}`}
+                  className={`${styles.imageUploadContainer} ${errors.cover ? styles.inputError : ""
+                    } ${isDragging ? styles.dragging : ""}`}
                   onClick={handleImageClick}
                   onDragEnter={handleDragEnter}
                   onDragOver={handleDragOver}
@@ -576,9 +571,8 @@ const AddNewPage = (props: addEventProps) => {
             <div className={styles.formGroup}>
               <label className={styles.label}>Country</label>
               <select
-                className={`${styles.select} ${
-                  errors.countryId ? styles.inputError : ""
-                }`}
+                className={`${styles.select} ${errors.countryId ? styles.inputError : ""
+                  }`}
                 {...register("countryId", { required: "Country is required" })}
                 onChange={(e) => setCountryId(parseInt(e.target.value))}
               >
@@ -606,9 +600,8 @@ const AddNewPage = (props: addEventProps) => {
                   onChange={(e) => setSearch(e.target.value)}
                 />
                 <select
-                  className={`${styles.select} ${
-                    errors.cityId ? styles.inputError : ""
-                  }`}
+                  className={`${styles.select} ${errors.cityId ? styles.inputError : ""
+                    }`}
                   {...register("cityId", { required: "city is required" })}
                 >
                   <option value="" disabled>
@@ -635,9 +628,8 @@ const AddNewPage = (props: addEventProps) => {
               <label className={styles.label}>Why?</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.why ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.why ? styles.inputError : ""
+                  }`}
                 {...register("why", {
                   required: "why is required",
                   maxLength: {
@@ -655,9 +647,8 @@ const AddNewPage = (props: addEventProps) => {
               <label className={styles.label}>What?</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.what ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.what ? styles.inputError : ""
+                  }`}
                 {...register("what", {
                   required: "what is required",
                   maxLength: {
@@ -675,9 +666,8 @@ const AddNewPage = (props: addEventProps) => {
               <label className={styles.label}>How?</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.how ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.how ? styles.inputError : ""
+                  }`}
                 {...register("how", {
                   required: "webtite is required",
                 })}
@@ -693,9 +683,8 @@ const AddNewPage = (props: addEventProps) => {
             <label className={styles.label}>Description</label>
             <textarea
               rows={4}
-              className={`${styles.textarea} ${
-                errors.description ? styles.inputError : ""
-              }`}
+              className={`${styles.textarea} ${errors.description ? styles.inputError : ""
+                }`}
               {...register("description", {
                 required: "Description is required",
                 minLength: {
@@ -712,9 +701,8 @@ const AddNewPage = (props: addEventProps) => {
           <div className={styles.formGroup}>
             <label className={styles.label}>Category</label>
             <select
-              className={`${styles.select} ${
-                errors.topicId ? styles.inputError : ""
-              }`}
+              className={`${styles.select} ${errors.topicId ? styles.inputError : ""
+                }`}
               {...register("category", { required: "Topic is required" })}
             >
               <option value="" disabled>
@@ -733,9 +721,8 @@ const AddNewPage = (props: addEventProps) => {
           <div className={styles.formGroup}>
             <label className={styles.label}>Topic</label>
             <select
-              className={`${styles.select} ${
-                errors.topicId ? styles.inputError : ""
-              }`}
+              className={`${styles.select} ${errors.topicId ? styles.inputError : ""
+                }`}
               {...register("topicId", { required: "Topic is required" })}
             >
               <option value="" disabled>

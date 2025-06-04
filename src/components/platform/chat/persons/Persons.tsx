@@ -8,6 +8,7 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
 import { useInView } from "react-intersection-observer";
+import { useLocale } from "next-intl";
 
 type PersonsProps = {
   chatId?: string;
@@ -18,7 +19,7 @@ type PersonsProps = {
 };
 
 export default function Persons({
-  // chatId,
+  chatId,
   setChatId,
   selectedUser,
   setSelectedUser,
@@ -31,6 +32,9 @@ export default function Persons({
 
   const token = getToken();
   const router = useRouter();
+
+  // Extract locale from pathname
+  const locale = useLocale();
 
   // Intersection observer hook
   const { ref, inView } = useInView({
@@ -53,6 +57,7 @@ export default function Persons({
           },
         }
       );
+      console.log("Fetched conversations:", response.data);
 
       const data = response.data;
 
@@ -63,7 +68,6 @@ export default function Persons({
       }
 
       // Check if there are more items based on the response length
-      // If we get less than 10 items, we've reached the end
       setHasMore(data.length === 10);
 
     } catch (error) {
@@ -80,6 +84,20 @@ export default function Persons({
     setHasMore(true);
     fetchConversations(1, true);
   }, [selectedUser, newMessage]);
+
+  // Check for chatId and set selectedUser when conversations are loaded
+  useEffect(() => {
+    if (chatId && filteredPersons.length > 0) {
+      // Find conversation where contact.id matches chatId
+      const matchingConversation = filteredPersons.find(conv => conv.contact.id === chatId);
+      if (matchingConversation) {
+        // Set selectedUser to the contact.id
+        setSelectedUser(matchingConversation.id);
+        // Set the conversation id
+        setChatId(matchingConversation.contact.id);
+      }
+    }
+  }, [chatId, filteredPersons]);
 
   // Load more when scrolling to bottom
   useEffect(() => {
@@ -98,11 +116,15 @@ export default function Persons({
         <Item
           selected={selectedUser == chat.contact.id}
           onClick={() => {
-            setChatId(chat.id);
+            setChatId(chat.contact.id);
+            setSelectedUser(chat.id);
+
+            // Handle navigation with locale
             const params = new URLSearchParams();
             params.set('chatId', chat.contact.id);
-            router.push(`chat?${params.toString()}`);
-            setSelectedUser(chat.id);
+
+            // Include locale in the path
+            router.push(`/${locale}/chat?chatId=${chat.contact.id}`);
           }}
           key={chat.id || index}
           {...chat}
