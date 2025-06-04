@@ -7,7 +7,7 @@ import { useAppSelector } from "@/store/hooks";
 import axios from "axios";
 import preventBackgroundScroll from "@/hooks/preventScroll/preventBackroundScroll";
 import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
-import { useParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 function Report(props: {
   setReport: React.Dispatch<React.SetStateAction<boolean>>;
@@ -16,8 +16,6 @@ function Report(props: {
   reportedId: string;
   reportedType: string;
 }) {
-  const params = useParams();
-  console.log(params);
 
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const { setReport, reportedId, reportedType } = props;
@@ -82,24 +80,24 @@ function Report(props: {
       ToastNot("Error occurred while adding post");
     }
   };
-
+const t = useTranslations("web.main.report")
   return (
     <>
       <div className={styles.modal}>
         <div ref={modalRef} className={styles.modalcontent}>
           <form className={styles.forumForm} onSubmit={handleSubmit(onSubmit)}>
             <h2 className={styles.title}>
-              Talk about the issue you are facing
+              {t("talkAbout")}
             </h2>
             {/* Text Area */}
             <textarea
-              placeholder="Type your reason..."
+              placeholder={t("placeholder")}
               className={styles.textArea}
               {...register("reason", { required: true })}
             />
             <div className={styles.buttons}>
               {/* Submit Button */}
-              <input type="submit" className={styles.submit} value="Report" />
+              <input type="submit" className={styles.submit} value={t("report")} />
             </div>
           </form>
         </div>

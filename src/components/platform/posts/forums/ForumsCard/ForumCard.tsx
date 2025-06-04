@@ -28,6 +28,7 @@ import { FaCheckSquare } from "react-icons/fa";
 import { useAppSelector } from "@/store/hooks";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
+import { useTranslations } from "next-intl";
 
 type Author = {
   id: string;
@@ -81,6 +82,7 @@ function ForumCard(props: Discussion) {
   const token = getToken();
   const user = useAppSelector((state) => state.login.user?.user)?.id;
   const accessToken = token ? token.accessToken : null;
+    const t = useTranslations("web.main.forums");
   const {
     post,
     setPage,
@@ -357,14 +359,14 @@ function ForumCard(props: Discussion) {
                   onClick={() => handleAction('delete')}
                   className={styles.optionItem}
                 >
-                  <FaTrash /> <span>Delete Post</span>
+                  <FaTrash /> <span>{t("delete")}</span>
                 </div>
               )}
               <div
                 onClick={() => handleAction('report')}
                 className={styles.optionItem}
               >
-                <MdOutlineReportProblem /> <span>Report Post</span>
+                <MdOutlineReportProblem /> <span>{t("report")}</span>
               </div>
             </div>
           )}
@@ -396,9 +398,9 @@ function ForumCard(props: Discussion) {
           <div className={styles.logo}>
             <Image
               src={
-                post.section === "need"
+                post.section === t("need")
                   ? need
-                  : post.section === "dream"
+                  : post.section === t("dream")
                     ? dream
                     : question
               }
@@ -437,7 +439,7 @@ function ForumCard(props: Discussion) {
               />
 
               <p>
-                <span>{userSignCount} Sign</span>
+                <span>{userSignCount} {t("sign")}</span>
               </p>
             </div>
           )}
@@ -445,7 +447,7 @@ function ForumCard(props: Discussion) {
             <div className={styles.btn} onClick={handleLike}>
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p data-count={likeCount}>
-                <span>{likeCount} Like</span>
+                <span>{likeCount} {t("like")}</span>
               </p>
             </div>
           )}
@@ -454,7 +456,7 @@ function ForumCard(props: Discussion) {
               style={{ fill: userDisliked ? "#006633" : "#97B00F" }}
             />
             <p>
-              <span>{dislikeCount} Unlike</span>
+              <span>{dislikeCount} {t("unlike")}</span>
             </p>
           </div>
           <div
@@ -465,7 +467,7 @@ function ForumCard(props: Discussion) {
           >
             <Image src={comment} alt="comment" />
             <p>
-              <span>{post.commentCount} Comment</span>
+              <span>{post.commentCount} {t("comment")}</span>
             </p>
           </div>
         </div>
@@ -502,7 +504,7 @@ function ForumCard(props: Discussion) {
                   <FaCameraRetro />
                 </label>
               </div>
-              <button className={styles.commentBtn}>Comment</button>
+              <button className={styles.commentBtn}>{t("comment")}</button>
             </div>
           </div>
         </div>

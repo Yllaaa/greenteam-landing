@@ -24,6 +24,7 @@ import { MdOutlineReportProblem } from "react-icons/md";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
 import linkifyText from "@/Utils/textFormatting/linkify";
 import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
+import { useTranslations } from "next-intl";
 
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
@@ -57,7 +58,8 @@ function PostCard(props: Props) {
 
   const router = useRouter();
   const locale = useLocale();
-
+  const t = useTranslations("web.main.feeds");
+  const te = useTranslations("web.errors");
   // State management
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -218,7 +220,7 @@ function PostCard(props: Props) {
     if (errorMessage) {
       return (
         <div className={styles.noPosts}>
-          <p>Error Loading posts</p>
+          <p>{te("loadingError")}</p>
         </div>
       );
     }
@@ -226,7 +228,7 @@ function PostCard(props: Props) {
     if (postContent.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No posts found</p>
+          <p>{te("noMore")}</p>
         </div>
       );
     }
@@ -257,7 +259,7 @@ function PostCard(props: Props) {
                       className={`${styles.optionItem} ${styles.deleteOption}`}
                     >
                       <FaTrash className={styles.deleteIcon} />
-                      <span>Delete Post</span>
+                      <span>{t("delete")}</span>
                     </div>
                   )}
                   {!post.isAuthor &&
@@ -266,7 +268,7 @@ function PostCard(props: Props) {
                       className={`${styles.optionItem} ${styles.reportOption}`}
                     >
                       <MdOutlineReportProblem className={styles.reportIcon} />
-                      <span>Report Post</span>
+                      <span>{t("report")}</span>
                     </div>
                   }
                 </div>
@@ -355,28 +357,7 @@ function PostCard(props: Props) {
         ))}
       </Suspense>
     );
-  }, [
-    isMounted,
-    isLoading,
-    errorMessage,
-    postContent,
-    activeOptionsPost,
-    commentsPage,
-    setCommentsPage,
-    setDoItModal,
-    setCommentModal,
-    setPostComments,
-    rerender,
-    setPostId,
-    setPostMedia,
-    ref,
-    formatTimeDifference,
-    navigateToProfile,
-    navigateToPost,
-    toggleOptionsMenu,
-    handleActionDelete,
-    handleActionReport,
-  ]);
+  }, [isMounted, isLoading, errorMessage, postContent, te, ref, activeOptionsPost, t, formatTimeDifference, commentsPage, setCommentsPage, setDoItModal, setCommentModal, setPostComments, rerender, setPostId, setPostMedia, toggleOptionsMenu, handleActionDelete, handleActionReport, navigateToProfile, navigateToPost]);
 
   // Initial server-side render
   if (!isMounted) {

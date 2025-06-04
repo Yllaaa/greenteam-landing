@@ -5,6 +5,7 @@
   position: relative;
   overflow: auto;
   z-index: 10;
+  background-color: #050e07;
 }
 .shadow1 {
   position: absolute;

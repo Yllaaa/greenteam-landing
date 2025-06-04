@@ -9,10 +9,14 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import logo from "@/../public/logo/fullLogo.png";
-import { FaFacebookF, FaInstagram, FaXTwitter } from "react-icons/fa6";
+import { FaFacebookF, FaInstagram,FaLinkedin, FaXTwitter } from "react-icons/fa6";
+import { FiYoutube } from "react-icons/fi";
+
+import { useRouter } from 'next/navigation';
 function Footer() {
   const t = useTranslations('landing.footer');
   const locale = useLocale();
+  const router = useRouter()
 
   const [imageLoaded, setImageLoaded] = React.useState(false);
 
@@ -53,7 +57,7 @@ function Footer() {
         </div>
         <div className={styles.containerBottom}>
           <div className={styles.containerBottomLogo}>
-            <Image src={logo} alt="Logo" loading="lazy" />
+            <Image src={logo} alt="Logo" loading="lazy" onClick={() => router.push(`/${locale}`)} />
           </div>
           <div className={styles.containerBottomNavigation}>
             <Link className={styles.link} href={`/${locale}/about`}>
@@ -68,14 +72,40 @@ function Footer() {
             </Link>
           </div>
           <div className={styles.containerBottomSocial}>
-            <div className={styles.social}>
+            <div
+              onClick={() => {
+                window.open("https://x.com/theGreenteamapp", "_blank");
+              }}
+              className={styles.social}>
               <FaXTwitter />
             </div>
-            <div className={styles.social}>
+            <div
+              onClick={() => {
+                window.open("https://www.facebook.com/profile.php?id=100086985110285", "_blank");
+              }}
+              className={styles.social}>
               <FaFacebookF />
             </div>
-            <div className={styles.social}>
+            <div
+              onClick={() => {
+                window.open("https://www.instagram.com/greenteam.app/", "_blank");
+              }}
+              className={styles.social}>
               <FaInstagram />
+            </div>
+            <div
+              onClick={() => {
+                window.open("https://www.linkedin.com/in/david-igual-greenteam-384948191/", "_blank");
+              }}
+              className={styles.social}>
+              <FaLinkedin />
+            </div>
+            <div
+              onClick={() => {
+                window.open("https://www.linkedin.com/in/david-igual-greenteam-384948191/", "_blank");
+              }}
+              className={styles.social}>
+              <FiYoutube />
             </div>
           </div>
           <div className={styles.containerBottomCopyright}>

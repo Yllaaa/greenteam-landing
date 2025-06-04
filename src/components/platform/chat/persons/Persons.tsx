@@ -1,16 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import styles from "./persons.module.scss";
 import { Chat } from "./search/persons.data";
 import Item from "./Item";
-// import Search from "./search/Search";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
+import { useInView } from "react-intersection-observer";
 
 type PersonsProps = {
-  chatId: string;
+  chatId?: string;
   setChatId: (id: string) => void;
   selectedUser: string;
   setSelectedUser: (id: string) => void;
@@ -18,39 +18,85 @@ type PersonsProps = {
 };
 
 export default function Persons({
-  chatId,
+  // chatId,
   setChatId,
   selectedUser,
   setSelectedUser,
   newMessage,
 }: PersonsProps) {
   const [filteredPersons, setFilteredPersons] = useState<Chat[]>([]);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [hasMore, setHasMore] = useState(true);
+
   const token = getToken();
   const router = useRouter();
-  useEffect(() => {
-    axios
-      .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations?page=1&limit=10`,
+
+  // Intersection observer hook
+  const { ref, inView } = useInView({
+    threshold: 0.1,
+    triggerOnce: false,
+  });
+
+  const fetchConversations = useCallback(async (pageNum: number, isNewFetch: boolean = false) => {
+    if (loading || (!hasMore && !isNewFetch)) return;
+
+    setLoading(true);
+
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations?page=${pageNum}&limit=10`,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token.accessToken}`,
           },
         }
-      )
-      .then((res) => {
-        console.log("persons", res.data);
+      );
 
-        setFilteredPersons(res.data);
-      })
-      .catch((err) => console.log(err));
+      const data = response.data;
+
+      if (isNewFetch) {
+        setFilteredPersons(data);
+      } else {
+        setFilteredPersons(prev => [...prev, ...data]);
+      }
+
+      // Check if there are more items based on the response length
+      // If we get less than 10 items, we've reached the end
+      setHasMore(data.length === 10);
+
+    } catch (error) {
+      console.error("Error fetching conversations:", error);
+      setHasMore(false);
+    } finally {
+      setLoading(false);
+    }
+  }, [token.accessToken, loading, hasMore]);
+
+  // Initial load and reload on selectedUser or newMessage change
+  useEffect(() => {
+    setPage(1);
+    setHasMore(true);
+    fetchConversations(1, true);
   }, [selectedUser, newMessage]);
+
+  // Load more when scrolling to bottom
+  useEffect(() => {
+    if (inView && hasMore && !loading) {
+      const nextPage = page + 1;
+      setPage(nextPage);
+      fetchConversations(nextPage);
+    }
+  }, [inView, hasMore, loading, page]);
+
   return (
     <div className={styles.persons}>
       {/* <Search setFilteredPersons={setFilteredPersons} /> */}
+
       {filteredPersons.map((chat, index) => (
         <Item
-          selected={chatId == chat.id || selectedUser == chat.contact.id}
+          selected={selectedUser == chat.contact.id}
           onClick={() => {
             setChatId(chat.id);
             const params = new URLSearchParams();
@@ -58,10 +104,35 @@ export default function Persons({
             router.push(`chat?${params.toString()}`);
             setSelectedUser(chat.id);
           }}
-          key={index}
+          key={chat.id || index}
           {...chat}
         />
       ))}
+
+      {/* Loading indicator and intersection observer trigger */}
+      {hasMore && (
+        <div ref={ref} className={styles.loadingContainer}>
+          {loading && (
+            <div className={styles.loader}>
+              Loading more conversations...
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* No more items indicator */}
+      {!hasMore && filteredPersons.length > 0 && (
+        <div className={styles.endMessage}>
+          No more conversations
+        </div>
+      )}
+
+      {/* Empty state */}
+      {!loading && filteredPersons.length === 0 && (
+        <div className={styles.emptyState}>
+          No conversations found
+        </div>
+      )}
     </div>
   );
 }

@@ -30,7 +30,7 @@ import { useTranslations } from "next-intl";
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-const terror = useTranslations("web.errors")
+  const terror = useTranslations("web.errors")
   // State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");

@@ -23,8 +23,10 @@ import ConfirmationModal from "@/components/platform/modals/confirmModal/Confirm
 import ReportModal from "@/components/platform/modals/reportModal/ReportModal"; // Import reusable modal
 import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { useTranslations } from "next-intl";
 
 function ProductSection() {
+  const t = useTranslations("web.products");
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -215,7 +217,7 @@ function ProductSection() {
 
     if (errorMessage && products.length === 0) {
       return (
-        <div className={styles.noPosts}>
+        <div className={styles.noProducts}>
           <p>{errorMessage}</p>
         </div>
       );
@@ -223,11 +225,12 @@ function ProductSection() {
 
     if (products.length === 0) {
       return (
-        <div className={styles.noPosts}>
-          <p>No Products found</p>
+        <div className={styles.noProducts}>
+          <p>{t("list.noProducts")}</p>
         </div>
       );
     }
+
     return (
       <>
         <Suspense fallback={renderLoading()}>
@@ -244,7 +247,6 @@ function ProductSection() {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
-                  // setContacts={setContacts}
                   setShowContacts={setShowContacts}
                   deleteModal={isDeleteModalOpen}
                   setDeleteModal={setIsDeleteModalOpen}
@@ -265,7 +267,7 @@ function ProductSection() {
           {/* End of results message */}
           {endOfResults && (
             <div className={styles.endOfResults}>
-              <p>No more products to show</p>
+              <p>{t("list.noMoreProducts")}</p>
             </div>
           )}
 
@@ -275,7 +277,7 @@ function ProductSection() {
             !endOfResults &&
             products.length > 0 && (
               <div className={styles.endOfResults}>
-                <p>{`You've reached the end of the products`}</p>
+                <p>{t("list.endOfList")}</p>
               </div>
             )}
         </Suspense>
@@ -295,24 +297,29 @@ function ProductSection() {
         {products.length > 0 && (
           <div className={styles.sliderBtns}>
             <div
-              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""
-                }`}
+              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""}`}
               onClick={() => handleManualScroll("left")}
+              aria-label={t("list.navigation.leftArrow")}
             >
               <Image
                 src={toRight}
-                alt="left arrow"
+                alt={t("list.navigation.leftArrow")}
                 width={100}
                 height={100}
                 style={{ transform: "rotateY(180deg)" }}
               />
             </div>
             <div
-              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""
-                }`}
+              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""}`}
               onClick={() => handleManualScroll("right")}
+              aria-label={t("list.navigation.rightArrow")}
             >
-              <Image src={toRight} alt="right arrow" width={100} height={100} />
+              <Image
+                src={toRight}
+                alt={t("list.navigation.rightArrow")}
+                width={100}
+                height={100}
+              />
             </div>
           </div>
         )}
@@ -347,12 +354,12 @@ function ProductSection() {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={() => loadProducts(1, true)}
-        title="Are you sure you want to delete this product?"
-        confirmButtonText="Delete"
-        cancelButtonText="Cancel"
+        title={t("modals.delete.title")}
+        confirmButtonText={t("modals.delete.confirmButton")}
+        cancelButtonText={t("modals.delete.cancelButton")}
         customAction={handleDeleteProduct}
-        successMessage="Product deleted successfully"
-        errorMessage="Error occurred while deleting product"
+        successMessage={t("modals.delete.successMessage")}
+        errorMessage={t("modals.delete.errorMessage")}
       />
 
       {/* Enhanced Report Modal */}
@@ -361,11 +368,11 @@ function ProductSection() {
         onClose={() => setIsReportModalOpen(false)}
         reportedId={productId}
         reportedType="product"
-        title="Tell us why you're reporting this product"
+        title={t("modals.report.title")}
         successCallback={handleReportSuccess}
       />
     </>
-  );
+  )
 }
 
 export default ProductSection;

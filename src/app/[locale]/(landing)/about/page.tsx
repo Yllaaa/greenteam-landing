@@ -3,6 +3,7 @@ import AboutHero from "@/components/Landing_Page/about/hero/AboutHero";
 import History from "@/components/Landing_Page/about/histoty/History";
 import React from "react";
 import styles from "./about.module.css"
+import Team from "../../../../components/Landing_Page/about/team/Team";
 
 function page() {
   return (
@@ -16,6 +17,9 @@ function page() {
         </div>
         <div className={styles.history}>
           <History />
+        </div>
+        <div className={styles.team}>
+          <Team />
         </div>
       </section>
     </>

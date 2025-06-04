@@ -17,6 +17,7 @@ import axios from "axios";
 import { FaTrash } from "react-icons/fa6";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
+import { useTranslations } from "next-intl";
 
 interface ProductCardProps {
   limit?: number;
@@ -200,6 +201,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         console.error("Error toggling favorite:", error);
       });
   };
+  const t = useTranslations("web.products.card");
 
   return (
     <div
@@ -274,7 +276,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div className={styles.topBtns}>
         {product?.sellerType === "page" && (
           <button onClick={handleContacts} className={styles.contactButton}>
-            Message Seller
+            {t("buttons.messageSeller")}
           </button>
         )}
         {product?.sellerType === "user" && (
@@ -306,7 +308,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
                 className={`${styles.optionItem} ${styles.deleteOption}`}
               >
                 <FaTrash className={styles.deleteIcon} />
-                <span>Delete Product</span>
+                <span>{t("options.delete")}</span>
               </div>
             )}
             <div
@@ -314,7 +316,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
               className={`${styles.optionItem} ${styles.reportOption}`}
             >
               <MdOutlineReportProblem className={styles.reportIcon} />
-              <span>Report Product</span>
+              <span>{t("options.report")}</span>
             </div>
           </div>
         )}

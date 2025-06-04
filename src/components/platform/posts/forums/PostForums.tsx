@@ -19,6 +19,7 @@ import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import Image from "next/image";
 import DeleteModal from "./deleteModal/DeleteModal";
 import Report from "./reportModal/Report";
+import { useTranslations } from "next-intl";
 const ForumCard = lazy(() => import("./ForumsCard/ForumCard"));
 
 type Author = {
@@ -53,6 +54,8 @@ function PostForums() {
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
   const queryClient = useQueryClient();
+
+  const te = useTranslations("web.errors");
 
   const [forums, setForums] = useState<Post[]>([]);
   // Modals and state
@@ -245,7 +248,7 @@ function PostForums() {
     if (forums.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No posts found</p>
+          <p>{te("notFound")}</p>
         </div>
       );
     }
@@ -285,7 +288,7 @@ function PostForums() {
           {/* End of results message */}
           {endOfResults && (
             <div className={styles.endOfResults}>
-              <p>No more posts to show</p>
+              <p>{te("noMore")}</p>
             </div>
           )}
 
@@ -295,7 +298,7 @@ function PostForums() {
             !endOfResults &&
             forums.length > 0 && (
               <div className={styles.endOfResults}>
-                <p>{`You've reached the end of the posts`}</p>
+                <p>{te("noMore")}</p>
               </div>
             )}
         </Suspense>

@@ -12,13 +12,14 @@ import { useKeenSlider } from "keen-slider/react";
 import { Product } from "../types/productsTypes.data";
 import "keen-slider/keen-slider.min.css";
 import { useRouter } from "next/navigation";
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 function SingleProduct(props: { prodId: string }) {
   const { prodId } = props;
   const router = useRouter();
   const locale = useLocale();
   const token = getToken();
-
+  const t = useTranslations("web.products.single")
+  // const tf = useTranslations("web.products.filter")
   const accessToken = token ? token.accessToken : null;
 
   const [currentSlide, setCurrentSlide] = React.useState(0);
@@ -114,9 +115,8 @@ function SingleProduct(props: { prodId: string }) {
                     <button
                       key={idx}
                       onClick={() => instanceRef.current?.moveToIdx(idx)}
-                      className={`${styles.dot} ${
-                        currentSlide === idx ? styles.active : ""
-                      }`}
+                      className={`${styles.dot} ${currentSlide === idx ? styles.active : ""
+                        }`}
                       aria-label={`Go to slide ${idx + 1}`}
                     />
                   ))}
@@ -126,13 +126,13 @@ function SingleProduct(props: { prodId: string }) {
 
             <div className={styles.content}>
               <div className={styles.category}>
-                <p>{product.topic.name}</p>
+                <p>{t(product.topic.name)}</p>
               </div>
               <div className={styles.title}>
                 <p>{product.name}</p>
               </div>
               <div className={styles.description}>
-                <p className={styles.dLabel}>Description:</p>
+                <p className={styles.dLabel}>{t("description")}:</p>
                 <p>{product.description}</p>
               </div>
               <div className={styles.user}>
@@ -149,7 +149,7 @@ function SingleProduct(props: { prodId: string }) {
                   />
                 </div>
                 <div className={styles.details}>
-                  <p className={styles.dLabel}>By:</p>
+                  <p className={styles.dLabel}>{t("by")}:</p>
                   <p className={styles.name}>{product.seller.name}</p>
                 </div>
               </div>
@@ -160,10 +160,10 @@ function SingleProduct(props: { prodId: string }) {
                   }}
                   className={styles.contactButton}
                 >
-                  Message Seller
+                  {t("messageSeller")}
                 </button>
                 {product.website && (
-                  <button className={styles.webButton}>visit website</button>
+                  <button className={styles.webButton}>{t("visitWeb")}</button>
                 )}
               </div>
             </div>

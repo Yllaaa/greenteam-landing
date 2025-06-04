@@ -10,7 +10,7 @@ import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 
 // Define types for better TypeScript support
@@ -55,6 +55,7 @@ const AddNewProduct = (props: addProductProps) => {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
+  const t = useTranslations("web.products.addNewModal.addProduct")
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -128,7 +129,7 @@ const AddNewProduct = (props: addProductProps) => {
       !data.topicId ||
       !data.marketType
     ) {
-      ToastNot("Please fill all required fields");
+      ToastNot(t("messages.fillRequired"));
       return;
     }
 
@@ -163,13 +164,13 @@ const AddNewProduct = (props: addProductProps) => {
         }
       );
 
-      ToastNot(response.data.message || "Product listed successfully");
+      ToastNot(response.data.message || t("messages.success"));
       reset();
       setImageFiles([]);
       setAddNew(false);
     } catch (err) {
       console.log(err);
-      ToastNot("Error adding Product");
+      ToastNot(t("error"));
     } finally {
       setIsSubmitting(false);
     }
@@ -328,7 +329,7 @@ const AddNewProduct = (props: addProductProps) => {
       if (imageFiles.length > 0) {
         processSelectedFiles(imageFiles);
       } else {
-        setFileError("Please drop image files only");
+        setFileError(t("imageFilesOnly"));
       }
     }
   };
@@ -366,9 +367,9 @@ const AddNewProduct = (props: addProductProps) => {
       })
       .catch((err) => {
         console.log(err);
-        ToastNot("Error fetching countries");
+        ToastNot(t("errorFetchingCountries"));
       });
-  }, [accessToken, locale]);
+  }, [accessToken, locale, t]);
 
   // Fetch cities when country changes
   useEffect(() => {
@@ -391,26 +392,26 @@ const AddNewProduct = (props: addProductProps) => {
       })
       .catch((err) => {
         console.log(err);
-        ToastNot("Error fetching cities");
+        ToastNot(t("errorFetchingCities"));
       })
       .finally(() => {
         setIsLoadingCities(false);
       });
-  }, [accessToken, countryId, search]);
+  }, [accessToken, countryId, search, t]);
 
   // Render progress indicator
   const renderProgressIndicator = () => (
     <div className={styles.progressIndicator}>
       <div className={`${styles.progressStep} ${formStep >= 1 ? styles.activeStep : ''}`}>
         <span className={styles.stepNumber}>1</span>
-        <span className={styles.stepLabel}>Basic Info</span>
+        <span className={styles.stepLabel}>{t("progress.step1")}</span>
       </div>
       <div className={styles.progressLine}>
         <div className={`${styles.progressLineFill} ${formStep >= 2 ? styles.activeProgress : ''}`}></div>
       </div>
       <div className={`${styles.progressStep} ${formStep >= 2 ? styles.activeStep : ''}`}>
         <span className={styles.stepNumber}>2</span>
-        <span className={styles.stepLabel}>Details & Location</span>
+        <span className={styles.stepLabel}>{t("progress.step2")}</span>
       </div>
     </div>
   );
@@ -424,10 +425,9 @@ const AddNewProduct = (props: addProductProps) => {
               <Image src={addlogo} alt="Add Product" width={48} height={48} />
             </div>
             <div className={styles.titleText}>
-              <h2 className={styles.formTitle}>List a Product for Sale</h2>
+              <h2 className={styles.formTitle}>{t("title")}</h2>
               <p className={styles.formDescription}>
-                Add a product to the marketplace. Provide details to make it easy
-                for customers to understand and purchase.
+                {t("description")}
               </p>
             </div>
           </div>
@@ -451,7 +451,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* Name */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-name" className={styles.label}>
-                    <span className={styles.labelText}>Product Name</span>
+                    <span className={styles.labelText}>{t("fields.productName.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -460,13 +460,13 @@ const AddNewProduct = (props: addProductProps) => {
                       <input
                         id="product-name"
                         type="text"
-                        placeholder="Enter product name"
+                        placeholder={t("fields.productName.placeholder")}
                         className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
                         {...register("name", {
-                          required: "Product name is required",
+                          required: t("fields.productName.error.required"),
                           maxLength: {
                             value: 100,
-                            message: "Name cannot exceed 100 characters",
+                            message: t("fields.productName.error.maxLength", { max: 100 }),
                           },
                         })}
                       />
@@ -483,7 +483,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* Price */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-price" className={styles.label}>
-                    <span className={styles.labelText}>Price</span>
+                    <span className={styles.labelText}>{t("fields.price.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -497,10 +497,10 @@ const AddNewProduct = (props: addProductProps) => {
                         placeholder="0.00"
                         className={`${styles.input} ${styles.priceInput} ${errors.price ? styles.inputError : ""}`}
                         {...register("price", {
-                          required: "Price is required",
+                          required: t("fields.price.error.required"),
                           min: {
                             value: 0,
-                            message: "Price must be a positive number",
+                            message: t("fields.price.error.min", { min: 0 }),
                           },
                           valueAsNumber: true,
                         })}
@@ -520,7 +520,7 @@ const AddNewProduct = (props: addProductProps) => {
               <div className={styles.formSection}>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>
-                    <span className={styles.labelText}>Listing Type</span>
+                    <span className={styles.labelText}>{t("fields.listingType.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -537,7 +537,7 @@ const AddNewProduct = (props: addProductProps) => {
                             id={`marketType-${market.name}`}
                             value={market.name}
                             className={styles.toggleInput}
-                            {...register("marketType", { required: "Listing type is required" })}
+                            {...register("marketType", { required: t("fields.listingType.error.required") })}
                           />
                           <label htmlFor={`marketType-${market.name}`} className={styles.toggleLabel}>
                             <span className={styles.toggleIcon}>{market.icon}</span>
@@ -558,7 +558,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* CONDITION */}
                 <div className={styles.formGroup}>
                   <label className={styles.label}>
-                    <span className={styles.labelText}>Product Condition</span>
+                    <span className={styles.labelText}>{t("fields.condition.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -576,7 +576,7 @@ const AddNewProduct = (props: addProductProps) => {
                           {...register("condition", { required: "Condition is required" })}
                         />
                         <label htmlFor="condition-new" className={styles.toggleLabel}>
-                          New
+                          {t("fields.condition.new")}
                         </label>
                       </div>
                       <div
@@ -589,10 +589,10 @@ const AddNewProduct = (props: addProductProps) => {
                           id="condition-used"
                           value="used"
                           className={styles.toggleInput}
-                          {...register("condition", { required: "Condition is required" })}
+                          {...register("condition", { required: t("fields.condition.error.required") })}
                         />
                         <label htmlFor="condition-used" className={styles.toggleLabel}>
-                          Used
+                          {t("fields.condition.used")}
                         </label>
                       </div>
                     </div>
@@ -610,9 +610,9 @@ const AddNewProduct = (props: addProductProps) => {
               <div className={styles.formSection}>
                 <div className={styles.formGroup}>
                   <label className={styles.label}>
-                    <span className={styles.labelText}>Product Images</span>
+                    <span className={styles.labelText}>{t("fields.images.label")}</span>
                     <span className={styles.requiredField}>*</span>
-                    <span className={styles.labelHint}>(Up to 4, max 2MB each)</span>
+                    <span className={styles.labelHint}>{t("fields.images.hint")}</span>
                   </label>
                   <div className={styles.inputWrapper}>
                     <div
@@ -656,7 +656,7 @@ const AddNewProduct = (props: addProductProps) => {
                             >
                               <Plus size={24} className={styles.addIcon} />
                               <span className={styles.addMoreText}>
-                                Add more images
+                                {t("fields.images.addMore")}
                               </span>
                               <span className={styles.smallText}>
                                 {MAX_IMAGES - imageFiles.length} remaining
@@ -723,7 +723,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* DESCRIPTION */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-description" className={styles.label}>
-                    <span className={styles.labelText}>Description</span>
+                    <span className={styles.labelText}>{t("fields.description.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -732,14 +732,14 @@ const AddNewProduct = (props: addProductProps) => {
                       <textarea
                         id="product-description"
                         rows={4}
-                        placeholder="Describe your product with details such as features, condition, etc."
+                        placeholder={t("fields.description.placeholder")}
                         className={`${styles.textarea} ${errors.description ? styles.inputError : ""
                           }`}
                         {...register("description", {
-                          required: "Description is required",
+                          required: t("fields.description.error.required"),
                           minLength: {
                             value: 10,
-                            message: "Description must be at least 10 characters",
+                            message: t("fields.description.error.minLength", { min: 10 }),
                           },
                         })}
                       ></textarea>
@@ -762,7 +762,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* TOPIC */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-topic" className={styles.label}>
-                    <span className={styles.labelText}>Category</span>
+                      <span className={styles.labelText}>{t("fields.category.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -771,10 +771,10 @@ const AddNewProduct = (props: addProductProps) => {
                         id="product-topic"
                         className={`${styles.select} ${errors.topicId ? styles.inputError : ""
                           }`}
-                        {...register("topicId", { required: "Category is required" })}
+                        {...register("topicId", { required: t("fields.category.error.required") })}
                       >
                         <option value="" disabled>
-                          Select category
+                          {t("fields.category.placeholder")}
                         </option>
                         {topics?.map((topic, index) => (
                           <option key={index} value={topic.id}>
@@ -798,7 +798,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* COUNTRY */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-country" className={styles.label}>
-                    <span className={styles.labelText}>Country</span>
+                    <span className={styles.labelText}>{t("fields.country.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -807,7 +807,7 @@ const AddNewProduct = (props: addProductProps) => {
                         id="product-country"
                         className={`${styles.select} ${errors.country ? styles.inputError : ""
                           }`}
-                        {...register("country", { required: "Country is required" })}
+                        {...register("country", { required: t("fields.country.error.required") })}
                         onChange={(e) => {
                           const id = parseInt(e.target.value);
                           setCountryId(id);
@@ -815,7 +815,7 @@ const AddNewProduct = (props: addProductProps) => {
                         }}
                       >
                         <option value="" disabled>
-                          Select Country
+                          {t("fields.country.placeholder")}
                         </option>
                         {country?.map((country, index) => (
                           <option key={index} value={country.id}>
@@ -837,7 +837,7 @@ const AddNewProduct = (props: addProductProps) => {
                 {/* CITY */}
                 <div className={styles.formGroup}>
                   <label htmlFor="product-city" className={styles.label}>
-                    <span className={styles.labelText}>City</span>
+                    <span className={styles.labelText}>{t("fields.city.label")}</span>
                     <span className={styles.requiredField}>*</span>
                   </label>
                   <div className={styles.inputWrapper}>
@@ -845,7 +845,7 @@ const AddNewProduct = (props: addProductProps) => {
                       <input
                         type="text"
                         id="city-search"
-                        placeholder="Search for a city..."
+                        placeholder={t("fields.city.searchPlaceholder")}
                         className={styles.input}
                         onChange={(e) => setSearch(e.target.value)}
                         disabled={!countryId}
@@ -856,15 +856,15 @@ const AddNewProduct = (props: addProductProps) => {
                           id="product-city"
                           className={`${styles.select} ${errors.city ? styles.inputError : ""
                             }`}
-                          {...register("city", { required: "City is required" })}
+                          {...register("city", { required: t("fields.city.error.required") })}
                           disabled={!countryId || isLoadingCities}
                         >
                           <option value="" disabled>
                             {isLoadingCities
-                              ? "Loading cities..."
+                              ? t("fields.city.loading")
                               : countryId
-                                ? "Select city"
-                                : "Select a country first"}
+                                ? t("fields.city.selectPlaceholder")
+                                : t("fields.city.selectCountryFirst")}
                           </option>
                           {city?.map((city, index) => (
                             <option key={index} value={city.id}>
@@ -891,7 +891,7 @@ const AddNewProduct = (props: addProductProps) => {
                   onClick={() => setFormStep(1)}
                   className={styles.backButton}
                 >
-                  Back
+                  {t("buttons.back")}
                 </button>
                 <button
                   type="submit"
@@ -901,10 +901,10 @@ const AddNewProduct = (props: addProductProps) => {
                   {isSubmitting ? (
                     <>
                       <span className={styles.spinner}></span>
-                      Creating...
+                      {t("buttons.submitting")}
                     </>
                   ) : (
-                    "List Product"
+                    t("buttons.submit")
                   )}
                 </button>
               </div>

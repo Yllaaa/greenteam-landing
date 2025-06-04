@@ -2,13 +2,13 @@ import React from "react";
 import styles from "./ForumFilter.module.css";
 import { ForumFilterProps } from "./ForumTypes.data";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function ForumFilter(props: ForumFilterProps) {
   const router = useRouter();
   const locale = useLocale();
   const { section, setPage, setSection } = props;
-
+  const t = useTranslations("web.main.forums");
   const handleAddNew = () => {
     router.push(`/${locale}/addNew/newForum`);
   };
@@ -17,7 +17,7 @@ function ForumFilter(props: ForumFilterProps) {
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.titleWrapper}>
-          <h3 className={styles.title}>Forum</h3>
+          <h3 className={styles.title}>{t("forum")}</h3>
         </div>
 
         <div className={styles.filterSection}>
@@ -31,7 +31,7 @@ function ForumFilter(props: ForumFilterProps) {
                   setSection(item);
                 }}
               >
-                {item === "all" ? "All" : item.charAt(0).toUpperCase() + item.slice(1)}
+                {item === "all" ? t("all") : t(item)}
               </li>
             ))}
           </ul>
@@ -42,7 +42,7 @@ function ForumFilter(props: ForumFilterProps) {
             className={styles.addBtn}
             onClick={handleAddNew}
           >
-            Add Forum
+            {t("addNew")}
           </button>
         </div>
       </div>

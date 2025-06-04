@@ -180,54 +180,52 @@
       "plans": "Plans",
       "favorites": "Favorites",
       "logout": "Logout",
-      "addPost":"Add Post",
+      "addPost": "Add Post",
       "notAvailable": "Not available",
-      "topics":{
-        
+      "topics": {
         "sustainability": "Sustainability",
         "food": "Food and Health",
         "physical": "Physical And Mental Exercise",
         "community": "Community And Nature",
         "art": "Art",
         "eco": "Ecotechnologies",
-        "knowledge":"Knowledge and Values",
+        "knowledge": "Knowledge and Values",
         "craft": "Crafts",
-        "music":" Music",
-        "show":"Show",
-        "dance":"Dance",
-        "literature":"Literature",
-        "cinema":"Cinema",
-        "natural":"Natural Medicine",
-        "nutrition":"Nutrition",
-        "hygiene":"Hygiene",
-        "growing":"Growing",
-        "cooking":"Cooking",
-        "preserving":"Preserving",
-        "astronomy":"Astronomy",
-        "biology":"Biology",
-        "geography":"Geography",
-        "others":"Others",
-        "philosiphy":"Philosophy And Psychology",
-        "history":"History And Culture",
-        "games":"Games",
-        "warmUp":"Warm Up",
-        "sports":"Sports",
-        "active":"Active Meditation",
-        "passive":"Passive Meditation",
-        "aerobics":"Aerobics",
-        "water":"Water",
-        "sustainable":"Sustainable Fashion",
-        "energy":"Energy",
-        "waste":"Waste",
-        "bioconstruction":"Bioconstruction",
-        "durable":"Durable Tools",
-        "together":"Together",
-        "nature":"Nature",
-        "volunteering":"Volunteering",
-        "ecotourism":"Ecotourism",
-        "warning":"Warming",
-        "cooperatives":"Cooperatives"
-
+        "music": " Music",
+        "show": "Show",
+        "dance": "Dance",
+        "literature": "Literature",
+        "cinema": "Cinema",
+        "natural": "Natural Medicine",
+        "nutrition": "Nutrition",
+        "hygiene": "Hygiene",
+        "growing": "Growing",
+        "cooking": "Cooking",
+        "preserving": "Preserving",
+        "astronomy": "Astronomy",
+        "biology": "Biology",
+        "geography": "Geography",
+        "others": "Others",
+        "philosiphy": "Philosophy And Psychology",
+        "history": "History And Culture",
+        "games": "Games",
+        "warmUp": "Warm Up",
+        "sports": "Sports",
+        "active": "Active Meditation",
+        "passive": "Passive Meditation",
+        "aerobics": "Aerobics",
+        "water": "Water",
+        "sustainable": "Sustainable Fashion",
+        "energy": "Energy",
+        "waste": "Waste",
+        "bioconstruction": "Bioconstruction",
+        "durable": "Durable Tools",
+        "together": "Together",
+        "nature": "Nature",
+        "volunteering": "Volunteering",
+        "ecotourism": "Ecotourism",
+        "warning": "Warming",
+        "cooperatives": "Cooperatives"
       }
     },
     "subHeader": {
@@ -252,22 +250,22 @@
         "todo": "To Do",
         "done": "Done",
         "doit": "Do it",
-        "build":"Build sustainable culture Sharing your experience",
+        "build": "Build sustainable culture Sharing your experience",
         "post": "Post",
         "delete": "Delete",
         "comment": "Comment"
       },
       "doChallenge": {
         "myChallenge": "My Challenge",
-        "delete":"Delete",
+        "delete": "Delete",
         "readMore": "Read more...",
-        "done":"Done",
-        "comment":"Comment"
+        "done": "Done",
+        "comment": "Comment"
       },
-      "breif":{
+      "breif": {
         "yourPoints": "Your Points",
-        "track":"Track Your Impact!",
-        "points":"Points"
+        "track": "Track Your Impact!",
+        "points": "Points"
       }
     },
     "challenges": {
@@ -281,6 +279,184 @@
         "posts": "Posts",
         "comments": "Comments",
         "reactions": "Reactions"
+      }
+    },
+    "products": {
+      "list": {
+        "loading": "Loading products...",
+        "noProducts": "No products found",
+        "noMoreProducts": "No more products to show",
+        "endOfList": "You've reached the end of the products",
+        "error": "An error occurred while loading products",
+        "navigation": {
+          "leftArrow": "Scroll left",
+          "rightArrow": "Scroll right"
+        }
+      },
+      "modals": {
+        "delete": {
+          "title": "Are you sure you want to delete this product?",
+          "confirmButton": "Delete",
+          "cancelButton": "Cancel",
+          "successMessage": "Product deleted successfully",
+          "errorMessage": "Error occurred while deleting product"
+        },
+        "report": {
+          "title": "Tell us why you're reporting this product"
+        }
+      },
+      "single": {
+        "description": "Description",
+        "by": "By",
+        "messageSeller": "Message Seller",
+        "visitWeb": "Visit Website",
+        "Knowledge And Values": "Knowledge and values",
+        "Food and health": "Food and health",
+        "Physical And Mental Exercise": "Physical And Mental Exercise",
+        "Community And Nature": "Community And Nature",
+        "Art": "Art",
+        "Ecotechnologies": "Ecotechnologies"
+      },
+      "addNewModal": {
+        "addProduct": {
+          "title": "List a Product for Sale",
+          "description": "Add a product to the marketplace. Provide details to make it easy for customers to understand and purchase.",
+          "progress": {
+            "step1": "Basic Info",
+            "step2": "Details & Location"
+          },
+          "messages": {
+            "fillRequired": "Please fill all required fields",
+            "success": "Product listed successfully",
+            "error": "Error adding Product",
+            "maxImages": "Maximum of {{max}} images allowed",
+            "onlyAdded": "Only added {{count}} image(s). Maximum limit reached.",
+            "imageFilesOnly": "Please drop image files only",
+            "errorFetchingCountries": "Error fetching countries",
+            "errorFetchingCities": "Error fetching cities"
+          },
+          "fields": {
+            "productName": {
+              "label": "Product Name",
+              "placeholder": "Enter product name",
+              "error": {
+                "required": "Product name is required",
+                "maxLength": "Name cannot exceed 100 characters"
+              }
+            },
+            "price": {
+              "label": "Price",
+              "placeholder": "0.00",
+              "error": {
+                "required": "Price is required",
+                "min": "Price must be a positive number"
+              }
+            },
+            "listingType": {
+              "label": "Listing Type",
+              "local": "Local",
+              "online": "Online",
+              "error": {
+                "required": "Listing type is required"
+              }
+            },
+            "condition": {
+              "label": "Product Condition",
+              "new": "New",
+              "used": "Used",
+              "error": {
+                "required": "Condition is required"
+              }
+            },
+            "images": {
+              "label": "Product Images",
+              "hint": "(Up to 4, max 2MB each)",
+              "dragActive": "Drop images here",
+              "dragInactive": "Click or drag images here",
+              "uploadHint": "Upload up to {{max}} images (max 2MB each)",
+              "addMore": "Add more images",
+              "remaining": "{{count}} remaining",
+              "removeImage": "Remove image",
+              "error": {
+                "required": "At least one product image is required",
+                "sizeLimit": "File \"{{name}}\" exceeds 2MB size limit",
+                "notImage": "File \"{{name}}\" is not an image"
+              }
+            },
+            "description": {
+              "label": "Description",
+              "placeholder": "Describe your product with details such as features, condition, etc.",
+              "charCounter": "{{count}} characters",
+              "minChars": "(min: 10)",
+              "error": {
+                "required": "Description is required",
+                "minLength": "Description must be at least 10 characters"
+              }
+            },
+            "category": {
+              "label": "Category",
+              "placeholder": "Select category",
+              "error": {
+                "required": "Category is required"
+              }
+            },
+            "country": {
+              "label": "Country",
+              "placeholder": "Select Country",
+              "error": {
+                "required": "Country is required"
+              }
+            },
+            "city": {
+              "label": "City",
+              "searchPlaceholder": "Search for a city...",
+              "selectPlaceholder": "Select city",
+              "loading": "Loading cities...",
+              "selectCountryFirst": "Select a country first",
+              "error": {
+                "required": "City is required"
+              }
+            }
+          },
+          "buttons": {
+            "cancel": "Cancel",
+            "continue": "Continue",
+            "back": "Back",
+            "submit": "List Product",
+            "submitting": "Creating...",
+            "close": "Close"
+          }
+        }
+      },
+      "filter": {
+        "products": "Products",
+        "addNew": "Add Product",
+        "all": "All",
+        "knowledge": "Knowledge and values",
+        "food": "Food and health",
+        "physical": "Physical And Mental Exercise",
+        "community": "Community And Nature",
+        "art": "Art",
+        "eco": "Ecotechnologies"
+      },
+      "card": {
+        "imageAlt": "Post image {{number}}",
+        "singleImageAlt": "Post image",
+        "goToSlide": "Go to slide {{number}}",
+        "price": "{{price}} $",
+        "buttons": {
+          "messageSeller": "Message Seller",
+          "chat": "Chat"
+        },
+        "options": {
+          "label": "Product options",
+          "delete": "Delete Product",
+          "report": "Report Product"
+        },
+        "favorite": {
+          "add": "Add to favorites",
+          "remove": "Remove from favorites"
+        }
       }
     },
     "event": {
@@ -305,6 +481,94 @@
         "join": "Join Event",
         "leave": "Leave Event",
         "organizer": "Organizer"
+      },
+      "form": {
+        "title": "Host Your Event",
+        "description": "Plan and promote your upcoming event. Share details to help attendees find and join your event",
+        "fields": {
+          "eventName": {
+            "label": "Event Name",
+            "error": {
+              "required": "Title is required",
+              "maxLength": "Title cannot exceed 100 characters"
+            }
+          },
+          "dateRange": {
+            "label": "Date Range",
+            "placeholder": "Select date range",
+            "error": {
+              "required": "Date range is required",
+              "startRequired": "Start date is required",
+              "endRequired": "End date is required"
+            }
+          },
+          "eventImage": {
+            "label": "Event Image",
+            "dragActive": "Drop image here",
+            "dragInactive": "Click or drag image here",
+            "error": {
+              "required": "Event image is required"
+            }
+          },
+          "eventType": {
+            "label": "Event Type",
+            "local": "Local",
+            "online": "Online",
+            "error": {
+              "required": "Event type is required"
+            }
+          },
+          "country": {
+            "label": "Country",
+            "placeholder": "Select Country",
+            "error": {
+              "required": "Country is required"
+            }
+          },
+          "city": {
+            "label": "City",
+            "placeholder": "Enter city",
+            "selectPlaceholder": "Select city",
+            "error": {
+              "required": "City is required"
+            }
+          },
+          "location": {
+            "label": "Location",
+            "error": {
+              "required": "Location is required"
+            }
+          },
+          "description": {
+            "label": "Description",
+            "error": {
+              "required": "Description is required",
+              "minLength": "Description must be at least 10 characters"
+            }
+          },
+          "category": {
+            "label": "Category",
+            "placeholder": "Select category",
+            "error": {
+              "required": "Category is required"
+            }
+          }
+        },
+        "buttons": {
+          "cancel": "Cancel",
+          "submit": "Create Event"
+        },
+        "calendar": {
+          "weekdays": {
+            "su": "Su",
+            "mo": "Mo",
+            "tu": "Tu",
+            "we": "We",
+            "th": "Th",
+            "fr": "Fr",
+            "sa": "Sa"
+          }
+        }
       }
     },
     "main": {
@@ -314,6 +578,35 @@
         "events": "events",
         "products": "products"
       },
+      "feeds": {
+        "delete": "Delete Post",
+        "report": "Report Post",
+        "readMore": "Read more...",
+        "do": "Do",
+        "like": "Like",
+        "comment": "Comment",
+        "unlike": "Unlike"
+      },
+      "report": {
+        "talkAbout": "Talk about the issue you are facing",
+        "placeholder": "Type your reason...",
+        "report": "Report"
+      },
+      "forums": {
+        "forum": "Forum",
+        "delete": "Delete Post",
+        "report": "Report Post",
+        "sign": "Sign",
+        "like": "Like",
+        "comment": "Comment",
+        "unlike": "Unlike",
+        "doubt": "Doubt",
+        "need": " Need",
+        "dream": " Dream",
+        "all": "All",
+        "addNew": "Add Forum"
+      },
+
       "footer": {
         "sustainability": "The way to sustainability is in your hands",
         "download": "Download the app",
@@ -324,8 +617,8 @@
         "donate": "Donate",
         "invite": "Invite a friend",
         "home": "Home",
-        "community": "Community",
-        "profile": "Profile",
+        "about": "About",
+        "goal": "Goal",
         "privacyAndPolicy": "Privacy and policy",
         "rightsReserved": "© 2025 All Rights Reserved"
       },

@@ -10,7 +10,7 @@ import Image from "next/image";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useRouter } from 'next/navigation';
 
 interface FormData {
@@ -400,7 +400,7 @@ const AddNewEvent = (props: addEventProps) => {
       }
     }
   };
-
+  const t = useTranslations("web.event.form");
   return (
     <div className={styles.modal}>
       <div ref={modalRef} className={styles.formContainer}>
@@ -409,27 +409,23 @@ const AddNewEvent = (props: addEventProps) => {
             <Image src={addlogo} alt="addlogo" />
           </div>
           <div className={styles.titleText}>
-            <h2 className={styles.formTitle}>Host Your Event</h2>
-            <p className={styles.formDescription}>
-              Plan and promote your upcoming event. Share details to help
-              attendees find and join your event
-            </p>
+            <h2 className={styles.formTitle}>{t("title")}</h2>
+            <p className={styles.formDescription}>{t("description")}</p>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <div className={styles.formSection}>
             {/* TITLE */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Event Name</label>
+              <label className={styles.label}>{t("fields.eventName.label")}</label>
               <input
                 type="text"
-                className={`${styles.input} ${errors.title ? styles.inputError : ""
-                  }`}
+                className={`${styles.input} ${errors.title ? styles.inputError : ""}`}
                 {...register("title", {
-                  required: "Title is required",
+                  required: t("fields.eventName.error.required"),
                   maxLength: {
                     value: 100,
-                    message: "Title cannot exceed 100 characters",
+                    message: t("fields.eventName.error.maxLength"),
                   },
                 })}
               />
@@ -439,21 +435,17 @@ const AddNewEvent = (props: addEventProps) => {
             </div>
             {/* DATE */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Date Range</label>
+              <label className={styles.label}>{t("fields.dateRange.label")}</label>
               <div
-                className={`${styles.datePickerInput} ${errors.startDate || errors.endDate ? styles.inputError : ""
-                  }`}
+                className={`${styles.datePickerInput} ${errors.startDate || errors.endDate ? styles.inputError : ""}`}
                 onClick={toggleDatePicker}
               >
                 <span>
                   {selectedDates.start
                     ? selectedDates.end
-                      ? `${format(
-                        selectedDates.start,
-                        "MMM dd, yyyy"
-                      )} - ${format(selectedDates.end, "MMM dd, yyyy")}`
+                      ? `${format(selectedDates.start, "MMM dd, yyyy")} - ${format(selectedDates.end, "MMM dd, yyyy")}`
                       : format(selectedDates.start, "MMM dd, yyyy")
-                    : "Select date range"}
+                    : t("fields.dateRange.placeholder")}
                 </span>
                 <Calendar className={styles.calendarIcon} />
               </div>
@@ -462,16 +454,18 @@ const AddNewEvent = (props: addEventProps) => {
               <input
                 type="hidden"
                 {...register("startDate", {
-                  required: "Start date is required",
+                  required: t("fields.dateRange.error.startRequired"),
                 })}
               />
               <input
                 type="hidden"
-                {...register("endDate", { required: "End date is required" })}
+                {...register("endDate", {
+                  required: t("fields.dateRange.error.endRequired")
+                })}
               />
 
               {(errors.startDate || errors.endDate) && (
-                <p className={styles.errorText}>Date range is required</p>
+                <p className={styles.errorText}>{t("fields.dateRange.error.required")}</p>
               )}
 
               {datePickerOpen && (
@@ -495,7 +489,15 @@ const AddNewEvent = (props: addEventProps) => {
                   </div>
 
                   <div className={styles.weekdaysGrid}>
-                    {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                    {[
+                      t("calendar.weekdays.su"),
+                      t("calendar.weekdays.mo"),
+                      t("calendar.weekdays.tu"),
+                      t("calendar.weekdays.we"),
+                      t("calendar.weekdays.th"),
+                      t("calendar.weekdays.fr"),
+                      t("calendar.weekdays.sa")
+                    ].map((day) => (
                       <div key={day} className={styles.weekday}>
                         {day}
                       </div>
@@ -507,10 +509,10 @@ const AddNewEvent = (props: addEventProps) => {
                       <div
                         key={index}
                         className={`
-                      ${styles.dayCell}
-                      ${date ? styles.activeDay : ""}
-                      ${date && isDateSelected(date) ? styles.selectedDay : ""}
-                    `}
+                        ${styles.dayCell}
+                        ${date ? styles.activeDay : ""}
+                        ${date && isDateSelected(date) ? styles.selectedDay : ""}
+                      `}
                         onClick={() => date && handleDateClick(date)}
                       >
                         {date ? date.getDate() : ""}
@@ -524,11 +526,10 @@ const AddNewEvent = (props: addEventProps) => {
           {/* IMAGE */}
           <div className={styles.formSection}>
             <div className={styles.formGroup}>
-              <label className={styles.label}>Event Image</label>
+              <label className={styles.label}>{t("fields.eventImage.label")}</label>
               <div
                 ref={dropAreaRef}
-                className={`${styles.imageUploadContainer} ${errors.poster ? styles.inputError : ""
-                  } ${isDragging ? styles.dragging : ""}`}
+                className={`${styles.imageUploadContainer} ${errors.poster ? styles.inputError : ""} ${isDragging ? styles.dragging : ""}`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
@@ -539,7 +540,7 @@ const AddNewEvent = (props: addEventProps) => {
                   <div className={styles.imagePreviewWrapper}>
                     <div
                       className={styles.imagePreview}
-                      onClick={handleImageClick} // Add onClick handler here
+                      onClick={handleImageClick}
                     >
                       <Image
                         src={imagePreview}
@@ -560,28 +561,28 @@ const AddNewEvent = (props: addEventProps) => {
                   <div className={styles.uploadPlaceholder}>
                     <p>
                       {isDragging
-                        ? "Drop image here"
-                        : "Click or drag image here"}
+                        ? t("fields.eventImage.dragActive")
+                        : t("fields.eventImage.dragInactive")}
                     </p>
                   </div>
                 )}
                 <input
                   type="file"
-                  ref={fileInputRef} // Add the ref here
+                  ref={fileInputRef}
                   accept="image/*"
                   className={styles.fileInput}
                   onChange={handleImageChange}
-                  style={{ display: "none" }} // Hide the actual input
+                  style={{ display: "none" }}
                 />
               </div>
               {errors.poster && (
-                <p className={styles.errorText}>{errors.poster.message}</p>
+                <p className={styles.errorText}>{t("fields.eventImage.error.required")}</p>
               )}
             </div>
           </div>
           {/* EVENT TYPE */}
           <div className={styles.formGroup}>
-            <label className={styles.label}>Event Type</label>
+            <label className={styles.label}>{t("fields.eventType.label")}</label>
             <div className={styles.toggleContainer}>
               <div
                 className={`${styles.toggleOption} ${watch("eventMode") === "local" ? styles.toggleActive : ""}`}
@@ -592,11 +593,10 @@ const AddNewEvent = (props: addEventProps) => {
                   id="eventMode-local"
                   value="local"
                   className={styles.toggleInput}
-                  {...register("eventMode", { required: "Event type is required" })}
+                  {...register("eventMode", { required: t("fields.eventType.error.required") })}
                 />
                 <label htmlFor="eventMode-local" className={styles.toggleLabel}>
-
-                  Local
+                  {t("fields.eventType.local")}
                 </label>
               </div>
               <div
@@ -608,11 +608,10 @@ const AddNewEvent = (props: addEventProps) => {
                   id="eventMode-online"
                   value="online"
                   className={styles.toggleInput}
-                  {...register("eventMode", { required: "Event type is required" })}
+                  {...register("eventMode", { required: t("fields.eventType.error.required") })}
                 />
                 <label htmlFor="eventMode-online" className={styles.toggleLabel}>
-
-                  Online
+                  {t("fields.eventType.online")}
                 </label>
               </div>
             </div>
@@ -622,15 +621,14 @@ const AddNewEvent = (props: addEventProps) => {
           </div>
           {/* COUNTRY */}
           <div className={styles.formGroup}>
-            <label className={styles.label}>Country</label>
+            <label className={styles.label}>{t("fields.country.label")}</label>
             <select
-              className={`${styles.select} ${errors.countryId ? styles.inputError : ""
-                }`}
-              {...register("countryId", { required: "Country is required" })}
+              className={`${styles.select} ${errors.countryId ? styles.inputError : ""}`}
+              {...register("countryId", { required: t("fields.country.error.required") })}
               onChange={(e) => setCountryId(parseInt(e.target.value))}
             >
               <option value="" disabled>
-                Select Country
+                {t("fields.country.placeholder")}
               </option>
               {country?.map((country, index) => (
                 <option key={index} value={country.id}>
@@ -643,26 +641,22 @@ const AddNewEvent = (props: addEventProps) => {
             )}
           </div>
           {/* CITY */}
-
           <div className={styles.formGroup}>
-            <label className={styles.label}>City</label>
+            <label className={styles.label}>{t("fields.city.label")}</label>
             <div className={styles.searchContainer}>
               <input
                 type="text"
-                placeholder="Enter city"
+                placeholder={t("fields.city.placeholder")}
                 className={styles.input}
                 onChange={(e) => setSearch(e.target.value)}
               />
               <select
-                className={`${styles.select} ${errors.cityId ? styles.inputError : ""
-                  }`}
-                {...register("cityId", { required: "city is required" })}
+                className={`${styles.select} ${errors.cityId ? styles.inputError : ""}`}
+                {...register("cityId", { required: t("fields.city.error.required") })}
               >
                 <option value="" disabled>
-                  Select city
+                  {t("fields.city.selectPlaceholder")}
                 </option>
-                {/* <option value=""> */}
-                {/* </option> */}
                 {city?.map((city, index) => (
                   <option key={index} value={city.id}>
                     {city.name}
@@ -678,12 +672,11 @@ const AddNewEvent = (props: addEventProps) => {
           <div className={styles.formSection}>
             {/* LOCATION */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Location</label>
+              <label className={styles.label}>{t("fields.location.label")}</label>
               <input
                 type="text"
-                className={`${styles.input} ${errors.location ? styles.inputError : ""
-                  }`}
-                {...register("location", { required: "Location is required" })}
+                className={`${styles.input} ${errors.location ? styles.inputError : ""}`}
+                {...register("location", { required: t("fields.location.error.required") })}
               />
               {errors.location && (
                 <p className={styles.errorText}>{errors.location.message}</p>
@@ -691,16 +684,15 @@ const AddNewEvent = (props: addEventProps) => {
             </div>
             {/* DESCRIPTION */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Description</label>
+              <label className={styles.label}>{t("fields.description.label")}</label>
               <textarea
                 rows={4}
-                className={`${styles.textarea} ${errors.description ? styles.inputError : ""
-                  }`}
+                className={`${styles.textarea} ${errors.description ? styles.inputError : ""}`}
                 {...register("description", {
-                  required: "Description is required",
+                  required: t("fields.description.error.required"),
                   minLength: {
                     value: 10,
-                    message: "Description must be at least 10 characters",
+                    message: t("fields.description.error.minLength"),
                   },
                 })}
               ></textarea>
@@ -710,14 +702,13 @@ const AddNewEvent = (props: addEventProps) => {
             </div>
             {/* CATEGORY */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Category</label>
+              <label className={styles.label}>{t("fields.category.label")}</label>
               <select
-                className={`${styles.select} ${errors.category ? styles.inputError : ""
-                  }`}
-                {...register("category", { required: "Category is required" })}
+                className={`${styles.select} ${errors.category ? styles.inputError : ""}`}
+                {...register("category", { required: t("fields.category.error.required") })}
               >
                 <option value="" disabled>
-                  Select category
+                  {t("fields.category.placeholder")}
                 </option>
                 {category.map((category, index) => (
                   <option key={index} value={category.value}>
@@ -735,10 +726,10 @@ const AddNewEvent = (props: addEventProps) => {
               onClick={() => setAddNew(false)}
               className={styles.cancelButton}
             >
-              Cancel
+              {t("buttons.cancel")}
             </button>
             <button type="submit" className={styles.submitButton}>
-              Create Event
+              {t("buttons.submit")}
             </button>
           </div>
         </form>

@@ -7,7 +7,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import admin from "@/../public/auth/user.png";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { PostWithDetails } from "./types/singlePosttype.data";
 import { PostCommentSection } from "../commentModal/CommentModal";
 import { ReactionType } from "../../postCard/POSTSLIDER/types/postSlider.data";
@@ -97,7 +97,7 @@ function SinglePost(props: Props) {
     },
     [router, locale]
   );
-
+const t = useTranslations("web.main.feeds");
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [userLiked, setUserLiked] = useState<boolean>(false);
@@ -377,7 +377,7 @@ function SinglePost(props: Props) {
             >
               <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
               <p>
-                <span>Do</span>
+                <span>{t("do")}</span>
               </p>
             </button>
 
@@ -389,7 +389,7 @@ function SinglePost(props: Props) {
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p>
                 <span>
-                  {likeCount && likeCount} Like{likeCount !== 1 ? "s" : ""}
+                  {likeCount && likeCount} {t("like")}{likeCount !== 1 ? "s" : ""}
                 </span>
               </p>
             </button>
@@ -404,7 +404,7 @@ function SinglePost(props: Props) {
               />
               <p>
                 <span>
-                  {dislikeCount} Unlike
+                  {dislikeCount} {t("unlike")}
                   {dislikeCount !== 1 ? "s" : ""}
                 </span>
               </p>
@@ -414,7 +414,7 @@ function SinglePost(props: Props) {
               <FaComment style={{ fill: "#97B00F" }} />
               <p>
                 <span>
-                  {post.commentCount} Comment
+                  {post.commentCount} {t("comment")}
                   {parseInt(post.commentCount) !== 1 ? "s" : ""}
                 </span>
               </p>

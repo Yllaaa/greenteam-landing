@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ProductsFilter.module.css";
 import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-
+import { useTranslations } from "next-intl";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
   const topics = Topics;
@@ -20,14 +20,14 @@ function ProductsFilter(props: ProductsFilterProps) {
       scrollRef.current.scrollLeft += e.deltaY;
     }
   };
-
+const t = useTranslations("web.products.filter");
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.titleSection}>
-          <h3 className={styles.title}>Products</h3>
+          <h3 className={styles.title}>{t("products")}</h3>
           <div className={styles.addBtnMobile}>
-            <button onClick={handleAddNew}>Add Product</button>
+            <button onClick={handleAddNew}>{t("addNew")}</button>
           </div>
         </div>
 
@@ -45,7 +45,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                 setSection(0);
               }}
             >
-              All
+              {t("all")}
             </li>
 
             {topics.map((topic) => (
@@ -57,7 +57,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                   setSection(topic.id);
                 }}
               >
-                {topic.name}
+                {t(topic.name)}
               </li>
             ))}
           </ul>

@@ -1,0 +1,170 @@
+.container {
+    width: 100%;
+    padding: 60px 20px;
+    min-height: 500px;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.greenText {
+    color: #4ade80;
+}
+
+.sliderWrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    padding: 0 60px;
+}
+
+.navButton {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(255, 255, 255, 0.1);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #ffffff;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+
+.navButtonLeft {
+    left: 0;
+}
+
+.navButtonRight {
+    right: 0;
+}
+
+.navButton:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.navButton:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.slide {
+    min-height: 100%;
+}
+
+.card {
+    background: linear-gradient(to bottom, #1a1a1a 0%, #1a1a1a 75%, #4ade80 75%, #4ade80 100%);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    position: relative;
+    height: 100%;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+.imageWrapper {
+    padding: 20px 20px 10px;
+}
+
+.memberImage {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+.memberInfo {
+    padding: 15px 20px 25px;
+    text-align: center;
+}
+
+.memberName {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0 0 5px 0;
+}
+
+.memberPosition {
+    font-size: 0.9rem;
+    color: #9ca3af;
+    margin: 0;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.activeDot {
+    background-color: #4ade80;
+    width: 24px;
+    border-radius: 4px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 2rem;
+    }
+    
+    .sliderWrapper {
+        padding: 0 40px;
+    }
+    
+    .navButton {
+        width: 36px;
+        height: 36px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 1.5rem;
+    }
+    
+    .sliderWrapper {
+        padding: 0 30px;
+    }
+    
+    .navButton {
+        width: 32px;
+        height: 32px;
+    }
+}
