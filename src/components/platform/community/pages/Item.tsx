@@ -4,12 +4,9 @@ import { PageItem } from "./pages.data";
 import styles from "./pages.module.scss";
 import logo from "@/../public/personal/menu/pages/logo.svg";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useInView } from "react-intersection-observer";
 import { useCallback, useEffect, useRef } from "react";
-// import { MdOutlineReportProblem } from "react-icons/md";
-// import { FaTrash } from "react-icons/fa6";
-// import { PiDotsThreeCircleLight } from "react-icons/pi";
 
 export default function Item({
   pageI,
@@ -17,11 +14,7 @@ export default function Item({
   setPage,
   length,
   index,
-  // deleteModal,
-  // setDeleteModal,
-  // reportModal,
-  // setReportModal,
-  // setPostId,
+
 }: {
   pageI: PageItem;
   page: number;
@@ -36,56 +29,6 @@ export default function Item({
 }) {
   const router = useRouter();
   const locale = useLocale();
-  // const [activeOptionsPost, setActiveOptionsPost] = useState<string | null>(
-  //   null
-  // );
-
-  // const optionsMenuRef = useRef<HTMLDivElement>(null);
-
-  // Handle clicks outside the options menu to close it
-  // useEffect(() => {
-  //   function handleClickOutside(event: MouseEvent) {
-  //     if (
-  //       optionsMenuRef.current &&
-  //       !optionsMenuRef.current.contains(event.target as Node)
-  //     ) {
-  //       // setActiveOptionsPost(null);
-  //     }
-  //   }
-
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //   };
-  // }, []);
-
-  // Toggle options menu for a specific post
-  // const toggleOptionsMenu = useCallback((postId: string) => {
-  //   setActiveOptionsPost((prev) => (prev === postId ? null : postId));
-  // }, []);
-
-  // Handle delete or report action
-  // const handleActionDelete = useCallback(
-  //   (postId: string) => {
-  //     if (setDeleteModal && setPostId) {
-  //       setPostId(postId);
-  //       setDeleteModal(!deleteModal);
-  //     }
-  //     setActiveOptionsPost(null); // Close the menu after action
-  //   },
-  //   [deleteModal, setDeleteModal, setPostId]
-  // );
-  // Handle delete or report action
-  // const handleActionReport = useCallback(
-  //   (postId: string) => {
-  //     if (setReportModal && setPostId) {
-  //       setPostId(postId);
-  //       setReportModal(!reportModal);
-  //     }
-  //     setActiveOptionsPost(null); // Close the menu after action
-  //   },
-  //   [reportModal, setPostId, setReportModal]
-  // );
 
 
   // Track if pagination has already been triggered
@@ -114,36 +57,10 @@ export default function Item({
       handlePages();
     }
   }, [handlePages, inView, index, length]);
-
+  const t = useTranslations("web.pages");
   return (
     <div ref={index === length - 1 ? ref : null} className={styles.item}>
-      {/* <div className={styles.options}>
-        <div
-          onClick={() => toggleOptionsMenu(pageI.id)}
-          className={styles.optionsIcon}
-        >
-          <PiDotsThreeCircleLight fill="#006633" />
-        </div>
 
-        {activeOptionsPost === pageI.id && (
-          <div ref={optionsMenuRef} className={styles.optionsMenu}>
-            {pageI.isOwner && (
-              <div
-                onClick={() => handleActionDelete(pageI.slug)}
-                className={styles.optionItem}
-              >
-                <FaTrash /> <span>Delete Page</span>
-              </div>
-            )}
-            <div
-              onClick={() => handleActionReport(pageI.slug)}
-              className={styles.optionItem}
-            >
-              <MdOutlineReportProblem /> <span>Report Page</span>
-            </div>
-          </div>
-        )}
-      </div> */}
       <div className={styles.header}>
         <div className={styles.logo}>
           <Image src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
@@ -156,15 +73,15 @@ export default function Item({
         </div>
         <div onClick={handleNavigate} className={styles.description}>
           <div className={styles.headerWhy}>
-            <span>Why: </span>
+            <span>{t("why")}: </span>
             {pageI.why.length > 72 ? `${pageI.why.slice(0, 72)}...` : pageI.why}
           </div>
           <div className={styles.headerHow}>
-            <span>How: </span>
+            <span>{t("how")}: </span>
             {pageI.how.length > 72 ? `${pageI.how.slice(0, 72)}...` : pageI.how}
           </div>
           <div className={styles.headerWhat}>
-            <span>What: </span>
+            <span>{t("what")}: </span>
             {pageI.what.length > 72
               ? `${pageI.what.slice(0, 72)}...`
               : pageI.what}
@@ -173,10 +90,10 @@ export default function Item({
         <div className={styles.actions}>
           <div className={styles.counts}>
             <div className={styles.followers}>
-              {pageI.followersCount} Followers
+              {pageI.followersCount} {t("followers")}
             </div>
           </div>
-          <button className={styles.like}>Visit</button>
+          <button className={styles.like}>{t("visit")}</button>
         </div>
       </div>
     </div>

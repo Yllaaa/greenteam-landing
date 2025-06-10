@@ -19,7 +19,9 @@ import {
   setHasMore,
   setCurrentPage,
 } from '@/store/features/pageFilter/pageFillterSlice';
+import { useTranslations, useLocale } from 'next-intl';
 export default function Pages() {
+  const locale = useLocale()
   const city = useAppSelector(
     (state) => state.currentCommunity.selectedCity
   )?.toString();
@@ -40,14 +42,8 @@ export default function Pages() {
   const hasMore = useAppSelector(state => state.pageFilter.hasMore);
   const currentPage = useAppSelector(state => state.pageFilter.currentPage);
 
-  // const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   const limit = 5;
   const [addNew, setAddNew] = useState(false);
-  // const [page, setPage] = useState(1);
-  // const [hasMore, setHasMore] = useState(true);
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [isPaginationLoading, setIsPaginationLoading] = useState(false);
-  // const [errorMessage, setErrorMessage] = useState("");
   const [endOfResults, setEndOfResults] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
   const [reportModal, setReportModal] = useState(false);
@@ -95,6 +91,7 @@ export default function Pages() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
+              "Accept-Language": `${locale}`
             },
           }
         );
@@ -122,7 +119,7 @@ export default function Pages() {
         dispatch(setPaginationLoading(false));
       }
     },
-    [country, city, verified, accessToken, dispatch, updateScrollButtonStates]
+    [country, city, verified, accessToken, locale, dispatch, updateScrollButtonStates]
   );
 
 
@@ -137,17 +134,7 @@ export default function Pages() {
     setEndOfResults(false);
     fetchPages(1, true);
   }, [city, country, fetchPages, dispatch]);
-  // // Reset and refetch when city or country changes
-  // useEffect(() => {
-  //   // Reset pagination state
-  //   setPage(1);
-  //   setHasMore(true);
-  //   setEndOfResults(false);
-  //   // setErrorMessage("");
 
-  //   // Fetch new data with the updated location
-  //   fetchPages(1, true);
-  // }, [city, country, fetchPages]);
 
   // Load more pages when page changes
   useEffect(() => {
@@ -219,14 +206,13 @@ export default function Pages() {
     // Update button states after scroll animation
     setTimeout(updateScrollButtonStates, 500);
   };
-
+const t = useTranslations("web.pages")
 
   return (
     <>
       <Header
-        tag="Pages"
-        // setPage={(page) => dispatch(setCurrentPage(page))}
-        path={"Create new page"}
+        tag={t("page")}
+        path={t("addPage")}
         withFilter={false} // Enable filter
         setAddNew={setAddNew}
       >
@@ -281,7 +267,7 @@ export default function Pages() {
               {!isPaginationLoading && endOfResults && filteredPages.length > 0 && (
                 <div className={styles.paginationContainer}>
                   <div className={styles.endMessage}>
-                    End of results
+                    {t("endOfResults")}
                   </div>
                 </div>
               )}

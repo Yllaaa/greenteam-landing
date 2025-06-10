@@ -22,8 +22,10 @@ import ContactModal from "@/components/platform/modals/contactModal/ContactModal
 import { FaTimesCircle } from "react-icons/fa";
 import { useAppDispatch } from "@/store/hooks";
 import { clearSelectedCategory, resetDestination } from "@/store/features/communitySection/currentCommunity";
-
+import { useLocale, useTranslations } from "next-intl";
 function ProductSection() {
+  const t = useTranslations("web.products");
+  const locale = useLocale()
   const dispatch = useAppDispatch();
   const cityId = useAppSelector((state) => state.currentCommunity.selectedCity);
   const countryId = useAppSelector(
@@ -71,6 +73,7 @@ function ProductSection() {
           countryId: countryId,
           marketType: marketType, // Pass the market type to the API
           verified: verified,
+          locale: locale
         });
 
         // Check if we've reached the end of available events
@@ -93,7 +96,7 @@ function ProductSection() {
         setIsLoading(false);
       }
     },
-    [accessToken, section, cityId, countryId, marketType, verified] // Added marketType to dependency array
+    [accessToken, section, cityId, countryId, marketType, verified, locale] // Added marketType to dependency array
   );
 
   // Reset the category filter
@@ -199,7 +202,7 @@ function ProductSection() {
     if (products.length === 0) {
       return (
         <div className={styles.emptyField}>
-          <p>No products found</p>
+          <p>{t("list.noProducts")}</p>
         </div>
       );
     }

@@ -4,10 +4,11 @@ import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import add from "@/../public/icons/add.svg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
-
+const t = useTranslations("web.products.filter");
   const topics = Topics;
 
   const handleAddNew = () => {
@@ -17,7 +18,7 @@ function ProductsFilter(props: ProductsFilterProps) {
     <>
       <div className={styles.header}>
         <div className={styles.title}>
-          <h3>Products</h3>
+          <h3>{t("products")}</h3>
         </div>
         <div className={styles.filterSection}>
           <ul>
@@ -30,7 +31,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                 setSection(0);
               }}
             >
-              all
+              {t("all")}
             </li>
             {topics.map((topic) => (
               <li
@@ -45,7 +46,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                   setSection(topic.id);
                 }}
               >
-                {topic.name}
+                {t(topic.name)}
               </li>
             ))}
           </ul>
@@ -53,7 +54,7 @@ function ProductsFilter(props: ProductsFilterProps) {
         {
           <div onClick={handleAddNew} className={styles.addBtn}>
             <Image src={add} alt="add" />
-            <p >Add New Product</p>
+            <p>{t("addNew")}</p>
           </div>
         }
       </div>

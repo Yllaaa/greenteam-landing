@@ -4,6 +4,7 @@ import styles from "./header.module.scss";
 import Image from "next/image";
 import image from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
 import add from "@/../public/icons/add.svg";
+import { useTranslations } from 'next-intl';
 
 function Header({
   children,
@@ -25,6 +26,7 @@ function Header({
   setPage?: React.Dispatch<React.SetStateAction<number>>;
   setAddNew?: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  const t = useTranslations("web.event")
   return (
     <>
       <div className={styles.header}>
@@ -48,7 +50,7 @@ function Header({
                   }
                 }}
               >
-                all
+                {t("header.all")}
               </li>
               <li
                 style={
@@ -63,7 +65,9 @@ function Header({
                   }
                 }}
               >
-                social
+                {t("header.social")}
+
+
               </li>
               <li
                 style={
@@ -78,7 +82,7 @@ function Header({
                   }
                 }}
               >
-                volunteering & work
+                 {t("header.volunteering")}
               </li>
               <li
                 style={
@@ -93,7 +97,7 @@ function Header({
                   }
                 }}
               >
-                talks & workshops
+                 {t("header.talks")}
               </li>
             </ul>
           </div>

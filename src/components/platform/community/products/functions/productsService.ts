@@ -13,6 +13,7 @@ interface FetchProductsParams {
   accessToken?: string | null;
   marketType?: string | undefined;
   verified?: string | undefined;
+  locale?:string
 }
 
 export const fetchProducts = async ({
@@ -24,6 +25,7 @@ export const fetchProducts = async ({
   accessToken,
   marketType,
   verified,
+  locale
 }: FetchProductsParams): Promise<Products[]> => {
   try {
     const topicIdParam = topicId ? `&topicId=${topicId}` : '';
@@ -40,6 +42,7 @@ export const fetchProducts = async ({
         'Content-Type': 'application/json',
         Authorization: accessToken ? `Bearer ${accessToken}` : '',
         'Access-Control-Allow-Origin': '*',
+        "Accept-Language": locale
       },
     });
 

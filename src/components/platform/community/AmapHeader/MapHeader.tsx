@@ -6,7 +6,7 @@ import styles from "./MapHeader.module.scss";
 import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { getToken } from "@/Utils/userToken/LocalToken";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useAppDispatch } from "@/store/hooks";
 import {
   clearSelectedCity,
@@ -40,6 +40,7 @@ interface City {
 }
 
 export default function MapHeader() {
+  const t = useTranslations('web.mapHeader');
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
@@ -125,11 +126,11 @@ export default function MapHeader() {
           boundingBox: data[0].boundingbox,
         });
       } else {
-        setError("Location not found. Please try another selection.");
+        setError(t('locationNotFound'));
         setCountryData(null);
       }
     } catch (err) {
-      setError("Error fetching location data. Please try again later.");
+      setError(t('errorFetchingLocation'));
       console.error(err);
     }
   };
@@ -282,10 +283,10 @@ export default function MapHeader() {
       })
       .catch((err) => {
         console.log(err);
-        ToastNot("Error fetching countries");
+        ToastNot(t('errorFetchingCountries'));
         setIsLoadingCountries(false);
       });
-  }, [accessToken, locale]);
+  }, [accessToken, locale, t]);
 
   // Fetch cities when country changes or search text changes
   useEffect(() => {
@@ -312,10 +313,10 @@ export default function MapHeader() {
       })
       .catch((err) => {
         console.log(err);
-        ToastNot("Error fetching cities");
+        ToastNot(t("errorFetchingCities"));
         setIsLoadingCities(false);
       });
-  }, [accessToken, countryId, citySearchText]);
+  }, [accessToken, countryId, citySearchText, t]);
 
   // Handle country selection
   const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -396,10 +397,10 @@ export default function MapHeader() {
         <button
           className={styles.mobileFilterToggle}
           onClick={toggleMobileFilters}
-          aria-label="Toggle filters"
+          aria-label={t('toggleFilters')}
         >
           <FaFilter className={styles.filterIcon} />
-          <span>Filters</span>
+          <span>{t('filters')}</span>
           {hasActiveFilters && (
             <div className={styles.activeFiltersCount}>
               {(countryId ? 1 : 0) +
@@ -418,7 +419,7 @@ export default function MapHeader() {
         <div className={`${styles.searchContainer} ${mobileFiltersVisible ? styles.mobileVisible : styles.mobileHidden}`}>
           <div className={styles.filterHeader}>
             <FaFilter className={styles.filterIcon} />
-            <h2>Filters</h2>
+            <h2>{t('filters')}</h2>
             {hasActiveFilters && (
               <div className={styles.activeFiltersCount}>
                 {(countryId ? 1 : 0) +
@@ -434,22 +435,22 @@ export default function MapHeader() {
             <div className={styles.formGroup}>
               <label className={styles.filterLabel}>
                 <FaGlobe className={styles.labelIcon} />
-                <span>Country</span>
+                <span>{t('country')}</span>
               </label>
               <div className={styles.selectWrapper}>
                 {isLoadingCountries ? (
                   <div className={styles.loadingSelect}>
                     <FaSpinner className={styles.spinnerIcon} />
-                    <span>Loading countries...</span>
+                    <span>{t('loadingCountries')}</span>
                   </div>
                 ) : (
                   <select
                     className={`${styles.select} ${countryId ? styles.activeSelect : ''}`}
                     onChange={handleCountryChange}
                     value={countryId || ""}
-                    aria-label="Select country"
+                    aria-label={t('selectCountryAriaLabel')}
                   >
-                    <option value="" disabled>Select a country</option>
+                    <option value="" disabled>{t('selectCountry')}</option>
                     {countries.map((country) => (
                       <option key={country.id} value={country.id}>
                         {country.name}
@@ -464,7 +465,7 @@ export default function MapHeader() {
             <div className={styles.formGroup}>
               <label className={styles.filterLabel}>
                 <FaMapMarkerAlt className={styles.labelIcon} />
-                <span>City</span>
+                <span>{t('city')}</span>
               </label>
               <div className={styles.citySearchWrapper} ref={dropdownRef}>
                 <div
@@ -473,7 +474,7 @@ export default function MapHeader() {
                 >
                   <input
                     type="text"
-                    placeholder={countryId ? "Search cities..." : "Select a country first"}
+                    placeholder={countryId ? t('searchCities') : t('selectCountryFirst')}
                     className={styles.cityInput}
                     value={citySearchText}
                     onChange={(e) => {
@@ -481,7 +482,7 @@ export default function MapHeader() {
                       if (!isDropdownOpen) setIsDropdownOpen(true);
                     }}
                     disabled={!countryId}
-                    aria-label="Search for a city"
+                    aria-label={t('searchForCity')}
                   />
                   <div className={styles.inputIcon}>
                     {isLoadingCities ? (
@@ -514,12 +515,12 @@ export default function MapHeader() {
                         {isLoadingCities ? (
                           <>
                             <FaSpinner className={`${styles.spinnerIcon} ${styles.dropdownSpinner}`} />
-                            <span>Loading cities...</span>
+                            <span>{t('loadingCities')}</span>
                           </>
                         ) : citySearchText ? (
-                          "No cities found"
+                          t('noCitiesFound')
                         ) : (
-                          "Type to search cities"
+                          t('typeToSearchCities')
                         )}
                       </div>
                     )}
@@ -532,17 +533,17 @@ export default function MapHeader() {
             <div className={styles.formGroup}>
               <label className={styles.filterLabel}>
                 <FaTag className={styles.labelIcon} />
-                <span>Category</span>
+                <span>{t('category')}</span>
               </label>
               <select
                 className={`${styles.select} ${selectedCategory ? styles.activeSelect : ''}`}
                 onChange={handleCategoryChange}
                 value={selectedCategory || ""}
-                aria-label="Select category"
+                aria-label={t('selectCategoryAriaLabel')}
               >
-                <option value="" disabled>Select a category</option>
-                <option value="local">Local</option>
-                <option value="online">Online</option>
+                <option value="" disabled>{t('selectCategory')}</option>
+                <option value="local">{t('categoryLocal')}</option>
+                <option value="online">{t('categoryOnline')}</option>
               </select>
             </div>
 
@@ -550,10 +551,10 @@ export default function MapHeader() {
             <div className={styles.formGroup}>
               <label className={styles.filterLabel}>
                 <FaShieldAlt className={styles.labelIcon} />
-                <span>Verification</span>
+                <span>{t('verification')}</span>
                 <FaInfoCircle
                   className={styles.infoIcon}
-                  title="Filter content by verification status"
+                  title={t('verificationTooltip')}
                 />
               </label>
               <div className={styles.toggleFilter}>
@@ -562,14 +563,14 @@ export default function MapHeader() {
                   onClick={() => handleVerificationFilterChange("all")}
                   aria-pressed={verificationFilter === "all"}
                 >
-                  All Content
+                  {t('allContent')}
                 </button>
                 <button
                   className={`${styles.toggleButton} ${verificationFilter === "verified" ? styles.activeToggle : ''}`}
                   onClick={() => handleVerificationFilterChange("verified")}
                   aria-pressed={verificationFilter === "verified"}
                 >
-                  Verified Only
+                  {t('verifiedOnly')}
                 </button>
               </div>
             </div>
@@ -579,11 +580,11 @@ export default function MapHeader() {
               <button
                 className={styles.resetButton}
                 onClick={handleResetFilters}
-                title="Reset all filters"
-                aria-label="Clear all filters"
+                title={t('resetAllFilters')}
+                aria-label={t('clearAllFiltersAriaLabel')}
               >
                 <FaTimesCircle className={styles.resetIcon} />
-                <span>Clear All Filters</span>
+                <span>{t('clearAllFilters')}</span>
               </button>
             )}
 
@@ -597,8 +598,8 @@ export default function MapHeader() {
                 <button
                   className={styles.errorDismiss}
                   onClick={dismissError}
-                  title="Dismiss"
-                  aria-label="Dismiss error"
+                  title={t('dismiss')}
+                  aria-label={t('dismissError')}
                 >
                   <FaTimesCircle />
                 </button>
@@ -609,9 +610,9 @@ export default function MapHeader() {
             <button
               className={styles.applyFiltersButton}
               onClick={() => setMobileFiltersVisible(false)}
-              aria-label="Apply filters and close filter panel"
+              aria-label={t('applyFiltersAriaLabel')}
             >
-              Apply Filters
+              {t('applyFilters')}
             </button>
           </div>
         </div>
@@ -621,7 +622,7 @@ export default function MapHeader() {
           {isMapLoading && (
             <div className={styles.mapLoadingOverlay}>
               <FaSpinner className={styles.mapLoadingSpinner} />
-              <span>Loading map...</span>
+              <span>{t('loadingMap')}</span>
             </div>
           )}
 
@@ -629,7 +630,7 @@ export default function MapHeader() {
           <div className={styles.mapInteractionBlocker}>
             <div className={styles.mapMessage}>
               <FaMapMarkerAlt className={styles.mapIcon} />
-              <span>Map view only - Use filters to navigate</span>
+              <span>{t('mapViewOnly')}</span>
             </div>
           </div>
 

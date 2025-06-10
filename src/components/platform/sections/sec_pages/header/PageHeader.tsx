@@ -24,12 +24,15 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
 import linkifyText from "@/Utils/textFormatting/linkify";
 import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
+import { useLocale, useTranslations } from "next-intl";
 
 function Pageheader(props: {
   pageId: string;
   setSettings: React.Dispatch<React.SetStateAction<boolean>>;
   settings: boolean;
 }) {
+  const t = useTranslations("web.pages");
+  const locale = useLocale()
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { pageId, setSettings, settings } = props;
@@ -59,7 +62,7 @@ function Pageheader(props: {
     const fetchData = async () => {
       setLoading(true);
       try {
-        const res = await getSinglePageItems(pageId);
+        const res = await getSinglePageItems(pageId, locale);
         dispatch(setCurrentPage(res));
         setData(res);
         setInitialFollow(res.isFollowing);
@@ -72,7 +75,7 @@ function Pageheader(props: {
     };
 
     fetchData();
-  }, [pageId, dispatch]);
+  }, [pageId, dispatch, locale]);
 
   // Close the options menu when clicking outside
   useEffect(() => {
@@ -139,6 +142,7 @@ function Pageheader(props: {
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "*",
             "Content-Type": "application/json",
+
           },
         }
       );
@@ -188,7 +192,7 @@ function Pageheader(props: {
     </div>;
   }
   console.log("Page data:", data);
-  
+
 
   return (
     <>
@@ -198,7 +202,7 @@ function Pageheader(props: {
           <div
             onClick={toggleOptionsMenu}
             className={styles.optionsIcon}
-            aria-label="Page options"
+            aria-label={t('pageOptions')}
           >
             <PiDotsThreeCircleLight />
           </div>
@@ -213,9 +217,9 @@ function Pageheader(props: {
                   }}
                   className={styles.optionItem}
                   role="button"
-                  aria-label="Delete page"
+                  aria-label={t('deletePage')}
                 >
-                  <FaTrash /> <span>Delete Page</span>
+                  <FaTrash /> <span>{t('deletePage')}</span>
                 </div>
               )}
               <div
@@ -225,9 +229,9 @@ function Pageheader(props: {
                 }}
                 className={styles.optionItem}
                 role="button"
-                aria-label="Report page"
+                aria-label={t('reportPage')}
               >
-                <MdOutlineReportProblem /> <span>Report Page</span>
+                <MdOutlineReportProblem /> <span>{t('reportPage')}</span>
               </div>
               <div
                 onClick={() => {
@@ -236,9 +240,9 @@ function Pageheader(props: {
                 }}
                 className={styles.optionItem}
                 role="button"
-                aria-label="Block page"
+                aria-label={t('blockPage')}
               >
-                <BsShieldSlash /> <span>Block Page</span>
+                <BsShieldSlash /> <span>{t('blockPage')}</span>
               </div>
             </div>
           )}
@@ -247,7 +251,7 @@ function Pageheader(props: {
         <div className={styles.coverSection}>
           <Image
             src={data.cover ? data.cover : cover}
-            alt={`${data.name || 'Page'} cover image`}
+            alt={t('coverImageAlt', { name: data.name || 'Page' })}
             className={styles.coverImg}
             width={1000}
             height={1000}
@@ -259,7 +263,7 @@ function Pageheader(props: {
           <div className={styles.image}>
             <Image
               src={data.avatar ? data.avatar : cover}
-              alt={`${data.name || 'Page'} profile image`}
+              alt={t('profileImageAlt', { name: data.name || 'Page' })}
               className={styles.profileImg}
               width={135}
               height={135}
@@ -270,7 +274,7 @@ function Pageheader(props: {
             <h1 className={styles.name}>{data.name}</h1>
             <div className={styles.followButtonMobile}>
               <button onClick={handleFollow} className={styles.likeBtn}>
-                {initialFollow ? "Unfollow" : "Follow"}
+                {initialFollow ? t('unfollow') : t('follow')}
               </button>
             </div>
           </div>
@@ -281,7 +285,7 @@ function Pageheader(props: {
         {data.isAdmin && (
           <div className={styles.mobileActionsToggle} onClick={toggleMobileActions}>
             <FaPlus />
-            <span>Actions</span>
+            <span>{t('actions')}</span>
           </div>
         )}
 
@@ -290,49 +294,49 @@ function Pageheader(props: {
             <div onClick={() => {
               setAddNewPost(!addNewPost);
               setShowMobileActions(false);
-            }}>Add Post</div>
+            }}>{t('addPost')}</div>
             <div onClick={() => {
               setAddNewP(!addNewP);
               setShowMobileActions(false);
-            }}>Add Product</div>
+            }}>{t('addProduct')}</div>
             <div onClick={() => {
               setAddNewE(!addNewE);
               setShowMobileActions(false);
-            }}>Add Event</div>
+            }}>{t('addEvent')}</div>
           </div>
         )}
 
         <div className={styles.headerContent}>
           {data.why && (
             <div className={styles.infoItem}>
-              <h5>Why:</h5>
+              <h5>{t('why')}:</h5>
               <h6>{data.why}</h6>
             </div>
           )}
 
           {data.how && (
             <div className={styles.infoItem}>
-              <h5>How:</h5>
+              <h5>{t('how')}:</h5>
               <h6>{data.how}</h6>
             </div>
           )}
 
           {data.what && (
             <div className={styles.infoItem}>
-              <h5>What:</h5>
+              <h5>{t('what')}:</h5>
               <h6>{data.what}</h6>
             </div>
           )}
 
           {data.description && (
             <div className={styles.infoItem}>
-              <h5>Description:</h5>
+              <h5>{t('description')}:</h5>
               <h6>{data.description}</h6>
             </div>
           )}
 
           <div className={styles.infoItem}>
-            <h5>Website:</h5>
+            <h5>{t('website')}:</h5>
             {data.websiteUrl ? (
               <h6>
                 {linkifyText(data.websiteUrl, {
@@ -342,18 +346,18 @@ function Pageheader(props: {
                 })}
               </h6>
             ) : (
-              <h6>No Website</h6>
+              <h6>{t('noWebsite')}</h6>
             )}
           </div>
-        
+
           <div className={styles.infoItem}>
-            <h5>Location:</h5>
+            <h5>{t('location')}:</h5>
             {data.country && data.city ? (
               <h6>
                 {data.country.name}, {data.city.nameEn}
               </h6>
             ) : (
-              <h6>No Location</h6>
+              <h6>{t('noLocation')}</h6>
             )}
           </div>
         </div>
@@ -366,19 +370,19 @@ function Pageheader(props: {
                   onClick={() => setAddNewPost(!addNewPost)}
                   className={styles.addPost}
                 >
-                  Add Post
+                  {t('addPost')}
                 </button>
                 <button
                   onClick={() => setAddNewP(!addNewP)}
                   className={styles.addProduct}
                 >
-                  Add Product
+                  {t('addProduct')}
                 </button>
                 <button
                   onClick={() => setAddNewE(!addNewE)}
                   className={styles.addEvent}
                 >
-                  Add Event
+                  {t('addEvent')}
                 </button>
               </>
             )}
@@ -386,7 +390,7 @@ function Pageheader(props: {
 
           <div className={styles.headerLike}>
             <button onClick={handleFollow} className={styles.likeBtn}>
-              {initialFollow ? "Unfollow" : "Follow"}
+              {initialFollow ? t('unfollow') : t('follow')}
             </button>
           </div>
         </div>
@@ -395,7 +399,7 @@ function Pageheader(props: {
           <div
             onClick={handleSettingNavigation}
             className={styles.settings}
-            aria-label="Page settings"
+            aria-label={t('pageSettings')}
           >
             <IoMdSettings />
           </div>
@@ -417,12 +421,12 @@ function Pageheader(props: {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={() => router.push('/pages')}
-        title="Are you sure you want to delete this page?"
-        confirmButtonText="Delete"
-        cancelButtonText="Cancel"
+        title={t('deleteConfirmation.title')}
+        confirmButtonText={t('deleteConfirmation.confirmButton')}
+        cancelButtonText={t('deleteConfirmation.cancelButton')}
         customAction={handleDelete}
-        successMessage="Page deleted successfully"
-        errorMessage="Error occurred while deleting page"
+        successMessage={t('deleteConfirmation.successMessage')}
+        errorMessage={t('deleteConfirmation.errorMessage')}
       />
 
       {/* Block Confirmation Modal */}
@@ -430,12 +434,12 @@ function Pageheader(props: {
         isOpen={isBlockModalOpen}
         onClose={() => setIsBlockModalOpen(false)}
         onConfirm={() => router.push('/pages')}
-        title="Are you sure you want to block this page?"
-        confirmButtonText="Block"
-        cancelButtonText="Cancel"
+        title={t('blockConfirmation.title')}
+        confirmButtonText={t('blockConfirmation.confirmButton')}
+        cancelButtonText={t('blockConfirmation.cancelButton')}
         customAction={handleBlock}
-        successMessage="Page blocked successfully"
-        errorMessage="Error occurred while blocking page"
+        successMessage={t('blockConfirmation.successMessage')}
+        errorMessage={t('blockConfirmation.errorMessage')}
       />
 
       {/* Report Modal */}
@@ -444,9 +448,10 @@ function Pageheader(props: {
         onClose={() => setIsReportModalOpen(false)}
         reportedId={pageId}
         reportedType="page"
-        title="Talk about the issue you are facing with this page"
+        title={t('reportModal.title')}
         successCallback={() => {
-          ToastNot("Thank you for your report");
+          ToastNot(t('reportModal.successMessage'));
+          
         }}
       />
     </>

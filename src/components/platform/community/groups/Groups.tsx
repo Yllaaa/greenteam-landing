@@ -10,8 +10,11 @@ import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import AddNewGroup from "./AddGroup/AddNewGroup";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { useLocale, useTranslations } from 'next-intl';
 
 function Groups() {
+  const locale = useLocale()
+  const t = useTranslations("web.groups")
   const city = useAppSelector(
     (state) => state.currentCommunity.selectedCity
   )?.toString();
@@ -19,7 +22,7 @@ function Groups() {
     (state) => state.currentCommunity.selectedCountry
   )?.toString();
   const verified = useAppSelector(
-    (state)=> state.currentCommunity.verificationStatus
+    (state) => state.currentCommunity.verificationStatus
   )
   const [groupsArray, setGroupsArray] = useState<CommunityGroups>([]);
 
@@ -65,6 +68,7 @@ function Groups() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
+              "Accept-Language": locale
             },
           }
         );
@@ -227,7 +231,7 @@ function Groups() {
     if (groupsArray.length === 0) {
       return (
         <div className={styles.emptyField}>
-          <p>No groups found</p>
+          <p>{t("noGroups")}</p>
         </div>
       );
     }
@@ -257,7 +261,7 @@ function Groups() {
         {!isPaginationLoading && endOfResults && groupsArray.length > 0 && (
           <div className={styles.paginationContainer}>
             <div className={styles.endMessage}>
-              End of results
+              {t("endOfResult")}
             </div>
           </div>
         )}
@@ -268,9 +272,9 @@ function Groups() {
   return (
     <>
       <Header
-        tag="Groups"
+        tag={t("group")}
         setPage={setPage}
-        path={"Create new group"}
+        path={t("addNew")}
         withFilter={false}
         setAddNew={setAddNew}
       >

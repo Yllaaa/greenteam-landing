@@ -6,12 +6,13 @@ import { getToken } from "../userToken/LocalToken";
 
 const token = getToken();
 const accessToken = token ? token.accessToken : "";
+export function getRequest(endpoint: string, locale:string) {
 
-export function getRequest(endpoint: string) {
   return axios.get(endpoint, {
     headers: {
       Authorization: `Bearer ${accessToken}`,
       "Access-Control-Allow-Origin": "*",
+      "Accept-Language": locale
     },
   });
 }

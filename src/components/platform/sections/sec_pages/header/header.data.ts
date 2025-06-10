@@ -1,7 +1,10 @@
-"use client";
+'use client';
 
-import { pages } from "@/Utils/backendEndpoints/backend-endpoints";
-import { getRequest, postRequest } from "@/Utils/backendEndpoints/backend-requests";
+import { pages } from '@/Utils/backendEndpoints/backend-endpoints';
+import {
+  getRequest,
+  postRequest,
+} from '@/Utils/backendEndpoints/backend-requests';
 
 interface Topic {
   id: number;
@@ -25,18 +28,21 @@ export type PageItem = {
   topic: Topic;
   isAdmin: boolean;
   isFollowing: boolean;
-   country: {
-      id: number;
-      name: string;
-    };
-    city: {
-      id: number;
-      nameEn: string;
-    };
+  country: {
+    id: number;
+    name: string;
+  };
+  city: {
+    id: number;
+    nameEn: string;
+  };
 };
 
-export function getSinglePageItems(id: string): Promise<PageItem> {
-  const data = getRequest(pages.singlePage(id)).then((res) => res.data);
+export function getSinglePageItems(
+  id: string,
+  locale: string
+): Promise<PageItem> {
+  const data = getRequest(pages.singlePage(id), locale).then((res) => res.data);
 
   return data;
 }

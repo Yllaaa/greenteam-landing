@@ -13,6 +13,7 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useAppSelector } from "@/store/hooks";
 import { formatTimeDifference } from "./functions/CommentModal.data";
+import { useTranslations } from "next-intl";
 
 interface Author {
   id: string;
@@ -59,7 +60,7 @@ type Props = {
 };
 function PostComments(passProps: Props) {
   const accessToken = useAppSelector((state) => state.login.accessToken);
-
+  const t = useTranslations("web.Comments");
   const {
     setCommentModal,
     postComments,
@@ -480,6 +481,7 @@ function PostComments(passProps: Props) {
     onSubmit,
     onEvenctCommentSubmit,
     postMedia,
+    t
   };
 }
 export function CommentModal(props: Props) {
@@ -504,6 +506,7 @@ export function CommentModal(props: Props) {
     registerComment,
     onSubmit,
     postMedia,
+    t
   } = PostComments(props);
 
   console.log("postMedia", postMedia);
@@ -524,7 +527,7 @@ export function CommentModal(props: Props) {
                       <div className={styles.image}>
                         <Image
                           src={media.mediaUrl}
-                          alt="image"
+                          alt={t('imageAlt')}
                           loading="lazy"
                           width={1000}
                           height={1000}
@@ -552,9 +555,9 @@ export function CommentModal(props: Props) {
                         onClick={() => {
                           instanceRef.current?.moveToIdx(idx);
                         }}
-                        className={` ${styles.dot} ${
-                          currentSlide === idx ? styles.active : ""
-                        }`}
+                        className={` ${styles.dot} ${currentSlide === idx ? styles.active : ""
+                          }`}
+                        aria-label={t('slideIndicator', { number: idx + 1 })}
                       ></button>
                     );
                   })}
@@ -564,7 +567,7 @@ export function CommentModal(props: Props) {
               <div className={styles.noMedia}>
                 <Image
                   src={foot}
-                  alt="image"
+                  alt={t('noMediaAlt')}
                   loading="lazy"
                   width={1000}
                   height={1000}
@@ -587,7 +590,7 @@ export function CommentModal(props: Props) {
                         src={
                           comment.author.avatar ? comment.author.avatar : admin
                         }
-                        alt="avatar"
+                        alt={t('avatarAlt', { username: comment.author.username })}
                         width={30}
                         height={30}
                       />
@@ -604,14 +607,10 @@ export function CommentModal(props: Props) {
                         </p>
                       </div>
                       <div className={styles.lower}>
-                        <p>{formatTimeDifference(comment.createdAt)}</p>
-                        <p
-                          style={{
-                            color: userLikeStatus[comment.id]
-                              ? "green"
-                              : "#fff",
-                            cursor: "pointer",
-                          }}
+                        <p className={styles.timestamp}>{formatTimeDifference(comment.createdAt)}</p>
+                        <button
+                          className={`${styles.actionButton} ${userLikeStatus[comment.id] ? styles.liked : ""
+                            }`}
                           onClick={() =>
                             handleToggleReaction({
                               commentId: comment.id,
@@ -623,77 +622,71 @@ export function CommentModal(props: Props) {
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
                             : parseInt(comment.likeCount)}{" "}
-                          Like
-                        </p>
-                        <p
-                          style={{ cursor: "pointer" }}
+                          {t('like')}
+                        </button>
+                        <button
+                          className={styles.actionButton}
                           onClick={() =>
                             getReplies(comment.publicationId, comment.id)
                           }
                         >
-                          Reply
-                        </p>
+                          {t('reply')}
+                        </button>
                       </div>
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (
-                          <>
-                            <div key={index} className={styles.reply}>
-                              <div className={styles.replyAvatar}>
-                                <Image
-                                  src={
-                                    reply.author.avatar
-                                      ? reply.author.avatar
-                                      : admin
-                                  }
-                                  alt="avatar"
-                                  width={30}
-                                  height={30}
-                                />
+                          <div key={index} className={styles.reply}>
+                            <div className={styles.replyAvatar}>
+                              <Image
+                                src={
+                                  reply.author.avatar
+                                    ? reply.author.avatar
+                                    : admin
+                                }
+                                alt={t('avatarAlt', { username: reply.author.fullName })}
+                                width={30}
+                                height={30}
+                              />
+                            </div>
+                            <div className={styles.replyContent}>
+                              <div className={styles.upper}>
+                                <p>
+                                  <span className={styles.username}>
+                                    {reply.author.fullName}
+                                  </span>
+                                  <span className={styles.commentText}>
+                                    {reply.content}
+                                  </span>
+                                </p>
                               </div>
-                              <div className={styles.replyContent}>
-                                <div className={styles.upper}>
-                                  <p>
-                                    <span className={styles.username}>
-                                      {reply.author.fullName}
-                                    </span>
-                                    <span className={styles.commentText}>
-                                      {reply.content}
-                                    </span>
-                                  </p>
-                                </div>
-                                <div className={styles.lower}>
-                                  <p>
-                                    {formatTimeDifference(comment.createdAt)}
-                                  </p>
-                                  <p
-                                    style={{
-                                      cursor: "pointer",
-                                      color: userLikeStatus[reply.id]
-                                        ? "green"
-                                        : "#fff",
-                                    }}
-                                    onClick={() =>
-                                      handleToggleReaction({
-                                        commentId: reply.id,
-                                        postType: "reply",
-                                        reactionType: "like",
-                                      })
-                                    }
-                                  >
-                                    {localLikeCounts[reply.id] !== undefined
-                                      ? localLikeCounts[reply.id]
-                                      : reply.likeCount}{" "}
-                                    Like
-                                  </p>
-                                </div>
+                              <div className={styles.lower}>
+                                <p className={styles.timestamp}>
+                                  {formatTimeDifference(reply.createdAt)}
+                                </p>
+                                <button
+                                  className={`${styles.actionButton} ${userLikeStatus[reply.id] ? styles.liked : ""
+                                    }`}
+                                  onClick={() =>
+                                    handleToggleReaction({
+                                      commentId: reply.id,
+                                      postType: "reply",
+                                      reactionType: "like",
+                                    })
+                                  }
+                                >
+                                  {localLikeCounts[reply.id] !== undefined
+                                    ? localLikeCounts[reply.id]
+                                    : reply.likeCount}{" "}
+                                  {t('like')}
+                                </button>
                               </div>
                             </div>
-                          </>
+                          </div>
                         )
                       )}
                       <div className={styles.newReply}>
@@ -701,17 +694,17 @@ export function CommentModal(props: Props) {
                           <form onSubmit={handleSubmitReply(onReplySubmit)}>
                             <textarea
                               className={styles.commentTextArea}
-                              placeholder="Add a reply"
+                              placeholder={t('addReplyPlaceholder')}
                               {...registerReply("reply", {
                                 required: true,
                               })}
                             />
-
-                            <button type="submit">Add Reply</button>
+                            <button type="submit" className={styles.submitButton}>
+                              {t('addReplyButton')}
+                            </button>
                           </form>
                         </div>
                       </div>
-                      {/*  */}
                     </div>
                   ) : (
                     openReplies[comment.id] &&
@@ -721,17 +714,11 @@ export function CommentModal(props: Props) {
                           <form onSubmit={handleSubmitReply(onReplySubmit)}>
                             <textarea
                               className={styles.commentTextArea}
-                              placeholder="Add a reply"
+                              placeholder={t('addReplyPlaceholder')}
                               {...registerReply("reply", { required: true })}
                             />
-
-                            <button
-                              onClick={() => {
-                                console.log("clicked");
-                              }}
-                              type="submit"
-                            >
-                              Add Reply
+                            <button type="submit" className={styles.submitButton}>
+                              {t('addReplyButton')}
                             </button>
                           </form>
                         </div>
@@ -741,8 +728,8 @@ export function CommentModal(props: Props) {
                 </div>
               ))
             ) : (
-              <div>
-                <p>No comments yet</p>
+              <div className={styles.noComments}>
+                <p>{t('noCommentsYet')}</p>
               </div>
             )}
           </div>
@@ -751,11 +738,12 @@ export function CommentModal(props: Props) {
               <form onSubmit={handleSubmitComment(onSubmit)}>
                 <textarea
                   className={styles.commentTextArea}
-                  placeholder="Add a comment"
+                  placeholder={t('addCommentPlaceholder')}
                   {...registerComment("comment", { required: true })}
                 />
-
-                <button type="submit">Add Comments</button>
+                <button type="submit" className={styles.submitButton}>
+                  {t('addCommentButton')}
+                </button>
               </form>
             </div>
           </div>
@@ -763,6 +751,7 @@ export function CommentModal(props: Props) {
       </div>
     </>
   );
+
 }
 
 export function CommentSection(props: Props) {
@@ -781,6 +770,7 @@ export function CommentSection(props: Props) {
     handleSubmitComment,
     registerComment,
     onEvenctCommentSubmit,
+    t
   } = PostComments(props);
 
   return (
@@ -837,7 +827,7 @@ export function CommentSection(props: Props) {
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
                             : parseInt(comment.likeCount)}{" "}
-                          Like
+                          {t('like')}
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -845,13 +835,13 @@ export function CommentSection(props: Props) {
                             getEventReplies(comment.publicationId, comment.id)
                           }
                         >
-                          Reply
+                          {t('reply')}
                         </p>
                       </div>
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (
@@ -902,7 +892,7 @@ export function CommentSection(props: Props) {
                                     {localLikeCounts[reply.id] !== undefined
                                       ? localLikeCounts[reply.id]
                                       : reply.likeCount}{" "}
-                                    Like
+                                    {t('like')}
                                   </p>
                                 </div>
                               </div>
@@ -923,7 +913,7 @@ export function CommentSection(props: Props) {
                               })}
                             />
 
-                            <button type="submit">Add Reply</button>
+                            <button type="submit" className={styles.submitButton}>{t('addReplyButton')}</button>
                           </form>
                         </div>
                       </div>
@@ -939,7 +929,7 @@ export function CommentSection(props: Props) {
                           >
                             <textarea
                               className={styles.commentTextArea}
-                              placeholder="Add a reply"
+                              placeholder={t('addReplyPlaceholder')}
                               {...registerReply("reply", { required: true })}
                             />
 
@@ -948,8 +938,9 @@ export function CommentSection(props: Props) {
                                 console.log("clicked");
                               }}
                               type="submit"
+                              className={styles.submitButton}
                             >
-                              Add Reply
+                              {t('addReplyButton')}
                             </button>
                           </form>
                         </div>
@@ -960,7 +951,7 @@ export function CommentSection(props: Props) {
               ))
             ) : (
               <div>
-                <p>No comments yet</p>
+                <p>{t('noCommentsYet')}</p>
               </div>
             )}
           </div>
@@ -969,11 +960,11 @@ export function CommentSection(props: Props) {
               <form onSubmit={handleSubmitComment(onEvenctCommentSubmit)}>
                 <textarea
                   className={styles.commentTextArea}
-                  placeholder="Add a comment"
+                  placeholder={t('addCommentPlaceholder')}
                   {...registerComment("comment", { required: true })}
                 />
 
-                <button type="submit">Add Comments</button>
+                <button type="submit" className={styles.submitButton}>{t('addCommentButton')}</button>
               </form>
             </div>
           </div>
@@ -998,6 +989,7 @@ export function PostCommentSection(props: Props) {
     handleSubmitComment,
     registerComment,
     onSubmit,
+    t
   } = PostComments(props);
 
   return (
@@ -1054,7 +1046,7 @@ export function PostCommentSection(props: Props) {
                           {localLikeCounts[comment.id] !== undefined
                             ? localLikeCounts[comment.id]
                             : `${comment.likeCount}`}{" "}
-                          Like
+                          {t('like')}
                         </p>
                         <p
                           style={{ cursor: "pointer" }}
@@ -1062,13 +1054,13 @@ export function PostCommentSection(props: Props) {
                             getReplies(comment.publicationId, comment.id)
                           }
                         >
-                          Reply
+                          {t('reply')}
                         </p>
                       </div>
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (
@@ -1119,7 +1111,7 @@ export function PostCommentSection(props: Props) {
                                     {localLikeCounts[reply.id] !== undefined
                                       ? localLikeCounts[reply.id]
                                       : reply.likeCount}{" "}
-                                    Like
+                                    {t('like')}
                                   </p>
                                 </div>
                               </div>
@@ -1132,13 +1124,13 @@ export function PostCommentSection(props: Props) {
                           <form onSubmit={handleSubmitReply(onReplySubmit)}>
                             <textarea
                               className={styles.commentTextArea}
-                              placeholder="Add a reply"
+                              placeholder={t("addReplyPlaceholder")}
                               {...registerReply("reply", {
                                 required: true,
                               })}
                             />
 
-                            <button type="submit">Add Reply</button>
+                            <button type="submit" className={styles.submitButton}>{t('addReplyButton')}</button>
                           </form>
                         </div>
                       </div>
@@ -1152,7 +1144,7 @@ export function PostCommentSection(props: Props) {
                           <form onSubmit={handleSubmitReply(onReplySubmit)}>
                             <textarea
                               className={styles.commentTextArea}
-                              placeholder="Add a reply"
+                              placeholder={t('addReplyPlaceholder')}
                               {...registerReply("reply", { required: true })}
                             />
 
@@ -1161,8 +1153,9 @@ export function PostCommentSection(props: Props) {
                                 console.log("clicked");
                               }}
                               type="submit"
+                              className={styles.submitButton}
                             >
-                              Add Reply
+                              {t('addReplyButton')}
                             </button>
                           </form>
                         </div>
@@ -1173,7 +1166,7 @@ export function PostCommentSection(props: Props) {
               ))
             ) : (
               <div>
-                <p>No comments yet</p>
+                <p>{t('noCommentsYet')}</p>
               </div>
             )}
           </div>
@@ -1186,7 +1179,7 @@ export function PostCommentSection(props: Props) {
                   {...registerComment("comment", { required: true })}
                 />
 
-                <button type="submit">Add Comments</button>
+                <button type="submit" className={styles.submitButton}>{t('addCommentButton')}</button>
               </form>
             </div>
           </div>

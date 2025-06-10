@@ -8,11 +8,12 @@ import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
 import EventCards from "./Events/Card/EventCard";
 import AddNewEvent from "./Events/modal/AddNewEvent";
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
 function EventCom() {
   const terror = useTranslations("web.errors");
+  const t = useTranslations("web.event")
   const { accessToken } = getToken() || { accessToken: null };
   const country = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
@@ -24,7 +25,7 @@ function EventCom() {
   const eventMode = useAppSelector(
     (state) => state.currentCommunity.selectedCategory
   ) as EventMode;
-
+  const locale = useLocale()
   // State management
   const [addNew, setAddNew] = useState(false);
   const [section, setSection] = useState<EventCategory>("all");
@@ -57,6 +58,7 @@ function EventCom() {
           category: section,
           eventMode: eventMode,
           verified: verified,
+          locale: locale
         });
 
         // Check if we've reached the end of available events
@@ -247,7 +249,7 @@ function EventCom() {
             {!isLoading && !hasMore && events.length > 0 && (
               <div className={styles.paginationContainer}>
                 <div className={styles.endMessage}>
-                  End of results
+                  {terror("noMore")}
                 </div>
               </div>
             )}
@@ -261,8 +263,8 @@ function EventCom() {
     <>
       <Header
         withFilter={true}
-        tag="Events"
-        path="Create new event"
+        tag={t("header.event")}
+        path={t("header.addEvent")}
         setSection={setSection}
         section={section}
         setPage={setPage}

@@ -75,6 +75,7 @@ export const fetchEvents = async ({
   country,
   eventMode,
   verified,
+  locale,
 }: {
   page?: number;
   limit?: number;
@@ -84,6 +85,7 @@ export const fetchEvents = async ({
   country: number | string;
   eventMode?: EventMode;
   verified?: string;
+  locale?: string;
 }): Promise<Event[]> => {
   try {
     const categoryParam = category !== 'all' ? `&category=${category}` : '';
@@ -93,7 +95,7 @@ export const fetchEvents = async ({
     // Add event mode param for local/online filtering
     const eventModeParam = eventMode ? `&eventMode=${eventMode}` : '';
     // Add verified param if needed
-    const verifiedParam = verified !=="all" ? `&verified=true` : '';
+    const verifiedParam = verified !== 'all' ? `&verified=true` : '';
 
     const url = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events?page=${page}&limit=${limit}${cityParam}${countryParam}${categoryParam}${eventModeParam}${verifiedParam}`;
 
@@ -102,6 +104,7 @@ export const fetchEvents = async ({
         'Content-Type': 'application/json',
         Authorization: accessToken ? `Bearer ${accessToken}` : '',
         'Access-Control-Allow-Origin': '*',
+        "Accept-Language": locale
       },
     });
 
