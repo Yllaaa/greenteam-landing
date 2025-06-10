@@ -6,12 +6,12 @@ import styles from "./notifications.module.scss";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { NotificationItem } from './notifications.data';
-
+import { useLocale } from 'next-intl';
 type NotificationsArray = NotificationItem[];
 
 export default function Notifications() {
   const [notifications, setNotifications] = useState<NotificationsArray>([]);
-  
+
   // Pagination states
   const limit = 10;
   const [page, setPage] = useState(1);
@@ -45,8 +45,8 @@ export default function Notifications() {
   // Get token
   const localeS = useRef(getToken());
   const accessToken = localeS.current ? localeS.current.accessToken : null;
-
- const fetchNotifications = useCallback(
+  const locale = useLocale()
+  const fetchNotifications = useCallback(
     async (pageNum: number, replace: boolean = false) => {
       try {
         if (replace) {
@@ -62,6 +62,7 @@ export default function Notifications() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
+              "Accept-Language": `${locale}`,
             },
           }
         );
@@ -94,7 +95,7 @@ export default function Notifications() {
         setIsPaginationLoading(false);
       }
     },
-    [accessToken]
+    [accessToken, locale]
   );
 
 

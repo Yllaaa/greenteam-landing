@@ -12,7 +12,7 @@ import physical from '@/../public/ZPLATFORM/categories/know.svg'
 import know from '@/../public/ZPLATFORM/categories/physical.svg'
 import axios from 'axios'
 import { getToken } from '@/Utils/userToken/LocalToken'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { StaticImageData } from 'next/image'
 import { useRouter } from 'next/navigation'
 
@@ -36,6 +36,7 @@ function Categories() {
   const [topicScores, setTopicScores] = useState<TopicScore[]>([])
   const [subTopicScores, setSubTopicScores] = useState<TopicScore[]>([])
   const t = useTranslations('web.subHeader.diamond')
+  const locale = useLocale()
 
   // Mapping between component categories and backend topic names with icons
   const categoryMapping: Record<string, CategoryInfo> = {
@@ -54,6 +55,7 @@ function Categories() {
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
+            "Accept-Language": `${locale}`,
           },
         }
       )
@@ -88,6 +90,7 @@ function Categories() {
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
+              "Accept-Language": `${locale}`,
             },
           }
         )

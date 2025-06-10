@@ -5,11 +5,12 @@ import styles from './userDetails.module.scss'
 import axios from 'axios'
 import { getToken } from '@/Utils/userToken/LocalToken'
 import { useTranslations } from 'next-intl'
+import { useLocale } from 'next-intl'
 function Breif() {
   const token = getToken()
   const accessToken = token ? token.accessToken : null
   const username = token ? token.user.username : null
-
+  const locale = useLocale()
   const [score, setScore] = React.useState(0)
   useEffect(() => {
     axios
@@ -17,6 +18,7 @@ function Breif() {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
+          "Accept-Language": `${locale}`,
         },
       })
       .then((response) => {

@@ -103,38 +103,38 @@ function Footer() {
           </div>
           <div className={styles.containerBottomSocial}>
             <div
-              onClick={()=>{
+              onClick={() => {
                 window.open("https://x.com/theGreenteamapp", "_blank");
               }}
               className={styles.social}>
               <FaXTwitter />
             </div>
-            <div 
-              onClick={()=>{
+            <div
+              onClick={() => {
                 window.open("https://www.facebook.com/profile.php?id=100086985110285", "_blank");
               }}
-            className={styles.social}>
+              className={styles.social}>
               <FaFacebookF />
             </div>
             <div
-              onClick={()=>{
+              onClick={() => {
                 window.open("https://www.instagram.com/greenteam.app/", "_blank");
               }}
-            className={styles.social}>
+              className={styles.social}>
               <FaInstagram />
             </div>
             <div
-              onClick={()=>{
+              onClick={() => {
                 window.open("https://www.linkedin.com/in/david-igual-greenteam-384948191/", "_blank");
               }}
-            className={styles.social}>
+              className={styles.social}>
               <FaLinkedin />
             </div>
             <div
-              onClick={()=>{
+              onClick={() => {
                 window.open("https://www.linkedin.com/in/david-igual-greenteam-384948191/", "_blank");
               }}
-            className={styles.social}>
+              className={styles.social}>
               <FiYoutube />
             </div>
           </div>

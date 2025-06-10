@@ -355,3 +355,182 @@
     line-height: 100%;
   }
 }
+/* Enhanced Toggle Control for Event Type */
+.toggleContainer {
+  display: flex;
+  width: 70%;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #2d323a;
+  background-color: #1a1e24;
+}
+
+.toggleOption {
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.toggleInput {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggleLabel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px;
+  width: 100%;
+  text-align: center;
+  font-weight: 500;
+  font-size: 14px;
+  color: #fefefe;
+  transition: all 0.2s ease;
+}
+
+.toggleActive {
+  background: linear-gradient(90deg, #307040 0%, #74b243 100%);
+}
+
+.toggleActive .toggleLabel {
+  color: white;
+  font-weight: 600;
+}
+
+.toggleIcon {
+  font-size: 18px;
+}
+
+/* General Form Improvements */
+.formContainer {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.formGroup {
+  margin-bottom: 18px;
+  align-items: flex-start;
+}
+
+.input,
+.select,
+.textarea,
+.datePickerInput {
+  background-color: #1a1e24;
+  color: #fefefe;
+  border-color: #2d323a;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus,
+.datePickerInput:focus {
+  border-color: #74b243;
+  box-shadow: 0 0 0 3px rgba(116, 178, 67, 0.25);
+}
+
+.label {
+  margin-top: 6px;
+  color: #a0a6b1;
+  font-weight: 500;
+}
+
+.imageUploadContainer {
+  border: 2px dashed #2d323a;
+  transition: all 0.2s ease;
+  min-height: 180px;
+}
+
+.imageUploadContainer:hover,
+.dragging {
+  border-color: #74b243;
+  background-color: rgba(116, 178, 67, 0.05);
+}
+
+.uploadPlaceholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.uploadPlaceholder p {
+  color: #a0a6b1;
+  font-weight: 500;
+}
+
+.searchContainer {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.submitContainer button {
+  padding: 12px 24px;
+  height: 50px;
+  font-weight: 600;
+  border-radius: 12px;
+  transition: all 0.2s ease;
+}
+
+.submitButton {
+  background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+  box-shadow: 0 4px 12px rgba(116, 178, 67, 0.2);
+}
+
+.cancelButton {
+  border: 1px solid #2d323a;
+  background-color: transparent;
+  color: #fefefe;
+}
+
+.cancelButton:hover {
+  border-color: #a0a6b1;
+}
+
+/* Responsive improvements */
+@media screen and (max-width: 768px) {
+  .formGroup {
+    flex-direction: column;
+  }
+
+  .label {
+    width: 100%;
+    margin-bottom: 8px;
+  }
+
+  .input,
+  .select,
+  .textarea,
+  .datePickerInput,
+  .imageUploadContainer,
+  .toggleContainer,
+  .searchContainer {
+    width: 100%;
+  }
+
+  .formContainer {
+    padding: 16px;
+    width: 95%;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  .submitContainer {
+    flex-direction: column-reverse;
+  }
+
+  .submitContainer button {
+    width: 100%;
+  }
+}

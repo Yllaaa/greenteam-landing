@@ -272,6 +272,7 @@ export default function MapHeader() {
             "Content-Type": "application/json",
             Authorization: `Bearer ${accessToken}`,
             "Access-Control-Allow-Origin": "*",
+            "Accept-Language": `${locale}`,
           },
         }
       )
