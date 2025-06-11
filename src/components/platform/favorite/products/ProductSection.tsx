@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 "use client";
 import React, {
   Suspense,
@@ -18,9 +18,11 @@ import Image from "next/image";
 import toRight from "@/../public/ZPLATFORM/A-iconsAndBtns/ToRights.svg";
 import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
-import ContactModal from "./modal/ContactModal";
+import ContactModal from "@/components/platform/modals/contactModal/ContactModal";
+import { useTranslations } from "next-intl";
 
 function ProductSection() {
+  const t = useTranslations("web.products");
   const [section, setSection] = useState<ProductsCategory>(0);
   const [page, setPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
@@ -35,7 +37,7 @@ function ProductSection() {
   const [products, setProducts] = useState<Products[]>([]);
   const [endOfResults, setEndOfResults] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
-  const [contacts, setContacts] = useState<any>();
+  // const [contacts, setContacts] = useState<any>();
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   // Constants
@@ -184,7 +186,7 @@ function ProductSection() {
     if (products.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No Products found</p>
+          <p>{t("list.noProducts")}</p>
         </div>
       );
     }
@@ -204,7 +206,7 @@ function ProductSection() {
                   setSendMessage={setSendMessage}
                   setSellerId={setSellerId}
                   setSellerType={setSellerType}
-                  setContacts={setContacts}
+                  // setContacts={setContacts}
                   setShowContacts={setShowContacts}
                 />
               </div>
@@ -250,9 +252,8 @@ function ProductSection() {
         {products.length > 0 && (
           <div className={styles.sliderBtns}>
             <div
-              className={`${styles.arrow} ${
-                !canScrollLeft ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollLeft ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("left")}
             >
               <Image
@@ -264,9 +265,8 @@ function ProductSection() {
               />
             </div>
             <div
-              className={`${styles.arrow} ${
-                !canScrollRight ? styles.disabled : ""
-              }`}
+              className={`${styles.arrow} ${!canScrollRight ? styles.disabled : ""
+                }`}
               onClick={() => handleManualScroll("right")}
             >
               <Image src={toRight} alt="right arrow" width={100} height={100} />
@@ -287,7 +287,12 @@ function ProductSection() {
         />
       )}
       {showContacts && (
-        <ContactModal contacts={contacts} setShowContacts={setShowContacts} />
+        <ContactModal
+          isOpen={showContacts}
+          onClose={() => setShowContacts(false)}
+          sellerId={sellerId}
+          accessToken={accessToken}
+        />
       )}
     </>
   );

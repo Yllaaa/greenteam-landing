@@ -9,7 +9,7 @@ import clock from "@/../public/ZPLATFORM/event/clock.svg";
 import locationIcon from "@/../public/ZPLATFORM/event/location.svg";
 import { useInView } from "react-intersection-observer";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { FaStar } from "react-icons/fa6";
 import { getToken } from "@/Utils/userToken/LocalToken";
@@ -57,6 +57,7 @@ type Props = {
 };
 function EventCard(props: Props) {
   const locale = useLocale();
+  const t = useTranslations("web.event.card");
   // const token = getToken();
   const localeS = getToken();
   const accessToken = localeS ? localeS.accessToken : null;
@@ -220,10 +221,10 @@ function EventCard(props: Props) {
                 color: isJoined ? "red" : "",
               }}
             >
-              {isJoined ? "Leave" : "Join"}
+              {isJoined ? t("leave") : t("join")}
             </button>
             <button onClick={handleEventDetails} className={styles.joinButton}>
-              See Details
+              {t("details")}
             </button>
           </div>
         </div>

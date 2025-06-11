@@ -5,9 +5,10 @@ import groups from "@/../public/icons/groups.svg";
 import Image from "next/image";
 import Groups from "./groups/Groups";
 import FeedSection from "./feeds/FeedSection";
+import { useTranslations } from "next-intl";
 function AllGroup() {
   const [selected, setSelected] = React.useState("last posts");
-
+const t = useTranslations("web.favourite.friends");
   return (
     <>
       <div className={styles.allGroup}>
@@ -23,7 +24,7 @@ function AllGroup() {
                 selected === "last posts" ? styles.active : styles.notActive
               }`}
             >
-              Last Posts
+              {t("lastPosts")}
             </h6>
             <h6
               style={{ cursor: "pointer" }}
@@ -32,7 +33,7 @@ function AllGroup() {
                 selected === "groups" ? styles.active : styles.notActive
               }`}
             >
-              Groups
+              {t("groups")}
             </h6>
           </div>
         </div>

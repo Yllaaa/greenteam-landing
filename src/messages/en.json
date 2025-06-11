@@ -744,8 +744,8 @@
       }
     },
     "groups": {
-      "group":"Groups",
-      "addNew":"Create new group",
+      "group": "Groups",
+      "addNew": "Create new group",
       "members": "members",
       "joinGroup": "Join Group",
       "groupImageAlt": "{groupName} banner image",
@@ -754,7 +754,60 @@
       "loading": "Loading groups...",
       "noGroups": "No groups available",
       "loadingMore": "Loading more groups...",
-      "endOfResult":"End of results"
+      "endOfResult": "End of results",
+
+      "groupHeader": {
+        "actions": {
+          "deleteGroup": "Delete Group",
+          "reportGroup": "Report Group",
+          "blockGroup": "Block Group",
+          "edit": "Edit",
+          "cancelEdit": "Cancel Edit",
+          "joinGroup": "Join Group",
+          "leave": "Leave"
+        },
+        "labels": {
+          "name": "Name:",
+          "members": "Members",
+          "memberCount": "{{count}} Members"
+        },
+        "modals": {
+          "deleteConfirmation": {
+            "title": "Are you sure you want to delete this group?",
+            "confirmButton": "Delete",
+            "cancelButton": "Cancel",
+            "successMessage": "Group deleted successfully",
+            "errorMessage": "Error occurred while deleting group"
+          },
+          "blockConfirmation": {
+            "title": "Are you sure you want to block this group?",
+            "confirmButton": "Block",
+            "cancelButton": "Cancel",
+            "successMessage": "Group blocked successfully",
+            "errorMessage": "Error occurred while blocking group"
+          },
+          "report": {
+            "title": "Talk about the issue you are facing with this group",
+            "successMessage": "Thank you for your report"
+          }
+        },
+        "errors": {
+          "failedToJoin": "Failed to join group",
+          "failedToLeave": "Failed to leave group",
+          "errorFetchingData": "Error fetching group data"
+        }
+      }
+    },
+    "favourite": {
+      "post": {
+        "error": "Error",
+        "noPost": "No posts available"
+      },
+      "friends": {
+        "lastPosts": "Last Posts",
+        "friends": "Friends",
+        "groups": "Groups"
+      }
     }
   },
   "community-models": {

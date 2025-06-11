@@ -3,7 +3,9 @@ import styles from "./EventFilter.module.css";
 import { eventFilterProps } from "./eventFilterTypes.data";
 import Image from "next/image";
 import events from "@/../public/icons/events.svg";
+import { useTranslations } from "next-intl";
 function EventFilter(props: eventFilterProps) {
+  const t = useTranslations("web.event.header");
   const { section, setPage, setSection } = props;
 
   return (
@@ -11,7 +13,7 @@ function EventFilter(props: eventFilterProps) {
       <div className={styles.header}>
         <div className={styles.title}>
           <Image src={events} alt="events" width={32} height={32} />
-          <h3>Events</h3>
+          <h3>{t("event")}</h3>
         </div>
         <div className={styles.filterSection}>
           <ul>
@@ -26,7 +28,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("all");
               }}
             >
-              all
+              {t("all")}
             </li>
             <li
               style={
@@ -39,7 +41,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("social");
               }}
             >
-              social
+              {t("social")}
             </li>
             <li
               style={
@@ -52,7 +54,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("volunteering%26work");
               }}
             >
-              volunteering & work
+              {t("volunteering")}
             </li>
             <li
               style={
@@ -65,7 +67,7 @@ function EventFilter(props: eventFilterProps) {
                 setSection("talks%26workshops");
               }}
             >
-              talks & workshops
+              {t("talks")}
             </li>
           </ul>
         </div>

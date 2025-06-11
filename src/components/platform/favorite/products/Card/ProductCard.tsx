@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useState, useEffect } from "react";
@@ -14,7 +13,7 @@ import { useKeenSlider } from "keen-slider/react";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 interface ProductCardProps {
   limit?: number;
@@ -27,7 +26,7 @@ interface ProductCardProps {
   setSellerId: React.Dispatch<React.SetStateAction<string>>;
   setSellerType: React.Dispatch<React.SetStateAction<string>>;
   setShowContacts: React.Dispatch<React.SetStateAction<boolean>>;
-  setContacts: React.Dispatch<React.SetStateAction<any>>;
+  // setContacts: React.Dispatch<React.SetStateAction<any>>;
 }
 
 const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
@@ -38,10 +37,10 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
     setPage,
     products,
     // setSendMessage,
-    // setSellerId,
+    setSellerId,
     // setSellerType,
     setShowContacts,
-    setContacts,
+    // setContacts,
   } = props;
   const router = useRouter();
   const locale = useLocale()
@@ -77,7 +76,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   };
 
   const handleContacts = async () => {
-    setContacts(product?.sellerType);
+    // setContacts(product?.sellerType);
+    setSellerId(product?.sellerId);
     setShowContacts(true);
   };
 
@@ -138,6 +138,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
         console.error("Error toggling favorite:", error);
       });
   };
+  const t = useTranslations("web.products.card");
 
   return (
     <div
@@ -212,12 +213,14 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       <div className={styles.topBtns}>
         {product?.sellerType === "page" && (
           <button onClick={handleContacts} className={styles.contactButton}>
-            Message Seller
+            {t("buttons.messageSeller")}
           </button>
         )}
-        <button onClick={handleJoinNow} className={styles.chatButton}>
-          <FaMessage />
-        </button>
+        {product?.sellerType === "user" && (
+          <button onClick={handleJoinNow} className={styles.chatButton}>
+            <FaMessage />
+          </button>
+        )}
       </div>
       <div
         onClick={() => handleToggleFavorite(`${product?.id}`)}
@@ -225,6 +228,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       >
         <FaStar fill={isFavorite ? "#FFD700" : "#FFF"} />
       </div>
+      
     </div>
   );
 };

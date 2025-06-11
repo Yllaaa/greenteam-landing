@@ -4,7 +4,7 @@ import styles from "./groups.module.scss";
 import { CommunityGroup } from "./groups.data";
 import { useRouter } from "next/navigation";
 import cover from "@/../public/ZPLATFORM/groups/cover.png";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 
@@ -23,6 +23,7 @@ function Item({
 }) {
   const locale = useLocale();
   const router = useRouter();
+  const t = useTranslations("web.groups");
 
   // Track if pagination has already been triggered
   const hasPaginatedRef = useRef(false);
@@ -56,23 +57,33 @@ function Item({
       <div className={styles.logo}>
         <Image
           src={group.banner ? group.banner : cover}
-          alt={group.name}
+          alt={t('groupImageAlt', { groupName: group.name })}
           width={637}
           height={135}
           className={styles.logo}
         />
       </div>
       <div className={styles.content}>
-        <div onClick={handleNavigate} className={styles.title}>
+        <div
+          onClick={handleNavigate}
+          className={styles.title}
+          role="button"
+          tabIndex={0}
+          aria-label={t('viewGroup')}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleNavigate();
+            }
+          }}
+        >
           <label>{group.name}</label>
         </div>
-        <div className={styles.description}>
+        <div className={styles.description} aria-label={t('groupDescription')}>
           <label>{group.description}</label>
         </div>
         <div className={styles.members}>
           <label>
-            {/* {formatNumber(group.)}  */}
-            {group.memberCount} Members
+            {group.memberCount} {t('members')}
           </label>
         </div>
         <div
@@ -80,8 +91,15 @@ function Item({
             console.log(group.id);
           }}
           className={styles.action}
+          role="button"
+          tabIndex={0}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              console.log(group.id);
+            }
+          }}
         >
-          <label>Join Group</label>
+          <label>{t('joinGroup')}</label>
         </div>
       </div>
     </div>

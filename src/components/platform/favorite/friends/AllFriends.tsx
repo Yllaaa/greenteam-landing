@@ -5,9 +5,10 @@ import friends from "@/../public/icons/friends.svg";
 import Image from "next/image";
 import FeedSection from "./friend/feeds/FeedSection";
 import FeedSectionF from "./last/feeds/FeedSection";
+import { useTranslations } from "next-intl";
 function AllFriends() {
   const [selected, setSelected] = React.useState("last posts");
-
+  const t = useTranslations("web.favourite.friends");
   return (
     <>
       <div className={styles.allFriends}>
@@ -19,20 +20,18 @@ function AllFriends() {
             <h6
               style={{ cursor: "pointer" }}
               onClick={() => setSelected("last posts")}
-              className={`${styles.title} ${
-                selected === "last posts" ? styles.active : styles.notActive
-              }`}
+              className={`${styles.title} ${selected === "last posts" ? styles.active : styles.notActive
+                }`}
             >
-              Last Posts
+              {t("lastPosts")}
             </h6>
             <h6
               style={{ cursor: "pointer" }}
               onClick={() => setSelected("friends")}
-              className={`${styles.title} ${
-                selected === "friends" ? styles.active : styles.notActive
-              }`}
+              className={`${styles.title} ${selected === "friends" ? styles.active : styles.notActive
+                }`}
             >
-              Friends
+              {t("friends")}
             </h6>
           </div>
         </div>

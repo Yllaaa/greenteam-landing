@@ -4,18 +4,19 @@ import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import products from "@/../public/icons/products.svg";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection } = props;
 
   const topics = Topics;
-
+const t = useTranslations("web.products.filter");
   return (
     <>
       <div className={styles.header}>
         <div className={styles.title}>
           <Image src={products} alt="products" width={32} height={32} />
-          <h3>Products</h3>
+          <h3>{t("products")}</h3>
         </div>
         <div className={styles.filterSection}>
           <ul>
@@ -28,7 +29,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                 setSection(0);
               }}
             >
-              all
+              {t("all")}
             </li>
             {topics.map((topic) => (
               <li
@@ -43,7 +44,7 @@ function ProductsFilter(props: ProductsFilterProps) {
                   setSection(topic.id);
                 }}
               >
-                {topic.name}
+                {t(topic.name)}
               </li>
             ))}
           </ul>

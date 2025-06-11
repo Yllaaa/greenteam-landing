@@ -19,6 +19,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import {useTranslations} from "next-intl";
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
 function PostCard(props: Props) {
@@ -32,7 +33,7 @@ function PostCard(props: Props) {
     setPostId,
     setPostMedia,
   } = props;
-
+const t = useTranslations("web.favourite.post");
   const router = useRouter();
   const locale = useLocale();
 
@@ -168,7 +169,7 @@ function PostCard(props: Props) {
     if (errorMessage && isMounted) {
       return (
         <div className={styles.noPosts}>
-          <p>Error Loading posts</p>
+          <p>{t("error")}</p>
         </div>
       );
     }
@@ -176,7 +177,7 @@ function PostCard(props: Props) {
     if (postContent.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No posts found</p>
+          <p>{t("noPost")}</p>
         </div>
       );
     }
@@ -272,6 +273,7 @@ function PostCard(props: Props) {
       </Suspense>
     );
   }, [
+    t,
     setPostMedia,
     isMounted,
     isLoading,

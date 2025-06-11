@@ -752,7 +752,59 @@
       "loading": "Cargando grupos...",
       "noGroups": "No hay grupos disponibles",
       "loadingMore": "Cargando más grupos...",
-      "endOfResult": "Fin de los resultados"
+      "endOfResult": "Fin de los resultados",
+      "groupHeader": {
+        "actions": {
+          "deleteGroup": "Eliminar Grupo",
+          "reportGroup": "Reportar Grupo",
+          "blockGroup": "Bloquear Grupo",
+          "edit": "Editar",
+          "cancelEdit": "Cancelar Edición",
+          "joinGroup": "Unirse al Grupo",
+          "leave": "Salir"
+        },
+        "labels": {
+          "name": "Nombre:",
+          "members": "Miembros",
+          "memberCount": "{{count}} Miembros"
+        },
+        "modals": {
+          "deleteConfirmation": {
+            "title": "¿Estás seguro de que quieres eliminar este grupo?",
+            "confirmButton": "Eliminar",
+            "cancelButton": "Cancelar",
+            "successMessage": "Grupo eliminado exitosamente",
+            "errorMessage": "Ocurrió un error al eliminar el grupo"
+          },
+          "blockConfirmation": {
+            "title": "¿Estás seguro de que quieres bloquear este grupo?",
+            "confirmButton": "Bloquear",
+            "cancelButton": "Cancelar",
+            "successMessage": "Grupo bloqueado exitosamente",
+            "errorMessage": "Ocurrió un error al bloquear el grupo"
+          },
+          "report": {
+            "title": "Habla sobre el problema que estás enfrentando con este grupo",
+            "successMessage": "Gracias por tu reporte"
+          }
+        },
+        "errors": {
+          "failedToJoin": "Error al unirse al grupo",
+          "failedToLeave": "Error al salir del grupo",
+          "errorFetchingData": "Error al obtener datos del grupo"
+        }
+      }
+    },
+    "favourite": {
+      "post": {
+        "error": "Error",
+        "noPost": "No hay publicaciones disponibles"
+      },
+      "friends": {
+        "lastPosts": "Últimas publicaciones",
+        "friends": "Amigos",
+        "groups": "Grupos"
+      }
     }
   },
   "community-models": {

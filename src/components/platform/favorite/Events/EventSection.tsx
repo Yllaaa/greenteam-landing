@@ -31,11 +31,12 @@ import { Event, EventCategory } from "./types/eventTypes.data";
 // Styles
 import styles from "./EventSection.module.css";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-
+  const terror = useTranslations("web.errors")
   // State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");
@@ -163,7 +164,7 @@ function EventSection() {
     if (events.length === 0) {
       return (
         <div className={styles.noPosts}>
-          <p>No events found</p>
+          <p>{terror("notfound")}</p>
         </div>
       );
     }

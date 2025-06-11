@@ -24,8 +24,9 @@ import ReportModal from "@/components/platform/modals/reportModal/ReportModal";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
-
+import { useTranslations } from 'next-intl';
 function Grpheader(props: { groupId: string }) {
+  const t = useTranslations('web.groups.groupHeader');
   const { groupId } = props;
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -195,7 +196,7 @@ function Grpheader(props: { groupId: string }) {
                   }}
                   className={styles.optionItem}
                 >
-                  <FaTrash /> <span>Delete Group</span>
+                  <FaTrash /> <span>{t('actions.deleteGroup')}</span>
                 </div>
               )}
               <div
@@ -205,7 +206,7 @@ function Grpheader(props: { groupId: string }) {
                 }}
                 className={styles.optionItem}
               >
-                <MdOutlineReportProblem /> <span>Report Group</span>
+                <MdOutlineReportProblem /> <span>{t('actions.reportGroup')}</span>
               </div>
               <div
                 onClick={() => {
@@ -214,7 +215,7 @@ function Grpheader(props: { groupId: string }) {
                 }}
                 className={styles.optionItem}
               >
-                <BsShieldSlash /> <span>Block Group</span>
+                <BsShieldSlash /> <span>{t('actions.blockGroup')}</span>
               </div>
             </div>
           )}
@@ -223,7 +224,7 @@ function Grpheader(props: { groupId: string }) {
       <div className={styles.header}>
         <div className={styles.data}>
           <h5>
-            Name: <span>{data.name}</span>
+          {t('labels.name')} <span>{data.name}</span>
           </h5>
           <h3>{data.description}</h3>
           <div className={styles.members}>
@@ -240,21 +241,21 @@ function Grpheader(props: { groupId: string }) {
               ))}
             </div>
             <div className={styles.membersNumber}>
-              <p>{data?.memberCount || 0} Members</p>
+              <p>{data?.memberCount || 0} {t('labels.members')}</p>
             </div>
           </div>
         </div>
         <div className={styles.actions}>
           {data.isAdmin ? (
             <button onClick={activeEdit} className={styles.edit}>
-              {editState ? "Cancel Edit" : "Edit"}
+              {editState ? t('actions.cancelEdit') : t('actions.edit')}
             </button>
           ) : (
             <button
               onClick={data.isUserMember ? handleLeaveGroup : handleJoinGroup}
               className={styles.join}
             >
-              {data.isUserMember ? "Leave" : "Join Group"}
+              {data.isUserMember ? t('actions.leave') : t('actions.joinGroup')}
             </button>
           )}
 
@@ -268,12 +269,12 @@ function Grpheader(props: { groupId: string }) {
         isOpen={isDeleteModalOpen}
         onClose={() => setIsDeleteModalOpen(false)}
         onConfirm={() => router.push('/groups')}
-        title="Are you sure you want to delete this group?"
-        confirmButtonText="Delete"
-        cancelButtonText="Cancel"
+        title={t('modals.deleteConfirmation.title')}
+        confirmButtonText={t('modals.deleteConfirmation.confirmButton')}
+        cancelButtonText={t('modals.deleteConfirmation.cancelButton')}
         customAction={handleDelete}
-        successMessage="Group deleted successfully"
-        errorMessage="Error occurred while deleting group"
+        successMessage={t('modals.deleteConfirmation.successMessage')}
+        errorMessage={t('modals.deleteConfirmation.errorMessage')}
       />
 
       {/* Block Confirmation Modal */}
@@ -281,12 +282,12 @@ function Grpheader(props: { groupId: string }) {
         isOpen={isBlockModalOpen}
         onClose={() => setIsBlockModalOpen(false)}
         onConfirm={() => router.push('/groups')}
-        title="Are you sure you want to block this group?"
-        confirmButtonText="Block"
-        cancelButtonText="Cancel"
+        title={t('modals.blockConfirmation.title')}
+        confirmButtonText={t('modals.blockConfirmation.confirmButton')}
+        cancelButtonText={t('modals.blockConfirmation.cancelButton')}
         customAction={handleBlock}
-        successMessage="Group blocked successfully"
-        errorMessage="Error occurred while blocking group"
+        successMessage={t('modals.blockConfirmation.successMessage')}
+        errorMessage={t('modals.blockConfirmation.errorMessage')}
       />
 
       {/* Report Modal */}
@@ -295,10 +296,10 @@ function Grpheader(props: { groupId: string }) {
         onClose={() => setIsReportModalOpen(false)}
         reportedId={groupId}
         reportedType="group"
-        title="Talk about the issue you are facing with this group"
+        title={t('modals.report.title')}
         successCallback={() => {
           // Optional success callback
-          ToastNot("Thank you for your report");
+          ToastNot(t('modals.report.successMessage'));
         }}
       />
     </>
