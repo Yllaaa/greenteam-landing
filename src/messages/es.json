@@ -2,13 +2,13 @@
   "landing": {
     "navbar": {
       "downloadApp": "Descargar la App",
-      "login": "Iniciar Sesión",
+      "login": "Iniciar sesión",
       "signUp": "Registrarse",
       "downloadApp2": "Descargar la app"
     },
     "hero": {
-      "sustainability": "La sostenibilidad",
-      "wayOfLife": "es una forma de vida",
+      "sustainability": "Sostenibilidad",
+      "wayOfLife": "es un estilo de vida",
       "bePart": "Sé parte de la comunidad sostenible.",
       "theConscient": "La red social",
       "socialNet": "consciente.",
@@ -19,44 +19,44 @@
     "brain": {
       "community": "La comunidad tiene la solución a todos los problemas,",
       "sustainableCulture": "CULTURA SOSTENIBLE",
-      "evolution": "La evolución de la cultura es un proceso de cambio dinámico en la forma en que la sociedad humana ve, entiende y actúa, vinculado a valores y creencias moldeados a lo largo del tiempo.",
-      "learnMore": "Saber más"
+      "evolution": "La evolución de la cultura es un proceso de cambio dinámico en la forma en que la sociedad humana ve, entiende y actúa, vinculado a valores y creencias formados a lo largo del tiempo.",
+      "learnMore": "Aprender más"
     },
     "earth": {
       "bePart": "Sé parte de la comunidad con GreenTeam,",
       "theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
       "greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
-      "learnMore": "Saber más"
+      "learnMore": "Aprender más"
     },
     "foot": {
       "bePart": "Sé parte de la comunidad con GreenTeam,",
       "theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
       "greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
-      "learnMore": "Saber más"
+      "learnMore": "Aprender más"
     },
     "whatWeOffer": {
-      "whatWeOffer": "LO QUE OFRECEMOS",
+      "whatWeOffer": "QUÉ OFRECEMOS",
       "howWeMake": "Cómo Marcamos la ",
       "difference": "Diferencia",
       "cards": {
         "card1": {
           "header": "Privacidad de Datos",
-          "text": "Tus datos están seguros con opciones éticas y transparentes."
+          "text": "Tus datos están seguros con decisiones éticas y transparentes."
         },
         "card2": {
           "header": "Internet Orgánico",
           "text": "conexiones auténticas a través de un diseño significativo y enfocado"
         },
         "card3": {
-          "header": "Comunicación para el Impacto",
+          "header": "Comunicación con Impacto",
           "text": "Herramientas para enfocarse en el bienestar colectivo y el impacto local"
         }
       }
     },
     "news": {
       "technology": "Tecnología",
-      "ultimate": "Guía definitiva de ChatGPT para Diseñadores UX UI: Sin Tonterías",
-      "AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usen IA reemplazarán a los que no. Similar a como las calculadoras una vez se pensó que reemplazarían",
+      "ultimate": "La guía definitiva de ChatGPT para Diseñadores UX UI: Sin tonterías",
+      "AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usan IA reemplazarán a los que no lo hacen. Similar a como las calculadoras alguna vez se pensó que reemplazarían",
       "hannah": "Hannah",
       "readMore": "Leer más",
       "news": "Noticias",
@@ -66,33 +66,33 @@
       "theConscient": "LA RED SOCIAL CONSCIENTE.",
       "greenTeam": "GREENTEAM",
       "takeCare": "Cuídate a ti mismo, cuida el mundo.",
-      "registerNow": "Regístrate ahora",
+      "registerNow": "Registrarse ahora",
       "aboutUs": "Acerca de nosotros",
       "goal": "Objetivo",
-      "downloadNow": "Descargar Ahora",
+      "downloadNow": "Descargar ahora",
       "register": "Registrarse",
-      "copyright": "© Copyright 2024, Todos los Derechos Reservados por Greenteam"
+      "copyright": "© Copyright 2024, Todos los derechos reservados por Greenteam"
     }
   },
   "auth": {
     "login": {
-      "login": "Iniciar Sesión",
+      "login": "Iniciar sesión",
       "signInNow": "¡Inicia sesión ahora y desbloquea acceso exclusivo!",
       "or": "o",
       "name": "Nombre",
-      "emailOrUsername": "Email o Nombre de Usuario",
+      "emailOrUsername": "Email o Nombre de usuario",
       "emailRequired": "El email es requerido",
       "identifierRequired": "El identificador es requerido",
       "password": "Contraseña",
-      "checkPassword": "Verificar campo de contraseña",
+      "checkPassword": "Verifica el campo de contraseña",
       "IAgree": "Acepto los",
-      "termsOfService": "términos de servicio",
-      "forgetPassword": "¿Olvidaste tu Contraseña?",
+      "termsOfService": "términos del servicio",
+      "forgetPassword": "¿Olvidaste tu contraseña?",
       "signUp": "Registrarse",
       "don'tHaveAccount": "¿No tienes una cuenta?",
-      "welcomeBack": "Bienvenido de vuelta a",
+      "welcomeBack": "Bienvenido de nuevo a",
       "sustainability": "Sostenibilidad",
-      "reconnect": "Reconéctate con la comunidad que está haciendo cambios significativos para nuestro mundo.",
+      "reconnect": "Reconecta con la comunidad que está haciendo cambios significativos para nuestro mundo.",
       "pleaseAccept": "Por favor acepta los términos y condiciones",
       "loginSuccess": "Inicio de sesión exitoso",
       "loginFailed": "Error al iniciar sesión"
@@ -115,61 +115,90 @@
       "signUpSuccess": "Cuenta creada exitosamente",
       "createAccount": "Crear una cuenta",
       "signUpNow": "¡Regístrate ahora y desbloquea acceso exclusivo!",
-      "username": "Nombre de Usuario",
+      "username": "Nombre de usuario",
       "email": "Email",
       "password": "Contraseña",
-      "confirmPassword": "Confirmar Contraseña",
+      "confirmPassword": "Confirmar contraseña",
       "IAgree": "Acepto los",
-      "termsOfService": "términos de servicio",
-      "forgetPassword": "¿Olvidaste tu Contraseña?",
+      "termsOfService": "términos del servicio",
+      "forgetPassword": "¿Olvidaste tu contraseña?",
       "signUp": "Registrarse",
       "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar Sesión",
-      "join": "Únete al Movimiento por un ",
-      "greenerFuture": "Futuro más Verde",
-      "bePart": "Sé parte de una comunidad global trabajando junta para crear soluciones sostenibles para un planeta más saludable."
+      "login": "Iniciar sesión",
+      "join": "Únete al movimiento por un ",
+      "greenerFuture": "Futuro más verde",
+      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
     },
     "resetPassword": {
       "passwordNotMatch": "Las contraseñas no coinciden",
       "resetSuccess": "Contraseña restablecida exitosamente",
-      "resetFailed": "Error al restablecer contraseña",
-      "resetPassword": "Restablecer Contraseña",
-      "writePassword": "Escribe tu Contraseña para restablecerla",
+      "resetFailed": "Error al restablecer la contraseña",
+      "resetPassword": "Restablecer contraseña",
+      "writePassword": "Escribe tu contraseña para restablecerla",
       "password": "Contraseña",
-      "checkPassword": "Verificar campo de contraseña",
-      "confirmPassword": "Confirmar Contraseña",
+      "checkPassword": "Verifica el campo de contraseña",
+      "confirmPassword": "Confirmar contraseña",
       "reset": "Restablecer",
       "wantLogin": "¿Quieres iniciar sesión?",
-      "login": "Iniciar Sesión",
-      "join": "Únete al Movimiento por un ",
-      "greenerFuture": "Futuro más Verde",
-      "bePart": "Sé parte de una comunidad global trabajando junta para crear soluciones sostenibles para un planeta más saludable."
+      "login": "Iniciar sesión",
+      "join": "Únete al movimiento por un ",
+      "greenerFuture": "Futuro más verde",
+      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
     },
     "verification": {
       "hi": "¡Hola!",
       "weSent": "Hemos enviado un enlace de verificación a tu email.",
-      "didn'tReceive": "¿No recibiste el email? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para asistencia",
-      "verityEmail": "Reenviar Email"
+      "didn'tReceive": "¿No recibiste el email? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para obtener ayuda",
+      "verityEmail": "Reenviar email"
     },
     "forgetPassword": {
-      "forgetPassword": "Olvidé mi Contraseña",
-      "writeEmail": "Escribe Tu Email Para Recuperar Tu Contraseña",
+      "forgetPassword": "Olvidaste tu contraseña",
+      "writeEmail": "Escribe tu email para recuperar tu contraseña",
       "email": "Email",
       "emailRequired": "El email es requerido",
-      "resetPassword": "Restablecer Contraseña",
+      "resetPassword": "Restablecer contraseña",
       "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar Sesión",
-      "join": "Únete al Movimiento por un ",
-      "greenerFuture": "Futuro más Verde",
-      "bePart": "Sé parte de una comunidad global trabajando junta para crear soluciones sostenibles para un planeta más saludable."
+      "login": "Iniciar sesión",
+      "join": "Únete al movimiento por un ",
+      "greenerFuture": "Futuro más verde",
+      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
     }
   },
   "web": {
+    "Comments": {
+      "imageAlt": "Imagen de la publicación",
+      "noMediaAlt": "No hay medios disponibles",
+      "slideIndicator": "Ir a la diapositiva {number}",
+      "avatarAlt": "Avatar de {username}",
+      "like": "Me gusta",
+      "reply": "Responder",
+      "noCommentsYet": "Aún no hay comentarios",
+      "addCommentPlaceholder": "Añadir un comentario...",
+      "addCommentButton": "Añadir comentario",
+      "addReplyPlaceholder": "Añadir una respuesta...",
+      "addReplyButton": "Añadir respuesta",
+      "viewReplies": "Ver {count} respuestas",
+      "hideReplies": "Ocultar respuestas",
+      "loadingComments": "Cargando comentarios...",
+      "errorLoadingComments": "Error al cargar comentarios",
+      "deleteComment": "Eliminar",
+      "editComment": "Editar",
+      "reportComment": "Reportar",
+      "timeAgo": {
+        "justNow": "Justo ahora",
+        "minutesAgo": "hace {count} {count, plural, one {minuto} other {minutos}}",
+        "hoursAgo": "hace {count} {count, plural, one {hora} other {horas}}",
+        "daysAgo": "hace {count} {count, plural, one {día} other {días}}",
+        "weeksAgo": "hace {count} {count, plural, one {semana} other {semanas}}",
+        "monthsAgo": "hace {count} {count, plural, one {mes} other {meses}}",
+        "yearsAgo": "hace {count} {count, plural, one {año} other {años}}"
+      }
+    },
     "errors": {
       "notFound": "No encontrado",
       "unauthorized": "Acceso no autorizado",
       "noMore": "No hay más contenido disponible",
-      "loadingError": "Error cargando contenido, por favor intenta más tarde",
+      "loadingError": "Error al cargar el contenido, por favor intenta de nuevo más tarde",
       "loading": "Cargando..."
     },
     "header": {
@@ -179,24 +208,24 @@
       "space": "Mis proyectos",
       "plans": "Planes",
       "favorites": "Favoritos",
-      "logout": "Cerrar Sesión",
-      "addPost": "Agregar Publicación",
+      "logout": "Cerrar sesión",
+      "addPost": "Añadir publicación",
       "notAvailable": "No disponible",
       "topics": {
         "sustainability": "Sostenibilidad",
-        "food": "Comida y Salud",
-        "physical": "Ejercicio Físico y Mental",
-        "community": "Comunidad y Naturaleza",
+        "food": "Alimentación y salud",
+        "physical": "Ejercicio físico y mental",
+        "community": "Comunidad y naturaleza",
         "art": "Arte",
         "eco": "Ecotecnologías",
-        "knowledge": "Conocimiento y Valores",
+        "knowledge": "Conocimiento y valores",
         "craft": "Artesanías",
         "music": "Música",
-        "show": "Espectáculo",
+        "show": "Espectáculos",
         "dance": "Danza",
         "literature": "Literatura",
         "cinema": "Cine",
-        "natural": "Medicina Natural",
+        "natural": "Medicina natural",
         "nutrition": "Nutrición",
         "hygiene": "Higiene",
         "growing": "Cultivo",
@@ -206,25 +235,25 @@
         "biology": "Biología",
         "geography": "Geografía",
         "others": "Otros",
-        "philosiphy": "Filosofía y Psicología",
-        "history": "Historia y Cultura",
+        "philosiphy": "Filosofía y psicología",
+        "history": "Historia y cultura",
         "games": "Juegos",
         "warmUp": "Calentamiento",
         "sports": "Deportes",
-        "active": "Meditación Activa",
-        "passive": "Meditación Pasiva",
+        "active": "Meditación activa",
+        "passive": "Meditación pasiva",
         "aerobics": "Aeróbicos",
         "water": "Agua",
-        "sustainable": "Moda Sostenible",
+        "sustainable": "Moda sostenible",
         "energy": "Energía",
         "waste": "Residuos",
         "bioconstruction": "Bioconstrucción",
-        "durable": "Herramientas Duraderas",
+        "durable": "Herramientas duraderas",
         "together": "Juntos",
         "nature": "Naturaleza",
         "volunteering": "Voluntariado",
         "ecotourism": "Ecoturismo",
-        "warning": "Advertencia",
+        "warning": "Calentamiento",
         "cooperatives": "Cooperativas"
       }
     },
@@ -233,45 +262,45 @@
         "likes": "Me gusta",
         "comments": "Comentarios",
         "posts": "Publicaciones",
-        "addPost": "Agregar Publicación"
+        "addPost": "Añadir publicación"
       },
       "diamond": {
         "sustainability": "Tu camino hacia la sostenibilidad",
         "know": "Conocimiento y valores",
-        "food": "Comida y salud",
-        "physical": "Ejercicio Físico y Mental",
-        "community": "Comunidad y Naturaleza",
+        "food": "Alimentación y salud",
+        "physical": "Ejercicio físico y mental",
+        "community": "Comunidad y naturaleza",
         "art": "Arte",
         "eco": "Ecotecnologías"
       },
       "green": {
-        "challenges": "Desafíos Verdes",
-        "share": "Comparte 3 campañas de impacto para crear conciencia y amplificar el mensaje de sostenibilidad",
-        "todo": "Por Hacer",
+        "challenges": "Desafíos verdes",
+        "share": "Comparte 3 campañas impactantes para crear conciencia y amplificar el mensaje de sostenibilidad",
+        "todo": "Por hacer",
         "done": "Hecho",
         "doit": "Hazlo",
-        "build": "Construye cultura sostenible Compartiendo tu experiencia",
+        "build": "Construye cultura sostenible compartiendo tu experiencia",
         "post": "Publicar",
         "delete": "Eliminar",
         "comment": "Comentar"
       },
       "doChallenge": {
-        "myChallenge": "Mi Desafío",
+        "myChallenge": "Mi desafío",
         "delete": "Eliminar",
         "readMore": "Leer más...",
         "done": "Hecho",
         "comment": "Comentar"
       },
       "breif": {
-        "yourPoints": "Tus Puntos",
-        "track": "¡Rastrea Tu Impacto!",
+        "yourPoints": "Tus puntos",
+        "track": "¡Rastrea tu impacto!",
         "points": "Puntos"
       }
     },
     "challenges": {
       "all": {
-        "green": "Desafíos de green team",
-        "myChallenges": "Mis Desafíos"
+        "green": "Desafíos de Green team",
+        "myChallenges": "Mis desafíos"
       }
     },
     "personal": {
@@ -302,42 +331,42 @@
           "errorMessage": "Error al eliminar el producto"
         },
         "report": {
-          "title": "Dinos por qué estás reportando este producto"
+          "title": "Cuéntanos por qué estás reportando este producto"
         }
       },
       "single": {
         "description": "Descripción",
         "by": "Por",
-        "messageSeller": "Enviar Mensaje al Vendedor",
-        "visitWeb": "Visitar Sitio Web",
+        "messageSeller": "Mensaje al vendedor",
+        "visitWeb": "Visitar sitio web",
         "Knowledge And Values": "Conocimiento y valores",
-        "Food and health": "Comida y salud",
-        "Physical And Mental Exercise": "Ejercicio Físico y Mental",
-        "Community And Nature": "Comunidad y Naturaleza",
+        "Food and health": "Alimentación y salud",
+        "Physical And Mental Exercise": "Ejercicio físico y mental",
+        "Community And Nature": "Comunidad y naturaleza",
         "Art": "Arte",
         "Ecotechnologies": "Ecotecnologías"
       },
       "addNewModal": {
         "addProduct": {
-          "title": "Publicar un Producto en Venta",
-          "description": "Agrega un producto al mercado. Proporciona detalles para que sea fácil para los clientes entender y comprar.",
+          "title": "Listar un producto para la venta",
+          "description": "Añade un producto al mercado. Proporciona detalles para que los clientes puedan entender y comprar fácilmente.",
           "progress": {
-            "step1": "Información Básica",
-            "step2": "Detalles y Ubicación"
+            "step1": "Información básica",
+            "step2": "Detalles y ubicación"
           },
           "messages": {
             "fillRequired": "Por favor completa todos los campos requeridos",
-            "success": "Producto publicado exitosamente",
-            "error": "Error al agregar producto",
+            "success": "Producto listado exitosamente",
+            "error": "Error al añadir el producto",
             "maxImages": "Máximo de {{max}} imágenes permitidas",
             "onlyAdded": "Solo se agregaron {{count}} imagen(es). Límite máximo alcanzado.",
-            "imageFilesOnly": "Por favor suelta solo archivos de imagen",
+            "imageFilesOnly": "Por favor solo archivos de imagen",
             "errorFetchingCountries": "Error al obtener países",
             "errorFetchingCities": "Error al obtener ciudades"
           },
           "fields": {
             "productName": {
-              "label": "Nombre del Producto",
+              "label": "Nombre del producto",
               "placeholder": "Ingresa el nombre del producto",
               "error": {
                 "required": "El nombre del producto es requerido",
@@ -353,15 +382,15 @@
               }
             },
             "listingType": {
-              "label": "Tipo de Publicación",
+              "label": "Tipo de listado",
               "local": "Local",
               "online": "En línea",
               "error": {
-                "required": "El tipo de publicación es requerido"
+                "required": "El tipo de listado es requerido"
               }
             },
             "condition": {
-              "label": "Condición del Producto",
+              "label": "Condición del producto",
               "new": "Nuevo",
               "used": "Usado",
               "error": {
@@ -369,12 +398,12 @@
               }
             },
             "images": {
-              "label": "Imágenes del Producto",
-              "hint": "(Hasta 4, máx 2MB cada una)",
+              "label": "Imágenes del producto",
+              "hint": "(Hasta 4, máx. 2MB cada una)",
               "dragActive": "Suelta las imágenes aquí",
               "dragInactive": "Haz clic o arrastra imágenes aquí",
-              "uploadHint": "Sube hasta {{max}} imágenes (máx 2MB cada una)",
-              "addMore": "Agregar más imágenes",
+              "uploadHint": "Sube hasta {{max}} imágenes (máx. 2MB cada una)",
+              "addMore": "Añadir más imágenes",
               "remaining": "{{count}} restantes",
               "removeImage": "Eliminar imagen",
               "error": {
@@ -402,7 +431,7 @@
             },
             "country": {
               "label": "País",
-              "placeholder": "Seleccionar País",
+              "placeholder": "Seleccionar país",
               "error": {
                 "required": "El país es requerido"
               }
@@ -422,7 +451,7 @@
             "cancel": "Cancelar",
             "continue": "Continuar",
             "back": "Atrás",
-            "submit": "Publicar Producto",
+            "submit": "Listar producto",
             "submitting": "Creando...",
             "close": "Cerrar"
           }
@@ -430,12 +459,12 @@
       },
       "filter": {
         "products": "Productos",
-        "addNew": "Agregar Producto",
+        "addNew": "Añadir producto",
         "all": "Todos",
         "knowledge": "Conocimiento y valores",
-        "food": "Comida y salud",
-        "physical": "Ejercicio Físico y Mental",
-        "community": "Comunidad y Naturaleza",
+        "food": "Alimentación y salud",
+        "physical": "Ejercicio físico y mental",
+        "community": "Comunidad y naturaleza",
         "art": "Arte",
         "eco": "Ecotecnologías"
       },
@@ -445,56 +474,59 @@
         "goToSlide": "Ir a la diapositiva {{number}}",
         "price": "{{price}} $",
         "buttons": {
-          "messageSeller": "Enviar Mensaje al Vendedor",
+          "messageSeller": "Mensaje al vendedor",
           "chat": "Chat"
         },
         "options": {
           "label": "Opciones del producto",
-          "delete": "Eliminar Producto",
-          "report": "Reportar Producto"
+          "delete": "Eliminar producto",
+          "report": "Reportar producto"
         },
         "favorite": {
-          "add": "Agregar a favoritos",
-          "remove": "Eliminar de favoritos"
+          "add": "Añadir a favoritos",
+          "remove": "Quitar de favoritos"
         }
       }
     },
     "event": {
+      "message": {
+        "endOfResult": "Fin de los resultados"
+      },
       "header": {
         "event": "Eventos",
         "all": "Todos",
         "social": "Social",
-        "volunteering": "Voluntariado y Trabajo",
-        "talks": "Charlas y Talleres",
-        "addEvent": "Agregar Evento",
+        "volunteering": "Voluntariado y trabajo",
+        "talks": "Charlas y talleres",
+        "addEvent": "Añadir evento",
         "challenges": "Desafíos"
       },
       "card": {
-        "join": "Unirse al Evento",
-        "leave": "Salir del Evento",
+        "join": "Unirse al evento",
+        "leave": "Abandonar evento",
         "details": "Detalles",
         "hostedby": "Organizado por"
       },
       "eventDetails": {
         "hostedBy": "Organizado por",
-        "about": "Acerca del Evento",
-        "join": "Unirse al Evento",
-        "leave": "Salir del Evento",
+        "about": "Acerca del evento",
+        "join": "Unirse al evento",
+        "leave": "Abandonar evento",
         "organizer": "Organizador"
       },
       "form": {
-        "title": "Organiza Tu Evento",
+        "title": "Organiza tu evento",
         "description": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
         "fields": {
           "eventName": {
-            "label": "Nombre del Evento",
+            "label": "Nombre del evento",
             "error": {
               "required": "El título es requerido",
               "maxLength": "El título no puede exceder 100 caracteres"
             }
           },
           "dateRange": {
-            "label": "Rango de Fechas",
+            "label": "Rango de fechas",
             "placeholder": "Seleccionar rango de fechas",
             "error": {
               "required": "El rango de fechas es requerido",
@@ -503,7 +535,7 @@
             }
           },
           "eventImage": {
-            "label": "Imagen del Evento",
+            "label": "Imagen del evento",
             "dragActive": "Suelta la imagen aquí",
             "dragInactive": "Haz clic o arrastra la imagen aquí",
             "error": {
@@ -511,7 +543,7 @@
             }
           },
           "eventType": {
-            "label": "Tipo de Evento",
+            "label": "Tipo de evento",
             "local": "Local",
             "online": "En línea",
             "error": {
@@ -520,7 +552,7 @@
           },
           "country": {
             "label": "País",
-            "placeholder": "Seleccionar País",
+            "placeholder": "Seleccionar país",
             "error": {
               "required": "El país es requerido"
             }
@@ -556,7 +588,7 @@
         },
         "buttons": {
           "cancel": "Cancelar",
-          "submit": "Crear Evento"
+          "submit": "Crear evento"
         },
         "calendar": {
           "weekdays": {
@@ -566,7 +598,7 @@
             "we": "Mi",
             "th": "Ju",
             "fr": "Vi",
-            "sa": "Sa"
+            "sa": "Sá"
           }
         }
       }
@@ -579,13 +611,13 @@
         "products": "productos"
       },
       "feeds": {
-        "delete": "Eliminar Publicación",
-        "report": "Reportar Publicación",
+        "delete": "Eliminar publicación",
+        "report": "Reportar publicación",
         "readMore": "Leer más...",
         "do": "Hacer",
         "like": "Me gusta",
         "comment": "Comentar",
-        "unlike": "No me gusta"
+        "unlike": "Ya no me gusta"
       },
       "report": {
         "talkAbout": "Habla sobre el problema que estás enfrentando",
@@ -594,39 +626,38 @@
       },
       "forums": {
         "forum": "Foro",
-        "delete": "Eliminar Publicación",
-        "report": "Reportar Publicación",
+        "delete": "Eliminar publicación",
+        "report": "Reportar publicación",
         "sign": "Firmar",
         "like": "Me gusta",
         "comment": "Comentar",
-        "unlike": "No me gusta",
+        "unlike": "Ya no me gusta",
         "doubt": "Duda",
         "need": "Necesidad",
         "dream": "Sueño",
         "all": "Todos",
-        "addNew": "Agregar Foro"
+        "addNew": "Añadir foro"
       },
       "footer": {
         "sustainability": "El camino hacia la sostenibilidad está en tus manos",
         "download": "Descargar la app",
         "allNeed": "Todo lo que necesitas está a tu alrededor",
-        "eachGrain": "Cada Grano Importa Para Crear un Futuro Más Brillante",
+        "eachGrain": "Cada grano importa para crear un futuro más brillante",
         "walking": "Caminando juntos hacia la sostenibilidad",
         "business": "Negocios",
         "donate": "Donar",
         "invite": "Invitar a un amigo",
         "home": "Inicio",
-        "community": "Comunidad",
-        "profile": "Perfil",
-        "privacyAndPolicy": "Privacidad y política",
-        "rightsReserved": "© 2025 Todos los Derechos Reservados"
+        "about": "Acerca de",
+        "goal": "Objetivo",
+        "privacyAndPolicy": "Privacidad y políticas",
+        "rightsReserved": "© 2025 Todos los derechos reservados"
       },
       "setting": {
-        "personalInfo": "Información Personal",
-        "paymentInfo": "Información de Pago"
+        "personalInfo": "Información personal",
+        "paymentInfo": "Información de pago"
       }
     },
-
     "mapHeader": {
       "filters": "Filtros",
       "toggleFilters": "Alternar filtros",
@@ -649,7 +680,7 @@
       "verification": "Verificación",
       "verificationTooltip": "Filtrar contenido por estado de verificación",
       "allContent": "Todo el contenido",
-      "verifiedOnly": "Solo verificado",
+      "verifiedOnly": "Solo verificados",
       "clearAllFilters": "Limpiar todos los filtros",
       "resetAllFilters": "Restablecer todos los filtros",
       "clearAllFiltersAriaLabel": "Limpiar todos los filtros",
@@ -659,12 +690,11 @@
       "applyFiltersAriaLabel": "Aplicar filtros y cerrar panel de filtros",
       "loadingMap": "Cargando mapa...",
       "mapViewOnly": "Solo vista de mapa - Usa los filtros para navegar",
-      "errorFetchingCountries": "Error al cargar países",
-      "errorFetchingCities": "Error al cargar ciudades",
+      "errorFetchingCountries": "Error al obtener países",
+      "errorFetchingCities": "Error al obtener ciudades",
       "locationNotFound": "Ubicación no encontrada. Por favor intenta con otra selección.",
       "errorFetchingLocation": "Error al obtener datos de ubicación. Por favor intenta más tarde."
     },
-
     "pages": {
       "page": "Páginas",
       "addPage": "Crear nueva página",
@@ -707,19 +737,22 @@
         "errorMessage": "Error al bloquear la página"
       },
       "reportModal": {
-        "title": "Describe el problema que tienes con esta página",
+        "title": "Habla sobre el problema que estás enfrentando con esta página",
         "successMessage": "Gracias por tu reporte"
       }
     },
     "groups": {
+      "group": "Grupos",
+      "addNew": "Crear nuevo grupo",
       "members": "miembros",
       "joinGroup": "Unirse al grupo",
-      "groupImageAlt": "Imagen de portada de {groupName}",
+      "groupImageAlt": "Imagen del banner de {groupName}",
       "viewGroup": "Ver detalles del grupo",
       "groupDescription": "Descripción del grupo",
       "loading": "Cargando grupos...",
       "noGroups": "No hay grupos disponibles",
-      "loadingMore": "Cargando más grupos..."
+      "loadingMore": "Cargando más grupos...",
+      "endOfResult": "Fin de los resultados"
     }
   },
   "community-models": {
@@ -728,44 +761,44 @@
       "confirm": "Confirmar"
     },
     "add-new-page": {
-      "newPage": "Nueva Página",
-      "createPage": "Crear una nueva Página",
-      "pageName": "Nombre de la Página",
-      "pageDescription": "Descripción de la Página",
-      "pageSlug": "Slug de la Página",
-      "pageAvatar": "Avatar de la Página",
-      "pageCover": "Portada de la Página",
-      "pageCategory": "Categoría de la Página",
-      "pageTopic": "Tema de la Página",
+      "newPage": "Nueva página",
+      "createPage": "Crear una nueva página",
+      "pageName": "Nombre de la página",
+      "pageDescription": "Descripción de la página",
+      "pageSlug": "Slug de la página",
+      "pageAvatar": "Avatar de la página",
+      "pageCover": "Portada de la página",
+      "pageCategory": "Categoría de la página",
+      "pageTopic": "Tema de la página",
       "category": {
-        "business": "Negocio",
+        "business": "Negocios",
         "project": "Proyecto"
       }
     },
     "add-new-group": {
-      "startGroup": "Crear un Nuevo Grupo",
+      "startGroup": "Iniciar un nuevo grupo",
       "bringPeople": "Reúne a personas con intereses compartidos. Configura tu grupo para crear conexiones significativas",
-      "groupName": "Nombre del Grupo",
-      "groupDescription": "Descripción del Grupo",
-      "groupPrivacy": "Privacidad del Grupo",
+      "groupName": "Nombre del grupo",
+      "groupDescription": "Descripción del grupo",
+      "groupPrivacy": "Privacidad del grupo",
       "public": "Público",
       "private": "Privado",
-      "groupTopic": "Tema del Grupo"
+      "groupTopic": "Tema del grupo"
     },
     "add-new-event": {
-      "hostYourEvent": "Organiza Tu Evento",
+      "hostYourEvent": "Organiza tu evento",
       "planAndPromote": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
-      "eventName": "Nombre del Evento",
-      "eventDescription": "Descripción del Evento",
-      "eventLocation": "Ubicación del Evento",
-      "eventStartDate": "Fecha de Inicio del Evento",
-      "eventEndDate": "Fecha de Fin del Evento",
-      "eventCategory": "Categoría del Evento",
-      "eventTopic": "Tema del Evento",
+      "eventName": "Nombre del evento",
+      "eventDescription": "Descripción del evento",
+      "eventLocation": "Ubicación del evento",
+      "eventStartDate": "Fecha de inicio del evento",
+      "eventEndDate": "Fecha de finalización del evento",
+      "eventCategory": "Categoría del evento",
+      "eventTopic": "Tema del evento",
       "category": {
         "social": "Social",
-        "volunteering&work": "Voluntariado y Trabajo",
-        "talks&workshops": "Charlas y Talleres"
+        "volunteering&work": "Voluntariado y trabajo",
+        "talks&workshops": "Charlas y talleres"
       }
     }
   }
