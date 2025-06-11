@@ -8,7 +8,7 @@ import DoItModal from "../../../../modals/toDo/DoItModal";
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
-
+import {useLocale} from "next-intl";
 import { useParams } from "next/navigation";
 import { getSinglePageItems, PageItem } from "../../header/header.data";
 import AddNewModal from "./modal/addNew/AddNewModal";
@@ -19,6 +19,7 @@ import Report from "./reportModal/Report";
 // topics and subtopics
 
 function FeedSection() {
+  const locale = useLocale();
   const params = useParams();
   const slug = params.pageId;
   const [pageItem, setPageItem] = useState<PageItem>({} as PageItem);
@@ -26,11 +27,11 @@ function FeedSection() {
   const [mounted, setMouted] = useState(false);
   useEffect(() => {
     if (typeof slug === "string") {
-      getSinglePageItems(slug).then((res) => {
+      getSinglePageItems(slug, locale).then((res) => {
         setPageItem(res);
       });
     }
-  }, [slug]);
+  }, [slug, locale]);
   useEffect(() => {
     if (pageItem.id) {
       console.log(pageItem);
