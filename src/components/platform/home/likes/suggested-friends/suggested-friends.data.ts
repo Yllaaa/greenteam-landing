@@ -8,8 +8,8 @@ export type SuggestedFriendsItem = {
     work: string
 }
 
-export async function getSuggestedFriends(): Promise<SuggestedFriendsItem[]> {
-    const { data } = await getRequest(suggestions.friends);
+export async function getSuggestedFriends(locale: string): Promise<SuggestedFriendsItem[]> {
+    const { data } = await getRequest(suggestions.friends, locale);
     return data
 }
 

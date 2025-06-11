@@ -77,7 +77,7 @@ export function formatNumber(num: number): string {
 }
 
 export function getGroupItems(): Promise<GroupsResponse> {
-  const data = getRequest(groups.allGroups).then((res) => res.data);
+  const data = getRequest(groups.allGroups, "en").then((res) => res.data);
 
   return data;
 }

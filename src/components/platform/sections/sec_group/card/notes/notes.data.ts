@@ -23,7 +23,7 @@ export type Note =
 export type Notes = Note[];
 
 export function getNotes(id: string | string[] | undefined): Promise<Notes> {
-  const data = getRequest(groups.notes(id)).then((res) => res.data);
+  const data = getRequest(groups.notes(id),"en").then((res) => res.data);
 
   return data;
 }

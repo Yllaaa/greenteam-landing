@@ -1,5 +1,5 @@
-import { pages } from "@/Utils/backendEndpoints/backend-endpoints";
-import { getRequest } from "@/Utils/backendEndpoints/backend-requests";
+import { pages } from '@/Utils/backendEndpoints/backend-endpoints';
+import { getRequest } from '@/Utils/backendEndpoints/backend-requests';
 
 // Topic interface
 interface Topic {
@@ -22,7 +22,7 @@ export type PageItem = {
   topic: Topic;
 };
 
-export async function getPageItems(): Promise<PageItem[]> {
-  const { data } = await getRequest(pages.allPages);
+export async function getPageItems(locale: string): Promise<PageItem[]> {
+  const { data } = await getRequest(pages.allPages, locale);
   return data;
 }

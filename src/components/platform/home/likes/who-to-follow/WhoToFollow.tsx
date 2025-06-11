@@ -1,15 +1,17 @@
+"use client"
 import { useEffect, useState } from 'react'
 import Item from './Item'
 import { getWhoToFollowItems, WhoToFollowItem } from './who-to-follow.data'
 import styles from './who-to-follow.module.scss'
 import Link from 'next/link'
-
+import { useLocale } from 'next-intl';
 export default function WhoToFollow() {
+const locale = useLocale()
     const [suggestions, setSuggestions] = useState([] as WhoToFollowItem[])
 
     useEffect(() => {
-        getWhoToFollowItems().then(data => setSuggestions(data))
-    }, [])
+        getWhoToFollowItems(locale).then(data => setSuggestions(data))
+    }, [locale])
 
     return (
         <div className={styles.whoToFollow}>

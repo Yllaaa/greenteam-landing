@@ -8,8 +8,8 @@ export type WhoToFollowItem = {
     city: string
 }
 
-export async function getWhoToFollowItems(): Promise<WhoToFollowItem[]> {
-    const { data } = await getRequest(suggestions.followees);
+export async function getWhoToFollowItems(locale:string): Promise<WhoToFollowItem[]> {
+    const { data } = await getRequest(suggestions.followees, locale);
     return data
 }
 

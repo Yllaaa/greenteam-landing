@@ -27,7 +27,7 @@ interface Event {
 export type Events = Event[];
 
 export function getEvents(id: string | string[] | undefined): Promise<Events> {
-  const data = getRequest(groups.events(id)).then((res) => res.data);
+  const data = getRequest(groups.events(id), "en").then((res) => res.data);
 
   return data;
 }

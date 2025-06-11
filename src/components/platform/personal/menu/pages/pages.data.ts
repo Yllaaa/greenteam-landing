@@ -23,6 +23,6 @@ export type PageItem = {
 };
 
 export async function getPageItems(): Promise<PageItem[]> {
-  const { data } = await getRequest(pages.allPages);
+  const { data } = await getRequest(pages.allPages, "en");
   return data;
 }

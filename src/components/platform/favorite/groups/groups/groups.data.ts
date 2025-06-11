@@ -76,8 +76,8 @@ export function formatNumber(num: number): string {
   return num.toString();
 }
 
-export function getGroupItems(): Promise<GroupsResponse> {
-  const data = getRequest(groups.allGroups).then((res) => res.data);
+export function getGroupItems(locale: string): Promise<GroupsResponse> {
+  const data = getRequest(groups.allGroups, locale).then((res) => res.data);
 
   return data;
 }

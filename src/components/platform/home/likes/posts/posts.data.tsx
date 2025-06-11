@@ -17,8 +17,8 @@ export type PostItem = {
     category: string
 }
 
-export async function getPosts(): Promise<PostItem[]> {
-    const { data } = await getRequest(posts.likedPosts);
+export async function getPosts(locale: string): Promise<PostItem[]> {
+    const { data } = await getRequest(posts.likedPosts, locale);
     return data
 }
 

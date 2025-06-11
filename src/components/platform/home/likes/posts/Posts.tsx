@@ -1,16 +1,17 @@
+"use client"
 import { useEffect, useState } from 'react';
 import Item from './Item';
 import { getPosts, PostItem } from './posts.data'
 import styles from './posts.module.scss'
-
+import { useLocale } from 'next-intl';
 
 
 export default function Posts({ category }: { category: string }) {
     const [posts, setPosts] = useState([] as PostItem[])
-
+const locale = useLocale()
     useEffect(() => {
-        getPosts().then(data => setPosts(data))
-    }, [])
+        getPosts(locale).then(data => setPosts(data))
+    }, [locale])
 
 
     const filteredPosts = {
