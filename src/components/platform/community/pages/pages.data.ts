@@ -23,7 +23,7 @@ export type PageItem = {
   isOwner: boolean;
 };
 
-export async function getPageItems(): Promise<PageItem[]> {
-  const { data } = await getRequest(pages.allPages);
+export async function getPageItems(locale: string): Promise<PageItem[]> {
+  const { data } = await getRequest(pages.allPages, locale);
   return data;
 }
