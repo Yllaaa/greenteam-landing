@@ -2,8 +2,6 @@
 "use client";
 import React from "react";
 import styles from "./Chalenges.module.css";
-// import doIt from "@/../public/ZPLATFORM/challenges/doIt.svg";
-
 import Image from "next/image";
 
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";

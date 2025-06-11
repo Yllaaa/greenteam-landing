@@ -2,12 +2,9 @@
 import React, { useState } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
-
 import styles from "./GreenChallenges.module.css";
 import Challenges from "./allCahalenges/Challenges";
 import AddNewModal from "./modal/addNew/AddNewModal";
-// import DoItModal from "../../../modals/toDo/DoItModal";
-// import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Image from "next/image";
 import star from "@/../public/ZPLATFORM/challenges/star.svg";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
@@ -41,6 +38,7 @@ function GreenChallenges() {
           "Content-Type": "application/json",
           Authorization: `Bearer ${accessToken}`,
           "Access-Control-Allow-Origin": "*",
+          "Accept-Language": locale,
         },
       }
     );

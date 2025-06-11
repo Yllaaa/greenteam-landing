@@ -8,7 +8,7 @@ import DoItModal from "../../../../modals/toDo/DoItModal";
 import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
-import {useLocale} from "next-intl";
+import { useLocale } from "next-intl";
 import { useParams } from "next/navigation";
 import { getSinglePageItems, PageItem } from "../../header/header.data";
 import AddNewModal from "./modal/addNew/AddNewModal";
@@ -46,7 +46,7 @@ function FeedSection() {
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
   const [deleteModal, setDeleteModal] = useState(false);
-    const [reportModal, setReportModal] = useState(false);
+  const [reportModal, setReportModal] = useState(false);
   //APIs Data
 
   const [postComments, setPostComments] = useState<Comment[]>([]);
@@ -135,10 +135,10 @@ function FeedSection() {
       )}
       {addNewPost && (
         <AddNewModal
-        setAddNew={setAddNewPost}
-        addNew={addNewPost}
-        slug={slug}
-        
+          setAddNew={setAddNewPost}
+          addNew={addNewPost}
+          slug={slug}
+
         />
       )}
       {deleteModal && (

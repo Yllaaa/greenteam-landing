@@ -106,7 +106,6 @@ const locale = useLocale()
       {addNew && (
         <AddNewModal
           setAddNew={setAddNew}
-
           addNew={addNew}
           challengeId={postId}
         />
