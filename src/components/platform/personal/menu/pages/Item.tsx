@@ -122,9 +122,9 @@ export default function Item({
         maxImages={4}
         onSuccess={handlePostSuccess}
         showSubtopics={true}
-        additionalFormData={{
-          pageId: pageI.id
-        }}
+        // additionalFormData={{
+        //   slug: pageI.id
+        // }}
         topicId={pageI.topic.id}
       />
     </>
