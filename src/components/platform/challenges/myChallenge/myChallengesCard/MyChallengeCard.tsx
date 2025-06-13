@@ -25,6 +25,7 @@ type Props = {
   postId: string;
   index: number;
   length: number;
+   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -38,6 +39,7 @@ function MyChallengeCard(props: Props) {
     ref,
     index,
     length,
+    setAddNew
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -167,27 +169,29 @@ function MyChallengeCard(props: Props) {
   );
 
   const handleDoIt = () => {
-    try {
-      axios
-        .put(
-          `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/mark-as-done`,
-          {},
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(setUpdateState());
-          console.log(res.data);
-          ToastNot("Challenge Accepted");
-        });
-    } catch (err) {
-      console.error("Error handling do it:", err);
-    }
+    setAddNew(true)
+        setPostId(challenge.id)
+    // try {
+    //   axios
+    //     .put(
+    //       `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/mark-as-done`,
+    //       {},
+    //       {
+    //         headers: {
+    //           "Content-Type": "application/json",
+    //           Authorization: `Bearer ${accessToken}`,
+    //           "Access-Control-Allow-Origin": "*",
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       dispatch(setUpdateState());
+    //       console.log(res.data);
+    //       ToastNot("Challenge Accepted");
+    //     });
+    // } catch (err) {
+    //   console.error("Error handling do it:", err);
+    // }
   };
 
   return (

@@ -371,7 +371,7 @@ function PostSlider(props: Props) {
         <FaComment style={{ fill: "#97B00F" }} />
         <p>
           <span>
-            {comments} Comment{parseInt(comments) !== 1 ? "s" : ""}
+            {comments} Comment
           </span>
         </p>
       </button>

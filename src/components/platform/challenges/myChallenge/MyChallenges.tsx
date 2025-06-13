@@ -17,6 +17,7 @@ function MyChallenges(props: DoMainProps) {
     setPostId,
     commentPage,
     setCommentPage,
+    setAddNew
   } = props
 
   const token = getToken()
@@ -94,7 +95,7 @@ function MyChallenges(props: DoMainProps) {
             key={`challenge-${challenge.id}-${index}`}
             className={styles.container}
           >
-            
+
             <div className={styles.challenges}>
               <MyChallengeCard
                 length={challenges.length}
@@ -108,6 +109,7 @@ function MyChallenges(props: DoMainProps) {
                 commentPage={commentPage}
                 setCommentPage={setCommentPage}
                 postId={challenge.id}
+                setAddNew={setAddNew}
               />
             </div>
           </div>

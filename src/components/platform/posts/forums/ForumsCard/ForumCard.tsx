@@ -447,7 +447,7 @@ function ForumCard(props: Discussion) {
             <div className={styles.btn} onClick={handleLike}>
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p data-count={likeCount}>
-                <span>{likeCount} {t("like")}</span>
+                <span>{likeCount}</span>
               </p>
             </div>
           )}
@@ -456,7 +456,7 @@ function ForumCard(props: Discussion) {
               style={{ fill: userDisliked ? "#006633" : "#97B00F" }}
             />
             <p>
-              <span>{dislikeCount} {t("unlike")}</span>
+              <span>{dislikeCount}</span>
             </p>
           </div>
           <div
@@ -467,7 +467,7 @@ function ForumCard(props: Discussion) {
           >
             <Image src={comment} alt="comment" />
             <p>
-              <span>{post.commentCount} {t("comment")}</span>
+              <span>{post.commentCount}</span>
             </p>
           </div>
         </div>

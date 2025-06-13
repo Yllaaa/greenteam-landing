@@ -73,7 +73,7 @@
   color: #ffffff;
 }
 .container {
-  width: 627px;
+  width: 360px;
   height: 663px;
   display: flex;
   flex-direction: column;
@@ -147,7 +147,7 @@
 .media {
   position: relative;
   width: 100%;
-  min-width: 627px;
+  min-width: 360px;
   height: 100%;
   border: 1px solid #3a444c;
   border-radius: 16px;

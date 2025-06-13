@@ -48,6 +48,7 @@ function ChallengePage() {
               rerender={rerender}
               setPostId={setPostId}
               commentModal={commentModal}
+              setAddNew={setAddNew}
             />
           </div>
         </div>

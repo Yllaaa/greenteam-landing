@@ -73,7 +73,7 @@
   color: #ffffff;
 }
 .container {
-  width: 460px;
+  width: 360px;
   height: 497px;
   display: flex;
   flex-direction: column;
@@ -252,7 +252,7 @@
 .media {
   position: relative;
   width: 100%;
-  min-width:440px;
+  min-width: 360px;
   /* height: 597.33px; */
   height: 100%;
   border: 1px solid #3a444c;
