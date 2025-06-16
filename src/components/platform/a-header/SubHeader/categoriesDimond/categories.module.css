@@ -1,753 +1,782 @@
+/** @format */
+
 .container {
-  position: relative;
-  width: 100%;
-  height: 575px;
-  background: linear-gradient(
-    126.97deg,
-    #006633 28.26%,
-    rgba(50, 80, 65, 0.5) 91.2%
-  );
-  padding: 21px 20px 40px 20px;
-  z-index: 0;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -o-border-radius: 20px;
+	position: relative;
+	width: 100%;
+	height: 575px;
+	background: linear-gradient(
+		126.97deg,
+		#006633 28.26%,
+		rgba(50, 80, 65, 0.5) 91.2%
+	);
+	padding: 21px 20px 40px 20px;
+	z-index: 0;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-ms-border-radius: 20px;
+	-o-border-radius: 20px;
 }
 
 .chart {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 360px;
-  height: 355px;
-  margin: auto;
-  z-index: 200;
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 360px;
+	height: 320px;
+	margin: auto;
+	z-index: 200;
+	transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
 }
 
 .chart svg {
-  width: 100%;
-  height: 100%;
-  z-index: -1;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
 }
-
+.hexBorder {
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+}
 .filledArea {
-  fill: rgba(0, 102, 51, 0.3);
-  stroke: #00cc66;
-  stroke-width: 2px;
-  transition: all 0.3s ease;
+	fill: rgba(0, 102, 51, 0.3);
+	/* stroke: #00cc66; */
+	/* stroke-width: 2px; */
+	fill-opacity: 0.8;
+	stroke-opacity: 1;
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
 }
 
 /* main and modal - REDUCED SIZE FOR MODAL */
 .diamondShape {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 270px;
-  height: 300px;
-  margin: auto;
-  z-index: 100;
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 250px;
+	height: 290px;
+	margin: auto;
+	z-index: 100;
+	transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
 }
 
 /* Smaller diamond for modal */
 .diamondShapeModal {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 220px; /* Reduced from 270px */
-  height: 250px; /* Reduced from 300px */
-  margin: auto;
-  z-index: 100;
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 220px; /* Reduced from 270px */
+	height: 250px; /* Reduced from 300px */
+	margin: auto;
+	z-index: 100;
+	transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
 }
 
 /* main and modal */
 .diamondShapeModal img,
 .diamondShape img {
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 .labels {
-  position: relative;
-  top: 50%;
-  left: 50%;
-  width: 100%;
-  height: 100%;
-  z-index: 300;
-  transform: translateX(-50%) translateY(-50%);
-  -webkit-transform: translateX(-50%) translateY(-50%);
-  -moz-transform: translateX(-50%) translateY(-50%);
-  -ms-transform: translateX(-50%) translateY(-50%);
-  -o-transform: translateX(-50%) translateY(-50%);
+	position: relative;
+	top: 50%;
+	left: 50%;
+	width: 100%;
+	height: 100%;
+	z-index: 300;
+	transform: translateX(-50%) translateY(-50%);
+	-webkit-transform: translateX(-50%) translateY(-50%);
+	-moz-transform: translateX(-50%) translateY(-50%);
+	-ms-transform: translateX(-50%) translateY(-50%);
+	-o-transform: translateX(-50%) translateY(-50%);
 }
 
 .label {
-  width: fit-content;
-  height: fit-content;
-  z-index: 400;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  position: absolute;
-  cursor: pointer;
-  transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -moz-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  -o-transform: translate(-50%, -50%);
-  transition: transform 0.2s ease;
+	width: fit-content;
+	height: fit-content;
+	z-index: 400;
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	position: absolute;
+	cursor: pointer;
+	transform: translate(-50%, -50%);
+	-webkit-transform: translate(-50%, -50%);
+	-moz-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
+	-o-transform: translate(-50%, -50%);
+	transition: transform 0.2s ease;
 }
 
 .label:hover {
-  transform: translate(-50%, -50%) scale(1.1);
+	transform: translate(-50%, -50%) scale(1.1);
 }
 
 .label img {
-  width: 91px;
-  height: 91px;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+	width: 91px;
+	height: 91px;
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
 }
 
 .text {
-  position: absolute;
-  top: 5%;
-  left: 2%;
-  width: 150px;
+	position: absolute;
+	top: 5%;
+	left: 2%;
+	width: 150px;
 }
 
 .text p {
-  font-family: Montserrat, sans-serif;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 24px;
-  letter-spacing: 0%;
+	font-family: Montserrat, sans-serif;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 24px;
+	letter-spacing: 0%;
 }
 
 /* Modal Styles */
 .modal {
-  margin-top: 50px auto;
-  margin-top: 50px auto;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scroll-behavior: none;
-  animation: fadeIn 0.3s ease;
+	margin-top: 50px auto;
+	margin-top: 50px auto;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(0, 0, 0, 0.8);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	z-index: 1000;
+	overflow-y: auto;
+	overflow-x: hidden;
+	scroll-behavior: none;
+	animation: fadeIn 0.3s ease;
 }
 
 @keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
-
+.modalChartContainer {
+	position: relative;
+	height: 450px;
+	width: 100%;
+}
 .modalContent {
-  background: linear-gradient(
-    126.97deg,
-    #006633 28.26%,
-    rgba(50, 80, 65, 0.8) 91.2%
-  );
-  padding: 30px;
-  border-radius: 20px;
-  width: 90%;
-  max-width: 800px;
-  min-height: 600px;
-  max-height: 90vh;
-  position: relative;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-  overflow: auto;
-  animation: slideIn 0.3s ease-out;
+	background: linear-gradient(
+		126.97deg,
+		#006633 28.26%,
+		rgba(50, 80, 65, 0.8) 91.2%
+	);
+	padding: 30px;
+	border-radius: 20px;
+	width: 90%;
+	max-width: 800px;
+	min-height: 600px;
+	max-height: 90vh;
+	position: relative;
+	box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+	overflow: auto;
+	animation: slideIn 0.3s ease-out;
 }
 
 @keyframes slideIn {
-  from {
-    transform: translateY(20px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+	from {
+		transform: translateY(20px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
 }
 
 .closeButton {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: rgba(0, 0, 0, 0.3);
-  border: none;
-  font-size: 24px;
-  color: white;
-  cursor: pointer;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-  z-index: 1050;
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	background: rgba(0, 0, 0, 0.3);
+	border: none;
+	font-size: 24px;
+	color: white;
+	cursor: pointer;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.2s ease;
+	z-index: 1050;
 }
 
 .closeButton:hover {
-  background: rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.2);
 }
 
 .subCategories {
-  text-align: center;
-  color: white;
-  height: 100%;
-  position: relative;
-  padding-top: 20px;
+	text-align: center;
+	color: white;
+	height: 100%;
+	position: relative;
+	padding-top: 20px;
 }
 
 .categoryHeader {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 15px;
-  margin-bottom: 30px;
-  padding-bottom: 15px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 15px;
+	margin-bottom: 30px;
+	padding-bottom: 15px;
+	border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
 .categoryIcon {
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4));
 }
 
 .subCategories h2 {
-  font-family: Montserrat, sans-serif;
-  font-weight: 600;
-  font-size: 24px;
-  line-height: 30px;
-  letter-spacing: 0%;
-  margin: 0;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+	font-family: Montserrat, sans-serif;
+	font-weight: 600;
+	font-size: 24px;
+	line-height: 30px;
+	letter-spacing: 0%;
+	margin: 0;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .subLabels {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  z-index: 300;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	z-index: 300;
 }
 
 /* Enhanced styling for subcategory cards */
 .subLabel {
-  width: fit-content;
-  height: fit-content;
-  min-width: 120px;
-  max-width: 150px;
-  font-size: 16px;
-  font-weight: 600;
-  line-height: 1.2;
-  background: rgba(0, 0, 0, 0.7);
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 5px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  position: absolute;
-  z-index: 300;
+	width: fit-content;
+	height: fit-content;
+	min-width: 120px;
+	max-width: 150px;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 1.2;
+	background: rgba(0, 0, 0, 0.7);
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	position: absolute;
+	z-index: 300;
 }
 
 .clickableSubLabel {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 .clickableSubLabel:hover {
-  background: rgba(0, 102, 51, 0.8);
-  transform: scale(1.05);
+	background: rgba(0, 102, 51, 0.8);
+	transform: scale(1.05);
 }
 
 /* Styling for the points display */
 .subLabel span {
-  font-family: Montserrat, sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  display: block;
-  margin-bottom: 5px;
+	font-family: Montserrat, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
 }
-
+.points {
+	font-family: Montserrat, sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	display: block;
+	margin-bottom: 5px;
+	transition: color 0.3s ease;
+	-webkit-transition: color 0.3s ease;
+	-moz-transition: color 0.3s ease;
+	-ms-transition: color 0.3s ease;
+	-o-transition: color 0.3s ease;
+}
 .subLabel .pointsText {
-  font-size: 10px;
-  font-weight: normal;
-  color: #cccccc;
-  margin-bottom: 5px;
+	font-size: 10px;
+	font-weight: normal;
+	color: #cccccc;
+	margin-bottom: 5px;
 }
 .subLabel .subTopicName {
-  font-size: 14px;
-  font-weight: normal;
-  color: #cccccc;
-  margin-bottom: 5px;
-  font-weight: 800;
+	font-size: 14px;
+	font-weight: normal;
+	color: #cccccc;
+	margin-bottom: 5px;
+	font-weight: 800;
 }
 
 /* Labels and subLabels positions - MAIN COMPONENT */
 .top1 {
-  position: absolute;
-  top: 10%;
-  left: 50%;
-  height: 50px;
-  z-index: 300;
+	position: absolute;
+	top: 10%;
+	left: 50%;
+	height: 50px;
+	z-index: 300;
 }
 
 .top2 {
-  position: absolute;
-  top: 30%;
-  left: 90%;
-  z-index: 300;
+	position: absolute;
+	top: 30%;
+	left: 90%;
+	z-index: 300;
 }
 
 .top3 {
-  position: absolute;
-  top: 70%;
-  left: 90%;
-  z-index: 300;
+	position: absolute;
+	top: 70%;
+	left: 90%;
+	z-index: 300;
 }
 
 .top4 {
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  z-index: 300;
+	position: absolute;
+	top: 90%;
+	left: 50%;
+	z-index: 300;
 }
 
 .top5 {
-  position: absolute;
-  top: 70%;
-  left: 10%;
-  z-index: 300;
+	position: absolute;
+	top: 70%;
+	left: 10%;
+	z-index: 300;
 }
 
 .top6 {
-  position: absolute;
-  top: 30%;
-  left: 10%;
-  z-index: 300;
+	position: absolute;
+	top: 30%;
+	left: 10%;
+	z-index: 300;
 }
 
 /* Enhanced positioning for modal subcategory cards - MOVED FURTHER FROM CENTER */
 .top11 {
-  position: absolute;
-  top: -2%;
-  left: 42.5%;
+	position: absolute;
+	top: -2%;
+	left: 42.5%;
 }
 
 .top22 {
-  position: absolute;
-  top: 17%;
-  right: 10%; /* Increased from 5% */
+	position: absolute;
+	top: 17%;
+	right: 10%; /* Increased from 5% */
 }
 
 .top33 {
-  position: absolute;
-  bottom: 25%;
-  right: 10%; /* Increased from 5% */
+	position: absolute;
+	bottom: 25%;
+	right: 10%; /* Increased from 5% */
 }
 
 .top44 {
-  position: absolute;
-  bottom: -2%;
-  left: 42.5%;
+	position: absolute;
+	bottom: -2%;
+	left: 42.5%;
 }
 
 .top55 {
-  position: absolute;
-  bottom: 25%;
-  left: 10%; /* Increased from 5% */
+	position: absolute;
+	bottom: 25%;
+	left: 10%; /* Increased from 5% */
 }
 
 .top66 {
-  position: absolute;
-  top: 17%;
-  left: 10%; /* Increased from 5% */
+	position: absolute;
+	top: 17%;
+	left: 10%; /* Increased from 5% */
 }
 
 /* Responsive styles */
 @media screen and (max-width: 1024px) {
-  .modalContent {
-    padding: 20px;
-    min-height: 550px;
-  }
+	.modalContent {
+		padding: 20px;
+		min-height: 550px;
+	}
 
-  .chart {
-    width: 320px;
-    height: 320px;
-  }
+	.chart {
+		width: 320px;
+		height: 320px;
+	}
 
-  .diamondShapeModal {
-    width: 200px; /* Reduced */
-    height: 220px; /* Reduced */
-  }
+	.diamondShapeModal {
+		width: 200px; /* Reduced */
+		height: 220px; /* Reduced */
+	}
 
-  .subLabel {
-    min-width: 110px;
-    max-width: 130px;
-    padding: 12px;
-    font-size: 14px;
-  }
+	.subLabel {
+		min-width: 110px;
+		max-width: 130px;
+		padding: 12px;
+		font-size: 14px;
+	}
 
-  .subLabel span {
-    font-size: 20px;
-  }
+	.subLabel span {
+		font-size: 20px;
+	}
 
-  .subLabel .pointsText {
-    font-size: 12px;
-  }
+	.subLabel .pointsText {
+		font-size: 12px;
+	}
 
-  /* Adjust positioning for medium screens */
-  .top22 {
-    right: 8%;
-  }
+	/* Adjust positioning for medium screens */
+	.top22 {
+		right: 8%;
+	}
 
-  .top33 {
-    bottom: 25%;
-    right: 8%;
-  }
+	.top33 {
+		bottom: 25%;
+		right: 8%;
+	}
 
-  .top55 {
-    bottom: 25%;
-    left: 8%;
-  }
+	.top55 {
+		bottom: 25%;
+		left: 8%;
+	}
 
-  .top66 {
-    top: 25%;
-    left: 8%;
-  }
+	.top66 {
+		top: 25%;
+		left: 8%;
+	}
 }
 
 @media screen and (max-width: 768px) {
-  .container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      126.97deg,
-      #006633 28.26%,
-      rgba(50, 80, 65, 0.5) 91.2%
-    );
-    padding: 10px 15px 10px 15px;
-  }
+	.container {
+		position: relative;
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(
+			126.97deg,
+			#006633 28.26%,
+			rgba(50, 80, 65, 0.5) 91.2%
+		);
+		padding: 10px 15px 10px 15px;
+	}
 
-  .text {
-    position: absolute;
-    top: 5%;
-    left: 2%;
-    width: 150px;
-  }
+	.text {
+		position: absolute;
+		top: 5%;
+		left: 2%;
+		width: 150px;
+	}
 
-  .text p {
-    font-family: Montserrat;
-    font-weight: 600;
-    font-size: 14px;
-    line-height: 24px;
-    letter-spacing: 0%;
-  }
+	.text p {
+		font-family: Montserrat;
+		font-weight: 600;
+		font-size: 14px;
+		line-height: 24px;
+		letter-spacing: 0%;
+	}
 
-  .closeButton {
-    top: 10px;
-    right: 10px;
-    width: 30px;
-    height: 30px;
-    font-size: 18px;
-  }
+	.closeButton {
+		top: 10px;
+		right: 10px;
+		width: 30px;
+		height: 30px;
+		font-size: 18px;
+	}
 
-  .categoryHeader {
-    margin-bottom: 20px;
-    padding-bottom: 10px;
-  }
+	.categoryHeader {
+		margin-bottom: 20px;
+		padding-bottom: 10px;
+	}
 
-  .subCategories h2 {
-    font-size: 18px;
-  }
+	.subCategories h2 {
+		font-size: 18px;
+	}
 
-  .chart {
-    width: 220px;
-    height: 220px;
-  }
+	.chart {
+		width: 220px;
+		height: 220px;
+	}
 
-  .diamondShape {
-    width: 180px;
-    height: 180px;
-  }
+	.diamondShape {
+		width: 180px;
+		height: 180px;
+	}
 
-  .diamondShapeModal {
-    width: 160px; /* Reduced */
-    height: 180px; /* Reduced */
-  }
+	.diamondShapeModal {
+		width: 160px; /* Reduced */
+		height: 180px; /* Reduced */
+	}
 
-  .label {
-    width: fit-content;
-    height: fit-content;
-    z-index: 400;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    text-wrap: wrap;
-    font-size: 10px;
-  }
+	.label {
+		width: fit-content;
+		height: fit-content;
+		z-index: 400;
+		display: flex;
+		align-items: center;
+		gap: 4px;
+		text-wrap: wrap;
+		font-size: 10px;
+	}
 
-  .label img {
-    width: 50px;
-    height: 50px;
-  }
+	.label img {
+		width: 50px;
+		height: 50px;
+	}
 
-  .subLabel {
-    min-width: 90px;
-    max-width: 110px;
-    padding: 10px;
-    font-size: 12px;
-  }
+	.subLabel {
+		min-width: 90px;
+		max-width: 110px;
+		padding: 10px;
+		font-size: 12px;
+	}
 
-  .subLabel span {
-    font-size: 18px;
-  }
+	.subLabel span {
+		font-size: 18px;
+	}
 
-  .subLabel .pointsText {
-    font-size: 11px;
-  }
+	.subLabel .pointsText {
+		font-size: 11px;
+	}
 
-  /* Modal Styles */
-  .modalContent {
-    top: 30px;
-    padding: 15px;
-    border-radius: 20px;
-    width: 90%;
-    max-width: 800px;
-    height: auto;
-    min-height: 450px;
-    max-height: 80vh;
-    overflow: auto;
-    position: relative;
-  }
+	/* Modal Styles */
+	.modalContent {
+		top: 30px;
+		padding: 15px;
+		border-radius: 20px;
+		width: 90%;
+		max-width: 800px;
+		height: auto;
+		min-height: 450px;
+		max-height: 80vh;
+		overflow: auto;
+		position: relative;
+	}
 
-  /* Adjust positioning for mobile */
-  .top11 {
-    top: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+	/* Adjust positioning for mobile */
+	.top11 {
+		top: 10%;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 
-  .top22 {
-    top: 25%;
-    right: 5%;
-  }
+	.top22 {
+		top: 25%;
+		right: 5%;
+	}
 
-  .top33 {
-    bottom: 25%;
-    right: 5%;
-  }
+	.top33 {
+		bottom: 25%;
+		right: 5%;
+	}
 
-  .top44 {
-    bottom: 10%;
-    left: 50%;
-    transform: translateX(-50%);
-  }
+	.top44 {
+		bottom: 10%;
+		left: 50%;
+		transform: translateX(-50%);
+	}
 
-  .top55 {
-    bottom: 25%;
-    left: 5%;
-  }
+	.top55 {
+		bottom: 25%;
+		left: 5%;
+	}
 
-  .top66 {
-    top: 25%;
-    left: 5%;
-  }
+	.top66 {
+		top: 25%;
+		left: 5%;
+	}
 }
 
 @media screen and (max-width: 480px) {
-  .container {
-    height: 350px;
-  }
+	.container {
+		height: 350px;
+	}
 
-  .chart {
-    width: 180px;
-    height: 180px;
-  }
+	.chart {
+		width: 180px;
+		height: 180px;
+	}
 
-  .diamondShape {
-    width: 150px;
-    height: 150px;
-  }
+	.diamondShape {
+		width: 150px;
+		height: 150px;
+	}
 
-  .diamondShapeModal {
-    width: 120px; /* Even smaller for small screens */
-    height: 130px;
-  }
+	.diamondShapeModal {
+		width: 120px; /* Even smaller for small screens */
+		height: 130px;
+	}
 
-  .label img {
-    width: 45px;
-    height: 45px;
-  }
+	.label img {
+		width: 45px;
+		height: 45px;
+	}
 
-  .text p {
-    font-size: 12px;
-    line-height: 18px;
-  }
+	.text p {
+		font-size: 12px;
+		line-height: 18px;
+	}
 
-  .modalContent {
-    padding: 10px;
-    min-height: 400px;
-  }
+	.modalContent {
+		padding: 10px;
+		min-height: 400px;
+	}
 
-  .categoryHeader {
-    gap: 8px;
-    margin-bottom: 15px;
-    padding-bottom: 8px;
-  }
+	.categoryHeader {
+		gap: 8px;
+		margin-bottom: 15px;
+		padding-bottom: 8px;
+	}
 
-  .categoryIcon {
-    width: 30px;
-    height: 30px;
-  }
+	.categoryIcon {
+		width: 30px;
+		height: 30px;
+	}
 
-  .subCategories h2 {
-    font-size: 14px;
-  }
+	.subCategories h2 {
+		font-size: 14px;
+	}
 
-  .subLabel {
-    min-width: 80px;
-    max-width: 90px;
-    padding: 8px;
-    font-size: 10px;
-  }
+	.subLabel {
+		min-width: 80px;
+		max-width: 90px;
+		padding: 8px;
+		font-size: 10px;
+	}
 
-  .subLabel span {
-    font-size: 16px;
-    margin-bottom: 2px;
-  }
+	.subLabel span {
+		font-size: 16px;
+		margin-bottom: 2px;
+	}
 
-  .subLabel .pointsText {
-    font-size: 9px;
-    margin-bottom: 2px;
-  }
+	.subLabel .pointsText {
+		font-size: 9px;
+		margin-bottom: 2px;
+	}
 
-  .closeButton {
-    top: 5px;
-    right: 5px;
-    width: 25px;
-    height: 25px;
-    font-size: 14px;
-  }
+	.closeButton {
+		top: 5px;
+		right: 5px;
+		width: 25px;
+		height: 25px;
+		font-size: 14px;
+	}
 
-  /* Further adjust positioning for very small screens */
-  .top11 {
-    top: 8%;
-  }
+	/* Further adjust positioning for very small screens */
+	.top11 {
+		top: 8%;
+	}
 
-  .top22 {
-    top: 25%;
-    right: 2%;
-  }
+	.top22 {
+		top: 25%;
+		right: 2%;
+	}
 
-  .top33 {
-    bottom: 25%;
-    right: 2%;
-  }
+	.top33 {
+		bottom: 25%;
+		right: 2%;
+	}
 
-  .top44 {
-    bottom: 8%;
-  }
+	.top44 {
+		bottom: 8%;
+	}
 
-  .top55 {
-    bottom: 25%;
-    left: 2%;
-  }
+	.top55 {
+		bottom: 25%;
+		left: 2%;
+	}
 
-  .top66 {
-    top: 25%;
-    left: 2%;
-  }
+	.top66 {
+		top: 25%;
+		left: 2%;
+	}
 }
 
 /* Extra small screens */
 @media screen and (max-width: 360px) {
-  .chart {
-    width: 150px;
-    height: 150px;
-  }
+	.chart {
+		width: 150px;
+		height: 150px;
+	}
 
-  .diamondShape {
-    width: 120px;
-    height: 120px;
-  }
+	.diamondShape {
+		width: 120px;
+		height: 120px;
+	}
 
-  .diamondShapeModal {
-    width: 100px; /* Much smaller for tiny screens */
-    height: 110px;
-  }
+	.diamondShapeModal {
+		width: 100px; /* Much smaller for tiny screens */
+		height: 110px;
+	}
 
-  .label img {
-    width: 35px;
-    height: 35px;
-  }
+	.label img {
+		width: 35px;
+		height: 35px;
+	}
 
-  .subLabel {
-    min-width: 70px;
-    max-width: 80px;
-    padding: 6px;
-    font-size: 9px;
-  }
+	.subLabel {
+		min-width: 70px;
+		max-width: 80px;
+		padding: 6px;
+		font-size: 9px;
+	}
 
-  .subLabel span {
-    font-size: 14px;
-  }
+	.subLabel span {
+		font-size: 14px;
+	}
 
-  .subLabel .pointsText {
-    font-size: 8px;
-  }
+	.subLabel .pointsText {
+		font-size: 8px;
+	}
 
-  .modalContent {
-    min-height: 350px;
-  }
+	.modalContent {
+		min-height: 350px;
+	}
 
-  .categoryHeader {
-    margin-bottom: 10px;
-  }
+	.categoryHeader {
+		margin-bottom: 10px;
+	}
 
-  .subCategories h2 {
-    font-size: 12px;
-  }
+	.subCategories h2 {
+		font-size: 12px;
+	}
 
-  /* Adjust positions for very small screens */
-  .top11 {
-    top: 5%;
-  }
+	/* Adjust positions for very small screens */
+	.top11 {
+		top: 5%;
+	}
 
-  .top44 {
-    bottom: 5%;
-  }
+	.top44 {
+		bottom: 5%;
+	}
 }

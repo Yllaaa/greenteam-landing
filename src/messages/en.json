@@ -282,7 +282,8 @@
         "build": "Build sustainable culture Sharing your experience",
         "post": "Post",
         "delete": "Delete",
-        "comment": "Comment"
+        "comment": "Comment",
+        "readMore":"Read more"
       },
       "doChallenge": {
         "myChallenge": "My Challenge",
