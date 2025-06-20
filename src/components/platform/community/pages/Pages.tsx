@@ -20,6 +20,7 @@ import {
   setCurrentPage,
 } from '@/store/features/pageFilter/pageFillterSlice';
 import { useTranslations, useLocale } from 'next-intl';
+import pageLogo from "@/../public/community/page.svg";
 export default function Pages() {
   const locale = useLocale()
   const city = useAppSelector(
@@ -215,6 +216,7 @@ const t = useTranslations("web.pages")
         path={t("addPage")}
         withFilter={false} // Enable filter
         setAddNew={setAddNew}
+        image={pageLogo}
       >
         <div className={styles.pagesContainer}>
           {/* Navigation buttons - positioned absolutely, don't scroll with content */}

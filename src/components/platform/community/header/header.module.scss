@@ -31,8 +31,17 @@ $max-width: 1024px;
       grid-column: 1 / 6;
     }
     img{
-      width: 24px;
-      height: 24px;
+      width: 58px;
+      height: 58px;
+      @media screen and (max-width: 1024px) {
+        width: 40px;
+        height: 40px;
+      }
+      @media screen and (max-width: 768px) {
+        width: 28px;
+        height: 28px;
+      }
+
     }
   }
   .filterSection {

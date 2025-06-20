@@ -2,7 +2,7 @@
 import React from "react";
 import styles from "./header.module.scss";
 import Image from "next/image";
-import image from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
+import images from "@/../public/ZPLATFORM/A-Header/FootLogo.png";
 import add from "@/../public/icons/add.svg";
 import { useTranslations } from 'next-intl';
 
@@ -15,6 +15,7 @@ function Header({
   section,
   setPage,
   setAddNew,
+  image,
 }: {
   children: React.ReactNode;
   tag?: string;
@@ -31,7 +32,7 @@ function Header({
     <>
       <div className={styles.header}>
         <div className={styles.tag}>
-          <Image src={image} alt="tag" width={30} height={30} />
+          <Image src={image ? image : images} alt="tag" width={30} height={30} />
           <h1>{tag}</h1>
         </div>
         {withFilter && (
@@ -82,7 +83,7 @@ function Header({
                   }
                 }}
               >
-                 {t("header.volunteering")}
+                {t("header.volunteering")}
               </li>
               <li
                 style={
@@ -97,7 +98,7 @@ function Header({
                   }
                 }}
               >
-                 {t("header.talks")}
+                {t("header.talks")}
               </li>
             </ul>
           </div>

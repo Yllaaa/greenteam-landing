@@ -11,7 +11,7 @@ import { useAppSelector } from "@/store/hooks";
 import AddNewGroup from "./AddGroup/AddNewGroup";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useLocale, useTranslations } from 'next-intl';
-
+import grpLogo from "@/../public/community/group.svg"
 function Groups() {
   const locale = useLocale()
   const t = useTranslations("web.groups")
@@ -277,6 +277,7 @@ function Groups() {
         path={t("addNew")}
         withFilter={false}
         setAddNew={setAddNew}
+        image={grpLogo}
       >
         <div ref={containerRef} className={styles.groupsContainer}>
           {/* Navigation Arrows - Outside the scrollable area */}

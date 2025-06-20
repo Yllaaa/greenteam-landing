@@ -10,7 +10,7 @@ import EventCards from "./Events/Card/EventCard";
 import AddNewEvent from "./Events/modal/AddNewEvent";
 import { useLocale, useTranslations } from 'next-intl';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-
+import eventLogo from "@/../public/community/events.svg"
 function EventCom() {
   const terror = useTranslations("web.errors");
   const t = useTranslations("web.event")
@@ -269,6 +269,7 @@ function EventCom() {
         section={section}
         setPage={setPage}
         setAddNew={setAddNew}
+        image={eventLogo}
       >
         <div>{renderContent()}</div>
       </Header>
