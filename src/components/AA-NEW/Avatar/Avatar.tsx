@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react"
 import styles from "./Avatar.module.scss"
-import { getInitials } from "@/utils/string"
+import { getInitials } from "@/Utils/string"
 import Image from "next/image"
 
 interface AvatarProps {
