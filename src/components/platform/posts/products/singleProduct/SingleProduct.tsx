@@ -19,6 +19,8 @@ function SingleProduct(props: { prodId: string }) {
   const locale = useLocale();
   const token = getToken();
   const t = useTranslations("web.products.single")
+    const tt = useTranslations("web.header.topics");
+  
   // const tf = useTranslations("web.products.filter")
   const accessToken = token ? token.accessToken : null;
 
@@ -136,7 +138,7 @@ function SingleProduct(props: { prodId: string }) {
 
             <div className={styles.content}>
               <div className={styles.category}>
-                <p>{t(product.topic.name)}</p>
+                <p>{tt(product.topic.name)}</p>
               </div>
               <div className={styles.title}>
                 <p>{product.name}</p>
