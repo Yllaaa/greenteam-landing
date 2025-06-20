@@ -272,11 +272,7 @@ function Pageheader(props: {
           </div>
           <div className={styles.nameContainer}>
             <h1 className={styles.name}>{data.name}</h1>
-            <div className={styles.followButtonMobile}>
-              <button onClick={handleFollow} className={styles.likeBtn}>
-                {initialFollow ? t('unfollow') : t('follow')}
-              </button>
-            </div>
+            
           </div>
         </div>
       </div>

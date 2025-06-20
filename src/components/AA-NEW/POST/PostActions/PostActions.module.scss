@@ -1,0 +1,78 @@
+/** @format */
+
+.actions {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 24px;
+	@media screen and (max-width: 768px) {
+		gap: 8px;
+	}
+}
+
+.actionButton {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	background: none;
+	border: none;
+	color: #97b00f;
+	font-size: 14px;
+	cursor: pointer;
+	padding: 8px 12px;
+	border-radius: 8px;
+	transition: all 0.2s ease;
+	position: relative;
+
+	&:hover {
+		background: #063;
+		color: #fff;
+	}
+
+	&:active {
+		transform: scale(0.95);
+	}
+
+	&:focus-visible {
+		outline: 2px solid #063;
+		outline-offset: 2px;
+	}
+
+	&.active {
+		color: #063;
+		background: #97b00f;
+
+		&.dislike {
+			color: #ef4444;
+			background: #063;
+		}
+	}
+
+	svg {
+		width: 20px;
+		height: 20px;
+	}
+
+	span {
+		font-weight: 500;
+	}
+}
+
+.doButton {
+	background: transparent;
+	color: #97b00f;
+
+	&:hover {
+		background: #006700;
+	}
+
+	&.hasDo {
+		background: #006700;
+
+		&:hover {
+			background: #97b00f;
+			color: #006700;
+		}
+	}
+}

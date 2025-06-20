@@ -26,6 +26,7 @@ type Props = {
   index: number;
   length: number;
    setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setChallengeId: React.Dispatch<React.SetStateAction<string>>;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -39,7 +40,8 @@ function MyChallengeCard(props: Props) {
     ref,
     index,
     length,
-    setAddNew
+    setAddNew,
+    setChallengeId,
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -171,6 +173,7 @@ function MyChallengeCard(props: Props) {
   const handleDoIt = () => {
     setAddNew(true)
         setPostId(challenge.id)
+        setChallengeId(challenge.id)
     // try {
     //   axios
     //     .put(

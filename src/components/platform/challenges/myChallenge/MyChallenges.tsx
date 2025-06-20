@@ -17,7 +17,8 @@ function MyChallenges(props: DoMainProps) {
     setPostId,
     commentPage,
     setCommentPage,
-    setAddNew
+    setAddNew,
+  setChallengeId
   } = props
 
   const token = getToken()
@@ -110,6 +111,7 @@ function MyChallenges(props: DoMainProps) {
                 setCommentPage={setCommentPage}
                 postId={challenge.id}
                 setAddNew={setAddNew}
+                setChallengeId={setChallengeId}
               />
             </div>
           </div>

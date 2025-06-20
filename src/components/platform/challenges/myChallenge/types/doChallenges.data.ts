@@ -39,6 +39,7 @@ type DoMainProps = {
   rerender: boolean;
   setPostId: React.Dispatch<React.SetStateAction<string>>;
   commentModal: boolean;
+  setChallengeId: React.Dispatch<React.SetStateAction<string>>;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
 };
 

@@ -1,0 +1,147 @@
+// components/DeleteModal/DeleteModal.module.scss
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+  }
+  
+  .modal {
+    background: white;
+    border-radius: 12px;
+    max-width: 500px;
+    width: 100%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #333;
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  color: #999;
+  transition: color 0.2s;
+  
+  &:hover {
+    color: #666;
+  }
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.content {
+  padding: 24px;
+  text-align: center;
+}
+
+.warningIcon {
+  margin-bottom: 20px;
+  color: #dc3545;
+}
+
+.message {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 12px;
+}
+
+.itemTitle {
+  font-size: 14px;
+  color: #666;
+  font-style: italic;
+  margin-bottom: 16px;
+  padding: 0 20px;
+  word-break: break-word;
+}
+
+.warning {
+  font-size: 14px;
+  color: #dc3545;
+  font-weight: 500;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  padding: 20px;
+  border-top: 1px solid #eee;
+  justify-content: flex-end;
+}
+
+.cancelButton,
+.deleteButton {
+  padding: 10px 24px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.cancelButton {
+  background: #f5f5f5;
+  color: #666;
+  
+  &:hover:not(:disabled) {
+    background: #e5e5e5;
+  }
+}
+
+.deleteButton {
+  background: #dc3545;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  &:hover:not(:disabled) {
+    background: #c82333;
+  }
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid #ffffff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

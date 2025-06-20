@@ -91,9 +91,9 @@ function AddNewModal(props: {
         reset();
         setAddNew(false);
       }
-    } catch (err) {
+    } catch (err : any) {
       console.log(err);
-      ToastNot("Error occurred while adding post");
+      ToastNot(err.response.data.message);
     }
   };
 const t = useTranslations("web.subHeader.green");

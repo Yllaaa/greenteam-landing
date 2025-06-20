@@ -1,0 +1,103 @@
+// components/ForumList/ForumList.module.scss
+.list {
+  width: 100%;
+  
+  &.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  &.horizontal {
+    display: flex;
+    gap: 20px;
+    padding: 10px 0;
+    
+    .forumWrapper {
+      flex: 0 0 auto;
+      width: 350px; // Adjust based on your design
+      
+      @media (max-width: 768px) {
+        width: 280px;
+      }
+    }
+  }
+}
+
+.scrollWrapper {
+  margin: 0 -10px; // Compensate for arrow positioning
+}
+
+.loadingMore {
+  text-align: center;
+  padding: 40px 20px;
+  color: #6b7280;
+  
+  &.horizontalLoading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-width: 200px;
+    padding: 20px;
+  }
+}
+
+.spinner {
+  width: 32px;
+  height: 32px;
+  margin: 0 auto 12px;
+  border: 3px solid #e5e7eb;
+  border-top-color: #3b82f6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.error {
+  text-align: center;
+  padding: 40px 20px;
+  background: #fee;
+  border-radius: 12px;
+  color: #dc2626;
+}
+
+.errorMessage {
+  margin-top: 8px;
+  font-size: 14px;
+  color: #7f1d1d;
+}
+
+.empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #6b7280;
+  background: #f9fafb;
+  border-radius: 12px;
+}
+
+.endMessage {
+  text-align: center;
+  padding: 32px 20px;
+  color: #9ca3af;
+  font-size: 14px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 20px;
+}
+
+.loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 60px 20px;
+  color: #6b7280;
+}
+
+// .forumWrapper {
+//   // Specific styles for forum wrapper if needed
+// }

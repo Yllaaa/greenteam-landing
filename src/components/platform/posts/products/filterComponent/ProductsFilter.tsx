@@ -16,7 +16,7 @@ function ProductsFilter(props: ProductsFilterProps) {
   // Handle horizontal scrolling with mouse wheel
   const handleWheel = (e: React.WheelEvent) => {
     if (scrollRef.current) {
-      e.preventDefault();
+      // e.preventDefault();
       scrollRef.current.scrollLeft += e.deltaY;
     }
   };

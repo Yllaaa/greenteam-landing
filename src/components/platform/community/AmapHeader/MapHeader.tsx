@@ -68,7 +68,7 @@ export default function MapHeader() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // New state variables for enhanced UX
-  const [mobileFiltersVisible, setMobileFiltersVisible] = useState<boolean>(false);
+  const [mobileFiltersVisible, setMobileFiltersVisible] = useState<boolean>(true);
   const [isLoadingCountries, setIsLoadingCountries] = useState<boolean>(false);
   const [isLoadingCities, setIsLoadingCities] = useState<boolean>(false);
   const [isMapLoading, setIsMapLoading] = useState<boolean>(true);
@@ -78,7 +78,7 @@ export default function MapHeader() {
 
   // Toggle mobile filters
   const toggleMobileFilters = () => {
-    setMobileFiltersVisible(!mobileFiltersVisible);
+    setMobileFiltersVisible(true);
   };
 
   // Handle clicks outside the dropdown to close it

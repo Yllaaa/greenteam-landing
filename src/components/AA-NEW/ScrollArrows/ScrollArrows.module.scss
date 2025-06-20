@@ -1,0 +1,136 @@
+.wrapper {
+  position: relative;
+  width: 100%;
+  
+  &.outside {
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      
+      &.arrowLeft {
+        left: -60px;
+      }
+      
+      &.arrowRight {
+        right: -60px;
+      }
+    }
+  }
+  
+  &.inside {
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      
+      &.arrowLeft {
+        left: 10px;
+      }
+      
+      &.arrowRight {
+        right: 10px;
+      }
+    }
+  }
+}
+
+.scrollContainer {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.arrow {
+  background: #006700;
+  border: 1px solid #006700;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+  &:hover {
+    background: #97b00f;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-50%) scale(1.1);
+    -webkit-transform: translateY(-50%) scale(1.1);
+    -moz-transform: translateY(-50%) scale(1.1);
+    -ms-transform: translateY(-50%) scale(1.1);
+    -o-transform: translateY(-50%) scale(1.1);
+}
+  
+  &:active {
+    transform: translateY(-50%) scale(0.95);
+    -webkit-transform: translateY(-50%) scale(0.95);
+    -moz-transform: translateY(-50%) scale(0.95);
+    -ms-transform: translateY(-50%) scale(0.95);
+    -o-transform: translateY(-50%) scale(0.95);
+}
+  
+  &.small {
+    width: 32px;
+    height: 32px;
+    
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  &.medium {
+    width: 40px;
+    height: 40px;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+  
+  &.large {
+    width: 48px;
+    height: 48px;
+    
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+  
+  svg {
+    stroke-width: 2.5;
+  }
+}
+
+// Add gradient fade effect for inside arrows
+.inside {
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 60px;
+    pointer-events: none;
+    z-index: 5;
+  }
+  
+  // &::before {
+  //   left: 0;
+  //   background: linear-gradient(to right, #006700 0%, rgba(255, 255, 255, 0) 100%);
+  // }
+  
+  // &::after {
+  //   right: 0;
+  //   background: linear-gradient(to left, #006700 0%, rgba(255, 255, 255, 0) 100%);
+  // }
+}

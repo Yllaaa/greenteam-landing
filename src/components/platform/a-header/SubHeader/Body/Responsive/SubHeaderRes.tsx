@@ -14,6 +14,7 @@ import addNew from "@/../public/ZPLATFORM/header/addNew.svg";
 import { useLocale, useTranslations } from "next-intl";
 import post from "@/../public/ZPLATFORM/header/posts.svg";
 import { useAppSelector } from "@/store/hooks";
+import Breif from "../../../breif/Breif";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -112,6 +113,9 @@ function SubHeaderRes(props: Props) {
             </Link>
           </div>
         ))}
+        <div className={styles.link}>
+          <Breif />
+        </div>
       </div>
 
       <div className={styles.suggested}>

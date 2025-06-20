@@ -1,0 +1,214 @@
+// components/ForumActions/ForumActions.module.scss
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+}
+
+.actionBtn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #ffffff;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      transform: none;
+      background: transparent;
+    }
+  }
+
+  svg {
+    font-size: 1.125rem;
+    transition: transform 0.2s ease;
+  }
+
+  span {
+    font-weight: 500;
+  }
+
+  // Like button active state
+  &.activeLike {
+    background: rgba(59, 130, 246, 0.15);
+    border-color: #3b82f6;
+    color: #3b82f6;
+
+    &:hover {
+      background: rgba(59, 130, 246, 0.25);
+    }
+
+    svg {
+      animation: likeAnimation 0.3s ease;
+    }
+  }
+
+  // Dislike button active state
+  &.activeDislike {
+    background: rgba(239, 68, 68, 0.15);
+    border-color: #ef4444;
+    color: #ef4444;
+
+    &:hover {
+      background: rgba(239, 68, 68, 0.25);
+    }
+
+    svg {
+      animation: dislikeAnimation 0.3s ease;
+    }
+  }
+
+  // Sign button active state
+  &.activeSign {
+    background: rgba(151, 176, 15, 0.15);
+    border-color: #97b00f;
+    color: #97b00f;
+
+    &:hover {
+      background: rgba(151, 176, 15, 0.25);
+    }
+
+    svg {
+      animation: signAnimation 0.3s ease;
+    }
+  }
+
+  // Comment button special styling
+  &.commentBtn {
+    &:hover {
+      border-color: #6366f1;
+      color: #6366f1;
+      
+      svg {
+        transform: scale(1.1);
+      }
+    }
+  }
+}
+
+// Animations
+@keyframes likeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(-15deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislikeAnimation {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.3) rotate(15deg);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes signAnimation {
+  0% {
+    transform: scale(1) rotate(0deg);
+  }
+  50% {
+    transform: scale(1.2) rotate(10deg);
+  }
+  100% {
+    transform: scale(1) rotate(0deg);
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .actions {
+    gap: 0.5rem;
+  }
+
+  .actionBtn {
+    padding: 0.375rem 0.75rem;
+    font-size: 0.8125rem;
+    
+    svg {
+      font-size: 1rem;
+    }
+
+    span {
+      display: none; // Hide text on mobile, show only icons
+    }
+
+    &.activeSign span {
+      display: inline; // Always show "Sign" text even on mobile
+    }
+  }
+}
+
+// Loading state
+.actionBtn {
+  &:disabled {
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.1);
+      animation: shimmer 1.5s infinite;
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+// Hover ripple effect
+.actionBtn {
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.3s, height 0.3s;
+  }
+
+  &:hover::before {
+    width: 100%;
+    height: 100%;
+  }
+}

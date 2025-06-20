@@ -1,0 +1,54 @@
+/** @format */
+
+// MainHeader.module.scss
+.headerContainer {
+	width: 100%;
+	border-bottom: 1px solid #97b00f;
+	margin-bottom: 24px;
+}
+
+.headerContent {
+	padding: 24px;
+	margin: 0 auto;
+	max-width: 1536px; // xl breakpoint equivalent
+
+	@media (max-width: 600px) {
+		padding: 16px 0px;
+	}
+}
+
+.titleRow {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin-bottom: 16px;
+	gap: 16px;
+}
+
+.title {
+	color: #fefefe;
+	text-align: center;
+	font-family: Montserrat;
+	font-size: 24px;
+	font-style: normal;
+	font-weight: 600;
+	line-height: normal;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap:16px;
+
+	&.titleMobile {
+		font-size: 12px;
+		gap:6px;
+	}
+	.titleIcon{
+		width:38px;
+		height:38px;
+	}
+}
+
+.categoryContainer {
+	width: 100%;
+	overflow: hidden;
+}

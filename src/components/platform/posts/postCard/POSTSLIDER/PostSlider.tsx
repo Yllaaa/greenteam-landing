@@ -316,13 +316,13 @@ function PostSlider(props: Props) {
     return (
       <div onClick={() => navigateToPost(postId)} className={styles.textPost}>
         <p>
-          {content.slice(0, 1000)}
-          {content.length > 1000 && (
+          {content.slice(0, 100)}
+          {content.length > 100 && (
             <span
               onClick={() => handleNavigatePost(postId)}
               className={styles.readMore}
             >
-              {t("readMore")}
+              {" "}{t("readMore")}
             </span>
           )}
         </p>

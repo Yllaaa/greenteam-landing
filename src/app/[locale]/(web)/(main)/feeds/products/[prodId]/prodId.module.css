@@ -1,3 +1,11 @@
-.container{
-    padding: 100px 40px;
+/** @format */
+
+.container {
+	padding: 100px 40px;
+}
+
+@media screen and (max-width: 768px) {
+	.container {
+		padding: 40px 20px;
+	}
 }

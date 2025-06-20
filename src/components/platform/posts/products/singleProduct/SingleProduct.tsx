@@ -60,6 +60,14 @@ function SingleProduct(props: { prodId: string }) {
         setErrorMessage("Error fetching product");
       });
   }, []);
+  const handleProfileVisit = () => {
+    if (product.sellerType !== "page") {
+      router.push(`/${locale}/profile/${product.seller.name}`);
+    } else {
+      router.push(`/${locale}/pages/${product.seller.name}`);
+      
+    }
+  }
 
   return (
     <>
@@ -91,6 +99,7 @@ function SingleProduct(props: { prodId: string }) {
                         width={1000}
                         height={1000}
                         className={styles.image}
+                        style={{ objectFit: "contain" }}
                       />
                     </div>
                   </div>
@@ -103,6 +112,7 @@ function SingleProduct(props: { prodId: string }) {
                   width={1000}
                   height={1000}
                   className={styles.singleImage}
+                        style={{ objectFit: "contain" }}
                 />
               )}
               {loaded && instanceRef.current && product.images.length > 1 && (
@@ -148,7 +158,7 @@ function SingleProduct(props: { prodId: string }) {
                     height={100}
                   />
                 </div>
-                <div className={styles.details}>
+                <div onClick={handleProfileVisit} className={styles.details}>
                   <p className={styles.dLabel}>{t("by")}:</p>
                   <p className={styles.name}>{product.seller.name}</p>
                 </div>

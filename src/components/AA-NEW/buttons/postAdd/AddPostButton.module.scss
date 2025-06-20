@@ -1,0 +1,74 @@
+// AddPostButton.module.scss
+.iconButton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #97b00f; // primary color - adjust to match your theme
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #1565c0; // primary dark - adjust to match your theme
+    }
+  
+    &:focus {
+      outline: 2px solid #1976d2;
+      outline-offset: 2px;
+    }
+  
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+  
+  .addIcon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background-color: #97b00f; // primary color - adjust to match your theme
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: none;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #1565c0; // primary dark - adjust to match your theme
+    }
+  
+    &:focus {
+      outline: 2px solid #1976d2;
+      outline-offset: 2px;
+    }
+  
+    &:active {
+      transform: scale(0.98);
+    }
+  
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+  }
+  
+  .buttonIcon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }

@@ -156,6 +156,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
                   width={1000}
                   height={1000}
                   className={styles.image}
+                  style={{ objectFit: "contain" }}
                 />
               </div>
             </div>
@@ -167,7 +168,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             loading="lazy"
             width={1000}
             height={1000}
-            className={styles.singleImage}
+              className={styles.singleImage}
+              style={{ objectFit: "contain" }}
           />
         )}
         {loaded && instanceRef.current && product?.images?.length > 1 && (

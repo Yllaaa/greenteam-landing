@@ -215,7 +215,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
               key={imageUrl.id || index}
               className={`keen-slider__slide ${styles.postCard}`}
             >
-              <div className={styles.image}>
+              <div className={styles.imageC}>
                 <Image
                   src={product.images.length > 0 ? imageUrl.mediaUrl : image}
                   alt={`Post image ${index + 1}`}

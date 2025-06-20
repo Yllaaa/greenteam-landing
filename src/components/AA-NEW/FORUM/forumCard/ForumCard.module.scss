@@ -1,0 +1,519 @@
+/** @format */
+
+// components/ForumCard/ForumCard.module.scss
+.container {
+	position: relative;
+	background: #2a2d2b;
+	border-radius: 16px;
+	height: 450px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	overflow: hidden;
+	border: 1px solid rgba(255, 255, 255, 0.05);
+
+	&:hover {
+		transform: translateY(-4px);
+		box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+
+	// Gradient overlay for better visual hierarchy
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		height: 100px;
+		background: linear-gradient(to bottom, rgba(0, 0, 0, 0.1), transparent);
+		pointer-events: none;
+		z-index: 1;
+	}
+}
+
+.optionsWrapper {
+	position: absolute;
+	top: 1rem;
+	right: 1rem;
+	z-index: 20;
+	opacity: 0;
+	transition: opacity 0.2s ease;
+	background-color: #2a2d2b;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	.container:hover & {
+		opacity: 1;
+	}
+}
+
+// Scrollable content area
+.scrollableContent {
+	flex: 1;
+	overflow-y: auto;
+	padding: 1.5rem;
+	padding-bottom: 0.5rem;
+
+	// Custom scrollbar
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 3px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 3px;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+
+	// Firefox scrollbar
+	scrollbar-width: thin;
+	scrollbar-color: rgba(255, 255, 255, 0.2) rgba(255, 255, 255, 0.05);
+}
+
+.header {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-bottom: 1rem;
+	position: relative;
+}
+
+.user {
+	display: flex;
+	gap: 0.875rem;
+	align-items: flex-start;
+	flex: 1;
+}
+
+.avatar {
+	width: 48px;
+	height: 48px;
+	border-radius: 50%;
+	overflow: hidden;
+	cursor: pointer;
+	flex-shrink: 0;
+	position: relative;
+	transition: transform 0.2s ease;
+
+	&:hover {
+		transform: scale(1.05);
+	}
+
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 50%;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+	}
+
+	.avatarImage {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.noAvatar {
+		width: 100%;
+		height: 100%;
+		background: linear-gradient(135deg, #006633, #008844);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		color: white;
+		font-weight: 700;
+		font-size: 1.25rem;
+		text-transform: uppercase;
+	}
+}
+
+.userInfo {
+	display: flex;
+	flex-direction: column;
+	gap: 0.125rem;
+	min-width: 0; // Enable text truncation
+}
+
+.username {
+	font-weight: 600;
+	color: #ffffff;
+	cursor: pointer;
+	margin: 0;
+	font-size: 1rem;
+	line-height: 1.2;
+	transition: color 0.2s ease;
+
+	// Text truncation
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 200px;
+
+	&:hover {
+		color: #97b00f;
+	}
+}
+
+.fullName {
+	color: rgba(255, 255, 255, 0.7);
+	font-size: 0.875rem;
+	margin: 0;
+	line-height: 1.2;
+
+	// Text truncation
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	max-width: 200px;
+}
+
+.timestamp {
+	color: rgba(255, 255, 255, 0.5);
+	font-size: 0.75rem;
+	line-height: 1.2;
+}
+
+.sectionBadge {
+	width: 40px;
+	height: 40px;
+	flex-shrink: 0;
+	filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+	transition: transform 0.2s ease;
+
+	&:hover {
+		transform: scale(1.1);
+	}
+
+	img {
+		width: 100%;
+		height: 100%;
+		object-fit: contain;
+	}
+}
+
+// Location styling
+.location {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	margin-bottom: 1rem;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 0.875rem;
+	padding: 0.5rem 0.75rem;
+	background: rgba(255, 255, 255, 0.05);
+	border-radius: 8px;
+	width: fit-content;
+	transition: all 0.2s ease;
+
+	&:hover {
+		background: rgba(255, 255, 255, 0.08);
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.locationIcon {
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+		color: #97b00f;
+	}
+
+	span {
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		max-width: 250px;
+	}
+}
+
+.content {
+	cursor: pointer;
+	position: relative;
+}
+
+.headline {
+	font-size: 1.25rem;
+	font-weight: 700;
+	color: #ffffff;
+	margin: 0 0 0.75rem 0;
+	line-height: 1.4;
+	word-break: break-word;
+	transition: color 0.2s ease;
+
+	// Limit to 2 lines
+	display: -webkit-box;
+	line-clamp: 2;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+
+	.content:hover & {
+		color: #97b00f;
+	}
+}
+
+.text {
+	color: rgba(255, 255, 255, 0.8);
+	line-height: 1.6;
+	margin: 0 0 1rem 0;
+	white-space: pre-wrap;
+	word-break: break-word;
+	font-size: 0.9375rem;
+
+	// Limit to 4 lines
+	display: -webkit-box;
+	line-clamp: 4;
+	-webkit-line-clamp: 4;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.mediaContainer {
+	margin: 0 -1.5rem;
+	overflow: hidden;
+	border-radius: 12px;
+	position: relative;
+	background: rgba(0, 0, 0, 0.2);
+	max-height: 250px;
+
+	&::after {
+		content: '';
+		position: absolute;
+		inset: 0;
+		border-radius: 12px;
+		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+		pointer-events: none;
+	}
+
+	.media {
+		width: 100%;
+		height: auto;
+		object-fit: cover;
+		display: block;
+	}
+
+	// Media count indicator for multiple images
+	.mediaCount {
+		position: absolute;
+		bottom: 12px;
+		right: 12px;
+		background: rgba(0, 0, 0, 0.8);
+		color: white;
+		padding: 6px 12px;
+		border-radius: 20px;
+		font-size: 0.875rem;
+		font-weight: 600;
+		backdrop-filter: blur(10px);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+	}
+}
+
+// Fixed footer
+.footer {
+	position: sticky;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: linear-gradient(to bottom, rgba(42, 45, 43, 0.95), #2a2d2b);
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+	padding: 0.875rem 1.5rem;
+	backdrop-filter: blur(10px);
+	z-index: 10;
+	min-height: 60px;
+
+	// Subtle shadow for depth
+	&::before {
+		content: '';
+		position: absolute;
+		bottom: 100%;
+		left: 0;
+		right: 0;
+		height: 20px;
+		background: linear-gradient(to top, rgba(0, 0, 0, 0.1), transparent);
+		pointer-events: none;
+	}
+}
+
+// Section-specific color accents
+.container {
+	&[data-section='need'] {
+		.sectionBadge {
+			background: rgba(255, 87, 34, 0.1);
+			border-radius: 50%;
+			padding: 4px;
+		}
+	}
+
+	&[data-section='dream'] {
+		.sectionBadge {
+			background: rgba(156, 39, 176, 0.1);
+			border-radius: 50%;
+			padding: 4px;
+		}
+	}
+
+	&[data-section='doubt'] {
+		.sectionBadge {
+			background: rgba(33, 150, 243, 0.1);
+			border-radius: 50%;
+			padding: 4px;
+		}
+	}
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+	.container {
+		height: 400px;
+	}
+	.content {
+		overflow-x: hidden;
+	}
+	.scrollableContent {
+		padding: 1rem;
+	}
+
+	.username,
+	.fullName {
+		max-width: 150px;
+	}
+
+	.location {
+		span {
+			max-width: 180px;
+		}
+	}
+
+	.headline {
+		font-size: 1.125rem;
+	}
+
+	.text {
+		font-size: 0.875rem;
+		line-clamp: 3;
+		-webkit-line-clamp: 3;
+	}
+
+	.footer {
+		padding: 0.75rem 1rem;
+		min-height: 56px;
+	}
+
+	.mediaContainer {
+		max-height: 200px;
+	}
+}
+
+// Animation for content loading
+@keyframes fadeIn {
+	from {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+.container {
+	animation: fadeIn 0.3s ease-out;
+}
+
+// Hover state enhancements
+.container:hover {
+	.scrollableContent {
+		&::-webkit-scrollbar-thumb {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
+// Loading skeleton styles (for future use)
+.skeleton {
+	background: linear-gradient(
+		90deg,
+		rgba(255, 255, 255, 0.05) 25%,
+		rgba(255, 255, 255, 0.1) 50%,
+		rgba(255, 255, 255, 0.05) 75%
+	);
+	background-size: 200% 100%;
+	animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+	0% {
+		background-position: 200% 0;
+	}
+	100% {
+		background-position: -200% 0;
+	}
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+	.container,
+	.avatar,
+	.sectionBadge,
+	.optionsWrapper {
+		transition: none;
+	}
+
+	.container {
+		animation: none;
+	}
+}
+
+// Dark mode adjustments (if needed)
+@media (prefers-color-scheme: light) {
+	.container {
+		background: #f8f9fa;
+		border-color: rgba(0, 0, 0, 0.1);
+		color: #1a1a1a;
+
+		.username {
+			color: #1a1a1a;
+		}
+
+		.fullName {
+			color: rgba(0, 0, 0, 0.7);
+		}
+
+		.timestamp {
+			color: rgba(0, 0, 0, 0.5);
+		}
+
+		.headline {
+			color: #1a1a1a;
+		}
+
+		.text {
+			color: rgba(0, 0, 0, 0.8);
+		}
+
+		.location {
+			background: rgba(0, 0, 0, 0.05);
+			color: rgba(0, 0, 0, 0.6);
+		}
+
+		.footer {
+			background: linear-gradient(
+				to bottom,
+				rgba(248, 249, 250, 0.95),
+				#f8f9fa
+			);
+			border-top-color: rgba(0, 0, 0, 0.1);
+		}
+	}
+}

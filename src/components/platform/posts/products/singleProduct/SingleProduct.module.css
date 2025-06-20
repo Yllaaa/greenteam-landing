@@ -1,25 +1,41 @@
+/* Base Container Styles */
+.container {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 .product {
   display: flex;
-  align-items: flex-start;
+  align-items: stretch;
   justify-content: center;
   width: 100%;
+  max-width: 1400px;
   height: fit-content;
   min-height: 788px;
   background-color: #363636;
   border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+  transition: all 0.3s ease;
 }
+
+/* Slider Section */
 .slider {
-  width: 100%;
+  width: 50%;
   height: 100%;
   padding: 40px;
-  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 }
+
 .slider .postCard {
-  width: 80%;
+  width: 100%;
   height: 100%;
   position: relative;
   z-index: 1;
@@ -27,160 +43,424 @@
   justify-content: center;
   align-items: center;
 }
+
 .slider .postCard .image {
-  width: 80%;
+  width: 100%;
   height: 600px;
   position: relative;
   z-index: 10;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: rgba(255, 255, 255, 0.05);
 }
+
 .singleImage {
   width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px;
+  height: 600px;
+  object-fit: contain;
+  border-radius: 20px;
 }
-/* .image img {
-  width: 100%;
-  height: 100%;
-  border-radius: 30px;
-  -webkit-border-radius: 30px;
-  -moz-border-radius: 30px;
-  -ms-border-radius: 30px;
-  -o-border-radius: 30px;
-} */
+
+/* Dots Navigation */
+.dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 20;
+  padding: 8px 16px;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: #74b243;
+  border-color: #74b243;
+  transform: scale(1.2);
+}
+
+.dot:hover {
+  border-color: #fff;
+}
+
+/* Content Section */
 .content {
   position: relative;
-  width: 100%;
-  height: fit-content;
+  width: 50%;
+  height: 100%;
   min-height: 788px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   padding: 60px 48px;
-  border-left: #fff 1px solid;
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  overflow-y: auto;
 }
+
+/* Category Badge */
 .category {
   width: fit-content;
-  height: 16px;
-
-  border-radius: 4px;
-  padding: 2px 6px;
-  gap: 10px;
+  padding: 6px 16px;
   background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-  font-family: Montaserrat;
+  border-radius: 20px;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 9px;
-  line-height: 100%;
-  letter-spacing: 8%;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
-  margin-bottom: 11px;
-}
-.title {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-size: 36px;
-  line-height: 100%;
-  letter-spacing: 0%;
   color: #fff;
-  margin-bottom: 34px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 15px rgba(116, 178, 67, 0.3);
 }
+
+/* Title */
+.title {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: clamp(24px, 4vw, 36px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: #fff;
+  margin-bottom: 30px;
+}
+
+/* Description */
 .description {
   width: 100%;
-  height: fit-content;
-  min-height: 285px;
+  flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 24px;
+  gap: 16px;
+  margin-bottom: 40px;
 }
+
 .description .dLabel {
-  font-family: Montaserrat;
+  font-family: 'Montserrat', sans-serif;
   font-weight: 600;
-  font-size: 20px;
-  line-height: 15px;
-  letter-spacing: 2%;
-  text-align: center;
+  font-size: 18px;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  color: rgba(255, 255, 255, 0.9);
 }
+
+.description p:not(.dLabel) {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* User Section */
 .user {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 25px;
+  gap: 20px;
+  padding: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 16px;
+  margin-bottom: 30px;
+  transition: all 0.3s ease;
 }
+
+.user:hover {
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .user .userImage {
-  width: 48px;
-  height: 48px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
 }
+
 .user .userImage .image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  -ms-border-radius: 50%;
-  -o-border-radius: 50%;
+  border: 3px solid rgba(116, 178, 67, 0.5);
 }
+
 .user .details {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: flex-start;
-  gap: 8px;
+  gap: 6px;
 }
-.user .details .name {
-  font-family: Montserrat;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 20px;
-  letter-spacing: 0%;
 
+.user .details .dLabel {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.user .details .name {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  line-height: 1.2;
   background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-.user .details .dLable {
-  font-family: Montserrat;
-  font-weight: 500;
-  font-size: 12px;
-  line-height: 100%;
-  letter-spacing: 0%;
-}
+
+/* Actions */
 .actions {
-  position: absolute;
-  bottom: 20px;
-  left: 0;
   width: 100%;
-  padding: 0px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: auto;
 }
-.actions .contactButton {
-  background: #006633;
-}
+
 .actions button {
   width: 100%;
-  height: 51px;
+  height: 54px;
   border: none;
   outline: none;
   cursor: pointer;
-  border-radius: 32px;
-  -webkit-border-radius: 32px;
-  -moz-border-radius: 32px;
-  -ms-border-radius: 32px;
-  -o-border-radius: 32px;
+  border-radius: 27px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
+
+.actions .contactButton {
+  background: linear-gradient(135deg, #006633 0%, #00854d 100%);
+  box-shadow: 0 6px 20px rgba(0, 102, 51, 0.4);
+}
+
+.actions .contactButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 102, 51, 0.5);
+}
+
+.actions .webButton {
+  background: transparent;
+  border: 2px solid #74b243;
+  color: #74b243;
+}
+
+.actions .webButton:hover {
+  background: rgba(116, 178, 67, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Loading and Error States */
+.loading {
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #fff;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 1200px) {
+  .slider {
+    width: 45%;
+  }
+  
+  .content {
+    width: 55%;
+    padding: 50px 40px;
+  }
+}
+
 @media screen and (max-width: 1024px) {
   .product {
     flex-direction: column;
+    max-width: 700px;
+    min-height: auto;
   }
+  
+  .slider {
+    width: 100%;
+    padding: 30px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  
+  .slider .postCard .image {
+    height: 450px;
+  }
+  
+  .singleImage {
+    height: 450px;
+  }
+  
   .content {
-    border: none;
+    width: 100%;
+    border-left: none;
+    min-height: auto;
+    padding: 40px;
   }
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+  
+  .product {
+    border-radius: 20px;
+  }
+  
+  .slider {
+    padding: 20px;
+  }
+  
+  .slider .postCard .image {
+    height: 350px;
+    border-radius: 15px;
+  }
+  
+  .singleImage {
+    height: 350px;
+  }
+  
+  .content {
+    padding: 30px 20px;
+  }
+  
+  .title {
+    font-size: clamp(20px, 5vw, 28px);
+    margin-bottom: 20px;
+  }
+  
+  .description .dLabel {
+    font-size: 16px;
+  }
+  
+  .description p:not(.dLabel) {
+    font-size: 14px;
+  }
+  
+  .user {
+    padding: 16px;
+  }
+  
+  .user .userImage {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .user .details .name {
+    font-size: 16px;
+  }
+  
+  .actions button {
+    height: 48px;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .slider {
+    padding: 15px;
+  }
+  
+  .slider .postCard .image {
+    height: 280px;
+  }
+  
+  .singleImage {
+    height: 280px;
+  }
+  
+  .content {
+    padding: 25px 15px;
+  }
+  
+  .category {
+    font-size: 10px;
+    padding: 5px 12px;
+  }
+  
+  .title {
+    font-size: 22px;
+  }
+  
+  .user {
+    gap: 15px;
+    padding: 12px;
+  }
+  
+  .dots {
+    gap: 6px;
+    padding: 6px 12px;
+  }
+  
+  .dot {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Smooth Scrollbar for Content */
+.content::-webkit-scrollbar {
+  width: 6px;
+}
+
+.content::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.content::-webkit-scrollbar-thumb {
+  background: rgba(116, 178, 67, 0.5);
+  border-radius: 3px;
+}
+
+.content::-webkit-scrollbar-thumb:hover {
+  background: rgba(116, 178, 67, 0.7);
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Focus States for Accessibility */
+.actions button:focus-visible {
+  outline: 3px solid #74b243;
+  outline-offset: 2px;
+}
+
+.dot:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }

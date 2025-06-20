@@ -35,6 +35,9 @@
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
 }
+.readMore{
+  color:#063;
+}
 .textPost p{
   font-family: Montserrat;
   font-weight: 600;

@@ -31,6 +31,9 @@
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
 }
+.readMore {
+	color: #063;
+}
 .postCard {
   width: 100%;
   height: 100%;

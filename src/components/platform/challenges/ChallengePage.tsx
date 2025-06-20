@@ -5,7 +5,7 @@ import { CommentModal } from '../posts/feeds/commentModal/CommentModal'
 import AllChallenges from './allChallenges/AllChallenges'
 import styles from './ChallengePage.module.scss'
 import { useTranslations } from 'next-intl'
-import AddNewModal from '../a-header/SubHeader/Green-Challenges/modal/addNew/AddNewModal'
+import AddNewModal from '../a-header/SubHeader/doChallenges/myChallenges/modal/addNew/AddNewModal'
 function ChallengePage() {
   const t = useTranslations("web.challenges.all");
   const [commentModal, setCommentModal] = React.useState(false)
@@ -49,6 +49,7 @@ function ChallengePage() {
               setPostId={setPostId}
               commentModal={commentModal}
               setAddNew={setAddNew}
+              setChallengeId={setChallengeId}
             />
           </div>
         </div>

@@ -11,6 +11,7 @@ import ReportModal from "@/components/platform/modals/reportModal/ReportModal";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
+import {useTranslations} from "next-intl"
 
 // topics and subtopics
 const topics = Topics;
@@ -35,7 +36,7 @@ function FeedSection() {
       mediaType: string;
     }[]
   >([]);
-
+  const tt = useTranslations("web.header.topics");
   //pagination
   const [commentsPage, setCommentsPage] = useState(1);
 
@@ -102,10 +103,7 @@ function FeedSection() {
               }}
               onClick={() => setSelectedTopics(topic.id)}
             >
-              {topic.name.slice(
-                0,
-                topic.name.indexOf(" ") === -1 ? 3 : topic.name.indexOf(" ")
-              )}
+              {tt(topic?.name)}
             </p>
           ))}
         </div>

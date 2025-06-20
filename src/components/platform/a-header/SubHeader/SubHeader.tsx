@@ -13,7 +13,7 @@ import { useLocale } from "next-intl";
 function SubHeader() {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
-const locale = useLocale()
+  const locale = useLocale()
   const [commentModal, setCommentModal] = React.useState(false);
   const [postComments, setPostComments] = React.useState([]);
   const [postId, setPostId] = React.useState("");

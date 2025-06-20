@@ -1,0 +1,53 @@
+.avatar,
+.avatarPlaceholder {
+  border-radius: 50%;
+  object-fit: cover;
+  
+  &.small {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    min-height: 32px;
+    max-width: 32px;
+    max-height: 32px;
+  }
+  
+  &.medium {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+    max-width: 48px;
+    max-height: 48px;
+  }
+  
+  &.large {
+    width: 64px;
+    height: 64px;
+    min-width: 64px;
+    min-height: 64px;
+    max-width: 64px;
+    max-height: 64px;
+  }
+}
+
+.avatarPlaceholder {
+  background: linear-gradient(135deg, #97b00f, 0%, #006737 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  
+  &.small {
+    font-size: 14px;
+  }
+  
+  &.medium {
+    font-size: 18px;
+  }
+  
+  &.large {
+    font-size: 24px;
+  }
+}

@@ -1,6 +1,11 @@
 .breadcrumb{
     width: 100%;
-    margin: auto 50px;
+    margin: auto 40px;
+}
+@media screen and (max-width:768px){
+.breadcrumb{
+    margin: auto 10px;
+}
 }
 .container{
     width: 100%;

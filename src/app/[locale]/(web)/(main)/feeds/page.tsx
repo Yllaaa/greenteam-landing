@@ -4,6 +4,8 @@ import PostForums from "@/components/platform/posts/forums/PostForums";
 import EventSection from "@/components/platform/posts/Events/EventSection";
 import ProductSection from "@/components/platform/posts/products/ProductSection";
 import SubHeader from "@/components/platform/a-header/SubHeader/SubHeader";
+// import Home from "@/components/AA-NEW/ROUTES/HOME_PAGE/Home";
+// import { ForumList } from "@/components/AA-NEW/FORUM/forumList/ForumList";
 import FeedSection from "@/components/platform/posts/feeds/FeedSection";
 
 function page() {
@@ -14,9 +16,12 @@ function page() {
       </div>
       <div className={srtyles.feedSection}>
         <FeedSection />
+        {/* <Home /> */}
       </div>
       <div className={srtyles.artSection}>
         <PostForums />
+        {/* <ForumList arrowSize="medium"
+          scrollAmount={350} showArrows="auto" horizontal /> */}
       </div>
       <div
         style={{
@@ -37,7 +42,7 @@ function page() {
         <ProductSection />
       </div>
       {/* done lesa likes/comment/do/unlike */}
-      
+
     </section>
   );
 }

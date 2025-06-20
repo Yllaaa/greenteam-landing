@@ -61,6 +61,7 @@ function Item({
           width={637}
           height={135}
           className={styles.logo}
+          style={{objectFit:"contain"}}
         />
       </div>
       <div className={styles.content}>

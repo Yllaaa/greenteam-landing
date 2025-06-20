@@ -1,138 +1,166 @@
+/** @format */
+
+$mob-width: 768px;
 .container {
-  width: 100%;
-  height: 400px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 12px;
-  padding: 0px 42px;
-  overflow-y: auto;
-  scrollbar-width: none;
-  .challengeItem {
-    position: relative;
-    width: 100%;
-    min-height: 128px;
-    background: #1a1e1c;
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 24px;
-    padding: 0px 16px;
-    border-radius: 30px;
-    -webkit-border-radius: 30px;
-    -moz-border-radius: 30px;
-    -ms-border-radius: 30px;
-    -o-border-radius: 30px;
-    .text {
-      h2 {
-        font-family: Montserrat;
-        font-weight: 600;
-        font-size: 20px;
-        line-height: 24.38px;
-        letter-spacing: -0.4%;
-        color: #fefefe;
-      }
-      p {
-        font-family: Montserrat;
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: -0.4%;
-        color: #fefefe;
-      }
-    }
-    .action {
-      position: absolute;
-      right: 16px;
-      top: 50%;
-      width: fit-content;
-      height: fit-content;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: auto;
-      gap: 8px;
-      transform: translateY(-50%);
-      -webkit-transform: translateY(-50%);
-      -moz-transform: translateY(-50%);
-      -ms-transform: translateY(-50%);
-      -o-transform: translateY(-50%);
-      .accept {
-        width: 132px;
-        height: 44px;
-        background: #97b00f;
-        border-radius: 30px;
-        -webkit-border-radius: 30px;
-        -moz-border-radius: 30px;
-        -ms-border-radius: 30px;
-        -o-border-radius: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        font-family: Montserrat;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: -0.4%;
-        color: #ffffff;
-        transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        //hover
-        &:hover {
-          background: #74b243;
-          transition: all 0.3s ease;
-          -webkit-transition: all 0.3s ease;
-          -moz-transition: all 0.3s ease;
-          -ms-transition: all 0.3s ease;
-          -o-transition: all 0.3s ease;
-        }
-      }
-      .delete {
-        width: 132px;
-        height: 44px;
-        background: red;
-        border-radius: 30px;
-        -webkit-border-radius: 30px;
-        -moz-border-radius: 30px;
-        -ms-border-radius: 30px;
-        -o-border-radius: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        border: none;
-        outline: none;
-        cursor: pointer;
-        font-family: Montserrat;
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 20px;
-        letter-spacing: -0.4%;
-        color: #ffffff;
-        transition: all 0.3s ease;
-        -webkit-transition: all 0.3s ease;
-        -moz-transition: all 0.3s ease;
-        -ms-transition: all 0.3s ease;
-        -o-transition: all 0.3s ease;
-        //hover
-        &:hover {
-          background: darkred;
-          transition: all 0.3s ease;
-          -webkit-transition: all 0.3s ease;
-          -moz-transition: all 0.3s ease;
-          -ms-transition: all 0.3s ease;
-          -o-transition: all 0.3s ease;
-        }
-      }
-    }
-  }
+	width: 100%;
+	height: 400px;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 12px;
+	padding: 0px 42px;
+	overflow-y: auto;
+	scrollbar-width: none;
+	.challengeItem {
+		position: relative;
+		width: 100%;
+		min-height: 128px;
+		background: #1a1e1c;
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 24px;
+		padding: 0px 16px;
+		border-radius: 30px;
+		-webkit-border-radius: 30px;
+		-moz-border-radius: 30px;
+		-ms-border-radius: 30px;
+		-o-border-radius: 30px;
+		@media screen and (max-width: $mob-width) {
+			padding: 8px;
+			gap: 12px;
+			flex-direction: column;
+			height: 300px;
+			min-height: fit-content;
+		}
+		.text {
+			h2 {
+				font-family: Montserrat;
+				font-weight: 600;
+				font-size: 20px;
+				line-height: 24.38px;
+				letter-spacing: -0.4%;
+				color: #fefefe;
+			}
+			p {
+				font-family: Montserrat;
+				font-weight: 400;
+				font-size: 16px;
+				line-height: 20px;
+				letter-spacing: -0.4%;
+				color: #fefefe;
+			}
+		}
+		.action {
+			position: absolute;
+			right: 16px;
+			top: 50%;
+			width: fit-content;
+			height: fit-content;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin: auto;
+			gap: 8px;
+			transform: translateY(-50%);
+			-webkit-transform: translateY(-50%);
+			-moz-transform: translateY(-50%);
+			-ms-transform: translateY(-50%);
+			-o-transform: translateY(-50%);
+			@media screen and (max-width: $mob-width) {
+				position: relative;
+				right: auto;
+				top: auto;
+				transform: translateY(0%);
+				-webkit-transform: translateY(0%);
+				-moz-transform: translateY(0%);
+				-ms-transform: translateY(0%);
+				-o-transform: translateY(0%);
+			}
+			.accept {
+				width: 132px;
+				height: 44px;
+				background: #97b00f;
+				border-radius: 30px;
+				-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				-ms-border-radius: 30px;
+				-o-border-radius: 30px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				font-family: Montserrat;
+				font-weight: 600;
+				font-size: 16px;
+				line-height: 20px;
+				letter-spacing: -0.4%;
+				color: #ffffff;
+				transition: all 0.3s ease;
+				-webkit-transition: all 0.3s ease;
+				-moz-transition: all 0.3s ease;
+				-ms-transition: all 0.3s ease;
+				-o-transition: all 0.3s ease;
+				//hover
+				&:hover {
+					background: #74b243;
+					transition: all 0.3s ease;
+					-webkit-transition: all 0.3s ease;
+					-moz-transition: all 0.3s ease;
+					-ms-transition: all 0.3s ease;
+					-o-transition: all 0.3s ease;
+				}
+				@media screen and (max-width: $mob-width) {
+					width: 100px;
+					height: 32px;
+				}
+			}
+			.delete {
+				width: 132px;
+				height: 44px;
+				background: red;
+				border-radius: 30px;
+				-webkit-border-radius: 30px;
+				-moz-border-radius: 30px;
+				-ms-border-radius: 30px;
+				-o-border-radius: 30px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 8px;
+				border: none;
+				outline: none;
+				cursor: pointer;
+				font-family: Montserrat;
+				font-weight: 600;
+				font-size: 16px;
+				line-height: 20px;
+				letter-spacing: -0.4%;
+				color: #ffffff;
+				transition: all 0.3s ease;
+				-webkit-transition: all 0.3s ease;
+				-moz-transition: all 0.3s ease;
+				-ms-transition: all 0.3s ease;
+				-o-transition: all 0.3s ease;
+				//hover
+				&:hover {
+					background: darkred;
+					transition: all 0.3s ease;
+					-webkit-transition: all 0.3s ease;
+					-moz-transition: all 0.3s ease;
+					-ms-transition: all 0.3s ease;
+					-o-transition: all 0.3s ease;
+				}
+				@media screen and (max-width: $mob-width) {
+					width: 100px;
+					height: 32px;
+				}
+			}
+		}
+	}
 }

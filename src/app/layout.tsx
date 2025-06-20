@@ -10,6 +10,7 @@ const montserrat = Montserrat({
   subsets: ["latin", "latin-ext"],
   style: ["normal"],
   display: "swap",
+  fallback:["system-ui", "sans-serif", "arial"],
   variable: "--monta",
 });
 
