@@ -94,33 +94,33 @@ const PaymentPlan = () => {
             </div>
             <div className={styles.slogan}>
               {tier.id === 1 ? (
-<div className={styles.sloganText}>
-                <h3>TOGHTHER WE CAN TAKE CONTROL OF OUR LIVES</h3>
-                <Image src={tire1} alt="tire1" loading="lazy" width={300} height={300} />
-                <p>We Are All Greenteam</p>
-                <p>The conscious social net</p>
-              </div>
-              ): tier.id === 2 ? (
-<div className={styles.sloganText}>
-                <h3>Green business are the future</h3>
-                <Image src={tire2} alt="tire2" loading="lazy" width={300} height={300} />
-                <p>use greenteam to build your community</p>
-                <p>The conscious social net</p>
-              </div>
-              ): tier.id === 3 ? (
-<div className={styles.sloganText}>
-                <h3>We ARE FRIEND OF THE SUSTAINABLE INDUSTRY</h3>
-                <Image src={tire3} alt="tire3" loading="lazy" width={300} height={300} />
-                      <p>use greenteam to build your community</p>
-                      <p>The conscious social net</p>
-              </div>
-              ): (
-<div className={styles.sloganText}>
-                <h3>Join the movement</h3>
-                <p>Be a part of the change for a better world</p>
-              </div>
+                <div className={styles.sloganText}>
+                  <h3>TOGHTHER WE CAN TAKE CONTROL OF OUR LIVES</h3>
+                  <Image src={tire1} alt="tire1" loading="lazy" width={300} height={300} />
+                  <p>We Are All Greenteam</p>
+                  <p>The conscious social net</p>
+                </div>
+              ) : tier.id === 2 ? (
+                <div className={styles.sloganText}>
+                  <h3>Green business are the future</h3>
+                  <Image src={tire2} alt="tire2" loading="lazy" width={300} height={300} />
+                  <p>use greenteam to build your community</p>
+                  <p>The conscious social net</p>
+                </div>
+              ) : tier.id === 3 ? (
+                <div className={styles.sloganText}>
+                  <h3>We ARE FRIEND OF THE SUSTAINABLE INDUSTRY</h3>
+                  <Image src={tire3} alt="tire3" loading="lazy" width={300} height={300} />
+                  <p>use greenteam to build your community</p>
+                  <p>The conscious social net</p>
+                </div>
+              ) : (
+                <div className={styles.sloganText}>
+                  <h3>Join the movement</h3>
+                  <p>Be a part of the change for a better world</p>
+                </div>
               )}
-              </div>
+            </div>
           </div>
         ))}
       </div>
