@@ -311,7 +311,7 @@ function PostCard(props: Props) {
                     className={styles.post}
                   >
                     {post.post.content.length > 50 ? (
-                      <p style={{ cursor: "pointer" }}>
+                      <p style={{ wordBreak: "break-all", cursor: "pointer" }}>
                         {linkifyText(post.post.content.slice(0, 40), {
                           className: linkifyStyles['content-link'],
                           target: "_blank"
@@ -319,7 +319,7 @@ function PostCard(props: Props) {
                         <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
-                      <p style={{ cursor: "pointer" }}>
+                      <p style={{wordBreak: "break-all", cursor: "pointer" }}>
                         {linkifyText(post.post.content, {
                           className: linkifyStyles['content-link'],
                           target: "_blank"

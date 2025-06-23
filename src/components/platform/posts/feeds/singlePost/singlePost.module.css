@@ -26,6 +26,13 @@
   line-height: 100%;
   letter-spacing: 0%;
 }
+.details .userName p {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 8px;
+}
 .details .userName p span {
   font-family: Montserrat;
   font-weight: 500;

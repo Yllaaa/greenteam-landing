@@ -289,9 +289,9 @@ const t = useTranslations("web.main.feeds");
                 className={styles.userName}
               >
                 <p>
-                  {post.author.fullName || post.author.username} <span>@{post.author.username}</span>
+                  {post.author.fullName || post.author.username} <span>@{post.author.username}  . {formatTimeDifference(post.post.createdAt)}</span>
                   {isMounted && (
-                    <span> . {formatTimeDifference(post.post.createdAt)}</span>
+                    <span></span>
                   )}
                 </p>
               </div>
