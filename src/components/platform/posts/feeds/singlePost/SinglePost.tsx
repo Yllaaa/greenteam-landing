@@ -97,7 +97,7 @@ function SinglePost(props: Props) {
     },
     [router, locale]
   );
-const t = useTranslations("web.main.feeds");
+  const t = useTranslations("web.main.feeds");
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
   const [userLiked, setUserLiked] = useState<boolean>(false);
@@ -290,9 +290,7 @@ const t = useTranslations("web.main.feeds");
               >
                 <p>
                   {post.author.fullName || post.author.username} <span>@{post.author.username}  . {formatTimeDifference(post.post.createdAt)}</span>
-                  {isMounted && (
-                    <span></span>
-                  )}
+
                 </p>
               </div>
             </div>
@@ -404,7 +402,7 @@ const t = useTranslations("web.main.feeds");
               />
               <p>
                 <span>
-                  {dislikeCount} 
+                  {dislikeCount}
                 </span>
               </p>
             </button>
@@ -413,7 +411,7 @@ const t = useTranslations("web.main.feeds");
               <FaComment style={{ fill: "#97B00F" }} />
               <p>
                 <span>
-                  {post.commentCount} 
+                  {post.commentCount}
                 </span>
               </p>
             </button>
