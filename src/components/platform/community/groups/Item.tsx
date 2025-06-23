@@ -8,7 +8,7 @@ import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-import { joinGroup, leaveGroup } from "../../../../../greenteam-landing/src/components/platform/sections/sec_group/header/header.data";
+import { joinGroup, leaveGroup } from "./header.data";
 
 
 function Item({
