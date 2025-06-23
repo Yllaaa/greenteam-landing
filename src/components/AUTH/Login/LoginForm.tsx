@@ -58,6 +58,7 @@ function LoginForm() {
 
   // const iconsArray = [googleIcon, facebookIcon, appleIcon, twitterIcon];
 
+
   const googleSignIn = () => {
     // Your Google Sign In logic here
     window.open(

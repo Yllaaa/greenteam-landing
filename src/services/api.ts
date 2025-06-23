@@ -1,9 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/**
- * eslint-disable @typescript-eslint/no-explicit-any
- *
- * @format
- */
 
 // services/api.ts
 import {createApi, fetchBaseQuery} from '@reduxjs/toolkit/query/react';
@@ -22,6 +17,11 @@ interface GetPostsParams {
 	limit?: number;
 	mainTopicId?: number;
 	subTopicId?: number | 'all';
+}
+interface GetGroupPostsParams {
+	groupId: string;
+	page?: number;
+	limit?: number;
 }
 
 interface TopicScore {
@@ -60,40 +60,58 @@ interface PublishPostBody {
 // Tag helper functions for consistent tag generation
 const tagHelpers = {
 	post: {
-		list: () => ({ type: 'Post' as const, id: 'LIST' }),
-		detail: (id: string) => ({ type: 'Post' as const, id }),
-		byTopic: (mainTopicId: number | string, subTopicId: number | string = 'all') => ({
+		list: () => ({type: 'Post' as const, id: 'LIST'}),
+		detail: (id: string) => ({type: 'Post' as const, id}),
+		byTopic: (
+			mainTopicId: number | string,
+			subTopicId: number | string = 'all'
+		) => ({
 			type: 'Post' as const,
 			id: `TOPIC-${mainTopicId}-${subTopicId}`,
 		}),
 		all: () => 'Post' as const,
 	},
 	forum: {
-		list: () => ({ type: 'Forum' as const, id: 'LIST' }),
-		detail: (id: string) => ({ type: 'Forum' as const, id }),
-		bySection: (section: string) => ({ type: 'Forum' as const, id: `SECTION-${section}` }),
+		list: () => ({type: 'Forum' as const, id: 'LIST'}),
+		detail: (id: string) => ({type: 'Forum' as const, id}),
+		bySection: (section: string) => ({
+			type: 'Forum' as const,
+			id: `SECTION-${section}`,
+		}),
 		all: () => 'Forum' as const,
 	},
 	comment: {
-		byPost: (postId: string) => ({ type: 'Comment' as const, id: postId }),
-		byComment: (commentId: string) => ({ type: 'Comment' as const, id: commentId }),
+		byPost: (postId: string) => ({type: 'Comment' as const, id: postId}),
+		byComment: (commentId: string) => ({
+			type: 'Comment' as const,
+			id: commentId,
+		}),
 		all: () => 'Comment' as const,
 	},
 	topicScores: {
 		main: () => 'TopicScores' as const,
-		sub: (topicId: number) => ({ type: 'TopicScores' as const, id: topicId }),
+		sub: (topicId: number) => ({type: 'TopicScores' as const, id: topicId}),
 	},
 	product: {
-		list: () => ({ type: 'Product' as const, id: 'LIST' }),
-		detail: (id: string) => ({ type: 'Product' as const, id }),
+		list: () => ({type: 'Product' as const, id: 'LIST'}),
+		detail: (id: string) => ({type: 'Product' as const, id}),
 	},
 	page: {
-		list: () => ({ type: 'Page' as const, id: 'LIST' }),
-		detail: (id: string) => ({ type: 'Page' as const, id }),
+		list: () => ({type: 'Page' as const, id: 'LIST'}),
+		detail: (id: string) => ({type: 'Page' as const, id}),
 	},
 	group: {
-		list: () => ({ type: 'Group' as const, id: 'LIST' }),
-		detail: (id: string) => ({ type: 'Group' as const, id }),
+		list: () => ({type: 'Group' as const, id: 'LIST'}),
+		detail: (id: string) => ({type: 'Group' as const, id}),
+		posts: (groupId: string) => ({type: 'GroupPost' as const, id: groupId}),
+	},
+	groupPost: {
+		byGroup: (groupId: string) => ({
+			type: 'GroupPost' as const,
+			id: `GROUP-${groupId}`,
+		}),
+		detail: (postId: string) => ({type: 'GroupPost' as const, id: postId}),
+		all: () => 'GroupPost' as const,
 	},
 };
 
@@ -200,6 +218,7 @@ export const api = createApi({
 		'Deleted',
 		'Group',
 		'Page',
+		'GroupPost',
 	],
 	endpoints: (builder) => ({
 		// get posts
@@ -236,6 +255,28 @@ export const api = createApi({
 					arg.subTopicId || 'all'
 				),
 				tagHelpers.post.all(),
+			],
+		}),
+		// groups posts
+		getGroupPosts: builder.query<PaginatedResponse<Post>, GetGroupPostsParams>({
+			query: ({groupId, page = 1, limit = 10}) => {
+				const params = new URLSearchParams();
+				params.append('page', page.toString());
+				params.append('limit', limit.toString());
+
+				return `/api/v1/groups/${groupId}/posts?${params.toString()}`;
+			},
+
+			// Include page in cache key
+			serializeQueryArgs: ({queryArgs}) => {
+				const {groupId, page = 1, limit = 10} = queryArgs;
+				return `getGroupPosts-${groupId}-${page}-${limit}`;
+			},
+
+			// Provide tags for cache invalidation
+			providesTags: (result, error, {groupId}) => [
+				tagHelpers.groupPost.byGroup(groupId),
+				tagHelpers.groupPost.all(),
 			],
 		}),
 		//get forums
@@ -376,6 +417,65 @@ export const api = createApi({
 				return tags;
 			},
 		}),
+		// Publish post to group
+		publishGroupPost: builder.mutation<
+			Post,
+			{
+				groupId: string;
+				content: string;
+				images?: File[];
+				document?: File;
+			}
+		>({
+			query: ({groupId, content, images, document}) => {
+				const formData = new FormData();
+				formData.append('content', content);
+
+				// Handle images
+				if (images && images.length > 0) {
+					if (images.length > 4) {
+						throw new Error('Maximum 4 images allowed');
+					}
+
+					images.forEach((image) => {
+						if (image.size > 2 * 1024 * 1024) {
+							throw new Error(`Image "${image.name}" exceeds 2MB limit`);
+						}
+						if (!image.type.startsWith('image/')) {
+							throw new Error(`File "${image.name}" is not an image`);
+						}
+						formData.append('images', image);
+					});
+				}
+
+				// Handle document
+				if (document) {
+					if (document.type !== 'application/pdf') {
+						throw new Error('Document must be a PDF file');
+					}
+					if (document.size > 10 * 1024 * 1024) {
+						throw new Error('Document exceeds 10MB limit');
+					}
+					formData.append('document', document);
+				}
+
+				return {
+					url: `/api/v1/groups/${groupId}/posts/publish-post`,
+					method: 'POST',
+					body: formData,
+				};
+			},
+
+			invalidatesTags: (result, error, {groupId}) => {
+				if (error) return [];
+
+				return [
+					tagHelpers.groupPost.byGroup(groupId),
+					tagHelpers.group.detail(groupId),
+				];
+			},
+		}),
+
 		//delete and report
 		deleteContent: builder.mutation<
 			void,
@@ -553,6 +653,8 @@ export const api = createApi({
 
 export const {
 	useGetPostsQuery,
+	useGetGroupPostsQuery,
+	usePublishGroupPostMutation,
 	useGetForumsQuery,
 	useDeleteContentMutation,
 	useReportContentMutation,

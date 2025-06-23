@@ -73,6 +73,14 @@ function Hero() {
         });
     }
   }, []);
+
+  const googleSignIn = () => {
+    // Your Google Sign In logic here
+    window.open(
+      `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/google/login`,
+      "_blank"
+    );
+  };
   return (
     <>
       <div className={styles.container}>
@@ -110,7 +118,7 @@ function Hero() {
           <button className={styles.download}>
             {t('downloadApp')} <FaArrowRightLong />
           </button>
-          <button className={styles.googleLink}>
+          <button onClick={googleSignIn} className={styles.googleLink}>
             {t('loginWithGoogle')}
             <Image src={googleIcon} alt="googleIcon" />
           </button>

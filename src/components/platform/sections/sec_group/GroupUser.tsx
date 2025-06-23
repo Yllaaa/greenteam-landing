@@ -6,7 +6,11 @@ import { useAppSelector } from "@/store/hooks";
 import GroupSides from "./sides/GroupSides";
 import EventSection from "./body/Events/EventSection";
 import Settings from "./body/settings/Settings";
+// import GroupPosts from "@/components/AA-NEW/POST/groups/GroupPosts";
+import { useParams } from 'next/navigation';
 function GroupUser() {
+  const params = useParams()
+  console.log(params);
   const groupData = useAppSelector((state) => state.groupState);
   const editState = useAppSelector((state) => state.groupEdit.edit);
   return (
@@ -21,6 +25,7 @@ function GroupUser() {
           <div className={styles.container}>
             <div className={styles.body}>
               <FeedSection />
+              {/* <GroupPosts groupId={params.groupId as string} /> */}
             </div>
             <div className={styles.sidebar}>
               <GroupSides />
