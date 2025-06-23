@@ -157,6 +157,7 @@ function EventCard(props: Props) {
             className={styles.image}
             width={200}
             height={200}
+            style={{ objectFit: "contain" }}
           />
         </div>
         <div className={styles.content}>

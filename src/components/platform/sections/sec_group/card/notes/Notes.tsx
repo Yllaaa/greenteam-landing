@@ -37,7 +37,7 @@ function Notes() {
       formDataToSend.append("title", formData.title);
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/groups/${groupId}/notes/create-note`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/groups/${groupId}/note/upsert-note`,
         {
           title: formData.title,
           content: formData.content,

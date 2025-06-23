@@ -23,8 +23,8 @@
 			"learnMore": "Learn more"
 		},
 		"earth": {
-			"bePart": "Be part of the community with GreenTeam,",
-			"theSustainable": "THE SUSTAINABLE COMMUNICATION TOOL.",
+			"bePart": "Discover and share experiences to create a better future,",
+			"theSustainable": "COMMUNICATION IS CULTURE.",
 			"greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
 			"learnMore": "Learn more"
 		},
@@ -856,6 +856,7 @@
 			"addNew": "Create new group",
 			"members": "members",
 			"joinGroup": "Join Group",
+			"leaveGroup": "Leave Group",
 			"groupImageAlt": "{groupName} banner image",
 			"viewGroup": "View group details",
 			"groupDescription": "Group description",

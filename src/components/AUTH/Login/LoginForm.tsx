@@ -103,7 +103,7 @@ function LoginForm() {
           }, 3000);
         })
         .catch((error) => {
-          if (error.response.data) {
+          if (error.response) {
             ToastNot(error.response.data.message);
           } else {
             ToastNot(t("loginFailed"));

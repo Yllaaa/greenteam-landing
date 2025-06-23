@@ -54,7 +54,7 @@ export default function Item({
     <div ref={index === length - 1 ? ref : null} className={styles.item}>
       <div className={styles.header}>
         <div className={styles.logo}>
-          <Image src={logo} alt={pageI.name} />
+           <Image src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
         </div>
         <div className={styles.ecoVillage}>EcoVillage</div>
       </div>

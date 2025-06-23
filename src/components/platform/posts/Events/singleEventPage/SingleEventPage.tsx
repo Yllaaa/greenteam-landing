@@ -29,6 +29,12 @@ type Event = {
   hostedBy: string;
   isJoined: boolean;
   hostName: string;
+  creator: {
+    id:string;
+    fullName:string;
+    username:string;
+    avatar: string;
+  }
 };
 function SingleEventPage(props: Props) {
   const { id } = props;
@@ -230,9 +236,13 @@ function SingleEventPage(props: Props) {
             </p>
           </div>
           <div className={styles.organizer}>
-            <div className={styles.img}></div>
+            <div className={styles.img}>
+              {event?.creator.avatar && 
+              <Image src={event.creator.avatar} alt={"avatar"} width={100} height={100} className={styles.avatar} />
+              }
+            </div>
             <div className={styles.text}>
-              <p className={styles.username}>{event?.hostName}</p>
+              <p className={styles.username}>{event?.creator.fullName}</p>
               <p className={styles.usernameTitle}>{t("organizer")}</p>
             </div>
           </div>

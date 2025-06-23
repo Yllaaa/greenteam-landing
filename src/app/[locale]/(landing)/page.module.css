@@ -9,12 +9,12 @@
 }
 .shadow1 {
   position: absolute;
-  top: 0px;
+  top: 200px;
   left: 50%;
   width: 0px;
   height: 50px;
-  background-color: #307040;
-  box-shadow: 0px -200px 3000px 100px #307040;
+  background-color: #063;
+  box-shadow: 0px -200px 3000px 100px #063;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -28,8 +28,8 @@
   right: -5%;
   width: 0px;
   height: 50px;
-  background-color: #307040;
-  box-shadow: 0px 0px 10000px 50px #307040,0px 0px 3000px 100px #68ba7d;
+  background-color: #063;
+  box-shadow: 0px 0px 10000px 50px #063,0px 0px 3000px 100px #063;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -43,8 +43,8 @@
   left: -5%;
   width: 0px;
   height: 50px;
-  background-color: #307040;
-  box-shadow: 0px 0px 10000px 50px #307040,0px 0px 3000px 100px #68ba7d;
+  background-color: #063;
+  box-shadow: 0px 0px 10000px 50px #063,0px 0px 3000px 100px #063;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
@@ -58,8 +58,8 @@
   right: -5%;
   width: 0px;
   height: 50px;
-  background-color: #307040;
-  box-shadow: 0px 0px 10000px 50px #307040,0px 0px 3000px 100px #68ba7d;
+  background-color: #063;
+  box-shadow: 0px 0px 10000px 50px #063,0px 0px 3000px 100px #063;
   border-radius: 50%;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;

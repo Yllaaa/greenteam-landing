@@ -57,6 +57,7 @@ type Props = {
   setRerender: (value: boolean) => void;
   postId?: string;
   postMedia?: any;
+
 };
 function PostComments(passProps: Props) {
   const accessToken = useAppSelector((state) => state.login.accessToken);
@@ -964,7 +965,7 @@ export function CommentSection(props: Props) {
                   {...registerComment("comment", { required: true })}
                 />
 
-                <button type="submit" className={styles.submitButton}>{t('addCommentButton')}</button>
+                <button type="submit" className={styles.submitButton2}>{t('addCommentButton')}</button>
               </form>
             </div>
           </div>
@@ -1179,7 +1180,7 @@ export function PostCommentSection(props: Props) {
                   {...registerComment("comment", { required: true })}
                 />
 
-                <button type="submit" className={styles.submitButton}>{t('addCommentButton')}</button>
+                <button type="submit" className={styles.submitButton2}>{t('addCommentButton')}</button>
               </form>
             </div>
           </div>

@@ -60,28 +60,22 @@ function Team() {
         breakpoints: {
             '(max-width: 1024px)': {
                 slides: { perView: 3, spacing: 20 },
-              
+
             },
             '(max-width: 768px)': {
                 slides: { perView: 2, spacing: 16 },
-              
+
             },
             '(max-width: 480px)': {
                 slides: { perView: 1, spacing: 16 },
-              
+
             },
         },
     })
 
     return (
         <div className={styles.container}>
-            <div className={styles.header}>
-                <h2 className={styles.title}>
-                    MEET THE <span className={styles.greenText}>GREENTEAM</span>
-                </h2>
-            </div>
-
-            <div className={styles.sliderWrapper}>
+            <div className={styles.navBtn}>
                 {loaded && instanceRef.current && (
                     <>
                         <button
@@ -116,6 +110,14 @@ function Team() {
                         </button>
                     </>
                 )}
+            </div>
+            <div className={styles.header}>
+                <h2 className={styles.title}>
+                    MEET THE <span className={styles.greenText}>GREENTEAM</span>
+                </h2>
+            </div>
+
+            <div className={styles.sliderWrapper}>
 
                 <div ref={sliderRef} className="keen-slider">
                     {teamMembers.map((member, index) => (

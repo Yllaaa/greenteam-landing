@@ -400,6 +400,18 @@
   transition: all 0.3s ease;
   white-space: nowrap;
 }
+.submitButton2 {
+  padding: 8px 20px;
+  background: transparent;
+  color: #97b00f;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
 
 .submitButton:hover {
   background: #b3d00f;

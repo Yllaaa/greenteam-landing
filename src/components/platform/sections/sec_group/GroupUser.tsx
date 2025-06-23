@@ -7,10 +7,8 @@ import GroupSides from "./sides/GroupSides";
 import EventSection from "./body/Events/EventSection";
 import Settings from "./body/settings/Settings";
 // import GroupPosts from "@/components/AA-NEW/POST/groups/GroupPosts";
-import { useParams } from 'next/navigation';
+// import { useParams } from 'next/navigation';
 function GroupUser() {
-  const params = useParams()
-  console.log(params);
   const groupData = useAppSelector((state) => state.groupState);
   const editState = useAppSelector((state) => state.groupEdit.edit);
   return (

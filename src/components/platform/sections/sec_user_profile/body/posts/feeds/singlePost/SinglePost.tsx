@@ -376,7 +376,7 @@ function SinglePost(props: Props) {
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p>
                 <span>
-                  {likeCount && likeCount} Like{likeCount !== 1 ? "s" : ""}
+                  {likeCount && likeCount}
                 </span>
               </p>
             </button>
@@ -391,8 +391,7 @@ function SinglePost(props: Props) {
               />
               <p>
                 <span>
-                  {dislikeCount} Unlike
-                  {dislikeCount !== 1 ? "s" : ""}
+                  {dislikeCount}
                 </span>
               </p>
             </button>
@@ -401,8 +400,7 @@ function SinglePost(props: Props) {
               <FaComment style={{ fill: "#97B00F" }} />
               <p>
                 <span>
-                  {post.commentCount} Comment
-                  {parseInt(post.commentCount) !== 1 ? "s" : ""}
+                  {post.commentCount}
                 </span>
               </p>
             </button>

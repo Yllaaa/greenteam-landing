@@ -3,6 +3,9 @@ import React, { useState, useCallback } from "react"
 import styles from "./PostCard.module.scss"
 import { Post } from "@/types"
 import { Avatar } from "../../Avatar/Avatar"
+import { OptionsMenu } from "../../OPTION_MENU/OptionsMenu"
+import { DeleteModal } from "../../OPTION_MENU/delete/DeleteModal"
+import { ReportModal } from "../../OPTION_MENU/report/ReportModal"
 import { PostActions } from "../PostActions/PostActions"
 import { formatRelativeTime } from "@/Utils/time"
 import { useRouter } from "next/navigation"
@@ -13,7 +16,11 @@ import { useLinkify } from "@/hooks/useLinkify"
 import "swiper/css"
 import "swiper/css/navigation"
 import "swiper/css/pagination"
-import { useLocale } from "next-intl"
+import { useLocale, useTranslations } from "next-intl"
+import ToastNot from "@/Utils/ToastNotification/ToastNot"
+import { useAppSelector } from "@/store/hooks"
+import { useReportContentMutation } from "@/services/api"
+import { useDelete } from "@/hooks/useDelete"
 
 interface PostCardProps {
   post: Post
@@ -42,6 +49,7 @@ function truncateText(
 export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
   const router = useRouter()
   const locale = useLocale()
+      const tCommon = useTranslations("common")
   const hasMedia = post.media.length > 0
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -61,7 +69,39 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
       router.push(`${locale}/hashtags/${tag}`)
     },
   })
+  const currentUserId = useAppSelector((state) => state.login.user?.user)?.id
+  const isAuthor = post.isAuthor || post.author.id === currentUserId
 
+   const [showReportModal, setShowReportModal] = useState(false)
+      const [reportContent] = useReportContentMutation()
+  
+      const {
+          showDeleteModal,
+          openDeleteModal,
+          closeDeleteModal,
+          handleDelete,
+          itemToDelete
+      } = useDelete({
+          contentType: 'forum',
+          onSuccess: () => {
+              // Optional: Navigate away or update local state
+          }
+      })
+  
+      const handleReport = async (reason: string) => {
+          try {
+              await reportContent({
+                  contentType: 'post',
+                  contentId: post.post.id,
+                  reason,
+                  details: reason
+              }).unwrap()
+              ToastNot(tCommon("reportModal.success"))
+          } catch (error) {
+              ToastNot(tCommon("reportModal.error"))
+              throw error
+          }
+      }
   // Different text limits based on media presence
   const MAX_LENGTH_WITH_MEDIA = 50
   const MAX_LENGTH_WITHOUT_MEDIA = 300
@@ -100,7 +140,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
     }
   }
   const handleCommentClick = () => {
-   console.log("opened")
+    console.log("opened")
   }
 
   const handleReadMoreClick = (e: React.MouseEvent) => {
@@ -109,100 +149,124 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
   }
 
   return (
-    <article
-      className={`${styles.card} ${!hasMedia ? styles.noMedia : ""} ${className}`}
-      onClick={handleCardClick}>
-      <header className={styles.header}>
-        <Avatar
-          src={post.author.avatar}
-          name={post.author.name}
-          size="medium"
-        />
+    <>
+      <article
+        className={`${styles.card} ${!hasMedia ? styles.noMedia : ""} ${className}`}
+        onClick={handleCardClick}>
+        <div className={styles.optionsWrapper}>
+          <OptionsMenu
+            isAuthor={isAuthor}
+            onDelete={() => openDeleteModal(post.post.id, post.post.content)}
+            onReport={() => setShowReportModal(true)}
+          />
+        </div>
+        <header className={styles.header}>
+          <Avatar
+            src={post.author.avatar}
+            name={post.author.name}
+            size="medium"
+          />
 
-        <div onClick={handleAuthorClick} className={styles.authorInfo}>
-          <h3 className={styles.authorName}>
-            {post.author.name || "Unknown User"}
-            {post.author.type && (
-              <span className={styles.authorType}>
-                {post.author.type.replace("_", " ")}
-              </span>
+          <div onClick={handleAuthorClick} className={styles.authorInfo}>
+            <h3 className={styles.authorName}>
+              {post.author.name || "Unknown User"}
+              {post.author.type && (
+                <span className={styles.authorType}>
+                  {post.author.type.replace("_", " ")}
+                </span>
+              )}
+            </h3>
+
+            {post.author.username && (
+              <p className={styles.username}>@{post.author.username}</p>
             )}
-          </h3>
 
-          {post.author.username && (
-            <p className={styles.username}>@{post.author.username}</p>
-          )}
-
-          <div className={styles.meta}>
-            {post.location.cityName && post.location.countryName && (
-              <span className={styles.location}>
-                📍 {post.location.cityName}, {post.location.countryName}
-              </span>
-            )}
-            <time className={styles.timestamp} dateTime={post.post.createdAt}>
-              {formatRelativeTime(post.post.createdAt)}
-            </time>
+            <div className={styles.meta}>
+              {post.location.cityName && post.location.countryName && (
+                <span className={styles.location}>
+                  📍 {post.location.cityName}, {post.location.countryName}
+                </span>
+              )}
+              <time className={styles.timestamp} dateTime={post.post.createdAt}>
+                {formatRelativeTime(post.post.createdAt)}
+              </time>
+            </div>
           </div>
-        </div>
-      </header>
+        </header>
 
-      <div className={styles.content}>
-        <span className={styles.contentText}>{linkifyText(displayText)}</span>
-        {isTruncated && (
-          <button className={styles.readMoreBtn} onClick={handleReadMoreClick}>
-            {isExpanded ? "...Show less" : "Read more..."}
-          </button>
+        <div className={styles.content}>
+          <span className={styles.contentText}>{linkifyText(displayText)}</span>
+          {isTruncated && (
+            <button className={styles.readMoreBtn} onClick={handleReadMoreClick}>
+              {isExpanded ? "...Show less" : "Read more..."}
+            </button>
+          )}
+        </div>
+
+        {hasMedia && (
+          <div
+            className={styles.swiperContainer}
+            onClick={e => e.stopPropagation()}>
+            <Swiper
+              modules={[Navigation, Pagination]}
+              spaceBetween={0}
+              slidesPerView={1}
+              loop
+              navigation={post.media.length > 1}
+              pagination={post.media.length > 1 ? { clickable: true } : false}
+              className={styles.swiper}>
+              {post.media.map(media => (
+                <SwiperSlide key={media.id} className={styles.slide}>
+                  {media.mediaType === "image" && (
+                    <Image
+                      src={media.mediaUrl}
+                      alt="Post media"
+                      loading="lazy"
+                      width={1000}
+                      height={1000}
+                      className={styles.mediaImage}
+                    />
+                  )}
+                  {media.mediaType === "video" && (
+                    <video controls className={styles.mediaVideo}>
+                      <source src={media.mediaUrl} />
+                      Your browser does not support the video tag.
+                    </video>
+                  )}
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         )}
-      </div>
 
-      {hasMedia && (
-        <div
-          className={styles.swiperContainer}
-          onClick={e => e.stopPropagation()}>
-          <Swiper
-            modules={[Navigation, Pagination]}
-            spaceBetween={0}
-            slidesPerView={1}
-            loop
-            navigation={post.media.length > 1}
-            pagination={post.media.length > 1 ? { clickable: true } : false}
-            className={styles.swiper}>
-            {post.media.map(media => (
-              <SwiperSlide key={media.id} className={styles.slide}>
-                {media.mediaType === "image" && (
-                  <Image
-                    src={media.mediaUrl}
-                    alt="Post media"
-                    loading="lazy"
-                    width={1000}
-                    height={1000}
-                    className={styles.mediaImage}
-                  />
-                )}
-                {media.mediaType === "video" && (
-                  <video controls className={styles.mediaVideo}>
-                    <source src={media.mediaUrl} />
-                    Your browser does not support the video tag.
-                  </video>
-                )}
-              </SwiperSlide>
-            ))}
-          </Swiper>
-        </div>
-      )}
+        <footer className={styles.footer}>
+          <PostActions
+            postId={post.post.id}
+            initialLikeCount={parseInt(post.likeCount)}
+            initialDislikeCount={parseInt(post.dislikeCount)}
+            commentCount={parseInt(post.commentCount)}
+            initialReaction={post.userReactionType}
+            initialHasDo={post.hasDoReaction}
+            onCommentClick={handleCommentClick}
+            post={post}
+          />
+        </footer>
+      </article>
+      <DeleteModal
+        isOpen={showDeleteModal}
+        onClose={closeDeleteModal}
+        onConfirm={handleDelete}
+        itemType="forum"
+        itemTitle={itemToDelete?.title}
+      />
 
-      <footer className={styles.footer}>
-        <PostActions
-          postId={post.post.id}
-          initialLikeCount={parseInt(post.likeCount)}
-          initialDislikeCount={parseInt(post.dislikeCount)}
-          commentCount={parseInt(post.commentCount)}
-          initialReaction={post.userReactionType}
-          initialHasDo={post.hasDoReaction}
-          onCommentClick={handleCommentClick}
-          post={post}
-        />
-      </footer>
-    </article>
+      <ReportModal
+        isOpen={showReportModal}
+        onClose={() => setShowReportModal(false)}
+        onSubmit={handleReport}
+        itemType="forum"
+        itemId={post.post.id}
+      />
+    </>
   )
 }

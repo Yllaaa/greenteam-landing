@@ -7,6 +7,9 @@ import cover from "@/../public/ZPLATFORM/groups/cover.png";
 import { useLocale, useTranslations } from "next-intl";
 import { useCallback, useEffect, useRef } from "react";
 import { useInView } from "react-intersection-observer";
+import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { joinGroup, leaveGroup } from "../../../../../greenteam-landing/src/components/platform/sections/sec_group/header/header.data";
+
 
 function Item({
   group,
@@ -32,6 +35,29 @@ function Item({
     router.push(`/${locale}/groups/${group.id}`);
   };
 
+  const handleJoinGroup = async (id: string) => {
+    try {
+      const res = await joinGroup(id);
+      ToastNot(res.message);
+      // Refetch group data to get updated state
+
+    } catch (err) {
+      console.error("Error joining group:", err);
+      ToastNot("Failed to join group");
+    }
+  };
+
+  const handleLeaveGroup = async (id: string) => {
+    try {
+      const res = await leaveGroup(id);
+      ToastNot(res.message);
+
+    } catch (err) {
+      console.error("Error leaving group:", err);
+      ToastNot("Failed to leave group");
+    }
+  };
+
   const { ref, inView } = useInView({
     threshold: 0.5,
     triggerOnce: true, // Only trigger once when coming into view
@@ -53,7 +79,20 @@ function Item({
   }, [handlePages, inView, index, length]);
 
   return (
-    <div ref={index === length - 1 ? ref : null} className={styles.item}>
+    <div
+      ref={index === length - 1 ? ref : null}
+      className={styles.item}
+      onClick={handleNavigate}
+      role="button"
+      tabIndex={0}
+      aria-label={t('viewGroup')}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleNavigate();
+        }
+      }}
+      style={{ cursor: 'pointer' }}
+    >
       <div className={styles.logo}>
         <Image
           src={group.banner ? group.banner : cover}
@@ -61,22 +100,11 @@ function Item({
           width={637}
           height={135}
           className={styles.logo}
-          style={{objectFit:"contain"}}
+          style={{ objectFit: "contain" }}
         />
       </div>
       <div className={styles.content}>
-        <div
-          onClick={handleNavigate}
-          className={styles.title}
-          role="button"
-          tabIndex={0}
-          aria-label={t('viewGroup')}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              handleNavigate();
-            }
-          }}
-        >
+        <div className={styles.title}>
           <label>{group.name}</label>
         </div>
         <div className={styles.description} aria-label={t('groupDescription')}>
@@ -89,18 +117,16 @@ function Item({
         </div>
         <div
           onClick={() => {
-            console.log(group.id);
+            if (!group.isUserMember) { handleJoinGroup(group.id) } else {
+              handleLeaveGroup(group.id)
+            }
           }}
           className={styles.action}
           role="button"
           tabIndex={0}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-              console.log(group.id);
-            }
-          }}
+
         >
-          <label>{t('joinGroup')}</label>
+          <label>{!group.isUserMember ? `${t('joinGroup')}` : `${t('leaveGroup')}`}</label>
         </div>
       </div>
     </div>

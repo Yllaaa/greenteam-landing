@@ -112,40 +112,51 @@ const AddNewEvent = (props: addEventProps) => {
   // Form submission handler
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
-    // check all fields are filled
+
+    // Prepare the data with conditional location
+    const submitData = {
+      ...data,
+      location: data.eventMode === "online" ? "ONLINE" : data.location
+    };
+
+    // check all fields are filled (modified validation for online events)
     if (
-      !data.title ||
-      !data.description ||
-      !data.location ||
-      !data.startDate ||
-      !data.endDate ||
-      !data.category ||
-      !data.cityId ||
-      !data.countryId
+      !submitData.title ||
+      !submitData.description ||
+      (!submitData.location && data.eventMode !== "online") || // Only require location for non-online events
+      !submitData.startDate ||
+      !submitData.endDate ||
+      !submitData.category ||
+      !submitData.cityId ||
+      !submitData.countryId
     ) {
       ToastNot("Please fill all fields");
+      return;
     }
+
     // check if dates are valid
     if (!selectedDates.start || !selectedDates.end) {
       ToastNot("Please select a start and end date");
+      return;
     }
+
     try {
-      // send data to server
+      // send data to server with modified location
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/events/create-event`,
           {
-            creatorType: data.creatorType,
-            title: data.title,
-            description: data.description,
-            location: data.location,
-            startDate: data.startDate,
-            endDate: data.endDate,
-            category: data.category,
-            poster: data.poster,
-            countryId: Number(data.countryId),
-            cityId: Number(data.cityId),
-            eventMode: data.eventMode
+            creatorType: submitData.creatorType,
+            title: submitData.title,
+            description: submitData.description,
+            location: submitData.location, // This will be "ONLINE" for online events
+            startDate: submitData.startDate,
+            endDate: submitData.endDate,
+            category: submitData.category,
+            poster: submitData.poster,
+            countryId: Number(submitData.countryId),
+            cityId: Number(submitData.cityId),
+            eventMode: submitData.eventMode
           },
           {
             headers: {
@@ -168,6 +179,7 @@ const AddNewEvent = (props: addEventProps) => {
       console.log(err);
     }
   };
+  
 
   // Date handling
   const handleDateClick = (date: Date) => {
@@ -400,6 +412,15 @@ const AddNewEvent = (props: addEventProps) => {
       }
     }
   };
+  // Add this to handle eventMode changes
+  useEffect(() => {
+    if (watch("eventMode") === "online") {
+      setValue("location", "ONLINE");
+    } else if (watch("eventMode") === "local") {
+      setValue("location", "");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watch("eventMode"), setValue]);
   const t = useTranslations("web.event.form");
   return (
     <div className={styles.modal}>
@@ -671,17 +692,23 @@ const AddNewEvent = (props: addEventProps) => {
 
           <div className={styles.formSection}>
             {/* LOCATION */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>{t("fields.location.label")}</label>
-              <input
-                type="text"
-                className={`${styles.input} ${errors.location ? styles.inputError : ""}`}
-                {...register("location", { required: t("fields.location.error.required") })}
-              />
-              {errors.location && (
-                <p className={styles.errorText}>{errors.location.message}</p>
-              )}
-            </div>
+            
+            {/* LOCATION - Only show for local events */}
+            {watch("eventMode") !== "online" && (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>{t("fields.location.label")}</label>
+                <input
+                  type="text"
+                  className={`${styles.input} ${errors.location ? styles.inputError : ""}`}
+                  {...register("location", {
+                    required: watch("eventMode") !== "online" ? t("fields.location.error.required") : false
+                  })}
+                />
+                {errors.location && (
+                  <p className={styles.errorText}>{errors.location.message}</p>
+                )}
+              </div>
+            )}
             {/* DESCRIPTION */}
             <div className={styles.formGroup}>
               <label className={styles.label}>{t("fields.description.label")}</label>

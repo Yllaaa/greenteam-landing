@@ -11,6 +11,8 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useAppSelector } from "@/store/hooks";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from 'next/navigation';
 // Define types for better TypeScript support
 interface FormData {
   creatorType: string;
@@ -21,7 +23,10 @@ interface FormData {
   endDate: string;
   category: string;
   topicId: string | number;
+  countryId: string | number;
+  cityId: string | number;
   poster: File | null;
+  eventMode: string; // Add this new field
 }
 
 interface DateSelection {
@@ -37,6 +42,15 @@ type addEventProps = {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   userType: string;
 };
+interface Country {
+  id: number;
+  name: string;
+  iso: string;
+}
+interface City {
+  id: number;
+  name: string;
+}
 // Sample topics for the dropdown
 const category: Category[] = [
   { value: "volunteering&work", name: "Volunteering & Work" },
@@ -46,8 +60,10 @@ const category: Category[] = [
 
 const AddNewEvent = (props: addEventProps) => {
   const groupId = useAppSelector((state) => state.groupState.id);
-  const token = getToken();
+const token = getToken();
   const accessToken = token ? token.accessToken : null;
+  const locale = useLocale();
+  const router = useRouter()
 
   const { setAddNew, userType } = props;
   const closeModal = useCallback(() => {
@@ -69,6 +85,7 @@ const AddNewEvent = (props: addEventProps) => {
     handleSubmit,
     setValue,
     reset,
+    watch,
     formState: { errors },
   } = useForm<FormData>({
     defaultValues: {
@@ -80,6 +97,9 @@ const AddNewEvent = (props: addEventProps) => {
       endDate: "",
       category: "",
       poster: null,
+      countryId: "",
+      cityId: "",
+      eventMode: "",
     },
   });
 
@@ -94,35 +114,51 @@ const AddNewEvent = (props: addEventProps) => {
   // Form submission handler
   const onSubmit = (data: FormData) => {
     console.log("Form submitted:", data);
-    // check all fields are filled
+
+    // Prepare the data with conditional location
+    const submitData = {
+      ...data,
+      location: data.eventMode === "online" ? "ONLINE" : data.location
+    };
+
+    // check all fields are filled (modified validation for online events)
     if (
-      !data.title ||
-      !data.description ||
-      !data.location ||
-      !data.startDate ||
-      !data.endDate ||
-      !data.category
+      !submitData.title ||
+      !submitData.description ||
+      (!submitData.location && data.eventMode !== "online") || // Only require location for non-online events
+      !submitData.startDate ||
+      !submitData.endDate ||
+      !submitData.category ||
+      !submitData.cityId ||
+      !submitData.countryId
     ) {
       ToastNot("Please fill all fields");
+      return;
     }
+
     // check if dates are valid
     if (!selectedDates.start || !selectedDates.end) {
       ToastNot("Please select a start and end date");
+      return;
     }
+
     try {
-      // send data to server
+      // send data to server with modified location
       axios
         .post(
           `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/groups/${groupId}/events/create-event`,
           {
-            creatorType: data.creatorType,
-            title: data.title,
-            description: data.description,
-            location: data.location,
-            startDate: data.startDate,
-            endDate: data.endDate,
-            category: data.category,
-            poster: data.poster,
+            creatorType: submitData.creatorType,
+            title: submitData.title,
+            description: submitData.description,
+            location: submitData.location, // This will be "ONLINE" for online events
+            startDate: submitData.startDate,
+            endDate: submitData.endDate,
+            category: submitData.category,
+            poster: submitData.poster,
+            countryId: Number(submitData.countryId),
+            cityId: Number(submitData.cityId),
+            eventMode: submitData.eventMode
           },
           {
             headers: {
@@ -133,7 +169,7 @@ const AddNewEvent = (props: addEventProps) => {
           }
         )
         .then((res) => {
-          console.log(res.data);
+          router.push(`/${locale}/event/${res.data.id}`);
           ToastNot("Event added successfully");
           reset();
         })
@@ -145,6 +181,7 @@ const AddNewEvent = (props: addEventProps) => {
       console.log(err);
     }
   };
+  
 
   // Date handling
   const handleDateClick = (date: Date) => {
@@ -232,6 +269,56 @@ const AddNewEvent = (props: addEventProps) => {
       new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1)
     );
   };
+
+  const [country, setCountry] = useState<Country[]>();
+  const [countryId, setCountryId] = useState<number | undefined>(undefined);
+  const [city, setCity] = useState<City[]>();
+
+  const [search, setSearch] = useState<string>("");
+
+  useEffect(() => {
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/countries?locale=${locale}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCountry(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching countries");
+      });
+  }, [accessToken, locale]);
+
+  useEffect(() => {
+    if (countryId === undefined) return;
+
+    axios
+      .get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/common/cities?countryId=${countryId}&search=${search}&limit=5`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      )
+      .then((res) => {
+        setCity(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+        ToastNot("Error fetching cities");
+      });
+  }, [accessToken, countryId, search]);
 
   // Updated image upload state and refs
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -327,7 +414,16 @@ const AddNewEvent = (props: addEventProps) => {
       }
     }
   };
-
+  // Add this to handle eventMode changes
+  useEffect(() => {
+    if (watch("eventMode") === "online") {
+      setValue("location", "ONLINE");
+    } else if (watch("eventMode") === "local") {
+      setValue("location", "");
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [watch("eventMode"), setValue]);
+  const t = useTranslations("web.event.form");
   return (
     <div className={styles.modal}>
       <div ref={modalRef} className={styles.formContainer}>
@@ -336,28 +432,23 @@ const AddNewEvent = (props: addEventProps) => {
             <Image src={addlogo} alt="addlogo" />
           </div>
           <div className={styles.titleText}>
-            <h2 className={styles.formTitle}>Host Your Event</h2>
-            <p className={styles.formDescription}>
-              Plan and promote your upcoming event. Share details to help
-              attendees find and join your event
-            </p>
+            <h2 className={styles.formTitle}>{t("title")}</h2>
+            <p className={styles.formDescription}>{t("description")}</p>
           </div>
         </div>
         <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
           <div className={styles.formSection}>
             {/* TITLE */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Event Name</label>
+              <label className={styles.label}>{t("fields.eventName.label")}</label>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.title ? styles.inputError : ""
-                }`}
+                className={`${styles.input} ${errors.title ? styles.inputError : ""}`}
                 {...register("title", {
-                  required: "Title is required",
+                  required: t("fields.eventName.error.required"),
                   maxLength: {
                     value: 100,
-                    message: "Title cannot exceed 100 characters",
+                    message: t("fields.eventName.error.maxLength"),
                   },
                 })}
               />
@@ -367,22 +458,17 @@ const AddNewEvent = (props: addEventProps) => {
             </div>
             {/* DATE */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Date Range</label>
+              <label className={styles.label}>{t("fields.dateRange.label")}</label>
               <div
-                className={`${styles.datePickerInput} ${
-                  errors.startDate || errors.endDate ? styles.inputError : ""
-                }`}
+                className={`${styles.datePickerInput} ${errors.startDate || errors.endDate ? styles.inputError : ""}`}
                 onClick={toggleDatePicker}
               >
                 <span>
                   {selectedDates.start
                     ? selectedDates.end
-                      ? `${format(
-                          selectedDates.start,
-                          "MMM dd, yyyy"
-                        )} - ${format(selectedDates.end, "MMM dd, yyyy")}`
+                      ? `${format(selectedDates.start, "MMM dd, yyyy")} - ${format(selectedDates.end, "MMM dd, yyyy")}`
                       : format(selectedDates.start, "MMM dd, yyyy")
-                    : "Select date range"}
+                    : t("fields.dateRange.placeholder")}
                 </span>
                 <Calendar className={styles.calendarIcon} />
               </div>
@@ -391,16 +477,18 @@ const AddNewEvent = (props: addEventProps) => {
               <input
                 type="hidden"
                 {...register("startDate", {
-                  required: "Start date is required",
+                  required: t("fields.dateRange.error.startRequired"),
                 })}
               />
               <input
                 type="hidden"
-                {...register("endDate", { required: "End date is required" })}
+                {...register("endDate", {
+                  required: t("fields.dateRange.error.endRequired")
+                })}
               />
 
               {(errors.startDate || errors.endDate) && (
-                <p className={styles.errorText}>Date range is required</p>
+                <p className={styles.errorText}>{t("fields.dateRange.error.required")}</p>
               )}
 
               {datePickerOpen && (
@@ -424,7 +512,15 @@ const AddNewEvent = (props: addEventProps) => {
                   </div>
 
                   <div className={styles.weekdaysGrid}>
-                    {["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => (
+                    {[
+                      t("calendar.weekdays.su"),
+                      t("calendar.weekdays.mo"),
+                      t("calendar.weekdays.tu"),
+                      t("calendar.weekdays.we"),
+                      t("calendar.weekdays.th"),
+                      t("calendar.weekdays.fr"),
+                      t("calendar.weekdays.sa")
+                    ].map((day) => (
                       <div key={day} className={styles.weekday}>
                         {day}
                       </div>
@@ -436,10 +532,10 @@ const AddNewEvent = (props: addEventProps) => {
                       <div
                         key={index}
                         className={`
-                      ${styles.dayCell}
-                      ${date ? styles.activeDay : ""}
-                      ${date && isDateSelected(date) ? styles.selectedDay : ""}
-                    `}
+                        ${styles.dayCell}
+                        ${date ? styles.activeDay : ""}
+                        ${date && isDateSelected(date) ? styles.selectedDay : ""}
+                      `}
                         onClick={() => date && handleDateClick(date)}
                       >
                         {date ? date.getDate() : ""}
@@ -453,12 +549,10 @@ const AddNewEvent = (props: addEventProps) => {
           {/* IMAGE */}
           <div className={styles.formSection}>
             <div className={styles.formGroup}>
-              <label className={styles.label}>Event Image</label>
+              <label className={styles.label}>{t("fields.eventImage.label")}</label>
               <div
                 ref={dropAreaRef}
-                className={`${styles.imageUploadContainer} ${
-                  errors.poster ? styles.inputError : ""
-                } ${isDragging ? styles.dragging : ""}`}
+                className={`${styles.imageUploadContainer} ${errors.poster ? styles.inputError : ""} ${isDragging ? styles.dragging : ""}`}
                 onClick={handleImageClick}
                 onDragEnter={handleDragEnter}
                 onDragOver={handleDragOver}
@@ -469,7 +563,7 @@ const AddNewEvent = (props: addEventProps) => {
                   <div className={styles.imagePreviewWrapper}>
                     <div
                       className={styles.imagePreview}
-                      onClick={handleImageClick} // Add onClick handler here
+                      onClick={handleImageClick}
                     >
                       <Image
                         src={imagePreview}
@@ -490,53 +584,144 @@ const AddNewEvent = (props: addEventProps) => {
                   <div className={styles.uploadPlaceholder}>
                     <p>
                       {isDragging
-                        ? "Drop image here"
-                        : "Click or drag image here"}
+                        ? t("fields.eventImage.dragActive")
+                        : t("fields.eventImage.dragInactive")}
                     </p>
                   </div>
                 )}
                 <input
                   type="file"
-                  ref={fileInputRef} // Add the ref here
+                  ref={fileInputRef}
                   accept="image/*"
                   className={styles.fileInput}
                   onChange={handleImageChange}
-                  style={{ display: "none" }} // Hide the actual input
+                  style={{ display: "none" }}
                 />
               </div>
               {errors.poster && (
-                <p className={styles.errorText}>{errors.poster.message}</p>
+                <p className={styles.errorText}>{t("fields.eventImage.error.required")}</p>
               )}
             </div>
           </div>
-          <div className={styles.formSection}>
-            {/* LOCATION */}
-            <div className={styles.formGroup}>
-              <label className={styles.label}>Location</label>
+          {/* EVENT TYPE */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>{t("fields.eventType.label")}</label>
+            <div className={styles.toggleContainer}>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "local" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "local")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-local"
+                  value="local"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: t("fields.eventType.error.required") })}
+                />
+                <label htmlFor="eventMode-local" className={styles.toggleLabel}>
+                  {t("fields.eventType.local")}
+                </label>
+              </div>
+              <div
+                className={`${styles.toggleOption} ${watch("eventMode") === "online" ? styles.toggleActive : ""}`}
+                onClick={() => setValue("eventMode", "online")}
+              >
+                <input
+                  type="radio"
+                  id="eventMode-online"
+                  value="online"
+                  className={styles.toggleInput}
+                  {...register("eventMode", { required: t("fields.eventType.error.required") })}
+                />
+                <label htmlFor="eventMode-online" className={styles.toggleLabel}>
+                  {t("fields.eventType.online")}
+                </label>
+              </div>
+            </div>
+            {errors.eventMode && (
+              <p className={styles.errorText}>{errors.eventMode.message}</p>
+            )}
+          </div>
+          {/* COUNTRY */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>{t("fields.country.label")}</label>
+            <select
+              className={`${styles.select} ${errors.countryId ? styles.inputError : ""}`}
+              {...register("countryId", { required: t("fields.country.error.required") })}
+              onChange={(e) => setCountryId(parseInt(e.target.value))}
+            >
+              <option value="" disabled>
+                {t("fields.country.placeholder")}
+              </option>
+              {country?.map((country, index) => (
+                <option key={index} value={country.id}>
+                  {country.iso}_{country.name}
+                </option>
+              ))}
+            </select>
+            {errors.countryId && (
+              <p className={styles.errorText}>{errors.countryId.message}</p>
+            )}
+          </div>
+          {/* CITY */}
+          <div className={styles.formGroup}>
+            <label className={styles.label}>{t("fields.city.label")}</label>
+            <div className={styles.searchContainer}>
               <input
                 type="text"
-                className={`${styles.input} ${
-                  errors.location ? styles.inputError : ""
-                }`}
-                {...register("location", { required: "Location is required" })}
+                placeholder={t("fields.city.placeholder")}
+                className={styles.input}
+                onChange={(e) => setSearch(e.target.value)}
               />
-              {errors.location && (
-                <p className={styles.errorText}>{errors.location.message}</p>
-              )}
+              <select
+                className={`${styles.select} ${errors.cityId ? styles.inputError : ""}`}
+                {...register("cityId", { required: t("fields.city.error.required") })}
+              >
+                <option value="" disabled>
+                  {t("fields.city.selectPlaceholder")}
+                </option>
+                {city?.map((city, index) => (
+                  <option key={index} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
             </div>
+            {errors.cityId && (
+              <p className={styles.errorText}>{errors.cityId.message}</p>
+            )}
+          </div>
+
+          <div className={styles.formSection}>
+            {/* LOCATION */}
+            
+            {/* LOCATION - Only show for local events */}
+            {watch("eventMode") !== "online" && (
+              <div className={styles.formGroup}>
+                <label className={styles.label}>{t("fields.location.label")}</label>
+                <input
+                  type="text"
+                  className={`${styles.input} ${errors.location ? styles.inputError : ""}`}
+                  {...register("location", {
+                    required: watch("eventMode") !== "online" ? t("fields.location.error.required") : false
+                  })}
+                />
+                {errors.location && (
+                  <p className={styles.errorText}>{errors.location.message}</p>
+                )}
+              </div>
+            )}
             {/* DESCRIPTION */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Description</label>
+              <label className={styles.label}>{t("fields.description.label")}</label>
               <textarea
                 rows={4}
-                className={`${styles.textarea} ${
-                  errors.description ? styles.inputError : ""
-                }`}
+                className={`${styles.textarea} ${errors.description ? styles.inputError : ""}`}
                 {...register("description", {
-                  required: "Description is required",
+                  required: t("fields.description.error.required"),
                   minLength: {
                     value: 10,
-                    message: "Description must be at least 10 characters",
+                    message: t("fields.description.error.minLength"),
                   },
                 })}
               ></textarea>
@@ -546,15 +731,13 @@ const AddNewEvent = (props: addEventProps) => {
             </div>
             {/* CATEGORY */}
             <div className={styles.formGroup}>
-              <label className={styles.label}>Category</label>
+              <label className={styles.label}>{t("fields.category.label")}</label>
               <select
-                className={`${styles.select} ${
-                  errors.category ? styles.inputError : ""
-                }`}
-                {...register("category", { required: "Category is required" })}
+                className={`${styles.select} ${errors.category ? styles.inputError : ""}`}
+                {...register("category", { required: t("fields.category.error.required") })}
               >
                 <option value="" disabled>
-                  Select category
+                  {t("fields.category.placeholder")}
                 </option>
                 {category.map((category, index) => (
                   <option key={index} value={category.value}>
@@ -572,10 +755,10 @@ const AddNewEvent = (props: addEventProps) => {
               onClick={() => setAddNew(false)}
               className={styles.cancelButton}
             >
-              Cancel
+              {t("buttons.cancel")}
             </button>
             <button type="submit" className={styles.submitButton}>
-              Create Event
+              {t("buttons.submit")}
             </button>
           </div>
         </form>
@@ -585,3 +768,16 @@ const AddNewEvent = (props: addEventProps) => {
 };
 
 export default AddNewEvent;
+
+
+
+
+
+
+
+
+
+
+
+
+// `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/groups/${groupId}/events/create-event`,

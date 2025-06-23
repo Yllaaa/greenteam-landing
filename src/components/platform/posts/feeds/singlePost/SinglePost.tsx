@@ -389,7 +389,7 @@ const t = useTranslations("web.main.feeds");
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p>
                 <span>
-                  {likeCount && likeCount} {likeCount !== 1 ? "s" : ""}
+                  {likeCount && likeCount}
                 </span>
               </p>
             </button>
@@ -405,7 +405,6 @@ const t = useTranslations("web.main.feeds");
               <p>
                 <span>
                   {dislikeCount} 
-                  {dislikeCount !== 1 ? "s" : ""}
                 </span>
               </p>
             </button>
@@ -415,7 +414,6 @@ const t = useTranslations("web.main.feeds");
               <p>
                 <span>
                   {post.commentCount} 
-                  {parseInt(post.commentCount) !== 1 ? "s" : ""}
                 </span>
               </p>
             </button>

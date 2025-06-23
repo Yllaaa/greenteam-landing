@@ -93,7 +93,7 @@ export default function Item({
               {pageI.followersCount} {t("followers")}
             </div>
           </div>
-          <button className={styles.like}>{t("visit")}</button>
+          <button onClick={handleNavigate} className={styles.like}>{t("visit")}</button>
         </div>
       </div>
     </div>

@@ -104,6 +104,7 @@ export default function Messages({
         });
 
         if (result?.messages?.nextCursor) {
+          // console.log(result.messages.nextCursor)
           setNextCursor(result.messages.nextCursor);
         } else {
           setNextCursor(null);
@@ -164,7 +165,7 @@ export default function Messages({
 
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${activeChatId}/messages?${query}`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat/conversations/${selectedUser}/messages?${query}`,
         {
           headers: {
             Authorization: `Bearer ${token.accessToken}`,
@@ -172,9 +173,12 @@ export default function Messages({
         }
       )
       .then((res) => {
+        console.log(res);
+        
         const newCursor = res.data.nextCursor;
 
         if (!newCursor) {
+
           // No more messages to load
           setNextCursor(null);
         } else if (
@@ -226,7 +230,9 @@ export default function Messages({
   return (
     <div className={styles.messages} ref={messagesDivRef}>
       {loadingMore && (
-        <p className={styles.loadingMore}>Loading more messages...</p>
+        <p className={styles.loadingMore}>
+          {/* Loading more messages... */}
+          </p>
       )}
       {messages?.length === 0 && !loading && <Empty />}
       {[...messages].map((message, index) => (
@@ -240,7 +246,7 @@ export default function Messages({
       ))}
       {loading && (
         <div className={styles.loadingContainer}>
-          <p className={styles.loading}>Loading messages...</p>
+          {/* <p className={styles.loading}>Loading messages...</p> */}
         </div>
       )}
     </div>

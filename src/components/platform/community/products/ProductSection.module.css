@@ -10,6 +10,7 @@
 
 .container {
   position: relative;
+  margin-top: 50px;
 }
 .header {
   display: flex;

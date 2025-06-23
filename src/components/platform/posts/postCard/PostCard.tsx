@@ -300,8 +300,8 @@ function PostCard(props: Props) {
                   style={{ cursor: "pointer" }}
                 >
                   <p>
-                    {post.author.name || post.author.username} <span>@{post.author.username}</span>
-                    <span> . {formatTimeDifference(post.post.createdAt)}</span>
+                    {post.author.name || post.author.username} <span>@{post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
+                    
                   </p>
                 </div>
 

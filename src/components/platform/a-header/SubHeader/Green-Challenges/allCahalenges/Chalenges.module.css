@@ -17,7 +17,7 @@
 .challenge {
   width: 100%;
   height: fit-content;
-  min-height: 72px;
+  min-height: 74px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -59,7 +59,7 @@
 }
 .challenge .challengeDetails .challengeText .challengeIcon {
   width: fit-content;
-  padding: 4px 12px;
+  padding: 5px 12px;
   border: 1px solid #34b4a3;
   border-radius: 40px;
   -webkit-border-radius: 40px;

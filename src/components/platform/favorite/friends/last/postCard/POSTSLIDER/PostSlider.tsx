@@ -345,7 +345,7 @@ function PostSlider(props: Props) {
         <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
         <p>
           <span>
-            {likeCount} Like{likeCount !== 1 ? "s" : ""}
+            {likeCount}
           </span>
         </p>
       </button>
@@ -358,7 +358,7 @@ function PostSlider(props: Props) {
         <AiFillDislike style={{ fill: userDisliked ? "#006633" : "#97B00F" }} />
         <p>
           <span>
-            {dislikeCount} Unlike{dislikeCount !== 1 ? "s" : ""}
+            {dislikeCount}
           </span>
         </p>
       </button>
@@ -371,7 +371,7 @@ function PostSlider(props: Props) {
         <FaComment style={{ fill: "#97B00F" }} />
         <p>
           <span>
-            {comments} Comment
+            {comments}
           </span>
         </p>
       </button>

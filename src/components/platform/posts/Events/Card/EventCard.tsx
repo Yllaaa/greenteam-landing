@@ -213,6 +213,7 @@ function EventCard(props: Props) {
               ? `Hosted by: ${event?.creatorType}`
               : "Hosted by GreenTeam"}
           </p>
+        </div>
           <div className={styles.actions}>
             <button
               onClick={(e) => {
@@ -239,7 +240,6 @@ function EventCard(props: Props) {
               {t("details")}
             </button>
           </div>
-        </div>
         {/* <div
           onClick={() => handleToggleFavorite(`${event?.id}`)}
           className={styles.favorite}

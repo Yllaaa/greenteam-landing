@@ -17,8 +17,8 @@
 /* Add these styles to your postCard.module.css file */
 .options {
   position: absolute;
-  top: 22px;
-  left: 22px;
+  top: 0px;
+  left: 0px;
   z-index: 100;
 }
 

@@ -134,25 +134,25 @@ export default function Persons({
       {/* Loading indicator and intersection observer trigger */}
       {hasMore && (
         <div ref={ref} className={styles.loadingContainer}>
-          {loading && (
+          {/* {loading && (
             <div className={styles.loader}>
               Loading more conversations...
             </div>
-          )}
+          )} */}
         </div>
       )}
 
       {/* No more items indicator */}
       {!hasMore && filteredPersons.length > 0 && (
         <div className={styles.endMessage}>
-          No more conversations
+          {/* No more conversations */}
         </div>
       )}
 
       {/* Empty state */}
       {!loading && filteredPersons.length === 0 && (
         <div className={styles.emptyState}>
-          No conversations found
+          {/* No conversations found */}
         </div>
       )}
     </div>
