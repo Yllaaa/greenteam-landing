@@ -7,7 +7,7 @@
   height: fit-content;
   width: fit-content;
   overflow: hidden;
-  z-index: 10;
+  /* z-index: 10; */
   margin: auto;
   width: 100%;
   min-height: 843px;
@@ -103,7 +103,7 @@
 }
 
 .containerTop .containerTopActionsBtns .link:hover {
-  background-color: var(--lightGreen);
+  /* background-color: var(--lightGreen); */
   transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
   -moz-transition: all 0.4s ease;
@@ -231,7 +231,8 @@
   width: 100%;
   height: fit-content;
   min-height: 371px;
-  background: #28343024;
+  background: rgba(40, 52, 48, 0.24);
+backdrop-filter: blur(8px);
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-template-rows: repeat(2, min-content);

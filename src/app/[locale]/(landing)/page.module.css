@@ -1,9 +1,13 @@
+.bg{
+  position: relative;
+  background: #050e07;
+}
 .container {
   display: flex;
   flex-direction: column;
   height: fit-content;
   position: relative;
-  overflow: auto;
+  /* overflow: auto; */
   z-index: 10;
   background-color: #050e07;
 }
@@ -52,10 +56,10 @@
   -o-border-radius: 50%;
   z-index: -1;
 }
-.shadow4 {
+.shadow5 {
   position: absolute;
-  top: 78%;
-  right: -5%;
+  top: 110%;
+  left: 0%;
   width: 0px;
   height: 50px;
   background-color: #063;

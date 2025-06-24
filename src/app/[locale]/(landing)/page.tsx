@@ -22,11 +22,12 @@ function page() {
   const News = lazy(() => import("@/components/Landing_Page/home/slider/News"));
   return (
     <>
-      <section style={{overflowX:"hidden"}} className={styles.container}>
+      <section className={styles.container}>
         <div className={styles.shadow1}></div>
         <div className={styles.shadow2}></div>
         <div className={styles.shadow3}></div>
         <div className={styles.shadow4}></div>
+        <div className={styles.shadow5}></div>
         <Suspense
           fallback={
             <div className={styles.hero}>

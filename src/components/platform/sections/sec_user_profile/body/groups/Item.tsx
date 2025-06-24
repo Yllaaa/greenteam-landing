@@ -52,7 +52,7 @@ function Item({
   }, [handlePages, inView, index, length]);
 
   return (
-    <div ref={index === length - 1 ? ref : null} className={styles.item}>
+    <div onClick={handleNavigate} ref={index === length - 1 ? ref : null} className={styles.item}>
       <div className={styles.logo}>
         <Image
           src={group.banner ? group.banner : cover}
@@ -60,6 +60,7 @@ function Item({
           width={637}
           height={135}
           className={styles.logo}
+          style={{ objectFit: "contain" }}
         />
       </div>
       <div className={styles.content}>

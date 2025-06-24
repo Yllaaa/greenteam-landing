@@ -12,9 +12,9 @@ import Breif from "./side/Breif";
 import Settings from "../settings/Settings";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
-// import AddNew from "../../header/AddNew";
 
 type Sections = "your posts" | "events" | "products" | "groups" | "pages";
+
 function AllProfileBody(props: { username: string }) {
   const { username } = props;
   const token = getToken();
@@ -52,8 +52,13 @@ function AllProfileBody(props: { username: string }) {
     },
     userScore: 0,
     isMyProfile: false,
-   
   });
+
+  // Scroll-related state
+  const [briefTransform, setBriefTransform] = useState(0);
+  const sidebarRef = useRef<HTMLDivElement>(null);
+  const filterRef = useRef<HTMLDivElement>(null);
+  const [initialBriefTop, setInitialBriefTop] = useState(0);
 
   useEffect(() => {
     getProfileData(username)
@@ -65,8 +70,46 @@ function AllProfileBody(props: { username: string }) {
       });
   }, [username]);
 
+  // Handle scroll for sticky Brief
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sidebarRef.current || !filterRef.current || currentSection !== "your posts" || !user.isMyProfile) return;
+
+      const scrollY = window.scrollY;
+      // const filterBottom = filterRef.current.getBoundingClientRect().bottom;
+      const sidebarRect = sidebarRef.current.getBoundingClientRect();
+
+      // Initialize the initial position if not set
+      if (initialBriefTop === 0 && scrollY < 10) {
+        setInitialBriefTop(sidebarRect.top + scrollY);
+      }
+
+      // Calculate how much to translate the Brief
+      // We want it to stick when the filter is at the top of the viewport
+      const filterHeight = filterRef.current.offsetHeight;
+      // const targetTop = filterBottom + 20; // 20px gap below filter
+
+      if (scrollY > initialBriefTop - filterHeight - 20) {
+        // Calculate the transform needed to keep Brief in view
+        const translateAmount = scrollY - (initialBriefTop - filterHeight - 20);
+        setBriefTransform(translateAmount);
+      } else {
+        setBriefTransform(0);
+      }
+    };
+
+    // Add scroll listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Initial calculation
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, [currentSection, user.isMyProfile, initialBriefTop]);
+
   const [settings, setSettings] = useState(false);
-  const sidebarRef = useRef<HTMLDivElement>(null);
 
   return (
     <>
@@ -74,7 +117,6 @@ function AllProfileBody(props: { username: string }) {
         {/* header */}
         <div className={styles.header}>
           <Header user={user} settings={settings} setSettings={setSettings} />
-          {/* <AddNew /> */}
         </div>
         {/* filter */}
         {user.userData.isBlocked ? (
@@ -85,22 +127,17 @@ function AllProfileBody(props: { username: string }) {
               <button
                 className={styles.unblockButton}
                 onClick={() => {
-                  // API call to unblock user
                   axios.delete(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/actions/unblock`, {
-
                     headers: {
                       'Authorization': `Bearer ${accessToken}`,
                       'Content-Type': 'application/json'
                     },
                     data: {
                       blockedId: user.userData.id,
-
                     }
                   })
-
                     .then(res => {
                       if (res.data) {
-                        // Update local state
                         setUser(prev => ({
                           ...prev,
                           userData: {
@@ -120,7 +157,7 @@ function AllProfileBody(props: { username: string }) {
         ) : (
           !settings ? (
             <>
-              <div className={styles.filterWrapper}>
+              <div className={styles.filterWrapper} ref={filterRef}>
                 <div className={styles.filter}>
                   {sections.map((section) => (
                     <div
@@ -141,8 +178,9 @@ function AllProfileBody(props: { username: string }) {
                 {user.isMyProfile && (
                   <div
                     style={{
-                      position: "sticky",
-                      display: currentSection === "your posts" ? "block" : "none"
+                      display: currentSection === "your posts" ? "block" : "none",
+                      transform: `translateY(${briefTransform}px)`,
+                      transition: 'none', // Disable transition for smooth scrolling
                     }}
                     className={styles.side}
                     ref={sidebarRef}
