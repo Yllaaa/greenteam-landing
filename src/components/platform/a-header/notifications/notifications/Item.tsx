@@ -45,6 +45,7 @@ export default function Item({ ...props }: NotificationItem) {
         <div onClick={handleNavigation} className={`${styles.item} ${!props.isRead ? styles.unread : ''}`}>
             <div className={styles.avatar}>
                 <Image
+                    unoptimized
                     src={avatarSrc}
                     alt={props.actor.fullName}
                     width={40}

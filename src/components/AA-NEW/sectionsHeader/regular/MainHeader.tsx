@@ -73,6 +73,7 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
                 className={styles.titleIcon}
                 width={30}
                 height={30}
+                unoptimized
               /> }
               {t(`categories.${topicData.name}`)}
             </h2>

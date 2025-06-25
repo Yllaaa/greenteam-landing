@@ -176,6 +176,7 @@ function EventCard(props: Props) {
       <div className={styles.img}>
         <div className={styles.overlay}></div>
         <Image
+        unoptimized
           src={event?.posterUrl ? event?.posterUrl : noPIc}
           alt="image"
           className={styles.image}

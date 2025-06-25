@@ -81,6 +81,7 @@ function ProfileMenu(props: Props) {
           <div className={styles.userProfileSection} onClick={goToProfile}>
             <div className={styles.userAvatar}>
               <Image
+                unoptimized
                 src={user.avatar || noAvatar}
                 alt="User avatar"
                 width={50}
@@ -110,7 +111,7 @@ function ProfileMenu(props: Props) {
               className={styles.dropdownItem}
               key={item.id}
             >
-              <Image src={item.icon} alt={item.name} />
+              <Image unoptimized src={item.icon} alt={item.name} />
               <span>{item.name}</span>
             </li>
           ))}
@@ -118,7 +119,7 @@ function ProfileMenu(props: Props) {
             onClick={switchLanguage}
             className={styles.languageToggle}
           >
-            <Image src={language} alt="language" />
+            <Image unoptimized src={language} alt="language" />
             <span>
               {locale === "en"
                 ? "Switch to Spanish"
@@ -132,7 +133,7 @@ function ProfileMenu(props: Props) {
             }}
             className={styles.logout}
           >
-            <Image src={logout} alt="logout" />
+            <Image unoptimized src={logout} alt="logout" />
             <span>{t("logout")}</span>
           </li>
         </ul>

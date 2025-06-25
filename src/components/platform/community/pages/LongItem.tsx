@@ -56,6 +56,7 @@ export default function LongItem({
   return (
     <div ref={isLastItem ? ref : undefined} key={index} className={styles.card}>
       <Image
+      unoptimized
         src={logo}
         alt="image"
         className={styles.logoImage}

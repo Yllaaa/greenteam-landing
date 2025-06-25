@@ -205,6 +205,7 @@ function MyChallengeCard(props: Props) {
         >
           <div className={styles.userAvatar}>
             <Image
+            unoptimized
               src={challenge.creator.avatar || noAvatar}
               alt="userAvatar"
               width={100}
@@ -255,6 +256,7 @@ function MyChallengeCard(props: Props) {
         <div className={styles.challengeImage}>
           {challenge.media?.length > 0 ? (
             <Image
+            unoptimized
               src={challenge.media[0].mediaUrl}
               alt="challengeImage"
               width={500}

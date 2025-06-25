@@ -63,7 +63,7 @@ export default function Item({
 
       <div className={styles.header}>
         <div className={styles.logo}>
-          <Image src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
+          <Image unoptimized src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
         </div>
         <div className={styles.ecoVillage}>{pageI.topic.name}</div>
       </div>

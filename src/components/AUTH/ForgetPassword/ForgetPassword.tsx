@@ -55,6 +55,7 @@ function ForgetPassword() {
             {/* logo */}
             <div className={styles.logo}>
               <Image
+                unoptimized
                 src={footLogo}
                 alt="logo"
                 onClick={() => router.push("/")}
@@ -102,7 +103,7 @@ function ForgetPassword() {
         </div>
         <div className={styles.sideImageContainer}>
           <div className={styles.bgImage}>
-            <Image src={bgImage} alt="bgImage" />
+            <Image unoptimized src={bgImage} alt="bgImage" />
           </div>
           <div className={styles.sideHeader}>
             <h4>{t('join')}</h4>
@@ -112,7 +113,7 @@ function ForgetPassword() {
             </p>
           </div>
           <div className={styles.foots}>
-            <Image src={earthImage} alt="feet" />
+            <Image unoptimized src={earthImage} alt="feet" />
           </div>
         </div>
       </div>{" "}

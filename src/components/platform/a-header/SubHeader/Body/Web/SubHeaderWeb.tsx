@@ -95,6 +95,7 @@ function SubHeaderWeb(props: Props) {
       <div className={styles.navBtns}>
         <div className={styles.next} onClick={openSlider}>
           <Image
+          
             src={toRight}
             alt="prev"
             width={100}
@@ -170,7 +171,7 @@ function SubHeaderWeb(props: Props) {
                   : styles.regularLink
               }
             >
-              <Image src={action.icon} alt={action.title} loading="lazy" />
+              <Image unoptimized src={action.icon} alt={action.title} loading="lazy" />
               <span>{action.title}</span>
             </Link>
           </div>

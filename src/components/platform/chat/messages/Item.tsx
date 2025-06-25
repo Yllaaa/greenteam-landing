@@ -55,6 +55,7 @@ export default function Item({
       <Image src={arrowIcon} alt="arrow" className={styles.arrow} />
       <div className={styles.avatar}>
         <Image
+        unoptimized
           src={message?.sender?.avatar ? message?.sender?.avatar : noAvatar}
           alt="avatar"
           width={32}

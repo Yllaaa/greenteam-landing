@@ -32,7 +32,7 @@ function Header({
     <>
       <div className={styles.header}>
         <div className={styles.tag}>
-          <Image src={image ? image : images} alt="tag" width={30} height={30} />
+          <Image unoptimized src={image ? image : images} alt="tag" width={30} height={30} />
           <h1>{tag}</h1>
         </div>
         {withFilter && (

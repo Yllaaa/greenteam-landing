@@ -108,7 +108,7 @@ function SubHeaderRes(props: Props) {
                   : styles.regularLink
               }
             >
-              <Image src={action.icon} alt={action.title} loading="lazy" />
+              <Image unoptimized src={action.icon} alt={action.title} loading="lazy" />
               <span>{action.title}</span>
             </Link>
           </div>

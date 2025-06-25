@@ -95,6 +95,7 @@ function Item({
     >
       <div className={styles.logo}>
         <Image
+        unoptimized
           src={group.banner ? group.banner : cover}
           alt={t('groupImageAlt', { groupName: group.name })}
           width={637}

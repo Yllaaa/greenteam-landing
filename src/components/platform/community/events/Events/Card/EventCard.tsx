@@ -180,6 +180,7 @@ function EventCard(props: Props) {
       >
         <div className={styles.img}>
           <Image
+          unoptimized
             src={event?.posterUrl ? event?.posterUrl : noPIc}
             alt="image"
             className={styles.image}
