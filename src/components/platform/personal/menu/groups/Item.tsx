@@ -60,6 +60,8 @@ function Item({
           width={637}
           height={135}
           className={styles.logo}
+          unoptimized={true}
+
           style={{ objectFit: "contain" }}
         />
       </div>
