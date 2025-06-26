@@ -14,6 +14,7 @@ function SubHeader() {
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale()
+  const [endpoint, setEndpoint] = React.useState("");
   const [commentModal, setCommentModal] = React.useState(false);
   const [postComments, setPostComments] = React.useState([]);
   const [postId, setPostId] = React.useState("");
@@ -52,6 +53,7 @@ function SubHeader() {
       {/* web */}
       <div className={styles.container}>
         <SubHeaderWeb
+        setEndpoint={setEndpoint}
           commentModal={commentModal}
           setCommentModal={setCommentModal}
           postComments={postComments}
@@ -72,6 +74,7 @@ function SubHeader() {
       {/* responsive */}
       <div className={styles.ResponsiveContainer}>
         <SubHeaderRes
+          setEndpoint={setEndpoint}
           commentModal={commentModal}
           setCommentModal={setCommentModal}
           postComments={postComments}
@@ -107,6 +110,7 @@ function SubHeader() {
         <AddNewModal
           setAddNew={setAddNew}
           addNew={addNew}
+          endpoint={endpoint}
           challengeId={postId}
         />
       )}

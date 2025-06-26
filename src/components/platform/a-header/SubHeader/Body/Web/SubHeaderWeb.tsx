@@ -41,6 +41,7 @@ type Props = {
     >
   >;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>
+  setEndpoint: React.Dispatch<React.SetStateAction<string>>;
 };
 function SubHeaderWeb(props: Props) {
   const {
@@ -141,6 +142,7 @@ function SubHeaderWeb(props: Props) {
               }
             >
               <MyChallenges
+                setEndpoint={props.setEndpoint}
                 setCommentModal={setCommentModal}
                 postComments={postComments}
                 setPostComments={setPostComments}

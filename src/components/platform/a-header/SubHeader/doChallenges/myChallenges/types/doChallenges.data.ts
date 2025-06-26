@@ -27,20 +27,21 @@ interface Post {
 type Posts = Post[];
 
 type DoMainProps = {
-  setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
-  postComments: Comment[];
-  setPostComments: React.Dispatch<React.SetStateAction<any>>;
-  postId: string;
-  setCommentPage: React.Dispatch<React.SetStateAction<number>>;
-  commentPage: number;
-  setRepliesPage: React.Dispatch<React.SetStateAction<number>>;
-  repliesPage: number;
-  setRerender: React.Dispatch<React.SetStateAction<boolean>>;
-  rerender: boolean;
-  setPostId: React.Dispatch<React.SetStateAction<string>>;
-  commentModal: boolean;
-  setPostMedia: React.Dispatch<React.SetStateAction<any>>;
-  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+	setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
+	postComments: Comment[];
+	setPostComments: React.Dispatch<React.SetStateAction<any>>;
+	postId: string;
+	setCommentPage: React.Dispatch<React.SetStateAction<number>>;
+	commentPage: number;
+	setRepliesPage: React.Dispatch<React.SetStateAction<number>>;
+	repliesPage: number;
+	setRerender: React.Dispatch<React.SetStateAction<boolean>>;
+	rerender: boolean;
+	setPostId: React.Dispatch<React.SetStateAction<string>>;
+	commentModal: boolean;
+	setPostMedia: React.Dispatch<React.SetStateAction<any>>;
+	setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+	setEndpoint: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type { Creator, Post, Posts, DoMainProps };

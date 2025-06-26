@@ -22,7 +22,8 @@ function MyChallenges(props: DoMainProps) {
     commentPage,
     setCommentPage,
     setPostMedia,
-    setAddNew
+    setAddNew,
+    setEndpoint
   } = props;
 
   const token = getToken();
@@ -109,6 +110,7 @@ function MyChallenges(props: DoMainProps) {
            
             <div className={styles.challenges}>
               <MyChallengeCard
+              setEndPoint={setEndpoint}
                 length={challenges.length}
                 index={index}
                 ref={index === challenges.length - 1 ? ref : null}

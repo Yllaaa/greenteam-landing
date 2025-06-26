@@ -33,6 +33,7 @@ type Props = {
     }[]>
   >;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setEndPoint: React.Dispatch<React.SetStateAction<string>>;
 };
 function MyChallengeCard(props: Props) {
   const {
@@ -47,7 +48,8 @@ function MyChallengeCard(props: Props) {
     index,
     length,
     setPostMedia,
-    setAddNew
+    setAddNew,
+    setEndPoint
   } = props;
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
@@ -187,6 +189,8 @@ function MyChallengeCard(props: Props) {
   const handleDoIt = () => {
     setAddNew(true)
     setPostId(challenge.id)
+setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/done-with-post`)
+
     // try {
     //   axios
     //     .put(

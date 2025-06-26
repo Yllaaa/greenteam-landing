@@ -37,6 +37,8 @@ type Props = {
     }[]>
   >;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setEndpoint: React.Dispatch<React.SetStateAction<string>>;
+
 };
 
 function SubHeaderRes(props: Props) {
@@ -138,6 +140,7 @@ function SubHeaderRes(props: Props) {
           }
         >
           <MyChallenges
+            setEndpoint={props.setEndpoint}
             setCommentModal={setCommentModal}
             postComments={postComments}
             setPostComments={setPostComments}
