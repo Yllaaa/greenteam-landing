@@ -41,6 +41,7 @@ type DoMainProps = {
   commentModal: boolean;
   setChallengeId: React.Dispatch<React.SetStateAction<string>>;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setEndpoint: React.Dispatch<React.SetStateAction<string>>;
 };
 
 export type { Creator, Post, Posts, DoMainProps };

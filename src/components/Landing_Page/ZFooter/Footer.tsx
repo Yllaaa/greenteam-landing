@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./footer.module.css";
 import appStore from "@/../public/footer/appStore.svg";
 import googlePlay from "@/../public/footer/playStore.svg";
-import mockup from "@/../public/footer/mockup.png";
+import mockup from "@/../public/footer/mockup2.png";
 import Image from "next/image";
 import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";

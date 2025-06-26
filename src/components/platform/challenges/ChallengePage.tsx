@@ -17,7 +17,7 @@ function ChallengePage() {
 
   const [addNew, setAddNew] = React.useState(false);
   const [challengeId, setChallengeId] = React.useState("");
-
+  const [endpoint, setEndpoint] = React.useState<string>("")
   return (
     <>
       <section className={styles.container}>
@@ -26,7 +26,7 @@ function ChallengePage() {
             <h2>{t("green")}</h2>
           </div>
           <div className={styles.challenges}>
-            <AllChallenges addNew={addNew} setChallengeId={setChallengeId} setAddNew={setAddNew} />
+            <AllChallenges setEndPoint={setEndpoint} addNew={addNew} setChallengeId={setChallengeId} setAddNew={setAddNew} />
           </div>
         </div>
         <div className={styles.divider}></div>
@@ -36,6 +36,7 @@ function ChallengePage() {
           </div>
           <div className={styles.body}>
             <MyChallenges
+              setEndpoint={setEndpoint}
               setCommentModal={setCommentModal}
               postComments={postComments}
               setPostComments={setPostComments}
@@ -75,6 +76,7 @@ function ChallengePage() {
             setAddNew(value);
             if (!value) setChallengeId("");
           }}
+          endpoint={endpoint}
           addNew={addNew}
           challengeId={challengeId}
         />

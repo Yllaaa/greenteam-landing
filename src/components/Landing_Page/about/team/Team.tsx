@@ -6,6 +6,8 @@ import styles from './team.module.css'
 import Image from 'next/image'
 import img1 from "@/../public/about/1.jpg"
 import img2 from "@/../public/about/2.jpg"
+import img3 from "@/../public/about/3.png"
+import img4 from "@/../public/about/M.png"
 
 function Team() {
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -13,35 +15,26 @@ function Team() {
 
     const teamMembers = [
         {
-            name: "John Doe",
-            position: "CEO",
-            image: img1
+            name: "David Igual",
+            position: "Director, inversor, marca personal",
+            image: img3
         },
         {
-            name: "Jane Smith",
-            position: "CTO",
+            name: "Ana Bernal",
+            position: "Diseño gráfico, marca GreenTeam",
             image: img2
         },
         {
-            name: "Mike Johnson",
-            position: "CFO",
+            name: "Miguel Urrea",
+            position: "Gestor, asesor legal y tesorería",
             image: img1
         },
         {
-            name: "Sarah Williams",
-            position: "COO",
-            image: img2
+            name: "Mohamed ",
+            position: "Programación web con YLLAAA Team",
+            image: img4
         },
-        {
-            name: "David Brown",
-            position: "Head of Marketing",
-            image: img1
-        },
-        {
-            name: "Emily Davis",
-            position: "Head of Sales",
-            image: img2
-        }
+
     ]
 
     const [sliderRef, instanceRef] = useKeenSlider({

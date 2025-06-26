@@ -16,12 +16,13 @@ function AddNewModal(props: {
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   addNew: boolean;
   challengeId: string;
+  endpoint: string;
 }) {
   const params = useParams();
   console.log(params);
 
   const accessToken = useAppSelector((state) => state.login.accessToken);
-  const { setAddNew, challengeId } = props;
+  const { setAddNew , endpoint} = props;
   const closeModal = useCallback(() => {
     setAddNew(false);
   }, [setAddNew]);
@@ -75,7 +76,7 @@ function AddNewModal(props: {
       // The correct usage is to just pass formDataToSend directly
 
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challengeId}/done-with-post`,
+        endpoint,
         formDataToSend,
         {
           headers: {

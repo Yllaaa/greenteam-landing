@@ -3,6 +3,7 @@ import Imagine from "@/components/Landing_Page/Goal/imagine/imagine/Imagine";
 import Mission from "@/components/Landing_Page/Goal/mission/Mission";
 import React from "react";
 import styles from "./goal.module.css";
+import Bbb from "@/components/Landing_Page/Goal/bbbb/Bbb";
 function page() {
  
   return (
@@ -13,6 +14,9 @@ function page() {
         </div>
         <div className={styles.mission}>
           <Mission />
+        </div>
+        <div>
+          <Bbb />
         </div>
 
         <div className={styles.imagine}>

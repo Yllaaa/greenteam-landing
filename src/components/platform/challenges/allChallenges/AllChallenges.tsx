@@ -8,12 +8,13 @@ import logo from '@/../public/personal/menu/notifications/logo.png'
 import Image from 'next/image'
 import ToastNot from '@/Utils/ToastNotification/ToastNot'
 
-function AllChallenges(props:{
+function AllChallenges(props: {
   setChallengeId: React.Dispatch<React.SetStateAction<string>>,
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>,
   addNew: boolean
+  setEndPoint?: React.Dispatch<React.SetStateAction<string>>,
 }) {
-  const { setChallengeId, setAddNew, addNew } = props
+  const { setChallengeId, setAddNew, addNew, setEndPoint } = props
   const token = getToken()
   const accessToken = token ? token.accessToken : null
   const [allChallenges, setAllChallenges] = useState<Challenge[]>([])
@@ -100,9 +101,10 @@ function AllChallenges(props:{
 
   const handleDone = async (challengeId: string) => {
     setChallengeId(challengeId)
+    if (setEndPoint) setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/done-with-post`)
     try {
       setAddNew(true)
-     
+
     } catch (error) {
       console.error("Error handling action:", error);
       ToastNot("Error occurred");

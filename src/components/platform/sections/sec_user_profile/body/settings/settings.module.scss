@@ -55,6 +55,7 @@ $transition-speed: 0.3s;
     }
   }
   .side {
+    display: none;
     grid-column: 1 / 4;
     padding: 24px;
     position: sticky;
@@ -90,7 +91,7 @@ $transition-speed: 0.3s;
   }
 
   .mainForm {
-    grid-column: 4 / 13;
+    grid-column: 1 / 13;
     width: 100%;
     height: fit-content;
     padding: 32px;

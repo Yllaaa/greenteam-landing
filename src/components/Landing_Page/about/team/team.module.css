@@ -84,21 +84,23 @@
     overflow: hidden;
     transition: transform 0.3s ease;
     position: relative;
-    height: 100%;
+    height: 300px;
+    width: 300px;
 }
 
 .card:hover {
     transform: translateY(-10px);
 }
 
-/* .imageWrapper {
-    padding: 20px 20px 10px;
-} */
+.imageWrapper {
+    width: 100%;
+    height: 80%;
+}
 
 .memberImage {
     width: 100%;
     height: 100%;
-    object-fit: contain;
+    object-fit: cover;
     border-radius: 15px;
 }
 
