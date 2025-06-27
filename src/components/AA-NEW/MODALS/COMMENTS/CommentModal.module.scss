@@ -664,11 +664,11 @@
 	position: relative;
 }
 
-// For disabled state of navigation buttons
-:global(.swiper-button-disabled) {
-	opacity: 0.35 !important;
-	cursor: not-allowed !important;
-}
+// // For disabled state of navigation buttons
+// :global(.swiper-button-disabled) {
+// 	opacity: 0.35 !important;
+// 	cursor: not-allowed !important;
+// }
 
 .imageWrapper,
 .singleMediaWrapper {
