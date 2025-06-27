@@ -536,7 +536,7 @@
 	position: relative;
 	width: 100%;
 	height: 100%;
-	
+
 	// Global pagination styles
 	:global(.swiper-pagination-custom) {
 		position: absolute;
@@ -548,113 +548,114 @@
 	}
 }
 .mediaContainer {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    background-color: #000;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	background-color: #000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .swiper {
-    width: 100%;
-    height: 100%;
-    position: relative;
+	width: 100%;
+	height: 100%;
+	position: relative;
 
-    // Navigation arrows
-    :global(.swiper-button-next),
-    :global(.swiper-button-prev) {
-        color: #fff !important;
-        background: rgba(0, 0, 0, 0.5);
-        width: 44px !important;
-        height: 44px !important;
-        border-radius: 50%;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        
-        &::after {
-            font-size: 20px !important;
-            font-weight: bold;
-        }
+	// Navigation arrows
+	:global(.swiper-button-next),
+	:global(.swiper-button-prev) {
+		color: #fff !important;
+		background: rgba(0, 0, 0, 0.5);
+		width: 44px !important;
+		height: 44px !important;
+		border-radius: 50%;
+		display: flex !important;
+		align-items: center !important;
+		justify-content: center !important;
 
-        &:hover {
-            background: rgba(0, 0, 0, 0.8);
-        }
-    }
+		&::after {
+			font-size: 20px !important;
+			font-weight: bold;
+		}
 
-    :global(.swiper-button-next) {
-        right: 20px !important;
-    }
+		&:hover {
+			background: rgba(0, 0, 0, 0.8);
+		}
 
-    :global(.swiper-button-prev) {
-        left: 20px !important;
-    }
+		// Add disabled state here
+		&:global(.swiper-button-disabled) {
+			opacity: 0.35 !important;
+			cursor: not-allowed !important;
+		}
+	}
+	:global(.swiper-button-next) {
+		right: 20px !important;
+	}
 
-    // Pagination
-    :global(.swiper-pagination) {
-        bottom: 20px !important;
-    }
+	:global(.swiper-button-prev) {
+		left: 20px !important;
+	}
 
-    :global(.swiper-pagination-bullet) {
-        background: rgba(255, 255, 255, 0.5) !important;
-        opacity: 1 !important;
-        width: 10px !important;
-        height: 10px !important;
-        margin: 0 5px !important;
-    }
+	// Pagination
+	:global(.swiper-pagination) {
+		bottom: 20px !important;
+	}
 
-    :global(.swiper-pagination-bullet-active) {
-        background: #fff !important;
-        width: 25px !important;
-        border-radius: 5px !important;
-    }
+	:global(.swiper-pagination-bullet) {
+		background: rgba(255, 255, 255, 0.5) !important;
+		opacity: 1 !important;
+		width: 10px !important;
+		height: 10px !important;
+		margin: 0 5px !important;
+	}
 
-    :global(.swiper-button-disabled) {
-        opacity: 0.35 !important;
-    }
+	:global(.swiper-pagination-bullet-active) {
+		background: #fff !important;
+		width: 25px !important;
+		border-radius: 5px !important;
+	}
 }
 
 .slide {
-    width: 100%;
-    height: 100%;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	width: 100%;
+	height: 100%;
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 .imageWrapper,
 .singleMediaWrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+	position: relative;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-    img {
-        object-fit: contain !important;
-    }
+	img {
+		object-fit: contain !important;
+	}
 }
 @media (max-width: 768px) {
-    .swiper {
-        :global(.swiper-button-next),
-        :global(.swiper-button-prev) {
-            width: 32px !important;
-            height: 32px !important;
-            
-            &::after {
-                font-size: 14px !important;
-            }
-        }
-        
-        :global(.swiper-pagination-bullet) {
-            width: 6px;
-            height: 6px;
-        }
-    }
+	.swiper {
+		:global(.swiper-button-next),
+		:global(.swiper-button-prev) {
+			width: 32px !important;
+			height: 32px !important;
+
+			&::after {
+				font-size: 14px !important;
+			}
+		}
+
+		:global(.swiper-pagination-bullet) {
+			width: 6px;
+			height: 6px;
+		}
+	}
 }
 // Ensure navigation elements are visible even with overflow hidden
 .slide {
