@@ -583,11 +583,11 @@
 			background: rgba(0, 0, 0, 0.8);
 		}
 
-		// Add disabled state here
-		&:global(.swiper-button-disabled) {
-			opacity: 0.35 !important;
-			cursor: not-allowed !important;
-		}
+		// // Add disabled state here
+		// &:global(.swiper-button-disabled) {
+		// 	opacity: 0.35 !important;
+		// 	cursor: not-allowed !important;
+		// }
 	}
 	:global(.swiper-button-next) {
 		right: 20px !important;
