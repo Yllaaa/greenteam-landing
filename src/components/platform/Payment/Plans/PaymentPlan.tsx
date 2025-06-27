@@ -14,14 +14,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { CurrentTier } from "./types/subscriptionTypes.data";
+import { useLocale, useTranslations } from "next-intl";
+
 const PaymentPlan = () => {
   const token = getToken();
   const accessToken = token ? token.accessToken : "";
-
+  const locale = useLocale();
+  const t = useTranslations("web.plans");
   const router = useRouter();
   const { data: tiers, isLoading, error } = useQuery({
-    queryKey: ["subscriptionTiers"],
-    queryFn: subscriptionService.getSubscriptionTiers,
+    queryKey: ["subscriptionTiers", locale], // Include locale in query key
+    queryFn: () => subscriptionService.getSubscriptionTiers(locale),
   });
 
   const [currentPlan, setCurrentPlan] = useState<CurrentTier>();
@@ -31,42 +34,46 @@ const PaymentPlan = () => {
       .get(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/subscriptions/my-subscription`,
         {
-          headers: { Authorization: `Bearer ${accessToken}` },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+            "Accept-Language": locale,
+          },
         }
       )
       .then((response) => setCurrentPlan(response.data));
-  }, [accessToken]);
+  }, [accessToken, locale]);
 
   if (isLoading)
     return (
-      <div className="text-center py-10">Loading subscription plans...</div>
+      <div className="text-center py-10">{t('loading')}</div>
     );
 
   if (error)
     return (
       <div className="text-center py-10 text-red-500">
-        Error loading subscription plans
+        {t('error')}
       </div>
     );
 
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Help us to make sustainable culture</h1>
+        <h1 className={styles.title}>{t('title')}</h1>
       </div>
       <div className={styles.allPlansContainer}>
         {tiers?.map((tier) => (
           <div className={styles.planMainContainer} key={tier.id}>
             <div
-              className={`${styles.planContainer} ${styles.other
-                }`}
+              className={`${styles.planContainer} ${styles.other}`}
             >
               <div className={styles.planIcon}>
                 <Image src={logo} alt="logo" loading="lazy" />
                 <h2 className={styles.planName}>{tier.name}</h2>
                 <p className={styles.planPrice}>
-                  {tier.price === 0 ? "Free" : `$${tier.price}`}
-                  <span>{tier.price === 0 ? "" : "/Year"}</span>
+                  {tier.price === 0 ? t('free') : `$${tier.price}`}
+                  <span>{tier.price === 0 ? "" : t('perYear')}</span>
                 </p>
               </div>
               <button
@@ -76,12 +83,12 @@ const PaymentPlan = () => {
                 className={styles.planButton}
               >
                 {currentPlan?.tier.id === tier.id
-                  ? "Current Plan"
-                  : `Select ${tier.name}`}
+                  ? t('currentPlan')
+                  : t('selectPlan', { planName: tier.name })}
               </button>
               <div className={styles.line}></div>
               <ul className={styles.planFeatures}>
-                <p>Features</p>
+                <p>{t('features')}</p>
                 {tier.benefits.map((benefit, index) => (
                   <li key={index} className={styles.planFeature}>
                     <span className={styles.check}>
@@ -95,29 +102,29 @@ const PaymentPlan = () => {
             <div className={styles.slogan}>
               {tier.id === 1 ? (
                 <div className={styles.sloganText}>
-                  <h3>TOGHTHER WE CAN TAKE CONTROL OF OUR LIVES</h3>
+                  <h3>{t('tier1.title')}</h3>
                   <Image src={tire1} alt="tire1" loading="lazy" width={300} height={300} />
-                  <p>We Are All Greenteam</p>
-                  <p>The conscious social net</p>
+                  <p>{t('tier1.subtitle1')}</p>
+                  <p>{t('tier1.subtitle2')}</p>
                 </div>
               ) : tier.id === 2 ? (
                 <div className={styles.sloganText}>
-                  <h3>Green business are the future</h3>
+                  <h3>{t('tier2.title')}</h3>
                   <Image src={tire2} alt="tire2" loading="lazy" width={300} height={300} />
-                  <p>use greenteam to build your community</p>
-                  <p>The conscious social net</p>
+                  <p>{t('tier2.subtitle1')}</p>
+                  <p>{t('tier2.subtitle2')}</p>
                 </div>
               ) : tier.id === 3 ? (
                 <div className={styles.sloganText}>
-                  <h3>We ARE FRIEND OF THE SUSTAINABLE INDUSTRY</h3>
+                  <h3>{t('tier3.title')}</h3>
                   <Image src={tire3} alt="tire3" loading="lazy" width={300} height={300} />
-                  <p>use greenteam to build your community</p>
-                  <p>The conscious social net</p>
+                  <p>{t('tier3.subtitle1')}</p>
+                  <p>{t('tier3.subtitle2')}</p>
                 </div>
               ) : (
                 <div className={styles.sloganText}>
-                  <h3>Join the movement</h3>
-                  <p>Be a part of the change for a better world</p>
+                  <h3>{t('tierDefault.title')}</h3>
+                  <p>{t('tierDefault.subtitle')}</p>
                 </div>
               )}
             </div>

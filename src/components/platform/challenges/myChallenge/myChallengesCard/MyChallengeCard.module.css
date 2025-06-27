@@ -49,6 +49,7 @@
   font-weight: 700;
   line-height: 18.29px;
   text-align: left;
+  word-break: break-all;
 }
 .challengeHeader .details .post p .readMore {
   font-weight: 400;
@@ -86,7 +87,9 @@
   -ms-border-radius: 16px;
   -o-border-radius: 16px;
 }
-
+.challengeImage .noImage p{
+  word-break: break-all;
+}
 .challengeActions {
   position: absolute;
   bottom: 20px;

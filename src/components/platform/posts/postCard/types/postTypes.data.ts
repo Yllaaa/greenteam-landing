@@ -57,13 +57,14 @@ interface Media {
   mediaType: string;
 }
 
-// Author interface for post creators
+type AuthorType = 'user' | 'page' | 'group_member';
+
 interface Author {
-  id: string;
-  name: string;
+  id: string | null;
+  name: string | null;
   avatar: string | null;
-  username: string;
-  type: string;
+  username: string | null;
+  type: AuthorType;
 }
 
 // Post details interface
@@ -75,16 +76,20 @@ interface PostDetails {
 
 // Complete post item interface including all related data
 interface PostItem {
-  post: PostDetails;
-  author: Author;
-  media: Media[];
-  commentCount: string;
-  likeCount: string;
-  dislikeCount: string;
-  userReactionType: string | null;
-  hasDoReaction: boolean;
-  isAuthor: boolean;
-
+	post: PostDetails;
+	author: Author;
+	media: Media[];
+	commentCount: string;
+	likeCount: string;
+	dislikeCount: string;
+	userReactionType: string | null;
+	hasDoReaction: boolean;
+	isAuthor: boolean;
+	location: {
+		countryName: string | null;
+		countryIso: string | null;
+		cityName: string | null;
+	};
 }
 
 type PostsData = PostItem[];

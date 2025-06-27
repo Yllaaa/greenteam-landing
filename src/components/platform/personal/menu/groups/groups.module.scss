@@ -105,13 +105,13 @@ $tablet-width: 768px;
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding: 0 15px;
+    // padding: 0 15px;
 
     @media (min-width: $min-width) {
       flex-direction: row;
       width: fit-content;
       margin-bottom: 16px;
-      padding: 0 45px; /* Add padding for desktop to accommodate arrows */
+      // padding: 0 45px; /* Add padding for desktop to accommodate arrows */
     }
 
     @media (max-width: $tablet-width) {

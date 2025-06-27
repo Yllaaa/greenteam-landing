@@ -12,7 +12,8 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { Message, NextCursor } from "./messages/messages.data";
 import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+
 const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
 
 export default function Chat() {
@@ -159,16 +160,17 @@ export default function Chat() {
     // Keep the URL consistent by removing the chatId parameter
     router.push('chat');
   };
+  const t = useTranslations("web.chat")
 
   return (
     <div className={styles.chat}>
       <div className={styles.header}>
         {showMessages && (
           <button onClick={handleBackToUsers} className={styles.backButton}>
-            ← Back
+            ← {t("back")}
           </button>
         )}
-        Messages
+        {t("message")}
       </div>
       <div className={styles.content}>
         <div
@@ -255,7 +257,7 @@ export default function Chat() {
             </>
           ) : (
             <div className={styles.noSelection}>
-              Select a conversation to start messaging
+              {t("select")}
             </div>
           )}
         </div>

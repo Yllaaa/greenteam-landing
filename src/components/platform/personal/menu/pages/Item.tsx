@@ -8,7 +8,7 @@ import { useLocale } from "next-intl";
 import { useInView } from "react-intersection-observer";
 import { useCallback, useEffect, useRef, useState } from "react";
 import CreatePostModal from "@/components/platform/modals/pageAddPost/CreatePostModal"; // Import the modal component
-
+import { useTranslations } from "next-intl";
 export default function Item({
   pageI,
   page,
@@ -70,63 +70,63 @@ export default function Item({
     // For example, refresh data or show a success message
     console.log("Post added successfully to page:", pageI.name);
   };
-
+  const t = useTranslations("web.pages");
   return (
     <>
-      <div ref={index === length - 1 ? ref : null} className={styles.item}>
-        <div className={styles.header}>
-          <div className={styles.logo}>
-            <Image src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} loading="lazy" unoptimized />
-          </div>
-          <div className={styles.ecoVillage}>EcoVillage</div>
+    <div ref={index === length - 1 ? ref : null} className={styles.item}>
+
+      <div className={styles.header}>
+        <div className={styles.logo}>
+          <Image unoptimized src={pageI.avatar ? pageI.avatar : logo} alt={pageI.name} width={100} height={100} />
         </div>
-        <div className={styles.content}>
-          <div onClick={handleNavigate} className={styles.text}>
-            <div className={styles.title}>{pageI.name}</div>
+        <div className={styles.ecoVillage}>{pageI.topic.name}</div>
+      </div>
+      <div className={styles.content}>
+        <div onClick={handleNavigate} className={styles.text}>
+          <div className={styles.title}>{pageI.name}</div>
+        </div>
+        <div onClick={handleNavigate} className={styles.description}>
+          <div className={styles.headerWhy}>
+            <span>{t("why")}: </span>
+            {pageI.why.length > 72 ? `${pageI.why.slice(0, 72)}...` : pageI.why}
           </div>
-          <div onClick={handleNavigate} className={styles.description}>
-            <div className={styles.headerWhy}>
-              <span>Why: </span>
-              {pageI.why.length > 72 ? `${pageI.why.slice(0, 72)}...` : pageI.why}
-            </div>
-            <div className={styles.headerHow}>
-              <span>How: </span>
-              {pageI.how.length > 72 ? `${pageI.how.slice(0, 72)}...` : pageI.how}
-            </div>
-            <div className={styles.headerWhat}>
-              <span>What: </span>
-              {pageI.what.length > 72
-                ? `${pageI.what.slice(0, 72)}...`
-                : pageI.what}
+          <div className={styles.headerHow}>
+            <span>{t("how")}: </span>
+            {pageI.how.length > 72 ? `${pageI.how.slice(0, 72)}...` : pageI.how}
+          </div>
+          <div className={styles.headerWhat}>
+            <span>{t("what")}: </span>
+            {pageI.what.length > 72
+              ? `${pageI.what.slice(0, 72)}...`
+              : pageI.what}
+          </div>
+        </div>
+        <div className={styles.actions}>
+          <div className={styles.counts}>
+            <div className={styles.followers}>
+              {pageI.followersCount} {t("followers")}
             </div>
           </div>
-          <div className={styles.actions}>
-            <div className={styles.counts}>
-              <div className={styles.followers}>
-                {pageI.followersCount} Followers
-              </div>
-            </div>
-            <button onClick={handleOpenModal} className={styles.like}>Add post</button>
-          </div>
+          <button onClick={handleOpenModal} className={styles.like}>Add post</button>
         </div>
       </div>
+    </div>
 
-      {/* Post creation modal */}
-      <CreatePostModal
-        isOpen={isModalOpen}
-        onClose={handleCloseModal}
-        pageSlug={pageI.slug}
-        title={`Create post on ${pageI.name}`}
-        placeholder="Share your ideas and contribute to this page..."
-        buttonText="Post"
-        maxImages={4}
-        onSuccess={handlePostSuccess}
-        showSubtopics={true}
-        // additionalFormData={{
-        //   slug: pageI.id
-        // }}
-        topicId={pageI.topic.id}
-      />
+  <CreatePostModal
+    isOpen={isModalOpen}
+    onClose={handleCloseModal}
+    pageSlug={pageI.slug}
+    title={`Create post on ${pageI.name}`}
+    placeholder="Share your ideas and contribute to this page..."
+    buttonText="Post"
+    maxImages={4}
+    onSuccess={handlePostSuccess}
+    showSubtopics={true}
+    // additionalFormData={{
+    //   slug: pageI.id
+    // }}
+    topicId={pageI.topic.id}
+  />
     </>
   );
 }

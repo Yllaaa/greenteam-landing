@@ -113,9 +113,9 @@ $tablet-width: 768px;
     display: none; /* Chrome, Safari, Opera */
   }
 
-  @media (min-width: $tablet-width) {
-    padding: 0 50px; /* Add padding for the navigation arrows */
-  }
+  // @media (min-width: $tablet-width) {
+  //   padding: 0 50px; /* Add padding for the navigation arrows */
+  // }
 }
 
 // Container for the pagination loader and end message
@@ -346,9 +346,9 @@ $tablet-width: 768px;
     }
   }
 
-  .eventsContainerR {
-    padding: 0 45px; // Less padding on tablets
-  }
+  // .eventsContainerR {
+  //   padding: 0 45px; // Less padding on tablets
+  // }
 }
 
 // Focus styles for accessibility

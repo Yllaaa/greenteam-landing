@@ -197,7 +197,7 @@ function PostCard(props: Props) {
 
   // Navigation handlers
   const navigateToProfile = useCallback(
-    (authorId: string, type: string) => {
+    (authorId: string|null, type: string|null) => {
       const path = type === "page" ? "pages" : "profile";
       router.push(`/${locale}/${path}/${authorId}`);
     },
@@ -301,7 +301,7 @@ function PostCard(props: Props) {
                 >
                   <p>
                     {post.author.name || post.author.username} <span>@{post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
-                    
+
                   </p>
                 </div>
 
@@ -319,7 +319,7 @@ function PostCard(props: Props) {
                         <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
-                      <p style={{wordBreak: "break-all", cursor: "pointer" }}>
+                      <p style={{ wordBreak: "break-all", cursor: "pointer" }}>
                         {linkifyText(post.post.content, {
                           className: linkifyStyles['content-link'],
                           target: "_blank"
@@ -334,6 +334,7 @@ function PostCard(props: Props) {
             <div className={styles.media}>
               <div className={styles.postslider}>
                 <PostSlider
+                  post={post}
                   media={post.media}
                   content={post.post.content}
                   commentPage={commentsPage}

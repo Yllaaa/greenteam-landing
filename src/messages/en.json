@@ -165,9 +165,43 @@
 		}
 	},
 	"web": {
+		"chat":{
+			"select":"Select a conversation to start messaging",
+			"message":"Messages",
+			"back":"Back"
+		},
+		"plans": {
+			"title": "Help us to make sustainable culture",
+			"loading": "Loading subscription plans...",
+			"error": "Error loading subscription plans",
+			"free": "Free",
+			"perYear": "/Year",
+			"currentPlan": "Current Plan",
+			"selectPlan": "Select {{planName}}",
+			"features": "Features",
+			"tier1": {
+				"title": "TOGETHER WE CAN TAKE CONTROL OF OUR LIVES",
+				"subtitle1": "We Are All Greenteam",
+				"subtitle2": "The conscious social net"
+			},
+			"tier2": {
+				"title": "Green business are the future",
+				"subtitle1": "use greenteam to build your community",
+				"subtitle2": "The conscious social net"
+			},
+			"tier3": {
+				"title": "WE ARE FRIEND OF THE SUSTAINABLE INDUSTRY",
+				"subtitle1": "use greenteam to build your community",
+				"subtitle2": "The conscious social net"
+			},
+			"tierDefault": {
+				"title": "Join the movement",
+				"subtitle": "Be a part of the change for a better world"
+			}
+		},
 		"post": {
 			"categories": {
-				"all": "All Categories",
+				"all": "All",
 				"Art": "Art",
 				"Crafts": "Crafts",
 				"Music": "Music",
@@ -306,7 +340,7 @@
 			"noMore": "No more content available",
 			"loadingError": "Error loading content, please try again later",
 			"loading": "Loading...",
-			"loadingForums":"Loading forums..."
+			"loadingForums": "Loading forums..."
 		},
 		"header": {
 			"chat": "Chat",
@@ -319,6 +353,7 @@
 			"addPost": "Add Post",
 			"notAvailable": "Not available",
 			"topics": {
+				"all":"All",
 				"sustainability": "Sustainability",
 				"food": "Food and Health",
 				"physical": "Physical And Mental Exercise",

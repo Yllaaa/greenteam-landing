@@ -8,11 +8,12 @@ import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import { FaThumbsUp } from "react-icons/fa6";
-
+import {useTranslations} from "next-intl"
 // topics and subtopics
 const topics = Topics;
 
 function FeedSection() {
+  const t = useTranslations("web.header.topics");
   // Define state variables
   //modals
   const [doItModal, setDoItModal] = useState(false);
@@ -50,7 +51,7 @@ function FeedSection() {
             }}
             onClick={() => setSelectedTopics(0)}
           >
-            All
+            {t("all")}
           </p>
           {topics.map((topic, index) => (
             <p
@@ -61,10 +62,7 @@ function FeedSection() {
               }}
               onClick={() => setSelectedTopics(topic.id)}
             >
-              {topic.name.slice(
-                0,
-                topic.name.indexOf(" ") === -1 ? 3 : topic.name.indexOf(" ")
-              )}
+              {t(topic.name)}
             </p>
           ))}
         </div>

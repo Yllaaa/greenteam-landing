@@ -8,11 +8,12 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { useAppSelector } from "@/store/hooks";
+import { useLocale } from "next-intl";
 
 export default function Pages() {
   const [pagesArray, setPagesArray] = useState<PageItem[]>([]);
   const user = useAppSelector(state => state.login.user?.user);
-
+const locale=useLocale()
   // pagination
   const limit = 5;
   const [page, setPage] = useState(1);
@@ -25,8 +26,8 @@ export default function Pages() {
   // Refs for scrolling and navigation
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
+  // const [canScrollLeft, setCanScrollLeft] = useState(false);
+  // const [canScrollRight, setCanScrollRight] = useState(false);
 
   // Get token only once
   const localeS = useRef(getToken());
@@ -66,6 +67,7 @@ export default function Pages() {
             headers: {
               Authorization: `Bearer ${accessToken}`,
               "Access-Control-Allow-Origin": "*",
+              "Accept-Language": locale
             },
             signal: abortControllerRef.current.signal
           }
@@ -102,7 +104,7 @@ export default function Pages() {
         setIsPaginationLoading(false);
       }
     },
-    [accessToken, user?.username, limit]
+    [accessToken, user?.username, limit,locale]
   );
 
   // Reset and fetch when user changes
@@ -139,20 +141,20 @@ export default function Pages() {
   }, [page, fetchPages, isLoading]);
 
   // Function to update scroll button states
-  const updateScrollButtonsState = useCallback(() => {
-    if (!scrollContainerRef.current) return;
+  // const updateScrollButtonsState = useCallback(() => {
+  //   if (!scrollContainerRef.current) return;
 
-    const container = scrollContainerRef.current;
-    const scrollLeft = container.scrollLeft;
-    const scrollWidth = container.scrollWidth;
-    const clientWidth = container.clientWidth;
+  //   const container = scrollContainerRef.current;
+  //   const scrollLeft = container.scrollLeft;
+  //   const scrollWidth = container.scrollWidth;
+  //   const clientWidth = container.clientWidth;
 
-    // A small threshold to ensure the left button appears when there's some scrolling
-    const leftThreshold = 10;
+  //   // A small threshold to ensure the left button appears when there's some scrolling
+  //   const leftThreshold = 10;
 
-    setCanScrollLeft(scrollLeft > leftThreshold);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - leftThreshold);
-  }, []);
+  //   // setCanScrollLeft(scrollLeft > leftThreshold);
+  //   // setCanScrollRight(scrollLeft + clientWidth < scrollWidth - leftThreshold);
+  // }, []);
 
   // Scroll event handler for infinite scrolling and scroll button state
   const handleScroll = useCallback(() => {
@@ -165,7 +167,7 @@ export default function Pages() {
     const scrollLeft = container.scrollLeft;
 
     // Update scroll button states
-    updateScrollButtonsState();
+    // updateScrollButtonsState();
 
     // Load more when user has scrolled to 80% of the content
     if (
@@ -175,14 +177,14 @@ export default function Pages() {
     ) {
       setPage((prevPage) => prevPage + 1);
     }
-  }, [hasMore, isLoading, isPaginationLoading, updateScrollButtonsState]);
+  }, [hasMore, isLoading, isPaginationLoading]);
 
   // Add scroll event listener
   useEffect(() => {
     const currentRef = scrollContainerRef.current;
     if (currentRef) {
       // Add direct event listener without debounce for accurate state
-      currentRef.addEventListener("scroll", updateScrollButtonsState);
+      // currentRef.addEventListener("scroll");
 
       // Debounce function for the performance-heavy operations
       let timeoutId: NodeJS.Timeout;
@@ -193,35 +195,34 @@ export default function Pages() {
 
       currentRef.addEventListener("scroll", debouncedScroll);
 
-      // Initial scroll state check
-      updateScrollButtonsState();
+
 
       return () => {
-        currentRef.removeEventListener("scroll", updateScrollButtonsState);
+        // currentRef.removeEventListener("scroll", updateScrollButtonsState);
         clearTimeout(timeoutId);
         currentRef.removeEventListener("scroll", debouncedScroll);
       };
     }
-  }, [handleScroll, updateScrollButtonsState]);
+  }, [handleScroll]);
 
   // Manual scroll handlers for arrow buttons with forced state update
-  const handleManualScroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return;
+  // const handleManualScroll = (direction: "left" | "right") => {
+  //   if (!scrollContainerRef.current) return;
 
-    const container = scrollContainerRef.current;
-    const scrollAmount = direction === "left" ? -300 : 300;
+  //   const container = scrollContainerRef.current;
+  //   const scrollAmount = direction === "left" ? -300 : 300;
 
-    container.scrollBy({
-      left: scrollAmount,
-      behavior: "smooth",
-    });
+  //   container.scrollBy({
+  //     left: scrollAmount,
+  //     behavior: "smooth",
+  //   });
 
-    // Force update the scroll button states after scrolling
-    // Use setTimeout to wait for the smooth scroll to complete
-    setTimeout(() => {
-      updateScrollButtonsState();
-    }, 500);
-  };
+  //   // Force update the scroll button states after scrolling
+  //   // Use setTimeout to wait for the smooth scroll to complete
+  //   setTimeout(() => {
+  //     updateScrollButtonsState();
+  //   }, 500);
+  // };
 
   // Render content based on state
   const renderContent = () => {
@@ -256,38 +257,13 @@ export default function Pages() {
     <div className={styles.pagesWrapper}>
       <div className={styles.pagesContainer}>
         {/* Left arrow navigation button - outside the scrollable area */}
-        {pagesArray.length > 0 && (
-          <button
-            onClick={() => handleManualScroll("left")}
-            disabled={!canScrollLeft}
-            className={`${styles.navArrow} ${styles.leftArrow} ${canScrollLeft ? styles.active : ""}`}
-            aria-label="Scroll left"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 19L8 12L15 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        )}
 
-        {/* Right arrow navigation button - outside the scrollable area */}
-        {pagesArray.length > 0 && (
-          <button
-            onClick={() => handleManualScroll("right")}
-            disabled={!canScrollRight}
-            className={`${styles.navArrow} ${styles.rightArrow} ${canScrollRight ? styles.active : ""}`}
-            aria-label="Scroll right"
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 5L16 12L9 19" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </button>
-        )}
 
         {/* Scrollable container for items only */}
         <div
           ref={scrollContainerRef}
           className={styles.scrollContainer}
-          onScroll={updateScrollButtonsState} // Add direct onScroll handler for immediate updates
+        // onScroll={updateScrollButtonsState} // Add direct onScroll handler for immediate updates
         >
           <div className={styles.pages}>
             {pagesArray.map((pageI, index) => (

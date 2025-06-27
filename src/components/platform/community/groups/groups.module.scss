@@ -90,7 +90,7 @@ $tablet-width: 768px;
     }
 
     @media (min-width: $min-width) {
-      padding: 0 50px;
+      // padding: 0 50px;
       //  overflow-x: hidden;
     }
   }
@@ -277,10 +277,10 @@ $tablet-width: 768px;
 }
 
 // Media query for desktops
-@media (min-width: $min-width) {
-  .groupsContainer {
-    .content {
-      padding: 0 50px; // Space for navigation arrows
-    }
-  }
-}
+// @media (min-width: $min-width) {
+//   .groupsContainer {
+//     .content {
+//       padding: 0 50px; // Space for navigation arrows
+//     }
+//   }
+// }

@@ -87,6 +87,7 @@ const CATEGORY_ORDER = ['know', 'food', 'physical', 'community', 'art', 'eco'];
 const Categories: React.FC = () => {
   const router = useRouter()
   const t = useTranslations('web.subHeader.diamond')
+  
   const locale = useLocale()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -567,7 +568,7 @@ interface SubCategoryCardProps {
 
 const SubCategoryCard: React.FC<SubCategoryCardProps> = ({ subTopic, index, onClick, color }) => {
   const positionClass = styles[`top${index + 1}${index + 1}`]
-
+const trannss = useTranslations('web.post.categories')
   return (
     <div
       className={clsx(styles.subLabel, positionClass, styles.clickableSubLabel)}
@@ -580,7 +581,7 @@ const SubCategoryCard: React.FC<SubCategoryCardProps> = ({ subTopic, index, onCl
     >
       <span className={styles.points}>{subTopic.totalPoints}</span>
       <div className={styles.pointsText}>Points</div>
-      <div className={styles.subTopicName}>{subTopic.topicName}</div>
+      <div className={styles.subTopicName}>{trannss(subTopic.topicName)}</div>
     </div>
   )
 }

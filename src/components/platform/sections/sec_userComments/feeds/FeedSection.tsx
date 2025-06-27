@@ -8,12 +8,15 @@ import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import { FaComment } from "react-icons/fa6";
+import {useTranslations} from "next-intl"
 
 // topics and subtopics
 const topics = Topics;
 
 function FeedSection() {
   // Define state variables
+    const t = useTranslations("web.header.topics");
+  
   //modals
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
@@ -43,32 +46,29 @@ function FeedSection() {
         <div className={styles.topicHeader}>
         <h2 className={styles.topicTitle}><span><FaComment/> </span> Comments</h2>
         <div className={styles.topicFilter}>
-          <p
-            style={{
-              color: selectedTopics === 0 ? "#97B00F" : "#FEFEFE99",
-              cursor: "pointer",
-            }}
-            onClick={() => setSelectedTopics(0)}
-          >
-            All
-          </p>
-          {topics.map((topic, index) => (
-            <p
-              key={index}
-              style={{
-                color: selectedTopics === topic.id ? "#97B00F" : "#FEFEFE99",
-                cursor: "pointer",
-              }}
-              onClick={() => setSelectedTopics(topic.id)}
-            >
-              {topic.name.slice(
-                0,
-                topic.name.indexOf(" ") === -1 ? 3 : topic.name.indexOf(" ")
-              )}
-            </p>
-          ))}
-        </div>
-        </div>
+                  <p
+                    style={{
+                      color: selectedTopics === 0 ? "#97B00F" : "#FEFEFE99",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => setSelectedTopics(0)}
+                  >
+                    {t("all")}
+                  </p>
+                  {topics.map((topic, index) => (
+                    <p
+                      key={index}
+                      style={{
+                        color: selectedTopics === topic.id ? "#97B00F" : "#FEFEFE99",
+                        cursor: "pointer",
+                      }}
+                      onClick={() => setSelectedTopics(topic.id)}
+                    >
+                      {t(topic.name)}
+                    </p>
+                  ))}
+                </div>
+                </div>
 
         <div className={styles.container}>
           {/* Header */}
