@@ -7,11 +7,12 @@ $min-width: 1024px;
 	overflow-x: scroll;
 	margin-bottom: 16px;
 	position: relative;
+
 	@media (min-width: $min-width) {
 		width: 100%;
 		overflow-x: scroll;
 		margin-bottom: 16px;
-
+		padding: 0px 10px;
 		&::-webkit-scrollbar {
 			height: 10px;
 			width: 0;
