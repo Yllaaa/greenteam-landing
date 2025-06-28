@@ -7,7 +7,7 @@ import styles from "./PostSlider.module.css";
 import Image from "next/image";
 import { FaCheckSquare } from "react-icons/fa";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaComment } from "react-icons/fa6";
+// import { FaComment } from "react-icons/fa6";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/Utils/userToken/LocalToken";
@@ -19,16 +19,17 @@ import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
 import { useTranslations } from "next-intl";
 // Define better types for better type safety
-
+import CommentButton from "@/Utils/commentButton/CommentButton";
 function PostSlider(props: Props) {
   const router = useRouter();
   const locale = useLocale();
   const {
+    post,
     media,
     content,
     commentPage,
-    setCommentPage,
-    setCommentModal,
+    // setCommentPage,
+    // setCommentModal,
     setPostComments,
     likes,
     comments,
@@ -36,7 +37,7 @@ function PostSlider(props: Props) {
     userReactionType,
     hasDoReaction,
     postId,
-    setPostId,
+    // setPostId,
     setPostMedia,
   } = props;
   const t = useTranslations("web.main.feeds");
@@ -126,22 +127,22 @@ function PostSlider(props: Props) {
     }
   }, [commentPage, postId, fetchComments]);
 
-  // Handle comment button click
-  const handleComment = async (postId: string) => {
-    if (!setPostId || !setCommentModal || !setPostComments) return;
-    setPostComments([]);
-    setPostId(postId);
-    setCommentPage(1);
+  // // Handle comment button click
+  // const handleComment = async (postId: string) => {
+  //   if (!setPostId || !setCommentModal || !setPostComments) return;
+  //   setPostComments([]);
+  //   setPostId(postId);
+  //   setCommentPage(1);
 
-    try {
-      const comments = await fetchComments(postId, 1);
-      if (comments) {
-        setCommentModal(true);
-      }
-    } catch (error) {
-      console.error("Error handling comment:", error);
-    }
-  };
+  //   try {
+  //     const comments = await fetchComments(postId, 1);
+  //     if (comments) {
+  //       setCommentModal(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error handling comment:", error);
+  //   }
+  // };
 
   // Handle reaction API calls
   const handleToggleReaction = useCallback(
@@ -316,13 +317,13 @@ function PostSlider(props: Props) {
     return (
       <div onClick={() => navigateToPost(postId)} className={styles.textPost}>
         <p>
-          {content.slice(0, 1000)}
-          {content.length > 1000 && (
+          {content.slice(0, 100)}
+          {content.length > 100 && (
             <span
               onClick={() => handleNavigatePost(postId)}
               className={styles.readMore}
             >
-              {t("readMore")}
+              {" "}{t("readMore")}
             </span>
           )}
         </p>
@@ -362,7 +363,7 @@ function PostSlider(props: Props) {
         </p>
       </button>
 
-      <button
+      {/* <button
         onClick={() => handleComment(postId)}
         className={styles.btn}
         aria-label="Comment"
@@ -373,7 +374,12 @@ function PostSlider(props: Props) {
             {comments}
           </span>
         </p>
-      </button>
+      </button> */}
+      <CommentButton
+        postId={postId}
+        commentsCount={comments}
+        post={post}
+        />
     </div>
   );
 

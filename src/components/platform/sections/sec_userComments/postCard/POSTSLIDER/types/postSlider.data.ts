@@ -1,7 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import type { Post } from '@/types'
 type ReactionType = "like" | "dislike" | "do" | "sign" | null;
 
 type Props = {
+  post:Post | any;
   media: {
     id: string;
     mediaUrl: string;

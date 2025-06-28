@@ -45,7 +45,7 @@
 	line-height: 140%;
 	letter-spacing: 0%;
 	text-align: center;
-
+word-break: break-all;
 	color: #fefefe;
 	width: 100%;
 }

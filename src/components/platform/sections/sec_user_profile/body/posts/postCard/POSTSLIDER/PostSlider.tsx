@@ -7,7 +7,7 @@ import styles from "./PostSlider.module.css";
 import Image from "next/image";
 import { FaCheckSquare } from "react-icons/fa";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
-import { FaComment } from "react-icons/fa6";
+// import { FaComment } from "react-icons/fa6";
 import axios from "axios";
 import { useRouter } from "next/navigation";
 import { getToken } from "@/Utils/userToken/LocalToken";
@@ -17,18 +17,19 @@ import { useAppDispatch } from "@/store/hooks";
 import { setUpdateState } from "@/store/features/update/updateSlice";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
-
+import { useTranslations } from "next-intl";
 // Define better types for better type safety
-
+import CommentButton from "@/Utils/commentButton/CommentButton";
 function PostSlider(props: Props) {
   const router = useRouter();
   const locale = useLocale();
   const {
+    post,
     media,
     content,
     commentPage,
-    setCommentPage,
-    setCommentModal,
+    // setCommentPage,
+    // setCommentModal,
     setPostComments,
     likes,
     comments,
@@ -36,10 +37,10 @@ function PostSlider(props: Props) {
     userReactionType,
     hasDoReaction,
     postId,
-    setPostId,
+    // setPostId,
     setPostMedia,
   } = props;
-
+  const t = useTranslations("web.main.feeds");
   const localS = getToken();
   const accessToken = localS ? localS.accessToken : null;
 
@@ -81,9 +82,9 @@ function PostSlider(props: Props) {
     () =>
       media && media.length > 0
         ? media.filter(
-            (item, index, self) =>
-              index === self.findIndex((t) => t.id === item.id)
-          )
+          (item, index, self) =>
+            index === self.findIndex((t) => t.id === item.id)
+        )
         : [],
     [media]
   );
@@ -126,22 +127,22 @@ function PostSlider(props: Props) {
     }
   }, [commentPage, postId, fetchComments]);
 
-  // Handle comment button click
-  const handleComment = async (postId: string) => {
-    if (!setPostId || !setCommentModal || !setPostComments) return;
-    setPostComments([]);
-    setPostId(postId);
-    setCommentPage(1);
+  // // Handle comment button click
+  // const handleComment = async (postId: string) => {
+  //   if (!setPostId || !setCommentModal || !setPostComments) return;
+  //   setPostComments([]);
+  //   setPostId(postId);
+  //   setCommentPage(1);
 
-    try {
-      const comments = await fetchComments(postId, 1);
-      if (comments) {
-        setCommentModal(true);
-      }
-    } catch (error) {
-      console.error("Error handling comment:", error);
-    }
-  };
+  //   try {
+  //     const comments = await fetchComments(postId, 1);
+  //     if (comments) {
+  //       setCommentModal(true);
+  //     }
+  //   } catch (error) {
+  //     console.error("Error handling comment:", error);
+  //   }
+  // };
 
   // Handle reaction API calls
   const handleToggleReaction = useCallback(
@@ -278,8 +279,8 @@ function PostSlider(props: Props) {
                       imageUrl.mediaType === "image"
                         ? imageUrl.mediaUrl
                         : imageUrl.mediaType === "document"
-                        ? attached
-                        : foot
+                          ? attached
+                          : foot
                     }
                     alt={`Post image ${index + 1}`}
                     loading="lazy"
@@ -302,9 +303,8 @@ function PostSlider(props: Props) {
                 <button
                   key={idx}
                   onClick={() => instanceRef.current?.moveToIdx(idx)}
-                  className={`${styles.dot} ${
-                    currentSlide === idx ? styles.active : ""
-                  }`}
+                  className={`${styles.dot} ${currentSlide === idx ? styles.active : ""
+                    }`}
                   aria-label={`Go to slide ${idx + 1}`}
                 />
               ))}
@@ -323,7 +323,7 @@ function PostSlider(props: Props) {
               onClick={() => handleNavigatePost(postId)}
               className={styles.readMore}
             >
-              Read More...
+              {" "}{t("readMore")}
             </span>
           )}
         </p>
@@ -337,7 +337,7 @@ function PostSlider(props: Props) {
       <button onClick={handleDo} className={styles.btn} aria-label="Do It">
         <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
         <p>
-          <span>Do</span>
+          <span>{t("do")}</span>
         </p>
       </button>
 
@@ -363,7 +363,7 @@ function PostSlider(props: Props) {
         </p>
       </button>
 
-      <button
+      {/* <button
         onClick={() => handleComment(postId)}
         className={styles.btn}
         aria-label="Comment"
@@ -374,7 +374,12 @@ function PostSlider(props: Props) {
             {comments}
           </span>
         </p>
-      </button>
+      </button> */}
+      <CommentButton
+        postId={postId}
+        commentsCount={comments}
+        post={post}
+        />
     </div>
   );
 
