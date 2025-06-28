@@ -12,6 +12,7 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import { useLocale } from "next-intl";
+import ReactDOM from "react-dom";
 
 // Define types for better TypeScript support
 interface FormData {
@@ -275,7 +276,7 @@ const AddNewGroup = (props: addEventProps) => {
       });
   }, [accessToken, countryId, search]);
 
-  return (
+   return ReactDOM.createPortal(
     <div className={styles.modal}>
       <div ref={modalRef} className={styles.formContainer}>
         <div className={styles.formTitleContainer}>
@@ -484,7 +485,8 @@ const AddNewGroup = (props: addEventProps) => {
           </div>
         </form>
       </div>
-    </div>
+     </div>,
+      document.body
   );
 };
 

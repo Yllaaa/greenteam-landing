@@ -19,14 +19,14 @@ import AddNewProduct from "./modal/AddNewProduct";
 import MessageModal from "./modal/MessageModal";
 import { useAppSelector } from "@/store/hooks";
 import ContactModal from "@/components/platform/modals/contactModal/ContactModal";
-import { FaTimesCircle } from "react-icons/fa";
-import { useAppDispatch } from "@/store/hooks";
-import { clearSelectedCategory, resetDestination } from "@/store/features/communitySection/currentCommunity";
+// import { FaTimesCircle } from "react-icons/fa";
+// import { useAppDispatch } from "@/store/hooks";
+// import { clearSelectedCategory, resetDestination } from "@/store/features/communitySection/currentCommunity";
 import { useLocale, useTranslations } from "next-intl";
 function ProductSection() {
   const t = useTranslations("web.products");
   const locale = useLocale()
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
   const cityId = useAppSelector((state) => state.currentCommunity.selectedCity);
   const countryId = useAppSelector(
     (state) => state.currentCommunity.selectedCountry
@@ -100,14 +100,14 @@ function ProductSection() {
   );
 
   // Reset the category filter
-  const handleClearCategoryFilter = () => {
-    dispatch(clearSelectedCategory());
-  };
+  // const handleClearCategoryFilter = () => {
+  //   dispatch(clearSelectedCategory());
+  // };
 
   // Reset all filters
-  const handleResetAllFilters = () => {
-    dispatch(resetDestination());
-  };
+  // const handleResetAllFilters = () => {
+  //   dispatch(resetDestination());
+  // };
 
   // Initial load and section change handler
   useEffect(() => {
@@ -243,7 +243,7 @@ function ProductSection() {
         />
 
         {/* Category filter indicator */}
-        {marketType && (
+        {/* {marketType && (
           <div className={styles.activeFilters}>
             <div className={styles.filterBadge}>
               <span>{marketType === "local" ? "Local" : "Online"}</span>
@@ -266,7 +266,7 @@ function ProductSection() {
               </button>
             )}
           </div>
-        )}
+        )} */}
 
         {products.length > 0 && (
           <div className={styles.sliderBtns}>

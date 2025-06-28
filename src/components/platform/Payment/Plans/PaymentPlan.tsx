@@ -42,7 +42,10 @@ const PaymentPlan = () => {
           },
         }
       )
-      .then((response) => setCurrentPlan(response.data));
+      .then((response) => {setCurrentPlan(response.data); console.log(response);}).catch((error) => {
+        console.error("Error fetching current plan:", error);
+        setCurrentPlan(undefined);
+      });
   }, [accessToken, locale]);
 
   if (isLoading)
@@ -81,10 +84,14 @@ const PaymentPlan = () => {
                   router.push(`payment/${tier.id}`);
                 }}
                 className={styles.planButton}
+                style={{
+                  cursor: currentPlan?.tier.id === tier.id ? 'not-allowed' : 'pointer',
+                }}
+                disabled={currentPlan?.tier.id <= tier.id}
               >
                 {currentPlan?.tier.id === tier.id
                   ? t('currentPlan')
-                  : t('selectPlan', { planName: tier.name })}
+                  : t('selectPlan')}
               </button>
               <div className={styles.line}></div>
               <ul className={styles.planFeatures}>

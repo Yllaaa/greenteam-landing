@@ -28,7 +28,10 @@
 	gap: 20px;
 	list-style: none;
 	overflow-x: auto;
+	scrollbar-width: none;
+
 	max-width: 70%;
+	
 }
 .filterSection ul li {
 	text-transform: capitalize;

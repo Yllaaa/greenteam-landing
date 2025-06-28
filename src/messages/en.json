@@ -165,10 +165,10 @@
 		}
 	},
 	"web": {
-		"chat":{
-			"select":"Select a conversation to start messaging",
-			"message":"Messages",
-			"back":"Back"
+		"chat": {
+			"select": "Select a conversation to start messaging",
+			"message": "Messages",
+			"back": "Back"
 		},
 		"plans": {
 			"title": "Help us to make sustainable culture",
@@ -177,7 +177,7 @@
 			"free": "Free",
 			"perYear": "/Year",
 			"currentPlan": "Current Plan",
-			"selectPlan": "Select {{planName}}",
+			"selectPlan": "Select Plan",
 			"features": "Features",
 			"tier1": {
 				"title": "TOGETHER WE CAN TAKE CONTROL OF OUR LIVES",
@@ -353,7 +353,7 @@
 			"addPost": "Add Post",
 			"notAvailable": "Not available",
 			"topics": {
-				"all":"All",
+				"all": "All",
 				"sustainability": "Sustainability",
 				"food": "Food and Health",
 				"physical": "Physical And Mental Exercise",
