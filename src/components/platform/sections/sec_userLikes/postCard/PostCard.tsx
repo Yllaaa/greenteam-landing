@@ -274,6 +274,7 @@ function PostCard(props: Props) {
               <div className={styles.postslider}>
                 {isMounted && (
                   <PostSlider
+                    post={post}
                     media={post.media}
                     content={post.post.content}
                     commentPage={commentsPage}

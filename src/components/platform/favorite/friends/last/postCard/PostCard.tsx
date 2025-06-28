@@ -212,7 +212,7 @@ function PostCard(props: Props) {
             )}
             <div className={styles.header}>
               <div
-                onClick={() => navigateToProfile(post.author.id)}
+                onClick={() => navigateToProfile(post.author.id as string)}
                 style={{ cursor: "pointer", zIndex: 100 }}
                 className={styles.userAvatar}
               >
@@ -226,7 +226,7 @@ function PostCard(props: Props) {
               </div>
               <div className={styles.details}>
                 <div
-                  onClick={() => navigateToProfile(post.author.id)}
+                  onClick={() => navigateToProfile(post.author.id as string)}
                   style={{ cursor: "pointer" }}
                   className={styles.userName}
                 >
@@ -262,6 +262,7 @@ function PostCard(props: Props) {
               <div className={styles.postslider}>
                 {isMounted && (
                   <PostSlider
+                    post={post}
                     media={post.media}
                     content={post.post.content}
                     commentPage={commentsPage}

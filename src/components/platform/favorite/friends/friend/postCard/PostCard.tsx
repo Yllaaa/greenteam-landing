@@ -248,23 +248,24 @@ const t = useTranslations("web.favourite.post");
               <div className={styles.postslider}>
                 {isMounted && (
                   <PostSlider
-                    media={post.media}
-                    content={post.post.content}
-                    commentPage={commentsPage}
-                    setCommentPage={setCommentsPage}
-                    likes={post.likeCount}
-                    dislikes={post.dislikeCount}
-                    comments={post.commentCount}
-                    userReactionType={post.userReactionType}
-                    hasDoReaction={post.hasDoReaction}
-                    setDoItModal={setDoItModal}
-                    setCommentModal={setCommentModal}
-                    setPostComments={setPostComments}
-                    postId={post.post.id}
-                    rerender={rerender}
-                    setPostId={setPostId}
-                    setPostMedia={setPostMedia}
-                  />
+                  post={post}
+                  media={post.media}
+                  content={post.post.content}
+                  commentPage={commentsPage}
+                  setCommentPage={setCommentsPage}
+                  likes={post.likeCount}
+                  dislikes={post.dislikeCount}
+                  comments={post.commentCount}
+                  userReactionType={post.userReactionType}
+                  hasDoReaction={post.hasDoReaction}
+                  setDoItModal={setDoItModal}
+                  setCommentModal={setCommentModal}
+                  setPostComments={setPostComments}
+                  postId={post.post.id}
+                  rerender={rerender}
+                  setPostId={setPostId}
+                  setPostMedia={setPostMedia}
+                />
                 )}
               </div>
             </div>
