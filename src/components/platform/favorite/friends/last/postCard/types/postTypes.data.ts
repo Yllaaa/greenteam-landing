@@ -32,7 +32,7 @@ type Props = {
         }[];
       }
     | any;
-  subTopic: {
+  subTopic?: {
     [key: number]: string;
   };
   rerender: boolean;
@@ -46,8 +46,6 @@ type Props = {
   ) => void;
   deleteModal?: boolean;
   setDeleteModal?: React.Dispatch<React.SetStateAction<boolean>>;
-  reportModal?: boolean;
-  setReportModal?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 // Media interface for post attachments
@@ -57,14 +55,12 @@ interface Media {
   mediaType: string;
 }
 
-type AuthorType = 'user' | 'page' | 'group_member';
-
+// Author interface for post creators
 interface Author {
-  id: string | null;
-  name: string | null;
+  id: string;
+  name: string;
   avatar: string | null;
-  username: string | null;
-  type: AuthorType;
+  username: string;
 }
 
 // Post details interface
@@ -85,11 +81,6 @@ interface PostItem {
   userReactionType: string | null;
   hasDoReaction: boolean;
   isAuthor: boolean;
-  location: {
-    countryName: string | null;
-    countryIso: string | null;
-    cityName: string | null;
-  };
 }
 
 type PostsData = PostItem[];
