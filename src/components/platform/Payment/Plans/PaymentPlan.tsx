@@ -42,7 +42,7 @@ const PaymentPlan = () => {
           },
         }
       )
-      .then((response) => {setCurrentPlan(response.data); console.log(response);}).catch((error) => {
+      .then((response) => { setCurrentPlan(response.data); console.log(response); }).catch((error) => {
         console.error("Error fetching current plan:", error);
         setCurrentPlan(undefined);
       });
@@ -87,7 +87,7 @@ const PaymentPlan = () => {
                 style={{
                   cursor: currentPlan?.tier.id === tier.id ? 'not-allowed' : 'pointer',
                 }}
-                disabled={currentPlan?.tier.id <= tier.id}
+
               >
                 {currentPlan?.tier.id === tier.id
                   ? t('currentPlan')
