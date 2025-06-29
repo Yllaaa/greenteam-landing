@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 import React, { useCallback, useEffect, useRef, useState } from "react";
@@ -116,11 +117,26 @@ const AddNewPage = ({ setAddNew }: AddEventProps) => {
                 return;
             }
 
+            // Validate slug format
+            if (!/^[a-z0-9-]+$/.test(slug)) {
+                setSlugStatus({
+                    checking: false,
+                    available: false,
+                    message: t('errors.invalidSlugFormat')
+                });
+                return;
+            }
+
             setSlugStatus({ checking: true, available: null, message: t('errors.checkingSlug') });
 
             try {
                 const response = await axios.get(
-                    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/check-slug-taken?slug=${slug}`
+                    `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/check-slug-taken?slug=${slug}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${accessToken}`,
+                        }
+                    }
                 );
 
                 const isTaken = response.data;
@@ -131,72 +147,126 @@ const AddNewPage = ({ setAddNew }: AddEventProps) => {
                 });
             } catch (error) {
                 console.error("Error checking slug:", error);
-                setSlugStatus({ checking: false, available: null, message: "" });
+                // Don't show as available or taken if we can't check
+                setSlugStatus({
+                    checking: false,
+                    available: null,
+                    message: t('errors.slugCheckFailed')
+                });
             }
         }, 500),
-        [t]
+        [t, accessToken]
     );
 
     useEffect(() => {
         checkSlugAvailability(watchedSlug);
     }, [watchedSlug, checkSlugAvailability]);
 
-    // Form submission handler
-    const onSubmit = async (data: FormData) => {
-        // Check if slug is available
-        if (slugStatus.available === false) {
-            ToastNot(t('errors.slugTaken'));
-            return;
+    const normalizeWebsiteUrl = (url: string): string => {
+        if (!url) return url;
+
+        // If the URL doesn't start with http:// or https://, add https://
+        if (!/^https?:\/\//i.test(url)) {
+            return `https://${url}`;
         }
 
-        // Check all required fields
-        if (!data.name || !data.description || !data.slug || !data.cityId || !data.countryId) {
-            ToastNot(t('errors.fillAllFields'));
-            return;
+        return url;
+    };
+  // Form submission handler
+const onSubmit = async (data: FormData) => {
+    // Check if slug is still being checked
+    if (slugStatus.checking) {
+        ToastNot(t('errors.waitForSlugCheck'));
+        return;
+    }
+
+    // Check if slug is available
+    if (slugStatus.available === false) {
+        ToastNot(t('errors.slugTaken'));
+        return;
+    }
+
+    // Check all required fields
+    if (!data.name || !data.description || !data.slug || !data.cityId || !data.countryId) {
+        ToastNot(t('errors.fillAllFields'));
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+
+        // Normalize the website URL
+        const normalizedData = {
+            ...data,
+            websiteUrl: normalizeWebsiteUrl(data.websiteUrl)
+        };
+
+        // Append all text fields
+        Object.keys(normalizedData).forEach((key) => {
+            if (key !== 'avatar' && key !== 'cover' && normalizedData[key as keyof FormData]) {
+                formData.append(key, String(normalizedData[key as keyof FormData]));
+            }
+        });
+
+        // Append files if they exist
+        if (data.avatar) {
+            formData.append('avatar', data.avatar);
+        }
+        if (data.cover) {
+            formData.append('cover', data.cover);
         }
 
-        try {
-            const formData = new FormData();
+        const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/create-page`,
+            formData,
+            {
+                headers: {
+                    "Content-Type": "multipart/form-data",
+                    Authorization: `Bearer ${accessToken}`,
+                    "Access-Control-Allow-Origin": "*",
+                },
+            }
+        );
 
-            // Append all text fields
-            Object.keys(data).forEach((key) => {
-                if (key !== 'avatar' && key !== 'cover' && data[key as keyof FormData]) {
-                    formData.append(key, String(data[key as keyof FormData]));
-                }
+        if (response.data) {
+            ToastNot(t('errors.pageCreated'));
+            reset();
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        }
+    } catch (error: any) {
+        console.error("Error creating page:", error);
+        
+        // Check if the error is due to slug being taken
+        if (error.response?.status === 409 || 
+            error.response?.data?.message?.toLowerCase().includes('slug') ||
+            error.response?.data?.error?.toLowerCase().includes('slug')) {
+            
+            // Update slug status to show it's taken
+            setSlugStatus({
+                checking: false,
+                available: false,
+                message: t('errors.slugTaken')
             });
-
-            // Append files if they exist
-            if (data.avatar) {
-                formData.append('avatar', data.avatar);
-            }
-            if (data.cover) {
-                formData.append('cover', data.cover);
-            }
-
-            const response = await axios.post(
-                `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/create-page`,
-                formData,
-                {
-                    headers: {
-                        "Content-Type": "multipart/form-data",
-                        Authorization: `Bearer ${accessToken}`,
-                        "Access-Control-Allow-Origin": "*",
-                    },
-                }
-            );
-
-            if (response.data) {
-                ToastNot(t('errors.pageCreated'));
-                reset();
-                setTimeout(() => {
-                    window.location.reload();
-                }, 1000);
-            }
-        } catch (error) {
-            console.error("Error creating page:", error);
+            
+            ToastNot(t('errors.slugTaken'));
+        } else if (error.response?.status === 400) {
+            // Bad request - might be validation error
+            const errorMessage = error.response?.data?.message || error.response?.data?.error;
+            ToastNot(errorMessage || t('errors.validationError'));
+        } else if (error.response?.status === 401) {
+            // Unauthorized
+            ToastNot(t('errors.unauthorized'));
+        } else if (error.response?.status === 413) {
+            // Payload too large (file size)
+            ToastNot(t('errors.fileTooLarge'));
+        } else {
+            // Generic error
             ToastNot(t('errors.errorCreating'));
         }
-    };
+    }
+};
 
     // Image handling states
     const [imagePreview, setImagePreview] = useState<string | null>(null);

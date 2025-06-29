@@ -8,7 +8,7 @@ import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
 import Header from "../header/Header";
 import { useAppSelector } from "@/store/hooks";
-import AddNewGroup from "./AddGroup/AddNewGroup";
+import AddNewGroup from "@/components/AA-NEW/MODALS/ADD_GROUP/AddNewGroup";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { useLocale, useTranslations } from 'next-intl';
 import grpLogo from "@/../public/community/group.svg"

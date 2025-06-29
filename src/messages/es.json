@@ -212,9 +212,54 @@
 				"imageTooLarge": "La imagen debe ser menor a 2MB",
 				"invalidImageType": "Por favor sube un archivo de imagen válido",
 				"slugAvailable": "Slug disponible",
-				"checkingSlug": "Verificando..."
+				"checkingSlug": "Verificando...",
+				"waitForSlugCheck": "Por favor espera mientras verificamos si el slug está disponible",
+				"validationError": "Por favor verifica tu entrada e intenta de nuevo",
+				"unauthorized": "No estás autorizado para realizar esta acción",
+				"fileTooLarge": "Uno o más archivos son demasiado grandes",
+				"invalidSlugFormat": "El slug solo puede contener letras minúsculas, números y guiones",
+				"slugCheckFailed": "No se pudo verificar la disponibilidad del slug"
 			}
 		},
+
+		"addGroup": {
+			"title": "Crea tu Grupo",
+			"description": "Crea un espacio comunitario para personas con intereses compartidos. Construye conexiones y organiza actividades juntos",
+			"form": {
+				"groupName": "Nombre del Grupo",
+				"groupMedia": "Medios del Grupo",
+				"banner": "Imagen de Banner",
+				"country": "País",
+				"city": "Ciudad",
+				"description": "Descripción",
+				"topic": "Tema",
+				"selectCountry": "Seleccionar País",
+				"selectCity": "Seleccionar Ciudad",
+				"enterCity": "Ingresar ciudad",
+				"selectTopic": "Seleccionar Tema",
+				"cancel": "Cancelar",
+				"createGroup": "Crear Grupo",
+				"clickOrDrag": "Haz clic o arrastra la imagen aquí",
+				"dropImage": "Suelta la imagen aquí",
+				"creating": "Creando..."
+			},
+			"errors": {
+				"required": "{field} es requerido",
+				"maxLength": "{field} no puede exceder {max} caracteres",
+				"minLength": "{field} debe tener al menos {min} caracteres",
+				"fillAllFields": "Por favor complete todos los campos",
+				"groupCreated": "Grupo creado exitosamente",
+				"errorCreating": "Error al crear el grupo",
+				"errorCountries": "Error al obtener países",
+				"errorCities": "Error al obtener ciudades",
+				"imageTooLarge": "La imagen debe ser menor a 2MB",
+				"invalidImageType": "Por favor sube un archivo de imagen válido",
+				"unauthorized": "No estás autorizado para realizar esta acción",
+				"fileTooLarge": "El archivo es demasiado grande",
+				"validationError": "Por favor verifica tu entrada e intenta de nuevo"
+			}
+		},
+
 		"chat": {
 			"select": "Selecciona una conversación para empezar a chatear",
 			"message": "Mensajes",

@@ -8,7 +8,7 @@ import Groups from "./groups/Groups";
 // import Notifications from "./notifications/Notifications";
 import Pages from "./pages/Pages";
 import AddNewPage from "@/components/AA-NEW/MODALS/ADD_PAGE/AddNewPage";
-import AddNewGroup from "./AddGroup/AddNewGroup";
+import AddNewGroup from "@/components/AA-NEW/MODALS/ADD_GROUP/AddNewGroup";
 import UserDetails from "./useDetails/UserDetails";
 
 export default function PersonalMenu() {

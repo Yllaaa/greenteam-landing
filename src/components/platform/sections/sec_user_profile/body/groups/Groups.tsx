@@ -6,7 +6,7 @@ import Item from "./Item";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import axios from "axios";
-import AddNewGroup from "./AddGroup/AddNewGroup"; // Import the AddNewGroup component
+import AddNewGroup from "@/components/AA-NEW/MODALS/ADD_GROUP/AddNewGroup";
 import { FaPlus } from "react-icons/fa"; // Import plus icon
 import { ProfileResponse } from '../all/all.data';
 

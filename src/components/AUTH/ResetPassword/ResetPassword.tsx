@@ -74,7 +74,7 @@ function ResetPassword() {
         }
       );
 
-      if (response.status === 200) {
+      if (response.data) {
         ToastNot(t('resetSuccess'));
         router.push(`/${locale}/login`);
       }
