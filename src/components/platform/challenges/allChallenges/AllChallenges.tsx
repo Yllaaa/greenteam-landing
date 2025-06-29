@@ -119,17 +119,16 @@ function AllChallenges(props: {
       // Determine the API endpoint based on the action (delete or mark as done)
       // Note: You might need to update this endpoint for delete action
       const endpoint = isDelete
-        ? `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/delete`
+        ? `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}`
         : `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/green-challenges/${challengeId}/mark-as-done`;
 
-      const response = await axios.post(
+      const response = await axios.delete(
         endpoint,
-        {},
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
-            "Access-Control-Allow-Origin": "*",
-            "Content-Type": "application/json",
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*',
           },
         }
       );
@@ -181,7 +180,7 @@ function AllChallenges(props: {
               </div>
               <div className={styles.action}>
                 <button
-                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", false)}
+                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", true)}
                   className={styles.delete}
                   disabled={actionInProgress === challenge.id}
                 >

@@ -42,7 +42,7 @@ function ProductSection() {
   const [endOfResults, setEndOfResults] = useState(false);
   const [showContacts, setShowContacts] = useState(false);
   // const [contacts, setContacts] = useState<any>();
-
+console.log("ProductSection rendered", products);
   // Enhanced modal states
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isReportModalOpen, setIsReportModalOpen] = useState(false);
