@@ -221,7 +221,43 @@
 				"slugCheckFailed": "Unable to verify slug availability"
 			}
 		},
-		
+		"pageContact": {
+    "button": {
+      "addContact": "Add Contact",
+      "manageContact": "Manage Contact"
+    },
+    "modal": {
+      "addTitle": "Add Contact Information",
+      "editTitle": "Edit Contact Information",
+      "description": "Provide contact details for your page visitors",
+      "confirmDelete": "Are you sure you want to delete this contact?",
+      "form": {
+        "name": "Full Name",
+        "title": "Job Title",
+        "email": "Email Address",
+        "phoneNum": "Phone Number",
+        "save": "Save Contact",
+        "update": "Update Contact",
+        "cancel": "Cancel",
+        "delete": "Delete",
+        "edit": "Edit",
+        "saving": "Saving...",
+        "updating": "Updating...",
+        "deleting": "Deleting..."
+      },
+      "errors": {
+        "required": "{field} is required",
+        "invalidEmail": "Please enter a valid email address",
+        "saveFailed": "Failed to save contact",
+        "deleteFailed": "Failed to delete contact"
+      },
+      "success": {
+        "added": "Contact added successfully",
+        "updated": "Contact updated successfully",
+        "deleted": "Contact deleted successfully"
+      }
+    }
+  },
 		"addGroup": {
 			"title": "Host Your Group",
 			"description": "Create a community space for people with shared interests. Build connections and organize activities together",

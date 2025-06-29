@@ -260,6 +260,43 @@
 			}
 		},
 
+		"pageContact": {
+			"button": {
+				"addContact": "Agregar Contacto",
+				"manageContact": "Gestionar Contacto"
+			},
+			"modal": {
+				"addTitle": "Agregar Información de Contacto",
+				"editTitle": "Editar Información de Contacto",
+				"description": "Proporciona detalles de contacto para los visitantes de tu página",
+				"confirmDelete": "¿Estás seguro de que quieres eliminar este contacto?",
+				"form": {
+					"name": "Nombre Completo",
+					"title": "Título del Trabajo",
+					"email": "Correo Electrónico",
+					"phoneNum": "Número de Teléfono",
+					"save": "Guardar Contacto",
+					"update": "Actualizar Contacto",
+					"cancel": "Cancelar",
+					"delete": "Eliminar",
+					"edit": "Editar",
+					"saving": "Guardando...",
+					"updating": "Actualizando...",
+					"deleting": "Eliminando..."
+				},
+				"errors": {
+					"required": "{field} es requerido",
+					"invalidEmail": "Por favor ingresa un correo electrónico válido",
+					"saveFailed": "Error al guardar el contacto",
+					"deleteFailed": "Error al eliminar el contacto"
+				},
+				"success": {
+					"added": "Contacto agregado exitosamente",
+					"updated": "Contacto actualizado exitosamente",
+					"deleted": "Contacto eliminado exitosamente"
+				}
+			}
+		},
 		"chat": {
 			"select": "Selecciona una conversación para empezar a chatear",
 			"message": "Mensajes",

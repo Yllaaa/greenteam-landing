@@ -25,6 +25,7 @@ import { useRouter } from "next/navigation";
 import linkifyText from "@/Utils/textFormatting/linkify";
 import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 import { useLocale, useTranslations } from "next-intl";
+import PageContactButton from "./pageContactBtn/PageContactButton";
 
 function Pageheader(props: {
   pageId: string;
@@ -282,6 +283,11 @@ function Pageheader(props: {
           <div className={styles.mobileActionsToggle} onClick={toggleMobileActions}>
             <FaPlus />
             <span>{t('actions')}</span>
+          </div>
+        )}
+        {data.isAdmin && (
+          <div>
+            <PageContactButton slug={data.slug} />
           </div>
         )}
 

@@ -1,0 +1,427 @@
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 20px;
+  }
+  
+  .modalContent {
+    width: 100%;
+    max-width: 500px;
+    background-color: #141414;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+  
+  .modalHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+  }
+  
+  .modalTitle {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 32px;
+    color: #006633;
+    margin: 0;
+  }
+  
+  .closeButton {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .closeButton:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+  
+  .closeIcon {
+    width: 20px;
+    height: 20px;
+    color: #c4c4c4;
+  }
+  
+  .modalDescription {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #828282;
+    margin: 0 0 24px 0;
+  }
+  
+  /* Contact Display */
+  .contactDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .contactInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .infoItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background: #1e1e1e;
+    border-radius: 8px;
+    border: 1px solid #414651;
+  }
+  
+  .infoIcon {
+    width: 20px;
+    height: 20px;
+    color: #74b243;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  
+  .infoItem > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    flex: 1;
+  }
+  
+  .infoLabel {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    line-height: 16px;
+    color: #828282;
+  }
+  
+  .infoValue {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fefefe;
+    word-break: break-word;
+  }
+  
+  .actionButtons {
+    display: flex;
+    gap: 12px;
+  }
+  
+  .editButton,
+  .deleteButton {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .editButton {
+    background: transparent;
+    border: 2px solid #74b243;
+    color: #74b243;
+  }
+  
+  .editButton:hover {
+    background: #74b243;
+    color: #141414;
+  }
+  
+  .deleteButton {
+    background: transparent;
+    border: 2px solid #ef4444;
+    color: #ef4444;
+  }
+  
+  .deleteButton:hover:not(:disabled) {
+    background: #ef4444;
+    color: #ffffff;
+  }
+  
+  .deleteButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+  
+  /* Form Styles */
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    color: #c4c4c4;
+  }
+  
+  .labelIcon {
+    width: 16px;
+    height: 16px;
+    color: #74b243;
+  }
+  
+  .input {
+    width: 100%;
+    padding: 12px 16px;
+    background: #1e1e1e;
+    border: 1px solid #414651;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    color: #fefefe;
+    transition: all 0.2s ease;
+  }
+  
+  .input::placeholder {
+    color: #535862;
+  }
+  
+  .input:hover {
+    border-color: #006633;
+  }
+  
+  .input:focus {
+    outline: none;
+    border-color: #74b243;
+    box-shadow: 0 0 0 3px rgba(116, 178, 67, 0.1);
+  }
+  
+  .inputError {
+    border-color: #ef4444 !important;
+  }
+  
+  .inputError:focus {
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1) !important;
+  }
+  
+  .errorText {
+    color: #ef4444;
+    font-size: 12px;
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+  }
+  
+  .formActions {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+  }
+  
+  .cancelEditButton,
+  .submitButton {
+    flex: 1;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 24px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .cancelEditButton {
+    background: transparent;
+    border: 2px solid #414651;
+    color: #c4c4c4;
+  }
+  
+  .cancelEditButton:hover {
+    border-color: #006633;
+    color: #fefefe;
+  }
+  
+  .submitButton {
+    background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+    border: none;
+    color: #fefefe;
+  }
+  
+  .submitButton:hover:not(:disabled) {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(116, 178, 67, 0.3);
+  }
+  
+  .submitButton:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+  }
+  
+  .buttonIcon {
+    width: 18px;
+    height: 18px;
+  }
+  
+  .spinner {
+    width: 16px;
+    height: 16px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  /* Scrollbar styling */
+  .modalContent::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  .modalContent::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  .modalContent::-webkit-scrollbar-thumb {
+    background-color: #414651;
+    border-radius: 4px;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 768px) {
+    .modal {
+      padding: 0;
+      align-items: flex-end;
+    }
+  
+    .modalContent {
+      max-width: 100%;
+      width: 100%;
+      border-radius: 16px 16px 0 0;
+      max-height: 80vh;
+      padding: 24px;
+    }
+  
+    .modalTitle {
+      font-size: 20px;
+      line-height: 28px;
+    }
+  
+    .actionButtons {
+      flex-direction: column;
+    }
+  
+    .editButton,
+    .deleteButton {
+      width: 100%;
+    }
+  
+    .formActions {
+      flex-direction: column;
+    }
+  
+    .cancelEditButton,
+    .submitButton {
+      width: 100%;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .modalContent {
+      padding: 20px;
+    }
+  
+    .modalTitle {
+      font-size: 18px;
+      line-height: 24px;
+    }
+  
+    .modalDescription {
+      font-size: 13px;
+      line-height: 18px;
+    }
+  
+    .infoItem {
+      padding: 12px;
+    }
+  
+    .infoLabel {
+      font-size: 11px;
+    }
+  
+    .infoValue {
+      font-size: 13px;
+    }
+  
+    .input {
+      font-size: 16px; /* Prevents zoom on iOS */
+    }
+  
+    .editButton,
+    .deleteButton,
+    .cancelEditButton,
+    .submitButton {
+      font-size: 14px;
+      height: 44px;
+    }
+  }
+  
+  /* Accessibility */
+  .input:focus-visible,
+  .closeButton:focus-visible,
+  .editButton:focus-visible,
+  .deleteButton:focus-visible,
+  .cancelEditButton:focus-visible,
+  .submitButton:focus-visible {
+    outline: 2px solid #74b243;
+    outline-offset: 2px;
+  }
+  
+  /* Dark mode optimization */
+  @media (prefers-color-scheme: dark) {
+    .modalContent {
+      background-color: #141414;
+    }
+  }

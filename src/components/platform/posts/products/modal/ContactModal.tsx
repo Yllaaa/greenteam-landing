@@ -24,7 +24,7 @@ function ContactModal(props: any) {
     if (!accessToken) return;
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${sellerId}/contacts-by-id`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${sellerId}/contact-by-id`,
         {
           headers: {
             "Content-Type": "application/json",
