@@ -8,7 +8,7 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import Header from "../header/Header";
 import { useAppSelector, useAppDispatch } from "@/store/hooks";
-import AddNewPage from "./AddPage/AddNewPage";
+import AddNewPage from "@/components/AA-NEW/MODALS/ADD_PAGE/AddNewPage";
 import DeleteModal from "./deleteModal/DeleteModal";
 import Report from "./reportModal/Report";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";

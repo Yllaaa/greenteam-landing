@@ -165,6 +165,51 @@
 		}
 	},
 	"web": {
+		"addPost": {
+			"title": "Host Your Page",
+			"description": "Plan and promote your upcoming event. Share details to help attendees find and join your event",
+			"form": {
+				"pageName": "Page Name",
+				"pageSlug": "Page Slug",
+				"pageWebsite": "Page Website",
+				"pageMedia": "Page Media",
+				"country": "Country",
+				"city": "City",
+				"why": "Why?",
+				"what": "What?",
+				"how": "How?",
+				"description": "Description",
+				"category": "Category",
+				"topic": "Topic",
+				"selectCountry": "Select Country",
+				"selectCity": "Select City",
+				"enterCity": "Enter city",
+				"selectTopic": "Select Topic",
+				"selectCategory": "Select Category",
+				"cancel": "Cancel",
+				"createPage": "Create Page",
+				"clickOrDrag": "Click or drag image here",
+				"dropImage": "Drop image here",
+				"avatar": "Avatar",
+				"cover": "Cover Image"
+			},
+			"errors": {
+				"required": "{field} is required",
+				"maxLength": "{field} cannot exceed {max} characters",
+				"minLength": "{field} must be at least {min} characters",
+				"fillAllFields": "Please fill all fields",
+				"slugTaken": "This slug is already taken",
+				"pageCreated": "Page created successfully",
+				"errorCreating": "Error creating page",
+				"errorCountries": "Error fetching countries",
+				"errorCities": "Error fetching cities",
+				"imageTooLarge": "Image must be less than 2MB",
+				"invalidImageType": "Please upload a valid image file",
+				"slugAvailable": "Slug is available",
+				"checkingSlug": "Checking..."
+			}
+		},
+
 		"chat": {
 			"select": "Select a conversation to start messaging",
 			"message": "Messages",

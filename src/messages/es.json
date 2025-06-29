@@ -1,170 +1,214 @@
 {
-  "landing": {
-    "navbar": {
-      "downloadApp": "Descargar la App",
-      "login": "Iniciar sesión",
-      "signUp": "Registrarse",
-      "downloadApp2": "Descargar la app"
-    },
-    "hero": {
-      "sustainability": "Sostenibilidad",
-      "wayOfLife": "es un estilo de vida",
-      "bePart": "Sé parte de la comunidad sostenible.",
-      "theConscient": "La red social",
-      "socialNet": "consciente.",
-      "downloadApp": "Descargar app",
-      "loginWithGoogle": "Iniciar sesión con Google",
-      "register": "Registrarse"
-    },
-    "brain": {
-      "community": "La comunidad tiene la solución a todos los problemas,",
-      "sustainableCulture": "CULTURA SOSTENIBLE",
-      "evolution": "La evolución de la cultura es un proceso de cambio dinámico en la forma en que la sociedad humana ve, entiende y actúa, vinculado a valores y creencias formados a lo largo del tiempo.",
-      "learnMore": "Aprender más"
-    },
-    "earth": {
-      "bePart": "Sé parte de la comunidad con GreenTeam,",
-      "theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
-      "greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
-      "learnMore": "Aprender más"
-    },
-    "foot": {
-      "bePart": "Sé parte de la comunidad con GreenTeam,",
-      "theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
-      "greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
-      "learnMore": "Aprender más"
-    },
-    "whatWeOffer": {
-      "whatWeOffer": "QUÉ OFRECEMOS",
-      "howWeMake": "Cómo Marcamos la ",
-      "difference": "Diferencia",
-      "cards": {
-        "card1": {
-          "header": "Privacidad de Datos",
-          "text": "Tus datos están seguros con decisiones éticas y transparentes."
-        },
-        "card2": {
-          "header": "Internet Orgánico",
-          "text": "conexiones auténticas a través de un diseño significativo y enfocado"
-        },
-        "card3": {
-          "header": "Comunicación con Impacto",
-          "text": "Herramientas para enfocarse en el bienestar colectivo y el impacto local"
-        }
-      }
-    },
-    "news": {
-      "technology": "Tecnología",
-      "ultimate": "La guía definitiva de ChatGPT para Diseñadores UX UI: Sin tonterías",
-      "AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usan IA reemplazarán a los que no lo hacen. Similar a como las calculadoras alguna vez se pensó que reemplazarían",
-      "hannah": "Hannah",
-      "readMore": "Leer más",
-      "news": "Noticias",
-      "seeGreenTeam": "VER NOTICIAS Y BLOGS DE GREENTEAM"
-    },
-    "footer": {
-      "theConscient": "LA RED SOCIAL CONSCIENTE.",
-      "greenTeam": "GREENTEAM",
-      "takeCare": "Cuídate a ti mismo, cuida el mundo.",
-      "registerNow": "Registrarse ahora",
-      "aboutUs": "Acerca de nosotros",
-      "goal": "Objetivo",
-      "downloadNow": "Descargar ahora",
-      "register": "Registrarse",
-      "copyright": "© Copyright 2024, Todos los derechos reservados por Greenteam"
-    }
-  },
-  "auth": {
-    "login": {
-      "login": "Iniciar sesión",
-      "signInNow": "¡Inicia sesión ahora y desbloquea acceso exclusivo!",
-      "or": "o",
-      "name": "Nombre",
-      "emailOrUsername": "Email o Nombre de usuario",
-      "emailRequired": "El email es requerido",
-      "identifierRequired": "El identificador es requerido",
-      "password": "Contraseña",
-      "checkPassword": "Verifica el campo de contraseña",
-      "IAgree": "Acepto los",
-      "termsOfService": "términos del servicio",
-      "forgetPassword": "¿Olvidaste tu contraseña?",
-      "signUp": "Registrarse",
-      "don'tHaveAccount": "¿No tienes una cuenta?",
-      "welcomeBack": "Bienvenido de nuevo a",
-      "sustainability": "Sostenibilidad",
-      "reconnect": "Reconecta con la comunidad que está haciendo cambios significativos para nuestro mundo.",
-      "pleaseAccept": "Por favor acepta los términos y condiciones",
-      "loginSuccess": "Inicio de sesión exitoso",
-      "loginFailed": "Error al iniciar sesión"
-    },
-    "signUp": {
-      "emailRequired": "El email es requerido",
-      "invalidEmail": "Email inválido",
-      "passwordRequired": "La contraseña es requerida",
-      "passwordMin": "La contraseña debe tener al menos 8 caracteres",
-      "passwordMatchUpper": "La contraseña debe contener al menos una letra mayúscula",
-      "passwordMatchLower": "La contraseña debe contener al menos una letra minúscula",
-      "passwordMatchNumber": "La contraseña debe contener al menos un número",
-      "passwordMatchSpecial": "La contraseña debe contener al menos un carácter especial",
-      "usernameRequired": "El nombre de usuario es requerido",
-      "usernameMin": "El nombre de usuario debe tener al menos 3 caracteres",
-      "usernameMax": "El nombre de usuario no debe exceder 20 caracteres",
-      "confirmRequired": "La confirmación de contraseña es requerida",
-      "pleaseAccept": "Por favor acepta los términos y condiciones",
-      "passwordNotMatch": "Las contraseñas no coinciden",
-      "signUpSuccess": "Cuenta creada exitosamente",
-      "createAccount": "Crear una cuenta",
-      "signUpNow": "¡Regístrate ahora y desbloquea acceso exclusivo!",
-      "username": "Nombre de usuario",
-      "email": "Email",
-      "password": "Contraseña",
-      "confirmPassword": "Confirmar contraseña",
-      "IAgree": "Acepto los",
-      "termsOfService": "términos del servicio",
-      "forgetPassword": "¿Olvidaste tu contraseña?",
-      "signUp": "Registrarse",
-      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar sesión",
-      "join": "Únete al movimiento por un ",
-      "greenerFuture": "Futuro más verde",
-      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
-    },
-    "resetPassword": {
-      "passwordNotMatch": "Las contraseñas no coinciden",
-      "resetSuccess": "Contraseña restablecida exitosamente",
-      "resetFailed": "Error al restablecer la contraseña",
-      "resetPassword": "Restablecer contraseña",
-      "writePassword": "Escribe tu contraseña para restablecerla",
-      "password": "Contraseña",
-      "checkPassword": "Verifica el campo de contraseña",
-      "confirmPassword": "Confirmar contraseña",
-      "reset": "Restablecer",
-      "wantLogin": "¿Quieres iniciar sesión?",
-      "login": "Iniciar sesión",
-      "join": "Únete al movimiento por un ",
-      "greenerFuture": "Futuro más verde",
-      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
-    },
-    "verification": {
-      "hi": "¡Hola!",
-      "weSent": "Hemos enviado un enlace de verificación a tu email.",
-      "didn'tReceive": "¿No recibiste el email? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para obtener ayuda",
-      "verityEmail": "Reenviar email"
-    },
-    "forgetPassword": {
-      "forgetPassword": "Olvidaste tu contraseña",
-      "writeEmail": "Escribe tu email para recuperar tu contraseña",
-      "email": "Email",
-      "emailRequired": "El email es requerido",
-      "resetPassword": "Restablecer contraseña",
-      "alreadyHaveAccount": "¿Ya tienes una cuenta?",
-      "login": "Iniciar sesión",
-      "join": "Únete al movimiento por un ",
-      "greenerFuture": "Futuro más verde",
-      "bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
-    }
-  },
-  "web": {
+	"landing": {
+		"navbar": {
+			"downloadApp": "Descargar la App",
+			"login": "Iniciar sesión",
+			"signUp": "Registrarse",
+			"downloadApp2": "Descargar la app"
+		},
+		"hero": {
+			"sustainability": "Sostenibilidad",
+			"wayOfLife": "es un estilo de vida",
+			"bePart": "Sé parte de la comunidad sostenible.",
+			"theConscient": "La red social",
+			"socialNet": "consciente.",
+			"downloadApp": "Descargar app",
+			"loginWithGoogle": "Iniciar sesión con Google",
+			"register": "Registrarse"
+		},
+		"brain": {
+			"community": "La comunidad tiene la solución a todos los problemas,",
+			"sustainableCulture": "CULTURA SOSTENIBLE",
+			"evolution": "La evolución de la cultura es un proceso de cambio dinámico en la forma en que la sociedad humana ve, entiende y actúa, vinculado a valores y creencias formados a lo largo del tiempo.",
+			"learnMore": "Aprender más"
+		},
+		"earth": {
+			"bePart": "Sé parte de la comunidad con GreenTeam,",
+			"theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
+			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
+			"learnMore": "Aprender más"
+		},
+		"foot": {
+			"bePart": "Sé parte de la comunidad con GreenTeam,",
+			"theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
+			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
+			"learnMore": "Aprender más"
+		},
+		"whatWeOffer": {
+			"whatWeOffer": "QUÉ OFRECEMOS",
+			"howWeMake": "Cómo Marcamos la ",
+			"difference": "Diferencia",
+			"cards": {
+				"card1": {
+					"header": "Privacidad de Datos",
+					"text": "Tus datos están seguros con decisiones éticas y transparentes."
+				},
+				"card2": {
+					"header": "Internet Orgánico",
+					"text": "conexiones auténticas a través de un diseño significativo y enfocado"
+				},
+				"card3": {
+					"header": "Comunicación con Impacto",
+					"text": "Herramientas para enfocarse en el bienestar colectivo y el impacto local"
+				}
+			}
+		},
+		"news": {
+			"technology": "Tecnología",
+			"ultimate": "La guía definitiva de ChatGPT para Diseñadores UX UI: Sin tonterías",
+			"AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usan IA reemplazarán a los que no lo hacen. Similar a como las calculadoras alguna vez se pensó que reemplazarían",
+			"hannah": "Hannah",
+			"readMore": "Leer más",
+			"news": "Noticias",
+			"seeGreenTeam": "VER NOTICIAS Y BLOGS DE GREENTEAM"
+		},
+		"footer": {
+			"theConscient": "LA RED SOCIAL CONSCIENTE.",
+			"greenTeam": "GREENTEAM",
+			"takeCare": "Cuídate a ti mismo, cuida el mundo.",
+			"registerNow": "Registrarse ahora",
+			"aboutUs": "Acerca de nosotros",
+			"goal": "Objetivo",
+			"downloadNow": "Descargar ahora",
+			"register": "Registrarse",
+			"copyright": "© Copyright 2024, Todos los derechos reservados por Greenteam"
+		}
+	},
+	"auth": {
+		"login": {
+			"login": "Iniciar sesión",
+			"signInNow": "¡Inicia sesión ahora y desbloquea acceso exclusivo!",
+			"or": "o",
+			"name": "Nombre",
+			"emailOrUsername": "Email o Nombre de usuario",
+			"emailRequired": "El email es requerido",
+			"identifierRequired": "El identificador es requerido",
+			"password": "Contraseña",
+			"checkPassword": "Verifica el campo de contraseña",
+			"IAgree": "Acepto los",
+			"termsOfService": "términos del servicio",
+			"forgetPassword": "¿Olvidaste tu contraseña?",
+			"signUp": "Registrarse",
+			"don'tHaveAccount": "¿No tienes una cuenta?",
+			"welcomeBack": "Bienvenido de nuevo a",
+			"sustainability": "Sostenibilidad",
+			"reconnect": "Reconecta con la comunidad que está haciendo cambios significativos para nuestro mundo.",
+			"pleaseAccept": "Por favor acepta los términos y condiciones",
+			"loginSuccess": "Inicio de sesión exitoso",
+			"loginFailed": "Error al iniciar sesión"
+		},
+		"signUp": {
+			"emailRequired": "El email es requerido",
+			"invalidEmail": "Email inválido",
+			"passwordRequired": "La contraseña es requerida",
+			"passwordMin": "La contraseña debe tener al menos 8 caracteres",
+			"passwordMatchUpper": "La contraseña debe contener al menos una letra mayúscula",
+			"passwordMatchLower": "La contraseña debe contener al menos una letra minúscula",
+			"passwordMatchNumber": "La contraseña debe contener al menos un número",
+			"passwordMatchSpecial": "La contraseña debe contener al menos un carácter especial",
+			"usernameRequired": "El nombre de usuario es requerido",
+			"usernameMin": "El nombre de usuario debe tener al menos 3 caracteres",
+			"usernameMax": "El nombre de usuario no debe exceder 20 caracteres",
+			"confirmRequired": "La confirmación de contraseña es requerida",
+			"pleaseAccept": "Por favor acepta los términos y condiciones",
+			"passwordNotMatch": "Las contraseñas no coinciden",
+			"signUpSuccess": "Cuenta creada exitosamente",
+			"createAccount": "Crear una cuenta",
+			"signUpNow": "¡Regístrate ahora y desbloquea acceso exclusivo!",
+			"username": "Nombre de usuario",
+			"email": "Email",
+			"password": "Contraseña",
+			"confirmPassword": "Confirmar contraseña",
+			"IAgree": "Acepto los",
+			"termsOfService": "términos del servicio",
+			"forgetPassword": "¿Olvidaste tu contraseña?",
+			"signUp": "Registrarse",
+			"alreadyHaveAccount": "¿Ya tienes una cuenta?",
+			"login": "Iniciar sesión",
+			"join": "Únete al movimiento por un ",
+			"greenerFuture": "Futuro más verde",
+			"bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
+		},
+		"resetPassword": {
+			"passwordNotMatch": "Las contraseñas no coinciden",
+			"resetSuccess": "Contraseña restablecida exitosamente",
+			"resetFailed": "Error al restablecer la contraseña",
+			"resetPassword": "Restablecer contraseña",
+			"writePassword": "Escribe tu contraseña para restablecerla",
+			"password": "Contraseña",
+			"checkPassword": "Verifica el campo de contraseña",
+			"confirmPassword": "Confirmar contraseña",
+			"reset": "Restablecer",
+			"wantLogin": "¿Quieres iniciar sesión?",
+			"login": "Iniciar sesión",
+			"join": "Únete al movimiento por un ",
+			"greenerFuture": "Futuro más verde",
+			"bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
+		},
+		"verification": {
+			"hi": "¡Hola!",
+			"weSent": "Hemos enviado un enlace de verificación a tu email.",
+			"didn'tReceive": "¿No recibiste el email? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para obtener ayuda",
+			"verityEmail": "Reenviar email"
+		},
+		"forgetPassword": {
+			"forgetPassword": "Olvidaste tu contraseña",
+			"writeEmail": "Escribe tu email para recuperar tu contraseña",
+			"email": "Email",
+			"emailRequired": "El email es requerido",
+			"resetPassword": "Restablecer contraseña",
+			"alreadyHaveAccount": "¿Ya tienes una cuenta?",
+			"login": "Iniciar sesión",
+			"join": "Únete al movimiento por un ",
+			"greenerFuture": "Futuro más verde",
+			"bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
+		}
+	},
+	"web": {
+		"addPost": {
+			"title": "Aloja tu Página",
+			"description": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
+			"form": {
+				"pageName": "Nombre de la Página",
+				"pageSlug": "Slug de la Página",
+				"pageWebsite": "Sitio Web de la Página",
+				"pageMedia": "Medios de la Página",
+				"country": "País",
+				"city": "Ciudad",
+				"why": "¿Por qué?",
+				"what": "¿Qué?",
+				"how": "¿Cómo?",
+				"description": "Descripción",
+				"category": "Categoría",
+				"topic": "Tema",
+				"selectCountry": "Seleccionar País",
+				"selectCity": "Seleccionar Ciudad",
+				"enterCity": "Ingresar ciudad",
+				"selectTopic": "Seleccionar Tema",
+				"selectCategory": "Seleccionar Categoría",
+				"cancel": "Cancelar",
+				"createPage": "Crear Página",
+				"clickOrDrag": "Haz clic o arrastra la imagen aquí",
+				"dropImage": "Suelta la imagen aquí",
+				"avatar": "Avatar",
+				"cover": "Imagen de Portada"
+			},
+			"errors": {
+				"required": "{field} es requerido",
+				"maxLength": "{field} no puede exceder {max} caracteres",
+				"minLength": "{field} debe tener al menos {min} caracteres",
+				"fillAllFields": "Por favor complete todos los campos",
+				"slugTaken": "Este slug ya está en uso",
+				"pageCreated": "Página creada exitosamente",
+				"errorCreating": "Error al crear la página",
+				"errorCountries": "Error al obtener países",
+				"errorCities": "Error al obtener ciudades",
+				"imageTooLarge": "La imagen debe ser menor a 2MB",
+				"invalidImageType": "Por favor sube un archivo de imagen válido",
+				"slugAvailable": "Slug disponible",
+				"checkingSlug": "Verificando..."
+			}
+		},
 		"chat": {
 			"select": "Selecciona una conversación para empezar a chatear",
 			"message": "Mensajes",
@@ -948,51 +992,51 @@
 			}
 		}
 	},
-  "community-models": {
-    "actions": {
-      "cancel": "Cancelar",
-      "confirm": "Confirmar"
-    },
-    "add-new-page": {
-      "newPage": "Nueva página",
-      "createPage": "Crear una nueva página",
-      "pageName": "Nombre de la página",
-      "pageDescription": "Descripción de la página",
-      "pageSlug": "Slug de la página",
-      "pageAvatar": "Avatar de la página",
-      "pageCover": "Portada de la página",
-      "pageCategory": "Categoría de la página",
-      "pageTopic": "Tema de la página",
-      "category": {
-        "business": "Negocios",
-        "project": "Proyecto"
-      }
-    },
-    "add-new-group": {
-      "startGroup": "Iniciar un nuevo grupo",
-      "bringPeople": "Reúne a personas con intereses compartidos. Configura tu grupo para crear conexiones significativas",
-      "groupName": "Nombre del grupo",
-      "groupDescription": "Descripción del grupo",
-      "groupPrivacy": "Privacidad del grupo",
-      "public": "Público",
-      "private": "Privado",
-      "groupTopic": "Tema del grupo"
-    },
-    "add-new-event": {
-      "hostYourEvent": "Organiza tu evento",
-      "planAndPromote": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
-      "eventName": "Nombre del evento",
-      "eventDescription": "Descripción del evento",
-      "eventLocation": "Ubicación del evento",
-      "eventStartDate": "Fecha de inicio del evento",
-      "eventEndDate": "Fecha de finalización del evento",
-      "eventCategory": "Categoría del evento",
-      "eventTopic": "Tema del evento",
-      "category": {
-        "social": "Social",
-        "volunteering&work": "Voluntariado y trabajo",
-        "talks&workshops": "Charlas y talleres"
-      }
-    }
-  }
+	"community-models": {
+		"actions": {
+			"cancel": "Cancelar",
+			"confirm": "Confirmar"
+		},
+		"add-new-page": {
+			"newPage": "Nueva página",
+			"createPage": "Crear una nueva página",
+			"pageName": "Nombre de la página",
+			"pageDescription": "Descripción de la página",
+			"pageSlug": "Slug de la página",
+			"pageAvatar": "Avatar de la página",
+			"pageCover": "Portada de la página",
+			"pageCategory": "Categoría de la página",
+			"pageTopic": "Tema de la página",
+			"category": {
+				"business": "Negocios",
+				"project": "Proyecto"
+			}
+		},
+		"add-new-group": {
+			"startGroup": "Iniciar un nuevo grupo",
+			"bringPeople": "Reúne a personas con intereses compartidos. Configura tu grupo para crear conexiones significativas",
+			"groupName": "Nombre del grupo",
+			"groupDescription": "Descripción del grupo",
+			"groupPrivacy": "Privacidad del grupo",
+			"public": "Público",
+			"private": "Privado",
+			"groupTopic": "Tema del grupo"
+		},
+		"add-new-event": {
+			"hostYourEvent": "Organiza tu evento",
+			"planAndPromote": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
+			"eventName": "Nombre del evento",
+			"eventDescription": "Descripción del evento",
+			"eventLocation": "Ubicación del evento",
+			"eventStartDate": "Fecha de inicio del evento",
+			"eventEndDate": "Fecha de finalización del evento",
+			"eventCategory": "Categoría del evento",
+			"eventTopic": "Tema del evento",
+			"category": {
+				"social": "Social",
+				"volunteering&work": "Voluntariado y trabajo",
+				"talks&workshops": "Charlas y talleres"
+			}
+		}
+	}
 }

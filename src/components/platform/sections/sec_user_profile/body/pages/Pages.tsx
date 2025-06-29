@@ -7,7 +7,7 @@ import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
 import { FaPlus } from "react-icons/fa"; // Import plus icon
-import AddNewPage from "./AddPage/AddNewPage"; // Import the AddNewPage component (similar to AddNewGroup)
+import AddNewPage from "@/components/AA-NEW/MODALS/ADD_PAGE/AddNewPage";
 import { ProfileResponse } from "../all/all.data";
 export default function Pages(props: { username: string, user: ProfileResponse }) {
   const { username, user } = props;
