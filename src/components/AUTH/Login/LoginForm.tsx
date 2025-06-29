@@ -70,6 +70,7 @@ function LoginForm() {
     if (!selectedOption) {
       setSelectedOptionError(t("pleaseAccept"));
       ToastNot(t("pleaseAccept"));
+      return
     } else if (selectedOption) {
       setSelectedOptionError("");
     }
