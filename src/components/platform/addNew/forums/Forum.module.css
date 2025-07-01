@@ -314,6 +314,9 @@
   transition: all 0.2s ease;
   text-transform: capitalize;
   position: relative;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
 }
 
 .radioLabel:hover {
@@ -851,6 +854,7 @@
     width: 100%;
     justify-content: space-between;
     margin-top: 5px;
+    flex-direction: column;
   }
 
   .selectCategory {
@@ -865,7 +869,7 @@
   }
 
   .radioLabel {
-    padding: 7px 12px 7px 28px;
+    padding: 7px 12px 7px 0px;
     font-size: 13px;
   }
 

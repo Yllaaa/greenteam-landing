@@ -49,7 +49,7 @@ function Recods() {
             />
           </div>
           <div className={styles.userName}>
-            <label>{userDetails?.user.username}</label>
+            <label>{userDetails?.user.username && userDetails?.user.username.length > 10 ? `${userDetails?.user.username.slice(0, 10)}...` : userDetails?.user.username}</label>
           </div>
         </div>
         <div className={styles.recordDetails}>

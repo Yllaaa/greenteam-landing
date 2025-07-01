@@ -164,7 +164,7 @@ function Header(props: {
             </div>
 
             <div className={styles.name}>
-              <p>{user.userData.fullName}</p>
+              <p>{user.userData.fullName&&user.userData.fullName.length>10?`${user.userData.fullName.slice(0 , 10)} ... `:user.userData.fullName}</p>
             </div>
             {user.isMyProfile ? null : (
               <div className={styles.visitor}>

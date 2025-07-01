@@ -93,6 +93,7 @@ $max-width: 1024px;
 		@media screen and (max-width: $max-width) {
 			grid-column: 1 / 13;
 			grid-row: 1 / 2;
+			margin-top: 0;
 		}
 
 		&.stickyActive {

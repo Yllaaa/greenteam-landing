@@ -197,7 +197,7 @@ function PostCard(props: Props) {
 
   // Navigation handlers
   const navigateToProfile = useCallback(
-    (authorId: string|null, type: string|null) => {
+    (authorId: string | null, type: string | null) => {
       const path = type === "page" ? "pages" : "profile";
       router.push(`/${locale}/${path}/${authorId}`);
     },
@@ -300,7 +300,7 @@ function PostCard(props: Props) {
                   style={{ cursor: "pointer" }}
                 >
                   <p>
-                    {post.author.name || post.author.username} <span>@{post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
+                    {post.author.name || post.author.username} <span>@{post.author.username&&post.author.username.length>8?`${post.author.username.slice(0, 8)}...`:post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
 
                   </p>
                 </div>

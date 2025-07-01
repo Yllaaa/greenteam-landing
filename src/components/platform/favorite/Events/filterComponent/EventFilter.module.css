@@ -5,12 +5,30 @@
   position: relative;
   padding: 0px 50px;
 }
+@media screen and (max-width: 1024px) {
+.header{
+
+  padding: 0 10px;
+}
+  
+}
+
 .header .title {
   display: flex;
   gap: 25px;
   justify-content: center;
   align-items: center;
 }
+
+@media screen and (max-width: 1024px) {
+  .header .title {
+   
+    justify-content: flex-start;
+   
+  }
+    
+  }
+
 .header .title h3 {
   font-family: Montserrat;
   font-weight: 600;
