@@ -5,7 +5,7 @@ import styles from "./SubHeader.module.css";
 
 import SubHeaderWeb from "./Body/Web/SubHeaderWeb";
 import SubHeaderRes from "./Body/Responsive/SubHeaderRes";
-import { CommentModal } from "@/components/platform/posts/feeds/commentModal/CommentModal";
+// import { CommentModal } from "@/components/platform/posts/feeds/commentModal/CommentModal";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import AddNewModal from './doChallenges/myChallenges/modal/addNew/AddNewModal';
@@ -22,7 +22,7 @@ function SubHeader() {
   const [repliesPage, setRepliesPage] = React.useState(1);
   const [rerender, setRerender] = React.useState(false);
   const [userReactions, setUserReactions] = React.useState([]);
-  const [postMedia, setPostMedia] = React.useState<
+  const [, setPostMedia] = React.useState<
     {
       id: string;
       mediaUrl: string;
@@ -53,7 +53,7 @@ function SubHeader() {
       {/* web */}
       <div className={styles.container}>
         <SubHeaderWeb
-        setEndpoint={setEndpoint}
+          setEndpoint={setEndpoint}
           commentModal={commentModal}
           setCommentModal={setCommentModal}
           postComments={postComments}
@@ -91,7 +91,8 @@ function SubHeader() {
           setAddNew={setAddNew}
         />
       </div>
-      {commentModal && (
+      
+      {/* {commentModal && (
         <CommentModal
           setCommentModal={setCommentModal}
           postComments={postComments}
@@ -105,7 +106,7 @@ function SubHeader() {
           rerender={rerender}
           postMedia={postMedia}
         />
-      )}
+      )} */}
       {addNew && (
         <AddNewModal
           setAddNew={setAddNew}

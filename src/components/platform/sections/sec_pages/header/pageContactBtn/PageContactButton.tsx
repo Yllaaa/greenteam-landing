@@ -45,7 +45,7 @@ const PageContactButton: React.FC<PageContactButtonProps> = ({ slug }) => {
             );
 
             if (response.data.contact) {
-                setContact(response.data.contact[0]);
+                setContact(response.data.contact);
                 setHasContact(true);
             } else {
                 console.log("btn",response.data)
@@ -73,6 +73,7 @@ const PageContactButton: React.FC<PageContactButtonProps> = ({ slug }) => {
         setShowModal(false);
         fetchContact(); // Refresh contact data after modal closes
     };
+console.log(contact,"contact data");
 
     return (
         <>

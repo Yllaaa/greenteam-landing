@@ -35,14 +35,15 @@ import {
     useReactionCommentMutation,
     useLazyGetRepliesQuery,
 } from '@/services/api'
-import type { Post, Comment as CommentType } from '@/types'
+import type { Post, ChallengePost, Comment as CommentType } from '@/types'
 import { useAppSelector } from '@/store/hooks'
 import { useInfiniteScroll } from '@/hooks/userInfiniteScroll'
 
 interface CommentModalProps {
     isOpen: boolean
     onClose: () => void
-    post: Post
+    post?: Post
+    challenge?: ChallengePost
 }
 
 interface CommentWithReplies extends CommentType {
@@ -51,7 +52,36 @@ interface CommentWithReplies extends CommentType {
     showReplyInput?: boolean
 }
 
-export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, post }) => {
+// Helper functions to normalize data access
+const getItemData = (post?: Post, challenge?: ChallengePost) => {
+    if (challenge) {
+        return {
+            id: challenge.id,
+            content: challenge.content,
+            createdAt: challenge.createdAt,
+            media: challenge.media,
+            authorName: challenge.creator.name,
+            authorAvatar: challenge.creator.avatar,
+            type: 'challenge' as const
+        }
+    }
+
+    if (post) {
+        return {
+            id: post.post.id,
+            content: post.post.content,
+            createdAt: post.post.createdAt,
+            media: post.media,
+            authorName: post.author.name,
+            authorAvatar: post.author.avatar,
+            type: 'post' as const
+        }
+    }
+
+    return null
+}
+
+export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, post, challenge }) => {
     const t = useTranslations('web.comments')
     const currentUser = useAppSelector((state) => state.login.user?.user)
     const [comments, setComments] = useState<CommentWithReplies[]>([])
@@ -61,10 +91,14 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
     const [hasMore, setHasMore] = useState(true)
     const modalRef = useRef<HTMLDivElement>(null)
 
+    // Get normalized item data
+    const itemData = getItemData(post, challenge)
+    const itemId = itemData?.id ?? ''
+
     // API hooks
     const { data: commentsData, isLoading: loadingComments, isFetching } = useGetCommentsQuery(
-        { postId: post.post.id, page, limit: 10 },
-        { skip: !isOpen }
+        { postId: itemId, page, limit: 10 },
+        { skip: !isOpen || !itemId }
     )
 
     const [getReplies] = useLazyGetRepliesQuery()
@@ -133,11 +167,11 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
     }, [commentsData, page])
 
     const handlePostComment = async () => {
-        if (!newComment.trim()) return
+        if (!newComment.trim() || !itemId) return
 
         try {
             const result = await postComment({
-                postId: post.post.id,
+                postId: itemId,
                 content: newComment.trim()
             }).unwrap()
 
@@ -158,11 +192,11 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
 
     const handlePostReply = async (commentId: string) => {
         const replyText = replyTexts[commentId]
-        if (!replyText?.trim()) return
+        if (!replyText?.trim() || !itemId) return
 
         try {
             await postReply({
-                postId: post.post.id,
+                postId: itemId,
                 commentId,
                 content: replyText.trim()
             }).unwrap()
@@ -174,11 +208,11 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
     }
 
     const handleDeleteComment = async (commentId: string) => {
-        if (!confirm(t('confirmDelete'))) return
+        if (!confirm(t('confirmDelete')) || !itemId) return
 
         try {
             await deleteComment({
-                postId: post.post.id,
+                postId: itemId,
                 commentId
             }).unwrap()
             setComments(prev => prev.filter(c => c.id !== commentId))
@@ -188,11 +222,11 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
     }
 
     const handleDeleteReply = async (commentId: string, replyId: string) => {
-        if (!confirm(t('confirmDelete'))) return
+        if (!confirm(t('confirmDelete')) || !itemId) return
 
         try {
             await deleteReply({
-                postId: post.post.id,
+                postId: itemId,
                 commentId,
                 replyId
             }).unwrap()
@@ -224,12 +258,12 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
 
     const toggleReplies = async (commentId: string, forceShow = false) => {
         const comment = comments.find(c => c.id === commentId)
-        if (!comment) return
+        if (!comment || !itemId) return
 
         if (!comment.showReplies || forceShow) {
             try {
                 const data = await getReplies({
-                    postId: post.post.id,
+                    postId: itemId,
                     commentId,
                     page: 0,
                     limit: 5
@@ -273,7 +307,7 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
                 <div className={styles.imageWrapper}>
                     <Image
                         src={media.mediaUrl}
-                        alt={`Post media ${index + 1}`}
+                        alt={`${itemData?.type || 'Post'} media ${index + 1}`}
                         fill
                         style={{ objectFit: 'contain' }}
                     />
@@ -304,9 +338,9 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
         return null
     }
 
-    if (!isOpen) return null
+    if (!isOpen || !itemData) return null
 
-    const hasMedia = post.media && post.media.length > 0
+    const hasMedia = itemData.media && itemData.media.length > 0
 
     return ReactDOM.createPortal(
         <div className={styles.overlay} onClick={onClose}>
@@ -324,8 +358,7 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
                     <div className={`${styles.leftSide} ${!hasMedia ? styles.noMedia : ''}`}>
                         {hasMedia ? (
                             <div className={styles.mediaContainer}>
-
-                                {post.media.length > 1 ? (
+                                {itemData.media.length > 1 ? (
                                     <div className={styles.swiperContainer}>
                                         <Swiper
                                             modules={[Navigation, Pagination]}
@@ -338,10 +371,8 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
                                             spaceBetween={0}
                                             slidesPerView={1}
                                             loop={true}
-                                            onSwiper={(swiper) => console.log('Swiper initialized:', swiper)}
-                                            onSlideChange={() => console.log('slide change')}
                                         >
-                                            {post.media.map((media, index) => (
+                                            {itemData.media.map((media, index) => (
                                                 <SwiperSlide key={media.id} className={styles.slide}>
                                                     {renderMediaSlide(media, index)}
                                                 </SwiperSlide>
@@ -351,13 +382,13 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
                                     </div>
                                 ) : (
                                     <div className={styles.singleMediaWrapper}>
-                                        {renderMediaSlide(post.media[0], 0)}
+                                        {renderMediaSlide(itemData.media[0], 0)}
                                     </div>
                                 )}
                             </div>
                         ) : (
                             <div className={styles.postContent}>
-                                <p>{post.post.content}</p>
+                                <p>{itemData.content}</p>
                             </div>
                         )}
                     </div>
@@ -367,23 +398,23 @@ export const CommentModal: React.FC<CommentModalProps> = ({ isOpen, onClose, pos
                         {/* Post info */}
                         <div className={styles.postInfo}>
                             <div className={styles.authorInfo}>
-                                {post.author.avatar && (
+                                {itemData.authorAvatar && (
                                     <Image
-                                        src={post.author.avatar}
-                                        alt={post.author.name || ''}
+                                        src={itemData.authorAvatar}
+                                        alt={itemData.authorName || ''}
                                         width={40}
                                         height={40}
                                         className={styles.avatar}
                                     />
                                 )}
                                 <div>
-                                    <h4>{post.author.name}</h4>
+                                    <h4>{itemData.authorName}</h4>
                                     <span className={styles.timestamp}>
-                                        {formatDistanceToNow(new Date(post.post.createdAt), { addSuffix: true })}
+                                        {formatDistanceToNow(new Date(itemData.createdAt), { addSuffix: true })}
                                     </span>
                                 </div>
                             </div>
-                            {hasMedia && <p className={styles.postContentSmall}>{post.post.content}</p>}
+                            {hasMedia && <p className={styles.postContentSmall}>{itemData.content}</p>}
                         </div>
 
                         {/* Comments section */}

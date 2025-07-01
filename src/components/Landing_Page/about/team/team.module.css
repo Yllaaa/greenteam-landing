@@ -84,8 +84,8 @@
     overflow: hidden;
     transition: transform 0.3s ease;
     position: relative;
-    height: 300px;
-    width: 300px;
+    height: 370px;
+    width: 100%;
 }
 
 .card:hover {
@@ -105,7 +105,7 @@
 }
 
 .memberInfo {
-    /* padding: 15px 20px 25px; */
+    padding: 10px;
     text-align: center;
 }
 

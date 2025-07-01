@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
 import MyChallenges from './myChallenge/MyChallenges'
-import { CommentModal } from '../posts/feeds/commentModal/CommentModal'
+// import { CommentModal } from '../posts/feeds/commentModal/CommentModal'
 import AllChallenges from './allChallenges/AllChallenges'
 import styles from './ChallengePage.module.scss'
 import { useTranslations } from 'next-intl'
@@ -55,7 +55,7 @@ function ChallengePage() {
           </div>
         </div>
       </section>
-      {commentModal && (
+      {/* {commentModal && (
         <CommentModal
           setCommentModal={setCommentModal}
           postComments={postComments}
@@ -69,7 +69,7 @@ function ChallengePage() {
           rerender={rerender}
           postMedia={[]}
         />
-      )}
+      )} */}
       {addNew && (
         <AddNewModal
           setAddNew={(value) => {

@@ -12,7 +12,7 @@ import axios from "axios";
 import { useAppDispatch } from "@/store/hooks";
 import { setUpdateState } from "@/store/features/update/updateSlice";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
-
+import { CommentModal } from '@/components/AA-NEW/MODALS/COMMENTS/CommentModal';
 type Props = {
   ref: any;
   page: number;
@@ -34,12 +34,14 @@ type Props = {
   >;
   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   setEndPoint: React.Dispatch<React.SetStateAction<string>>;
+  commentModal: boolean;
 };
 function MyChallengeCard(props: Props) {
   const {
+    // commentModal,
     challenge,
     setPostId,
-    setCommentModal,
+    // setCommentModal,
     setPostComments,
     commentPage,
     setCommentPage,
@@ -51,6 +53,7 @@ function MyChallengeCard(props: Props) {
     setAddNew,
     setEndPoint
   } = props;
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
@@ -143,7 +146,7 @@ function MyChallengeCard(props: Props) {
 
   // Handle comment button click
   const handleComment = async (postId: string) => {
-    if (!setPostId || !setCommentModal || !setPostComments) return;
+    if (!setPostId || !setPostComments) return;
     setPostComments([]);
     setPostId(postId);
     setCommentPage(1);
@@ -151,7 +154,7 @@ function MyChallengeCard(props: Props) {
     try {
       const comments = await fetchComments(postId, 1);
       if (comments) {
-        setCommentModal(true);
+        setIsCommentModalOpen(true); // Use local state
       }
     } catch (error) {
       console.error("Error handling comment:", error);
@@ -189,7 +192,7 @@ function MyChallengeCard(props: Props) {
   const handleDoIt = () => {
     setAddNew(true)
     setPostId(challenge.id)
-setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/done-with-post`)
+    setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/done-with-post`)
 
     // try {
     //   axios
@@ -278,6 +281,7 @@ setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${
             alt="challengeImage"
             width={500}
             height={500}
+            style={{ objectFit: "contain" }}
           />
         ) : (
           <div
@@ -302,13 +306,20 @@ setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${
         <button
           onClick={() => {
             handleComment(challenge.id);
-            // ToastNot("Challenge Accepted");
           }}
           className={styles.challengeButton}
         >
           {t("comment")}
         </button>
       </div>
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => {
+          setIsCommentModalOpen(false)
+          setPostId('');
+        }}
+        challenge={challenge}
+      />
     </>
   );
 }

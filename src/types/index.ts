@@ -60,6 +60,31 @@ export interface Post {
 	hasDoReaction: boolean;
 	isAuthor: boolean;
 }
+// do challenges
+interface challengeCreator {
+  id: string;
+  name: string;
+  avatar: string | null;
+  username: string;
+}
+
+// Interface for the post object
+export interface ChallengePost {
+	id: string;
+	content: string;
+	createdAt: string;
+	media: {
+		id: string;
+		mediaUrl: string;
+		mediaType: string;
+	}[];
+
+	creator: challengeCreator;
+}
+
+// Type definition for the entire array of posts
+export type ChallengePosts = ChallengePost[];
+
 
 export interface PaginationParams {
 	page: number;

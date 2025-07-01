@@ -54,11 +54,11 @@ function AllProfileBody(props: { username: string }) {
     isMyProfile: false,
   });
 
-  // Scroll-related state
-  const [briefTransform, setBriefTransform] = useState(0);
+  // Sticky sidebar state
+  const [isSidebarSticky, setIsSidebarSticky] = useState(false);
   const sidebarRef = useRef<HTMLDivElement>(null);
-  const filterRef = useRef<HTMLDivElement>(null);
-  const [initialBriefTop, setInitialBriefTop] = useState(0);
+  const settingsRef = useRef<HTMLDivElement>(null);
+  const [settings, setSettings] = useState(false);
 
   useEffect(() => {
     getProfileData(username)
@@ -70,46 +70,40 @@ function AllProfileBody(props: { username: string }) {
       });
   }, [username]);
 
-  // Handle scroll for sticky Brief
+  // Handle scroll for sticky sidebar after 500px
   useEffect(() => {
     const handleScroll = () => {
-      if (!sidebarRef.current || !filterRef.current || currentSection !== "your posts" || !user.isMyProfile) return;
+      const scrollPosition = window.scrollY;
 
-      const scrollY = window.scrollY;
-      // const filterBottom = filterRef.current.getBoundingClientRect().bottom;
-      const sidebarRect = sidebarRef.current.getBoundingClientRect();
-
-      // Initialize the initial position if not set
-      if (initialBriefTop === 0 && scrollY < 10) {
-        setInitialBriefTop(sidebarRect.top + scrollY);
-      }
-
-      // Calculate how much to translate the Brief
-      // We want it to stick when the filter is at the top of the viewport
-      const filterHeight = filterRef.current.offsetHeight;
-      // const targetTop = filterBottom + 20; // 20px gap below filter
-
-      if (scrollY > initialBriefTop - filterHeight - 20) {
-        // Calculate the transform needed to keep Brief in view
-        const translateAmount = scrollY - (initialBriefTop - filterHeight - 20);
-        setBriefTransform(translateAmount);
+      // Make sidebar sticky after scrolling 500px
+      if (scrollPosition >= 800) {
+        setIsSidebarSticky(true);
       } else {
-        setBriefTransform(0);
+        setIsSidebarSticky(false);
       }
     };
 
-    // Add scroll listener
+    // Add scroll event listener
     window.addEventListener('scroll', handleScroll);
 
-    // Initial calculation
+    // Call once to check initial position
     handleScroll();
 
+    // Cleanup
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [currentSection, user.isMyProfile, initialBriefTop]);
+  }, []);
 
-  const [settings, setSettings] = useState(false);
+  // Scroll to settings when settings becomes true
+  useEffect(() => {
+    if (settings && settingsRef.current) {
+      settingsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, [settings]);
 
   return (
     <>
@@ -157,7 +151,7 @@ function AllProfileBody(props: { username: string }) {
         ) : (
           !settings ? (
             <>
-              <div className={styles.filterWrapper} ref={filterRef}>
+              <div className={styles.filterWrapper}>
                 <div className={styles.filter}>
                   {sections.map((section) => (
                     <div
@@ -179,15 +173,11 @@ function AllProfileBody(props: { username: string }) {
                   <div
                     style={{
                       display: currentSection === "your posts" ? "block" : "none",
-                      transform: `translateY(${briefTransform}px)`,
-                      transition: 'none', // Disable transition for smooth scrolling
                     }}
-                    className={styles.side}
+                    className={`${styles.side} ${isSidebarSticky ? styles.stickyActive : ''}`}
                     ref={sidebarRef}
                   >
-                    <div className={styles.stickyContent}>
-                      <Breif score={user.userScore} />
-                    </div>
+                    <Breif score={user.userScore} />
                   </div>
                 )}
                 <div className={`${currentSection === "your posts"
@@ -204,7 +194,9 @@ function AllProfileBody(props: { username: string }) {
               </div>
             </>
           ) : (
-            <Settings setSettings={setSettings} />
+            <div ref={settingsRef}>
+              <Settings setSettings={setSettings} />
+            </div>
           )
         )}
       </div>

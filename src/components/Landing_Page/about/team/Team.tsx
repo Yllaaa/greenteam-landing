@@ -48,19 +48,19 @@ function Team() {
         },
         slides: {
             perView: 4,
-            spacing: 24,
+            spacing: 15,
         },
         breakpoints: {
             '(max-width: 1024px)': {
-                slides: { perView: 3, spacing: 20 },
+                slides: { perView: 3, spacing: 15 },
 
             },
             '(max-width: 768px)': {
-                slides: { perView: 2, spacing: 16 },
+                slides: { perView: 2, spacing: 10 },
 
             },
             '(max-width: 480px)': {
-                slides: { perView: 1, spacing: 16 },
+                slides: { perView: 1, spacing: 10 },
 
             },
         },

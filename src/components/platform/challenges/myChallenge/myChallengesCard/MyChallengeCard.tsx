@@ -1,18 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useCallback, useEffect } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styles from "./MyChallengeCard.module.css";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 import { useRouter } from "next/navigation";
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Post } from "../types/doChallenges.data";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
 import { useAppDispatch } from "@/store/hooks";
 import { setUpdateState } from "@/store/features/update/updateSlice";
-
+import { CommentModal } from '@/components/AA-NEW/MODALS/COMMENTS/CommentModal';
 type Props = {
   ref: any;
   page: number;
@@ -25,7 +25,7 @@ type Props = {
   postId: string;
   index: number;
   length: number;
-   setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddNew: React.Dispatch<React.SetStateAction<boolean>>;
   setChallengeId: React.Dispatch<React.SetStateAction<string>>;
   setEndPoint: React.Dispatch<React.SetStateAction<string>>;
 };
@@ -33,7 +33,7 @@ function MyChallengeCard(props: Props) {
   const {
     challenge,
     setPostId,
-    setCommentModal,
+    // setCommentModal,
     setPostComments,
     commentPage,
     setCommentPage,
@@ -45,6 +45,7 @@ function MyChallengeCard(props: Props) {
     setChallengeId,
     setEndPoint
   } = props;
+  const [isCommentModalOpen, setIsCommentModalOpen] = useState(false);
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale();
@@ -96,40 +97,40 @@ function MyChallengeCard(props: Props) {
   }, [commentPage, postId, fetchComments]);
 
   const handleDelete = async () => {
-  
-      setIsDeleting(true);
-      try {
-        await axios.delete(
-          `${API_BASE_URL}/api/v1/challenges/do-posts/${challenge.id}`,
-          {
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${accessToken}`,
-              "Access-Control-Allow-Origin": "*",
-            },
-          }
-        );
-  
-        // If you have a state update function from Redux, you could use it here
-        dispatch(setUpdateState());
-  
-      } catch (error) {
-        console.error("Error deleting post:", error);
-        ToastNot("Failed to delete post. Please try again.");
-      } finally {
-        setIsDeleting(false);
-      }
-    };
-    // Load comments when page changes
-    useEffect(() => {
-      if (commentPage > 1) {
-        fetchComments(postId, commentPage);
-      }
-    }, [commentPage, postId, fetchComments]);
+
+    setIsDeleting(true);
+    try {
+      await axios.delete(
+        `${API_BASE_URL}/api/v1/challenges/do-posts/${challenge.id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${accessToken}`,
+            "Access-Control-Allow-Origin": "*",
+          },
+        }
+      );
+
+      // If you have a state update function from Redux, you could use it here
+      dispatch(setUpdateState());
+
+    } catch (error) {
+      console.error("Error deleting post:", error);
+      ToastNot("Failed to delete post. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+  // Load comments when page changes
+  useEffect(() => {
+    if (commentPage > 1) {
+      fetchComments(postId, commentPage);
+    }
+  }, [commentPage, postId, fetchComments]);
 
   // Handle comment button click
   const handleComment = async (postId: string) => {
-    if (!setPostId || !setCommentModal || !setPostComments) return;
+    if (!setPostId || !setPostComments) return;
     setPostComments([]);
     setPostId(postId);
     setCommentPage(1);
@@ -137,7 +138,7 @@ function MyChallengeCard(props: Props) {
     try {
       const comments = await fetchComments(postId, 1);
       if (comments) {
-        setCommentModal(true);
+        setIsCommentModalOpen(true); // Use local state
       }
     } catch (error) {
       console.error("Error handling comment:", error);
@@ -174,8 +175,8 @@ function MyChallengeCard(props: Props) {
 
   const handleDoIt = () => {
     setAddNew(true)
-        setPostId(challenge.id)
-        setChallengeId(challenge.id)
+    setPostId(challenge.id)
+    setChallengeId(challenge.id)
     setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/done-with-post`)
     // try {
     //   axios
@@ -199,104 +200,113 @@ function MyChallengeCard(props: Props) {
     //   console.error("Error handling do it:", err);
     // }
   };
-
+const t = useTranslations("web.subHeader.green");
   return (
-      <>
-        <div
-          ref={index === length - 1 ? ref : null}
-          className={styles.challengeHeader}
+    <>
+      <div
+        ref={index === length - 1 ? ref : null}
+        className={styles.challengeHeader}
+      >
+        <div className={styles.userAvatar}>
+          <Image
+            unoptimized
+            src={challenge.creator.avatar || noAvatar}
+            alt="userAvatar"
+            width={100}
+            height={100}
+          />
+        </div>
+        <div className={styles.details}>
+          <div className={styles.userName}>
+            <p>
+              {challenge.creator.username}{" "}
+              <span>@{challenge.creator.name}</span>
+              <span>
+                {" . "}
+                {formatTimeDifference(challenge.createdAt)}
+              </span>
+            </p>
+          </div>
+          <div className={styles.post}>
+            {challenge.media?.length > 0 ? (
+              challenge.content.length > 50 ? (
+                <p>
+                  {challenge.content.slice(0, 40)}{" "}
+                  <span
+                    onClick={() => {
+                      router.push(`/${locale}/posts/${challenge.id}`);
+                    }}
+                    className={styles.readMore}
+                  >
+                    Read More...{" "}
+                  </span>
+                </p>
+              ) : (
+                <p>{challenge.content}</p>
+              )
+            ) : null}
+          </div>
+        </div>
+        <div className={styles.deleteButtonContainer}>
+          <button
+            onClick={handleDelete}
+            className={styles.deleteButton}
+            disabled={isDeleting}
+          >
+            {isDeleting ? "Deleting..." : t("delete")}
+          </button>
+        </div>
+      </div>
+      <div className={styles.challengeImage}>
+        {challenge.media?.length > 0 ? (
+          <Image
+            unoptimized
+            src={challenge.media[0].mediaUrl}
+            alt="challengeImage"
+            width={500}
+            height={500}
+            style={{ objectFit: "contain" }}
+          />
+        ) : (
+          <div
+            onClick={() => {
+              router.push(`/${locale}/posts/${challenge.id}`);
+            }}
+            className={styles.noImage}
+          >
+            <p>{challenge.content}</p>
+          </div>
+        )}
+      </div>
+      <div className={styles.challengeActions}>
+        <button
+          onClick={() => {
+            handleDoIt();
+          }}
+          className={styles.challengeButton}
         >
-          <div className={styles.userAvatar}>
-            <Image
-            unoptimized
-              src={challenge.creator.avatar || noAvatar}
-              alt="userAvatar"
-              width={100}
-              height={100}
-            />
-          </div>
-          <div className={styles.details}>
-            <div className={styles.userName}>
-              <p>
-                {challenge.creator.username}{" "}
-                <span>@{challenge.creator.name}</span>
-                <span>
-                  {" . "}
-                  {formatTimeDifference(challenge.createdAt)}
-                </span>
-              </p>
-            </div>
-            <div className={styles.post}>
-              {challenge.media?.length > 0 ? (
-                challenge.content.length > 50 ? (
-                  <p>
-                    {challenge.content.slice(0, 40)}{" "}
-                    <span
-                      onClick={() => {
-                        router.push(`/${locale}/posts/${challenge.id}`);
-                      }}
-                      className={styles.readMore}
-                    >
-                      Read More...{" "}
-                    </span>
-                  </p>
-                ) : (
-                  <p>{challenge.content}</p>
-                )
-              ) : null}
-            </div>
-          </div>
-          <div className={styles.deleteButtonContainer}>
-            <button
-              onClick={handleDelete}
-              className={styles.deleteButton}
-              disabled={isDeleting}
-            >
-              {isDeleting ? "Deleting..." : "Delete"}
-            </button>
-          </div>
-        </div>
-        <div className={styles.challengeImage}>
-          {challenge.media?.length > 0 ? (
-            <Image
-            unoptimized
-              src={challenge.media[0].mediaUrl}
-              alt="challengeImage"
-              width={500}
-              height={500}
-            />
-          ) : (
-            <div
-              onClick={() => {
-                router.push(`/${locale}/posts/${challenge.id}`);
-              }}
-              className={styles.noImage}
-            >
-              <p>{challenge.content}</p>
-            </div>
-          )}
-        </div>
-        <div className={styles.challengeActions}>
-          <button
-            onClick={() => {
-              handleDoIt();
-            }}
-            className={styles.challengeButton}
-          >
-            Done
-          </button>
-          <button
-            onClick={() => {
-              handleComment(challenge.id);
-              // ToastNot("Challenge Accepted");
-            }}
-            className={styles.challengeButton}
-          >
-            Comment
-          </button>
-        </div>
-      </>
-    );
-  }
-  
-  export default MyChallengeCard;
+          {t("done")}
+        </button>
+        <button
+          onClick={() => {
+            handleComment(challenge.id);
+            // ToastNot("Challenge Accepted");
+          }}
+          className={styles.challengeButton}
+        >
+          {t("comment")}
+        </button>
+      </div>
+      <CommentModal
+        isOpen={isCommentModalOpen}
+        onClose={() => {
+          setIsCommentModalOpen(false)
+          setPostId('');
+        }}
+        challenge={challenge}
+      />
+    </>
+  );
+}
+
+export default MyChallengeCard;

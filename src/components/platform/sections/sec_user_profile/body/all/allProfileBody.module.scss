@@ -71,6 +71,7 @@ $max-width: 1024px;
 	grid-template-columns: repeat(12, 1fr);
 	grid-template-rows: repeat(1, min-content);
 	gap: 20px;
+	position: relative;
 
 	@media screen and (max-width: $max-width) {
 		grid-template-rows: repeat(2, min-content);
@@ -83,36 +84,31 @@ $max-width: 1024px;
 			display: none;
 		}
 	}
-
 	.side {
 		grid-column: 9 /13;
 		grid-row: 1 / 2;
 		justify-self: center;
-
+		transition: all 0.3s ease;
+		margin-top: 110px;
 		@media screen and (max-width: $max-width) {
 			grid-column: 1 / 13;
 			grid-row: 1 / 2;
 		}
 
-		.stickyContent {
-			position: sticky;
-			top: 120px;
-			transform: translateY(150px);
-			-webkit-transform: translateY(150px);
-			-moz-transform: translateY(150px);
-			-ms-transform: translateY(150px);
-			-o-transform: translateY(150px);
-			//Adjustthisvaluetocontrolwhereitsticksbelowthefilter
-			@media screen and (max-width: $max-width) {
-				// top: 80px;
-				transform: translateY(0px);
-				-webkit-transform: translateY(0px);
-				-moz-transform: translateY(0px);
-				-ms-transform: translateY(0px);
-				-o-transform: translateY(0px);
+		&.stickyActive {
+			position: fixed;
+			top: 110px; // Adjust based on your needs
+			right:5%; // Adjust based on your container width
+			z-index: 1;
 
+			@media screen and (max-width: 1200px) {
+				right: 20px;
+			}
+
+			@media screen and (max-width: $max-width) {
 				position: relative;
-				top: 0;
+				top: auto;
+				right: auto;
 			}
 		}
 
@@ -200,6 +196,7 @@ $max-width: 1024px;
 			justify-self: center;
 		}
 	}
+
 	.mainBodyWithoutSide {
 		grid-column: 1 / 13;
 		display: flex;
@@ -216,6 +213,7 @@ $max-width: 1024px;
 		}
 	}
 }
+
 .blocked {
 	width: 100%;
 	min-height: 300px;

@@ -1,14 +1,27 @@
 "use client";
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import EventSection from "./Events/EventSection";
 import ProductSection from "./products/ProductSection";
 import styles from "./PageBody.module.scss";
 import FeedSection from "./feeds/FeedSection";
 import Pageheader from "../header/PageHeader";
 import Settings from "../header/settings/Settings";
+
 function PagesBody(props: { pageId: string }) {
   const { pageId } = props;
   const [settings, setSettings] = React.useState(false);
+  const settingsRef = useRef<HTMLDivElement>(null);
+
+  // Scroll to settings when settings becomes true
+  useEffect(() => {
+    if (settings && settingsRef.current) {
+      settingsRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+  }, [settings]);
+
   return (
     <>
       <section className={styles.body}>
@@ -20,7 +33,9 @@ function PagesBody(props: { pageId: string }) {
           />
         </div>
         {settings ? (
-          <Settings slug={pageId} />
+          <div ref={settingsRef}>
+            <Settings slug={pageId} />
+          </div>
         ) : (
           <>
             <div className={styles.events}>

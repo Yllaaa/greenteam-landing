@@ -208,7 +208,7 @@ function AllChallenges(props: {
               </div>
               <div className={styles.action}>
                 <button
-                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", false)}
+                  onClick={() => handleDel(challenge.id, "Challenge deleted successfully", true)}
                   className={styles.delete}
                   disabled={actionInProgress === challenge.id}
                 >

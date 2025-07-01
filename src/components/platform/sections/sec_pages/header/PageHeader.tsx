@@ -273,7 +273,7 @@ function Pageheader(props: {
           </div>
           <div className={styles.nameContainer}>
             <h1 className={styles.name}>{data.name}</h1>
-            
+
           </div>
         </div>
       </div>
@@ -285,11 +285,7 @@ function Pageheader(props: {
             <span>{t('actions')}</span>
           </div>
         )}
-        {data.isAdmin && (
-          <div>
-            <PageContactButton slug={data.slug} />
-          </div>
-        )}
+
 
         {showMobileActions && data.isAdmin && (
           <div ref={mobileActionsRef} className={styles.mobileActionsMenu}>
@@ -389,12 +385,18 @@ function Pageheader(props: {
               </>
             )}
           </div>
-
-          <div className={styles.headerLike}>
-            <button onClick={handleFollow} className={styles.likeBtn}>
-              {initialFollow ? t('unfollow') : t('follow')}
-            </button>
-          </div>
+          {data.isAdmin ? (
+            <div>
+              <PageContactButton slug={data.slug} />
+            </div>)
+            :
+            (
+              <div className={styles.headerLike}>
+                <button onClick={handleFollow} className={styles.likeBtn}>
+                  {initialFollow ? t('unfollow') : t('follow')}
+                </button>
+              </div>
+            )}
         </div>
 
         {data.isAdmin && (
@@ -453,7 +455,7 @@ function Pageheader(props: {
         title={t('reportModal.title')}
         successCallback={() => {
           ToastNot(t('reportModal.successMessage'));
-          
+
         }}
       />
     </>

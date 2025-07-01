@@ -199,24 +199,29 @@ function Grpheader(props: { groupId: string }) {
                   <FaTrash /> <span>{t('actions.deleteGroup')}</span>
                 </div>
               )}
-              <div
-                onClick={() => {
-                  setIsReportModalOpen(true);
-                  setShowOptions(false);
-                }}
-                className={styles.optionItem}
-              >
-                <MdOutlineReportProblem /> <span>{t('actions.reportGroup')}</span>
-              </div>
-              <div
-                onClick={() => {
-                  setIsBlockModalOpen(true);
-                  setShowOptions(false);
-                }}
-                className={styles.optionItem}
-              >
-                <BsShieldSlash /> <span>{t('actions.blockGroup')}</span>
-              </div>
+              {!data.isAdmin &&
+                (
+                  <>
+                    <div
+                      onClick={() => {
+                        setIsReportModalOpen(true);
+                        setShowOptions(false);
+                      }}
+                      className={styles.optionItem}
+                    >
+                      <MdOutlineReportProblem /> <span>{t('actions.reportGroup')}</span>
+                    </div>
+                    <div
+                      onClick={() => {
+                        setIsBlockModalOpen(true);
+                        setShowOptions(false);
+                      }}
+                      className={styles.optionItem}
+                    >
+                      <BsShieldSlash /> <span>{t('actions.blockGroup')}</span>
+                    </div>
+                  </>
+                )}
             </div>
           )}
         </div>
@@ -224,7 +229,7 @@ function Grpheader(props: { groupId: string }) {
       <div className={styles.header}>
         <div className={styles.data}>
           <h5>
-          {t('labels.name')} <span>{data.name}</span>
+            {t('labels.name')} <span>{data.name}</span>
           </h5>
           <h3>{data.description}</h3>
           <div className={styles.members}>
