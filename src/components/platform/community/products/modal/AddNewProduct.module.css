@@ -616,21 +616,23 @@
 /* Responsive styles */
 @media screen and (max-width: 768px) {
   .modal {
-    margin-top: 50px auto;
+    /* margin-top: 50px auto; */
     align-items: flex-start;
     padding: 0;
   }
 
   .formContainer {
     width: 100%;
-    height: 100%;
+    height: 85vh;
+    max-height: 85vh;
     max-width: none;
     border-radius: 0;
     margin: 0;
+
   }
 
   .form {
-    max-height: calc(100vh - 180px);
+    max-height: calc(85vh - 130px);
   }
 
   .formGroup {
