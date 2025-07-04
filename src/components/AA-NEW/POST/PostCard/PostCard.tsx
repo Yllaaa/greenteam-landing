@@ -49,7 +49,9 @@ function truncateText(
 export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
   const router = useRouter()
   const locale = useLocale()
-      const tCommon = useTranslations("common")
+  const tCommon = useTranslations("web.post.common")
+  // const tError = useTranslations("web.error")
+  const t = useTranslations("web.post.card")
   const hasMedia = post.media.length > 0
   const [isExpanded, setIsExpanded] = useState(false)
 
@@ -72,36 +74,36 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
   const currentUserId = useAppSelector((state) => state.login.user?.user)?.id
   const isAuthor = post.isAuthor || post.author.id === currentUserId
 
-   const [showReportModal, setShowReportModal] = useState(false)
-      const [reportContent] = useReportContentMutation()
-  
-      const {
-          showDeleteModal,
-          openDeleteModal,
-          closeDeleteModal,
-          handleDelete,
-          itemToDelete
-      } = useDelete({
-          contentType: 'forum',
-          onSuccess: () => {
-              // Optional: Navigate away or update local state
-          }
-      })
-  
-      const handleReport = async (reason: string) => {
-          try {
-              await reportContent({
-                  contentType: 'post',
-                  contentId: post.post.id,
-                  reason,
-                  details: reason
-              }).unwrap()
-              ToastNot(tCommon("reportModal.success"))
-          } catch (error) {
-              ToastNot(tCommon("reportModal.error"))
-              throw error
-          }
-      }
+  const [showReportModal, setShowReportModal] = useState(false)
+  const [reportContent] = useReportContentMutation()
+
+  const {
+    showDeleteModal,
+    openDeleteModal,
+    closeDeleteModal,
+    handleDelete,
+    itemToDelete
+  } = useDelete({
+    contentType: 'forum',
+    onSuccess: () => {
+      // Optional: Navigate away or update local state
+    }
+  })
+
+  const handleReport = async (reason: string) => {
+    try {
+      await reportContent({
+        contentType: 'post',
+        contentId: post.post.id,
+        reason,
+        details: reason
+      }).unwrap()
+      ToastNot(tCommon("reportModal.success"))
+    } catch (error) {
+      ToastNot(tCommon("reportModal.error"))
+      throw error
+    }
+  }
   // Different text limits based on media presence
   const MAX_LENGTH_WITH_MEDIA = 50
   const MAX_LENGTH_WITHOUT_MEDIA = 300
@@ -126,6 +128,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
         target.closest(`.${styles.authorInfo}`)
 
       if (!isInteractiveElement) {
+        console.log("Navigating to post details")
         router.push(`/${locale}/feeds/posts/${post.post.id}`)
       }
     },
@@ -136,7 +139,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
     e.stopPropagation()
     const username = post.author.username || post.author.name
     if (username) {
-      router.push(`/${locale}/profile/${username}`)
+      if (post.author.type !== "page") {
+        router.push(`/${locale}/profile/${username}`)
+      } else {
+        router.push(`/${locale}/pages/${username}`)
+      }
     }
   }
   const handleCommentClick = () => {
@@ -169,7 +176,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
 
           <div onClick={handleAuthorClick} className={styles.authorInfo}>
             <h3 className={styles.authorName}>
-              {post.author.name || "Unknown User"}
+              {post.author.name && post.author.name.length > 20 ? `${post.author.name.substring(0, 20)}...` : post.author.name || "Unknown User"}
               {post.author.type && (
                 <span className={styles.authorType}>
                   {post.author.type.replace("_", " ")}
@@ -194,11 +201,11 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
           </div>
         </header>
 
-        <div className={styles.content}>
+        <div className={`${styles.content} ${!hasMedia && styles.noMedia}`}>
           <span className={styles.contentText}>{linkifyText(displayText)}</span>
           {isTruncated && (
             <button className={styles.readMoreBtn} onClick={handleReadMoreClick}>
-              {isExpanded ? "...Show less" : "Read more..."}
+              {isExpanded ? t("less") : t("more")}
             </button>
           )}
         </div>

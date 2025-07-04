@@ -12,13 +12,14 @@ import { StaticImageData } from 'next/image'
 import clsx from 'clsx'
 
 // Import images
-import diamond from '@/../public/ZPLATFORM/categories/GroupD.png'
+import diamond from '@/../public/ZPLATFORM/categories/diamond.png'
 import community from '@/../public/ZPLATFORM/categories/community.svg'
 import art from '@/../public/ZPLATFORM/categories/art.svg'
 import eco from '@/../public/ZPLATFORM/categories/eco.svg'
 import food from '@/../public/ZPLATFORM/categories/food.svg'
 import physical from '@/../public/ZPLATFORM/categories/know.svg'
 import know from '@/../public/ZPLATFORM/categories/physical.svg'
+
 
 // API service
 import { useGetTopicScoresQuery, useGetSubTopicScoresQuery } from '@/services/api'

@@ -34,6 +34,237 @@
 			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
 			"learnMore": "Aprender más"
 		},
+		"privacy": {
+			"title": "Política de Privacidad y Protección de Datos",
+			"lastUpdate": "Última actualización",
+			"intro": "En GreenTeam.app, valoramos tu privacidad y nos comprometemos a proteger tus datos personales. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos tu información cuando utilizas nuestra plataforma web o app móvil, de acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).",
+			"navigation": {
+				"title": "Política de Privacidad",
+				"cookiesTitle": "Política de Cookies"
+			},
+			"sections": {
+				"responsible": {
+					"title": "Responsable del tratamiento",
+					"owner": "Titular",
+					"email": "Correo electrónico de contacto",
+					"dpo": "Delegado de Protección de Datos (DPO)",
+					"dpoValue": "No aplica"
+				},
+				"purposes": {
+					"title": "Finalidades del tratamiento",
+					"content": {
+						"intro": "Tratamos tus datos con las siguientes finalidades:",
+						"items": {
+							"1": "Gestionar tu registro y cuenta de usuario.",
+							"2": "Permitir la publicación de contenido (textos, imágenes, documentos).",
+							"3": "Facilitar la creación y administración de grupos temáticos y páginas de negocio.",
+							"4": "Mostrarte contenido personalizado según tu ubicación registrada, no geolocalizada.",
+							"5": "Facilitar la interacción con otros usuarios a través de comentarios y sistema de mensajería interna.",
+							"6": "Gestionar eventos y productos publicados por negocios dentro de la plataforma.",
+							"7": "Prevenir fraudes y garantizar la seguridad de la comunidad.",
+							"8": "Enviarte notificaciones relevantes sobre tu actividad.",
+							"9": "Realizar análisis estadísticos y de uso de la plataforma."
+						}
+					}
+				},
+				"legitimation": {
+					"title": "Legitimación",
+					"content": {
+						"intro": "Las bases legales que justifican el tratamiento son:",
+						"items": {
+							"1": "Consentimiento explícito, otorgado al registrarte y aceptar esta política.",
+							"2": "Ejecución del contrato, para el funcionamiento correcto de la plataforma.",
+							"3": "Interés legítimo para mejorar nuestros servicios y proteger la integridad de la comunidad.",
+							"4": "Cumplimiento de obligaciones legales."
+						}
+					}
+				},
+				"dataCategories": {
+					"title": "Categorías de datos tratados",
+					"items": {
+						"1": {
+							"label": "Datos identificativos",
+							"value": "nombre, correo electrónico, foto de perfil"
+						},
+						"2": {
+							"label": "Datos de perfil",
+							"value": "intereses, biografía, ubicación registrada"
+						},
+						"3": {
+							"label": "Contenido compartido",
+							"value": "publicaciones, documentos, comentarios, imágenes"
+						},
+						"4": {
+							"label": "Mensajes privados",
+							"value": "contenido, fechas y estado (solo accesible por las partes implicadas y nunca indexado)"
+						},
+						"5": {
+							"label": "Datos técnicos",
+							"value": "dirección IP, navegador, sistema operativo, dispositivo"
+						},
+						"6": {
+							"label": "Cookies",
+							"value": "ver Política de Cookies"
+						}
+					}
+				},
+				"dataRetention": {
+					"title": "Conservación de los datos",
+					"content": {
+						"intro": "Conservamos tus datos mientras mantengas tu cuenta activa. Una vez cancelada:",
+						"items": {
+							"1": "Se eliminarán o anonimizarán, salvo que exista una obligación legal de conservación.",
+							"2": "Los mensajes privados se eliminarán junto con tu cuenta, salvo que alguna de las partes implicadas los conserve dentro de su cuenta."
+						}
+					}
+				},
+				"dataTransfer": {
+					"title": "Comunicación y transferencia de datos",
+					"content": "Tus datos no serán cedidos a terceros, salvo:",
+					"items": {
+						"1": "Cuando tú lo consientas expresamente (por ejemplo, al participar en un grupo o página).",
+						"2": "A proveedores de servicios tecnológicos necesarios para el funcionamiento de GreenTeam.app (alojamiento, correo, análisis), bajo contrato de tratamiento de datos.",
+						"3": "A autoridades judiciales o administrativas si lo exige la ley."
+					},
+					"international": {
+						"title": "Transferencias internacionales",
+						"content": "Si alguno de nuestros proveedores se encuentra fuera del Espacio Económico Europeo (EEE), garantizamos su adecuación mediante cláusulas contractuales tipo aprobadas por la Comisión Europea o marcos jurídicos equivalentes."
+					}
+				},
+				"security": {
+					"title": "Seguridad de la información",
+					"content": "Implementamos medidas de seguridad técnicas y organizativas para garantizar la confidencialidad, integridad y disponibilidad de tus datos, incluyendo cifrado, control de accesos y almacenamiento seguro."
+				},
+				"rights": {
+					"title": "Derechos del interesado",
+					"content": "Puedes ejercer los siguientes derechos:",
+					"items": {
+						"1": {
+							"label": "Acceso",
+							"value": "Saber qué datos tenemos sobre ti"
+						},
+						"2": {
+							"label": "Rectificación",
+							"value": "Corregir información inexacta"
+						},
+						"3": {
+							"label": "Supresión",
+							"value": "Solicitar la eliminación de tus datos (\"derecho al olvido\")"
+						},
+						"4": {
+							"label": "Limitación del tratamiento",
+							"value": "Restringir temporalmente el uso de tus datos"
+						},
+						"5": {
+							"label": "Portabilidad",
+							"value": "Solicitar que tus datos se transfieran a otro proveedor"
+						},
+						"6": {
+							"label": "Oposición",
+							"value": "Rechazar ciertos tratamientos, como la personalización publicitaria"
+						},
+						"7": {
+							"label": "Retirada del consentimiento",
+							"value": "Cuando la base del tratamiento sea el consentimiento"
+						}
+					},
+					"exerciseText": "Puedes ejercer estos derechos enviando un correo electrónico a:",
+					"complaint": "También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si consideras que hemos infringido tus derechos:"
+				},
+				"age": {
+					"title": "Edad mínima",
+					"content": "El uso de GreenTeam.app está limitado a personas mayores de 16 años. Si eres menor de esa edad, necesitas el consentimiento de tus padres o tutores legales."
+				},
+				"changes": {
+					"title": "Cambios en la política",
+					"content": "Podemos actualizar esta Política de Privacidad cuando sea necesario. Te notificaremos cualquier cambio relevante a través de la plataforma o por correo electrónico."
+				},
+				"contact": {
+					"title": "Contacto",
+					"content": "Para cualquier duda, ejercicio de derechos o consultas sobre esta política, puedes escribirnos a:"
+				}
+			},
+			"cookies": {
+				"title": "Política de Cookies",
+				"intro": "En GreenTeam.app utilizamos cookies y tecnologías similares para mejorar tu experiencia de usuario, garantizar el funcionamiento de la plataforma y personalizar ciertas funcionalidades. Esta Política de Cookies explica qué son las cookies, qué tipos utilizamos y cómo puedes gestionarlas.",
+				"whatAre": {
+					"title": "¿Qué son las cookies?",
+					"content": {
+						"intro": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, móvil, tablet) cuando visitas un sitio web o utilizas una aplicación. Permiten reconocer tu dispositivo, recordar tus preferencias o recoger información sobre tu navegación.",
+						"items": {
+							"1": "También utilizamos tecnologías similares como almacenamiento local, identificadores de sesión o balizas web."
+						}
+					}
+				},
+				"types": {
+					"title": "¿Qué tipos de cookies usamos?",
+					"intro": "En GreenTeam.app usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio. No compartimos tu información con terceros para fines publicitarios.",
+					"technical": {
+						"title": "a) Cookies técnicas (estrictamente necesarias)",
+						"description": "Permiten que el sitio web funcione correctamente y que puedas utilizar funciones básicas como el inicio de sesión, el acceso a áreas seguras o la configuración de idioma.",
+						"example": "Ejemplo: cookies de sesión, autenticación, seguridad."
+					},
+					"analytics": {
+						"title": "b) Cookies de análisis (limitadas y sin fines publicitarios)",
+						"description": "Nos permiten recopilar información anónima sobre cómo los usuarios interactúan con la plataforma (páginas visitadas, tiempo de permanencia, errores detectados, etc.) con el fin de mejorar la experiencia y rendimiento.",
+						"provider": "Proveedor: podemos utilizar servicios como Google Analytics, configurados para anonimizar las IPs."
+					}
+				},
+				"sharing": {
+					"title": "¿Con quién compartimos la información?",
+					"noSharing": "No compartimos tu información personal con ninguna empresa externa con fines comerciales o publicitarios.",
+					"technical": "Solo se comparten datos técnicos básicos (como dirección IP o navegador) con proveedores de servicios estrictamente necesarios para el funcionamiento de la plataforma, bajo contrato de confidencialidad y cumplimiento del RGPD."
+				},
+				"configuration": {
+					"title": "¿Cómo puedes configurar o desactivar las cookies?",
+					"firstAccess": "Al acceder por primera vez a GreenTeam.app, te mostramos un banner con información sobre el uso de cookies y la posibilidad de aceptarlas, rechazarlas o configurarlas.",
+					"modify": "Puedes modificar tus preferencias en cualquier momento desde el menú de configuración de cookies disponible en la plataforma.",
+					"browserSettings": "Además, puedes desactivar o eliminar las cookies desde la configuración de tu navegador:",
+					"configureLink": "Configurar cookies",
+					"warning": "Ten en cuenta que la desactivación de cookies puede afectar el funcionamiento de algunas funciones esenciales de la plataforma."
+				},
+				"changes": {
+					"title": "Cambios en la política de cookies",
+					"content": "GreenTeam.app puede actualizar esta Política de Cookies en cualquier momento, en especial para adaptarla a cambios normativos o técnicos. Te notificaremos cualquier cambio significativo a través de la plataforma o por correo electrónico."
+				},
+				"contact": {
+					"title": "Contacto",
+					"content": "Si tienes dudas sobre esta política o sobre el uso de cookies, puedes escribirnos a:"
+				}
+			}
+		},
+		"imagine": {
+			"imagine": "Imagina un mundo en armonia – El Camino a la sostenibilidad",
+			"objective": "Objetivos:",
+			"unificar": "Unificar",
+			"unificarText": "la comunidad ecológica porque la comunicación genera evolución y progreso",
+			"compatir": "Compatir buenos hábitos",
+			"compatirText": "porque aprendemos los unos de los otros",
+			"fomentar": "Fomentar las relaciones humanas",
+			"fomentarText": "de proximidad para ser una comunidad real.",
+			"paragraph": "Greenteam comienza con recursos limitados, por esta razón priorizamos las herramientas básicas para iniciar este largo camino de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras a desarrollar para ayudarnos a compartir momentos, alimentos, herramientas y hogar, en definitiva, la vida. Como empresa comprometida con la sociedad escuchamos tus propuestas y alianzas",
+
+			"ciudades": "Ciudades",
+			"ciudadesT": "Gran aglomeración de población en zonas urbanas y periurbanas entorno a la economía circular y la industria sostenible. Espacios para compartir sabiduría e investigación, permitiendo la reutilización de los productos y la síntesis de nuevas herramientas y útiles duraderos, reparables y reutilizables o biodegradables.",
+			"pueblos": "Pueblos",
+			"pueblosT": "Aglomeraciones de población en zonas rurales con un ambiente familiar y cooperativo. Espacios aptos para el aprovechamiento responsable de los recursos naturales y la construcción de ecosistemas en abundancia. Además, experimentar en la producción de artesanías y oficios.",
+			"comunidades": "Comunidades",
+			"comunidadesT": "Grupo de personas reducido que viven en un ambiente natural, simple, resiliente, biodiverso y autosuficientes. Espacio conservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquier persona podría transitar de un espacio a otro llevando consigo saberes, experiencias y colaboración, gozando de lo que te ofrecen cada uno de ellos.",
+			"category": {
+				"salud": "Alimentación y salud",
+				"saludT": "Fomentamos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en la venta de proximidad. También se incluye la producción responsable de carne, leche y huevos con un consumo moderado. Impulsamos el procesamiento artesanal de alimentos: panadería, derivados lácteos, embutidos, conservas y comidas preparadas.",
+				"mental": "Ejercicio físico y mental",
+				"mentalT": "Promovemos el equilibrio personal a través del cuidado del cuerpo y la mente con prácticas físicas y mentales.",
+				"arte": "Arte y artesanías",
+				"arteT": "Apoyamos el arte y entretenimiento local como motor de bienestar comunitario. Además, con las artesanías les dan un valor añadido y calidad a sus productos.",
+				"bio": "Ecotecnias y bioconstrucción",
+				"bioT": "Difundimos el uso de energías renovables, captación de agua, materiales biodegradables, y herramientas duraderas, reparables y reciclables. Valoramos la sastrería, albañilería, soldadura, mecánica, electrónica y más, como oficios clave en una comunidad resiliente.",
+				"valores": "Conocimiento y valores",
+				"valoresT": "Impulsamos una educación inclusiva y práctica que favorezca el desarrollo personal, el trabajo cooperativo y el aprendizaje multidisciplinar. Un pueblo sabio es un pueblo consciente, responsable y libre.",
+				"naturaleza": "Comunidad y naturaleza",
+				"naturalezaT": "Promovemos la vida en comunidad, el conocimiento de los servicios ecosistémicos, la valoración de la biodiversidad y el uso consciente de los espacios comunes que nos dan vida. Unidos sembramos nidos."
+			}
+		},
 		"whatWeOffer": {
 			"whatWeOffer": "QUÉ OFRECEMOS",
 			"howWeMake": "Cómo Marcamos la ",

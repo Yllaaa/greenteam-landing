@@ -34,6 +34,207 @@
 			"greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
 			"learnMore": "Learn more"
 		},
+		"privacy": {
+			"title": "Privacy Policy and Data Protection",
+			"lastUpdate": "Last updated",
+			"intro": "At GreenTeam.app, we value your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, store, and protect your information when you use our web platform or mobile app, in accordance with Regulation (EU) 2016/679 (GDPR) and Organic Law 3/2018 (LOPDGDD).",
+			"navigation": {
+				"title": "Privacy Policy",
+				"cookiesTitle": "Cookie Policy"
+			},
+			"sections": {
+				"responsible": {
+					"title": "Data Controller",
+					"owner": "Owner",
+					"email": "Contact email",
+					"dpo": "Data Protection Officer (DPO)",
+					"dpoValue": "Not applicable"
+				},
+				"purposes": {
+					"title": "Processing Purposes",
+					"content": {
+						"intro": "We process your data for the following purposes:",
+						"items": {
+							"1": "Manage your registration and user account.",
+							"2": "Enable content publishing (texts, images, documents).",
+							"3": "Facilitate the creation and management of thematic groups and business pages.",
+							"4": "Show you personalized content based on your registered location, not geolocated.",
+							"5": "Facilitate interaction with other users through comments and internal messaging system.",
+							"6": "Manage events and products published by businesses within the platform.",
+							"7": "Prevent fraud and ensure community security.",
+							"8": "Send you relevant notifications about your activity.",
+							"9": "Perform statistical and usage analysis of the platform."
+						}
+					}
+				},
+				"legitimation": {
+					"title": "Legal Basis",
+					"content": {
+						"intro": "The legal bases that justify the processing are:",
+						"items": {
+							"1": "Explicit consent, granted when registering and accepting this policy.",
+							"2": "Contract execution, for the proper functioning of the platform.",
+							"3": "Legitimate interest to improve our services and protect community integrity.",
+							"4": "Compliance with legal obligations."
+						}
+					}
+				},
+				"dataCategories": {
+					"title": "Categories of Processed Data",
+					"items": {
+						"1": {
+							"label": "Identifying data",
+							"value": "name, email, profile picture"
+						},
+						"2": {
+							"label": "Profile data",
+							"value": "interests, biography, registered location"
+						},
+						"3": {
+							"label": "Shared content",
+							"value": "posts, documents, comments, images"
+						},
+						"4": {
+							"label": "Private messages",
+							"value": "content, dates and status (only accessible by the parties involved and never indexed)"
+						},
+						"5": {
+							"label": "Technical data",
+							"value": "IP address, browser, operating system, device"
+						},
+						"6": {
+							"label": "Cookies",
+							"value": "see Cookie Policy"
+						}
+					}
+				},
+				"dataRetention": {
+					"title": "Data Retention",
+					"content": {
+						"intro": "We retain your data while you maintain your account active. Once cancelled:",
+						"items": {
+							"1": "Data will be deleted or anonymized, unless there is a legal obligation to retain it.",
+							"2": "Private messages will be deleted along with your account, unless any of the parties involved retains them within their account."
+						}
+					}
+				},
+				"dataTransfer": {
+					"title": "Data Communication and Transfer",
+					"content": "Your data will not be transferred to third parties, except:",
+					"items": {
+						"1": "When you expressly consent to it (for example, when participating in a group or page).",
+						"2": "To technology service providers necessary for GreenTeam.app operation (hosting, email, analytics), under data processing agreements.",
+						"3": "To judicial or administrative authorities if required by law."
+					},
+					"international": {
+						"title": "International transfers",
+						"content": "If any of our providers is located outside the European Economic Area (EEA), we guarantee their adequacy through standard contractual clauses approved by the European Commission or equivalent legal frameworks."
+					}
+				},
+				"security": {
+					"title": "Information Security",
+					"content": "We implement technical and organizational security measures to ensure the confidentiality, integrity, and availability of your data, including encryption, access control, and secure storage."
+				},
+				"rights": {
+					"title": "Data Subject Rights",
+					"content": "You can exercise the following rights:",
+					"items": {
+						"1": {
+							"label": "Access",
+							"value": "Know what data we have about you"
+						},
+						"2": {
+							"label": "Rectification",
+							"value": "Correct inaccurate information"
+						},
+						"3": {
+							"label": "Erasure",
+							"value": "Request deletion of your data (\"right to be forgotten\")"
+						},
+						"4": {
+							"label": "Restriction of processing",
+							"value": "Temporarily restrict the use of your data"
+						},
+						"5": {
+							"label": "Portability",
+							"value": "Request that your data be transferred to another provider"
+						},
+						"6": {
+							"label": "Opposition",
+							"value": "Reject certain processing, such as advertising personalization"
+						},
+						"7": {
+							"label": "Withdrawal of consent",
+							"value": "When the basis of processing is consent"
+						}
+					},
+					"exerciseText": "You can exercise these rights by sending an email to:",
+					"complaint": "You can also file a complaint with the Spanish Data Protection Agency (AEPD) if you believe we have violated your rights:"
+				},
+				"age": {
+					"title": "Minimum Age",
+					"content": "The use of GreenTeam.app is limited to people over 16 years of age. If you are under that age, you need the consent of your parents or legal guardians."
+				},
+				"changes": {
+					"title": "Policy Changes",
+					"content": "We may update this Privacy Policy when necessary. We will notify you of any relevant changes through the platform or by email."
+				},
+				"contact": {
+					"title": "Contact",
+					"content": "For any questions, exercise of rights, or inquiries about this policy, you can write to us at:"
+				}
+			},
+			"cookies": {
+				"title": "Cookie Policy",
+				"intro": "At GreenTeam.app we use cookies and similar technologies to improve your user experience, ensure platform functionality, and customize certain features. This Cookie Policy explains what cookies are, what types we use, and how you can manage them.",
+				"whatAre": {
+					"title": "What are cookies?",
+					"content": {
+						"intro": "Cookies are small text files that are stored on your device (computer, mobile, tablet) when you visit a website or use an application. They allow your device to be recognized, remember your preferences, or collect information about your browsing.",
+						"items": {
+							"1": "We also use similar technologies such as local storage, session identifiers, or web beacons."
+						}
+					}
+				},
+				"types": {
+					"title": "What types of cookies do we use?",
+					"intro": "At GreenTeam.app we only use essential and minimal analytical cookies necessary for technical operation and service improvement. We do not share your information with third parties for advertising purposes.",
+					"technical": {
+						"title": "a) Technical cookies (strictly necessary)",
+						"description": "They allow the website to function properly and enable you to use basic functions such as logging in, accessing secure areas, or language settings.",
+						"example": "Example: session cookies, authentication, security."
+					},
+					"analytics": {
+						"title": "b) Analytics cookies (limited and not for advertising purposes)",
+						"description": "They allow us to collect anonymous information about how users interact with the platform (pages visited, time spent, errors detected, etc.) in order to improve the experience and performance.",
+						"provider": "Provider: we may use services such as Google Analytics, configured to anonymize IPs."
+					}
+				},
+				"sharing": {
+					"title": "Who do we share information with?",
+					"noSharing": "We do not share your personal information with any external company for commercial or advertising purposes.",
+					"technical": "Only basic technical data (such as IP address or browser) is shared with service providers strictly necessary for platform operation, under confidentiality agreements and GDPR compliance."
+				},
+				"configuration": {
+					"title": "How can you configure or disable cookies?",
+					"firstAccess": "When you first access GreenTeam.app, we show you a banner with information about cookie use and the possibility to accept, reject or configure them.",
+					"modify": "You can modify your preferences at any time from the cookie settings menu available on the platform.",
+					"browserSettings": "Additionally, you can disable or delete cookies from your browser settings:",
+					"configureLink": "Configure cookies",
+					"warning": "Please note that disabling cookies may affect the functioning of some essential platform features."
+				},
+				"changes": {
+					"title": "Cookie policy changes",
+					"content": "GreenTeam.app may update this Cookie Policy at any time, especially to adapt it to regulatory or technical changes. We will notify you of any significant changes through the platform or by email."
+				},
+				"contact": {
+					"title": "Contact",
+					"content": "If you have questions about this policy or about the use of cookies, you can write to us at:"
+				}
+			}
+		},
+		"imagine": {},
+
 		"whatWeOffer": {
 			"whatWeOffer": "WHAT WE OFFER",
 			"howWeMake": "How We Make a ",
@@ -222,42 +423,42 @@
 			}
 		},
 		"pageContact": {
-    "button": {
-      "addContact": "Add Contact",
-      "manageContact": "Manage Contact"
-    },
-    "modal": {
-      "addTitle": "Add Contact Information",
-      "editTitle": "Edit Contact Information",
-      "description": "Provide contact details for your page visitors",
-      "confirmDelete": "Are you sure you want to delete this contact?",
-      "form": {
-        "name": "Full Name",
-        "title": "Job Title",
-        "email": "Email Address",
-        "phoneNum": "Phone Number",
-        "save": "Save Contact",
-        "update": "Update Contact",
-        "cancel": "Cancel",
-        "delete": "Delete",
-        "edit": "Edit",
-        "saving": "Saving...",
-        "updating": "Updating...",
-        "deleting": "Deleting..."
-      },
-      "errors": {
-        "required": "{field} is required",
-        "invalidEmail": "Please enter a valid email address",
-        "saveFailed": "Failed to save contact",
-        "deleteFailed": "Failed to delete contact"
-      },
-      "success": {
-        "added": "Contact added successfully",
-        "updated": "Contact updated successfully",
-        "deleted": "Contact deleted successfully"
-      }
-    }
-  },
+			"button": {
+				"addContact": "Add Contact",
+				"manageContact": "Manage Contact"
+			},
+			"modal": {
+				"addTitle": "Add Contact Information",
+				"editTitle": "Edit Contact Information",
+				"description": "Provide contact details for your page visitors",
+				"confirmDelete": "Are you sure you want to delete this contact?",
+				"form": {
+					"name": "Full Name",
+					"title": "Job Title",
+					"email": "Email Address",
+					"phoneNum": "Phone Number",
+					"save": "Save Contact",
+					"update": "Update Contact",
+					"cancel": "Cancel",
+					"delete": "Delete",
+					"edit": "Edit",
+					"saving": "Saving...",
+					"updating": "Updating...",
+					"deleting": "Deleting..."
+				},
+				"errors": {
+					"required": "{field} is required",
+					"invalidEmail": "Please enter a valid email address",
+					"saveFailed": "Failed to save contact",
+					"deleteFailed": "Failed to delete contact"
+				},
+				"success": {
+					"added": "Contact added successfully",
+					"updated": "Contact updated successfully",
+					"deleted": "Contact deleted successfully"
+				}
+			}
+		},
 		"addGroup": {
 			"title": "Host Your Group",
 			"description": "Create a community space for people with shared interests. Build connections and organize activities together",
@@ -331,6 +532,12 @@
 			}
 		},
 		"post": {
+			"common": {
+				"reportModal": {
+					"success": "Reported",
+					"error": "Failed to report"
+				}
+			},
 			"categories": {
 				"all": "All",
 				"Art": "Art",
@@ -381,7 +588,6 @@
 				"title": "Add New Post",
 				"placeholder": "Add your experiences and tips to make a better future.",
 				"content": "Content",
-
 				"selectSubtopics": "Select Subtopics",
 				"selectAtLeastOne": "Please select at least one category",
 				"chooseTopic": "Choose a topic",
@@ -401,6 +607,10 @@
 				"documentSizeError": "Document size must be less than {size}",
 				"topic": "Topic",
 				"selectTopic": "Select a topic"
+			},
+			"card": {
+				"more": "Read more...",
+				"less": "...Show less"
 			}
 		},
 		"comments": {

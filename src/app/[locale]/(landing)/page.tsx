@@ -19,7 +19,7 @@ function page() {
   const WhatWeOffer = lazy(() =>
     import("@/components/Landing_Page/home/whatWeOffer/WhatWeOffer")
   );
-  const News = lazy(() => import("@/components/Landing_Page/home/slider/News"));
+  // const News = lazy(() => import("@/components/Landing_Page/home/slider/News"));
   return (
     <>
       <section className={styles.container}>
@@ -94,7 +94,7 @@ function page() {
             <WhatWeOffer />
           </div>
         </Suspense>
-        <Suspense
+        {/* <Suspense
           fallback={
             <div className={styles.hero}>
               <LoadingTree />
@@ -104,7 +104,7 @@ function page() {
           <div style={{overflowX:"hidden"}} className={styles.news}>
             <News />
           </div>
-        </Suspense>
+        </Suspense> */}
         <div className={styles.aboutH}></div>
       </section>
     </>

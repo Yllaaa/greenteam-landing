@@ -12,7 +12,6 @@
   letter-spacing: -0.4000000059604645px;
   text-align: left;
   background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
-
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -38,10 +37,21 @@
   align-items: flex-start;
   gap: 30px;
 }
+.imgfirst .text ul{
+  list-style: disc;
+  padding-left: 20px;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 26px;
+  text-align: left;
+}
+.imgfirst .text ul li span{
+  font-weight: bolder;
+}
+
 .imgmid .text p,
 .imglast .text p,
 .imgfirst .text p {
-  font-family: DM Sans;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
@@ -49,7 +59,7 @@
 }
 .imgfirst .img {
   width: 512px;
-  height: 454px;
+  height: 850px;
 }
 .imgfirst .img img {
   width: 100%;
@@ -74,7 +84,23 @@
   width: 100%;
   height: 100%;
 }
-
+.categories{
+  width:100%;
+}
+.categories img{
+  width:100vw;
+  aspect-ratio: 1 /0.35;
+}
+.categories .text {
+  padding: 0px 100px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 20px;
+}
 @media screen and (max-width: 1024px) {
   .container {
     padding: 0px 10px;

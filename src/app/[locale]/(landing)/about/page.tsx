@@ -15,12 +15,12 @@ function page() {
         <div className={styles.aboutUs}>
           <AboutUs />
         </div>
-        <div className={styles.history}>
-          <History />
-        </div>
         <div className={styles.team}>
           <Team />
         </div>
+        <div className={styles.history}>
+          <History />
+        </div>  
       </section>
     </>
   );

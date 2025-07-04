@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState, useEffect, useCallback } from 'react'
 import styles from './ScrollArrows.module.scss'
 
 interface ScrollArrowsProps {
@@ -25,37 +25,53 @@ export const ScrollArrows: React.FC<ScrollArrowsProps> = ({
   const [canScrollRight, setCanScrollRight] = useState(false)
   const [isHovered, setIsHovered] = useState(false)
 
-  const checkScrollability = () => {
+  const checkScrollability = useCallback(() => {
     const container = scrollContainerRef.current
     if (!container) return
 
     const { scrollLeft, scrollWidth, clientWidth } = container
     setCanScrollLeft(scrollLeft > 0)
     setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1)
-  }
+  }, [])
 
   useEffect(() => {
-    checkScrollability()
     const container = scrollContainerRef.current
     if (!container) return
 
+    // Initial check
+    checkScrollability()
+
+    // Event listeners
     const handleScroll = () => checkScrollability()
     container.addEventListener('scroll', handleScroll)
-    
-    // Check on resize
-    const resizeObserver = new ResizeObserver(checkScrollability)
+
+    // ResizeObserver for container size changes
+    const resizeObserver = new ResizeObserver(() => {
+      checkScrollability()
+    })
     resizeObserver.observe(container)
+
+    // MutationObserver to detect content changes
+    const mutationObserver = new MutationObserver(() => {
+      checkScrollability()
+    })
+    mutationObserver.observe(container, {
+      childList: true,
+      subtree: true,
+      characterData: true,
+    })
 
     return () => {
       container.removeEventListener('scroll', handleScroll)
       resizeObserver.disconnect()
+      mutationObserver.disconnect()
     }
-  }, [children])
+  }, [checkScrollability])
 
   const scrollLeft = () => {
     const container = scrollContainerRef.current
     if (!container) return
-    
+
     container.scrollBy({
       left: -scrollAmount,
       behavior: 'smooth'
@@ -65,7 +81,7 @@ export const ScrollArrows: React.FC<ScrollArrowsProps> = ({
   const scrollRight = () => {
     const container = scrollContainerRef.current
     if (!container) return
-    
+
     container.scrollBy({
       left: scrollAmount,
       behavior: 'smooth'
@@ -80,7 +96,7 @@ export const ScrollArrows: React.FC<ScrollArrowsProps> = ({
   }
 
   return (
-    <div 
+    <div
       className={`${styles.wrapper} ${styles[arrowPosition]} ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
