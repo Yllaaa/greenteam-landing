@@ -1,0 +1,6 @@
+.container{
+    display: block;
+    height: fit-content;
+    max-height: fit-content;
+    overflow-y: hidden;
+}

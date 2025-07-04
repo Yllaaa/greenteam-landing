@@ -4,15 +4,15 @@
 	display: flex;
 	min-height: 100vh;
 	background-color: #050e07;
-	padding-top: 85px;
+	position: relative;
 }
 
 .navigation {
-	position: fixed;
-	top: 0px;
-	margin-top: 90px;
+	position: sticky;
+	top: 85px; // Align with your header
+	left: 0;
 	width: 280px;
-	height: 80vh;
+	height: calc(100vh - 85px); // Full height minus header
 	background-color: #063;
 	border-right: 1px solid #e5e7eb;
 	overflow-y: auto;
@@ -63,29 +63,31 @@
 		transition: all 0.2s ease;
 
 		&:hover {
-			background-color: #f3f4f6;
-			color: #111827;
+			background-color: rgba(151, 176, 15, 0.1); // Better hover for dark background
+			color: #97b00f;
 		}
 
 		&:focus {
 			outline: none;
-			box-shadow: 0 0 0 2px #063;
+			box-shadow: 0 0 0 2px #97b00f;
 		}
 	}
 }
 
 .content {
 	flex: 1;
-	// max-width: 800px;
-	margin: 0 auto 0 30vw;
+	// margin-left: 280px; // Push content to the right of fixed nav
 	padding: 3rem 2rem;
+	padding-top: calc(3rem + 85px); // Add space for header
 
 	@media (max-width: 768px) {
+		margin-left: 0; // Reset margin on mobile
 		padding: 2rem 1rem;
-		margin: 0 auto;
+		padding-top: calc(2rem + 85px);
 	}
 }
 
+// Rest of your styles remain the same...
 .header {
 	margin-bottom: 3rem;
 	text-align: center;
@@ -129,7 +131,7 @@
 
 .section {
 	padding: 2rem 0;
-	scroll-margin-top: 2rem;
+	scroll-margin-top: 100px; // Increased to account for fixed header
 
 	&:first-child {
 		padding-top: 0;
