@@ -235,7 +235,7 @@ function LoginForm() {
                   </div>
                   <p>
                     {t("IAgree")}{" "}
-                    <Link href={"service"}>{t("termsOfService")}</Link>
+                    <Link href={`/${locale}/privacy`}>{t("termsOfService")}</Link>
                   </p>
                 </div>
                 <div className={styles.forgetPassword}>
