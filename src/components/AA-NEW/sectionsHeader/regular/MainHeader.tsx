@@ -13,6 +13,7 @@ import physical from "@/../public/ZPLATFORM/categories/eco.svg";
 import eco from "@/../public/ZPLATFORM/categories/know.svg";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
 import Image from "next/image"
+import ForumModal from "../../MODALS/FORUM/ForumModal"
 
 interface MainHeaderProps {
   topicData: Topic
@@ -38,13 +39,14 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
   ];
 
   const [modalOpen, setModalOpen] = useState(false)
+  const [forumModalOpen, setForumModalOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
   const t = useTranslations("web.post")
 
   // Handle responsive behavior
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 600)
+      setIsMobile(window.innerWidth < 768)
     }
 
     checkMobile()
@@ -66,27 +68,41 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
           {/* Title and Add Button Row */}
           <div className={styles.titleRow}>
             <h2 className={`${styles.title} ${isMobile ? styles.titleMobile : ''}`}>
-             {isFor && <Image
-                src={ topicLogo[Number(topicData?.id) - 1]?.logo}
+              {isFor !== "forum" && <Image
+                src={topicLogo[Number(topicData?.id) - 1]?.logo}
                 alt="artIcon"
                 loading="lazy"
                 className={styles.titleIcon}
                 width={30}
                 height={30}
                 unoptimized
-              /> }
+              />}
               {t(`categories.${topicData.name}`)}
             </h2>
+            {/* Category Selector */}
+            <div style={isMobile ? { display: "none" } : {}} className={styles.categoryContainer}>
+              <CategorySelector
+                topicData={topicData}
+                selectedCategory={selectedCategory}
+                onCategoryChange={onCategoryChange}
+              />
+            </div>
             {isFor === "feed_post" &&
               <AddPostButton
                 title={t("addPost.addPost")}
                 onClick={() => setModalOpen(true)}
                 variant={isMobile ? "icon" : "button"}
               />}
+            {isFor === "forum" &&
+              <AddPostButton
+                title={t("addPost.addForum")}
+                onClick={() => setForumModalOpen(true)}
+                variant={isMobile ? "icon" : "button"}
+              />}
           </div>
 
           {/* Category Selector */}
-          <div className={styles.categoryContainer}>
+          <div style={isMobile ? { display: "block" } : { display: "none" }} className={styles.categoryContainer}>
             <CategorySelector
               topicData={topicData}
               selectedCategory={selectedCategory}
@@ -101,6 +117,11 @@ export const MainHeader: React.FC<MainHeaderProps> = ({
         onClose={() => setModalOpen(false)}
         defaultTopicId={topicData.id}
         onSuccess={handlePostSuccess}
+      />
+
+      <ForumModal
+        isOpen={forumModalOpen}
+        onClose={() => setForumModalOpen(false)}
       />
     </>
   )

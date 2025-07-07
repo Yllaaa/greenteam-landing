@@ -10,8 +10,6 @@
 .headerContent {
 	padding: 24px;
 	margin: 0 auto;
-	max-width: 1536px; // xl breakpoint equivalent
-
 	@media (max-width: 600px) {
 		padding: 16px 0px;
 	}
@@ -49,6 +47,8 @@
 }
 
 .categoryContainer {
-	width: 100%;
-	overflow: hidden;
+	width: 50%;
+	overflow-x: auto;
+	scrollbar-width:none;
+	
 }

@@ -22,7 +22,7 @@ export const OptionsMenu: React.FC<OptionsMenuProps> = ({
 }) => {
     const [isOpen, setIsOpen] = useState(false)
     const menuRef = useRef<HTMLDivElement>(null)
-    const t = useTranslations("common.actions")
+    const t = useTranslations("web.common.actions")
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {

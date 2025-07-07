@@ -45,6 +45,7 @@
     "react-toastify": "^11.0.3",
     "react-virtualized-auto-sizer": "^1.0.25",
     "react-window": "^1.8.11",
+    "shepherd.js": "^14.5.0",
     "socket.io-client": "^4.8.1",
     "stripe.js": "^0.0.1",
     "styled-components": "^6.1.14",

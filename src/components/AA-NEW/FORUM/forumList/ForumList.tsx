@@ -1,7 +1,6 @@
 "use client"
 /* eslint-disable @typescript-eslint/no-explicit-any */
-// components/ForumList/ForumList.tsx
-import React, { useState, useEffect, useCallback, useMemo } from "react"
+import React, { useState, useEffect, useCallback, useMemo, memo } from "react"
 import styles from "./ForumList.module.scss"
 import { Forum } from "@/types"
 import { ForumCard } from "../forumCard/ForumCard"
@@ -11,7 +10,10 @@ import { useGetForumsQuery } from "@/services/api"
 import { ForumListProps } from "./ForumList.data"
 import { useTranslations } from "next-intl"
 
-export const ForumList: React.FC<ForumListProps> = ({
+// Memoize the ForumCard wrapper
+const MemoizedForumCard = memo(ForumCard)
+
+export const ForumList: React.FC<ForumListProps> = memo(({
     initialPage = 1,
     limit = 10,
     section = 'all',
@@ -42,39 +44,26 @@ export const ForumList: React.FC<ForumListProps> = ({
 
     // Update forums when data changes
     useEffect(() => {
-        if (data) {
+        if (data && !isLoading) {
             const newForums = Array.isArray(data) ? data : data.data || []
 
             setForumMap(prevMap => {
                 const newMap = page === 1 ? new Map() : new Map(prevMap)
-
-                // Add new forums to the map, which automatically handles duplicates
                 newForums.forEach(forum => {
                     newMap.set(forum.id, forum)
                 })
-
                 return newMap
             })
 
-            // Check if we should stop loading more
-            const totalPages = !Array.isArray(data) && data.totalPages ? data.totalPages : null
-            const currentTotal = !Array.isArray(data) && data.total ? data.total : null
-
-            if (totalPages) {
-                setHasMore(page < totalPages)
-            } else if (currentTotal) {
-                const loadedCount = forumMap.size + newForums.length
-                setHasMore(loadedCount < currentTotal && newForums.length >= limit)
-            } else {
-                setHasMore(newForums.length >= limit)
-            }
+            // Simplified hasMore logic
+            setHasMore(newForums.length >= limit)
         }
-    }, [data, page, limit, forumMap.size])
+    }, [data, isLoading, page, limit])
 
     // Convert map to array for rendering
     const allForums = useMemo(() => Array.from(forumMap.values()), [forumMap])
 
-    // Load more function that increments page
+    // Load more function
     const loadMore = useCallback(() => {
         if (hasMore && !isFetching) {
             setPage(prev => prev + 1)
@@ -88,6 +77,9 @@ export const ForumList: React.FC<ForumListProps> = ({
         threshold: 0.5,
         rootMargin: "50px",
     })
+
+    // Memoize empty callbacks to prevent re-renders
+    const noOp = useCallback(() => { }, [])
 
     if (error) {
         return (
@@ -128,13 +120,12 @@ export const ForumList: React.FC<ForumListProps> = ({
             className={`${styles.list} ${horizontal ? styles.horizontal : styles.vertical} ${className}`}>
             {allForums.map((forum, index) => {
                 const isLast = index === allForums.length - 1
-                // Use only the forum.id as key since Map ensures uniqueness
                 return (
                     <div
                         key={forum.id}
                         ref={isLast && hasMore && !isFetching ? ref : undefined}
                         className={styles.forumWrapper}>
-                        <ForumCard
+                        <MemoizedForumCard
                             post={forum}
                             section={section === 'all' ? forum.section : section}
                             index={index}
@@ -142,10 +133,11 @@ export const ForumList: React.FC<ForumListProps> = ({
                             setPage={setPage}
                             length={allForums.length}
                             commentPage={1}
-                            setCommentPage={() => { }}
-                            setPostId={() => { }}
-                            setCommentModal={() => { }}
-                            setPostComments={() => { }}
+                            setCommentPage={noOp}
+                            setPostId={noOp}
+                            setCommentModal={noOp}
+                            setPostComments={noOp}
+                            
                         />
                     </div>
                 )
@@ -193,4 +185,6 @@ export const ForumList: React.FC<ForumListProps> = ({
             )}
         </>
     )
-}
+})
+
+ForumList.displayName = 'ForumList'

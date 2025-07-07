@@ -122,6 +122,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
         target.closest("video") ||
         target.closest(".swiper") ||
         target.closest(`.${styles.footer}`) ||
+        target.closest(`.${styles.optionsWrapper}`) ||
         target.tagName === "VIDEO" ||
         target.tagName === "BUTTON" ||
         target.tagName === "A" ||
@@ -136,6 +137,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
   )
 
   const handleAuthorClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     e.stopPropagation()
     const username = post.author.username || post.author.name
     if (username) {
@@ -146,21 +148,31 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
       }
     }
   }
-  const handleCommentClick = () => {
+  const handleCommentClick = (e?: React.MouseEvent) => {
+    if (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
     console.log("opened")
   }
 
   const handleReadMoreClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     e.stopPropagation()
     setIsExpanded(!isExpanded)
   }
-
+  // handler for options menu clicks
+  const handleOptionsClick = (e: React.MouseEvent) => {
+    e.stopPropagation()
+  }
   return (
     <>
       <article
         className={`${styles.card} ${!hasMedia ? styles.noMedia : ""} ${className}`}
-        onClick={handleCardClick}>
-        <div className={styles.optionsWrapper}>
+        onClick={handleCardClick}
+        style={{ cursor: 'pointer' }} // Add visual feedback
+      >
+        <div className={styles.optionsWrapper} onClick={handleOptionsClick}>
           <OptionsMenu
             isAuthor={isAuthor}
             onDelete={() => openDeleteModal(post.post.id, post.post.content)}
@@ -174,7 +186,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
             size="medium"
           />
 
-          <div onClick={handleAuthorClick} className={styles.authorInfo}>
+          <div onClick={handleAuthorClick} className={styles.authorInfo} style={{ cursor: 'pointer' }}>
             <h3 className={styles.authorName}>
               {post.author.name && post.author.name.length > 20 ? `${post.author.name.substring(0, 20)}...` : post.author.name || "Unknown User"}
               {post.author.type && (
@@ -204,7 +216,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
         <div className={`${styles.content} ${!hasMedia && styles.noMedia}`}>
           <span className={styles.contentText}>{linkifyText(displayText)}</span>
           {isTruncated && (
-            <button className={styles.readMoreBtn} onClick={handleReadMoreClick}>
+            <button type="button" className={styles.readMoreBtn} onClick={handleReadMoreClick}>
               {isExpanded ? t("less") : t("more")}
             </button>
           )}
@@ -246,7 +258,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, className = "" }) => {
           </div>
         )}
 
-        <footer className={styles.footer}>
+        <footer onClick={e => e.stopPropagation()} className={styles.footer}>
           <PostActions
             postId={post.post.id}
             initialLikeCount={parseInt(post.likeCount)}

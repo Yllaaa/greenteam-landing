@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap');
 @import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+@import 'shepherd.js/dist/css/shepherd.css';
+
 :root {
   --white: #fefefe;
   --textSec: #b5b5b5;
@@ -123,4 +125,80 @@ textarea {
 
 .swiper-pagination-bullet-active {
     background: #fff !important;
+}
+
+
+/* Custom Shepherd styles */
+.shepherd-modal-overlay-container {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.shepherd-element {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+}
+
+.shepherd-header {
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.shepherd-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin: 0;
+  color: #111827;
+}
+
+.shepherd-text {
+  padding: 1rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #4b5563;
+}
+
+.shepherd-footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  border-top: 1px solid #e5e7eb;
+}
+
+.shepherd-button {
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+}
+
+.shepherd-button:not(.shepherd-button-secondary) {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.shepherd-button:not(.shepherd-button-secondary):hover {
+  background-color: #2563eb;
+}
+
+.shepherd-button-secondary {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.shepherd-button-secondary:hover {
+  background-color: #e5e7eb;
+}
+
+.shepherd-cancel-icon {
+  color: #6b7280;
+}
+
+.shepherd-cancel-icon:hover {
+  color: #374151;
 }

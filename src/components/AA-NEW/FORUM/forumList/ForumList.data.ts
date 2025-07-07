@@ -2,7 +2,7 @@
 export interface ForumListProps {
 	initialPage?: number;
 	limit?: number;
-	section?: 'doubt' | 'need' | 'dream' | 'all';
+	section?: 'doubt' | 'need' | 'dream' | 'all' ;
 	className?: string;
 	horizontal?: boolean;
 	showArrows?: 'auto' | 'always' | 'hover';

@@ -101,24 +101,22 @@
 .tabsWrapper {
 	width: 100%;
 	overflow-x: auto;
-	scrollbar-width: thin;
-	scrollbar-color: #063 #97b00f;
-
+	scrollbar-width: none;
+	// firefox
+	scrollbar-color: transparent transparent;
+	// chrome and safari
 	&::-webkit-scrollbar {
-		height: 6px;
+		height: 0px;
+		width: 0px;
+		background: transparent; /* make scrollbar transparent */
 	}
-
+	// chrome
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	// firefox and safari and edge
 	&::-webkit-scrollbar-track {
-		background: #97b00f;
-	}
-
-	&::-webkit-scrollbar-thumb {
-		background: #063;
-		border-radius: 3px;
-
-		&:hover {
-			background: #999;
-		}
+		display: none;
 	}
 }
 
@@ -132,9 +130,9 @@
 .tab {
 	color: rgba(254, 254, 254, 0.6);
 	font-family: Montserrat;
-	font-size: 24px;
+	font-size: 20px;
 	font-style: normal;
-	font-weight: 400;
+	font-weight: 700;
 	line-height: 33.6px; /* 33.6px */
 	letter-spacing: 0.24px;
 	background: none;
@@ -146,8 +144,12 @@
 	}
 
 	&.activeTab {
+		background: #97b00f14;
 		color: #97b00f;
-	}
+		padding:5px 10px;
+		border-radius:20px ;
+		
+}
 }
 
 // Responsive adjustments

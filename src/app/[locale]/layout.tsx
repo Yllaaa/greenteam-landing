@@ -1,7 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import CookieConsent from "@/components/AA-NEW/MODALS/COOKIES/CookieConsent";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-
+// import '../styles/globals.css'
+import 'shepherd.js/dist/css/shepherd.css'
+import { ShepherdProvider } from "@/components/AA-NEW/MODALS/A_GUIDE/ShepherdProvider";
 // import Navbar from "@/components/aaaNavbar/Navbar";
 
 export default async function RootLayout({
@@ -19,7 +22,13 @@ export default async function RootLayout({
   return (
     <section lang="en">
       <NextIntlClientProvider messages={messages}>
-        <div>{children}</div>
+        <ShepherdProvider>
+          <div>
+            {children}
+            <CookieConsent
+            />
+          </div>
+        </ShepherdProvider>
       </NextIntlClientProvider>
     </section>
   );

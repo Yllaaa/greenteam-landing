@@ -1,0 +1,827 @@
+/** @format */
+
+// Modal overlay and container
+.modalOverlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	z-index: 10000;
+	padding: 20px;
+	backdrop-filter: blur(5px);
+}
+
+.modalContainer {
+	position: relative;
+	background-color: #0a0a0a;
+	border-radius: 16px;
+	max-width: 900px;
+	width: 100%;
+	max-height: 90vh;
+	overflow: hidden;
+	box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.closeButton {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 40px;
+	height: 40px;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.1);
+	color: #fff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 10;
+	transition: all 0.3s ease;
+
+	&:hover {
+		background-color: rgba(255, 59, 48, 0.2);
+		color: #ff3b30;
+	}
+
+	svg {
+		font-size: 18px;
+	}
+}
+
+.modalContent {
+	padding: 30px;
+	overflow-y: auto;
+	max-height: 90vh;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+	}
+
+	&::-webkit-scrollbar-track {
+		background: rgba(255, 255, 255, 0.05);
+		border-radius: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background: rgba(255, 255, 255, 0.2);
+		border-radius: 4px;
+
+		&:hover {
+			background: rgba(255, 255, 255, 0.3);
+		}
+	}
+}
+
+// Header styles
+.header {
+	width: 100%;
+	margin-bottom: 25px;
+
+	h2 {
+		display: flex;
+		justify-content: flex-start;
+		align-items: center;
+		gap: 12px;
+		font-size: 24px;
+		font-weight: 600;
+		line-height: 29.26px;
+		color: #fff;
+	}
+
+	img {
+		width: 38px;
+		height: 38px;
+	}
+}
+
+// Progress bar styles
+.progressContainer {
+	width: 100%;
+	height: 4px;
+	background-color: #222;
+	border-radius: 2px;
+	margin-bottom: 25px;
+	overflow: hidden;
+	position: relative;
+}
+
+.progressBar {
+	height: 100%;
+	background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+	transition: width 0.3s ease;
+}
+
+.progressSteps {
+	display: flex;
+	justify-content: space-between;
+	margin-top: 8px;
+
+	.step {
+		font-size: 12px;
+		color: #666;
+		transition: color 0.3s ease;
+
+		&.completed {
+			color: #74b243;
+			font-weight: 500;
+		}
+	}
+}
+
+// Success message
+.successMessage {
+	background-color: rgba(116, 178, 67, 0.2);
+	border: 1px solid #74b243;
+	border-radius: 8px;
+	padding: 12px 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	color: #74b243;
+
+	.successIcon {
+		width: 24px;
+		height: 24px;
+		background-color: #74b243;
+		color: #0a0a0a;
+		border-radius: 50%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-weight: bold;
+	}
+}
+
+// Form styles
+.forumBody {
+	width: 100%;
+
+	.forumForm {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+
+		.boxContainer {
+			display: flex;
+			gap: 16px;
+
+			.userAvatar {
+				width: 59px;
+				height: 59px;
+				min-width: 59px;
+				min-height: 59px;
+				border-radius: 50%;
+				overflow: hidden;
+				position: relative;
+				box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+				border: 2px solid rgba(255, 255, 255, 0.1);
+
+				img {
+					width: 100%;
+					height: 100%;
+					object-fit: cover;
+				}
+
+				.avatarBadge {
+					position: absolute;
+					bottom: 2px;
+					right: 2px;
+					width: 16px;
+					height: 16px;
+					background-color: #74b243;
+					border: 2px solid #0a0a0a;
+					border-radius: 50%;
+				}
+			}
+
+			.textAreaContainer {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 12px;
+
+				.headline {
+					position: relative;
+
+					.headlineArea {
+						width: 100%;
+						min-height: 50px;
+						max-height: 50px;
+						resize: none;
+						padding: 12px 60px 12px 16px;
+						background-color: #141414;
+						border: 1px solid #2a2a2a;
+						border-radius: 10px;
+						color: #ddd;
+						font-size: 16px;
+						font-weight: 600;
+						line-height: 25.6px;
+						transition: border-color 0.2s ease;
+						scrollbar-width: none;
+
+						&::-webkit-scrollbar {
+							display: none;
+						}
+
+						&:focus {
+							outline: none;
+							border-color: #74b243;
+							box-shadow: 0 0 0 1px rgba(116, 178, 67, 0.2);
+						}
+
+						&::placeholder {
+							color: #666;
+							font-weight: 400;
+						}
+					}
+
+					.headlineCount {
+						position: absolute;
+						top: 12px;
+						right: 16px;
+						font-size: 12px;
+						color: #666;
+						transition: color 0.2s ease;
+
+						&.almostFull {
+							color: #ff9800;
+						}
+
+						&.full {
+							color: #ff3b30;
+						}
+					}
+				}
+
+				.textArea {
+					width: 100%;
+					min-height: 115px;
+					max-height: 200px;
+					resize: vertical;
+					padding: 16px;
+					background-color: #141414;
+					border: 1px solid #2a2a2a;
+					border-radius: 10px;
+					color: #ddd;
+					font-size: 16px;
+					line-height: 25.6px;
+					transition: border-color 0.2s ease;
+
+					&:focus {
+						outline: none;
+						border-color: #74b243;
+						box-shadow: 0 0 0 1px rgba(116, 178, 67, 0.2);
+					}
+
+					&::placeholder {
+						color: #666;
+					}
+
+					&::-webkit-scrollbar {
+						width: 6px;
+					}
+
+					&::-webkit-scrollbar-track {
+						background: #0a0a0a;
+						border-radius: 3px;
+					}
+
+					&::-webkit-scrollbar-thumb {
+						background: #333;
+						border-radius: 3px;
+
+						&:hover {
+							background: #444;
+						}
+					}
+				}
+
+				.errorMessage {
+					font-size: 12px;
+					color: #ff3b30;
+					margin-top: -8px;
+				}
+
+				.charCount {
+					font-size: 12px;
+					color: #ff9800;
+					margin-top: -8px;
+				}
+			}
+		}
+
+		.addAndCategory {
+			display: flex;
+			justify-content: space-between;
+			gap: 20px;
+
+			.leftControls {
+				flex: 1;
+				display: flex;
+				flex-direction: column;
+				gap: 15px;
+
+				.selectCategory {
+					position: relative;
+					width: 100%;
+					max-width: 220px;
+
+					.customSelect {
+						width: 100%;
+						height: 42px;
+						background-color: #141414;
+						border: 1px solid #2a2a2a;
+						border-radius: 10px;
+						display: flex;
+						justify-content: space-between;
+						align-items: center;
+						padding: 0 12px;
+						cursor: pointer;
+						transition: all 0.2s ease;
+
+						&:hover {
+							background-color: #1a1a1a;
+							border-color: #444;
+						}
+
+						&.selected {
+							border-color: #74b243;
+						}
+
+						&.error {
+							border-color: #ff3b30;
+						}
+
+						.placeholder {
+							color: #666;
+							font-size: 14px;
+						}
+
+						.selectedValue {
+							color: #fff;
+							font-size: 14px;
+							overflow: hidden;
+							text-overflow: ellipsis;
+							white-space: nowrap;
+							max-width: 85%;
+						}
+
+						.dropdownIcon {
+							color: #666;
+							transition: transform 0.3s ease;
+
+							&.open {
+								transform: rotate(180deg);
+							}
+						}
+					}
+
+					.dropdownOptions {
+						position: absolute;
+						top: calc(100% + 5px);
+						left: 0;
+						width: 100%;
+						max-height: 200px;
+						overflow-y: auto;
+						background-color: #141414;
+						border: 1px solid #333;
+						border-radius: 8px;
+						z-index: 100;
+						box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+
+						.option {
+							padding: 10px 12px;
+							cursor: pointer;
+							transition: background-color 0.2s;
+							font-size: 14px;
+
+							&:hover {
+								background-color: #1f1f1f;
+							}
+
+							&.selected {
+								background-color: rgba(116, 178, 67, 0.2);
+								color: #74b243;
+								font-weight: 500;
+							}
+
+							&:not(:last-child) {
+								border-bottom: 1px solid #2a2a2a;
+							}
+						}
+
+						&::-webkit-scrollbar {
+							width: 6px;
+						}
+
+						&::-webkit-scrollbar-track {
+							background: #0a0a0a;
+							border-radius: 3px;
+						}
+
+						&::-webkit-scrollbar-thumb {
+							background: #333;
+							border-radius: 3px;
+
+							&:hover {
+								background: #444;
+							}
+						}
+					}
+
+					.hiddenSelect {
+						position: absolute;
+						opacity: 0;
+						width: 0;
+						height: 0;
+						pointer-events: none;
+					}
+				}
+
+				.selectSubCategory {
+					display: flex;
+					gap: 8px;
+					flex-wrap: wrap;
+
+					.radioLabel {
+						position: relative;
+						padding: 8px 14px 8px 32px;
+						background-color: #141414;
+						color: #ddd;
+						font-size: 14px;
+						border-radius: 20px;
+						border: 1px solid #2a2a2a;
+						cursor: pointer;
+						transition: all 0.2s ease;
+						text-transform: capitalize;
+
+						&:hover {
+							background-color: #1a1a1a;
+							border-color: #444;
+						}
+
+						&.selected {
+							background-color: rgba(116, 178, 67, 0.2);
+							color: #74b243;
+							border-color: #74b243;
+
+							.radioCircle {
+								&::after {
+									opacity: 1;
+									transform: scale(1);
+								}
+							}
+						}
+
+						.radioInput {
+							position: absolute;
+							opacity: 0;
+							cursor: pointer;
+						}
+
+						.radioCircle {
+							position: absolute;
+							left: 10px;
+							top: 50%;
+							transform: translateY(-50%);
+							width: 16px;
+							height: 16px;
+							border: 2px solid #666;
+							border-radius: 50%;
+							transition: all 0.2s ease;
+
+							&::after {
+								content: '';
+								position: absolute;
+								top: 50%;
+								left: 50%;
+								transform: translate(-50%, -50%) scale(0);
+								width: 8px;
+								height: 8px;
+								background-color: #74b243;
+								border-radius: 50%;
+								opacity: 0;
+								transition: all 0.2s ease;
+							}
+						}
+					}
+				}
+			}
+
+			.rightControls {
+				display: flex;
+				align-items: flex-start;
+				gap: 10px;
+
+				.fileUploadContainer {
+					position: relative;
+
+					.uploadButtonWrapper {
+						position: relative;
+					}
+
+					.imagePreview {
+						width: 42px;
+						height: 42px;
+						position: relative;
+						border-radius: 10px;
+						overflow: hidden;
+						border: 1px solid #444;
+
+						.previewImage {
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+						}
+
+						.removeButton {
+							position: absolute;
+							top: -5px;
+							right: -5px;
+							width: 20px;
+							height: 20px;
+							background-color: rgba(0, 0, 0, 0.8);
+							color: #fff;
+							border: none;
+							border-radius: 50%;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							cursor: pointer;
+							font-size: 12px;
+							transition: all 0.2s ease;
+
+							&:hover {
+								background-color: #ff3b30;
+							}
+						}
+					}
+				}
+
+				.submit {
+					min-width: 115px;
+					height: 42px;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 8px;
+					border: none;
+					outline: none;
+					background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+					color: white;
+					cursor: pointer;
+					border-radius: 10px;
+					transition: all 0.3s ease;
+					font-weight: 500;
+					font-size: 14px;
+					position: relative;
+					overflow: hidden;
+
+					&.active {
+						opacity: 1;
+
+						&:hover {
+							transform: translateY(-2px);
+							box-shadow: 0 4px 12px rgba(116, 178, 67, 0.3);
+						}
+
+						&:active {
+							transform: translateY(0);
+						}
+					}
+
+					&.disabled {
+						opacity: 0.6;
+						cursor: not-allowed;
+						background: linear-gradient(90deg, #4a7229 0%, #5e6e20 100%);
+					}
+
+					.loadingSpinner {
+						width: 20px;
+						height: 20px;
+						border: 2px solid rgba(255, 255, 255, 0.3);
+						border-top-color: white;
+						border-radius: 50%;
+						animation: spin 0.8s linear infinite;
+					}
+
+					.submitText {
+						font-size: 14px;
+					}
+				}
+			}
+		}
+
+		.formTips {
+			background-color: rgba(116, 178, 67, 0.1);
+			border: 1px solid rgba(116, 178, 67, 0.3);
+			border-radius: 8px;
+			padding: 12px 16px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			margin-top: 20px;
+
+			.tipIcon {
+				font-size: 20px;
+				flex-shrink: 0;
+			}
+
+			p {
+				font-size: 13px;
+				color: #ccc;
+				line-height: 1.5;
+				margin: 0;
+
+				strong {
+					color: #74b243;
+				}
+			}
+		}
+	}
+}
+
+// Animations
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+// Responsive design
+@media screen and (max-width: 768px) {
+	.modalOverlay {
+		padding: 0;
+	}
+
+	.modalContainer {
+		border-radius: 16px 16px 0 0;
+		max-width: 100%;
+		max-height: 100vh;
+		height: 100vh;
+		margin-top: auto;
+	}
+
+	.closeButton {
+		top: 15px;
+		right: 15px;
+		width: 36px;
+		height: 36px;
+
+		svg {
+			font-size: 16px;
+		}
+	}
+
+	.modalContent {
+		padding: 20px;
+		padding-top: 60px; // Make room for close button
+	}
+
+	.header {
+		margin-bottom: 20px;
+
+		h2 {
+			font-size: 20px;
+			gap: 10px;
+		}
+
+		img {
+			width: 30px;
+			height: 30px;
+		}
+	}
+
+	.progressContainer {
+		margin-bottom: 20px;
+	}
+
+	.progressSteps {
+		display: none; // Hide on mobile
+	}
+
+	.forumBody {
+		.forumForm {
+			gap: 15px;
+
+			.boxContainer {
+				flex-direction: column;
+				gap: 10px;
+
+				.userAvatar {
+					width: 46px;
+					height: 46px;
+					min-width: 46px;
+					min-height: 46px;
+				}
+
+				.textAreaContainer {
+					.headline {
+						.headlineArea {
+							font-size: 15px;
+							padding: 10px 50px 10px 14px;
+						}
+
+						.headlineCount {
+							top: 10px;
+							right: 14px;
+							font-size: 11px;
+						}
+					}
+
+					.textArea {
+						font-size: 15px;
+						min-height: 100px;
+						padding: 14px;
+					}
+				}
+			}
+
+			.addAndCategory {
+				flex-direction: column;
+				gap: 15px;
+
+				.leftControls {
+					gap: 12px;
+
+					.selectCategory {
+						max-width: 100%;
+					}
+
+					.selectSubCategory {
+						.radioLabel {
+							font-size: 13px;
+							padding: 7px 12px 7px 28px;
+
+							.radioCircle {
+								width: 14px;
+								height: 14px;
+								left: 8px;
+
+								&::after {
+									width: 6px;
+									height: 6px;
+								}
+							}
+						}
+					}
+				}
+
+				.rightControls {
+					width: 100%;
+					justify-content: space-between;
+
+					.submit {
+						flex: 1;
+						border-radius: 30px;
+					}
+				}
+			}
+
+			.formTips {
+				padding: 10px 12px;
+
+				.tipIcon {
+					font-size: 18px;
+				}
+
+				p {
+					font-size: 12px;
+				}
+			}
+		}
+	}
+}
+
+// Dark mode adjustments (if using system preference)
+@media (prefers-color-scheme: dark) {
+	.modalContainer {
+		background-color: #0a0a0a;
+		border-color: rgba(255, 255, 255, 0.1);
+	}
+}
+
+// Accessibility improvements
+@media (prefers-reduced-motion: reduce) {
+	.modalContainer,
+	.closeButton,
+	.radioLabel,
+	.submit,
+	.dropdownIcon {
+		transition: none;
+	}
+
+	.loadingSpinner {
+		animation: none;
+		opacity: 0.8;
+	}
+}

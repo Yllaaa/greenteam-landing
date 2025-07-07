@@ -372,6 +372,33 @@
 		}
 	},
 	"web": {
+		"common":{
+			"actions":{
+				"delete": "Delete",
+				"report":"Report",
+				"edit": "Edit",
+				"update": "Update",
+				"create": "Create",
+				"submit": "Submit"
+
+			},
+			"loading": "Loading...",
+			"error": "An error occurred, please try again later",
+			"noData": "No data available",
+			"backToTop": "Back to top",
+			"search": "Search",
+			"searchPlaceholder": "Search posts, groups, pages...",
+			"viewMore": "View more",
+			"viewLess": "View less",
+			"close": "Close",
+			"save": "Save",
+			"cancel": "Cancel",
+			"delete": "Delete",
+			"edit": "Edit",
+			"update": "Update",
+			"create": "Create",
+			"submit": "Submit"
+		},
 		"addPost": {
 			"title": "Host Your Page",
 			"description": "Plan and promote your upcoming event. Share details to help attendees find and join your event",
@@ -581,10 +608,12 @@
 				"Volunteering": "Volunteering",
 				"Ecotourism": "Ecotourism",
 				"Warning": "Warning",
-				"Cooperatives": "Cooperatives"
+				"Cooperatives": "Cooperatives",
+				"Forum":"Forums"
 			},
 			"addPost": {
 				"addPost": "Add Post",
+				"addForum":"Add Forum",
 				"title": "Add New Post",
 				"placeholder": "Add your experiences and tips to make a better future.",
 				"content": "Content",
