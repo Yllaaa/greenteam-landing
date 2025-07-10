@@ -2,7 +2,7 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
-import Joyride, { CallBackProps, STATUS, Step, Styles } from 'react-joyride';
+import Joyride, { CallBackProps, STATUS, Step, Styles, EVENTS } from 'react-joyride';
 import { tourRegistry, TourConfig, TourStep } from './tourRegistry';
 import { usePathname } from 'next/navigation';
 
@@ -13,6 +13,7 @@ interface TourContextType {
     resetTour: (tourId: string) => void;
     isTourActive: boolean;
     currentTourId: string | null;
+    currentStepIndex: number;
     registerTour: (tour: TourConfig) => void;
     registerComponentSteps: (componentId: string, steps: TourStep[]) => void;
 }
@@ -29,12 +30,14 @@ export const useTour = () => {
 
 const tourStyles: Styles = {
     options: {
-        primaryColor: '#3b82f6',
-        backgroundColor: '#ffffff',
-        textColor: '#374151',
+        primaryColor: '#000',
+        backgroundColor: '#1A1E1C',
+        textColor: '#fff',
         zIndex: 10000,
     },
     tooltip: {
+        width: '100%',
+        maxWidth: 320,
         borderRadius: 8,
         boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
     },
@@ -42,16 +45,18 @@ const tourStyles: Styles = {
         textAlign: 'left',
     },
     tooltipTitle: {
-        fontSize: '1.25rem',
+        fontSize: '14px',
         fontWeight: 600,
-        marginBottom: '0.5rem',
+        marginBottom: '4px',
+        color: '#fff',
     },
     tooltipContent: {
-        fontSize: '1rem',
+        fontSize: '14px',
         lineHeight: 1.6,
+        color: '#FEFEFEB2'
     },
     buttonNext: {
-        backgroundColor: '#3b82f6',
+        background: ' #96B032',
         borderRadius: 6,
         color: '#ffffff',
         fontSize: '0.875rem',
@@ -59,13 +64,15 @@ const tourStyles: Styles = {
         padding: '0.625rem 1.25rem',
     },
     buttonBack: {
-        color: '#6b7280',
+        color: '#fff',
+        background:"#063",
         fontSize: '0.875rem',
         fontWeight: 500,
         marginRight: 'auto',
     },
     buttonSkip: {
-        color: '#6b7280',
+        color: '#fff',
+        background: '#575857',
         fontSize: '0.875rem',
         fontWeight: 500,
     },
@@ -88,13 +95,19 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [run, setRun] = useState(false);
     const [steps, setSteps] = useState<Step[]>([]);
     const [currentTourId, setCurrentTourId] = useState<string | null>(null);
+    const [currentStepIndex, setCurrentStepIndex] = useState(0); // Add this
     const [tourConfig, setTourConfig] = useState<Partial<TourConfig>>({});
     const pathname = usePathname();
     const startTourRef = useRef<(tourId: string) => void>(null);
 
     const handleJoyrideCallback = useCallback((data: CallBackProps) => {
-        const { status } = data;
+        const { status, index, type } = data;
         const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
+
+        // Update current step index
+        if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
+            setCurrentStepIndex(index + 1);
+        }
 
         if (finishedStatuses.includes(status)) {
             if (currentTourId) {
@@ -103,6 +116,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             setRun(false);
             setSteps([]);
             setCurrentTourId(null);
+            setCurrentStepIndex(0); // Reset step index
             setTourConfig({});
         }
     }, [currentTourId]);
@@ -116,6 +130,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             console.log('Setting tour steps:', tour.steps);
             setSteps(tour.steps as Step[]);
             setCurrentTourId(tourId);
+            setCurrentStepIndex(0); // Reset to first step
             setTourConfig(tour);
             setRun(true);
         } else {
@@ -194,6 +209,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 resetTour,
                 isTourActive: run,
                 currentTourId,
+                currentStepIndex, // Add this
                 registerTour,
                 registerComponentSteps,
             }}
@@ -203,6 +219,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 continuous={tourConfig.continuous ?? true}
                 run={run}
                 steps={steps}
+                stepIndex={currentStepIndex} // Control the step index
                 hideCloseButton={false}
                 showProgress={tourConfig.showProgress ?? true}
                 showSkipButton={tourConfig.showSkipButton ?? true}

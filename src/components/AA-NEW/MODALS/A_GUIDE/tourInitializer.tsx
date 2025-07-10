@@ -57,18 +57,12 @@ const headerTour: TourConfig = {
             title: 'Your Profile',
             placement: 'left',
         },
-    ],
-};
-
-const feedTour: TourConfig = {
-    id: 'feed-tour',
-    name: 'Feed Navigation Tour',
-    autoStart: false, // Don't auto-start, we'll trigger it after header tour
-    startDelay: 1000,
-    showProgress: true,
-    showSkipButton: true,
-    continuous: true,
-    steps: [
+        {
+            target: '[data-tour="navigate-profile"]',
+            content: 'Navigate to your profile.',
+            title: 'Profile Navigation',
+            placement: 'bottom',
+        },
         {
             target: '[data-tour="feeds-container"]',
             content: 'Welcome to your feed! Here you\'ll find posts organized by different topics and categories.',
@@ -113,7 +107,20 @@ const feedTour: TourConfig = {
             placement: 'top',
         },
     ],
-  };
+};
+
+// const feedTour: TourConfig = {
+//     id: 'feed-tour',
+//     name: 'Feed Navigation Tour',
+//     autoStart: false, // Don't auto-start, we'll trigger it after header tour
+//     startDelay: 1000,
+//     showProgress: true,
+//     showSkipButton: true,
+//     continuous: true,
+//     steps: [
+        
+//     ],
+//   };
 
 export default function TourInitializer() {
     const { registerTour } = useTour();
@@ -121,7 +128,7 @@ export default function TourInitializer() {
     useEffect(() => {
         console.log('TourInitializer: Registering tours');
         registerTour(headerTour);
-        registerTour(feedTour);
+        // registerTour(feedTour);
     }, [registerTour]);
 
     return null;

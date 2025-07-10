@@ -47,6 +47,8 @@ function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
+
+  
   // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
 
