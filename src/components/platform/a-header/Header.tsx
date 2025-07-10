@@ -18,7 +18,6 @@ import {
   setUserLoginData,
 } from "@/store/features/login/userLoginSlice";
 import { useRouter } from "next/navigation";
-
 import { useLocale, useTranslations } from "next-intl";
 import { getToken, removeToken } from "@/Utils/userToken/LocalToken";
 import ProfileMenu from "./profileMenu/ProfileMenu";
@@ -29,7 +28,6 @@ import AddNew from "../addNew/post/AddNew";
 
 function Header() {
   const t = useTranslations("web.header");
-  // constants
   const locale = useLocale();
   const router = useRouter();
   const dispatch = useAppDispatch();
@@ -58,14 +56,11 @@ function Header() {
       if (typeof window !== "undefined") {
         const currentScrollY = window.scrollY;
 
-        // Always show header when at the top
         if (currentScrollY < 5) {
           setShowHeader(true);
         } else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          // Scrolling down & past 100px
           setShowHeader(false);
         } else if (currentScrollY < lastScrollY) {
-          // Scrolling up
           setShowHeader(true);
         }
 
@@ -74,12 +69,10 @@ function Header() {
     };
 
     const handleScroll = () => {
-      // Clear existing timeout
       if (scrollTimeout) {
         clearTimeout(scrollTimeout);
       }
 
-      // Set a new timeout for better performance
       const timeout = setTimeout(controlHeader, 10);
       setScrollTimeout(timeout);
     };
@@ -98,7 +91,6 @@ function Header() {
   useEffect(() => {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
-      // Close mobile menu if window is resized larger
       if (window.innerWidth > 768) {
         setMobileMenuOpen(false);
       }
@@ -121,19 +113,10 @@ function Header() {
 
   // Logout handler
   const handleLogout = useCallback(() => {
-    // Clear user data from Redux store
     dispatch(clearUserLoginData());
-
-    // Remove token from localStorage
     removeToken();
-
-    // Clear any other user-related data
     localStorage.removeItem("user");
-
-    // Close mobile menu if open
     setMobileMenuOpen(false);
-
-    // Redirect to /locale route
     router.replace(`/${locale}`);
   }, [dispatch, router, locale]);
 
@@ -160,7 +143,6 @@ function Header() {
         .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/me`, {
           headers: {
             Authorization: `Bearer ${userToken}`,
-            
           },
         })
         .then((res) => {
@@ -173,7 +155,6 @@ function Header() {
         })
         .catch((err) => {
           console.error("Error fetching user data:", err);
-          // Logout user if token is invalid
           handleLogout();
         });
     }
@@ -196,9 +177,8 @@ function Header() {
 
   const handleAddPost = () => {
     setAddPost(!addPost);
-    setMobileMenuOpen(false); // Close mobile menu when opening add post
+    setMobileMenuOpen(false);
 
-    // Toggle body scroll lock when modal opens/closes
     if (!addPost) {
       document.body.classList.add('modal-open');
     } else {
@@ -206,7 +186,6 @@ function Header() {
     }
   };
 
-  // Add this to handle modal close properly
   const closeModal = () => {
     setAddPost(false);
     document.body.classList.remove('modal-open');
@@ -214,7 +193,7 @@ function Header() {
 
   const handleMenuItemClick = (path: string) => {
     router.push(path);
-    setMobileMenuOpen(false); // Close mobile menu after navigation
+    setMobileMenuOpen(false);
   };
 
   return (
@@ -226,7 +205,7 @@ function Header() {
       >
         <div className={styles.logos}>
           <div className={styles.logoItem}>
-            <div className={styles.footLogo}>
+            <div data-tour="logo" className={styles.footLogo}>
               <Image
                 onClick={() => router.push(`/${locale}/feeds`)}
                 src={FootLogo}
@@ -240,14 +219,22 @@ function Header() {
           {windowWidth > 768 && (
             <>
               <div className={styles.logoItem}>
-                <div onClick={() => router.push(`/${locale}/community`)} className={styles.handsLogo}>
+                <div
+                  data-tour="community"
+                  onClick={() => router.push(`/${locale}/community`)}
+                  className={styles.handsLogo}
+                >
                   <Image src={handsLogo} alt="community" width={60} height={48} />
                   <p>{t("community")}</p>
                 </div>
               </div>
 
               <div className={styles.logoItem}>
-                <div onClick={() => router.push(`/${locale}/favorite`)} className={styles.starFav}>
+                <div
+                  data-tour="favorites"
+                  onClick={() => router.push(`/${locale}/favorite`)}
+                  className={styles.starFav}
+                >
                   <FaStar size={100} color="yellow" />
                   <p>{t("favorites")}</p>
                 </div>
@@ -267,19 +254,30 @@ function Header() {
           )}
 
           <div className={styles.icons}>
-            <div onClick={handleAddPost} className={styles.notification}>
+            <div
+              onClick={handleAddPost}
+              className={styles.notification}
+              data-tour="add-post"
+            >
               <IoIosAddCircle />
             </div>
-            <div className={styles.notification}>
+            <div
+              className={styles.notification}
+              data-tour="notifications"
+            >
               <NotificationIcon />
             </div>
-            <div className={styles.notification}>
+            <div
+              className={styles.notification}
+              data-tour="chat"
+            >
               <ChatIcon />
             </div>
           </div>
 
           <div
             className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}
+            data-tour="profile"
           >
             <div
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}

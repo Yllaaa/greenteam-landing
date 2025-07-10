@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+// import { GlobalTourProvider } from "@/components/AA-NEW/MODALS/A_GUIDE/tourProvider";
 import CookieConsent from "@/components/AA-NEW/MODALS/COOKIES/CookieConsent";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
-// import '../styles/globals.css'
-import 'shepherd.js/dist/css/shepherd.css'
-import { ShepherdProvider } from "@/components/AA-NEW/MODALS/A_GUIDE/ShepherdProvider";
+
 // import Navbar from "@/components/aaaNavbar/Navbar";
 
 export default async function RootLayout({
@@ -22,13 +21,15 @@ export default async function RootLayout({
   return (
     <section lang="en">
       <NextIntlClientProvider messages={messages}>
-        <ShepherdProvider>
+        {/* <GlobalTourProvider> */}
+
           <div>
             {children}
             <CookieConsent
             />
           </div>
-        </ShepherdProvider>
+        {/* </GlobalTourProvider> */}
+
       </NextIntlClientProvider>
     </section>
   );

@@ -8,21 +8,25 @@ import { CommentModal } from "./commentModal/CommentModal";
 import { Comment } from "./TYPES/FeedTypes";
 import FeedsHeader from "./FeedHeader/FeedsHeader";
 import { Topics } from "@/components/Assets/topics/Topics.data";
-import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal"; // Import reusable modal
-import ReportModal from "@/components/platform/modals/reportModal/ReportModal"; // Import reusable modal
+import ConfirmationModal from "@/components/platform/modals/confirmModal/ConfirmationModal";
+import ReportModal from "@/components/platform/modals/reportModal/ReportModal";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import axios from "axios";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
+import { useTour } from '@/components/AA-NEW/MODALS/A_GUIDE/tourProvider';
 
 // topics and subtopics
 const topics = Topics;
 
 function FeedSection() {
+  // Tour hook
+  const { startTour } = useTour();
+
   // Get search parameters from URL
   const searchParams = useSearchParams();
   const categoryId = searchParams.get('category');
   const subcategoryId = searchParams.get('subcategory');
-  
+
   // References for scrolling to sections
   const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});
 
@@ -30,8 +34,8 @@ function FeedSection() {
   //modals
   const [doItModal, setDoItModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
-  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false); // Renamed for clarity
-  const [isReportModalOpen, setIsReportModalOpen] = useState(false); // Renamed for clarity
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isReportModalOpen, setIsReportModalOpen] = useState(false);
 
   //APIs Data
   const [postComments, setPostComments] = useState<Comment[]>([]);
@@ -49,11 +53,11 @@ function FeedSection() {
 
   // request rerender comments
   const [rerender, setRerender] = useState(false);
-  
+
   // Token for API calls
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
-  
+
   // State to track the selected subtopic for each topic
   const [selectedSubtopics, setSelectedSubtopics] = useState<{
     [key: number]: string;
@@ -73,13 +77,27 @@ function FeedSection() {
     });
   }, []);
 
+  // Check if feed tour should start
+  useEffect(() => {
+    // Check if header tour is completed and feed tour hasn't been shown
+    const headerTourCompleted = localStorage.getItem('tour_completed_header-tour');
+    const feedTourCompleted = localStorage.getItem('tour_completed_feed-tour');
+
+    if (headerTourCompleted && !feedTourCompleted) {
+      // Small delay to ensure content is loaded
+      setTimeout(() => {
+        startTour('feed-tour');
+      }, 1000);
+    }
+  }, [startTour]);
+
   // Handle URL parameters on component mount
   useEffect(() => {
     if (categoryId) {
       // If there's a category ID in the URL, find it in the topics
       const categoryIdNum = Number(categoryId);
       const foundTopic = topics.find(topic => topic.id === categoryIdNum);
-      
+
       if (foundTopic) {
         // If subcategory is provided, select it
         if (subcategoryId) {
@@ -88,24 +106,24 @@ function FeedSection() {
             [categoryIdNum]: subcategoryId
           }));
         }
-        
+
         // Scroll to the section after a short delay to ensure rendering
         setTimeout(() => {
           if (topicRefs.current[categoryIdNum]?.current) {
-            topicRefs.current[categoryIdNum].current?.scrollIntoView({ 
+            topicRefs.current[categoryIdNum].current?.scrollIntoView({
               behavior: 'smooth',
-              block: 'start' 
+              block: 'start'
             });
           }
         }, 300);
       }
     }
   }, [categoryId, subcategoryId]);
-  
+
   // Handler for deleting posts
   const handleDeletePost = useCallback(async () => {
     if (!postId || !accessToken) return;
-    
+
     try {
       const response = await axios.delete(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}`,
@@ -117,7 +135,7 @@ function FeedSection() {
           },
         }
       );
-      
+
       if (response) {
         ToastNot("Post deleted successfully");
         // Trigger a rerender to refresh the post list
@@ -128,7 +146,7 @@ function FeedSection() {
       ToastNot("Error occurred while deleting post");
     }
   }, [postId, accessToken]);
-  
+
   // Handle successful report submission
   const handleReportSuccess = useCallback(() => {
     ToastNot("Thank you for your report. Our team will review it.");
@@ -136,22 +154,29 @@ function FeedSection() {
 
   return (
     <>
-      <div className={styles.feeds}>
+      <div className={styles.feeds} data-tour="feeds-container">
         {topics.map((topic, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className={styles.container}
             ref={topicRefs.current[topic.id]}
             id={`topic-${topic.id}`}
+            data-tour={index === 0 ? "first-topic" : undefined}
           >
             {/* Header */}
-            <FeedsHeader
-              topic={topic}
-              selectedSubtopics={selectedSubtopics}
-              setSelectedSubtopics={setSelectedSubtopics}
-            />
+            <div data-tour={index === 0 ? "topic-header" : undefined}>
+              <FeedsHeader
+                topic={topic}
+                selectedSubtopics={selectedSubtopics}
+                setSelectedSubtopics={setSelectedSubtopics}
+              />
+            </div>
+
             {/* posts */}
-            <div className={styles.posts}>
+            <div
+              className={styles.posts}
+              data-tour={index === 0 ? "posts-section" : undefined}
+            >
               <div className={styles.postContainer}>
                 <PostCard
                   commentsPage={commentsPage}
@@ -174,10 +199,10 @@ function FeedSection() {
           </div>
         ))}
       </div>
-      
+
       {/* Modals */}
       {doItModal && <DoItModal setDoItModal={setDoItModal} />}
-      
+
       {commentModal && (
         <CommentModal
           commentsPage={commentsPage}
@@ -191,8 +216,7 @@ function FeedSection() {
           postMedia={postMedia}
         />
       )}
-      
-      
+
       {/* Enhanced Delete Modal */}
       <ConfirmationModal
         isOpen={isDeleteModalOpen}
@@ -205,7 +229,7 @@ function FeedSection() {
         successMessage="Post deleted successfully"
         errorMessage="Error occurred while deleting post"
       />
-      
+
       {/* Enhanced Report Modal */}
       <ReportModal
         isOpen={isReportModalOpen}

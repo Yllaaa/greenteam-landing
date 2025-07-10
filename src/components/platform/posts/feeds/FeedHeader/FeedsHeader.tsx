@@ -70,7 +70,7 @@ function FeedsHeader(props: {
     <>
       <div className={styles.header}>
         <div className={styles.title}>
-          <h3>
+          <h3 data-tour={topic.id === 1 ? "topic-title" : undefined}>
             <span className={styles.titleIcon}>
               <Image
                 src={topicLogo[Number(topic?.id) - 1]?.logo}
@@ -84,7 +84,7 @@ function FeedsHeader(props: {
             <span className={styles.titleText}>{tt(topic?.name)}</span>
           </h3>
         </div>
-        <div className={styles.filterSection}>
+        <div data-tour={topic.id === 1 ? "subtopic-filters" : undefined} className={styles.filterSection}>
           <ul>
             <li
               className={selectedSubtopics[Number(topic?.id)] === "all" ? styles.activeSubtopic : ''}

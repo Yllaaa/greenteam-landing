@@ -333,7 +333,7 @@ function PostSlider(props: Props) {
 
   // Render reaction buttons
   const renderReactionButtons = () => (
-    <div className={styles.reactionBtns}>
+    <div data-tour={"post-actions"} className={styles.reactionBtns}>
       <button onClick={handleDo} className={styles.btn} aria-label="Do It">
         <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
         <p>

@@ -237,6 +237,7 @@ function PostCard(props: Props) {
       <Suspense fallback={<LoadingState />}>
         {postContent.map((post, index) => (
           <div
+            data-tour={index === 0 ? "first-post" : undefined}
             key={post.post.id}
             ref={index === postContent.length - 1 ? ref : null}
             className={styles.container}

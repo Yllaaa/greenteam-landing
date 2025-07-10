@@ -28,7 +28,7 @@ export default async function RootLayout({
             <Header />
             <div>
 
-            <BackButton shouldHideOnFeeds={true} />
+              <BackButton shouldHideOnFeeds={true} />
             </div>
           </div>
         </header>
