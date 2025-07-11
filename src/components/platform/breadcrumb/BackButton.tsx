@@ -13,7 +13,7 @@ const BackButton: React.FC<BackButtonProps> = ({ shouldHideOnFeeds = false }) =>
   const pathname = usePathname();
 
   // Check if we should hide the button based on the path
-  const shouldHide = shouldHideOnFeeds && pathname.includes("/feeds");
+  const shouldHide = shouldHideOnFeeds && pathname && pathname.includes("/feeds");
 
   // Enhanced back handler that combines navigation with scrolling
   const handleBack = useCallback(() => {
