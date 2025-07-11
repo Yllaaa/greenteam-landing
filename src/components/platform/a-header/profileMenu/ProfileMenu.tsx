@@ -51,7 +51,7 @@ function ProfileMenu(props: Props) {
     if (isTourActive) return;
 
     const newLocale = locale === "en" ? "es" : "en";
-    const pathWithoutLocale = pathname.replace(`/${locale}`, '');
+    const pathWithoutLocale =pathname&& pathname.replace(`/${locale}`, '');
     router.push(`/${newLocale}${pathWithoutLocale}`);
     setIsDropdownOpen(false);
   };
