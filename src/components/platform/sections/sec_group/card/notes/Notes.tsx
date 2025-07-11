@@ -65,7 +65,7 @@ function Notes() {
     // Only fetch notes if user is a member
     if (groupData && groupData.isUserMember) {
       setLoading(true);
-      getNotes(groupId)
+      getNotes(groupId as string)
         .then((res) => {
           setData(res);
         })
