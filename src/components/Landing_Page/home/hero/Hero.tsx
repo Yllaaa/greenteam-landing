@@ -48,7 +48,7 @@ function Hero() {
           console.log(err);
         });
     }
-    if (params.get("token")) {
+    if (params &&params.get("token")) {
       const userObj = params && params.get("token");
       console.log(userObj);
       // router.push(`/${locale}/feeds`);
