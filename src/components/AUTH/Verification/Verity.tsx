@@ -19,7 +19,7 @@ function Verity() {
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/verify/${params.get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/auth/verify/${params&&params.get(
           "key"
         )}`
       )
