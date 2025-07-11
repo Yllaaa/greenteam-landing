@@ -32,7 +32,8 @@ export default function Messages({
   refresh?: boolean;
 }) {
   const token = getToken();
-  const chatIdParam = useSearchParams().get("chatId");
+  const searchParam = useSearchParams();
+  const chatIdParam = searchParam && searchParam.get("chatId");
 
   // Use the URL param if available, otherwise use the prop
   const activeChatId = chatIdParam || chatId;
