@@ -131,7 +131,7 @@ function PostCard(props: Props) {
       setErrorMessage,
       accessToken,
       setIsLoading,
-      id
+      id as string
     );
   }, [page, isLoading, accessToken, isMounted, id]);
 
