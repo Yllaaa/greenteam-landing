@@ -17,7 +17,7 @@ function Report(props: {
   reportedType: string;
 }) {
   const params = useParams();
-  console.log(params);
+  console.log(params && params);
 
   const accessToken = useAppSelector((state) => state.login.accessToken);
   const { setReport, reportedId, reportedType } = props;
