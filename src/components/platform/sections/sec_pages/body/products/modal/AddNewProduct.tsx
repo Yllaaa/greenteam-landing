@@ -162,7 +162,7 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
       });
 
       try {
-        const res = await postPageProduct(passedFormData, slug);
+        const res = await postPageProduct(passedFormData, slug as string);
 
         // Check if response exists
         if (res && res.status === 200) {
