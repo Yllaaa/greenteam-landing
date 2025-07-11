@@ -43,7 +43,8 @@ function PostCard(props: Props) {
 
   const router = useRouter();
   const locale = useLocale();
-  const id = useParams().groupId;
+  const params = useParams();
+  const id = params && params.groupId;
   const user = useAppSelector((state) => state.login.user?.user)?.id;
 
   const [page, setPage] = useState(1);

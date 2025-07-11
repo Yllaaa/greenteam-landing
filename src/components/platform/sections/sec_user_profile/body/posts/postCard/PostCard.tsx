@@ -137,7 +137,7 @@ function PostCard(props: Props) {
     }
 
     fetchPosts(
-      params.username,
+      params?.username,
       mainTopic,
       page,
       limit,
@@ -146,7 +146,7 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [page, mainTopic, isLoading, accessToken, isMounted, params.username]);
+  }, [page, mainTopic, isLoading, accessToken, isMounted, params?.username]);
 
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({

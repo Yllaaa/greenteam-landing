@@ -36,7 +36,7 @@ type AddProductProps = {
 
 const AddNewProduct = ({ setAddNew }: AddProductProps) => {
   const params = useParams();
-  const slug = params?.pageId;
+  const slug = params && params?.pageId;
   const router = useRouter()
   const locale = useLocale()
   const MAX_IMAGES = 4;

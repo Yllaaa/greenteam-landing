@@ -26,7 +26,8 @@ type PostType = {
 };
 
 function AddNew({ onPostComplete }: { onPostComplete?: () => void }) {
-  const groupId = useParams().groupId as string;
+  const params = useParams();
+  const groupId = params && params.groupId as string;
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [charCount, setCharCount] = useState(0);
   const textareaRef = useRef<HTMLTextAreaElement>(null);

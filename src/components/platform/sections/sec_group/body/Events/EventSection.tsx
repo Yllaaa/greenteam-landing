@@ -37,7 +37,7 @@ function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
   const groupID = useParams();
-  console.log("Group ID:", groupID.groupId);
+  console.log("Group ID:",groupID&& groupID.groupId);
   
 
   // State management

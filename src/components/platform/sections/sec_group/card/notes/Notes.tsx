@@ -14,7 +14,8 @@ interface NoteType {
 }
 function Notes() {
   const userInfo = useAppSelector((state) => state.login.accessToken);
-  const groupId = useParams().groupId as string;
+  const params = useParams();
+  const groupId = params && params.groupId as string;
   const groupData = useAppSelector((state) => state.groupState);
   const [data, setData] = useState<Note[] | null>(null);
   const [loading, setLoading] = useState(true);

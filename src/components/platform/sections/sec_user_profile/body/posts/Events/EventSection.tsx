@@ -65,7 +65,7 @@ function EventSection(props: { user: ProfileResponse }) {
           limit: LIMIT,
           category: section !== "all" ? section : undefined,
           accessToken,
-          username: params?.username as string
+          username:params && params?.username as string
         });
 
         // Check if we've reached the end of available events
@@ -88,7 +88,7 @@ function EventSection(props: { user: ProfileResponse }) {
         setIsLoading(false);
       }
     },
-    [section, accessToken, params?.username]
+    [section, accessToken, params]
   );
 
   // Initial load and section change handler

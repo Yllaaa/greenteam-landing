@@ -13,7 +13,8 @@ import { useLocale } from "next-intl";
 import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function EventCards() {
-  const groupId = useParams().groupId;
+  const params = useParams()
+  const groupId = params && params.groupId;
   const locale = useLocale();
   const router = useRouter();
 
