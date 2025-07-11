@@ -308,7 +308,7 @@ function PostForums() {
 
   return (
     <>
-      <div className={styles.container}>
+      <div data-tour="forums" className={styles.container}>
         <ForumFilter
           section={section}
           setPage={setPage}

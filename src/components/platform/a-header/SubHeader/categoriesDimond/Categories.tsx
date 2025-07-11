@@ -88,7 +88,7 @@ const CATEGORY_ORDER = ['know', 'food', 'physical', 'community', 'art', 'eco'];
 const Categories: React.FC = () => {
   const router = useRouter()
   const t = useTranslations('web.subHeader.diamond')
-  
+
   const locale = useLocale()
 
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -296,7 +296,7 @@ const Categories: React.FC = () => {
           ))}
         </div>
 
-        <div className={styles.text}>
+        <div data-tour="diamond" className={styles.text}>
           <p>{t('sustainability')}</p>
         </div>
       </div>
@@ -569,7 +569,7 @@ interface SubCategoryCardProps {
 
 const SubCategoryCard: React.FC<SubCategoryCardProps> = ({ subTopic, index, onClick, color }) => {
   const positionClass = styles[`top${index + 1}${index + 1}`]
-const trannss = useTranslations('web.post.categories')
+  const trannss = useTranslations('web.post.categories')
   return (
     <div
       className={clsx(styles.subLabel, positionClass, styles.clickableSubLabel)}

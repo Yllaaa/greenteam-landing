@@ -391,7 +391,7 @@ export default function MapHeader() {
     verificationFilter !== "all";
 
   return (
-    <div className={styles.container}>
+    <div data-tour="community-map-header" className={styles.container}>
       <main className={styles.main}>
         {/* Mobile Filter Toggle */}
         <button

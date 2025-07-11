@@ -96,7 +96,7 @@ function SubHeaderWeb(props: Props) {
       <div className={styles.navBtns}>
         <div className={styles.next} onClick={openSlider}>
           <Image
-          
+
             src={toRight}
             alt="prev"
             width={100}
@@ -178,8 +178,8 @@ function SubHeaderWeb(props: Props) {
             </Link>
           </div>
         ))}
-        <div className={styles.link}>
-            <Breif/>
+        <div data-tour="points" className={styles.link}>
+          <Breif />
         </div>
       </div>
     </>

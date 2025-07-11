@@ -53,7 +53,7 @@ function Footer() {
         <div className={styles.containerDiscover}>
           <div className={styles.textOneContainer}>
             <p>{t("sustainability")}</p>
-            <button onClick={handleDownload}>{t("download")}</button>
+            <button data-tour={"app-store"} onClick={handleDownload}>{t("download")}</button>
           </div>
           <div className={styles.logoContainer}>
             <Image src={footLogo} alt="community" className={styles.logo} />
@@ -68,11 +68,12 @@ function Footer() {
                 <button onClick={handleDownload} className={styles.button}>
                   {t("business")}
                 </button>
-                <button onClick={handleDownload} className={styles.button}>
+                <button data-tour={"donate"} onClick={handleDownload} className={styles.button}>
                   {t("donate")}
                 </button>
               </div>
               <button
+                data-tour={"invite"}
                 onClick={handleInvite}
                 className={styles.button}
                 style={{ position: 'relative' }}

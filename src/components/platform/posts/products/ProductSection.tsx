@@ -287,7 +287,7 @@ console.log("ProductSection rendered", products);
 
   return (
     <>
-      <div className={styles.container}>
+      <div data-tour="products" className={styles.container}>
         <ProductsFilter
           section={section}
           setPage={setPage}

@@ -2,12 +2,17 @@
 'use client';
 
 import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
-import Joyride, { CallBackProps, STATUS, Step, Styles, EVENTS } from 'react-joyride';
+import Joyride, { CallBackProps, STATUS, Step, Styles, EVENTS, ACTIONS } from 'react-joyride';
 import { tourRegistry, TourConfig, TourStep } from './tourRegistry';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+
+// Extend TourStep to include route
+interface ExtendedTourStep extends TourStep {
+    route?: string;
+}
 
 interface TourContextType {
-    startTour: (tourId: string) => void;
+    startTour: (tourId: string, startIndex?: number) => void;
     startDynamicTour: (steps: TourStep[], tourId?: string) => void;
     stopTour: () => void;
     resetTour: (tourId: string) => void;
@@ -37,9 +42,18 @@ const tourStyles: Styles = {
     },
     tooltip: {
         width: '100%',
-        maxWidth: 320,
-        borderRadius: 8,
-        boxShadow: '0 10px 25px rgba(0, 0, 0, 0.1)',
+        maxWidth: 600,
+        borderRadius: 3,
+        border: '1px solid rgba(1, 114, 203, 0.10)',
+        background: '#1A1E1C',
+        backdropFilter: 'blur(4px)',
+        boxShadow: 'none',
+        borderLeft: '3px solid transparent',
+        borderImage: 'linear-gradient(90deg, #74B243 0%, #96B032 100%)',
+        borderImageSlice: 1,
+        backgroundImage: 'linear-gradient(#1A1E1C, #1A1E1C), linear-gradient(90deg, #74B243 0%, #96B032 100%)',
+        backgroundOrigin: 'border-box',
+        backgroundClip: 'padding-box, border-box',
     },
     tooltipContainer: {
         textAlign: 'left',
@@ -56,16 +70,18 @@ const tourStyles: Styles = {
         color: '#FEFEFEB2'
     },
     buttonNext: {
-        background: ' #96B032',
-        borderRadius: 6,
+        background: 'linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%)',
+        borderRadius: 3,
         color: '#ffffff',
         fontSize: '0.875rem',
         fontWeight: 500,
         padding: '0.625rem 1.25rem',
+        border: 'none',
     },
     buttonBack: {
+        display: 'none',
         color: '#fff',
-        background:"#063",
+        background: '#063',
         fontSize: '0.875rem',
         fontWeight: 500,
         marginRight: 'auto',
@@ -95,14 +111,41 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [run, setRun] = useState(false);
     const [steps, setSteps] = useState<Step[]>([]);
     const [currentTourId, setCurrentTourId] = useState<string | null>(null);
-    const [currentStepIndex, setCurrentStepIndex] = useState(0); // Add this
+    const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [tourConfig, setTourConfig] = useState<Partial<TourConfig>>({});
     const pathname = usePathname();
-    const startTourRef = useRef<(tourId: string) => void>(null);
+    const router = useRouter();
+    const searchParams = useSearchParams();
+    const startTourRef = useRef<(tourId: string, startIndex?: number) => void>(null);
 
     const handleJoyrideCallback = useCallback((data: CallBackProps) => {
-        const { status, index, type } = data;
+        const { status, index, type, action } = data;
         const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
+
+        // Handle navigation for steps with routes
+        if (type === EVENTS.STEP_AFTER && action === ACTIONS.NEXT) {
+            const nextStepIndex = index + 1;
+            const nextStep = steps[nextStepIndex] as ExtendedTourStep;
+
+            if (nextStep?.route) {
+                // Save tour state before navigation
+                const tourState = {
+                    tourId: currentTourId,
+                    stepIndex: nextStepIndex,
+                    timestamp: Date.now()
+                };
+
+                // Store in sessionStorage
+                sessionStorage.setItem('tourState', JSON.stringify(tourState));
+
+                // Stop current tour
+                setRun(false);
+
+                // Navigate to the new route
+                router.push(nextStep.route);
+                return;
+            }
+        }
 
         // Update current step index
         if (type === EVENTS.STEP_AFTER || type === EVENTS.TARGET_NOT_FOUND) {
@@ -116,13 +159,16 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             setRun(false);
             setSteps([]);
             setCurrentTourId(null);
-            setCurrentStepIndex(0); // Reset step index
+            setCurrentStepIndex(0);
             setTourConfig({});
-        }
-    }, [currentTourId]);
 
-    const startTour = useCallback((tourId: string) => {
-        console.log(`startTour called with tourId: ${tourId}`);
+            // Clear any tour state
+            sessionStorage.removeItem('tourState');
+        }
+    }, [currentTourId, steps, router]);
+
+    const startTour = useCallback((tourId: string, startIndex: number = 0) => {
+        console.log(`startTour called with tourId: ${tourId}, startIndex: ${startIndex}`);
         const tour = tourRegistry.getTour(tourId);
         console.log('Tour found:', tour);
 
@@ -130,7 +176,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             console.log('Setting tour steps:', tour.steps);
             setSteps(tour.steps as Step[]);
             setCurrentTourId(tourId);
-            setCurrentStepIndex(0); // Reset to first step
+            setCurrentStepIndex(startIndex);
             setTourConfig(tour);
             setRun(true);
         } else {
@@ -145,6 +191,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (tourSteps.length > 0) {
             setSteps(tourSteps as Step[]);
             setCurrentTourId(tourId || 'dynamic-tour');
+            setCurrentStepIndex(0);
             setRun(true);
         }
     }, []);
@@ -153,7 +200,9 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         setRun(false);
         setSteps([]);
         setCurrentTourId(null);
+        setCurrentStepIndex(0);
         setTourConfig({});
+        sessionStorage.removeItem('tourState');
     }, []);
 
     const resetTour = useCallback((tourId: string) => {
@@ -169,36 +218,92 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         tourRegistry.registerComponentSteps(componentId, steps);
     }, []);
 
-    // Check for auto-start tours
+    // Check for tour state after navigation
     useEffect(() => {
-        const checkAutoStartTours = () => {
-            const allTours = tourRegistry.getAllTours();
-            console.log('All registered tours:', allTours);
+        const checkTourState = () => {
+            // Check sessionStorage for tour state
+            const savedState = sessionStorage.getItem('tourState');
 
-            for (const tour of allTours) {
-                if (tour.autoStart) {
-                    const hasCompleted = localStorage.getItem(`tour_completed_${tour.id}`);
-                    const isActive = currentTourId === tour.id;
+            if (savedState) {
+                try {
+                    const { tourId, stepIndex, timestamp } = JSON.parse(savedState);
 
-                    console.log(`Tour ${tour.id}: completed=${hasCompleted}, active=${isActive}, running=${run}`);
+                    // Check if the state is recent (within 30 seconds)
+                    if (Date.now() - timestamp < 30000) {
+                        console.log(`Resuming tour ${tourId} at step ${stepIndex}`);
 
-                    if (!hasCompleted && !isActive && !run) {
-                        console.log(`Starting tour ${tour.id} in ${tour.startDelay || 1000}ms`);
+                        // Wait for page elements to load
                         setTimeout(() => {
-                            if (startTourRef.current) {
-                                startTourRef.current(tour.id);
-                            }
-                        }, tour.startDelay || 1000);
-                        break;
+                            startTour(tourId, stepIndex);
+                            sessionStorage.removeItem('tourState');
+                        }, 1500);
+
+                        return true;
+                    } else {
+                        sessionStorage.removeItem('tourState');
                     }
+                } catch (error) {
+                    console.error('Error parsing tour state:', error);
+                    sessionStorage.removeItem('tourState');
                 }
             }
+
+            // Check URL params as fallback
+            const tourParam = searchParams.get('tour');
+            const stepParam = searchParams.get('step');
+
+            if (tourParam && stepParam) {
+                const stepIndex = parseInt(stepParam, 10);
+
+                setTimeout(() => {
+                    startTour(tourParam, stepIndex);
+
+                    // Clean up URL params
+                    const newParams = new URLSearchParams(searchParams);
+                    newParams.delete('tour');
+                    newParams.delete('step');
+                    router.replace(`${pathname}?${newParams.toString()}`);
+                }, 1500);
+
+                return true;
+            }
+
+            return false;
         };
 
-        // Delay check to ensure tours are registered
-        const timer = setTimeout(checkAutoStartTours, 500);
-        return () => clearTimeout(timer);
-    }, [pathname, currentTourId, run]);
+        const hasResumedTour = checkTourState();
+
+        // Check for auto-start tours only if we haven't resumed a tour
+        if (!hasResumedTour) {
+            const checkAutoStartTours = () => {
+                const allTours = tourRegistry.getAllTours();
+                console.log('All registered tours:', allTours);
+
+                for (const tour of allTours) {
+                    if (tour.autoStart) {
+                        const hasCompleted = localStorage.getItem(`tour_completed_${tour.id}`);
+                        const isActive = currentTourId === tour.id;
+
+                        console.log(`Tour ${tour.id}: completed=${hasCompleted}, active=${isActive}, running=${run}`);
+
+                        if (!hasCompleted && !isActive && !run) {
+                            console.log(`Starting tour ${tour.id} in ${tour.startDelay || 1000}ms`);
+                            setTimeout(() => {
+                                if (startTourRef.current) {
+                                    startTourRef.current(tour.id);
+                                }
+                            }, tour.startDelay || 1000);
+                            break;
+                        }
+                    }
+                }
+            };
+
+            // Delay check to ensure tours are registered
+            const timer = setTimeout(checkAutoStartTours, 500);
+            return () => clearTimeout(timer);
+        }
+    }, [pathname, currentTourId, run, searchParams, router, startTour]);
 
     return (
         <TourContext.Provider
@@ -209,17 +314,18 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 resetTour,
                 isTourActive: run,
                 currentTourId,
-                currentStepIndex, // Add this
+                currentStepIndex,
                 registerTour,
                 registerComponentSteps,
             }}
         >
             {children}
+
             <Joyride
                 continuous={tourConfig.continuous ?? true}
                 run={run}
                 steps={steps}
-                stepIndex={currentStepIndex} // Control the step index
+                stepIndex={currentStepIndex}
                 hideCloseButton={false}
                 showProgress={tourConfig.showProgress ?? true}
                 showSkipButton={tourConfig.showSkipButton ?? true}
@@ -233,6 +339,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                     last: 'Finish',
                     next: 'Next',
                     skip: 'Skip Tour',
+                    open: 'Open', // Add this
                 }}
             />
         </TourContext.Provider>

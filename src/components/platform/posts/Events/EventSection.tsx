@@ -187,7 +187,7 @@ function EventSection() {
 
   return (
     <>
-      <div className={styles.container}>
+      <div data-tour="events" className={styles.container}>
         <EventFilter
           section={section}
           setPage={setPage}

@@ -134,7 +134,7 @@ function GreenChallenges() {
   const te = useTranslations("web.errors")
   return (
     <>
-      <div className={styles.container}>
+      <div data-tour="greenChallenges" className={styles.container}>
         <div className={styles.header}>
           <div className={styles.title}>
             <h2>{t("challenges")}</h2>
