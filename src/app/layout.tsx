@@ -34,19 +34,19 @@ export default function RootLayout({
         <head>
           {/* Google Tag Manager */}
           <Script
-  async
-  src="https://www.googletagmanager.com/gtag/js?id=G-3KCMFBG4FN"
-></Script>
-<script
-  dangerouslySetInnerHTML={{
-    __html: `
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-3KCMFBG4FN"
+          ></Script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
       gtag('config', 'G-3KCMFBG4FN');
     `,
-  }}
-/>
+            }}
+          />
           {/* End Google Tag Manager */}
         </head>
         <body>

@@ -248,24 +248,28 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                 }
             }
 
-            // Check URL params as fallback
-            const tourParam = searchParams.get('tour');
-            const stepParam = searchParams.get('step');
+            // Check URL params as fallback - handle null searchParams
+            if (searchParams) {
+                const tourParam = searchParams.get('tour');
+                const stepParam = searchParams.get('step');
 
-            if (tourParam && stepParam) {
-                const stepIndex = parseInt(stepParam, 10);
+                if (tourParam && stepParam) {
+                    const stepIndex = parseInt(stepParam, 10);
 
-                setTimeout(() => {
-                    startTour(tourParam, stepIndex);
+                    setTimeout(() => {
+                        startTour(tourParam, stepIndex);
 
-                    // Clean up URL params
-                    const newParams = new URLSearchParams(searchParams);
-                    newParams.delete('tour');
-                    newParams.delete('step');
-                    router.replace(`${pathname}?${newParams.toString()}`);
-                }, 1500);
+                        // Clean up URL params
+                        const newParams = new URLSearchParams(searchParams.toString());
+                        newParams.delete('tour');
+                        newParams.delete('step');
+                        const newParamsString = newParams.toString();
+                        const newUrl = newParamsString ? `${pathname}?${newParamsString}` : pathname;
+                        router.replace(newUrl);
+                    }, 1500);
 
-                return true;
+                    return true;
+                }
             }
 
             return false;
