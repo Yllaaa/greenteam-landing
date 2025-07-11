@@ -26,7 +26,7 @@ function ResetPassword() {
   const locale = useLocale();
 
   // Get the reset key from URL parameters
-  const resetKey = searchParams.get('key');
+  const resetKey = searchParams.get('key') || null;
 
   const {
     register,
