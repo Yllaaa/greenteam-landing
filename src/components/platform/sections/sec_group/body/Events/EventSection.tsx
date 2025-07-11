@@ -36,7 +36,8 @@ import EventFilter from "./filterComponent/EventFilter";
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-  const groupID = useParams();
+  const groupI = useParams();
+  const groupID = groupI&&groupI;
   console.log("Group ID:",groupID&& groupID.groupId);
   
 
