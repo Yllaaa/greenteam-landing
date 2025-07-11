@@ -1,30 +1,30 @@
 {
 	"landing": {
 		"navbar": {
-			"downloadApp": "Download the App",
+			"downloadApp": "Download App",
 			"login": "Login",
 			"signUp": "Sign Up",
-			"downloadApp2": "Download the app"
+			"downloadApp2": "Download app"
 		},
 		"hero": {
 			"sustainability": "Sustainability",
 			"wayOfLife": "is a way of life",
-			"bePart": "Be part of the sustentable community.",
-			"theConscient": "The conscient",
-			"socialNet": "social net.",
+			"bePart": "Be part of the sustainable community.",
+			"theConscient": "The conscious",
+			"socialNet": "social network.",
 			"downloadApp": "Download app",
 			"loginWithGoogle": "Login with Google",
-			"register": "Register"
+			"register": "Sign Up"
 		},
 		"brain": {
-			"community": "The community have the solution to all problems,",
+			"community": "The community has the solution to all problems,",
 			"sustainableCulture": "SUSTAINABLE CULTURE",
-			"evolution": "The evolution of culture is a process of dynamic change in the way human society sees, understands and acts, linked to values ​​and beliefs shaped over time.",
+			"evolution": "The evolution of culture is a process of dynamic change in the way human society sees, understands and acts, linked to values and beliefs formed over time.",
 			"learnMore": "Learn more"
 		},
 		"earth": {
-			"bePart": "Discover and share experiences to create a better future,",
-			"theSustainable": "COMMUNICATION IS CULTURE.",
+			"bePart": "Be part of the community with GreenTeam,",
+			"theSustainable": "THE SUSTAINABLE COMMUNICATION TOOL.",
 			"greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
 			"learnMore": "Learn more"
 		},
@@ -36,8 +36,8 @@
 		},
 		"privacy": {
 			"title": "Privacy Policy and Data Protection",
-			"lastUpdate": "Last updated",
-			"intro": "At GreenTeam.app, we value your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, store, and protect your information when you use our web platform or mobile app, in accordance with Regulation (EU) 2016/679 (GDPR) and Organic Law 3/2018 (LOPDGDD).",
+			"lastUpdate": "Last update",
+			"intro": "At GreenTeam.app, we value your privacy and are committed to protecting your personal data. This Privacy Policy describes how we collect, use, store and protect your information when you use our web platform or mobile app, in accordance with Regulation (EU) 2016/679 (GDPR) and Organic Law 3/2018 (LOPDGDD).",
 			"navigation": {
 				"title": "Privacy Policy",
 				"cookiesTitle": "Cookie Policy"
@@ -51,12 +51,12 @@
 					"dpoValue": "Not applicable"
 				},
 				"purposes": {
-					"title": "Processing Purposes",
+					"title": "Processing purposes",
 					"content": {
 						"intro": "We process your data for the following purposes:",
 						"items": {
 							"1": "Manage your registration and user account.",
-							"2": "Enable content publishing (texts, images, documents).",
+							"2": "Allow content publication (texts, images, documents).",
 							"3": "Facilitate the creation and management of thematic groups and business pages.",
 							"4": "Show you personalized content based on your registered location, not geolocated.",
 							"5": "Facilitate interaction with other users through comments and internal messaging system.",
@@ -68,7 +68,7 @@
 					}
 				},
 				"legitimation": {
-					"title": "Legal Basis",
+					"title": "Legal basis",
 					"content": {
 						"intro": "The legal bases that justify the processing are:",
 						"items": {
@@ -80,10 +80,10 @@
 					}
 				},
 				"dataCategories": {
-					"title": "Categories of Processed Data",
+					"title": "Data categories processed",
 					"items": {
 						"1": {
-							"label": "Identifying data",
+							"label": "Identification data",
 							"value": "name, email, profile picture"
 						},
 						"2": {
@@ -109,34 +109,34 @@
 					}
 				},
 				"dataRetention": {
-					"title": "Data Retention",
+					"title": "Data retention",
 					"content": {
-						"intro": "We retain your data while you maintain your account active. Once cancelled:",
+						"intro": "We keep your data while you maintain your account active. Once cancelled:",
 						"items": {
-							"1": "Data will be deleted or anonymized, unless there is a legal obligation to retain it.",
-							"2": "Private messages will be deleted along with your account, unless any of the parties involved retains them within their account."
+							"1": "They will be deleted or anonymized, unless there is a legal obligation to retain them.",
+							"2": "Private messages will be deleted along with your account, unless any of the parties involved keeps them within their account."
 						}
 					}
 				},
 				"dataTransfer": {
-					"title": "Data Communication and Transfer",
+					"title": "Data communication and transfer",
 					"content": "Your data will not be transferred to third parties, except:",
 					"items": {
-						"1": "When you expressly consent to it (for example, when participating in a group or page).",
-						"2": "To technology service providers necessary for GreenTeam.app operation (hosting, email, analytics), under data processing agreements.",
+						"1": "When you expressly consent (for example, when participating in a group or page).",
+						"2": "To technology service providers necessary for the operation of GreenTeam.app (hosting, email, analytics), under data processing contract.",
 						"3": "To judicial or administrative authorities if required by law."
 					},
 					"international": {
 						"title": "International transfers",
-						"content": "If any of our providers is located outside the European Economic Area (EEA), we guarantee their adequacy through standard contractual clauses approved by the European Commission or equivalent legal frameworks."
+						"content": "If any of our providers are located outside the European Economic Area (EEA), we guarantee their adequacy through standard contractual clauses approved by the European Commission or equivalent legal frameworks."
 					}
 				},
 				"security": {
-					"title": "Information Security",
-					"content": "We implement technical and organizational security measures to ensure the confidentiality, integrity, and availability of your data, including encryption, access control, and secure storage."
+					"title": "Information security",
+					"content": "We implement technical and organizational security measures to ensure the confidentiality, integrity and availability of your data, including encryption, access control and secure storage."
 				},
 				"rights": {
-					"title": "Data Subject Rights",
+					"title": "Data subject rights",
 					"content": "You can exercise the following rights:",
 					"items": {
 						"1": {
@@ -160,7 +160,7 @@
 							"value": "Request that your data be transferred to another provider"
 						},
 						"6": {
-							"label": "Opposition",
+							"label": "Objection",
 							"value": "Reject certain processing, such as advertising personalization"
 						},
 						"7": {
@@ -172,56 +172,56 @@
 					"complaint": "You can also file a complaint with the Spanish Data Protection Agency (AEPD) if you believe we have violated your rights:"
 				},
 				"age": {
-					"title": "Minimum Age",
-					"content": "The use of GreenTeam.app is limited to people over 16 years of age. If you are under that age, you need the consent of your parents or legal guardians."
+					"title": "Minimum age",
+					"content": "The use of GreenTeam.app is limited to people over 16 years old. If you are under that age, you need the consent of your parents or legal guardians."
 				},
 				"changes": {
-					"title": "Policy Changes",
+					"title": "Policy changes",
 					"content": "We may update this Privacy Policy when necessary. We will notify you of any relevant changes through the platform or by email."
 				},
 				"contact": {
 					"title": "Contact",
-					"content": "For any questions, exercise of rights, or inquiries about this policy, you can write to us at:"
+					"content": "For any questions, exercise of rights or queries about this policy, you can write to us at:"
 				}
 			},
 			"cookies": {
 				"title": "Cookie Policy",
-				"intro": "At GreenTeam.app we use cookies and similar technologies to improve your user experience, ensure platform functionality, and customize certain features. This Cookie Policy explains what cookies are, what types we use, and how you can manage them.",
+				"intro": "At GreenTeam.app we use cookies and similar technologies to improve your user experience, ensure platform functionality and personalize certain features. This Cookie Policy explains what cookies are, what types we use and how you can manage them.",
 				"whatAre": {
 					"title": "What are cookies?",
 					"content": {
-						"intro": "Cookies are small text files that are stored on your device (computer, mobile, tablet) when you visit a website or use an application. They allow your device to be recognized, remember your preferences, or collect information about your browsing.",
+						"intro": "Cookies are small text files that are stored on your device (computer, mobile, tablet) when you visit a website or use an application. They allow us to recognize your device, remember your preferences or collect information about your browsing.",
 						"items": {
-							"1": "We also use similar technologies such as local storage, session identifiers, or web beacons."
+							"1": "We also use similar technologies such as local storage, session identifiers or web beacons."
 						}
 					}
 				},
 				"types": {
 					"title": "What types of cookies do we use?",
-					"intro": "At GreenTeam.app we only use essential and minimal analytical cookies necessary for technical operation and service improvement. We do not share your information with third parties for advertising purposes.",
+					"intro": "At GreenTeam.app we only use essential cookies and minimal analytics necessary for technical operation and service improvement. We do not share your information with third parties for advertising purposes.",
 					"technical": {
 						"title": "a) Technical cookies (strictly necessary)",
-						"description": "They allow the website to function properly and enable you to use basic functions such as logging in, accessing secure areas, or language settings.",
+						"description": "Allow the website to function properly and enable you to use basic functions such as login, access to secure areas or language settings.",
 						"example": "Example: session cookies, authentication, security."
 					},
 					"analytics": {
-						"title": "b) Analytics cookies (limited and not for advertising purposes)",
-						"description": "They allow us to collect anonymous information about how users interact with the platform (pages visited, time spent, errors detected, etc.) in order to improve the experience and performance.",
-						"provider": "Provider: we may use services such as Google Analytics, configured to anonymize IPs."
+						"title": "b) Analytics cookies (limited and without advertising purposes)",
+						"description": "Allow us to collect anonymous information about how users interact with the platform (pages visited, time spent, errors detected, etc.) in order to improve the experience and performance.",
+						"provider": "Provider: we may use services like Google Analytics, configured to anonymize IPs."
 					}
 				},
 				"sharing": {
 					"title": "Who do we share information with?",
 					"noSharing": "We do not share your personal information with any external company for commercial or advertising purposes.",
-					"technical": "Only basic technical data (such as IP address or browser) is shared with service providers strictly necessary for platform operation, under confidentiality agreements and GDPR compliance."
+					"technical": "Only basic technical data (such as IP address or browser) is shared with service providers strictly necessary for platform operation, under confidentiality agreement and GDPR compliance."
 				},
 				"configuration": {
 					"title": "How can you configure or disable cookies?",
-					"firstAccess": "When you first access GreenTeam.app, we show you a banner with information about cookie use and the possibility to accept, reject or configure them.",
+					"firstAccess": "When accessing GreenTeam.app for the first time, we show you a banner with information about cookie use and the possibility to accept, reject or configure them.",
 					"modify": "You can modify your preferences at any time from the cookie settings menu available on the platform.",
 					"browserSettings": "Additionally, you can disable or delete cookies from your browser settings:",
 					"configureLink": "Configure cookies",
-					"warning": "Please note that disabling cookies may affect the functioning of some essential platform features."
+					"warning": "Please note that disabling cookies may affect the functionality of some essential platform features."
 				},
 				"changes": {
 					"title": "Cookie policy changes",
@@ -229,50 +229,80 @@
 				},
 				"contact": {
 					"title": "Contact",
-					"content": "If you have questions about this policy or about the use of cookies, you can write to us at:"
+					"content": "If you have questions about this policy or about cookie use, you can write to us at:"
 				}
 			}
 		},
-		"imagine": {},
+		"imagine": {
+			"imagine": "Imagine a world in harmony – The Path to sustainability",
+			"objective": "Objectives:",
+			"unificar": "Unify",
+			"unificarText": "the ecological community because communication generates evolution and progress",
+			"compatir": "Share good habits",
+			"compatirText": "because we learn from each other",
+			"fomentar": "Foster human relationships",
+			"fomentarText": "of proximity to be a real community.",
+			"paragraph": "Greenteam begins with limited resources, for this reason we prioritize basic tools to start this long path of changes towards sustainability, but we have many more innovative ideas to develop to help us share moments, food, tools and home, in short, life. As a company committed to society, we listen to your proposals and alliances",
 
+			"ciudades": "Cities",
+			"ciudadesT": "Large population agglomeration in urban and peri-urban areas around the circular economy and sustainable industry. Spaces to share wisdom and research, allowing the reuse of products and the synthesis of new durable, repairable and reusable or biodegradable tools and utilities.",
+			"pueblos": "Towns",
+			"pueblosT": "Population agglomerations in rural areas with a family and cooperative environment. Suitable spaces for the responsible use of natural resources and the construction of abundant ecosystems. Also, experimenting in the production of crafts and trades.",
+			"comunidades": "Communities",
+			"comunidadesT": "Small group of people living in a natural, simple, resilient, biodiverse and self-sufficient environment. Preserved space characterized by harmony in contact with nature and humility. Anyone could move from one space to another bringing with them knowledge, experiences and collaboration, enjoying what each of them offers.",
+			"category": {
+				"salud": "Food and health",
+				"saludT": "We promote food self-sufficiency through sustainable production of fruits, vegetables and herbs, with emphasis on proximity sales. It also includes responsible production of meat, milk and eggs with moderate consumption. We promote artisanal food processing: bakery, dairy products, sausages, preserves and prepared meals.",
+				"mental": "Physical and mental exercise",
+				"mentalT": "We promote personal balance through body and mind care with physical and mental practices.",
+				"arte": "Art and crafts",
+				"arteT": "We support local art and entertainment as a driver of community well-being. In addition, with crafts they give added value and quality to their products.",
+				"bio": "Ecotechniques and bioconstruction",
+				"bioT": "We disseminate the use of renewable energies, water harvesting, biodegradable materials, and durable, repairable and recyclable tools. We value tailoring, masonry, welding, mechanics, electronics and more, as key trades in a resilient community.",
+				"valores": "Knowledge and values",
+				"valoresT": "We promote inclusive and practical education that favors personal development, cooperative work and multidisciplinary learning. A wise people is a conscious, responsible and free people.",
+				"naturaleza": "Community and nature",
+				"naturalezaT": "We promote community life, knowledge of ecosystem services, appreciation of biodiversity and conscious use of common spaces that give us life. United we sow nests."
+			}
+		},
 		"whatWeOffer": {
 			"whatWeOffer": "WHAT WE OFFER",
-			"howWeMake": "How We Make a ",
+			"howWeMake": "How We Make the ",
 			"difference": "Difference",
 			"cards": {
 				"card1": {
 					"header": "Data Privacy",
-					"text": "Your data is secure with ethical and transparent choices."
+					"text": "Your data is safe with ethical and transparent decisions."
 				},
 				"card2": {
 					"header": "Organic Internet",
 					"text": "authentic connections through meaningful and focused design"
 				},
 				"card3": {
-					"header": "Comunication for Impact",
+					"header": "Communication with Impact",
 					"text": "Tools to focus on collective well-being and local impact"
 				}
 			}
 		},
 		"news": {
 			"technology": "Technology",
-			"ultimate": "Ultimate ChatGPT cheatsheet for UX UI Designers: No Bullshit",
-			"AIWont": "AI won’t replace designers, but designers who use AI will replace those who don’t. Similar to how calculators were once thought to replace",
+			"ultimate": "The Ultimate ChatGPT Guide for UX UI Designers: No Nonsense",
+			"AIWont": "AI won't replace designers, but designers who use AI will replace those who don't. Similar to how calculators were once thought to replace",
 			"hannah": "Hannah",
 			"readMore": "Read more",
 			"news": "News",
 			"seeGreenTeam": "SEE GREENTEAM NEWS AND BLOGS"
 		},
 		"footer": {
-			"theConscient": "THE CONSCIENT SOCIAL NET.",
+			"theConscient": "THE CONSCIOUS SOCIAL NETWORK.",
 			"greenTeam": "GREENTEAM",
 			"takeCare": "Take care of yourself, take care of the world.",
 			"registerNow": "Register now",
 			"aboutUs": "About us",
 			"goal": "Goal",
-			"downloadNow": "Download Now",
+			"downloadNow": "Download now",
 			"register": "Register",
-			"copyright": "© Copyright 2024, All Rights Reserved by Greenteam"
+			"copyright": "© Copyright 2024, All rights reserved by Greenteam"
 		}
 	},
 	"auth": {
@@ -372,15 +402,14 @@
 		}
 	},
 	"web": {
-		"common":{
-			"actions":{
+		"common": {
+			"actions": {
 				"delete": "Delete",
-				"report":"Report",
+				"report": "Report",
 				"edit": "Edit",
 				"update": "Update",
 				"create": "Create",
 				"submit": "Submit"
-
 			},
 			"loading": "Loading...",
 			"error": "An error occurred, please try again later",
@@ -609,11 +638,11 @@
 				"Ecotourism": "Ecotourism",
 				"Warning": "Warning",
 				"Cooperatives": "Cooperatives",
-				"Forum":"Forums"
+				"Forum": "Forums"
 			},
 			"addPost": {
 				"addPost": "Add Post",
-				"addForum":"Add Forum",
+				"addForum": "Add Forum",
 				"title": "Add New Post",
 				"placeholder": "Add your experiences and tips to make a better future.",
 				"content": "Content",
