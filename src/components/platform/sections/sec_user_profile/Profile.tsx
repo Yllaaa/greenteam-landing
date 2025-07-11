@@ -5,18 +5,27 @@ import { useParams } from "next/navigation";
 
 function Profile() {
   const params = useParams();
+
   useEffect(() => {
-    if (params && params.username === undefined) {
+    if (!params || !params.username) {
       return;
     }
-    if (params && params.username === "undefined") {
+    if (params.username === "undefined" || params.username === "") {
       return;
     }
-    if (params && params.username === "") {
-      return;
-    }
-  }, [params, params.username]);
+  }, [params, params?.username]);
+
+  // Handle the case where params might be null
+  if (!params || !params.username) {
+    return (
+      <div>
+        <p>Loading profile...</p>
+      </div>
+    );
+  }
+
   const username = params.username as string;
+
   return (
     <>
       <AllProfileBody username={username} />
