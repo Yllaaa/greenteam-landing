@@ -36,10 +36,12 @@ import EventFilter from "./filterComponent/EventFilter";
 function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
-  const groupI = useParams();
-  const groupID = groupI&&groupI;
-  console.log("Group ID:",groupID&& groupID.groupId);
+  const params = useParams();
   
+  // Safely extract groupId from params
+  const groupId = params?.groupId as string | undefined;
+  
+  console.log("Group ID:", groupId);
 
   // State management
   const [events, setEvents] = useState<Event[]>([]);
@@ -68,13 +70,17 @@ function EventSection() {
         setErrorMessage(""); // Clear any previous errors
 
         // Validate required data
-        if (!groupID) {
+        if (!groupId) {
           setErrorMessage("Group ID is required");
+          setIsLoading(false);
+          loadingRef.current = false;
           return;
         }
 
         if (!accessToken) {
           setErrorMessage("Authentication required");
+          setIsLoading(false);
+          loadingRef.current = false;
           return;
         }
 
@@ -82,7 +88,7 @@ function EventSection() {
           page: pageNum,
           limit: LIMIT,
           accessToken,
-          groupId: groupID.groupId as string, // Ensure groupId is a string
+          groupId: groupId,
         });
 
         console.log("Fetched Events:", data);
@@ -123,19 +129,19 @@ function EventSection() {
         loadingRef.current = false;
       }
     },
-    [LIMIT, accessToken, groupID]
+    [LIMIT, accessToken, groupId]
   );
 
   // Initial load and refresh when dependencies change
   useEffect(() => {
-    if (groupID && accessToken) {
+    if (groupId && accessToken) {
       setPage(1);
       setEvents([]); // Clear existing events
       setHasMore(true); // Reset pagination
       loadEvents(1, true);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [groupID, accessToken]); // Remove loadEvents from dependencies to prevent loops
+  }, [groupId, accessToken]); // Remove loadEvents from dependencies to prevent loops
 
   // Scroll event handler for infinite scrolling
   const handleScroll = useCallback(() => {
@@ -211,9 +217,11 @@ function EventSection() {
       return (
         <div className={styles.noPosts}>
           <p>{errorMessage}</p>
-          <button onClick={handleRetry} className={styles.retryButton}>
-            Retry
-          </button>
+          {(groupId && accessToken) && (
+            <button onClick={handleRetry} className={styles.retryButton}>
+              Retry
+            </button>
+          )}
         </div>
       );
     }
@@ -254,7 +262,7 @@ function EventSection() {
   };
 
   // Don't render until we have required data
-  if (!groupID.groupId || !accessToken) {
+  if (!groupId || !accessToken) {
     return (
       <div className={styles.container}>
         <div className={styles.noPosts}>
