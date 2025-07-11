@@ -33,7 +33,7 @@ const LangBtn: React.FC = () => {
     },
   ];
 
-  const pathWithoutLocale = pathname.replace(`/${locale}`, "");
+  const pathWithoutLocale = pathname && pathname.replace(`/${locale}`, "");
 
   const currentLanguage: any = languages.find((lang) => lang.code === locale);
   const toggleDropdown = useCallback(() => {
