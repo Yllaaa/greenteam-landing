@@ -137,7 +137,7 @@ function FeedSection() {
         <AddNewModal
           setAddNew={setAddNewPost}
           addNew={addNewPost}
-          slug={slug}
+          slug={slug as string}
 
         />
       )}
