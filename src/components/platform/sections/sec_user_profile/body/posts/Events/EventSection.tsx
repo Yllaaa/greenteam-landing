@@ -40,7 +40,6 @@ function EventSection(props: { user: ProfileResponse }) {
   const { accessToken } = getToken() || { accessToken: null };
   const params = useParams()
 
-
   // State management
   const [events, setEvents] = useState<Event[]>([]);
   const [section, setSection] = useState<EventCategory>("all");
@@ -60,12 +59,16 @@ function EventSection(props: { user: ProfileResponse }) {
     async (pageNum: number, replace: boolean = false) => {
       try {
         setIsLoading(true);
+
+        // Handle username properly
+        const username = params?.username ? String(params.username) : undefined;
+
         const data = await fetchEvents({
           page: pageNum,
           limit: LIMIT,
           category: section !== "all" ? section : undefined,
           accessToken,
-          username:params && params?.username as string
+          username: username
         });
 
         // Check if we've reached the end of available events
@@ -207,7 +210,6 @@ function EventSection(props: { user: ProfileResponse }) {
           setAddNew={setAddNew}
           admin={user.isMyProfile}
         />
-
 
         {isMounted && (
           <div className={styles.sliderBtns}>
