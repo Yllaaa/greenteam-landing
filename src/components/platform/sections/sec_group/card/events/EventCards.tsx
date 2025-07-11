@@ -30,7 +30,7 @@ function EventCards() {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const eventsList = await getEvents(groupId);
+        const eventsList = await getEvents(groupId as string);
         setEvents(eventsList);
       } catch (error) {
         console.error("Error fetching events:", error);
