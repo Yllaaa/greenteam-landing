@@ -37,10 +37,10 @@ function EventSection() {
   // Authentication
   const { accessToken } = getToken() || { accessToken: null };
   const params = useParams();
-  
+
   // Safely extract groupId from params
   const groupId = params?.groupId as string | undefined;
-  
+
   console.log("Group ID:", groupId);
 
   // State management
@@ -140,7 +140,7 @@ function EventSection() {
       setHasMore(true); // Reset pagination
       loadEvents(1, true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [groupId, accessToken]); // Remove loadEvents from dependencies to prevent loops
 
   // Scroll event handler for infinite scrolling

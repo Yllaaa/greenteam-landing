@@ -132,7 +132,7 @@ function FeedSection() {
       )}
 
       {addNewPost && (
-        <AddNewModal setAddNew={setAddNewPost} addNew={addNewPost} id={id} />
+        <AddNewModal setAddNew={setAddNewPost} addNew={addNewPost} id={id as string} />
       )}
 
       {/* Enhanced Delete Modal */}
