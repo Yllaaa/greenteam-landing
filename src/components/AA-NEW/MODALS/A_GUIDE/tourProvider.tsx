@@ -259,13 +259,15 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                     setTimeout(() => {
                         startTour(tourParam, stepIndex);
 
-                        // Clean up URL params
-                        const newParams = new URLSearchParams(searchParams.toString());
-                        newParams.delete('tour');
-                        newParams.delete('step');
-                        const newParamsString = newParams.toString();
-                        const newUrl = newParamsString ? `${pathname}?${newParamsString}` : pathname;
-                        router.replace(newUrl);
+                        // Clean up URL params only if pathname is available
+                        if (pathname) {
+                            const newParams = new URLSearchParams(searchParams.toString());
+                            newParams.delete('tour');
+                            newParams.delete('step');
+                            const newParamsString = newParams.toString();
+                            const newUrl = newParamsString ? `${pathname}?${newParamsString}` : pathname;
+                            router.replace(newUrl);
+                        }
                     }, 1500);
 
                     return true;
