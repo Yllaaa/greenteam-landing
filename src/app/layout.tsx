@@ -5,7 +5,7 @@ import { Montserrat } from "next/font/google";
 import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StoreProvider from "@/store/StoreProvider";
-import { GlobalTourProvider } from "@/components/AA-NEW/MODALS/A_GUIDE/tourProvider";
+import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
 import TourInitializer from "@/components/AA-NEW/MODALS/A_GUIDE/tourInitializer";
 import TourChainManager from "@/components/AA-NEW/MODALS/A_GUIDE/TourChainManager";
 
@@ -32,7 +32,7 @@ export default function RootLayout({
     <StoreProvider>
       <html lang="en" className={` ${montserrat.variable}`}>
         <body>
-          <GlobalTourProvider>
+          <TourProviderClient>
             <TourInitializer />
             <TourChainManager />
             {children}
@@ -49,7 +49,7 @@ export default function RootLayout({
               theme="light"
               transition={Bounce}
             />
-          </GlobalTourProvider>
+          </TourProviderClient>
         </body>
       </html>
     </StoreProvider>
