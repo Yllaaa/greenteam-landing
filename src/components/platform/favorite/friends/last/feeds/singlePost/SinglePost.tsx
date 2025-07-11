@@ -21,6 +21,7 @@ import foot from "@/../public/logo/foot.png";
 type Props = {
   postId: string;
 };
+
 function SinglePost(props: Props) {
   const localS = getToken();
   const accessToken = localS ? localS.accessToken : null;
@@ -42,11 +43,17 @@ function SinglePost(props: Props) {
   const [post, setPost] = React.useState<PostWithDetails>();
 
   useEffect(() => {
+    // Check if searchParams is available
+    const slug = searchParams?.get("slug");
+
+    if (!slug || !accessToken) {
+      console.error("Missing slug or access token");
+      return;
+    }
+
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${searchParams.get(
-          "slug"
-        )}/posts/${postId}`,
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${slug}/posts/${postId}`,
         {
           headers: {
             "Content-Type": "application/json",
@@ -57,15 +64,12 @@ function SinglePost(props: Props) {
       .then((response) => {
         setIsMounted(true);
         console.log(response.data);
-
         setPost(response.data);
       })
       .catch((error) => {
         console.error(error);
       });
   }, [postId, accessToken, searchParams]);
-
-  // console.log(post && typeof parseInt(post?.likeCount));
 
   const formatTimeDifference = useCallback(
     (targetDate: string): string => {
@@ -126,6 +130,7 @@ function SinglePost(props: Props) {
   }, [post]);
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
+
   // Handle reaction API calls
   const handleToggleReaction = useCallback(
     async (reactionType: ReactionType) => {
@@ -154,7 +159,7 @@ function SinglePost(props: Props) {
       } catch (error) {
         console.error("Error toggling reaction:", error);
         // Revert UI state on error
-        if (post)
+        if (post) {
           if (reactionType === "like") {
             setUserLiked(post?.userReactionType === "like");
             setLikeCount(parseInt(post.likeCount) || 0);
@@ -164,6 +169,7 @@ function SinglePost(props: Props) {
           } else if (reactionType === "do") {
             setUserDo(post?.hasDoReaction);
           }
+        }
       }
     },
     [accessToken, API_BASE_URL, postId, post]
@@ -212,8 +218,8 @@ function SinglePost(props: Props) {
       setUserDisliked(true);
     }
   };
-  // /////////////////
-  // Handle dislike button click with optimistic UI update
+
+  // Handle do button click with optimistic UI update
   const handleDo = () => {
     handleToggleReaction("do");
     // If liked, remove do
@@ -227,8 +233,9 @@ function SinglePost(props: Props) {
   };
 
   // get comments
-
   useEffect(() => {
+    if (!accessToken) return;
+
     axios
       .get(
         `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/posts/${postId}/comments?page=${commentsPage}&limit=10`,
@@ -249,7 +256,8 @@ function SinglePost(props: Props) {
     (item, index, self) => index === self.findIndex((t) => t.id === item.id)
   );
 
-  const [fullscreenImage, setFullscreenImage] = useState(null);
+  const [fullscreenImage, setFullscreenImage] = useState<string | null>(null);
+
   const openFullscreen = (media: any) => {
     setFullscreenImage(media);
     document.body.style.overflow = "hidden"; // Prevent scrolling when fullscreen is open
@@ -259,10 +267,21 @@ function SinglePost(props: Props) {
     setFullscreenImage(null);
     document.body.style.overflow = "auto"; // Restore scrolling
   };
+
   const downloadPdf = (link: string) => {
     // downloadPDF(link, name);
     window.open(link, "_blank");
   };
+
+  // Handle loading state when searchParams is not available
+  if (searchParams === null) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.loading}>Loading...</div>
+      </div>
+    );
+  }
+
   return (
     <>
       {post && (
@@ -383,7 +402,7 @@ function SinglePost(props: Props) {
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
               <p>
                 <span>
-                  {likeCount && likeCount}
+                  {likeCount > 0 && likeCount}
                 </span>
               </p>
             </button>
@@ -398,7 +417,7 @@ function SinglePost(props: Props) {
               />
               <p>
                 <span>
-                  {dislikeCount} 
+                  {dislikeCount > 0 && dislikeCount}
                 </span>
               </p>
             </button>
@@ -426,6 +445,8 @@ function SinglePost(props: Props) {
                 postId={postId}
               />
             )}
+
+            
           </div>
         </div>
       )}

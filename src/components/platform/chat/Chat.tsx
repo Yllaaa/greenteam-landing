@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
@@ -22,7 +21,7 @@ export default function Chat() {
   const socketRef = useRef<Socket | null>(null);
   const searchParams = useSearchParams();
   const router = useRouter();
-  const locale = useLocale()
+  const locale = useLocale();
 
   const [chatId, setChatId] = useState<string>("");
   const [selectedUser, setSelectedUser] = useState<any | null>(null);
@@ -34,9 +33,8 @@ export default function Chat() {
   const [shouldScrollToBottom, setShouldScrollToBottom] = useState(true);
   const [refresh, setRefresh] = useState(false);
 
-
   useEffect(() => {
-    const paramChatId = searchParams.get("chatId");
+    const paramChatId = searchParams?.get("chatId") || null;
     if (paramChatId) {
       setChatId(paramChatId);
       setShowMessages(true);
@@ -58,11 +56,11 @@ export default function Chat() {
         })
         .catch((err) => console.error("Error fetching conversation:", err));
     }
-  }, [searchParams]);
+  }, [searchParams, accessToken]);
 
   // Handle URL params on initial load and when they change
   useEffect(() => {
-    const paramChatId = searchParams.get("chatId");
+    const paramChatId = searchParams?.get("chatId");
     if (paramChatId) {
       setChatId(paramChatId);
       setShowMessages(true); // Show messages view on mobile when chat ID is present
@@ -70,7 +68,7 @@ export default function Chat() {
   }, [searchParams]);
 
   useEffect(() => {
-    if (!chatId) return;
+    if (!chatId || !token?.accessToken) return;
 
     const accessToken = token.accessToken;
 
@@ -112,7 +110,7 @@ export default function Chat() {
     return () => {
       socketRef.current?.disconnect();
     };
-  }, [chatId]);
+  }, [chatId, token]);
 
   const sendMessage = async () => {
     console.log("sendMessage called", {
@@ -147,7 +145,7 @@ export default function Chat() {
         setShouldScrollToBottom(true);
         setRefresh(!refresh); // Trigger a refresh to update messages
         console.log("Message sent successfully");
-        setSelectedUser(response?.conversationId)
+        setSelectedUser(response?.conversationId);
       } else {
         console.error("Failed to send message", response?.error);
       }
@@ -158,9 +156,22 @@ export default function Chat() {
   const handleBackToUsers = () => {
     setShowMessages(false);
     // Keep the URL consistent by removing the chatId parameter
-    router.push('chat');
+    router.push(`/${locale}/chat`);
   };
-  const t = useTranslations("web.chat")
+
+  const t = useTranslations("web.chat");
+
+  // Handle loading state when searchParams is null
+  if (searchParams === null) {
+    return (
+      <div className={styles.chat}>
+        <div className={styles.header}>{t("message")}</div>
+        <div className={styles.content}>
+          <div className={styles.loading}>Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.chat}>
@@ -189,47 +200,12 @@ export default function Chat() {
             newMessage={newMessage}
           />
         </div>
-        {/* <div
-          className={`${styles.messagesView} ${
-            showMessages ? styles.visibleOnMobile : styles.hiddenOnMobile
-          }`}
-        >
-          {selectedUser ? (
-            <>
-              <Messages
-                chatId={chatId}
-                messages={messages}
-                setMessages={setMessages}
-                newMessage={newMessage}
-                nextCursor={nextCursor}
-                setNextCursor={setNextCursor}
-                selectedUser={selectedUser}
-                shouldScrollToBottom={shouldScrollToBottom}
-                setShouldScrollToBottom={setShouldScrollToBottom}
-              />
-              <Input
-                chatId={chatId}
-                selectedUser={selectedUser}
-                setMessages={setMessages}
-                setNewMessage={setNewMessage}
-                inputValue={inputValue}
-                setInputValue={setInputValue}
-                newMessage={newMessage}
-                sendMessageHandler={sendMessage}
-              />
-            </>
-          ) : (
-            <div className={styles.noSelection}>
-              Select a conversation to start messaging
-            </div>
-          )}
-        </div> */}
 
         <div
           className={`${styles.messagesView} ${showMessages ? styles.visibleOnMobile : styles.hiddenOnMobile
             }`}
         >
-          {chatId ? (  // Changed from selectedUser to chatId
+          {chatId ? (
             <>
               <Messages
                 chatId={chatId}
@@ -242,7 +218,6 @@ export default function Chat() {
                 shouldScrollToBottom={shouldScrollToBottom}
                 setShouldScrollToBottom={setShouldScrollToBottom}
                 refresh={refresh}
-
               />
               <Input
                 chatId={chatId}

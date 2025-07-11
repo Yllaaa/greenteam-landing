@@ -25,8 +25,8 @@ function ResetPassword() {
   const router = useRouter();
   const locale = useLocale();
 
-  // Get the reset key from URL parameters
-  const resetKey = searchParams.get('key') || null;
+  // Get the reset key from URL parameters - handle null searchParams
+  const resetKey = searchParams?.get('key') || null;
 
   const {
     register,
@@ -67,9 +67,7 @@ function ResetPassword() {
         },
         {
           headers: {
-            
             "Content-Type": "application/json",
-
           },
         }
       );
@@ -88,6 +86,17 @@ function ResetPassword() {
       }
     }
   };
+
+  // Show loading or redirect while checking for reset key
+  if (searchParams === null) {
+    return (
+      <div className={styles.container}>
+        <div className={styles.formContainer}>
+          <p>{t('loading')}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>

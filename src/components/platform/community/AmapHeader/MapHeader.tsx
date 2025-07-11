@@ -78,7 +78,7 @@ export default function MapHeader() {
 
   // Toggle mobile filters
   const toggleMobileFilters = () => {
-    setMobileFiltersVisible(true);
+    setMobileFiltersVisible(!mobileFiltersVisible);
   };
 
   // Handle clicks outside the dropdown to close it
@@ -166,7 +166,6 @@ export default function MapHeader() {
   };
 
   // Initialize map
-  // Update the map initialization in your useEffect hook
   useEffect(() => {
     // Initialize map when component mounts
     if (typeof window !== "undefined") {
@@ -256,7 +255,7 @@ export default function MapHeader() {
 
   // Watch for changes to country or city name and update map if needed
   useEffect(() => {
-    if (shouldUpdateMap.current) {
+    if (shouldUpdateMap.current && selectedCountryName) {
       searchLocation();
       shouldUpdateMap.current = false;
     }
@@ -264,6 +263,8 @@ export default function MapHeader() {
 
   // Fetch countries on component mount
   useEffect(() => {
+    if (!accessToken) return;
+
     setIsLoadingCountries(true);
     axios
       .get(
@@ -290,7 +291,7 @@ export default function MapHeader() {
 
   // Fetch cities when country changes or search text changes
   useEffect(() => {
-    if (countryId === undefined) {
+    if (countryId === undefined || !accessToken) {
       setCities([]);
       return;
     }
