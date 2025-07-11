@@ -78,7 +78,7 @@ export default function PaymentForm() {
       // Call the backend API to create a subscription
       axios
         .post(
-          `https://greenteam.yllaaa.com/api/v1/subscriptions/tiers/${params.planId}/subscribe`,
+          `https://greenteam.yllaaa.com/api/v1/subscriptions/tiers/${params&&params.planId}/subscribe`,
           {},
           {
             headers: {

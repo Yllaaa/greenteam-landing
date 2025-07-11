@@ -21,7 +21,7 @@ import Report from "./reportModal/Report";
 function FeedSection() {
   const locale = useLocale();
   const params = useParams();
-  const slug = params.pageId;
+  const slug = params && params.pageId;
   const [pageItem, setPageItem] = useState<PageItem>({} as PageItem);
   const [topic, setTopic] = useState<any>();
   const [mounted, setMouted] = useState(false);

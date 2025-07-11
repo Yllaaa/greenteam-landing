@@ -6,16 +6,16 @@ import { useParams } from "next/navigation";
 function Profile() {
   const params = useParams();
   useEffect(() => {
-    if (params.username === undefined) {
+    if (params && params.username === undefined) {
       return;
     }
-    if (params.username === "undefined") {
+    if (params && params.username === "undefined") {
       return;
     }
-    if (params.username === "") {
+    if (params && params.username === "") {
       return;
     }
-  }, [params.username]);
+  }, [params, params.username]);
   const username = params.username as string;
   return (
     <>

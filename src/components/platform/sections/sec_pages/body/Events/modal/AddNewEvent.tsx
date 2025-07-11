@@ -64,7 +64,7 @@ const AddNewEvent = (props: addEventProps) => {
   const accessToken = token ? token.accessToken : null;
 
   const params = useParams();
-  const slug = params.pageId;
+  const slug = params && params.pageId;
   const locale = useLocale()
   const router = useRouter()
 

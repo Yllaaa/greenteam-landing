@@ -15,7 +15,7 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 
 function FeedSection() {
   const params = useParams();
-  const id = params.pageId;
+  const id = params && params.pageId;
 
   const [mounted, setMounted] = useState(false);
 
