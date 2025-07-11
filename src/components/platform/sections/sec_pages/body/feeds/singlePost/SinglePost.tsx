@@ -44,7 +44,7 @@ function SinglePost(props: Props) {
   useEffect(() => {
     axios
       .get(
-        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${searchParams.get(
+        `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/${searchParams && searchParams.get(
           "slug"
         )}/posts/${postId}`,
         {

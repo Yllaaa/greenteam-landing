@@ -24,8 +24,8 @@ function FeedSection() {
 
   // Get search parameters from URL
   const searchParams = useSearchParams();
-  const categoryId = searchParams.get('category');
-  const subcategoryId = searchParams.get('subcategory');
+  const categoryId = searchParams&& searchParams?.get('category');
+  const subcategoryId = searchParams && searchParams.get('subcategory');
 
   // References for scrolling to sections
   const topicRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});

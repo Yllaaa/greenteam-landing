@@ -22,8 +22,8 @@ function FeedsHeader(props: {
 }) {
   const { topic, setSelectedSubtopics, selectedSubtopics } = props;
   const searchParams = useSearchParams();
-  const categoryId = searchParams.get('category');
-  const subcategoryId = searchParams.get('subcategory');
+  const categoryId = searchParams && searchParams.get('category');
+  const subcategoryId = searchParams && searchParams.get('subcategory');
   const tt = useTranslations("web.header.topics");
 
   const topicLogo: { id: number; logo: string }[] = [
@@ -55,8 +55,8 @@ function FeedsHeader(props: {
     // using history.replaceState to update the URL
     if (typeof window !== 'undefined') {
       const url = new URL(window.location.href);
-      url.searchParams.set('category', topicId.toString());
-      url.searchParams.set('subcategory', subtopicId);
+      url.searchParams?.set('category', topicId.toString());
+      url.searchParams?.set('subcategory', subtopicId);
       window.history.replaceState({}, '', url.toString());
     }
   };
