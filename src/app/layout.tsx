@@ -8,7 +8,7 @@ import StoreProvider from "@/store/StoreProvider";
 import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
 import TourInitializer from "@/components/AA-NEW/MODALS/A_GUIDE/tourInitializer";
 import TourChainManager from "@/components/AA-NEW/MODALS/A_GUIDE/TourChainManager";
-
+import Script from "next/script"
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin", "latin-ext"],
@@ -31,10 +31,28 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en" className={` ${montserrat.variable}`}>
+        <head>
+          {/* Google Tag Manager */}
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-24841MCD9Z"
+          ></Script>
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', 'G-24841MCD9Z');
+              `,
+            }}
+          />
+          {/* End Google Tag Manager */}
+        </head>
         <body>
-           <TourProviderClient>
-             <TourInitializer /> 
-             <TourChainManager /> 
+          <TourProviderClient>
+            <TourInitializer />
+            <TourChainManager />
             {children}
             <ToastContainer
               position="top-center"
@@ -49,7 +67,7 @@ export default function RootLayout({
               theme="light"
               transition={Bounce}
             />
-           </TourProviderClient> 
+          </TourProviderClient>
         </body>
       </html>
     </StoreProvider>
