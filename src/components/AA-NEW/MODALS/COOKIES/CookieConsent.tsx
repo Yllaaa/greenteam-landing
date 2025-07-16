@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { FaCookie } from 'react-icons/fa';
 import styles from './CookieConsent.module.scss';
-
+import { useTranslations } from "next-intl"
 interface CookieConsentProps {
     onAccept?: () => void;
     onRefuse?: () => void;
@@ -15,7 +15,7 @@ const COOKIE_CONSENT_KEY = 'cookie-consent-status';
 const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
     const [showConsent, setShowConsent] = useState(false);
     const [mounted, setMounted] = useState(false);
-
+    const t = useTranslations("cookies")
     useEffect(() => {
         setMounted(true);
 
@@ -52,9 +52,9 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                 </div>
 
                 <div className={styles.cookieContent}>
-                    <h3 className={styles.cookieTitle}>¿Qué tipos de cookies usamos?</h3>
+                    <h3 className={styles.cookieTitle}>{t("title")}</h3>
                     <p className={styles.cookieMessage}>
-                        {`En GreenTeam.app no compartimos tu información con terceros para fines publicitarios. Usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio.`}
+                        {t("description")}
                     </p>
                 </div>
 

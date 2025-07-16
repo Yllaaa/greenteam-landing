@@ -1,4 +1,8 @@
 {
+	"cookies": {
+		"title": "¿Qué tipos de cookies usamos?",
+		"description": "En GreenTeam.app no compartimos tu información con terceros para fines publicitarios. Usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio."
+	},
 	"landing": {
 		"navbar": {
 			"downloadApp": "Descargar la App",

@@ -1,4 +1,8 @@
 {
+	"cookies": {
+		"title": "What types of cookies do we use?",
+		"description": "At GreenTeam.app we do not share your information with third parties for advertising purposes. We only use essential cookies and minimal analytics necessary for technical operation and service improvement."
+	},
 	"landing": {
 		"navbar": {
 			"downloadApp": "Download App",
