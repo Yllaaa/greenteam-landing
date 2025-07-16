@@ -152,6 +152,11 @@
 	line-height: 24px;
 	letter-spacing: 0%;
 }
+.text p span {
+	font-size: 10px;
+	line-height: 12px;
+	letter-spacing: 0%;
+}
 
 /* Modal Styles */
 .modal {
@@ -330,11 +335,10 @@
 	-ms-transition: color 0.3s ease;
 	-o-transition: color 0.3s ease;
 }
-@media screen and (max-width:768px){
+@media screen and (max-width: 768px) {
 	.points {
 		font-size: 10px;
 	}
-	
 }
 .subLabel .pointsText {
 	font-size: 10px;
@@ -351,9 +355,8 @@
 }
 @media screen and (max-width: 768px) {
 	.subLabel .subTopicName {
-		font-size: 10px;	
+		font-size: 10px;
 	}
-	
 }
 
 /* Labels and subLabels positions - MAIN COMPONENT */

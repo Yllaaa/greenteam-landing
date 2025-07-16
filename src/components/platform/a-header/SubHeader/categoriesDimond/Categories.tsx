@@ -297,7 +297,7 @@ const Categories: React.FC = () => {
         </div>
 
         <div data-tour="diamond" className={styles.text}>
-          <p>{t('sustainability')}</p>
+          <p>{t('sustainability')} <span>{t('personalG')}</span></p>
         </div>
       </div>
 
