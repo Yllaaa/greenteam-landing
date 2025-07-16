@@ -71,7 +71,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                         onClick={handleAccept}
                         aria-label="Accept cookies"
                     >
-                        Accept
+                        Aceptar cookies esenciales
                     </button>
                 </div>
             </div>
