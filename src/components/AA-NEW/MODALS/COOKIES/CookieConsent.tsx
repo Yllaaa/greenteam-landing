@@ -12,7 +12,7 @@ interface CookieConsentProps {
 
 const COOKIE_CONSENT_KEY = 'cookie-consent-status';
 
-const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => {
+const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
     const [showConsent, setShowConsent] = useState(false);
     const [mounted, setMounted] = useState(false);
 
@@ -32,11 +32,11 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => 
         onAccept?.();
     };
 
-    const handleRefuse = () => {
-        localStorage.setItem(COOKIE_CONSENT_KEY, 'refused');
-        setShowConsent(false);
-        onRefuse?.();
-    };
+    // const handleRefuse = () => {
+    //     localStorage.setItem(COOKIE_CONSENT_KEY, 'refused');
+    //     setShowConsent(false);
+    //     onRefuse?.();
+    // };
 
     // Don't render on server or if consent is not needed
     if (!mounted || !showConsent) {
@@ -52,21 +52,20 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => 
                 </div>
 
                 <div className={styles.cookieContent}>
-                    <h3 className={styles.cookieTitle}>Cookie Consent</h3>
+                    <h3 className={styles.cookieTitle}>¿Qué tipos de cookies usamos?</h3>
                     <p className={styles.cookieMessage}>
-                        {`We use cookies to enhance your browsing experience, serve personalized content,
-                        and analyze our traffic. By clicking "Accept", you consent to our use of cookies.`}
+                        {`En GreenTeam.app no compartimos tu información con terceros para fines publicitarios. Usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio.`}
                     </p>
                 </div>
 
                 <div className={styles.cookieActions}>
-                    <button
+                    {/* <button
                         className={`${styles.cookieButton} ${styles.refuseButton}`}
                         onClick={handleRefuse}
                         aria-label="Refuse cookies"
                     >
                         Refuse
-                    </button>
+                    </button> */}
                     <button
                         className={`${styles.cookieButton} ${styles.acceptButton}`}
                         onClick={handleAccept}

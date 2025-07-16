@@ -23,11 +23,11 @@ export default async function RootLayout({
       <NextIntlClientProvider messages={messages}>
         {/* <GlobalTourProvider> */}
 
-          <div>
-            {children}
-            <CookieConsent
-            />
-          </div>
+        <div>
+          {children}
+          <CookieConsent
+          />
+        </div>
         {/* </GlobalTourProvider> */}
 
       </NextIntlClientProvider>
