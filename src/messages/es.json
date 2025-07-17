@@ -1,5 +1,7 @@
 {
 	"cookies": {
+		"accept": "Aceptar cookies esenciales",
+		"refuse": "Refuse",
 		"title": "¿Qué tipos de cookies usamos?",
 		"description": "En GreenTeam.app no compartimos tu información con terceros para fines publicitarios. Usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio."
 	},
@@ -27,8 +29,8 @@
 			"learnMore": "Aprender más"
 		},
 		"earth": {
-			"bePart": "Sé parte de la comunidad con GreenTeam,",
-			"theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
+			"bePart": "Descubre y comparte experiencias para crear un futuro mejor,",
+			"theSustainable": "LA COMUNICACIÓN ES CULTURA.",
 			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
 			"learnMore": "Aprender más"
 		},
@@ -37,6 +39,10 @@
 			"theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
 			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
 			"learnMore": "Aprender más"
+		},
+		"history": {
+			"title": "Historia",
+			"paragraph": "Un joven aventurero, nacido en las costas del Mar Mediterráneo durante tiempos de cambio y desarrollo tecnológico, pasa su juventud observando el mundo: la naturaleza, las personas, sus compañeros y su familia. Tras ser testigo de la realidad de nuestra sociedad, donde predominan el individualismo, la competitividad, la desigualdad y la obsesión por acumular dinero, sus esperanzas de un mundo mejor disminuyen día a día. Sin estar seguro de a qué quería dedicarse —a qué quería entregar el tiempo de su vida— el joven emprende un largo viaje haciendo autostop para entender la realidad del mundo desde las calles. Para su sorpresa, después de casi un año de viaje y visitar más de 18 países, descubre algo: la gente es generalmente buena. Nos gusta ayudar a los demás. Pero cuando termina el viaje, el mundo sigue girando y todo continúa como antes: avanzando hacia la destrucción del planeta, la naturaleza y todos los sistemas que sustentan la vida. Para entender mejor estos sistemas, el joven estudia veterinaria, medicina humana y la industria agropecuaria. Al borde del desaliento, vislumbra un rayo de luz en la oscuridad: la comunidad ecológica. Cientos de personas están iniciando negocios ambientalmente responsables, formando cooperativas de consumo, realizando estudios y buscando soluciones a esta realidad. Entusiasmado, el joven conoce los movimientos del decrecimiento, desarrollo sostenible, economía circular, permacultura y la creación de ecoaldeas. Estos movimientos abogan por políticas como consumir productos locales, diversificar la producción, usar energías renovables, construir con materiales naturales, crear herramientas y productos duraderos, y reducir el uso de plásticos. Una vez estudiados los conceptos básicos del desarrollo sostenible, el joven reflexiona sobre la mejor dirección para transitar hacia un sistema sostenible. Después de unos meses, encuentra la solución: formar comunidades y repoblar pueblos cerca de las fuentes de cuencas fluviales, comprometiéndose con su cuidado para que las comunidades aguas abajo puedan usar el agua. Esto da como resultado valles autosuficientes y ambientalmente responsables. Dada la dificultad de implementar esta metodología de desarrollo a escala global, el joven inicia su propio proyecto al pie de una reserva natural. Mientras desarrolla la autosuficiencia alimentaria, bioconstrucción, fuentes de energía renovable y sistemas de agua potable, se da cuenta de algo: ¡Se necesita una comunidad! Es demasiado conocimiento, experiencia y trabajo para un pequeño grupo de personas. Aunque existe gran interés en estos movimientos en redes sociales, el joven se encontró casi solo frente a los desafíos del cambio. Ante esta realidad, como dicen en Barcelona, 's'ha acabat el bróquil' (ya basta). La comunidad ecológica unida puede cambiar el sistema productivo, social y económico. En el fondo, las personas son buenas, y la vida en el planeta necesita que actuemos. Actualmente, la comunicación, información, consumo y eventos se organizan a través de redes sociales que, al manipular estos factores, moldean los hábitos de la sociedad sin que nos demos cuenta. La comunidad ecológica tiene más que suficientes bases para crear una red social consciente que acelere el desarrollo hacia el equilibrio y la equidad. Tras este largo viaje, surge la idea de GREENTEAM. Hora de actuar, no hay tiempo que perder. Gracias a la asociación de este joven, un programador web y un diseñador gráfico, se hace posible la creación de Greenteam.app: la red social consciente, la comunidad ecológica unida. Gracias a pequeñas donaciones personales, apoyo de proyectos conscientes, negocios y empresas, y registros voluntarios de usuarios, el equipo Greenteam asume la responsabilidad de usar bien los recursos adquiridos para llevar a cabo esta noble tarea hacia el equilibrio ambiental y social. Es un placer trabajar para ustedes y, finalmente, cocrear libremente con nuestra comunidad —la comunidad consciente. ¡Todos somos GREENTEAM! ¡¡CONVIÉRTETE EN MIEMBRO AHORA!!"
 		},
 		"privacy": {
 			"title": "Política de Privacidad y Protección de Datos",
@@ -307,6 +313,29 @@
 			"downloadNow": "Descargar ahora",
 			"register": "Registrarse",
 			"copyright": "© Copyright 2024, Todos los derechos reservados por Greenteam"
+		},
+		"about": {
+			"title": "SOBRE NOSOTROS",
+			"title2": "Sobre",
+			"title3": "Green Team",
+			"mission": {
+				"title": "MISIÓN",
+				"p1": "Unificar la comunidad ecológica a nivel mundial, porque la comunicación genera evolución.",
+				"p2": "Compartir buenos hábitos en todos los ámbitos de la vida cuotidiana, así como el consumo responsable y de proximidad, una educación multidisciplinar y el crecimiento personal.",
+				"p3": "Fomentar las relaciones humanas, mediante eventos sociales, voluntariado y cooperativismo.",
+				"p4": "Greenteam comienza con recursos muy limitados, por esta razón priorizamos las herramientas básicas para iniciar este largo camino de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras a desarrollar que nos encantaría ofrecerles.",
+				"p5": "El siguiente gran paso, será la ejecución de la app para móviles, para facilitar al usuario la publicación de sus pasos verdes, el uso de las herramientas y la comunicación con la comunidad. Mientras, no olvides poner un acceso directo en tu móvil.",
+				"p6": "  Como empresa comprometida con la sociedad, es muy importante para nosotros la comunicación entre el equipo de Greenteam y los usuarios, para satisfacer sus necesidades, implementar increíbles herramientas y seguir creciendo juntos. No dudes en proponernos nuevas metas o alianzas."
+			},
+			"aboutus": {
+				"title": "Sobre Nosotros",
+				"p1": "Cada día más personas conscientes apuestan por la ecología y el desarrollo sostenible",
+				"p2": "¡Es hora de organizarnos!",
+				"p3": "Greenteam.app es la red social que aborda los temas de desarrollo sostenible de manera holística e interactiva.",
+				"p4": "El objetivo de Greenteam es unificar el movimiento ecológico y consciente, facilitar el desarrollo sostenible de los usuarios, así como promover productos y servicios ambientalmente responsables. La plataforma ofrece diferentes herramientas que te permitirán vivir de forma sostenible gracias a la comunidad, enfocadas en mejorar las interacciones humanas, el aprendizaje, el compartir y el cocrear.",
+				"p5": "Pero el equipo de Greenteam no puede hacer esto solo, ¡cuidar el planeta es tarea de todos! Tú decides el color de tu huella.",
+				"p6": "Juntos, en el camino hacia la sostenibilidad."
+			}
 		}
 	},
 	"auth": {

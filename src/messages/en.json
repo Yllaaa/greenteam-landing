@@ -1,5 +1,7 @@
 {
 	"cookies": {
+		"accept": "Accept",
+		"refuse": "Refuse",
 		"title": "What types of cookies do we use?",
 		"description": "At GreenTeam.app we do not share your information with third parties for advertising purposes. We only use essential cookies and minimal analytics necessary for technical operation and service improvement."
 	},
@@ -27,8 +29,8 @@
 			"learnMore": "Learn more"
 		},
 		"earth": {
-			"bePart": "Be part of the community with GreenTeam,",
-			"theSustainable": "THE SUSTAINABLE COMMUNICATION TOOL.",
+			"bePart": "Discover and share experiences to create a better future,",
+			"theSustainable": "COMMUNICATION IS CULTURE.",
 			"greenTeam": "Green team, the conscious social network, is the communication tool designed to facilitate interaction between conscious people, responsible for their social and environmental impact.",
 			"learnMore": "Learn more"
 		},
@@ -237,6 +239,10 @@
 				}
 			}
 		},
+		"history": {
+			"title": "History",
+			"paragraph":"A young adventurer, born on the shores of the Mediterranean Sea during times of change and technological development, spends his youth observing the world: nature, people, his companions, and his family. After witnessing the reality of our society, where individualism, competitiveness, inequality, and the obsession with accumulating money prevail, his hopes for a better world diminish daily. Unsure of what he wanted to dedicate himself to—what he wanted to give his life’s time to—the young man embarks on a long hitchhiking journey to understand the world’s reality from the streets. To his surprise, after nearly a year of traveling and visiting more than 18 countries, he discovers something: People are generally good. We like helping others.  But after the journey ends, the world keeps turning, and everything continues as it was: heading toward the destruction of the planet, nature, and all the systems that sustain life. To better understand these systems, the young man studies veterinary medicine, human medicine, and the agricultural-livestock industry. On the verge of giving up, he notices a glimmer of light in the darkness: the ecological community. Hundreds of people are starting environmentally responsible businesses, forming consumer cooperatives, conducting studies, and searching for solutions to this reality. Excited, the young man learns about the movements of degrowth, sustainable development, circular economy, permaculture, and the creation of eco-villages. These movements advocate for policies such as consuming local products, diversifying production, using renewable energy, building with natural materials, creating durable tools and products, and reducing plastic usage Once he studies the basic concepts of sustainable development, the young man contemplates the best direction for transitioning to a sustainable system. After a few months, he finds the solution: forming communities and repopulating villages near the sources of river basins, committing to their care to allow downstream communities to use the water. This results in self-sufficient valleys that are environmentally responsible. Given the difficulty of implementing this development methodology on a global scale, the young man starts his own project at the foot of a nature reserve. As he begins developing food self-sufficiency, bioconstruction, renewable energy sources, and potable water systems, he realizes something: You need a community! It’s too much knowledge, experience, and work for a small group of people. Although there is great interest in these movements on social media, the young man found himself almost alone in the face of the challenges of change. Faced with this reality, as they say in Barcelona, “s’ha acabat el bróquil (enough is enough). The united ecological community can change the productive, social, and economic system. Deep down, people are good, and life on the planet needs us to take action. Currently, communication, information, consumption, and events are organized through social media, which, by manipulating these factors, shapes society’s habits without us realizing it. The ecological community has more than enough foundation to create a conscious social network that accelerates development toward balance and equity. After this long journey, the idea of GREENTEAM emerges. Time to Act, No Time to Waste Through the association of this young man, a web programmer, and a graphic designer, the creation of Greenteam.app becomes possible: the conscious social network, the united ecological community. Thanks to small personal donations, support from conscious projects, businesses, and companies, and voluntary user registrations, the Greenteam team takes responsibility for making good use of the acquired resources to carry out this noble task toward environmental and social balance. It is a pleasure to work for you and, finally, to co-create freely with our community—the conscious community. We are all GREENTEAM! BECOME A MEMBER NOW!!!!"
+		},
 		"imagine": {
 			"imagine": "Imagine a world in harmony – The Path to sustainability",
 			"objective": "Objectives:",
@@ -307,7 +313,36 @@
 			"downloadNow": "Download now",
 			"register": "Register",
 			"copyright": "© Copyright 2024, All rights reserved by Greenteam"
+		},
+		"about":{
+			"title":"ABOUT US",
+			"title2":"About",
+			"title3":"Green Team",
+
+			"mission":{
+				"title": "MISSION",
+				
+				"p1": "Unify the global ecological community, because communication drives evolution.",
+				"p2": "Share good habits in all aspects of daily life, including responsible and local consumption, multidisciplinary education, and personal growth.",
+				"p3": "Promote human relationships through social events, volunteering, and cooperativism.",
+				"p4": "Greenteam begins with very limited resources, which is why we prioritize basic tools to start this long journey toward sustainability, but we have many more innovative ideas we'd love to develop and offer.",
+				"p5": "The next major step will be launching the mobile app to make it easier for users to post their green steps, use tools, and communicate with the community. Meanwhile, don't forget to create a shortcut on your mobile device.",
+				"p6": "As a company committed to society, communication between the Greenteam team and users is very important to us, to meet your needs, implement amazing tools, and continue growing together. Feel free to propose new goals or alliances."
+			},
+			"aboutus":{
+				"title": "About Us",
+				"p1": "Every day more and more conscious people are betting on ecology and sustainable development",
+				"p2": "It's time to get organized!",
+				"p3": "Greenteam.app is the social network that addresses sustainable development issues in a holistic and interactive way.",
+				"p4": "Greenteam's goal is to unify the ecological and conscious movement, to facilitate the sustainable development of users, as well as to promote environmentally responsible products and services. The platform offers different tools that will allow you to live sustainably thanks to the community, focused on improving human interactions, learning, sharing and co-creating.",
+				"p5": "But the Greenteam team cannot do this alone, taking care of the planet is everyone's business! You decide the colour of your footprint.",
+				"p6": "Together, on the road to sustainability."
+
+			}
+
 		}
+
+
 	},
 	"auth": {
 		"login": {
@@ -811,7 +846,7 @@
 				"addPost": "Add Post"
 			},
 			"diamond": {
-				"personalG":"Personal growth",
+				"personalG": "Personal growth",
 				"sustainability": "Your way to sustainability",
 				"know": "Knowledge and values",
 				"food": "Food and health",

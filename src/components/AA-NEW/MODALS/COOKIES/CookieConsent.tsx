@@ -12,7 +12,7 @@ interface CookieConsentProps {
 
 const COOKIE_CONSENT_KEY = 'cookie-consent-status';
 
-const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
+const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => {
     const [showConsent, setShowConsent] = useState(false);
     const [mounted, setMounted] = useState(false);
     const t = useTranslations("cookies")
@@ -32,11 +32,11 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
         onAccept?.();
     };
 
-    // const handleRefuse = () => {
-    //     localStorage.setItem(COOKIE_CONSENT_KEY, 'refused');
-    //     setShowConsent(false);
-    //     onRefuse?.();
-    // };
+    const handleRefuse = () => {
+        localStorage.setItem(COOKIE_CONSENT_KEY, 'refused');
+        setShowConsent(false);
+        onRefuse?.();
+    };
 
     // Don't render on server or if consent is not needed
     if (!mounted || !showConsent) {
@@ -59,19 +59,19 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept }) => {
                 </div>
 
                 <div className={styles.cookieActions}>
-                    {/* <button
+                    <button
                         className={`${styles.cookieButton} ${styles.refuseButton}`}
                         onClick={handleRefuse}
                         aria-label="Refuse cookies"
                     >
-                        Refuse
-                    </button> */}
+                        {t("refuse")}
+                    </button>
                     <button
                         className={`${styles.cookieButton} ${styles.acceptButton}`}
                         onClick={handleAccept}
                         aria-label="Accept cookies"
                     >
-                        Aceptar cookies esenciales
+                        {t("accept")}
                     </button>
                 </div>
             </div>

@@ -26,16 +26,20 @@
 
 .content {
     margin-bottom: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .content p {
+  width: 65%;
   font-size: 16px;
   font-weight: 400;
   line-height: 26px;
   text-align: left;
 }
 .imageContainer{
-  width: 100%;
+  width: 35%;
   height: 100%;
  display: flex;
  align-items: center;
@@ -50,6 +54,16 @@
     object-position: center;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
+  .content{
+    flex-direction: column;
+  }
+  .content p{
+    width: 100%;
+  }
+  .imageContainer{
+    width: 100%;
+  }
+
   
 }

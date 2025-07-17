@@ -4,14 +4,17 @@ import styles from "./history.module.css";
 import Image from "next/image";
 import big from "@/../public/about/history.jpeg";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
+import { useTranslations } from "next-intl";
 
 const History: React.FC = () => {
+  const t = useTranslations('landing.history');
   const [loaded, setLoaded] = React.useState(false);
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>History</h2>
+      <h2 className={styles.title}>{t('title')}</h2>
       <div className={styles.content}>
-        <p>{`A Young Adventurer's Journey`}</p>
+        <p>{t('paragraph')}</p>
+        {/* <p>{`A Young Adventurer's Journey`}</p>
         <p>
           A young adventurer, born on the shores of the Mediterranean Sea during
           times of change and technological development, spends his youth
@@ -52,13 +55,7 @@ const History: React.FC = () => {
         <p>{`Thanks to small personal donations, support from conscious projects, businesses, and companies, and voluntary user registrations, the Greenteam team takes responsibility for making good use of the acquired resources to carry out this noble task toward environmental and social balance.`}</p>
         <p>{`It is a pleasure to work for you and, finally, to co-create freely with our community—the conscious community.`}</p>
         <p>{`We are all GREENTEAM!`}</p>
-        <p>{`BECOME A MEMBER NOW!!!!`}</p>
-      </div>
-      {!loaded && (
-        <div className={styles.imageContainer}>
-          <LoadingTree />
-        </div>
-      )}
+        <p>{`BECOME A MEMBER NOW!!!!`}</p> */}
       <div className={styles.imageContainer}>
         <Image
           src={big}
@@ -69,6 +66,12 @@ const History: React.FC = () => {
           }}
         />
       </div>
+      </div>
+      {!loaded && (
+        <div className={styles.imageContainer}>
+          <LoadingTree />
+        </div>
+      )}
     </div>
   );
 };
