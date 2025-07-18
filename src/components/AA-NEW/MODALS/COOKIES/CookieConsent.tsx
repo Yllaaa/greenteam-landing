@@ -2,9 +2,10 @@
 
 import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
-import { FaCookie } from 'react-icons/fa';
+import { FaCookie, FaTimes } from 'react-icons/fa';
 import styles from './CookieConsent.module.scss';
 import { useTranslations } from "next-intl"
+
 interface CookieConsentProps {
     onAccept?: () => void;
     onRefuse?: () => void;
@@ -16,6 +17,7 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => 
     const [showConsent, setShowConsent] = useState(false);
     const [mounted, setMounted] = useState(false);
     const t = useTranslations("cookies")
+
     useEffect(() => {
         setMounted(true);
 
@@ -47,6 +49,15 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => 
     return ReactDOM.createPortal(
         <div className={styles.cookieConsentOverlay}>
             <div className={styles.cookieConsentContainer}>
+                <button
+                    className={styles.closeButton}
+                    onClick={handleRefuse}
+                    aria-label="Close cookie consent"
+                    type="button"
+                >
+                    <FaTimes />
+                </button>
+
                 <div className={styles.cookieIcon}>
                     <FaCookie />
                 </div>
