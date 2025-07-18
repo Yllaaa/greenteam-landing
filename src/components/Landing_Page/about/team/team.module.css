@@ -1,181 +1,194 @@
+/** @format */
+
 .container {
-    width: 100%;
-    padding: 60px 20px;
-    min-height: 500px;
-    position: relative;
+	width: 100%;
+	padding: 60px 20px;
+	min-height: 500px;
+	position: relative;
 }
-.navBtn{
-    position: absolute;
-    top:15%;
-    left:85%;
-    display:flex;
-    gap:24px;
-    width:10%;
+.navBtn {
+	position: absolute;
+	top: 15%;
+	left: 85%;
+	display: flex;
+	gap: 24px;
+	width: 10%;
 }
 
 .header {
-    text-align: flex-start;
-    margin-bottom: 50px;
+	text-align: flex-start;
+	margin-bottom: 50px;
+	padding: 0px 80px;
 }
 
 .title {
-    font-size: 2.5rem;
-    font-weight: 700;
-    color: #ffffff;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0;
+	font-size: 2.5rem;
+	font-weight: 700;
+	color: #ffffff;
+	text-transform: uppercase;
+	letter-spacing: 0.05em;
+	margin: 0;
 }
 
 .greenText {
-    color: #063;
+	background: linear-gradient(90deg, #74b243 0%, #96b032 100%);
+	background-clip: text;
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
 }
 
 .sliderWrapper {
-    max-width: 90%;
-    margin: 0 auto;
-    position: relative;
-    padding: 0 60px;
+	max-width: 100%;
+	margin: 0 auto;
+	position: relative;
+	padding: 0 60px;
 }
 
 .navButton {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgba(255, 255, 255, 0.1);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: #ffffff;
-    transition: all 0.3s ease;
-    z-index: 2;
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background-color: rgba(255, 255, 255, 0.1);
+	border: none;
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	color: #ffffff;
+	transition: all 0.3s ease;
+	z-index: 2;
 }
 
 .navButtonLeft {
-    left: 0;
+	left: 10%;
 }
 
 .navButtonRight {
-    right: 0;
+	right: 10%;
 }
 
 .navButton:hover:not(:disabled) {
-    background-color: rgba(255, 255, 255, 0.2);
-    transform: translateY(-50%) scale(1.1);
+	background-color: rgba(255, 255, 255, 0.2);
+	transform: translateY(-50%) scale(1.1);
 }
 
 .navButton:disabled {
-    opacity: 0.3;
-    cursor: not-allowed;
+	opacity: 0.3;
+	cursor: not-allowed;
 }
 
 .slide {
-    min-height: 100%;
+	min-height: 100%;
 }
 
 .card {
-    background: linear-gradient(90deg, #307040 0%, #74B243 45.5%, #96B032 80%);
-    border-radius: 20px;
-    overflow: hidden;
-    transition: transform 0.3s ease;
-    position: relative;
-    height: 370px;
-    width: 100%;
+	background: linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%);
+	border-radius: 20px;
+	overflow: hidden;
+	transition: transform 0.3s ease;
+	position: relative;
+	height: 360px;
+	width: 100%;
 }
 
 .card:hover {
-    transform: translateY(-10px);
+	transform: translateY(-10px);
 }
 
 .imageWrapper {
-    width: 100%;
-    height: 80%;
+	width: 100%;
+	height: 80%;
 }
 
 .memberImage {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 15px;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	border-radius: 15px;
 }
 
 .memberInfo {
-    padding: 10px;
-    text-align: center;
+	padding: 10px;
+	text-align: center;
 }
 
 .memberName {
-    font-size: 1.1rem;
-    font-weight: 600;
-    color: #ffffff;
-    margin: 0 0 5px 0;
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #ffffff;
+	margin: 0 0 5px 0;
 }
 
 .memberPosition {
-    font-size: 0.9rem;
-    color: #fff;
-    margin: 0;
+	font-size: 0.9rem;
+	color: #fff;
+	margin: 0;
 }
 
 .pagination {
-    display: flex;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 40px;
+	display: flex;
+	justify-content: center;
+	gap: 8px;
+	margin-top: 40px;
 }
 
 .dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    border: none;
-    background-color: rgba(255, 255, 255, 0.3);
-    cursor: pointer;
-    transition: all 0.3s ease;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	border: none;
+	background-color: rgba(255, 255, 255, 0.3);
+	cursor: pointer;
+	transition: all 0.3s ease;
 }
 
 .dot:hover {
-    background-color: rgba(255, 255, 255, 0.5);
+	background-color: rgba(255, 255, 255, 0.5);
 }
 
 .activeDot {
-    background-color: #4ade80;
-    width: 24px;
-    border-radius: 4px;
+	background-color: #4ade80;
+	width: 24px;
+	border-radius: 4px;
 }
 
 /* Responsive adjustments */
 @media (max-width: 768px) {
-    .title {
-        font-size: 2rem;
-    }
-    
-    .sliderWrapper {
-        padding: 0 40px;
-    }
-    
-    .navButton {
-        width: 36px;
-        height: 36px;
-    }
+	.header {
+		width: 100%;
+		padding: 0px 20px;
+	}
+	.navBtn {
+		display: none;
+	}
+	.title {
+		font-size: 2rem;
+	}
+
+	.sliderWrapper {
+		padding: 0 40px;
+	}
+
+	.navButton {
+		width: 36px;
+		height: 36px;
+	}
 }
 
 @media (max-width: 480px) {
-    .title {
-        font-size: 1.5rem;
-    }
-    
-    .sliderWrapper {
-        padding: 0 30px;
-    }
-    
-    .navButton {
-        width: 32px;
-        height: 32px;
-    }
+	.title {
+		font-size: 1.5rem;
+	}
+
+	.sliderWrapper {
+		padding: 0 30px;
+	}
+
+	.navButton {
+		width: 32px;
+		height: 32px;
+	}
 }

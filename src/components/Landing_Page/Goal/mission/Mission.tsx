@@ -12,7 +12,7 @@ function Mission() {
       </div>
 
       <div className={styles.text}>
-        <h3 className={styles.subtitle}>{t("subtitle")}</h3>
+        {/* <h3 className={styles.subtitle}>{t("subtitle")}</h3> */}
 
         <div className={styles.objectivesSection}>
           <h4 className={styles.objectivesTitle}>{t("objectives.title")}</h4>

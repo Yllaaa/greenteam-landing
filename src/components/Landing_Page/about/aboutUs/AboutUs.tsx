@@ -25,17 +25,17 @@ function AboutUs() {
             <p>
               {t("p1")}
             </p>
-            <p>{t("p2")}</p>
+            {/* <p>{t("p2")}</p>
             <p>
               {t("p3")}
-            </p>
+            </p> */}
           </div>
           <div className={styles.p2}>
             <p>{t("p4")}</p>
-            <p>
+            {/* <p>
               {t("p5")}
             </p>
-            <p>{t("p6")}</p>
+            <p>{t("p6")}</p> */}
           </div>
           <div className={styles.signature}>
             <h4>Greenteam</h4>

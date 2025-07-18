@@ -122,6 +122,25 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         const { status, index, type, action } = data;
         const finishedStatuses: string[] = [STATUS.FINISHED, STATUS.SKIPPED];
 
+        // Handle SKIP action explicitly
+        if (action === ACTIONS.SKIP) {
+            // Mark tour as completed
+            if (currentTourId) {
+                localStorage.setItem(`tour_completed_${currentTourId}`, 'true');
+            }
+
+            // Clean up all tour state
+            setRun(false);
+            setSteps([]);
+            setCurrentTourId(null);
+            setCurrentStepIndex(0);
+            setTourConfig({});
+            sessionStorage.removeItem('tourState');
+
+            // No further processing needed
+            return;
+        }
+
         // Handle navigation for steps with routes
         if (type === EVENTS.STEP_AFTER && action === ACTIONS.NEXT) {
             const nextStepIndex = index + 1;
@@ -152,7 +171,8 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             setCurrentStepIndex(index + 1);
         }
 
-        if (finishedStatuses.includes(status)) {
+        // Handle tour completion (but not skip, as we handled it above)
+        if (finishedStatuses.includes(status) && action !== ACTIONS.SKIP) {
             if (currentTourId) {
                 localStorage.setItem(`tour_completed_${currentTourId}`, 'true');
             }
@@ -345,7 +365,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
                     last: 'Finish',
                     next: 'Next',
                     skip: 'Skip Tour',
-                    open: 'Open', // Add this
+                    open: 'Open',
                 }}
             />
         </TourContext.Provider>

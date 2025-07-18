@@ -8,6 +8,7 @@ import img1 from "@/../public/about/1.jpg"
 import img2 from "@/../public/about/2.jpg"
 import img3 from "@/../public/about/3.png"
 import img4 from "@/../public/about/M.png"
+import { useTranslations } from 'next-intl'
 
 function Team() {
     const [currentSlide, setCurrentSlide] = useState(0)
@@ -36,7 +37,7 @@ function Team() {
         },
 
     ]
-
+    const t = useTranslations('landing.teams')
     const [sliderRef, instanceRef] = useKeenSlider({
         initial: 0,
         loop: true,
@@ -106,7 +107,7 @@ function Team() {
             </div>
             <div className={styles.header}>
                 <h2 className={styles.title}>
-                    MEET THE <span className={styles.greenText}>GREENTEAM</span>
+                    {t("title")} <span className={styles.greenText}>GREENTEAM</span>
                 </h2>
             </div>
 

@@ -25,11 +25,12 @@ function Imagine() {
         </div>
         <div className={`${styles.imgRight} ${styles.imgfirst}`}>
           <div className={styles.text}>
+          <p>{t("small")} </p>
             <p>{t("objective")}</p>
             <ul>
-              <li><span>{t("unificar")}:{" "}</span>{t("unificarText")}</li>
+              {/* <li><span>{t("unificar")}:{" "}</span>{t("unificarText")}</li>
               <li><span>{t("compatir")}:{" "}</span>{t("compatirText")}</li>
-              <li><span>{t("fomentar")}:{" "}</span>{t("fomentarText")}</li>
+              <li><span>{t("fomentar")}:{" "}</span>{t("fomentarText")}</li> */}
               <li><span>{t("ciudades")}:{" "}</span>{t("ciudadesT")}</li>
               <li><span>{t("pueblos")}:{" "}</span>{t("pueblosT")}</li>
               <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li>

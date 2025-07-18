@@ -6,6 +6,7 @@ import { getToken } from '@/Utils/userToken/LocalToken'
 import { useTranslations } from 'next-intl'
 import { useLocale } from 'next-intl'
 import { FaArrowDown } from 'react-icons/fa6'
+import { useTour } from '@/components/AA-NEW/MODALS/A_GUIDE/tourProvider'
 
 function Bar({ children }: { children: React.ReactNode }) {
   const token = getToken()
@@ -15,6 +16,7 @@ function Bar({ children }: { children: React.ReactNode }) {
   const [score, setScore] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
+
 
   useEffect(() => {
     axios
@@ -39,6 +41,25 @@ function Bar({ children }: { children: React.ReactNode }) {
   const openBar = () => {
     setBar(!bar);
   }
+
+  // Get tour state from the tour provider
+  const { isTourActive, currentTourId, currentStepIndex } = useTour();
+
+  // Effect to handle tour-based dropdown control
+  useEffect(() => {
+    // Check if header tour is active
+    if (isTourActive && currentTourId === 'header-tour') {
+      // Steps 6 and 7 are the profile-related steps (0-indexed)
+      // Step 6: [data-tour="profile"] - "Access your profile settings"
+      // Step 7: [data-tour="navigate-profile"] - "Navigate to your profile"
+      if (currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5) {
+        setBar(true);
+      } else {
+        setBar(false);
+      }
+    }
+  }, [isTourActive, currentTourId, currentStepIndex, setBar]);
+
 
   // Header visibility states
   const [showHeader, setShowHeader] = useState(true);

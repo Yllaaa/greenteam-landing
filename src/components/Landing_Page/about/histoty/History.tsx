@@ -4,7 +4,8 @@ import styles from "./history.module.css";
 import Image from "next/image";
 import big from "@/../public/about/history.jpeg";
 import LoadingTree from "@/components/zaLoader/LoadingTree";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 interface SectionProps {
   title: string;
@@ -25,6 +26,8 @@ const Section: React.FC<SectionProps> = ({ title, points }) => (
 );
 
 const History: React.FC = () => {
+  const router = useRouter()
+  const locale = useLocale();
   const t = useTranslations('landing.history');
   const [loaded, setLoaded] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
@@ -38,7 +41,9 @@ const History: React.FC = () => {
   ];
 
   const sectionsToShow = isExpanded ? allSections : teaserSections;
-
+  const handleRegister = () => {
+    router.push(`/${locale}/register`);
+  }
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{t('title')}</h1>
@@ -65,7 +70,7 @@ const History: React.FC = () => {
               <h3 className={styles.sectionTitle}>{t('sections.closing.title')}</h3>
               <p className={styles.closingMessage}>{t('sections.closing.message')}</p>
               <p className={styles.slogan}>{t('sections.closing.slogan')}</p>
-              <button className={styles.ctaButton}>
+              <button onClick={handleRegister} className={styles.ctaButton}>
                 {t('sections.closing.cta')}
               </button>
             </div>
@@ -89,8 +94,8 @@ const History: React.FC = () => {
           />
           {!loaded && <LoadingTree />}
         </div>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 

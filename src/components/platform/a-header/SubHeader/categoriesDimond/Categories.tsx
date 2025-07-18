@@ -266,7 +266,7 @@ const Categories: React.FC = () => {
 
   return (
     <>
-      <div className={styles.container}>
+      <div data-tour="diamond" className={styles.container}>
         {/* Main Hexagon Chart */}
         <HexagonChart
           scores={topicScores}
@@ -296,7 +296,7 @@ const Categories: React.FC = () => {
           ))}
         </div>
 
-        <div data-tour="diamond" className={styles.text}>
+        <div  className={styles.text}>
           <p>{t('sustainability')} <span>{t('personalG')}</span></p>
         </div>
       </div>

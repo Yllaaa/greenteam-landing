@@ -365,8 +365,13 @@
 			"readMore": "Read more",
 			"readLess": "Show less"
 		},
+		"teams":{
+			"title": "MEET THE ",
+			"team": "GREENTEAM"
+		},
 		"imagine": {
 			"imagine": "Imagine a world in harmony – The Path to sustainability",
+			"small":"The Greenteam team proposes an alternative model of production, distribution, and consumption to guide the path toward sustainability.",
 			"objective": "Objectives:",
 			"unificar": "Unify",
 			"unificarText": "the ecological community because communication generates evolution and progress",
@@ -396,6 +401,10 @@
 				"naturaleza": "Community and nature",
 				"naturalezaT": "We promote community life, knowledge of ecosystem services, appreciation of biodiversity and conscious use of common spaces that give us life. United we sow nests."
 			}
+		},
+		"goal":{
+			"mini":"GOALS",
+			"big":"THE GOAL OF "
 		},
 		"whatWeOffer": {
 			"whatWeOffer": "WHAT WE OFFER",

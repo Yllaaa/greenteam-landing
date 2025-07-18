@@ -31,7 +31,7 @@
 		"earth": {
 			"bePart": "Descubre y comparte experiencias para crear un futuro mejor,",
 			"theSustainable": "LA COMUNICACIÓN ES CULTURA.",
-			"greenTeam": "La comunicación es la tinta de la cultura, con un pasado lleno de heridas y victorias, un presente fugaz e imparable, y un futuro desconocido. Durante años, la sociedad ha luchado por la libertad de expresión y por promover la comunicación abierta y el pensamiento crítico. Pero cuando parecía que lo habíamos logrado, surgió otro problema: el alcance. No es solo lo que decimos, sino quién lo escucha. Lo que vemos a menudo se convierte en 'normal'. Para asegurar la evolución cultural, es esencial promover una comunicación justa, dando visibilidad a proyectos locales y soluciones sostenibles emergentes. Para elegir lo que quieres ver, hacer y ser —orgánicamente— adoptando buenos hábitos y apoyando valores que quieres hacer crecer para un futuro mejor.",
+			"greenTeam": "La evolución de la cultura es un proceso de cambió dinámico en la forma de ver, entender y actuar de la sociedad humana, ligado a valores y creencias moldeadas a lo largo del tiempo. Nos encontramos en una era de amplio conocimiento y comunicación, amenazados por la emergencia climática a causa del uso irresponsable de nuestras capacidades. Entre tanta avaricia nace la esperanza de un mundo globalizado con principios en el crecimiento personal, cooperativismo y cuidado ambiental, la Sostenibilidad. Reorganizando las piezas de este complejo engranaje sabemos que es posible construir un sistema regenerativo y resiliente, generando abundancia, equidad y justicia. La tecnología de los medios de comunicación actuales nos permite compartir los conocimientos, valores, tradiciones, arte y cualquier otra forma de expresión que definan la cultura de la comunidad consciente. El futuro del planeta es cosa de tod@s y está en nuestras manos compartir CULTURA SOSTENIBLE sembrando bienestar para las generaciones futuras.",
 			"learnMore": "Aprender más"
 		},
 		"foot": {
@@ -366,8 +366,17 @@
 			"readMore": "Leer más",
 			"readLess": "Mostrar menos"
 		},
+		"teams": {
+			"title": "CONOCE A ",
+			"team": "GREENTEAM"
+		},
+		"goal": {
+			"mini": "OBJETIVOS",
+			"big": "EL OBJETIVO DE"
+		},
 		"imagine": {
-			"imagine": "Imagina un mundo en armonía – El Camino hacia la sostenibilidad",
+			"imagine": "Valores y técnicas a difundir",
+			"small": "El equipo de Greenteam proponemos un modelo alternativo de producción, distribución y consumo, para orientar el camino hacia la sostenibilidad.",
 			"objective": "Objetivos:",
 			"unificar": "Unificar",
 			"unificarText": "la comunidad ecológica porque la comunicación genera evolución y progreso",
@@ -384,7 +393,7 @@
 			"comunidadesT": "Pequeño grupo de personas viviendo en un ambiente natural, simple, resiliente, biodiverso y autosuficiente. Espacio preservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquiera podría moverse de un espacio a otro llevando consigo conocimientos, experiencias y colaboración, disfrutando de lo que cada uno de ellos ofrece.",
 			"category": {
 				"salud": "Alimentación y salud",
-				"saludT": "Promovemos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en las ventas de proximidad. También incluye la producción responsable de carne, leche y huevos con consumo moderado. Promovemos el procesamiento artesanal de alimentos: panadería, productos lácteos, embutidos, conservas y comidas preparadas.",
+				"saludT": "Fomentamos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en la venta de proximidad. También se incluye la producción responsable de carne, leche y huevos con un consumo moderado. Impulsamos el procesamiento artesanal de alimentos: panadería, derivados lácteos, embutidos, conservas y comidas preparadas.",
 				"mental": "Ejercicio físico y mental",
 				"mentalT": "Promovemos el equilibrio personal a través del cuidado del cuerpo y la mente con prácticas físicas y mentales.",
 				"arte": "Arte y artesanías",
@@ -404,15 +413,15 @@
 			"cards": {
 				"card1": {
 					"header": "Privacidad de Datos",
-					"text": "Tus datos están seguros con decisiones éticas y transparentes."
+					"text": "no compartimos tu actividad ni datos, sin publicidad."
 				},
 				"card2": {
 					"header": "Internet Orgánico",
-					"text": "conexiones auténticas a través de un diseño significativo y enfocado"
+					"text": "organización de contenido por proximidad y valor ético, sin algoritmos."
 				},
 				"card3": {
-					"header": "Comunicación con Impacto",
-					"text": "Herramientas para enfocarse en el bienestar colectivo y el impacto local"
+					"header": "Comunicación de impacto",
+					"text": "herramientas diseñadas para colaborar y pasar a la acción, sin competir"
 				}
 			}
 		},
@@ -454,10 +463,10 @@
 			},
 			"aboutus": {
 				"title": "Sobre Nosotros",
-				"p1": "Cada día más personas conscientes apuestan por la ecología y el desarrollo sostenible",
+				"p1": "CONOCENOS Somos personas como tú, responsables de nuestro impacto el planeta y la sociedad. ¡Es hora de organizarse!",
 				"p2": "¡Es hora de organizarse!",
 				"p3": "Greenteam.app es la red social que aborda los temas de desarrollo sostenible de manera holística e interactiva.",
-				"p4": "El objetivo de Greenteam es unificar el movimiento ecológico y consciente, facilitar el desarrollo sostenible de los usuarios, así como promover productos y servicios ambientalmente responsables. La plataforma ofrece diferentes herramientas que te permitirán vivir de manera sostenible gracias a la comunidad, enfocada en mejorar las interacciones humanas, aprender, compartir y co-crear.",
+				"p4": "Nuestro equipo les ofrecemos Greenteam.app, la red social que aborda temas de desarrollo sostenible de forma holística e interactiva, diseñada para favorecer el crecimiento personal, social y ambiental. Esta es una iniciativa de todos, para todos; Unete a la comunidad o escribenos y forma parte de nuestro equipo. ¡Tú decides el color de tu huella!",
 				"p5": "Pero el equipo de Greenteam no puede hacer esto solo, ¡cuidar el planeta es asunto de todos! Tú decides el color de tu huella.",
 				"p6": "Juntos, en el camino hacia la sostenibilidad."
 			}
