@@ -1,0 +1,55 @@
+/** @format */
+
+.bar {
+	width: 100%;
+	gap: 20px;
+	position: fixed;
+	top: 100px;
+	left: 0px;
+	background: linear-gradient(
+		127.36deg,
+		#0f3b18 0.8%,
+		#0c2311 50%,
+		#031e09 99.2%
+	);
+    z-index: 999;
+     transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+	// display: none;
+	&.barActive {
+        background: transparent;
+		position: relative;
+		left: 0;
+		top: 0;
+		height: fit-content;
+		transition: top 0.5s ease-in-out;
+		-webkit-transition: top 0.5s ease-in-out;
+		-moz-transition: top 0.5s ease-in-out;
+		-ms-transition: top 0.5s ease-in-out;
+		-o-transition: top 0.5s ease-in-out;
+	}
+	&.hidden {
+        transition: all 0.5s ease-in-out;
+        -webkit-transition: all 0.5s ease-in-out;
+        -moz-transition: all 0.5s ease-in-out;
+        -ms-transition: all 0.5s ease-in-out;
+        -o-transition: all 0.5s ease-in-out;
+        transform: translateY(-300%);
+        -webkit-transform: translateY(-300%);
+        -moz-transform: translateY(-300%);
+        -ms-transform: translateY(-300%);
+        -o-transform: translateY(-300%);
+}
+	.barContainer {
+		display: none;
+		height: fit-content;
+		transition: all 5s ease-in-out;
+		-webkit-transition: all 5s ease-in-out;
+		-moz-transition: all 5s ease-in-out;
+		-ms-transition: all 5s ease-in-out;
+		-o-transition: all 5s ease-in-out;
+	}
+}

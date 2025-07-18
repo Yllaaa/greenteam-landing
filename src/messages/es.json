@@ -1,20 +1,20 @@
 {
 	"cookies": {
-		"accept": "Aceptar cookies esenciales",
-		"refuse": "Refuse",
-		"title": "¿Qué tipos de cookies usamos?",
-		"description": "En GreenTeam.app no compartimos tu información con terceros para fines publicitarios. Usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio."
+		"accept": "Aceptar",
+		"refuse": "Rechazar",
+		"title": "¿Qué tipos de cookies utilizamos?",
+		"description": "En GreenTeam.app no compartimos tu información con terceros con fines publicitarios. Solo utilizamos cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio."
 	},
 	"landing": {
 		"navbar": {
-			"downloadApp": "Descargar la App",
-			"login": "Iniciar sesión",
+			"downloadApp": "Descargar App",
+			"login": "Iniciar Sesión",
 			"signUp": "Registrarse",
-			"downloadApp2": "Descargar la app"
+			"downloadApp2": "Descargar app"
 		},
 		"hero": {
 			"sustainability": "Sostenibilidad",
-			"wayOfLife": "es un estilo de vida",
+			"wayOfLife": "es una forma de vida",
 			"bePart": "Sé parte de la comunidad sostenible.",
 			"theConscient": "La red social",
 			"socialNet": "consciente.",
@@ -25,75 +25,71 @@
 		"brain": {
 			"community": "La comunidad tiene la solución a todos los problemas,",
 			"sustainableCulture": "CULTURA SOSTENIBLE",
-			"evolution": "La evolución de la cultura es un proceso de cambio dinámico en la forma en que la sociedad humana ve, entiende y actúa, vinculado a valores y creencias formados a lo largo del tiempo.",
+			"evolution": "La comunicación es la tinta de la cultura, con un pasado lleno de heridas y victorias, un presente fugaz e imparable, y un futuro desconocido. Durante años, la sociedad ha luchado por la libertad de expresión y por promover la comunicación abierta y el pensamiento crítico. Pero cuando parecía que lo habíamos logrado, surgió otro problema: el alcance. No es solo lo que decimos, sino quién lo escucha. Lo que vemos a menudo se convierte en 'normal'. Para asegurar la evolución cultural, es esencial promover una comunicación justa, dando visibilidad a proyectos locales y soluciones sostenibles emergentes. Para elegir lo que quieres ver, hacer y ser —orgánicamente— adoptando buenos hábitos y apoyando valores que quieres hacer crecer para un futuro mejor.",
 			"learnMore": "Aprender más"
 		},
 		"earth": {
 			"bePart": "Descubre y comparte experiencias para crear un futuro mejor,",
 			"theSustainable": "LA COMUNICACIÓN ES CULTURA.",
-			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
+			"greenTeam": "La comunicación es la tinta de la cultura, con un pasado lleno de heridas y victorias, un presente fugaz e imparable, y un futuro desconocido. Durante años, la sociedad ha luchado por la libertad de expresión y por promover la comunicación abierta y el pensamiento crítico. Pero cuando parecía que lo habíamos logrado, surgió otro problema: el alcance. No es solo lo que decimos, sino quién lo escucha. Lo que vemos a menudo se convierte en 'normal'. Para asegurar la evolución cultural, es esencial promover una comunicación justa, dando visibilidad a proyectos locales y soluciones sostenibles emergentes. Para elegir lo que quieres ver, hacer y ser —orgánicamente— adoptando buenos hábitos y apoyando valores que quieres hacer crecer para un futuro mejor.",
 			"learnMore": "Aprender más"
 		},
 		"foot": {
 			"bePart": "Sé parte de la comunidad con GreenTeam,",
 			"theSustainable": "LA HERRAMIENTA DE COMUNICACIÓN SOSTENIBLE.",
-			"greenTeam": "Green team, la red social consciente, es la herramienta de comunicación diseñada para facilitar la interacción entre personas conscientes, responsables de su impacto social y ambiental.",
+			"greenTeam": "Greenteam, la red social consciente, es una herramienta de comunicación creada para apoyar la interacción entre individuos conscientes: personas responsables de su impacto social y ambiental. Te ayuda a satisfacer tus necesidades básicas de manera sostenible y crecer personalmente dentro de una comunidad. La privacidad es una prioridad: no compartimos tus datos ni actividad con terceros. Cada vez más personas eligen la sostenibilidad, ofreciendo productos y servicios éticos, y trabajando para cambiar hacia una economía circular en un mercado altamente competitivo. Ahora es el momento de caminar juntos, apoyarnos mutuamente, encontrar inspiración y organizarnos como comunidad.",
 			"learnMore": "Aprender más"
-		},
-		"history": {
-			"title": "Historia",
-			"paragraph": "Un joven aventurero, nacido en las costas del Mar Mediterráneo durante tiempos de cambio y desarrollo tecnológico, pasa su juventud observando el mundo: la naturaleza, las personas, sus compañeros y su familia. Tras ser testigo de la realidad de nuestra sociedad, donde predominan el individualismo, la competitividad, la desigualdad y la obsesión por acumular dinero, sus esperanzas de un mundo mejor disminuyen día a día. Sin estar seguro de a qué quería dedicarse —a qué quería entregar el tiempo de su vida— el joven emprende un largo viaje haciendo autostop para entender la realidad del mundo desde las calles. Para su sorpresa, después de casi un año de viaje y visitar más de 18 países, descubre algo: la gente es generalmente buena. Nos gusta ayudar a los demás. Pero cuando termina el viaje, el mundo sigue girando y todo continúa como antes: avanzando hacia la destrucción del planeta, la naturaleza y todos los sistemas que sustentan la vida. Para entender mejor estos sistemas, el joven estudia veterinaria, medicina humana y la industria agropecuaria. Al borde del desaliento, vislumbra un rayo de luz en la oscuridad: la comunidad ecológica. Cientos de personas están iniciando negocios ambientalmente responsables, formando cooperativas de consumo, realizando estudios y buscando soluciones a esta realidad. Entusiasmado, el joven conoce los movimientos del decrecimiento, desarrollo sostenible, economía circular, permacultura y la creación de ecoaldeas. Estos movimientos abogan por políticas como consumir productos locales, diversificar la producción, usar energías renovables, construir con materiales naturales, crear herramientas y productos duraderos, y reducir el uso de plásticos. Una vez estudiados los conceptos básicos del desarrollo sostenible, el joven reflexiona sobre la mejor dirección para transitar hacia un sistema sostenible. Después de unos meses, encuentra la solución: formar comunidades y repoblar pueblos cerca de las fuentes de cuencas fluviales, comprometiéndose con su cuidado para que las comunidades aguas abajo puedan usar el agua. Esto da como resultado valles autosuficientes y ambientalmente responsables. Dada la dificultad de implementar esta metodología de desarrollo a escala global, el joven inicia su propio proyecto al pie de una reserva natural. Mientras desarrolla la autosuficiencia alimentaria, bioconstrucción, fuentes de energía renovable y sistemas de agua potable, se da cuenta de algo: ¡Se necesita una comunidad! Es demasiado conocimiento, experiencia y trabajo para un pequeño grupo de personas. Aunque existe gran interés en estos movimientos en redes sociales, el joven se encontró casi solo frente a los desafíos del cambio. Ante esta realidad, como dicen en Barcelona, 's'ha acabat el bróquil' (ya basta). La comunidad ecológica unida puede cambiar el sistema productivo, social y económico. En el fondo, las personas son buenas, y la vida en el planeta necesita que actuemos. Actualmente, la comunicación, información, consumo y eventos se organizan a través de redes sociales que, al manipular estos factores, moldean los hábitos de la sociedad sin que nos demos cuenta. La comunidad ecológica tiene más que suficientes bases para crear una red social consciente que acelere el desarrollo hacia el equilibrio y la equidad. Tras este largo viaje, surge la idea de GREENTEAM. Hora de actuar, no hay tiempo que perder. Gracias a la asociación de este joven, un programador web y un diseñador gráfico, se hace posible la creación de Greenteam.app: la red social consciente, la comunidad ecológica unida. Gracias a pequeñas donaciones personales, apoyo de proyectos conscientes, negocios y empresas, y registros voluntarios de usuarios, el equipo Greenteam asume la responsabilidad de usar bien los recursos adquiridos para llevar a cabo esta noble tarea hacia el equilibrio ambiental y social. Es un placer trabajar para ustedes y, finalmente, cocrear libremente con nuestra comunidad —la comunidad consciente. ¡Todos somos GREENTEAM! ¡¡CONVIÉRTETE EN MIEMBRO AHORA!!"
 		},
 		"privacy": {
 			"title": "Política de Privacidad y Protección de Datos",
 			"lastUpdate": "Última actualización",
-			"intro": "En GreenTeam.app, valoramos tu privacidad y nos comprometemos a proteger tus datos personales. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos tu información cuando utilizas nuestra plataforma web o app móvil, de acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).",
+			"intro": "En GreenTeam.app valoramos tu privacidad y nos comprometemos a proteger tus datos personales. Esta Política de Privacidad describe cómo recopilamos, usamos, almacenamos y protegemos tu información cuando utilizas nuestra plataforma web o aplicación móvil, de acuerdo con el Reglamento (UE) 2016/679 (RGPD) y la Ley Orgánica 3/2018 (LOPDGDD).",
 			"navigation": {
 				"title": "Política de Privacidad",
 				"cookiesTitle": "Política de Cookies"
 			},
 			"sections": {
 				"responsible": {
-					"title": "Responsable del tratamiento",
+					"title": "Responsable del Tratamiento",
 					"owner": "Titular",
 					"email": "Correo electrónico de contacto",
-					"dpo": "Delegado de Protección de Datos (DPO)",
-					"dpoValue": "No aplica"
+					"dpo": "Delegado de Protección de Datos (DPD)",
+					"dpoValue": "No aplicable"
 				},
 				"purposes": {
-					"title": "Finalidades del tratamiento",
+					"title": "Fines del tratamiento",
 					"content": {
-						"intro": "Tratamos tus datos con las siguientes finalidades:",
+						"intro": "Procesamos tus datos para los siguientes fines:",
 						"items": {
 							"1": "Gestionar tu registro y cuenta de usuario.",
 							"2": "Permitir la publicación de contenido (textos, imágenes, documentos).",
-							"3": "Facilitar la creación y administración de grupos temáticos y páginas de negocio.",
+							"3": "Facilitar la creación y gestión de grupos temáticos y páginas de negocios.",
 							"4": "Mostrarte contenido personalizado según tu ubicación registrada, no geolocalizada.",
 							"5": "Facilitar la interacción con otros usuarios a través de comentarios y sistema de mensajería interna.",
 							"6": "Gestionar eventos y productos publicados por negocios dentro de la plataforma.",
-							"7": "Prevenir fraudes y garantizar la seguridad de la comunidad.",
+							"7": "Prevenir fraude y garantizar la seguridad de la comunidad.",
 							"8": "Enviarte notificaciones relevantes sobre tu actividad.",
 							"9": "Realizar análisis estadísticos y de uso de la plataforma."
 						}
 					}
 				},
 				"legitimation": {
-					"title": "Legitimación",
+					"title": "Base legal",
 					"content": {
 						"intro": "Las bases legales que justifican el tratamiento son:",
 						"items": {
 							"1": "Consentimiento explícito, otorgado al registrarte y aceptar esta política.",
-							"2": "Ejecución del contrato, para el funcionamiento correcto de la plataforma.",
+							"2": "Ejecución del contrato, para el funcionamiento adecuado de la plataforma.",
 							"3": "Interés legítimo para mejorar nuestros servicios y proteger la integridad de la comunidad.",
 							"4": "Cumplimiento de obligaciones legales."
 						}
 					}
 				},
 				"dataCategories": {
-					"title": "Categorías de datos tratados",
+					"title": "Categorías de datos procesados",
 					"items": {
 						"1": {
-							"label": "Datos identificativos",
+							"label": "Datos de identificación",
 							"value": "nombre, correo electrónico, foto de perfil"
 						},
 						"2": {
@@ -106,7 +102,7 @@
 						},
 						"4": {
 							"label": "Mensajes privados",
-							"value": "contenido, fechas y estado (solo accesible por las partes implicadas y nunca indexado)"
+							"value": "contenido, fechas y estado (solo accesibles por las partes involucradas y nunca indexados)"
 						},
 						"5": {
 							"label": "Datos técnicos",
@@ -119,31 +115,31 @@
 					}
 				},
 				"dataRetention": {
-					"title": "Conservación de los datos",
+					"title": "Conservación de datos",
 					"content": {
 						"intro": "Conservamos tus datos mientras mantengas tu cuenta activa. Una vez cancelada:",
 						"items": {
-							"1": "Se eliminarán o anonimizarán, salvo que exista una obligación legal de conservación.",
-							"2": "Los mensajes privados se eliminarán junto con tu cuenta, salvo que alguna de las partes implicadas los conserve dentro de su cuenta."
+							"1": "Serán eliminados o anonimizados, a menos que exista una obligación legal de retenerlos.",
+							"2": "Los mensajes privados serán eliminados junto con tu cuenta, a menos que alguna de las partes involucradas los conserve dentro de su cuenta."
 						}
 					}
 				},
 				"dataTransfer": {
 					"title": "Comunicación y transferencia de datos",
-					"content": "Tus datos no serán cedidos a terceros, salvo:",
+					"content": "Tus datos no serán transferidos a terceros, excepto:",
 					"items": {
-						"1": "Cuando tú lo consientas expresamente (por ejemplo, al participar en un grupo o página).",
-						"2": "A proveedores de servicios tecnológicos necesarios para el funcionamiento de GreenTeam.app (alojamiento, correo, análisis), bajo contrato de tratamiento de datos.",
-						"3": "A autoridades judiciales o administrativas si lo exige la ley."
+						"1": "Cuando otorgues tu consentimiento expreso (por ejemplo, al participar en un grupo o página).",
+						"2": "A proveedores de servicios tecnológicos necesarios para el funcionamiento de GreenTeam.app (alojamiento, correo electrónico, análisis), bajo contrato de tratamiento de datos.",
+						"3": "A autoridades judiciales o administrativas si lo requiere la ley."
 					},
 					"international": {
 						"title": "Transferencias internacionales",
-						"content": "Si alguno de nuestros proveedores se encuentra fuera del Espacio Económico Europeo (EEE), garantizamos su adecuación mediante cláusulas contractuales tipo aprobadas por la Comisión Europea o marcos jurídicos equivalentes."
+						"content": "Si alguno de nuestros proveedores está ubicado fuera del Espacio Económico Europeo (EEE), garantizamos su adecuación a través de cláusulas contractuales tipo aprobadas por la Comisión Europea o marcos legales equivalentes."
 					}
 				},
 				"security": {
 					"title": "Seguridad de la información",
-					"content": "Implementamos medidas de seguridad técnicas y organizativas para garantizar la confidencialidad, integridad y disponibilidad de tus datos, incluyendo cifrado, control de accesos y almacenamiento seguro."
+					"content": "Implementamos medidas de seguridad técnicas y organizativas para garantizar la confidencialidad, integridad y disponibilidad de tus datos, incluyendo cifrado, control de acceso y almacenamiento seguro."
 				},
 				"rights": {
 					"title": "Derechos del interesado",
@@ -151,7 +147,7 @@
 					"items": {
 						"1": {
 							"label": "Acceso",
-							"value": "Saber qué datos tenemos sobre ti"
+							"value": "Conocer qué datos tenemos sobre ti"
 						},
 						"2": {
 							"label": "Rectificación",
@@ -159,7 +155,7 @@
 						},
 						"3": {
 							"label": "Supresión",
-							"value": "Solicitar la eliminación de tus datos (\"derecho al olvido\")"
+							"value": "Solicitar la eliminación de tus datos ('derecho al olvido')"
 						},
 						"4": {
 							"label": "Limitación del tratamiento",
@@ -167,23 +163,23 @@
 						},
 						"5": {
 							"label": "Portabilidad",
-							"value": "Solicitar que tus datos se transfieran a otro proveedor"
+							"value": "Solicitar que tus datos sean transferidos a otro proveedor"
 						},
 						"6": {
 							"label": "Oposición",
-							"value": "Rechazar ciertos tratamientos, como la personalización publicitaria"
+							"value": "Rechazar ciertos procesamientos, como la personalización publicitaria"
 						},
 						"7": {
-							"label": "Retirada del consentimiento",
-							"value": "Cuando la base del tratamiento sea el consentimiento"
+							"label": "Revocación del consentimiento",
+							"value": "Cuando la base del procesamiento es el consentimiento"
 						}
 					},
 					"exerciseText": "Puedes ejercer estos derechos enviando un correo electrónico a:",
-					"complaint": "También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si consideras que hemos infringido tus derechos:"
+					"complaint": "También puedes presentar una reclamación ante la Agencia Española de Protección de Datos (AEPD) si crees que hemos violado tus derechos:"
 				},
 				"age": {
 					"title": "Edad mínima",
-					"content": "El uso de GreenTeam.app está limitado a personas mayores de 16 años. Si eres menor de esa edad, necesitas el consentimiento de tus padres o tutores legales."
+					"content": "El uso de GreenTeam.app está limitado a personas mayores de 16 años. Si tienes menos de esa edad, necesitas el consentimiento de tus padres o tutores legales."
 				},
 				"changes": {
 					"title": "Cambios en la política",
@@ -191,88 +187,214 @@
 				},
 				"contact": {
 					"title": "Contacto",
-					"content": "Para cualquier duda, ejercicio de derechos o consultas sobre esta política, puedes escribirnos a:"
+					"content": "Para cualquier pregunta, ejercicio de derechos o consultas sobre esta política, puedes escribirnos a:"
 				}
 			},
 			"cookies": {
 				"title": "Política de Cookies",
-				"intro": "En GreenTeam.app utilizamos cookies y tecnologías similares para mejorar tu experiencia de usuario, garantizar el funcionamiento de la plataforma y personalizar ciertas funcionalidades. Esta Política de Cookies explica qué son las cookies, qué tipos utilizamos y cómo puedes gestionarlas.",
+				"intro": "En GreenTeam.app utilizamos cookies y tecnologías similares para mejorar tu experiencia de usuario, garantizar la funcionalidad de la plataforma y personalizar ciertas características. Esta Política de Cookies explica qué son las cookies, qué tipos utilizamos y cómo puedes gestionarlas.",
 				"whatAre": {
 					"title": "¿Qué son las cookies?",
 					"content": {
-						"intro": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, móvil, tablet) cuando visitas un sitio web o utilizas una aplicación. Permiten reconocer tu dispositivo, recordar tus preferencias o recoger información sobre tu navegación.",
+						"intro": "Las cookies son pequeños archivos de texto que se almacenan en tu dispositivo (ordenador, móvil, tablet) cuando visitas un sitio web o usas una aplicación. Nos permiten reconocer tu dispositivo, recordar tus preferencias o recopilar información sobre tu navegación.",
 						"items": {
-							"1": "También utilizamos tecnologías similares como almacenamiento local, identificadores de sesión o balizas web."
+							"1": "También utilizamos tecnologías similares como almacenamiento local, identificadores de sesión o web beacons."
 						}
 					}
 				},
 				"types": {
-					"title": "¿Qué tipos de cookies usamos?",
-					"intro": "En GreenTeam.app usamos únicamente cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio. No compartimos tu información con terceros para fines publicitarios.",
+					"title": "¿Qué tipos de cookies utilizamos?",
+					"intro": "En GreenTeam.app solo utilizamos cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio. No compartimos tu información con terceros con fines publicitarios.",
 					"technical": {
 						"title": "a) Cookies técnicas (estrictamente necesarias)",
-						"description": "Permiten que el sitio web funcione correctamente y que puedas utilizar funciones básicas como el inicio de sesión, el acceso a áreas seguras o la configuración de idioma.",
+						"description": "Permiten que el sitio web funcione correctamente y te permiten usar funciones básicas como iniciar sesión, acceder a áreas seguras o configuración de idioma.",
 						"example": "Ejemplo: cookies de sesión, autenticación, seguridad."
 					},
 					"analytics": {
-						"title": "b) Cookies de análisis (limitadas y sin fines publicitarios)",
-						"description": "Nos permiten recopilar información anónima sobre cómo los usuarios interactúan con la plataforma (páginas visitadas, tiempo de permanencia, errores detectados, etc.) con el fin de mejorar la experiencia y rendimiento.",
-						"provider": "Proveedor: podemos utilizar servicios como Google Analytics, configurados para anonimizar las IPs."
+						"title": "b) Cookies analíticas (limitadas y sin fines publicitarios)",
+						"description": "Nos permiten recopilar información anónima sobre cómo los usuarios interactúan con la plataforma (páginas visitadas, tiempo de permanencia, errores detectados, etc.) para mejorar la experiencia y el rendimiento.",
+						"provider": "Proveedor: podemos usar servicios como Google Analytics, configurados para anonimizar IPs."
 					}
 				},
 				"sharing": {
-					"title": "¿Con quién compartimos la información?",
+					"title": "¿Con quién compartimos información?",
 					"noSharing": "No compartimos tu información personal con ninguna empresa externa con fines comerciales o publicitarios.",
-					"technical": "Solo se comparten datos técnicos básicos (como dirección IP o navegador) con proveedores de servicios estrictamente necesarios para el funcionamiento de la plataforma, bajo contrato de confidencialidad y cumplimiento del RGPD."
+					"technical": "Solo se comparten datos técnicos básicos (como dirección IP o navegador) con proveedores de servicios estrictamente necesarios para el funcionamiento de la plataforma, bajo acuerdo de confidencialidad y cumplimiento del RGPD."
 				},
 				"configuration": {
 					"title": "¿Cómo puedes configurar o desactivar las cookies?",
-					"firstAccess": "Al acceder por primera vez a GreenTeam.app, te mostramos un banner con información sobre el uso de cookies y la posibilidad de aceptarlas, rechazarlas o configurarlas.",
+					"firstAccess": "Al acceder a GreenTeam.app por primera vez, te mostramos un banner con información sobre el uso de cookies y la posibilidad de aceptar, rechazar o configurarlas.",
 					"modify": "Puedes modificar tus preferencias en cualquier momento desde el menú de configuración de cookies disponible en la plataforma.",
-					"browserSettings": "Además, puedes desactivar o eliminar las cookies desde la configuración de tu navegador:",
+					"browserSettings": "Adicionalmente, puedes desactivar o eliminar las cookies desde la configuración de tu navegador:",
 					"configureLink": "Configurar cookies",
-					"warning": "Ten en cuenta que la desactivación de cookies puede afectar el funcionamiento de algunas funciones esenciales de la plataforma."
+					"warning": "Ten en cuenta que desactivar las cookies puede afectar la funcionalidad de algunas características esenciales de la plataforma."
 				},
 				"changes": {
 					"title": "Cambios en la política de cookies",
-					"content": "GreenTeam.app puede actualizar esta Política de Cookies en cualquier momento, en especial para adaptarla a cambios normativos o técnicos. Te notificaremos cualquier cambio significativo a través de la plataforma o por correo electrónico."
+					"content": "GreenTeam.app puede actualizar esta Política de Cookies en cualquier momento, especialmente para adaptarla a cambios normativos o técnicos. Te notificaremos cualquier cambio significativo a través de la plataforma o por correo electrónico."
 				},
 				"contact": {
 					"title": "Contacto",
-					"content": "Si tienes dudas sobre esta política o sobre el uso de cookies, puedes escribirnos a:"
+					"content": "Si tienes preguntas sobre esta política o sobre el uso de cookies, puedes escribirnos a:"
 				}
 			}
 		},
+		"history": {
+			"title": "Historia",
+			"subtitle": "El Viaje de GREENTEAM",
+			"sections": {
+				"beginning": {
+					"title": "El Joven Aventurero",
+					"points": [
+						"Nacido a orillas del Mar Mediterráneo durante tiempos de cambio y desarrollo tecnológico",
+						"Pasó su juventud observando el mundo: la naturaleza, las personas, los compañeros y la familia",
+						"Presenció una sociedad dominada por el individualismo, la competitividad y la desigualdad",
+						"Vio cómo la obsesión por acumular dinero prevalecía sobre los valores humanos",
+						"Las esperanzas de un mundo mejor disminuían diariamente"
+					]
+				},
+				"journey": {
+					"title": "El Viaje del Descubrimiento",
+					"points": [
+						"Emprendió un largo viaje haciendo autostop para entender la realidad del mundo",
+						"Viajó durante casi un año visitando más de 18 países",
+						"Hizo un descubrimiento sorprendente: Las personas son generalmente buenas y les gusta ayudar a otros",
+						"Se dio cuenta de que el mundo sigue dirigiéndose hacia la destrucción a pesar de la bondad humana",
+						"Presenció la destrucción del planeta, la naturaleza y los sistemas que sustentan la vida"
+					]
+				},
+				"education": {
+					"title": "Buscando Comprensión",
+					"points": [
+						"Estudió medicina veterinaria para entender los sistemas animales",
+						"Cursó medicina humana para comprender la salud y la vida",
+						"Investigó la industria agrícola-ganadera",
+						"Casi perdió la esperanza hasta descubrir la comunidad ecológica",
+						"Encontró cientos de personas iniciando iniciativas ambientalmente responsables"
+					]
+				},
+				"movements": {
+					"title": "Movimientos Ecológicos Descubiertos",
+					"points": [
+						"Filosofía del decrecimiento - cuestionando el crecimiento económico infinito",
+						"Desarrollo sostenible - satisfaciendo necesidades sin comprometer el futuro",
+						"Economía circular - eliminando residuos mediante reutilización y reciclaje",
+						"Permacultura - trabajando con los patrones de la naturaleza",
+						"Eco-aldeas - creando vida comunitaria sostenible"
+					]
+				},
+				"policies": {
+					"title": "Políticas Sostenibles Clave",
+					"points": [
+						"Consumir productos locales para reducir el impacto del transporte",
+						"Diversificar la producción para la resiliencia",
+						"Usar fuentes de energía renovable",
+						"Construir con materiales naturales",
+						"Crear herramientas y productos duraderos",
+						"Reducir drásticamente el uso de plástico"
+					]
+				},
+				"solution": {
+					"title": "Encontrando la Solución",
+					"points": [
+						"Contempló la mejor dirección para la transición hacia la sostenibilidad",
+						"Descubrió la respuesta: formar comunidades cerca de las fuentes de las cuencas fluviales",
+						"Repoblar pueblos con compromiso ambiental",
+						"Crear valles autosuficientes y ambientalmente responsables",
+						"Asegurar que las comunidades río abajo puedan usar agua limpia"
+					]
+				},
+				"project": {
+					"title": "Iniciando el Proyecto",
+					"points": [
+						"Comenzó su propio proyecto al pie de una reserva natural",
+						"Desarrolló sistemas de autosuficiencia alimentaria",
+						"Implementó técnicas de bioconstrucción",
+						"Creó fuentes de energía renovable",
+						"Construyó sistemas de agua potable",
+						"Se dio cuenta: ¡Necesitas una comunidad! Demasiado para un grupo pequeño"
+					]
+				},
+				"realization": {
+					"title": "La Gran Realización",
+					"points": [
+						"A pesar del interés en las redes sociales, se encontró casi solo",
+						"Como dicen en Barcelona: 's'ha acabat el bróquil' (se acabó el brócoli)",
+						"La comunidad ecológica unida puede cambiar el sistema",
+						"Las personas son inherentemente buenas",
+						"La vida en el planeta necesita que actuemos AHORA"
+					]
+				},
+				"greenteam": {
+					"title": "Nacimiento de GREENTEAM",
+					"points": [
+						"Las redes sociales moldean los hábitos de la sociedad sin que nos demos cuenta",
+						"La comunidad ecológica necesita una red social consciente",
+						"Una plataforma para acelerar el desarrollo hacia",
+						"el equilibrio y la equidad",
+						"Después de este largo viaje, surge la idea de GREENTEAM",
+						"Tiempo de Actuar, No Hay Tiempo que Perder"
+					]
+				},
+				"team": {
+					"title": "Se Forma el Equipo",
+					"points": [
+						"Joven aventurero con la visión",
+						"Programador web con habilidades técnicas",
+						"Diseñador gráfico con talento creativo",
+						"Juntos creando Greenteam.app",
+						"La red social consciente, la comunidad ecológica unida"
+					]
+				},
+				"support": {
+					"title": "Apoyo de la Comunidad",
+					"points": [
+						"Pequeñas donaciones personales de creyentes",
+						"Apoyo de proyectos y negocios conscientes",
+						"Registros voluntarios de usuarios",
+						"Compromiso del equipo para usar los recursos responsablemente",
+						"Trabajando hacia el equilibrio ambiental y social"
+					]
+				},
+				"closing": {
+					"title": "Únete a Nosotros",
+					"message": "Es un placer trabajar para ti y co-crear libremente con nuestra comunidad consciente.",
+					"slogan": "¡Todos somos GREENTEAM!",
+					"cta": "¡HAZTE MIEMBRO AHORA!"
+				}
+			},
+			"readMore": "Leer más",
+			"readLess": "Mostrar menos"
+		},
 		"imagine": {
-			"imagine": "Imagina un mundo en armonia – El Camino a la sostenibilidad",
+			"imagine": "Imagina un mundo en armonía – El Camino hacia la sostenibilidad",
 			"objective": "Objetivos:",
 			"unificar": "Unificar",
 			"unificarText": "la comunidad ecológica porque la comunicación genera evolución y progreso",
-			"compatir": "Compatir buenos hábitos",
-			"compatirText": "porque aprendemos los unos de los otros",
-			"fomentar": "Fomentar las relaciones humanas",
+			"compatir": "Compartir buenos hábitos",
+			"compatirText": "porque aprendemos unos de otros",
+			"fomentar": "Fomentar relaciones humanas",
 			"fomentarText": "de proximidad para ser una comunidad real.",
-			"paragraph": "Greenteam comienza con recursos limitados, por esta razón priorizamos las herramientas básicas para iniciar este largo camino de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras a desarrollar para ayudarnos a compartir momentos, alimentos, herramientas y hogar, en definitiva, la vida. Como empresa comprometida con la sociedad escuchamos tus propuestas y alianzas",
-
+			"paragraph": "Greenteam comienza con recursos limitados, por esta razón priorizamos herramientas básicas para iniciar este largo camino de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras para desarrollar que nos ayuden a compartir momentos, comida, herramientas y hogar, en definitiva, vida. Como empresa comprometida con la sociedad, escuchamos tus propuestas y alianzas",
 			"ciudades": "Ciudades",
-			"ciudadesT": "Gran aglomeración de población en zonas urbanas y periurbanas entorno a la economía circular y la industria sostenible. Espacios para compartir sabiduría e investigación, permitiendo la reutilización de los productos y la síntesis de nuevas herramientas y útiles duraderos, reparables y reutilizables o biodegradables.",
+			"ciudadesT": "Gran aglomeración de población en áreas urbanas y periurbanas alrededor de la economía circular y la industria sostenible. Espacios para compartir sabiduría e investigación, permitiendo la reutilización de productos y la síntesis de nuevas herramientas y utilidades duraderas, reparables y reutilizables o biodegradables.",
 			"pueblos": "Pueblos",
-			"pueblosT": "Aglomeraciones de población en zonas rurales con un ambiente familiar y cooperativo. Espacios aptos para el aprovechamiento responsable de los recursos naturales y la construcción de ecosistemas en abundancia. Además, experimentar en la producción de artesanías y oficios.",
+			"pueblosT": "Aglomeraciones de población en áreas rurales con un ambiente familiar y cooperativo. Espacios adecuados para el uso responsable de los recursos naturales y la construcción de ecosistemas abundantes. También, experimentando en la producción de artesanías y oficios.",
 			"comunidades": "Comunidades",
-			"comunidadesT": "Grupo de personas reducido que viven en un ambiente natural, simple, resiliente, biodiverso y autosuficientes. Espacio conservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquier persona podría transitar de un espacio a otro llevando consigo saberes, experiencias y colaboración, gozando de lo que te ofrecen cada uno de ellos.",
+			"comunidadesT": "Pequeño grupo de personas viviendo en un ambiente natural, simple, resiliente, biodiverso y autosuficiente. Espacio preservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquiera podría moverse de un espacio a otro llevando consigo conocimientos, experiencias y colaboración, disfrutando de lo que cada uno de ellos ofrece.",
 			"category": {
 				"salud": "Alimentación y salud",
-				"saludT": "Fomentamos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en la venta de proximidad. También se incluye la producción responsable de carne, leche y huevos con un consumo moderado. Impulsamos el procesamiento artesanal de alimentos: panadería, derivados lácteos, embutidos, conservas y comidas preparadas.",
+				"saludT": "Promovemos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en las ventas de proximidad. También incluye la producción responsable de carne, leche y huevos con consumo moderado. Promovemos el procesamiento artesanal de alimentos: panadería, productos lácteos, embutidos, conservas y comidas preparadas.",
 				"mental": "Ejercicio físico y mental",
 				"mentalT": "Promovemos el equilibrio personal a través del cuidado del cuerpo y la mente con prácticas físicas y mentales.",
 				"arte": "Arte y artesanías",
-				"arteT": "Apoyamos el arte y entretenimiento local como motor de bienestar comunitario. Además, con las artesanías les dan un valor añadido y calidad a sus productos.",
-				"bio": "Ecotecnias y bioconstrucción",
+				"arteT": "Apoyamos el arte local y el entretenimiento como motor del bienestar comunitario. Además, con las artesanías dan valor agregado y calidad a sus productos.",
+				"bio": "Ecotécnicas y bioconstrucción",
 				"bioT": "Difundimos el uso de energías renovables, captación de agua, materiales biodegradables, y herramientas duraderas, reparables y reciclables. Valoramos la sastrería, albañilería, soldadura, mecánica, electrónica y más, como oficios clave en una comunidad resiliente.",
 				"valores": "Conocimiento y valores",
-				"valoresT": "Impulsamos una educación inclusiva y práctica que favorezca el desarrollo personal, el trabajo cooperativo y el aprendizaje multidisciplinar. Un pueblo sabio es un pueblo consciente, responsable y libre.",
+				"valoresT": "Promovemos una educación inclusiva y práctica que favorezca el desarrollo personal, el trabajo cooperativo y el aprendizaje multidisciplinario. Un pueblo sabio es un pueblo consciente, responsable y libre.",
 				"naturaleza": "Comunidad y naturaleza",
-				"naturalezaT": "Promovemos la vida en comunidad, el conocimiento de los servicios ecosistémicos, la valoración de la biodiversidad y el uso consciente de los espacios comunes que nos dan vida. Unidos sembramos nidos."
+				"naturalezaT": "Promovemos la vida comunitaria, el conocimiento de los servicios ecosistémicos, la apreciación de la biodiversidad y el uso consciente de los espacios comunes que nos dan vida. Unidos sembramos nidos."
 			}
 		},
 		"whatWeOffer": {
@@ -296,8 +418,8 @@
 		},
 		"news": {
 			"technology": "Tecnología",
-			"ultimate": "La guía definitiva de ChatGPT para Diseñadores UX UI: Sin tonterías",
-			"AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usan IA reemplazarán a los que no lo hacen. Similar a como las calculadoras alguna vez se pensó que reemplazarían",
+			"ultimate": "La Guía Definitiva de ChatGPT para Diseñadores UX UI: Sin Tonterías",
+			"AIWont": "La IA no reemplazará a los diseñadores, pero los diseñadores que usan IA reemplazarán a los que no lo hacen. Similar a cómo alguna vez se pensó que las calculadoras reemplazarían",
 			"hannah": "Hannah",
 			"readMore": "Leer más",
 			"news": "Noticias",
@@ -306,9 +428,9 @@
 		"footer": {
 			"theConscient": "LA RED SOCIAL CONSCIENTE.",
 			"greenTeam": "GREENTEAM",
-			"takeCare": "Cuídate a ti mismo, cuida el mundo.",
-			"registerNow": "Registrarse ahora",
-			"aboutUs": "Acerca de nosotros",
+			"takeCare": "Cuídate, cuida el mundo.",
+			"registerNow": "Regístrate ahora",
+			"aboutUs": "Sobre nosotros",
 			"goal": "Objetivo",
 			"downloadNow": "Descargar ahora",
 			"register": "Registrarse",
@@ -316,41 +438,44 @@
 		},
 		"about": {
 			"title": "SOBRE NOSOTROS",
-			"title2": "Sobre",
+			"title2": "Acerca de",
 			"title3": "Green Team",
 			"mission": {
 				"title": "MISIÓN",
-				"p1": "Unificar la comunidad ecológica a nivel mundial, porque la comunicación genera evolución.",
-				"p2": "Compartir buenos hábitos en todos los ámbitos de la vida cuotidiana, así como el consumo responsable y de proximidad, una educación multidisciplinar y el crecimiento personal.",
-				"p3": "Fomentar las relaciones humanas, mediante eventos sociales, voluntariado y cooperativismo.",
-				"p4": "Greenteam comienza con recursos muy limitados, por esta razón priorizamos las herramientas básicas para iniciar este largo camino de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras a desarrollar que nos encantaría ofrecerles.",
-				"p5": "El siguiente gran paso, será la ejecución de la app para móviles, para facilitar al usuario la publicación de sus pasos verdes, el uso de las herramientas y la comunicación con la comunidad. Mientras, no olvides poner un acceso directo en tu móvil.",
-				"p6": "  Como empresa comprometida con la sociedad, es muy importante para nosotros la comunicación entre el equipo de Greenteam y los usuarios, para satisfacer sus necesidades, implementar increíbles herramientas y seguir creciendo juntos. No dudes en proponernos nuevas metas o alianzas."
+				"subtitle": "Objetivos",
+				"objectives": {
+					"title": "Objetivos:",
+					"unity": "Unificar la comunidad ecológica porque la comunicación genera evolución y progreso.",
+					"habits": "Compartir buenos hábitos porque aprendemos unos de otros.",
+					"relationships": "Fomentar relaciones humanas locales para ser una comunidad real."
+				},
+				"journey": "Greenteam comienza con recursos limitados, por lo que priorizamos herramientas básicas para iniciar este largo viaje de cambios hacia la sostenibilidad, pero tenemos muchas más ideas innovadoras para desarrollar que nos ayuden a compartir momentos, comida, herramientas y hogar, en definitiva, vida.",
+				"commitment": "Como empresa comprometida con la sociedad, escuchamos tus propuestas y alianzas"
 			},
 			"aboutus": {
 				"title": "Sobre Nosotros",
 				"p1": "Cada día más personas conscientes apuestan por la ecología y el desarrollo sostenible",
-				"p2": "¡Es hora de organizarnos!",
+				"p2": "¡Es hora de organizarse!",
 				"p3": "Greenteam.app es la red social que aborda los temas de desarrollo sostenible de manera holística e interactiva.",
-				"p4": "El objetivo de Greenteam es unificar el movimiento ecológico y consciente, facilitar el desarrollo sostenible de los usuarios, así como promover productos y servicios ambientalmente responsables. La plataforma ofrece diferentes herramientas que te permitirán vivir de forma sostenible gracias a la comunidad, enfocadas en mejorar las interacciones humanas, el aprendizaje, el compartir y el cocrear.",
-				"p5": "Pero el equipo de Greenteam no puede hacer esto solo, ¡cuidar el planeta es tarea de todos! Tú decides el color de tu huella.",
+				"p4": "El objetivo de Greenteam es unificar el movimiento ecológico y consciente, facilitar el desarrollo sostenible de los usuarios, así como promover productos y servicios ambientalmente responsables. La plataforma ofrece diferentes herramientas que te permitirán vivir de manera sostenible gracias a la comunidad, enfocada en mejorar las interacciones humanas, aprender, compartir y co-crear.",
+				"p5": "Pero el equipo de Greenteam no puede hacer esto solo, ¡cuidar el planeta es asunto de todos! Tú decides el color de tu huella.",
 				"p6": "Juntos, en el camino hacia la sostenibilidad."
 			}
 		}
 	},
 	"auth": {
 		"login": {
-			"login": "Iniciar sesión",
+			"login": "Iniciar Sesión",
 			"signInNow": "¡Inicia sesión ahora y desbloquea acceso exclusivo!",
 			"or": "o",
 			"name": "Nombre",
-			"emailOrUsername": "Email o Nombre de usuario",
-			"emailRequired": "El email es requerido",
+			"emailOrUsername": "Correo electrónico o nombre de usuario",
+			"emailRequired": "El correo electrónico es requerido",
 			"identifierRequired": "El identificador es requerido",
 			"password": "Contraseña",
-			"checkPassword": "Verifica el campo de contraseña",
+			"checkPassword": "Verificar campo de contraseña",
 			"IAgree": "Acepto los",
-			"termsOfService": "términos del servicio",
+			"termsOfService": "términos de servicio",
 			"forgetPassword": "¿Olvidaste tu contraseña?",
 			"signUp": "Registrarse",
 			"don'tHaveAccount": "¿No tienes una cuenta?",
@@ -362,8 +487,8 @@
 			"loginFailed": "Error al iniciar sesión"
 		},
 		"signUp": {
-			"emailRequired": "El email es requerido",
-			"invalidEmail": "Email inválido",
+			"emailRequired": "El correo electrónico es requerido",
+			"invalidEmail": "Correo electrónico inválido",
 			"passwordRequired": "La contraseña es requerida",
 			"passwordMin": "La contraseña debe tener al menos 8 caracteres",
 			"passwordMatchUpper": "La contraseña debe contener al menos una letra mayúscula",
@@ -373,29 +498,29 @@
 			"usernameRequired": "El nombre de usuario es requerido",
 			"usernameMin": "El nombre de usuario debe tener al menos 3 caracteres",
 			"usernameMax": "El nombre de usuario no debe exceder 20 caracteres",
-			"confirmRequired": "La confirmación de contraseña es requerida",
+			"confirmRequired": "Confirmar contraseña es requerido",
 			"pleaseAccept": "Por favor acepta los términos y condiciones",
 			"passwordNotMatch": "Las contraseñas no coinciden",
 			"signUpSuccess": "Cuenta creada exitosamente",
 			"createAccount": "Crear una cuenta",
 			"signUpNow": "¡Regístrate ahora y desbloquea acceso exclusivo!",
-			"username": "Nombre de usuario",
-			"email": "Email",
+			"username": "Nombre de Usuario",
+			"email": "Correo Electrónico",
 			"password": "Contraseña",
-			"confirmPassword": "Confirmar contraseña",
+			"confirmPassword": "Confirmar Contraseña",
 			"IAgree": "Acepto los",
-			"termsOfService": "términos del servicio",
+			"termsOfService": "términos de servicio",
 			"forgetPassword": "¿Olvidaste tu contraseña?",
 			"signUp": "Registrarse",
 			"alreadyHaveAccount": "¿Ya tienes una cuenta?",
-			"login": "Iniciar sesión",
-			"join": "Únete al movimiento por un ",
-			"greenerFuture": "Futuro más verde",
+			"login": "Iniciar Sesión",
+			"join": "Únete al Movimiento por un ",
+			"greenerFuture": "Futuro Más Verde",
 			"bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
 		},
 		"resetPassword": {
 			"resetPassword": "Restablecer Contraseña",
-			"writePassword": "Por favor, ingrese su nueva contraseña a continuación",
+			"writePassword": "Por favor ingresa tu nueva contraseña a continuación",
 			"password": "Contraseña",
 			"confirmPassword": "Confirmar Contraseña",
 			"reset": "Restablecer Contraseña",
@@ -406,35 +531,61 @@
 			"greenerFuture": "Futuro Más Verde",
 			"bePart": "Sé parte de la solución para un mañana sostenible",
 			"passwordNotMatch": "Las contraseñas no coinciden",
-			"resetSuccess": "¡Contraseña restablecida con éxito! Por favor, inicia sesión con tu nueva contraseña",
-			"resetFailed": "Error al restablecer la contraseña. Por favor, inténtalo de nuevo",
-			"checkPassword": "Por favor, verifica tu contraseña",
-			"invalidResetLink": "Enlace de restablecimiento inválido o expirado. Por favor, solicita uno nuevo",
-			"passwordRequired": "La contraseña es obligatoria",
-			"confirmPasswordRequired": "Por favor, confirma tu contraseña",
+			"resetSuccess": "¡Contraseña restablecida exitosamente! Por favor inicia sesión con tu nueva contraseña",
+			"resetFailed": "Error al restablecer la contraseña. Por favor intenta de nuevo",
+			"checkPassword": "Por favor verifica tu contraseña",
+			"invalidResetLink": "Enlace de restablecimiento inválido o expirado. Por favor solicita uno nuevo",
+			"passwordRequired": "La contraseña es requerida",
+			"confirmPasswordRequired": "Por favor confirma tu contraseña",
 			"passwordMinLength": "La contraseña debe tener al menos 8 caracteres",
 			"passwordComplexity": "La contraseña debe contener al menos una letra mayúscula, una letra minúscula, un número y un carácter especial"
 		},
 		"verification": {
 			"hi": "¡Hola!",
-			"weSent": "Hemos enviado un enlace de verificación a tu email.",
-			"didn'tReceive": "¿No recibiste el email? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para obtener ayuda",
-			"verityEmail": "Reenviar email"
+			"weSent": "Hemos enviado un enlace de verificación a tu correo electrónico.",
+			"didn'tReceive": "¿No recibiste el correo? Revisa tu carpeta de spam o contacta a nuestro equipo de soporte para asistencia",
+			"verityEmail": "Reenviar Correo"
 		},
 		"forgetPassword": {
-			"forgetPassword": "Olvidaste tu contraseña",
-			"writeEmail": "Escribe tu email para recuperar tu contraseña",
-			"email": "Email",
-			"emailRequired": "El email es requerido",
-			"resetPassword": "Restablecer contraseña",
+			"forgetPassword": "Olvidé mi Contraseña",
+			"writeEmail": "Escribe tu correo electrónico para recuperar tu contraseña",
+			"email": "Correo Electrónico",
+			"emailRequired": "El correo electrónico es requerido",
+			"resetPassword": "Restablecer Contraseña",
 			"alreadyHaveAccount": "¿Ya tienes una cuenta?",
-			"login": "Iniciar sesión",
-			"join": "Únete al movimiento por un ",
-			"greenerFuture": "Futuro más verde",
+			"login": "Iniciar Sesión",
+			"join": "Únete al Movimiento por un ",
+			"greenerFuture": "Futuro Más Verde",
 			"bePart": "Sé parte de una comunidad global trabajando juntos para crear soluciones sostenibles para un planeta más saludable."
 		}
 	},
 	"web": {
+		"common": {
+			"actions": {
+				"delete": "Eliminar",
+				"report": "Reportar",
+				"edit": "Editar",
+				"update": "Actualizar",
+				"create": "Crear",
+				"submit": "Enviar"
+			},
+			"loading": "Cargando...",
+			"error": "Ocurrió un error, por favor intenta más tarde",
+			"noData": "No hay datos disponibles",
+			"backToTop": "Volver arriba",
+			"search": "Buscar",
+			"searchPlaceholder": "Buscar publicaciones, grupos, páginas...",
+			"viewMore": "Ver más",
+			"viewLess": "Ver menos",
+			"close": "Cerrar",
+			"save": "Guardar",
+			"cancel": "Cancelar",
+			"delete": "Eliminar",
+			"edit": "Editar",
+			"update": "Actualizar",
+			"create": "Crear",
+			"submit": "Enviar"
+		},
 		"addPost": {
 			"title": "Aloja tu Página",
 			"description": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
@@ -467,7 +618,7 @@
 				"required": "{field} es requerido",
 				"maxLength": "{field} no puede exceder {max} caracteres",
 				"minLength": "{field} debe tener al menos {min} caracteres",
-				"fillAllFields": "Por favor complete todos los campos",
+				"fillAllFields": "Por favor completa todos los campos",
 				"slugTaken": "Este slug ya está en uso",
 				"pageCreated": "Página creada exitosamente",
 				"errorCreating": "Error al crear la página",
@@ -475,7 +626,7 @@
 				"errorCities": "Error al obtener ciudades",
 				"imageTooLarge": "La imagen debe ser menor a 2MB",
 				"invalidImageType": "Por favor sube un archivo de imagen válido",
-				"slugAvailable": "Slug disponible",
+				"slugAvailable": "El slug está disponible",
 				"checkingSlug": "Verificando...",
 				"waitForSlugCheck": "Por favor espera mientras verificamos si el slug está disponible",
 				"validationError": "Por favor verifica tu entrada e intenta de nuevo",
@@ -485,9 +636,45 @@
 				"slugCheckFailed": "No se pudo verificar la disponibilidad del slug"
 			}
 		},
-
+		"pageContact": {
+			"button": {
+				"addContact": "Agregar Contacto",
+				"manageContact": "Gestionar Contacto"
+			},
+			"modal": {
+				"addTitle": "Agregar Información de Contacto",
+				"editTitle": "Editar Información de Contacto",
+				"description": "Proporciona detalles de contacto para los visitantes de tu página",
+				"confirmDelete": "¿Estás seguro de que deseas eliminar este contacto?",
+				"form": {
+					"name": "Nombre Completo",
+					"title": "Cargo",
+					"email": "Dirección de Correo Electrónico",
+					"phoneNum": "Número de Teléfono",
+					"save": "Guardar Contacto",
+					"update": "Actualizar Contacto",
+					"cancel": "Cancelar",
+					"delete": "Eliminar",
+					"edit": "Editar",
+					"saving": "Guardando...",
+					"updating": "Actualizando...",
+					"deleting": "Eliminando..."
+				},
+				"errors": {
+					"required": "{field} es requerido",
+					"invalidEmail": "Por favor ingresa una dirección de correo electrónico válida",
+					"saveFailed": "Error al guardar el contacto",
+					"deleteFailed": "Error al eliminar el contacto"
+				},
+				"success": {
+					"added": "Contacto agregado exitosamente",
+					"updated": "Contacto actualizado exitosamente",
+					"deleted": "Contacto eliminado exitosamente"
+				}
+			}
+		},
 		"addGroup": {
-			"title": "Crea tu Grupo",
+			"title": "Aloja tu Grupo",
 			"description": "Crea un espacio comunitario para personas con intereses compartidos. Construye conexiones y organiza actividades juntos",
 			"form": {
 				"groupName": "Nombre del Grupo",
@@ -511,7 +698,7 @@
 				"required": "{field} es requerido",
 				"maxLength": "{field} no puede exceder {max} caracteres",
 				"minLength": "{field} debe tener al menos {min} caracteres",
-				"fillAllFields": "Por favor complete todos los campos",
+				"fillAllFields": "Por favor completa todos los campos",
 				"groupCreated": "Grupo creado exitosamente",
 				"errorCreating": "Error al crear el grupo",
 				"errorCountries": "Error al obtener países",
@@ -523,61 +710,23 @@
 				"validationError": "Por favor verifica tu entrada e intenta de nuevo"
 			}
 		},
-
-		"pageContact": {
-			"button": {
-				"addContact": "Agregar Contacto",
-				"manageContact": "Gestionar Contacto"
-			},
-			"modal": {
-				"addTitle": "Agregar Información de Contacto",
-				"editTitle": "Editar Información de Contacto",
-				"description": "Proporciona detalles de contacto para los visitantes de tu página",
-				"confirmDelete": "¿Estás seguro de que quieres eliminar este contacto?",
-				"form": {
-					"name": "Nombre Completo",
-					"title": "Título del Trabajo",
-					"email": "Correo Electrónico",
-					"phoneNum": "Número de Teléfono",
-					"save": "Guardar Contacto",
-					"update": "Actualizar Contacto",
-					"cancel": "Cancelar",
-					"delete": "Eliminar",
-					"edit": "Editar",
-					"saving": "Guardando...",
-					"updating": "Actualizando...",
-					"deleting": "Eliminando..."
-				},
-				"errors": {
-					"required": "{field} es requerido",
-					"invalidEmail": "Por favor ingresa un correo electrónico válido",
-					"saveFailed": "Error al guardar el contacto",
-					"deleteFailed": "Error al eliminar el contacto"
-				},
-				"success": {
-					"added": "Contacto agregado exitosamente",
-					"updated": "Contacto actualizado exitosamente",
-					"deleted": "Contacto eliminado exitosamente"
-				}
-			}
-		},
 		"chat": {
-			"select": "Selecciona una conversación para empezar a chatear",
+			"select": "Selecciona una conversación para comenzar a mensajear",
 			"message": "Mensajes",
 			"back": "Atrás"
 		},
 		"plans": {
 			"title": "Ayúdanos a crear cultura sostenible",
 			"loading": "Cargando planes de suscripción...",
-			"error": "Error al cargar los planes de suscripción",
+			"error": "Error al cargar planes de suscripción",
 			"free": "Gratis",
 			"perYear": "/Año",
-			"currentPlan": "Plan actual",
-			"selectPlan": "Seleccionar",
+			"currentPlan": "Plan Actual",
+			"selectPlan": "Seleccionar Plan",
 			"features": "Características",
 			"tier1": {
-				"title": "JUNTOS PODEMOS TOMAR EL CONTROL DE NUESTRAS VIDAS",
-				"subtitle1": "Todos somos Greenteam",
+				"title": "JUNTOS PODEMOS TOMAR CONTROL DE NUESTRAS VIDAS",
+				"subtitle1": "Todos Somos Greenteam",
 				"subtitle2": "La red social consciente"
 			},
 			"tier2": {
@@ -592,12 +741,18 @@
 			},
 			"tierDefault": {
 				"title": "Únete al movimiento",
-				"subtitle": "Sé parte del cambio por un mundo mejor"
+				"subtitle": "Sé parte del cambio para un mundo mejor"
 			}
 		},
 		"post": {
+			"common": {
+				"reportModal": {
+					"success": "Reportado",
+					"error": "Error al reportar"
+				}
+			},
 			"categories": {
-				"all": "Todo",
+				"all": "Todos",
 				"Art": "Arte",
 				"Crafts": "Artesanías",
 				"Music": "Música",
@@ -639,20 +794,22 @@
 				"Volunteering": "Voluntariado",
 				"Ecotourism": "Ecoturismo",
 				"Warning": "Advertencia",
-				"Cooperatives": "Cooperativas"
+				"Cooperatives": "Cooperativas",
+				"Forum": "Foros"
 			},
 			"addPost": {
-				"addPost": "Añadir Publicación",
-				"title": "Añadir Nueva Publicación",
-				"placeholder": "Añade tus experiencias y consejos para crear un futuro mejor.",
+				"addPost": "Agregar Publicación",
+				"addForum": "Agregar Foro",
+				"title": "Agregar Nueva Publicación",
+				"placeholder": "Agrega tus experiencias y consejos para construir un futuro mejor.",
 				"content": "Contenido",
 				"selectSubtopics": "Seleccionar Subtemas",
 				"selectAtLeastOne": "Por favor selecciona al menos una categoría",
 				"chooseTopic": "Elige un tema",
-				"addCategory": "Añadir Categoría",
-				"addMedia": "Añadir medios",
-				"addImages": "Añadir Imágenes",
-				"addDocument": "Añadir Documento",
+				"addCategory": "Agregar Categoría",
+				"addMedia": "Agregar medios",
+				"addImages": "Agregar Imágenes",
+				"addDocument": "Agregar Documento",
 				"required": "Este campo es requerido",
 				"cancel": "Cancelar",
 				"post": "Publicar",
@@ -665,6 +822,10 @@
 				"documentSizeError": "El tamaño del documento debe ser menor a {size}",
 				"topic": "Tema",
 				"selectTopic": "Selecciona un tema"
+			},
+			"card": {
+				"more": "Leer más...",
+				"less": "...Mostrar menos"
 			}
 		},
 		"comments": {
@@ -672,10 +833,10 @@
 			"loadingMore": "Cargando más comentarios...",
 			"noComments": "No hay comentarios aún",
 			"beFirstToComment": "¡Sé el primero en comentar!",
-			"confirmDelete": "¿Estás seguro de que quieres eliminar esto?",
+			"confirmDelete": "¿Estás seguro de que deseas eliminar esto?",
 			"delete": "Eliminar",
 			"like": "Me gusta",
-			"unlike": "Ya no me gusta",
+			"unlike": "No me gusta",
 			"reply": "Responder",
 			"hideReplies": "Ocultar respuestas",
 			"viewReplies": "Ver {count} respuestas",
@@ -686,9 +847,9 @@
 			"aria": {
 				"closeModal": "Cerrar modal de comentarios",
 				"likeComment": "Me gusta el comentario",
-				"unlikeComment": "Ya no me gusta el comentario",
+				"unlikeComment": "No me gusta el comentario",
 				"likeReply": "Me gusta la respuesta",
-				"unlikeReply": "Ya no me gusta la respuesta",
+				"unlikeReply": "No me gusta la respuesta",
 				"deleteComment": "Eliminar comentario",
 				"deleteReply": "Eliminar respuesta",
 				"openReplies": "Mostrar respuestas",
@@ -707,10 +868,10 @@
 			"like": "Me gusta",
 			"reply": "Responder",
 			"noCommentsYet": "No hay comentarios aún",
-			"addCommentPlaceholder": "Añadir un comentario...",
-			"addCommentButton": "Añadir Comentario",
-			"addReplyPlaceholder": "Añadir una respuesta...",
-			"addReplyButton": "Añadir Respuesta",
+			"addCommentPlaceholder": "Agregar un comentario...",
+			"addCommentButton": "Agregar Comentario",
+			"addReplyPlaceholder": "Agregar una respuesta...",
+			"addReplyButton": "Agregar Respuesta",
 			"viewReplies": "Ver {count} respuestas",
 			"hideReplies": "Ocultar respuestas",
 			"loadingComments": "Cargando comentarios...",
@@ -728,7 +889,6 @@
 				"yearsAgo": "hace {count} {count, plural, one {año} other {años}}"
 			}
 		},
-
 		"errors": {
 			"notFound": "No encontrado",
 			"unauthorized": "Acceso no autorizado",
@@ -738,31 +898,32 @@
 			"loadingForums": "Cargando foros..."
 		},
 		"header": {
+			"startTour": "Comienza tu viaje hacia la sostenibilidad",
 			"chat": "Chat",
 			"community": "Comunidad",
 			"challenges": "Desafíos",
 			"space": "Mis proyectos",
 			"plans": "Planes",
 			"favorites": "Favoritos",
-			"logout": "Cerrar sesión",
-			"addPost": "Añadir publicación",
+			"logout": "Cerrar Sesión",
+			"addPost": "Agregar Publicación",
 			"notAvailable": "No disponible",
 			"topics": {
-				"all": "Todo",
+				"all": "Todos",
 				"sustainability": "Sostenibilidad",
-				"food": "Alimentación y salud",
-				"physical": "Ejercicio físico y mental",
-				"community": "Comunidad y naturaleza",
+				"food": "Alimentación y Salud",
+				"physical": "Ejercicio Físico y Mental",
+				"community": "Comunidad y Naturaleza",
 				"art": "Arte",
 				"eco": "Ecotecnologías",
-				"knowledge": "Conocimiento y valores",
+				"knowledge": "Conocimiento y Valores",
 				"craft": "Artesanías",
 				"music": "Música",
-				"show": "Espectáculos",
+				"show": "Espectáculo",
 				"dance": "Danza",
 				"literature": "Literatura",
 				"cinema": "Cine",
-				"natural": "Medicina natural",
+				"natural": "Medicina Natural",
 				"nutrition": "Nutrición",
 				"hygiene": "Higiene",
 				"growing": "Cultivo",
@@ -772,20 +933,20 @@
 				"biology": "Biología",
 				"geography": "Geografía",
 				"others": "Otros",
-				"philosiphy": "Filosofía y psicología",
-				"history": "Historia y cultura",
+				"philosiphy": "Filosofía y Psicología",
+				"history": "Historia y Cultura",
 				"games": "Juegos",
 				"warmUp": "Calentamiento",
 				"sports": "Deportes",
-				"active": "Meditación activa",
-				"passive": "Meditación pasiva",
+				"active": "Meditación Activa",
+				"passive": "Meditación Pasiva",
 				"aerobics": "Aeróbicos",
 				"water": "Agua",
-				"sustainable": "Moda sostenible",
+				"sustainable": "Moda Sostenible",
 				"energy": "Energía",
 				"waste": "Residuos",
 				"bioconstruction": "Bioconstrucción",
-				"durable": "Herramientas duraderas",
+				"durable": "Herramientas Duraderas",
 				"together": "Juntos",
 				"nature": "Naturaleza",
 				"volunteering": "Voluntariado",
@@ -799,46 +960,47 @@
 				"likes": "Me gusta",
 				"comments": "Comentarios",
 				"posts": "Publicaciones",
-				"addPost": "Añadir publicación"
+				"addPost": "Agregar Publicación"
 			},
 			"diamond": {
 				"personalG": "Crecimiento personal",
 				"sustainability": "Tu camino hacia la sostenibilidad",
 				"know": "Conocimiento y valores",
 				"food": "Alimentación y salud",
-				"physical": "Ejercicio físico y mental",
-				"community": "Comunidad y naturaleza",
+				"physical": "Ejercicio Físico y Mental",
+				"community": "Comunidad y Naturaleza",
 				"art": "Arte",
 				"eco": "Ecotecnologías"
 			},
 			"green": {
-				"challenges": "Desafíos verdes",
+				"challenges": "Desafíos Verdes",
 				"share": "Comparte 3 campañas impactantes para crear conciencia y amplificar el mensaje de sostenibilidad",
-				"todo": "Por hacer",
+				"todo": "Por Hacer",
 				"done": "Hecho",
 				"doit": "Hazlo",
 				"build": "Construye cultura sostenible compartiendo tu experiencia",
 				"post": "Publicar",
 				"delete": "Eliminar",
-				"comment": "Comentar"
+				"comment": "Comentar",
+				"readMore": "Leer más"
 			},
 			"doChallenge": {
-				"myChallenge": "Mi desafío",
+				"myChallenge": "Mi Desafío",
 				"delete": "Eliminar",
 				"readMore": "Leer más...",
 				"done": "Hecho",
 				"comment": "Comentar"
 			},
 			"breif": {
-				"yourPoints": "Tus puntos",
-				"track": "¡Rastrea tu impacto!",
+				"yourPoints": "Tus Puntos",
+				"track": "¡Rastrea Tu Impacto!",
 				"points": "Puntos"
 			}
 		},
 		"challenges": {
 			"all": {
-				"green": "Desafíos de Green team",
-				"myChallenges": "Mis desafíos"
+				"green": "Desafíos del equipo verde",
+				"myChallenges": "Mis Desafíos"
 			}
 		},
 		"personal": {
@@ -862,11 +1024,11 @@
 			},
 			"modals": {
 				"delete": {
-					"title": "¿Estás seguro de que quieres eliminar este producto?",
+					"title": "¿Estás seguro de que deseas eliminar este producto?",
 					"confirmButton": "Eliminar",
 					"cancelButton": "Cancelar",
 					"successMessage": "Producto eliminado exitosamente",
-					"errorMessage": "Error al eliminar el producto"
+					"errorMessage": "Ocurrió un error al eliminar el producto"
 				},
 				"report": {
 					"title": "Cuéntanos por qué estás reportando este producto"
@@ -875,36 +1037,36 @@
 			"single": {
 				"description": "Descripción",
 				"by": "Por",
-				"messageSeller": "Mensaje al vendedor",
-				"visitWeb": "Visitar sitio web",
+				"messageSeller": "Mensaje al Vendedor",
+				"visitWeb": "Visitar Sitio Web",
 				"Knowledge And Values": "Conocimiento y valores",
 				"Food and health": "Alimentación y salud",
-				"Physical And Mental Exercise": "Ejercicio físico y mental",
-				"Community And Nature": "Comunidad y naturaleza",
+				"Physical And Mental Exercise": "Ejercicio Físico y Mental",
+				"Community And Nature": "Comunidad y Naturaleza",
 				"Art": "Arte",
 				"Ecotechnologies": "Ecotecnologías"
 			},
 			"addNewModal": {
 				"addProduct": {
-					"title": "Listar un producto para la venta",
-					"description": "Añade un producto al mercado. Proporciona detalles para que los clientes puedan entender y comprar fácilmente.",
+					"title": "Listar un Producto para Venta",
+					"description": "Agrega un producto al mercado. Proporciona detalles para que sea fácil para los clientes entender y comprar.",
 					"progress": {
-						"step1": "Información básica",
-						"step2": "Detalles y ubicación"
+						"step1": "Información Básica",
+						"step2": "Detalles y Ubicación"
 					},
 					"messages": {
 						"fillRequired": "Por favor completa todos los campos requeridos",
 						"success": "Producto listado exitosamente",
-						"error": "Error al añadir el producto",
+						"error": "Error al agregar Producto",
 						"maxImages": "Máximo de {{max}} imágenes permitidas",
 						"onlyAdded": "Solo se agregaron {{count}} imagen(es). Límite máximo alcanzado.",
-						"imageFilesOnly": "Por favor solo archivos de imagen",
+						"imageFilesOnly": "Por favor suelta solo archivos de imagen",
 						"errorFetchingCountries": "Error al obtener países",
 						"errorFetchingCities": "Error al obtener ciudades"
 					},
 					"fields": {
 						"productName": {
-							"label": "Nombre del producto",
+							"label": "Nombre del Producto",
 							"placeholder": "Ingresa el nombre del producto",
 							"error": {
 								"required": "El nombre del producto es requerido",
@@ -920,7 +1082,7 @@
 							}
 						},
 						"listingType": {
-							"label": "Tipo de listado",
+							"label": "Tipo de Listado",
 							"local": "Local",
 							"online": "En línea",
 							"error": {
@@ -928,7 +1090,7 @@
 							}
 						},
 						"condition": {
-							"label": "Condición del producto",
+							"label": "Condición del Producto",
 							"new": "Nuevo",
 							"used": "Usado",
 							"error": {
@@ -936,12 +1098,12 @@
 							}
 						},
 						"images": {
-							"label": "Imágenes del producto",
-							"hint": "(Hasta 4, máx. 2MB cada una)",
+							"label": "Imágenes del Producto",
+							"hint": "(Hasta 4, máx 2MB cada una)",
 							"dragActive": "Suelta las imágenes aquí",
 							"dragInactive": "Haz clic o arrastra imágenes aquí",
-							"uploadHint": "Sube hasta {{max}} imágenes (máx. 2MB cada una)",
-							"addMore": "Añadir más imágenes",
+							"uploadHint": "Sube hasta {{max}} imágenes (máx 2MB cada una)",
+							"addMore": "Agregar más imágenes",
 							"remaining": "{{count}} restantes",
 							"removeImage": "Eliminar imagen",
 							"error": {
@@ -969,7 +1131,7 @@
 						},
 						"country": {
 							"label": "País",
-							"placeholder": "Seleccionar país",
+							"placeholder": "Seleccionar País",
 							"error": {
 								"required": "El país es requerido"
 							}
@@ -989,7 +1151,7 @@
 						"cancel": "Cancelar",
 						"continue": "Continuar",
 						"back": "Atrás",
-						"submit": "Listar producto",
+						"submit": "Listar Producto",
 						"submitting": "Creando...",
 						"close": "Cerrar"
 					}
@@ -997,12 +1159,12 @@
 			},
 			"filter": {
 				"products": "Productos",
-				"addNew": "Añadir producto",
+				"addNew": "Agregar Producto",
 				"all": "Todos",
 				"knowledge": "Conocimiento y valores",
 				"food": "Alimentación y salud",
-				"physical": "Ejercicio físico y mental",
-				"community": "Comunidad y naturaleza",
+				"physical": "Ejercicio Físico y Mental",
+				"community": "Comunidad y Naturaleza",
 				"art": "Arte",
 				"eco": "Ecotecnologías"
 			},
@@ -1012,59 +1174,59 @@
 				"goToSlide": "Ir a la diapositiva {{number}}",
 				"price": "{{price}} $",
 				"buttons": {
-					"messageSeller": "Mensaje al vendedor",
+					"messageSeller": "Mensaje al Vendedor",
 					"chat": "Chat"
 				},
 				"options": {
 					"label": "Opciones del producto",
-					"delete": "Eliminar producto",
-					"report": "Reportar producto"
+					"delete": "Eliminar Producto",
+					"report": "Reportar Producto"
 				},
 				"favorite": {
-					"add": "Añadir a favoritos",
+					"add": "Agregar a favoritos",
 					"remove": "Quitar de favoritos"
 				}
 			}
 		},
 		"event": {
 			"message": {
-				"endOfResult": "Fin de los resultados"
+				"endOfResult": "Fin de resultados"
 			},
 			"header": {
 				"event": "Eventos",
 				"all": "Todos",
 				"social": "Social",
-				"volunteering": "Voluntariado y trabajo",
-				"talks": "Charlas y talleres",
-				"addEvent": "Añadir evento",
+				"volunteering": "Voluntariado y Trabajo",
+				"talks": "Charlas y Talleres",
+				"addEvent": "Agregar Evento",
 				"challenges": "Desafíos"
 			},
 			"card": {
-				"join": "Unirse al evento",
-				"leave": "Abandonar evento",
+				"join": "Unirse al Evento",
+				"leave": "Dejar Evento",
 				"details": "Detalles",
-				"hostedby": "Organizado por"
+				"hostedby": "Organizado Por"
 			},
 			"eventDetails": {
-				"hostedBy": "Organizado por",
-				"about": "Acerca del evento",
-				"join": "Unirse al evento",
-				"leave": "Abandonar evento",
+				"hostedBy": "Organizado Por",
+				"about": "Acerca del Evento",
+				"join": "Unirse al Evento",
+				"leave": "Dejar Evento",
 				"organizer": "Organizador"
 			},
 			"form": {
-				"title": "Organiza tu evento",
+				"title": "Organiza tu Evento",
 				"description": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
 				"fields": {
 					"eventName": {
-						"label": "Nombre del evento",
+						"label": "Nombre del Evento",
 						"error": {
 							"required": "El título es requerido",
 							"maxLength": "El título no puede exceder 100 caracteres"
 						}
 					},
 					"dateRange": {
-						"label": "Rango de fechas",
+						"label": "Rango de Fechas",
 						"placeholder": "Seleccionar rango de fechas",
 						"error": {
 							"required": "El rango de fechas es requerido",
@@ -1073,7 +1235,7 @@
 						}
 					},
 					"eventImage": {
-						"label": "Imagen del evento",
+						"label": "Imagen del Evento",
 						"dragActive": "Suelta la imagen aquí",
 						"dragInactive": "Haz clic o arrastra la imagen aquí",
 						"error": {
@@ -1081,7 +1243,7 @@
 						}
 					},
 					"eventType": {
-						"label": "Tipo de evento",
+						"label": "Tipo de Evento",
 						"local": "Local",
 						"online": "En línea",
 						"error": {
@@ -1090,7 +1252,7 @@
 					},
 					"country": {
 						"label": "País",
-						"placeholder": "Seleccionar país",
+						"placeholder": "Seleccionar País",
 						"error": {
 							"required": "El país es requerido"
 						}
@@ -1126,7 +1288,7 @@
 				},
 				"buttons": {
 					"cancel": "Cancelar",
-					"submit": "Crear evento"
+					"submit": "Crear Evento"
 				},
 				"calendar": {
 					"weekdays": {
@@ -1149,13 +1311,13 @@
 				"products": "productos"
 			},
 			"feeds": {
-				"delete": "Eliminar publicación",
-				"report": "Reportar publicación",
+				"delete": "Eliminar Publicación",
+				"report": "Reportar Publicación",
 				"readMore": "Leer más...",
 				"do": "Hacer",
 				"like": "Me gusta",
 				"comment": "Comentar",
-				"unlike": "Ya no me gusta"
+				"unlike": "No me gusta"
 			},
 			"report": {
 				"talkAbout": "Habla sobre el problema que estás enfrentando",
@@ -1164,23 +1326,23 @@
 			},
 			"forums": {
 				"forum": "Foro",
-				"delete": "Eliminar publicación",
-				"report": "Reportar publicación",
+				"delete": "Eliminar Publicación",
+				"report": "Reportar Publicación",
 				"sign": "Firmar",
 				"like": "Me gusta",
 				"comment": "Comentar",
-				"unlike": "Ya no me gusta",
+				"unlike": "No me gusta",
 				"doubt": "Duda",
 				"need": "Necesidad",
 				"dream": "Sueño",
 				"all": "Todos",
-				"addNew": "Añadir foro"
+				"addNew": "Agregar Foro"
 			},
 			"footer": {
 				"sustainability": "El camino hacia la sostenibilidad está en tus manos",
 				"download": "Descargar la app",
 				"allNeed": "Todo lo que necesitas está a tu alrededor",
-				"eachGrain": "Cada grano importa para crear un futuro más brillante",
+				"eachGrain": "Cada Grano Importa Para Crear un Futuro Más Brillante",
 				"walking": "Caminando juntos hacia la sostenibilidad",
 				"business": "Negocios",
 				"donate": "Donar",
@@ -1188,12 +1350,12 @@
 				"home": "Inicio",
 				"about": "Acerca de",
 				"goal": "Objetivo",
-				"privacyAndPolicy": "Privacidad y políticas",
-				"rightsReserved": "© 2025 Todos los derechos reservados"
+				"privacyAndPolicy": "Privacidad y política",
+				"rightsReserved": "© 2025 Todos los Derechos Reservados"
 			},
 			"setting": {
-				"personalInfo": "Información personal",
-				"paymentInfo": "Información de pago"
+				"personalInfo": "Información Personal",
+				"paymentInfo": "Información de Pago"
 			}
 		},
 		"mapHeader": {
@@ -1201,7 +1363,7 @@
 			"toggleFilters": "Alternar filtros",
 			"country": "País",
 			"loadingCountries": "Cargando países...",
-			"selectCountry": "Selecciona un país",
+			"selectCountry": "Seleccionar un país",
 			"selectCountryAriaLabel": "Seleccionar país",
 			"city": "Ciudad",
 			"searchCities": "Buscar ciudades...",
@@ -1211,26 +1373,26 @@
 			"typeToSearchCities": "Escribe para buscar ciudades",
 			"searchForCity": "Buscar una ciudad",
 			"category": "Categoría",
-			"selectCategory": "Selecciona una categoría",
+			"selectCategory": "Seleccionar una categoría",
 			"selectCategoryAriaLabel": "Seleccionar categoría",
 			"categoryLocal": "Local",
 			"categoryOnline": "En línea",
 			"verification": "Verificación",
 			"verificationTooltip": "Filtrar contenido por estado de verificación",
-			"allContent": "Todo el contenido",
-			"verifiedOnly": "Solo verificados",
-			"clearAllFilters": "Limpiar todos los filtros",
+			"allContent": "Todo el Contenido",
+			"verifiedOnly": "Solo Verificados",
+			"clearAllFilters": "Limpiar Todos los Filtros",
 			"resetAllFilters": "Restablecer todos los filtros",
 			"clearAllFiltersAriaLabel": "Limpiar todos los filtros",
 			"dismiss": "Descartar",
 			"dismissError": "Descartar error",
-			"applyFilters": "Aplicar filtros",
+			"applyFilters": "Aplicar Filtros",
 			"applyFiltersAriaLabel": "Aplicar filtros y cerrar panel de filtros",
 			"loadingMap": "Cargando mapa...",
-			"mapViewOnly": "Solo vista de mapa - Usa los filtros para navegar",
+			"mapViewOnly": "Solo vista de mapa - Usa filtros para navegar",
 			"errorFetchingCountries": "Error al obtener países",
 			"errorFetchingCities": "Error al obtener ciudades",
-			"locationNotFound": "Ubicación no encontrada. Por favor intenta con otra selección.",
+			"locationNotFound": "Ubicación no encontrada. Por favor intenta otra selección.",
 			"errorFetchingLocation": "Error al obtener datos de ubicación. Por favor intenta más tarde."
 		},
 		"pages": {
@@ -1241,38 +1403,38 @@
 			"what": "Qué",
 			"how": "Cómo",
 			"description": "Descripción",
-			"website": "Sitio web",
-			"noWebsite": "Sin sitio web",
+			"website": "Sitio Web",
+			"noWebsite": "Sin Sitio Web",
 			"location": "Ubicación",
-			"noLocation": "Sin ubicación",
+			"noLocation": "Sin Ubicación",
 			"followers": "Seguidores",
 			"visit": "Visitar",
 			"follow": "Seguir",
 			"unfollow": "Dejar de seguir",
-			"addPost": "Añadir publicación",
-			"addEvent": "Añadir evento",
-			"addProduct": "Añadir producto",
+			"addPost": "Agregar Publicación",
+			"addEvent": "Agregar Evento",
+			"addProduct": "Agregar Producto",
 			"pageOptions": "Opciones de página",
-			"deletePage": "Eliminar página",
-			"reportPage": "Reportar página",
-			"blockPage": "Bloquear página",
+			"deletePage": "Eliminar Página",
+			"reportPage": "Reportar Página",
+			"blockPage": "Bloquear Página",
 			"actions": "Acciones",
 			"pageSettings": "Configuración de página",
 			"coverImageAlt": "Imagen de portada de {name}",
 			"profileImageAlt": "Imagen de perfil de {name}",
 			"deleteConfirmation": {
-				"title": "¿Estás seguro de que quieres eliminar esta página?",
+				"title": "¿Estás seguro de que deseas eliminar esta página?",
 				"confirmButton": "Eliminar",
 				"cancelButton": "Cancelar",
 				"successMessage": "Página eliminada exitosamente",
-				"errorMessage": "Error al eliminar la página"
+				"errorMessage": "Ocurrió un error al eliminar la página"
 			},
 			"blockConfirmation": {
-				"title": "¿Estás seguro de que quieres bloquear esta página?",
+				"title": "¿Estás seguro de que deseas bloquear esta página?",
 				"confirmButton": "Bloquear",
 				"cancelButton": "Cancelar",
 				"successMessage": "Página bloqueada exitosamente",
-				"errorMessage": "Error al bloquear la página"
+				"errorMessage": "Ocurrió un error al bloquear la página"
 			},
 			"reportModal": {
 				"title": "Habla sobre el problema que estás enfrentando con esta página",
@@ -1283,14 +1445,15 @@
 			"group": "Grupos",
 			"addNew": "Crear nuevo grupo",
 			"members": "miembros",
-			"joinGroup": "Unirse al grupo",
-			"groupImageAlt": "Imagen del banner de {groupName}",
+			"joinGroup": "Unirse al Grupo",
+			"leaveGroup": "Dejar Grupo",
+			"groupImageAlt": "Imagen de banner de {groupName}",
 			"viewGroup": "Ver detalles del grupo",
 			"groupDescription": "Descripción del grupo",
 			"loading": "Cargando grupos...",
 			"noGroups": "No hay grupos disponibles",
 			"loadingMore": "Cargando más grupos...",
-			"endOfResult": "Fin de los resultados",
+			"endOfResult": "Fin de resultados",
 			"groupHeader": {
 				"actions": {
 					"deleteGroup": "Eliminar Grupo",
@@ -1299,7 +1462,7 @@
 					"edit": "Editar",
 					"cancelEdit": "Cancelar Edición",
 					"joinGroup": "Unirse al Grupo",
-					"leave": "Salir"
+					"leave": "Dejar"
 				},
 				"labels": {
 					"name": "Nombre:",
@@ -1308,14 +1471,14 @@
 				},
 				"modals": {
 					"deleteConfirmation": {
-						"title": "¿Estás seguro de que quieres eliminar este grupo?",
+						"title": "¿Estás seguro de que deseas eliminar este grupo?",
 						"confirmButton": "Eliminar",
 						"cancelButton": "Cancelar",
 						"successMessage": "Grupo eliminado exitosamente",
 						"errorMessage": "Ocurrió un error al eliminar el grupo"
 					},
 					"blockConfirmation": {
-						"title": "¿Estás seguro de que quieres bloquear este grupo?",
+						"title": "¿Estás seguro de que deseas bloquear este grupo?",
 						"confirmButton": "Bloquear",
 						"cancelButton": "Cancelar",
 						"successMessage": "Grupo bloqueado exitosamente",
@@ -1328,7 +1491,7 @@
 				},
 				"errors": {
 					"failedToJoin": "Error al unirse al grupo",
-					"failedToLeave": "Error al salir del grupo",
+					"failedToLeave": "Error al dejar el grupo",
 					"errorFetchingData": "Error al obtener datos del grupo"
 				}
 			}
@@ -1339,7 +1502,7 @@
 				"noPost": "No hay publicaciones disponibles"
 			},
 			"friends": {
-				"lastPosts": "Últimas publicaciones",
+				"lastPosts": "Últimas Publicaciones",
 				"friends": "Amigos",
 				"groups": "Grupos"
 			}
@@ -1351,44 +1514,44 @@
 			"confirm": "Confirmar"
 		},
 		"add-new-page": {
-			"newPage": "Nueva página",
-			"createPage": "Crear una nueva página",
-			"pageName": "Nombre de la página",
-			"pageDescription": "Descripción de la página",
-			"pageSlug": "Slug de la página",
-			"pageAvatar": "Avatar de la página",
-			"pageCover": "Portada de la página",
-			"pageCategory": "Categoría de la página",
-			"pageTopic": "Tema de la página",
+			"newPage": "Nueva Página",
+			"createPage": "Crear una nueva Página",
+			"pageName": "Nombre de la Página",
+			"pageDescription": "Descripción de la Página",
+			"pageSlug": "Slug de la Página",
+			"pageAvatar": "Avatar de la Página",
+			"pageCover": "Portada de la Página",
+			"pageCategory": "Categoría de la Página",
+			"pageTopic": "Tema de la Página",
 			"category": {
-				"business": "Negocios",
+				"business": "Negocio",
 				"project": "Proyecto"
 			}
 		},
 		"add-new-group": {
-			"startGroup": "Iniciar un nuevo grupo",
-			"bringPeople": "Reúne a personas con intereses compartidos. Configura tu grupo para crear conexiones significativas",
-			"groupName": "Nombre del grupo",
-			"groupDescription": "Descripción del grupo",
-			"groupPrivacy": "Privacidad del grupo",
+			"startGroup": "Iniciar un Nuevo Grupo",
+			"bringPeople": "Reúne personas con intereses compartidos. Configura tu grupo para crear conexiones significativas",
+			"groupName": "Nombre del Grupo",
+			"groupDescription": "Descripción del Grupo",
+			"groupPrivacy": "Privacidad del Grupo",
 			"public": "Público",
 			"private": "Privado",
-			"groupTopic": "Tema del grupo"
+			"groupTopic": "Tema del Grupo"
 		},
 		"add-new-event": {
-			"hostYourEvent": "Organiza tu evento",
+			"hostYourEvent": "Organiza tu Evento",
 			"planAndPromote": "Planifica y promociona tu próximo evento. Comparte detalles para ayudar a los asistentes a encontrar y unirse a tu evento",
-			"eventName": "Nombre del evento",
-			"eventDescription": "Descripción del evento",
-			"eventLocation": "Ubicación del evento",
-			"eventStartDate": "Fecha de inicio del evento",
-			"eventEndDate": "Fecha de finalización del evento",
-			"eventCategory": "Categoría del evento",
-			"eventTopic": "Tema del evento",
+			"eventName": "Nombre del Evento",
+			"eventDescription": "Descripción del Evento",
+			"eventLocation": "Ubicación del Evento",
+			"eventStartDate": "Fecha de Inicio del Evento",
+			"eventEndDate": "Fecha de Fin del Evento",
+			"eventCategory": "Categoría del Evento",
+			"eventTopic": "Tema del Evento",
 			"category": {
 				"social": "Social",
-				"volunteering&work": "Voluntariado y trabajo",
-				"talks&workshops": "Charlas y talleres"
+				"volunteering&work": "Voluntariado y Trabajo",
+				"talks&workshops": "Charlas y Talleres"
 			}
 		}
 	}

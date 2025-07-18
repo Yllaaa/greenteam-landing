@@ -157,6 +157,7 @@
 }
 .buttonContainer .register {
   width: 100%;
+  min-width: 120px;
   max-width: 168px;
   padding: 0px 16px;
   height: 100%;

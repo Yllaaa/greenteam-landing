@@ -16,6 +16,7 @@ import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import { useAppSelector } from "@/store/hooks";
 import Breif from "../../../breif/Breif";
+import Bar from "./Bar/Bar";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -91,49 +92,23 @@ function SubHeaderWeb(props: Props) {
   const openSlider = () => {
     setIsOpen(!isOpen);
   };
+
   return (
     <>
-      <div className={styles.navBtns}>
-        <div className={styles.next} onClick={openSlider}>
-          <Image
-
-            src={toRight}
-            alt="prev"
-            width={100}
-            height={100}
-            loading="lazy"
-          />
+      <Bar>
+        <div className={styles.navBtns}>
+          <div className={styles.next} onClick={openSlider}>
+            <Image
+              src={toRight}
+              alt="prev"
+              width={100}
+              height={100}
+              loading="lazy"
+            />
+          </div>
         </div>
-      </div>
-      <div className={styles.cardsContainer}>
-        <div className={styles.diamond}>
-          <Suspense
-            fallback={
-              <div className={styles.loading}>
-                <LoadingTree />
-              </div>
-            }
-          >
-            <Categories />
-          </Suspense>
-        </div>
-        <div className={styles.greenChallenge}>
-          <Suspense
-            fallback={
-              <div className={styles.loading}>
-                <LoadingTree />
-              </div>
-            }
-          >
-            <GreenChallenges />
-          </Suspense>
-        </div>
-
-        <div
-          className={`${styles.subcontainer} ${isOpen ? styles.openWindow : styles.closeWindow
-            }`}
-        >
-          <div className={styles.challenges}>
+        <div className={styles.cardsContainer}>
+          <div className={styles.diamond}>
             <Suspense
               fallback={
                 <div className={styles.loading}>
@@ -141,47 +116,76 @@ function SubHeaderWeb(props: Props) {
                 </div>
               }
             >
-              <MyChallenges
-                setEndpoint={props.setEndpoint}
-                setCommentModal={setCommentModal}
-                postComments={postComments}
-                setPostComments={setPostComments}
-                postId={postId}
-                setCommentPage={setCommentPage}
-                commentPage={commentPage}
-                setRepliesPage={setRepliesPage}
-                repliesPage={repliesPage}
-                setRerender={setRerender}
-                rerender={rerender}
-                setPostId={setPostId}
-                commentModal={commentModal}
-                setPostMedia={setPostMedia}
-                setAddNew={setAddNew}
-              />
+              <Categories />
             </Suspense>
           </div>
-        </div>
-      </div>
-      <div className={styles.links}>
-        {actions.map((action) => (
-          <div key={action.href} className={styles.link}>
-            <Link
-              href={`/${locale}/${action.href}`}
-              className={
-                action.href === `addNew/newPost`
-                  ? styles.postLink
-                  : styles.regularLink
+          <div className={styles.greenChallenge}>
+            <Suspense
+              fallback={
+                <div className={styles.loading}>
+                  <LoadingTree />
+                </div>
               }
             >
-              <Image unoptimized src={action.icon} alt={action.title} loading="lazy" />
-              <span>{action.title}</span>
-            </Link>
+              <GreenChallenges />
+            </Suspense>
           </div>
-        ))}
-        <div data-tour="points" className={styles.link}>
-          <Breif />
+
+          <div
+            className={`${styles.subcontainer} ${isOpen ? styles.openWindow : styles.closeWindow
+              }`}
+          >
+            <div className={styles.challenges}>
+              <Suspense
+                fallback={
+                  <div className={styles.loading}>
+                    <LoadingTree />
+                  </div>
+                }
+              >
+                <MyChallenges
+                  setEndpoint={props.setEndpoint}
+                  setCommentModal={setCommentModal}
+                  postComments={postComments}
+                  setPostComments={setPostComments}
+                  postId={postId}
+                  setCommentPage={setCommentPage}
+                  commentPage={commentPage}
+                  setRepliesPage={setRepliesPage}
+                  repliesPage={repliesPage}
+                  setRerender={setRerender}
+                  rerender={rerender}
+                  setPostId={setPostId}
+                  commentModal={commentModal}
+                  setPostMedia={setPostMedia}
+                  setAddNew={setAddNew}
+                />
+              </Suspense>
+            </div>
+          </div>
         </div>
-      </div>
+        <div className={styles.links}>
+          {actions.map((action) => (
+            <div key={action.href} className={styles.link}>
+              <Link
+                href={`/${locale}/${action.href}`}
+                className={
+                  action.href === `addNew/newPost`
+                    ? styles.postLink
+                    : styles.regularLink
+                }
+              >
+                <Image unoptimized src={action.icon} alt={action.title} loading="lazy" />
+                <span>{action.title}</span>
+              </Link>
+            </div>
+          ))}
+          <div data-tour="points" className={styles.link}>
+            <Breif />
+          </div>
+        </div>
+
+      </Bar>
     </>
   );
 }
