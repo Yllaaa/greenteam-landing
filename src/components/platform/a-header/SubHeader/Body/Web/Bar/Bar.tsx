@@ -16,6 +16,7 @@ function Bar({ children }: { children: React.ReactNode }) {
   const [score, setScore] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
+  const childrenRef = useRef<HTMLDivElement>(null) // Add ref for children section
 
   useEffect(() => {
     axios
@@ -57,6 +58,13 @@ function Bar({ children }: { children: React.ReactNode }) {
       if (currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5) {
         setBar(true);
         setManuallyOpened(false); // Reset manual state during tour
+
+        // Scroll to top of children section when tour opens it
+        setTimeout(() => {
+          if (childrenRef.current) {
+            childrenRef.current.scrollTop = 0;
+          }
+        }, 100); // Small delay to ensure content is rendered
       } else {
         setBar(false);
         setManuallyOpened(false);
@@ -74,8 +82,8 @@ function Bar({ children }: { children: React.ReactNode }) {
       if (typeof window !== "undefined") {
         const currentScrollY = window.scrollY;
 
-        // Don't auto-close if manually opened
-        if (manuallyOpened) {
+        // Don't auto-close if manually opened OR if tour is active
+        if (manuallyOpened || isTourActive) {
           return;
         }
 
@@ -86,16 +94,16 @@ function Bar({ children }: { children: React.ReactNode }) {
         // Hide header only after scrolling down significantly
         else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setShowHeader(false);
-          // Only auto-expand bar if it's not already manually opened
-          if (!bar && !manuallyOpened) {
+          // Only auto-expand bar if it's not already manually opened and tour is not active
+          if (!bar && !manuallyOpened && !isTourActive) {
             setBar(true);
           }
         }
         // Always show header when scrolling up
         else if (currentScrollY < lastScrollY) {
           setShowHeader(true);
-          // Only close if not manually opened
-          if (bar && !manuallyOpened) {
+          // Only close if not manually opened and tour is not active
+          if (bar && !manuallyOpened && !isTourActive) {
             setBar(false);
           }
         }
@@ -114,7 +122,7 @@ function Bar({ children }: { children: React.ReactNode }) {
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [lastScrollY, bar, manuallyOpened]);
+  }, [lastScrollY, bar, manuallyOpened, isTourActive]);
 
   const t = useTranslations("web.subHeader.breif2")
 
@@ -139,7 +147,10 @@ function Bar({ children }: { children: React.ReactNode }) {
             <FaArrowDown onClick={openBar} />
           </div>
         </div>
-        <div className={`${styles.children} ${bar ? styles.active : ""}`}>
+        <div
+          ref={childrenRef} // Add ref here
+          className={`${styles.children} ${bar ? styles.active : ""}`}
+        >
           <div className={styles.childrenContent}>
             {children}
           </div>

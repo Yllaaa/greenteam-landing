@@ -61,7 +61,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Sumérgete ya en la sostenibilidad'
                         : 'Dive into sustainability now',
-                    placement: 'top',
+                    placement: 'right',
                 },
                 {
                     target: '[data-tour="greenChallenges"]',
@@ -71,7 +71,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Si lo ves lo puedes hacer'
                         : 'If you see it, you can do it',
-                    placement: 'top',
+                    placement: 'left',
                 },
                 {
                     target: '[data-tour="points"]',

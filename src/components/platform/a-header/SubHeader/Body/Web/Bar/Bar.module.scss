@@ -31,6 +31,8 @@
 		height: 100vh;
 		overflow: hidden;
 		transition: height 0.3s ease; // Keep only height transition when expanded
+		display: flex;
+		flex-direction: column; // Add this to stack content vertically
 	}
 }
 
@@ -57,6 +59,7 @@
 	position: relative;
 	overflow: hidden;
 	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	flex-shrink: 0; // Prevent shrinking when container is expanded
 
 	&::before {
 		content: '';
@@ -88,6 +91,8 @@
 		-moz-border-radius: 0;
 		-ms-border-radius: 0;
 		-o-border-radius: 0;
+		height: auto; // Allow height to adjust
+		min-height: 60px; // Set minimum height
 	}
 }
 
@@ -194,15 +199,24 @@
 	transform: translateY(-20px);
 	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 	position: relative;
+	flex: 1; // Take remaining space when expanded
 
 	&.active {
-		max-height: calc(100vh - 260px);
+		max-height: none; // Remove max-height restriction
+		height: calc(100vh - 120px); // Set specific height based on container
 		opacity: 1;
 		transform: translateY(0);
 		margin-top: 20px;
 		overflow-y: auto;
 		overflow-x: hidden;
-		animation: expandHeight 0.6s ease forwards;
+		display: flex;
+		flex-direction: column;
+		scroll-behavior: smooth; // Add smooth scrolling
+
+		// Ensure content starts at top
+		& > * {
+			margin-top: 0;
+		}
 
 		scrollbar-width: thin;
 		scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
@@ -231,8 +245,10 @@
 
 .childrenContent {
 	padding: 20px 0 80px 0; // Added 80px padding-bottom
-	animation: slideInContent 0.6s ease forwards;
 	width: 100%;
+	min-height: 100%; // Ensure content fills the container
+	display: flex;
+	flex-direction: column;
 }
 
 // Loading state
@@ -246,7 +262,7 @@
 	background-size: 200% 100%;
 	animation: pulse 1.5s ease-in-out infinite;
 	color: transparent;
-		min-width: 60px;
+	min-width: 60px;
 	display: inline-block;
 }
 
@@ -293,15 +309,6 @@
 	}
 }
 
-@keyframes expandHeight {
-	from {
-		max-height: 0;
-	}
-	to {
-		max-height: calc(100vh - 100px);
-	}
-}
-
 @keyframes pulse {
 	0%,
 	100% {
@@ -337,6 +344,7 @@
 
 		&.active {
 			padding: 16px 24px;
+			min-height: 50px;
 		}
 	}
 
@@ -354,7 +362,7 @@
 	}
 
 	.children.active {
-		max-height: calc(100vh - 200px);
+		height: calc(100vh - 140px);
 	}
 
 	.childrenContent {
@@ -372,6 +380,7 @@
 
 		&.active {
 			padding: 12px 16px;
+			min-height: 40px;
 		}
 	}
 
@@ -398,6 +407,10 @@
 		svg {
 			font-size: 16px;
 		}
+	}
+
+	.children.active {
+		height: calc(100vh - 120px);
 	}
 
 	.childrenContent {
