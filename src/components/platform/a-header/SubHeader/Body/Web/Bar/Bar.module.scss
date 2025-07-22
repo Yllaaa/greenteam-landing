@@ -16,7 +16,7 @@
 		#031e09 99.2%
 	);
 	will-change: transform, opacity;
-	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	transition: none; // Remove animation
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 
 	&.hidden {
@@ -30,6 +30,14 @@
 		z-index: 1000;
 		height: 100vh;
 		overflow: hidden;
+		transition: height 0.3s ease; // Keep only height transition when expanded
+	}
+}
+
+// Remove animations during scroll
+.noAnimation {
+	&.container {
+		transition: none !important;
 	}
 }
 
@@ -238,7 +246,7 @@
 	background-size: 200% 100%;
 	animation: pulse 1.5s ease-in-out infinite;
 	color: transparent;
-	min-width: 60px;
+		min-width: 60px;
 	display: inline-block;
 }
 

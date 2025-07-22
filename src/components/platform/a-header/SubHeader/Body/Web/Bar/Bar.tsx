@@ -17,7 +17,6 @@ function Bar({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true)
   const containerRef = useRef<HTMLDivElement>(null)
 
-
   useEffect(() => {
     axios
       .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${username}`, {
@@ -38,8 +37,11 @@ function Bar({ children }: { children: React.ReactNode }) {
   }, [])
 
   const [bar, setBar] = useState(false);
+  const [manuallyOpened, setManuallyOpened] = useState(false); // Track if user manually opened
+
   const openBar = () => {
     setBar(!bar);
+    setManuallyOpened(!bar); // Set manual state when user clicks
   }
 
   // Get tour state from the tour provider
@@ -54,17 +56,17 @@ function Bar({ children }: { children: React.ReactNode }) {
       // Step 7: [data-tour="navigate-profile"] - "Navigate to your profile"
       if (currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5) {
         setBar(true);
+        setManuallyOpened(false); // Reset manual state during tour
       } else {
         setBar(false);
+        setManuallyOpened(false);
       }
     }
-  }, [isTourActive, currentTourId, currentStepIndex, setBar]);
-
+  }, [isTourActive, currentTourId, currentStepIndex]);
 
   // Header visibility states
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
   // Handle scroll behavior for header visibility
   useEffect(() => {
@@ -72,26 +74,28 @@ function Bar({ children }: { children: React.ReactNode }) {
       if (typeof window !== "undefined") {
         const currentScrollY = window.scrollY;
 
+        // Don't auto-close if manually opened
+        if (manuallyOpened) {
+          return;
+        }
+
         // Keep header visible at the top
         if (currentScrollY < 5) {
           setShowHeader(true);
-          if (bar) {
-            setBar(false);
-          }
         }
         // Hide header only after scrolling down significantly
         else if (currentScrollY > lastScrollY && currentScrollY > 100) {
           setShowHeader(false);
           // Only auto-expand bar if it's not already manually opened
-          if (!bar) {
+          if (!bar && !manuallyOpened) {
             setBar(true);
           }
         }
         // Always show header when scrolling up
         else if (currentScrollY < lastScrollY) {
           setShowHeader(true);
-          // Close expanded bar when scrolling up
-          if (bar) {
+          // Only close if not manually opened
+          if (bar && !manuallyOpened) {
             setBar(false);
           }
         }
@@ -101,12 +105,7 @@ function Bar({ children }: { children: React.ReactNode }) {
     };
 
     const handleScroll = () => {
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
-
-      const timeout = setTimeout(controlHeader, 10);
-      setScrollTimeout(timeout);
+      controlHeader();
     };
 
     // Always listen to scroll events
@@ -114,11 +113,8 @@ function Bar({ children }: { children: React.ReactNode }) {
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      if (scrollTimeout) {
-        clearTimeout(scrollTimeout);
-      }
     };
-  }, [lastScrollY, scrollTimeout, bar]);
+  }, [lastScrollY, bar, manuallyOpened]);
 
   const t = useTranslations("web.subHeader.breif2")
 
@@ -126,7 +122,7 @@ function Bar({ children }: { children: React.ReactNode }) {
     <>
       <section
         ref={containerRef}
-        className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${bar ? styles.expanded : ''}`}
+        className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${bar ? styles.expanded : ''} ${styles.noAnimation}`}
       >
         <div className={`${styles.breifContainer} ${bar ? styles.active : ""}`}>
           <div className={styles.contentWrapper}>

@@ -111,6 +111,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [run, setRun] = useState(false);
     const [steps, setSteps] = useState<Step[]>([]);
     const [currentTourId, setCurrentTourId] = useState<string | null>(null);
+    console.log('currentTourId', currentTourId);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [tourConfig, setTourConfig] = useState<Partial<TourConfig>>({});
     const pathname = usePathname();

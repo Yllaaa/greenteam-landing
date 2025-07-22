@@ -13,6 +13,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { MdRestartAlt } from "react-icons/md";
 import {
   clearUserLoginData,
   setUserLoginData,
@@ -25,12 +26,14 @@ import NotificationIcon from "./notifications/NotificationIcon";
 import { FaStar } from "react-icons/fa6";
 import ChatIcon from "./chatIcon/ChatIcon";
 import AddNew from "../addNew/post/AddNew";
+import { useTour } from '../../AA-NEW/MODALS/A_GUIDE/tourProvider'; // Add this import
 
 function Header() {
   const t = useTranslations("web.header");
   const locale = useLocale();
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const { startTour, resetTour, isTourActive, stopTour } = useTour(); // Add this hook
 
   const localS = getToken();
   const [mounted, setMounted] = useState(false);
@@ -47,8 +50,19 @@ function Header() {
   const [lastScrollY, setLastScrollY] = useState(0);
   const [scrollTimeout, setScrollTimeout] = useState<NodeJS.Timeout | null>(null);
 
+  // Add handler for restarting tour
+  const handleRestartTour = () => {
+    if (isTourActive) {
+      stopTour();
+    }
+    // Assuming your tour ID is 'main-tour' - change this to match your actual tour ID
+    resetTour('header-tour');
+    setTimeout(() => {
+      startTour('header-tour', 0);
+    }, 100);
+    setMobileMenuOpen(false);
+  };
 
-  
   // Manage user state
   const user = useAppSelector((state) => state.login.user?.user);
 
@@ -256,6 +270,13 @@ function Header() {
           )}
 
           <div className={styles.icons}>
+            <div
+              onClick={handleRestartTour}
+              className={styles.notification}
+              title={isTourActive ? "Restart Tour" : "Start Tour"}
+            >
+              <MdRestartAlt />
+            </div>
             <div
               onClick={handleAddPost}
               className={styles.notification}
