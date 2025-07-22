@@ -48,29 +48,58 @@ function Bar({ children }: { children: React.ReactNode }) {
   // Get tour state from the tour provider
   const { isTourActive, currentTourId, currentStepIndex } = useTour();
 
+  // Track previous step to detect step changes
+  const prevStepRef = useRef<number | null>(null);
+
   // Effect to handle tour-based dropdown control
   useEffect(() => {
     // Check if header tour is active
     if (isTourActive && currentTourId === 'header-tour') {
-      // Steps 6 and 7 are the profile-related steps (0-indexed)
-      // Step 6: [data-tour="profile"] - "Access your profile settings"
-      // Step 7: [data-tour="navigate-profile"] - "Navigate to your profile"
+      // Steps 3, 4, and 5 (0-indexed)
       if (currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5) {
         setBar(true);
         setManuallyOpened(false); // Reset manual state during tour
 
-        // Scroll to top of children section when tour opens it
-        setTimeout(() => {
-          if (childrenRef.current) {
-            childrenRef.current.scrollTop = 0;
-          }
-        }, 100); // Small delay to ensure content is rendered
+        // Scroll to top when entering these steps or when step changes
+        if (prevStepRef.current !== currentStepIndex) {
+          // Use a longer timeout for step 3 (index 3) to ensure content is fully rendered
+          const scrollDelay = currentStepIndex === 3 ? 300 : 100;
+
+          setTimeout(() => {
+            if (childrenRef.current) {
+              childrenRef.current.scrollTop = 0;
+              // Force a second scroll reset for step 3
+              if (currentStepIndex === 3) {
+                setTimeout(() => {
+                  if (childrenRef.current) {
+                    childrenRef.current.scrollTop = 0;
+                  }
+                }, 100);
+              }
+            }
+          }, scrollDelay);
+        }
       } else {
         setBar(false);
         setManuallyOpened(false);
       }
     }
+
+    // Update previous step reference
+    prevStepRef.current = currentStepIndex;
   }, [isTourActive, currentTourId, currentStepIndex]);
+
+  // Also reset scroll when bar state changes
+  useEffect(() => {
+    if (bar && childrenRef.current) {
+      // Small delay to ensure transition completes
+      setTimeout(() => {
+        if (childrenRef.current) {
+          childrenRef.current.scrollTop = 0;
+        }
+      }, 50);
+    }
+  }, [bar]);
 
   // Header visibility states
   const [showHeader, setShowHeader] = useState(true);
