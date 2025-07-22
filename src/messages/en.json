@@ -25,13 +25,13 @@
 		"brain": {
 			"community": "The community has the solution to all problems,",
 			"sustainableCulture": "SUSTAINABLE CULTURE",
-			"evolution": "Communication is the ink of culture, with a past full of wounds and victories, a fleeting and unstoppable present, and an unknown future. For years, society has fought for freedom of speech and to promote open communication and critical thinking. But when it seemed we had achieved that, another issue arose—reach. It’s not just what we say, but who hears it. What we see often becomes “normal.” To ensure cultural evolution, it’s essential to promote fair communication, giving visibility to local projects and emerging sustainable solutions. To choose what you want to see, do, and be—organically—by adopting good habits and supporting values you want to grow for a better future.",
+			"evolution": "The evolution of culture is a dynamic process of change in how human society sees, understands, and acts, linked to values and beliefs shaped over time. We find ourselves in an era of vast knowledge and communication, threatened by the climate emergency caused by the irresponsible use of our capabilities. Amidst so much greed arises the hope of a globalized world with principles in personal growth, cooperation, and environmental care—Sustainability. By reorganizing the pieces of this complex machinery, we know it's possible to build a regenerative and resilient system, generating abundance, equity, and justice. Today's communication technology allows us to share knowledge, values, traditions, art, and any other form of expression that defines the culture of the conscious community. The future of the planet is everyone's responsibility, and it's in our hands to share SUSTAINABLE CULTURE by sowing well-being for future generations.",
 			"learnMore": "Learn more"
 		},
 		"earth": {
 			"bePart": "Discover and share experiences to create a better future,",
 			"theSustainable": "COMMUNICATION IS CULTURE.",
-			"greenTeam": "Communication is the ink of culture, with a past full of wounds and victories, a fleeting and unstoppable present, and an unknown future. For years, society has fought for freedom of speech and to promote open communication and critical thinking. But when it seemed we had achieved that, another issue arose—reach. It’s not just what we say, but who hears it. What we see often becomes “normal.” To ensure cultural evolution, it’s essential to promote fair communication, giving visibility to local projects and emerging sustainable solutions. To choose what you want to see, do, and be—organically—by adopting good habits and supporting values you want to grow for a better future.",
+			"greenTeam": "Communication is the ink of culture, with a past full of wounds and victories, a fleeting and unstoppable present, and an unknown future. For years, society has fought for freedom of expression and to promote open communication and critical thinking. But just when it seemed we had succeeded, another problem emerged: reach. It's not just what we say, but who hears it. What we often see becomes 'normal.' To ensure cultural evolution, it's essential to promote fair communication, giving visibility to local projects and emerging sustainable solutions. To choose what you want to see, do, and be—organically—adopting good habits and supporting values you want to grow for a better future.",
 			"learnMore": "Learn more"
 		},
 		"foot": {
@@ -365,13 +365,13 @@
 			"readMore": "Read more",
 			"readLess": "Show less"
 		},
-		"teams":{
+		"teams": {
 			"title": "MEET THE ",
 			"team": "GREENTEAM"
 		},
 		"imagine": {
 			"imagine": "Imagine a world in harmony – The Path to sustainability",
-			"small":"The Greenteam team proposes an alternative model of production, distribution, and consumption to guide the path toward sustainability.",
+			"small": "The Greenteam team proposes an alternative model of production, distribution, and consumption to guide the path toward sustainability.",
 			"objective": "Objectives:",
 			"unificar": "Unify",
 			"unificarText": "the ecological community because communication generates evolution and progress",
@@ -402,9 +402,9 @@
 				"naturalezaT": "We promote community life, knowledge of ecosystem services, appreciation of biodiversity and conscious use of common spaces that give us life. United we sow nests."
 			}
 		},
-		"goal":{
-			"mini":"GOALS",
-			"big":"THE GOAL OF "
+		"goal": {
+			"mini": "GOALS",
+			"big": "THE GOAL OF "
 		},
 		"whatWeOffer": {
 			"whatWeOffer": "WHAT WE OFFER",
@@ -1006,6 +1006,11 @@
 			"breif": {
 				"yourPoints": "Your Points",
 				"track": "Track Your Impact!",
+				"points": "Points"
+			},
+			"breif2": {
+				"yourPoints": "your personal growth",
+
 				"points": "Points"
 			}
 		},

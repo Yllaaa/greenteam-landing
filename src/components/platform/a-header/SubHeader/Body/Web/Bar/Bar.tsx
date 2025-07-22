@@ -120,7 +120,7 @@ function Bar({ children }: { children: React.ReactNode }) {
     };
   }, [lastScrollY, scrollTimeout, bar]);
 
-  const t = useTranslations("web.subHeader.breif")
+  const t = useTranslations("web.subHeader.breif2")
 
   return (
     <>
@@ -130,8 +130,8 @@ function Bar({ children }: { children: React.ReactNode }) {
       >
         <div className={`${styles.breifContainer} ${bar ? styles.active : ""}`}>
           <div className={styles.contentWrapper}>
-            <p className={styles.label}>{t("yourPoints")}</p>
-            <h5 className={styles.subtitle}>{t("track")}</h5>
+            {/* <p className={styles.label}>{t("yourPoints")}</p> */}
+            <h5 className={styles.subtitle}>{t("yourPoints")}</h5>
             <div className={`${styles.breifText} ${!isLoading ? styles.loaded : ''}`}>
               <p className={styles.scoreText}>
                 <span className={styles.scoreNumber}>{score}</span>

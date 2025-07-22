@@ -19,7 +19,7 @@ export default async function RootLayout({
   // Fetch messages server-side
   const messages = await getMessages(locale as any);
   return (
-    <section data-tour={"all"} lang="en">
+    <section lang="en">
       <NextIntlClientProvider messages={messages}>
         {/* <GlobalTourProvider> */}
 

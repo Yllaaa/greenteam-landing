@@ -21,7 +21,7 @@ export default async function RootLayout({
   // Fetch messages server-side
   const messages = await getMessages(locale as any);
   return (
-    <section className="platform" lang="en">
+    <section data-tour={"all"} className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
         <header>
           <div style={{ position: "relative", zIndex: "1000" }}>

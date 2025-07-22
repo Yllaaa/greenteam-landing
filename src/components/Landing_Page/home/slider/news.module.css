@@ -80,7 +80,7 @@
   margin-bottom: 10px;
 }
 .card .context h5 {
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
   font-size: 20px;
   font-weight: 700;
   line-height: 23px;
@@ -98,7 +98,7 @@
   margin-bottom: 10px;
 }
 .card .text h5 {
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
   font-size: 16px;
   font-weight: 400;
   line-height: 18.4px;
@@ -125,7 +125,7 @@
   gap: 10px;
 }
 .card .cardFooter .user .name {
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
   font-size: 16px;
   font-weight: 400;
   line-height: 18.4px;
@@ -152,7 +152,7 @@
   -o-border-radius: 50%;
 }
 .card .cardFooter .readMore {
-  font-family: Helvetica;
+  /* font-family: Helvetica; */
   font-size: 16px;
   font-weight: 400;
   line-height: 18.4px;
@@ -319,7 +319,7 @@
     justify-self: center;
   }
   .card .context h5 {
-    font-family: Helvetica;
+    /* font-family: Helvetica; */
     font-size: 20px;
     font-weight: 700;
     line-height: 23px;
@@ -337,7 +337,7 @@
     justify-self: center;
   }
   .card .text h5 {
-    font-family: Helvetica;
+    /* font-family: Helvetica; */
     font-size: 16px;
     font-weight: 400;
     line-height: 18.4px;
@@ -366,7 +366,7 @@
     gap: 10px;
   }
   .card .cardFooter .user .name {
-    font-family: Helvetica;
+    /* font-family: Helvetica; */
     font-size: 16px;
     font-weight: 400;
     line-height: 18.4px;
@@ -384,7 +384,7 @@
     -o-border-radius: 50%;
   }
   .card .cardFooter .readMore {
-    font-family: Helvetica;
+    /* font-family: Helvetica; */
     font-size: 16px;
     font-weight: 400;
     line-height: 18.4px;

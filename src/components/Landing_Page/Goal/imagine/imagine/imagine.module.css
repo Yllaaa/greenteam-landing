@@ -5,7 +5,7 @@
   margin-bottom: 26px;
 }
 .header h2 {
-  font-family: DM Sans;
+  /* font-family: DM Sans; */
   font-size: 42px;
   font-weight: 700;
   line-height: 52px;
@@ -126,7 +126,8 @@
   font-weight: bolder;
 }
 .text ul li span img{
-  width: fit-content;
+  width: 50px;
+  height: 50px;
 }
 @media screen and (max-width: 1024px) {
   .container {

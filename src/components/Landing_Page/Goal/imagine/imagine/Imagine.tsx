@@ -156,7 +156,7 @@ function Imagine() {
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={know} alt="hello"/>{t("category.mental")}:{" "}</span>
+                  <span><Image src={physical} alt="hello"/>{t("category.mental")}:{" "}</span>
                 </p>
                 <p>
                 {t("category.mentalT")}
@@ -176,7 +176,7 @@ function Imagine() {
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={physical} alt="hello"/>{t("category.bio")}:{" "}</span>
+                  <span><Image src={eco} alt="hello"/>{t("category.bio")}:{" "}</span>
                 </p>
                 <p>
                 {t("category.bioT")}
@@ -186,7 +186,7 @@ function Imagine() {
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={community} alt="hello"/>{t("category.valores")}:{" "}</span>
+                  <span><Image src={know} alt="hello"/>{t("category.valores")}:{" "}</span>
                 </p>
                 <p>
                 {t("category.valoresT")}
@@ -196,7 +196,7 @@ function Imagine() {
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={eco} alt="hello"/>{t("category.naturaleza")}:{" "}</span>
+                  <span><Image src={community} alt="hello"/>{t("category.naturaleza")}:{" "}</span>
                 </p>
                 <p>
                 {t("category.naturalezaT")}

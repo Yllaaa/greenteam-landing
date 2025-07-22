@@ -70,13 +70,13 @@ const CookieConsent: React.FC<CookieConsentProps> = ({ onAccept, onRefuse }) => 
                 </div>
 
                 <div className={styles.cookieActions}>
-                    <button
+                    {/* <button
                         className={`${styles.cookieButton} ${styles.refuseButton}`}
                         onClick={handleRefuse}
                         aria-label="Refuse cookies"
                     >
                         {t("refuse")}
-                    </button>
+                    </button> */}
                     <button
                         className={`${styles.cookieButton} ${styles.acceptButton}`}
                         onClick={handleAccept}

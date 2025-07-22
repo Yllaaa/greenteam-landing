@@ -25,13 +25,13 @@
 		"brain": {
 			"community": "La comunidad tiene la solución a todos los problemas,",
 			"sustainableCulture": "CULTURA SOSTENIBLE",
-			"evolution": "La comunicación es la tinta de la cultura, con un pasado lleno de heridas y victorias, un presente fugaz e imparable, y un futuro desconocido. Durante años, la sociedad ha luchado por la libertad de expresión y por promover la comunicación abierta y el pensamiento crítico. Pero cuando parecía que lo habíamos logrado, surgió otro problema: el alcance. No es solo lo que decimos, sino quién lo escucha. Lo que vemos a menudo se convierte en 'normal'. Para asegurar la evolución cultural, es esencial promover una comunicación justa, dando visibilidad a proyectos locales y soluciones sostenibles emergentes. Para elegir lo que quieres ver, hacer y ser —orgánicamente— adoptando buenos hábitos y apoyando valores que quieres hacer crecer para un futuro mejor.",
+			"evolution": "La evolución de la cultura es un proceso de cambió dinámico en la forma de ver, entender y actuar de la sociedad humana, ligado a valores y creencias moldeadas a lo largo del tiempo. Nos encontramos en una era de amplio conocimiento y comunicación, amenazados por la emergencia climática a causa del uso irresponsable de nuestras capacidades. Entre tanta avaricia nace la esperanza de un mundo globalizado con principios en el crecimiento personal, cooperativismo y cuidado ambiental, la Sostenibilidad. Reorganizando las piezas de este complejo engranaje sabemos que es posible construir un sistema regenerativo y resiliente, generando abundancia, equidad y justicia. La tecnología de los medios de comunicación actuales nos permite compartir los conocimientos, valores, tradiciones, arte y cualquier otra forma de expresión que definan la cultura de la comunidad consciente. El futuro del planeta es cosa de tod@s y está en nuestras manos compartir CULTURA SOSTENIBLE sembrando bienestar para las generaciones futuras.",
 			"learnMore": "Aprender más"
 		},
 		"earth": {
 			"bePart": "Descubre y comparte experiencias para crear un futuro mejor,",
 			"theSustainable": "LA COMUNICACIÓN ES CULTURA.",
-			"greenTeam": "La evolución de la cultura es un proceso de cambió dinámico en la forma de ver, entender y actuar de la sociedad humana, ligado a valores y creencias moldeadas a lo largo del tiempo. Nos encontramos en una era de amplio conocimiento y comunicación, amenazados por la emergencia climática a causa del uso irresponsable de nuestras capacidades. Entre tanta avaricia nace la esperanza de un mundo globalizado con principios en el crecimiento personal, cooperativismo y cuidado ambiental, la Sostenibilidad. Reorganizando las piezas de este complejo engranaje sabemos que es posible construir un sistema regenerativo y resiliente, generando abundancia, equidad y justicia. La tecnología de los medios de comunicación actuales nos permite compartir los conocimientos, valores, tradiciones, arte y cualquier otra forma de expresión que definan la cultura de la comunidad consciente. El futuro del planeta es cosa de tod@s y está en nuestras manos compartir CULTURA SOSTENIBLE sembrando bienestar para las generaciones futuras.",
+			"greenTeam": "La comunicación es la tinta de la cultura, con un pasado lleno de heridas y victorias, un presente fugaz e imparable, y un futuro desconocido. Durante años, la sociedad ha luchado por la libertad de expresión y por promover la comunicación abierta y el pensamiento crítico. Pero cuando parecía que lo habíamos logrado, surgió otro problema: el alcance. No es solo lo que decimos, sino quién lo escucha. Lo que vemos a menudo se convierte en 'normal'. Para asegurar la evolución cultural, es esencial promover una comunicación justa, dando visibilidad a proyectos locales y soluciones sostenibles emergentes. Para elegir lo que quieres ver, hacer y ser —orgánicamente— adoptando buenos hábitos y apoyando valores que quieres hacer crecer para un futuro mejor.",
 			"learnMore": "Aprender más"
 		},
 		"foot": {
@@ -407,9 +407,9 @@
 			}
 		},
 		"whatWeOffer": {
-			"whatWeOffer": "QUÉ OFRECEMOS",
-			"howWeMake": "Cómo Marcamos la ",
-			"difference": "Diferencia",
+			"whatWeOffer": "RESPONSABILIDAD",
+			"howWeMake": "Te ofrecemos ",
+			"difference": "libertad",
 			"cards": {
 				"card1": {
 					"header": "Privacidad de Datos",
@@ -1003,6 +1003,11 @@
 			"breif": {
 				"yourPoints": "Tus Puntos",
 				"track": "¡Rastrea Tu Impacto!",
+				"points": "Puntos"
+			},
+			"breif2": {
+				"yourPoints": "tu crecimiento personal",
+
 				"points": "Puntos"
 			}
 		},
