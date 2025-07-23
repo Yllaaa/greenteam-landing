@@ -1,5 +1,40 @@
 /** @format */
 
+// Mixins for cross-browser compatibility
+@mixin transform($transform) {
+  -webkit-transform: $transform;
+  -moz-transform: $transform;
+  -ms-transform: $transform;
+  -o-transform: $transform;
+  transform: $transform;
+}
+
+@mixin transition($transition...) {
+  -webkit-transition: $transition;
+  -moz-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin animation($animation) {
+  -webkit-animation: $animation;
+  -moz-animation: $animation;
+  -o-animation: $animation;
+  animation: $animation;
+}
+
+@mixin backdrop-filter($filter) {
+  -webkit-backdrop-filter: $filter;
+  backdrop-filter: $filter;
+}
+
+@mixin user-select($select) {
+  -webkit-user-select: $select;
+  -moz-user-select: $select;
+  -ms-user-select: $select;
+  user-select: $select;
+}
+
 .container {
 	width: 100%;
 	height: 50px;
@@ -8,7 +43,7 @@
 	top: 100px;
 	left: 0;
 	z-index: 999;
-	padding: 12px 26px 12px 26px;
+	padding: 12px 26px;
 	background: linear-gradient(
 		127.36deg,
 		#0f3b18 0.8%,
@@ -16,11 +51,12 @@
 		#031e09 99.2%
 	);
 	will-change: transform, opacity;
-	transition: none; // Remove animation
+	@include transition(transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease);
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+	contain: layout style;
 
 	&.hidden {
-		transform: translateY(-120%);
+		@include transform(translateY(-120%));
 		opacity: 0;
 		pointer-events: none;
 	}
@@ -29,17 +65,11 @@
 		top: 0;
 		z-index: 1000;
 		height: 100vh;
+		height: 100dvh; // Dynamic viewport height for mobile
 		overflow: hidden;
-		transition: height 0.3s ease; // Keep only height transition when expanded
+		@include transition(height 0.3s ease);
 		display: flex;
-		flex-direction: column; // Add this to stack content vertically
-	}
-}
-
-// Remove animations during scroll
-.noAnimation {
-	&.container {
-		transition: none !important;
+		flex-direction: column;
 	}
 }
 
@@ -50,7 +80,7 @@
 		--LINEAR,
 		linear-gradient(90deg, #307040 0%, #74b243 45.5%, #96b032 80%)
 	);
-	backdrop-filter: blur(10px);
+	@include backdrop-filter(blur(10px));
 	padding: 40px;
 	display: flex;
 	justify-content: space-between;
@@ -58,8 +88,13 @@
 	border-radius: 16px;
 	position: relative;
 	overflow: hidden;
-	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-	flex-shrink: 0; // Prevent shrinking when container is expanded
+	@include transition(all 0.5s cubic-bezier(0.4, 0, 0.2, 1));
+	flex-shrink: 0;
+
+	// Fallback for browsers without backdrop-filter support
+	@supports not (backdrop-filter: blur(10px)) {
+		background: rgba(48, 112, 64, 0.95);
+	}
 
 	&::before {
 		content: '';
@@ -74,44 +109,31 @@
 			rgba(255, 255, 255, 0.05) 50%,
 			transparent 70%
 		);
-		transform: translateX(-100%);
-		transition: transform 1s ease;
+		@include transform(translateX(-100%));
+		@include transition(transform 1s ease);
+		pointer-events: none;
 	}
 
 	&:hover::before {
-		transform: translateX(100%);
+		@include transform(translateX(100%));
 	}
 
 	&.active {
 		background: transparent;
-		backdrop-filter: none;
+		@include backdrop-filter(none);
 		padding: 10px 20px;
 		border-radius: 0;
-		-webkit-border-radius: 0;
-		-moz-border-radius: 0;
-		-ms-border-radius: 0;
-		-o-border-radius: 0;
-		height: auto; // Allow height to adjust
-		min-height: 60px; // Set minimum height
+		height: auto;
+		min-height: 60px;
 	}
 }
 
 .contentWrapper {
 	display: flex;
-	// flex-direction: column;
 	align-items: center;
 	justify-content: flex-start;
-
 	gap: 12px;
 	flex: 1;
-}
-
-.label {
-	font-size: 14px;
-	color: rgba(255, 255, 255, 0.7);
-	margin: 0;
-	animation: fadeInUp 0.6s ease forwards;
-	-webkit-animation: fadeInUp 0.6s ease forwards;
 }
 
 .subtitle {
@@ -119,19 +141,20 @@
 	color: #fff;
 	margin: 0;
 	font-weight: 500;
-	animation: fadeInUp 0.6s 0.1s ease forwards;
+	@include animation(fadeInUp 0.6s 0.1s ease forwards);
 	opacity: 0;
+	@include animation(fadeInUp 0.6s 0.1s ease forwards);
 }
 
 .breifText {
 	margin-top: 8px;
 	opacity: 0;
-	transform: translateY(10px);
-	transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+	@include transform(translateY(10px));
+	@include transition(all 0.6s cubic-bezier(0.4, 0, 0.2, 1));
 
 	&.loaded {
 		opacity: 1;
-		transform: translateY(0);
+		@include transform(translateY(0));
 	}
 }
 
@@ -145,8 +168,10 @@
 .scoreNumber {
 	font-size: 32px;
 	font-weight: 700;
-	color: #4ade80;
-	animation: countUp 1s ease-out;
+		color: #4ade80;
+	@include animation(countUp 1s ease-out);
+	// Prevent text selection during animation
+	@include user-select(none);
 }
 
 .pointsLabel {
@@ -163,30 +188,60 @@
 	background: rgba(255, 255, 255, 0.1);
 	border-radius: 12px;
 	cursor: pointer;
-	transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+	@include transition(all 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+	border: none;
+	outline: none;
+	padding: 0;
+	// Improve touch target size
+	position: relative;
+	
+	// Touch target enhancement
+	&::after {
+		content: '';
+		position: absolute;
+		top: -8px;
+		right: -8px;
+		bottom: -8px;
+		left: -8px;
+	}
 
 	svg {
 		font-size: 20px;
 		color: #fff;
-		transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+		@include transition(transform 0.3s cubic-bezier(0.4, 0, 0.2, 1));
+		pointer-events: none;
 	}
 
-	&:hover {
+	&:hover:not(:disabled) {
 		background: rgba(255, 255, 255, 0.2);
-		transform: scale(1.05);
+		@include transform(scale(1.05));
 
 		svg {
-			transform: translateY(2px);
+			@include transform(translateY(2px));
 		}
+	}
+
+	&:focus-visible {
+		outline: 2px solid #4ade80;
+		outline-offset: 2px;
+	}
+
+	&:active:not(:disabled) {
+		@include transform(scale(0.95));
+	}
+
+	&:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
 	}
 
 	&.rotated {
 		svg {
-			transform: rotate(180deg);
+			@include transform(rotate(180deg));
 		}
 
-		&:hover svg {
-			transform: rotate(180deg) translateY(2px);
+		&:hover:not(:disabled) svg {
+			@include transform(rotate(180deg) translateY(2px));
 		}
 	}
 }
@@ -196,33 +251,34 @@
 	max-height: 0;
 	overflow: hidden;
 	opacity: 0;
-	transform: translateY(-20px);
-	transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+	@include transform(translateY(-20px));
+	@include transition(all 0.5s cubic-bezier(0.4, 0, 0.2, 1));
 	position: relative;
-	flex: 1; // Take remaining space when expanded
+	flex: 1;
 
 	&.active {
-		max-height: none; // Remove max-height restriction
-		height: calc(100vh - 120px); // Set specific height based on container
+		max-height: none;
+		height: calc(100vh - 120px);
+		height: calc(100dvh - 120px); // Dynamic viewport height
 		opacity: 1;
-		transform: translateY(0);
+		@include transform(translateY(0));
 		margin-top: 20px;
 		overflow-y: auto;
 		overflow-x: hidden;
 		display: flex;
 		flex-direction: column;
-		scroll-behavior: smooth; // Add smooth scrolling
+		scroll-behavior: smooth;
+		// Momentum scrolling for iOS
+		-webkit-overflow-scrolling: touch;
 
-		// Ensure content starts at top
-		& > * {
-			margin-top: 0;
-		}
-
+		// Firefox scrollbar
 		scrollbar-width: thin;
 		scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
 
+		// Webkit browsers scrollbar
 		&::-webkit-scrollbar {
 			width: 10px;
+			height: 10px;
 		}
 
 		&::-webkit-scrollbar-track {
@@ -235,23 +291,39 @@
 			border-radius: 5px;
 			border: 2px solid transparent;
 			background-clip: padding-box;
+			@include transition(background 0.3s ease);
 
 			&:hover {
 				background: rgba(255, 255, 255, 0.4);
 			}
+
+			&:active {
+				background: rgba(255, 255, 255, 0.5);
+			}
+		}
+
+		// IE11 scrollbar
+		& {
+			-ms-overflow-style: -ms-autohiding-scrollbar;
 		}
 	}
 }
 
 .childrenContent {
-	padding: 20px 0 80px 0; // Added 80px padding-bottom
+	padding: 20px 0 80px 0;
 	width: 100%;
-	min-height: 100%; // Ensure content fills the container
+	min-height: 100%;
 	display: flex;
 	flex-direction: column;
+	// Prevent margin collapse
+	&::before,
+	&::after {
+		content: '';
+		display: table;
+	}
 }
 
-// Loading state
+// Loading state with skeleton animation
 .breifText:not(.loaded) .scoreNumber {
 	background: linear-gradient(
 		90deg,
@@ -260,82 +332,95 @@
 		rgba(74, 222, 128, 0.2) 100%
 	);
 	background-size: 200% 100%;
-	animation: pulse 1.5s ease-in-out infinite;
+	@include animation(shimmer 1.5s ease-in-out infinite);
 	color: transparent;
 	min-width: 60px;
 	display: inline-block;
+	border-radius: 4px;
 }
 
-// Animations
-@keyframes fadeIn {
-	from {
-		opacity: 0;
-	}
-	to {
-		opacity: 1;
-	}
-}
-
+// Animations with vendor prefixes
 @keyframes fadeInUp {
 	from {
 		opacity: 0;
-		transform: translateY(10px);
+		@include transform(translateY(10px));
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
+		@include transform(translateY(0));
+	}
+}
+
+@-webkit-keyframes fadeInUp {
+	from {
+		opacity: 0;
+		-webkit-transform: translateY(10px);
+	}
+	to {
+		opacity: 1;
+		-webkit-transform: translateY(0);
 	}
 }
 
 @keyframes countUp {
 	from {
 		opacity: 0;
-		transform: scale(0.8);
+		@include transform(scale(0.8));
 	}
 	to {
 		opacity: 1;
-		transform: scale(1);
+		@include transform(scale(1));
 	}
 }
 
-@keyframes slideInContent {
+@-webkit-keyframes countUp {
 	from {
 		opacity: 0;
-		transform: translateY(20px);
+		-webkit-transform: scale(0.8);
 	}
 	to {
 		opacity: 1;
-		transform: translateY(0);
+		-webkit-transform: scale(1);
 	}
 }
 
-@keyframes pulse {
-	0%,
+@keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
 	100% {
-		opacity: 1;
-	}
-	50% {
-		opacity: 0.5;
+		background-position: 200% 0;
 	}
 }
 
-// Responsive adjustments
+@-webkit-keyframes shimmer {
+	0% {
+		background-position: -200% 0;
+	}
+	100% {
+		background-position: 200% 0;
+	}
+}
+
+// Responsive Design
 @media (max-width: 1400px) {
 	.container.expanded {
 		padding: 20px 16px 8px 16px;
 	}
 
 	.childrenContent {
-		padding: 15px 0 60px 0; // Adjusted padding-bottom for smaller screens
+		padding: 15px 0 60px 0;
 	}
 }
 
 @media (max-width: 768px) {
 	.container {
 		padding: 20px 16px 8px 16px;
+		top: 80px; // Adjust for mobile header
 
 		&.expanded {
 			height: calc(100vh - 80px);
+			height: calc(100dvh - 80px);
 		}
 	}
 
@@ -346,6 +431,14 @@
 			padding: 16px 24px;
 			min-height: 50px;
 		}
+	}
+
+	.contentWrapper {
+		gap: 8px;
+	}
+
+	.subtitle {
+		font-size: 16px;
 	}
 
 	.scoreNumber {
@@ -363,20 +456,24 @@
 
 	.children.active {
 		height: calc(100vh - 140px);
+		height: calc(100dvh - 140px);
+		margin-top: 16px;
 	}
 
 	.childrenContent {
-		padding: 10px 0 50px 0; // Adjusted padding-bottom for mobile
+		padding: 10px 0 50px 0;
 	}
 }
 
 @media (max-width: 430px) {
 	.container {
 		padding: 16px 12px 8px 12px;
+		top: 70px;
 	}
 
 	.breifContainer {
 		padding: 20px 16px;
+		height: 70px;
 
 		&.active {
 			padding: 12px 16px;
@@ -384,12 +481,12 @@
 		}
 	}
 
-	.label {
-		font-size: 12px;
+	.contentWrapper {
+		gap: 6px;
 	}
 
 	.subtitle {
-		font-size: 16px;
+		font-size: 14px;
 	}
 
 	.scoreNumber {
@@ -411,43 +508,129 @@
 
 	.children.active {
 		height: calc(100vh - 120px);
+		height: calc(100dvh - 120px);
+		margin-top: 12px;
 	}
 
 	.childrenContent {
-		padding: 10px 0 40px 0; // Adjusted padding-bottom for small mobile
+		padding: 10px 0 40px 0;
 	}
 }
 
-// Accessibility - Reduced motion
-@media (prefers-reduced-motion: reduce) {
-	.container,
-	.breifContainer,
-	.children,
-	.openIcon,
-	.childrenContent {
-		animation-duration: 0.01ms !important;
-		animation-iteration-count: 1 !important;
-		transition-duration: 0.01ms !important;
-	}
-}
+// Accessibility Improvements
+// @media (prefers-reduced-motion: reduce) {
+// 	*,
+// 	*::before,
+// 	*::after {
+// 		animation-duration: 0.01ms !important;
+// 		animation-iteration-count: 1 !important;
+// 		transition-duration: 0.01ms !important;
+// 		scroll-behavior: auto !important;
+// 	}
+// }
 
-// High contrast mode
+// High contrast mode support
 @media (prefers-contrast: high) {
 	.container {
 		border: 2px solid currentColor;
+		background: #000;
 	}
 
 	.breifContainer {
 		background: #000;
 		border: 1px solid #fff;
+
+		&.active {
+			border-color: transparent;
+		}
 	}
 
 	.openIcon {
 		background: #000;
 		border: 2px solid #fff;
+
+		&:focus-visible {
+			outline-color: #fff;
+		}
+	}
+
+	.scoreNumber {
+		color: #0f0;
 	}
 
 	.children::-webkit-scrollbar-thumb {
 		background: #fff;
+	}
+}
+
+// Dark mode support
+@media (prefers-color-scheme: dark) {
+	.container {
+		background: linear-gradient(
+			127.36deg,
+			#0a1f0d 0.8%,
+			#071208 50%,
+			#020d04 99.2%
+		);
+	}
+}
+
+// Print styles
+@media print {
+	.container {
+		position: static;
+		height: auto;
+		box-shadow: none;
+		page-break-inside: avoid;
+	}
+
+	.openIcon {
+		display: none;
+	}
+
+	.children {
+		max-height: none;
+		overflow: visible;
+		opacity: 1;
+		transform: none;
+	}
+}
+
+// Support for older browsers
+.no-flexbox {
+	.container {
+		display: block;
+	}
+
+	.breifContainer {
+		display: table;
+		width: 100%;
+	}
+
+	.contentWrapper {
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	.openIcon {
+		display: table-cell;
+		vertical-align: middle;
+		width: 48px;
+	}
+}
+
+// IE11 specific fixes
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+	.container {
+		height: auto;
+		min-height: 50px;
+	}
+
+	.container.expanded {
+		height: 100vh;
+	}
+
+	.children.active {
+		height: calc(100vh - 120px);
 	}
 }

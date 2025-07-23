@@ -1,5 +1,5 @@
 'use client'
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useCallback } from 'react'
 import styles from "./Bar.module.scss"
 import axios from 'axios'
 import { getToken } from '@/Utils/userToken/LocalToken'
@@ -15,178 +15,218 @@ function Bar({ children }: { children: React.ReactNode }) {
   const locale = useLocale()
   const [score, setScore] = useState(0)
   const [isLoading, setIsLoading] = useState(true)
-  const containerRef = useRef<HTMLDivElement>(null)
-  const childrenRef = useRef<HTMLDivElement>(null) // Add ref for children section
+  const [isExpanded, setIsExpanded] = useState(false)
+  const [manuallyOpened, setManuallyOpened] = useState(false)
+  const [showHeader, setShowHeader] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
 
+  const containerRef = useRef<HTMLDivElement>(null)
+  const childrenRef = useRef<HTMLDivElement>(null)
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null)
+  const prevStepRef = useRef<number | null>(null)
+
+  const t = useTranslations("web.subHeader.breif2")
+  const { isTourActive, currentTourId, currentStepIndex } = useTour()
+
+  // Fetch user score
   useEffect(() => {
+    if (!username || !accessToken) {
+      setIsLoading(false)
+      return
+    }
+
+    const controller = new AbortController()
+
     axios
       .get(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/users/${username}`, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
-          "Accept-Language": `${locale}`,
+          "Accept-Language": locale,
         },
+        signal: controller.signal
       })
       .then((response) => {
-        setScore(response.data.userScore)
+        setScore(response.data.userScore || 0)
         setIsLoading(false)
       })
-      .catch(() => {
-        setIsLoading(false)
+      .catch((error) => {
+        if (!axios.isCancel(error)) {
+          console.error('Failed to fetch user score:', error)
+          setIsLoading(false)
+        }
       })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
+    return () => controller.abort()
+  }, [username, accessToken, locale])
+
+  // Toggle bar with animation
+  const toggleBar = useCallback(() => {
+    if (isAnimating) return
+
+    setIsAnimating(true)
+    setIsExpanded(prev => !prev)
+    setManuallyOpened(prev => !prev)
+
+    // Reset animation flag after transition
+    setTimeout(() => setIsAnimating(false), 300)
+  }, [isAnimating])
+
+  // Handle keyboard navigation
+  useEffect(() => {
+    const handleKeyPress = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isExpanded && !isTourActive) {
+        setIsExpanded(false)
+        setManuallyOpened(false)
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyPress)
+    return () => window.removeEventListener('keydown', handleKeyPress)
+  }, [isExpanded, isTourActive])
+
+  // Smooth scroll to top
+  const scrollToTop = useCallback(() => {
+    if (childrenRef.current) {
+      // Use requestAnimationFrame for smoother scrolling
+      const smoothScroll = () => {
+        if (childrenRef.current) {
+          const currentScroll = childrenRef.current.scrollTop
+          if (currentScroll > 0) {
+            childrenRef.current.scrollTop = Math.max(0, currentScroll - currentScroll / 8)
+            requestAnimationFrame(smoothScroll)
+          }
+        }
+      }
+      requestAnimationFrame(smoothScroll)
+    }
   }, [])
 
-  const [bar, setBar] = useState(false);
-  const [manuallyOpened, setManuallyOpened] = useState(false); // Track if user manually opened
-
-  const openBar = () => {
-    setBar(!bar);
-    setManuallyOpened(!bar); // Set manual state when user clicks
-  }
-
-  // Get tour state from the tour provider
-  const { isTourActive, currentTourId, currentStepIndex } = useTour();
-
-  // Track previous step to detect step changes
-  const prevStepRef = useRef<number | null>(null);
-
-  // Effect to handle tour-based dropdown control
+  // Handle tour state changes
   useEffect(() => {
-    // Check if header tour is active
     if (isTourActive && currentTourId === 'header-tour') {
-      // Steps 3, 4, and 5 (0-indexed)
-      if (currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5) {
-        setBar(true);
-        setManuallyOpened(false); // Reset manual state during tour
+      const shouldExpand = currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5
 
-        // Scroll to top when entering these steps or when step changes
-        if (prevStepRef.current !== currentStepIndex) {
-          // Use a longer timeout for step 3 (index 3) to ensure content is fully rendered
-          const scrollDelay = currentStepIndex === 3 ? 300 : 100;
+      if (shouldExpand !== isExpanded) {
+        setIsExpanded(shouldExpand)
+        setManuallyOpened(false)
 
-          setTimeout(() => {
-            if (childrenRef.current) {
-              childrenRef.current.scrollTop = 0;
-              // Force a second scroll reset for step 3
-              if (currentStepIndex === 3) {
-                setTimeout(() => {
-                  if (childrenRef.current) {
-                    childrenRef.current.scrollTop = 0;
-                  }
-                }, 100);
-              }
-            }
-          }, scrollDelay);
+        if (shouldExpand && prevStepRef.current !== currentStepIndex) {
+          // Clear any existing timeout
+          if (scrollTimeoutRef.current) {
+            clearTimeout(scrollTimeoutRef.current)
+          }
+
+          // Delay scroll to ensure content is rendered
+          scrollTimeoutRef.current = setTimeout(() => {
+            scrollToTop()
+          }, currentStepIndex === 3 ? 400 : 200)
         }
-      } else {
-        setBar(false);
-        setManuallyOpened(false);
       }
     }
 
-    // Update previous step reference
-    prevStepRef.current = currentStepIndex;
-  }, [isTourActive, currentTourId, currentStepIndex]);
-
-  // Also reset scroll when bar state changes
-  useEffect(() => {
-    if (bar && childrenRef.current) {
-      // Small delay to ensure transition completes
-      setTimeout(() => {
-        if (childrenRef.current) {
-          childrenRef.current.scrollTop = 0;
-        }
-      }, 50);
-    }
-  }, [bar]);
-
-  // Header visibility states
-  const [showHeader, setShowHeader] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-
-  // Handle scroll behavior for header visibility
-  useEffect(() => {
-    const controlHeader = () => {
-      if (typeof window !== "undefined") {
-        const currentScrollY = window.scrollY;
-
-        // Don't auto-close if manually opened OR if tour is active
-        if (manuallyOpened || isTourActive) {
-          return;
-        }
-
-        // Keep header visible at the top
-        if (currentScrollY < 5) {
-          setShowHeader(true);
-        }
-        // Hide header only after scrolling down significantly
-        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-          setShowHeader(false);
-          // Only auto-expand bar if it's not already manually opened and tour is not active
-          if (!bar && !manuallyOpened && !isTourActive) {
-            setBar(true);
-          }
-        }
-        // Always show header when scrolling up
-        else if (currentScrollY < lastScrollY) {
-          setShowHeader(true);
-          // Only close if not manually opened and tour is not active
-          if (bar && !manuallyOpened && !isTourActive) {
-            setBar(false);
-          }
-        }
-
-        setLastScrollY(currentScrollY);
-      }
-    };
-
-    const handleScroll = () => {
-      controlHeader();
-    };
-
-    // Always listen to scroll events
-    window.addEventListener("scroll", handleScroll, { passive: true });
+    prevStepRef.current = currentStepIndex
 
     return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [lastScrollY, bar, manuallyOpened, isTourActive]);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current)
+      }
+    }
+  }, [isTourActive, currentTourId, currentStepIndex, isExpanded, scrollToTop])
 
-  const t = useTranslations("web.subHeader.breif2")
+  // Handle scroll behavior with debouncing
+  useEffect(() => {
+    let ticking = false
+
+    const updateScrollState = () => {
+      const currentScrollY = window.pageYOffset || document.documentElement.scrollTop
+
+      if (manuallyOpened || isTourActive) {
+        ticking = false
+        return
+      }
+
+      // Show header at top
+      if (currentScrollY < 5) {
+        setShowHeader(true)
+      }
+      // Hide header when scrolling down
+      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setShowHeader(false)
+        if (!isExpanded && !manuallyOpened && !isTourActive) {
+          setIsExpanded(true)
+        }
+      }
+      // Show header when scrolling up
+      else if (currentScrollY < lastScrollY) {
+        setShowHeader(true)
+        if (isExpanded && !manuallyOpened && !isTourActive) {
+          setIsExpanded(false)
+        }
+      }
+
+      setLastScrollY(currentScrollY)
+      ticking = false
+    }
+
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(updateScrollState)
+        ticking = true
+      }
+    }
+
+    // Add passive listener for better performance
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY, isExpanded, manuallyOpened, isTourActive])
+
+  // Format score with locale-specific thousands separator
+  const formattedScore = new Intl.NumberFormat(locale).format(score)
 
   return (
-    <>
-      <section
-        ref={containerRef}
-        className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${bar ? styles.expanded : ''} ${styles.noAnimation}`}
-      >
-        <div className={`${styles.breifContainer} ${bar ? styles.active : ""}`}>
-          <div className={styles.contentWrapper}>
-            {/* <p className={styles.label}>{t("yourPoints")}</p> */}
-            <h5 className={styles.subtitle}>{t("yourPoints")}</h5>
-            <div className={`${styles.breifText} ${!isLoading ? styles.loaded : ''}`}>
-              <p className={styles.scoreText}>
-                <span className={styles.scoreNumber}>{score}</span>
-                <span className={styles.pointsLabel}>{t("points")}</span>
-              </p>
-            </div>
-          </div>
-          <div className={`${styles.openIcon} ${bar ? styles.rotated : ''}`}>
-            <FaArrowDown onClick={openBar} />
+    <section
+      ref={containerRef}
+      className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${isExpanded ? styles.expanded : ''}`}
+      role="complementary"
+      aria-label={t("yourPoints")}
+      // aria-expanded={isExpanded}
+    >
+      <div className={`${styles.breifContainer} ${isExpanded ? styles.active : ""}`}>
+        <div className={styles.contentWrapper}>
+          <h2 className={styles.subtitle}>{t("yourPoints")}</h2>
+          <div className={`${styles.breifText} ${!isLoading ? styles.loaded : ''}`}>
+            <p className={styles.scoreText}>
+              <span className={styles.scoreNumber} aria-live="polite">
+                {isLoading ? '...' : formattedScore}
+              </span>
+              <span className={styles.pointsLabel}>{t("points")}</span>
+            </p>
           </div>
         </div>
-        <div
-          ref={childrenRef} // Add ref here
-          className={`${styles.children} ${bar ? styles.active : ""}`}
+        <button
+          className={`${styles.openIcon} ${isExpanded ? styles.rotated : ''}`}
+          onClick={toggleBar}
+          aria-label={isExpanded ? 'Collapse menu' : 'Expand menu'}
+          disabled={isAnimating}
         >
-          <div className={styles.childrenContent}>
-            {children}
-          </div>
+          <FaArrowDown />
+        </button>
+      </div>
+      <div
+        ref={childrenRef}
+        className={`${styles.children} ${isExpanded ? styles.active : ""}`}
+        role="region"
+        aria-hidden={!isExpanded}
+      >
+        <div className={styles.childrenContent}>
+          {children}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   )
 }
 
-export default Bar
+export default React.memo(Bar)

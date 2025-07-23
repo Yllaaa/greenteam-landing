@@ -407,21 +407,21 @@
 			"big": "THE GOAL OF "
 		},
 		"whatWeOffer": {
-			"whatWeOffer": "WHAT WE OFFER",
-			"howWeMake": "How We Make the ",
-			"difference": "Difference",
+			"whatWeOffer": "RESPONSIBILITY",
+			"howWeMake": "We offer you",
+			"difference": "freedom",
 			"cards": {
 				"card1": {
 					"header": "Data Privacy",
-					"text": "Your data is safe with ethical and transparent decisions."
+					"text": "we don't share your activity or data, no advertising."
 				},
 				"card2": {
 					"header": "Organic Internet",
-					"text": "authentic connections through meaningful and focused design"
+					"text": "content organization by proximity and ethical value, without algorithms."
 				},
 				"card3": {
-					"header": "Communication with Impact",
-					"text": "Tools to focus on collective well-being and local impact"
+					"header": "Impact Communication",
+					"text": "tools designed to collaborate and take action, without competition"
 				}
 			}
 		},
