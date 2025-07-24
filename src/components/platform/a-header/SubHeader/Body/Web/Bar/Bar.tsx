@@ -192,11 +192,11 @@ function Bar({ children }: { children: React.ReactNode }) {
       className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${isExpanded ? styles.expanded : ''}`}
       role="complementary"
       aria-label={t("yourPoints")}
-      onClick={toggleBar}
+      
       style={{ cursor: isAnimating ? 'not-allowed' : 'pointer' }}
       // aria-expanded={isExpanded}
     >
-      <div className={`${styles.breifContainer} ${isExpanded ? styles.active : ""}`}>
+      <div onClick={toggleBar} className={`${styles.breifContainer} ${isExpanded ? styles.active : ""}`}>
         <div className={styles.contentWrapper}>
           <h2 className={styles.subtitle}>{t("yourPoints")}</h2>
           <div className={`${styles.breifText} ${!isLoading ? styles.loaded : ''}`}>

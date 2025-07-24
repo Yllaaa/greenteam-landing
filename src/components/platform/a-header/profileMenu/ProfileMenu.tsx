@@ -10,7 +10,8 @@ import { useRouter, usePathname } from "next/navigation";
 import Image from "next/image";
 import noAvatar from "@/../public/ZPLATFORM/A-Header/NoAvatarImg.png";
 // import { useTour } from '@/components/AA-NEW/MODALS/A_GUIDE/tourProvider'; // Update import path
-
+import { useTour } from '../../../AA-NEW/MODALS/A_GUIDE/tourProvider'; // Add this import
+import { FaInfo } from "react-icons/fa";
 interface Props {
   isDropdownOpen: boolean;
   setIsDropdownOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -26,7 +27,21 @@ function ProfileMenu(props: Props) {
   const pathname = usePathname();
   const locale = useLocale();
   const t = useTranslations("web.header");
+  const { startTour, resetTour, isTourActive, stopTour } = useTour(); // Add this hook
 
+  // Add handler for restarting tour
+  const handleRestartTour = () => {
+    if (isTourActive) {
+      stopTour();
+    }
+    // Assuming your tour ID is 'main-tour' - change this to match your actual tour ID
+    resetTour('header-tour');
+    setTimeout(() => {
+      startTour('header-tour', 0);
+    }, 100);
+    //   // Reset the tour to the first step
+
+  };
   // // Get tour state from the tour provider
   // const { isTourActive, currentTourId, currentStepIndex } = useTour();
 
@@ -51,7 +66,7 @@ function ProfileMenu(props: Props) {
     // if (isTourActive) return;
 
     const newLocale = locale === "en" ? "es" : "en";
-    const pathWithoutLocale =pathname&& pathname.replace(`/${locale}`, '');
+    const pathWithoutLocale = pathname && pathname.replace(`/${locale}`, '');
     router.push(`/${newLocale}${pathWithoutLocale}`);
     setIsDropdownOpen(false);
   };
@@ -106,10 +121,10 @@ function ProfileMenu(props: Props) {
             data-tour="navigate-profile"
             className={styles.userProfileSection}
             onClick={goToProfile}
-            // style={{
-            //   pointerEvents: isTourActive ? 'none' : 'auto',
-            //   cursor: isTourActive ? 'default' : 'pointer'
-            // }}
+          // style={{
+          //   pointerEvents: isTourActive ? 'none' : 'auto',
+          //   cursor: isTourActive ? 'default' : 'pointer'
+          // }}
           >
             <div className={styles.userAvatar}>
               <Image
@@ -136,10 +151,10 @@ function ProfileMenu(props: Props) {
               onClick={() => handleDropdownItemClick(item.link)}
               className={styles.dropdownItem}
               key={item.id}
-              // style={{
-              //   pointerEvents: isTourActive ? 'none' : 'auto',
-              //   cursor: isTourActive ? 'default' : 'pointer'
-              // }}
+            // style={{
+            //   pointerEvents: isTourActive ? 'none' : 'auto',
+            //   cursor: isTourActive ? 'default' : 'pointer'
+            // }}
             >
               <Image unoptimized src={item.icon} alt={item.name} />
               <span>{item.name}</span>
@@ -148,10 +163,10 @@ function ProfileMenu(props: Props) {
           <li
             onClick={switchLanguage}
             className={styles.languageToggle}
-            // style={{
-            //   pointerEvents: isTourActive ? 'none' : 'auto',
-            //   cursor: isTourActive ? 'default' : 'pointer'
-            // }}
+          // style={{
+          //   pointerEvents: isTourActive ? 'none' : 'auto',
+          //   cursor: isTourActive ? 'default' : 'pointer'
+          // }}
           >
             <Image unoptimized src={language} alt="language" />
             <span>
@@ -161,16 +176,25 @@ function ProfileMenu(props: Props) {
             </span>
           </li>
           <li
+            onClick={handleRestartTour}
+            className={styles.languageToggle}
+          >
+            <FaInfo />
+            <span>
+              {t("restartTour") || "Restart Tour"}
+            </span>
+          </li>
+          <li
             onClick={() => {
               // if (isTourActive) return;
               setIsDropdownOpen(false);
               handleLogout();
             }}
             className={styles.logout}
-            // style={{
-            //   pointerEvents: isTourActive ? 'none' : 'auto',
-            //   cursor: isTourActive ? 'default' : 'pointer'
-            // }}
+          // style={{
+          //   pointerEvents: isTourActive ? 'none' : 'auto',
+          //   cursor: isTourActive ? 'default' : 'pointer'
+          // }}
           >
             <Image unoptimized src={logout} alt="logout" />
             <span>{t("logout")}</span>

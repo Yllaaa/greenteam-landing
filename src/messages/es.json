@@ -1,6 +1,6 @@
 {
 	"cookies": {
-		"accept": "Aceptar",
+		"accept": "ACEPTAR COOKIES ESENCIALES.",
 		"refuse": "Rechazar",
 		"title": "¿Qué tipos de cookies utilizamos?",
 		"description": "En GreenTeam.app no compartimos tu información con terceros con fines publicitarios. Solo utilizamos cookies esenciales y analíticas mínimas necesarias para el funcionamiento técnico y la mejora del servicio."
@@ -907,6 +907,7 @@
 			"loadingForums": "Cargando foros..."
 		},
 		"header": {
+			"restartTour": "CÓMO FUNCIONA GREENTEAM",
 			"startTour": "Comienza tu viaje hacia la sostenibilidad",
 			"chat": "Chat",
 			"community": "Comunidad",

@@ -3,7 +3,7 @@ import React from "react";
 import styles from "./imagine.module.css";
 
 import goal1 from "@/../public/goals/goals.jpg";
-import categories from "@/../public/goals/categories.jpg";
+// import categories from "@/../public/goals/categories.jpg";
 // import goal2 from "@/../public/goals/goal2.jpeg";
 // import goal3 from "@/../public/goals/goal3.jpeg";
 import Image from "next/image";
@@ -35,9 +35,9 @@ function Imagine() {
               <li><span>{t("pueblos")}:{" "}</span>{t("pueblosT")}</li>
               <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li>
             </ul>
-            <p>
+            {/* <p>
               {t("paragraph")}
-            </p>
+            </p> */}
             {/* <p>
               Fomentar las relaciones humanas, mediante eventos sociales,
               voluntariado y cooperativismo.
@@ -107,7 +107,7 @@ function Imagine() {
         </div> */}
       </div>
       <div className={styles.categories}>
-        <Image src={categories} alt="categories" />
+        {/* <Image src={categories} alt="categories" /> */}
         <div className={styles.text}>
           <div className={styles.header}>
             <h2>{t("imagine")}</h2>
@@ -205,9 +205,9 @@ function Imagine() {
             </li>
            
           </ul>
-          <p>
+          {/* <p>
             {t("paragraph")}
-          </p>
+          </p> */}
         </div>
       </div>
     </>
