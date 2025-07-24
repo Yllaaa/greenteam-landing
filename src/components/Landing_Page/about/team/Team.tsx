@@ -6,7 +6,7 @@ import styles from './team.module.css'
 import Image from 'next/image'
 import img1 from "@/../public/about/1.jpg"
 import img2 from "@/../public/about/2.jpg"
-import img3 from "@/../public/about/3.png"
+import img3 from "@/../public/about/zeft.jpg"
 import img4 from "@/../public/about/M.png"
 import { useTranslations } from 'next-intl'
 
