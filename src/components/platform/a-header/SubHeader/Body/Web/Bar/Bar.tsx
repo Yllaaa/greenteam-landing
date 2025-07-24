@@ -192,6 +192,8 @@ function Bar({ children }: { children: React.ReactNode }) {
       className={`${styles.container} ${!showHeader ? styles.hidden : ''} ${isExpanded ? styles.expanded : ''}`}
       role="complementary"
       aria-label={t("yourPoints")}
+      onClick={toggleBar}
+      style={{ cursor: isAnimating ? 'not-allowed' : 'pointer' }}
       // aria-expanded={isExpanded}
     >
       <div className={`${styles.breifContainer} ${isExpanded ? styles.active : ""}`}>
@@ -208,7 +210,7 @@ function Bar({ children }: { children: React.ReactNode }) {
         </div>
         <button
           className={`${styles.openIcon} ${isExpanded ? styles.rotated : ''}`}
-          onClick={toggleBar}
+          // onClick={toggleBar}
           aria-label={isExpanded ? 'Collapse menu' : 'Expand menu'}
           disabled={isAnimating}
         >
