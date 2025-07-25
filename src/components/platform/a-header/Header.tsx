@@ -13,6 +13,7 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoIosAddCircle } from "react-icons/io";
 import { FaBars, FaTimes } from "react-icons/fa";
+import { BsChatDots, BsBell } from "react-icons/bs";
 // import { MdRestartAlt } from "react-icons/md";
 import {
   clearUserLoginData,
@@ -207,9 +208,21 @@ function Header() {
     document.body.classList.remove('modal-open');
   };
 
-  const handleMenuItemClick = (path: string) => {
-    router.push(path);
+  // const handleMenuItemClick = (path: string) => {
+  //   router.push(path);
+  //   setMobileMenuOpen(false);
+  // };
+
+  const handleChatClick = () => {
     setMobileMenuOpen(false);
+    // Navigate to chat or open chat modal
+    router.push(`/${locale}/chat`);
+  };
+
+  const handleNotificationClick = () => {
+    setMobileMenuOpen(false);
+    // Navigate to notifications or open notifications modal
+    router.push(`/${locale}/notifications`);
   };
 
   return (
@@ -232,31 +245,28 @@ function Header() {
             </div>
           </div>
 
-          {windowWidth > 768 && (
-            <>
-              <div className={styles.logoItem}>
-                <div
-                  data-tour="community"
-                  onClick={() => router.push(`/${locale}/community`)}
-                  className={styles.handsLogo}
-                >
-                  <Image src={handsLogo} alt="community" width={60} height={48} />
-                  <p>{t("community")}</p>
-                </div>
-              </div>
+          {/* Always show community and favorites */}
+          <div className={styles.logoItem}>
+            <div
+              data-tour="community"
+              onClick={() => router.push(`/${locale}/community`)}
+              className={styles.handsLogo}
+            >
+              <Image src={handsLogo} alt="community" width={60} height={48} />
+              <p>{t("community")}</p>
+            </div>
+          </div>
 
-              <div className={styles.logoItem}>
-                <div
-                  data-tour="favorites"
-                  onClick={() => router.push(`/${locale}/favorite`)}
-                  className={styles.starFav}
-                >
-                  <FaStar size={100} color="yellow" />
-                  <p>{t("favorites")}</p>
-                </div>
-              </div>
-            </>
-          )}
+          <div className={styles.logoItem}>
+            <div
+              data-tour="favorites"
+              onClick={() => router.push(`/${locale}/favorite`)}
+              className={styles.starFav}
+            >
+              <FaStar size={100} color="yellow" />
+              <p>{t("favorites")}</p>
+            </div>
+          </div>
         </div>
 
         <div className={styles.profile}>
@@ -269,34 +279,37 @@ function Header() {
             </div>
           )}
 
-          <div className={styles.icons}>
-            {/* <div
-              onClick={handleRestartTour}
-              className={styles.notification}
-              title={isTourActive ? "Restart Tour" : "Start Tour"}
-            >
-              <MdRestartAlt />
-            </div> */}
-            <div
-              onClick={handleAddPost}
-              className={styles.notification}
-              data-tour="add-post"
-            >
-              <IoIosAddCircle />
+          {/* Only show icons on desktop */}
+          {windowWidth > 768 && (
+            <div className={styles.icons}>
+              {/* <div
+                onClick={handleRestartTour}
+                className={styles.notification}
+                title={isTourActive ? "Restart Tour" : "Start Tour"}
+              >
+                <MdRestartAlt />
+              </div> */}
+              <div
+                onClick={handleAddPost}
+                className={styles.notification}
+                data-tour="add-post"
+              >
+                <IoIosAddCircle />
+              </div>
+              <div
+                className={styles.notification}
+                data-tour="notifications"
+              >
+                <NotificationIcon />
+              </div>
+              <div
+                className={styles.notification}
+                data-tour="chat"
+              >
+                <ChatIcon />
+              </div>
             </div>
-            <div
-              className={styles.notification}
-              data-tour="notifications"
-            >
-              <NotificationIcon />
-            </div>
-            <div
-              className={styles.notification}
-              data-tour="chat"
-            >
-              <ChatIcon />
-            </div>
-          </div>
+          )}
 
           <div
             className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}
@@ -350,24 +363,24 @@ function Header() {
           <div className={styles.mobileMenuContent}>
             <div
               className={styles.mobileMenuItem}
-              onClick={() => handleMenuItemClick(`/${locale}/community`)}
-            >
-              <Image src={handsLogo} alt="community" width={24} height={24} />
-              <p>{t("community")}</p>
-            </div>
-            <div
-              className={styles.mobileMenuItem}
-              onClick={() => handleMenuItemClick(`/${locale}/favorite`)}
-            >
-              <FaStar size={24} color="yellow" />
-              <p>{t("favorites")}</p>
-            </div>
-            <div
-              className={styles.mobileMenuItem}
               onClick={handleAddPost}
             >
               <IoIosAddCircle size={24} />
               <p>{t("addPost")}</p>
+            </div>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={handleChatClick}
+            >
+              <BsChatDots size={24} />
+              <p>{t("chat")}</p>
+            </div>
+            <div
+              className={styles.mobileMenuItem}
+              onClick={handleNotificationClick}
+            >
+              <BsBell size={24} />
+              <p>{t("notifications")}</p>
             </div>
             <div
               className={styles.mobileMenuItem}

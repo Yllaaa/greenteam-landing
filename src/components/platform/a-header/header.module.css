@@ -308,7 +308,7 @@
 	}
 
 	.container .logos {
-		gap: 8px;
+		gap: 25px;
 	}
 
 	.container .logos .logoItem {
@@ -465,4 +465,40 @@
 		min-width: 44px;
 		min-height: 44px;
 	}
+}
+
+@media screen and (max-width: 768px) {
+  /* Hide the icons container on mobile */
+  .container .profile .icons {
+    display: none;
+  }
+
+  /* Ensure community and favorites logos are visible and properly sized on mobile */
+  .container .logos .handsLogo,
+  .container .logos .starFav {
+    display: flex;
+    width: 40px;
+    height: 50px;
+  }
+
+  .container .logos .handsLogo img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .container .logos .starFav svg {
+    width: 30px;
+    height: 50px;
+  }
+
+  .container .logos .handsLogo p,
+  .container .logos .starFav p {
+    font-size: 10px;
+    line-height: 12px;
+  }
+
+  /* Adjust mobile menu items to have consistent styling */
+  .mobileMenuItem svg {
+    color: #97b00f;
+  }
 }
