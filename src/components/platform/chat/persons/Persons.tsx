@@ -31,7 +31,9 @@ export default function Persons({
   const [hasMore, setHasMore] = useState(true);
   const params = useSearchParams()
   const extraPerson = params && params.get("chatFullName") || "";; // Get extra person from URL params
-  const extraNewChat = params && params.get("newChat") || "";; // Get extra person from URL params
+  const extraNewChat = params && params.get("newChat") || "";;
+  console.log(extraPerson, typeof extraPerson);
+
   const extraPersonId = params && params.get("chatId") || "";; // Get extra person from URL params
   const token = getToken();
   const router = useRouter();
@@ -114,7 +116,7 @@ export default function Persons({
   return (
     <div className={styles.persons}>
       {/* <Search setFilteredPersons={setFilteredPersons} /> */}
-      {extraPerson !== "" && extraNewChat === null && (
+      {extraPerson !== "" && extraNewChat === "true" && (
         <Item
           key={extraPerson}
           id={extraPerson}

@@ -136,7 +136,7 @@ function Header(props: {
   };
 
   const handleChat = () => {
-    router.push(`/${locale}/chat?chatId=${user.userData.id}&chatType=user&chatName=${user.userData.username}&chatFullName=${user.userData.fullName}`);
+    router.push(`/${locale}/chat?chatId=${user.userData.id}&chatType=user&chatName=${user.userData.username}&chatFullName=${user.userData.fullName}&newChat=true`);
   };
 
   const t = useTranslations("web.profile.section")
