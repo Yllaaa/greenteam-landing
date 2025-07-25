@@ -1,6 +1,6 @@
 {
 	"cookies": {
-		"accept": "ACCEPT  ESENCIAL COOKIES.",
+		"accept": "ACCEPT  ESSENTIAL COOKIES.",
 		"refuse": "Refuse",
 		"title": "What types of cookies do we use?",
 		"description": "At GreenTeam.app we do not share your information with third parties for advertising purposes. We only use essential cookies and minimal analytics necessary for technical operation and service improvement."
@@ -735,7 +735,7 @@
 			"currentPlan": "Current Plan",
 			"selectPlan": "Select Plan",
 			"features": "Features",
-			"contactGreenTeam":"Contact GreenTeam",
+			"contactGreenTeam": "Contact GreenTeam",
 			"tier1": {
 				"title": "TOGETHER WE CAN TAKE CONTROL OF OUR LIVES",
 				"subtitle1": "We Are All Greenteam",
