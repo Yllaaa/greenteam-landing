@@ -723,7 +723,7 @@
 
 		"chat": {
 			"select": "Select a conversation to start messaging",
-			"message": "Messages",
+			"message": "Message",
 			"back": "Back",
 			"yourMessage":"Your Messages",
 			"chatWith":"Chat with"

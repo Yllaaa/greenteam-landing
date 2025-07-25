@@ -23,7 +23,7 @@ export default function Item({ selected, onClick, ...props }: ItemProps) {
     >
       <div className={styles.avatar}>
         <Image
-        unoptimized
+          unoptimized
           src={props?.contact?.avatar ? props?.contact?.avatar : noAvatar}
           alt={props?.contact?.fullName}
           width={48}

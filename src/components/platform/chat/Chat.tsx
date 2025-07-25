@@ -16,6 +16,8 @@ import { useLocale, useTranslations } from "next-intl";
 const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
 
 export default function Chat() {
+  const params = useSearchParams()
+  const extraPerson = params && params.get("chatFullName") || ""; // Get extra person from URL params
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const socketRef = useRef<Socket | null>(null);
@@ -165,7 +167,7 @@ export default function Chat() {
   if (searchParams === null) {
     return (
       <div className={styles.chat}>
-        <div className={styles.header}>{t("message")}</div>
+        <div className={styles.header}><p><span>{t("message")}</span>{" "}<span>{extraPerson}</span></p></div>
         <div className={styles.content}>
           <div className={styles.loading}>Loading...</div>
         </div>
@@ -181,7 +183,7 @@ export default function Chat() {
             ← {t("back")}
           </button>
         )}
-        {t("message")}
+        <p><span>{t("message")}</span>{" "}<span>{extraPerson}</span></p>
       </div>
       <div className={styles.content}>
         <div
@@ -192,7 +194,7 @@ export default function Chat() {
             chatId={chatId}
             setChatId={(id) => {
               setChatId(id);
-              router.push(`/${locale}/chat?chatId=${id}`);
+              // router.push(`/${locale}/chat?chatId=${id}&chatType=user&chatName=${chat.contact.username}&chatFullName=${chat.contact.fullName}`);
               setShowMessages(true);
             }}
             selectedUser={selectedUser}

@@ -31,6 +31,7 @@ export default function Persons({
   const [hasMore, setHasMore] = useState(true);
   const params = useSearchParams()
   const extraPerson = params && params.get("chatFullName") || "";; // Get extra person from URL params
+  const extraNewChat = params && params.get("newChat") || "";; // Get extra person from URL params
   const extraPersonId = params && params.get("chatId") || "";; // Get extra person from URL params
   const token = getToken();
   const router = useRouter();
@@ -113,7 +114,7 @@ export default function Persons({
   return (
     <div className={styles.persons}>
       {/* <Search setFilteredPersons={setFilteredPersons} /> */}
-      {extraPerson !== "" && (
+      {extraPerson !== "" && extraNewChat === null && (
         <Item
           key={extraPerson}
           id={extraPerson}
@@ -137,17 +138,21 @@ export default function Persons({
       )}
       {filteredPersons.map((chat, index) => (
         <Item
-          selected={selectedUser == chat.contact.id}
+          selected={selectedUser == chat.id}
           onClick={() => {
             setChatId(chat.contact.id);
             setSelectedUser(chat.id);
+            router.push(`/${locale}/chat?chatId=${chat.contact.id}&chatType=user&chatName=${chat.contact.username}&chatFullName=${chat.contact.fullName}&newChat=false`);
+            // console.log("Selected chat:", chat.contact.id);
+            // console.log("Selected chat:", chat.id);
+            // console.log("Selected chat NAME:", chat.contact.fullName);
+
 
             // Handle navigation with locale
-            const params = new URLSearchParams();
-            params.set('chatId', chat.contact.id);
+            // const params = new URLSearchParams();
+            // params.set('chatId', chat.contact.id);
 
             // Include locale in the path
-            router.push(`/${locale}/chat?chatId=${chat.contact.id}`);
           }}
           key={chat.id || index}
           {...chat}

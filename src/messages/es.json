@@ -721,8 +721,10 @@
 		},
 		"chat": {
 			"select": "Selecciona una conversación para comenzar a mensajear",
-			"message": "Mensajes",
-			"back": "Atrás"
+			"message": "Mensaje",
+			"back": "Atrás",
+			"yourMessage": "Tus mensajes",
+			"chatWith": "Chatear con"
 		},
 		"plans": {
 			"title": "Ayúdanos a crear cultura sostenible",
