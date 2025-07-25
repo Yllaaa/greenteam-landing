@@ -81,7 +81,10 @@ const PaymentPlan = () => {
               </div>
               <button
                 onClick={() => {
-                  router.push(`payment/${tier.id}`);
+                  if(tier.id !== 3){
+                  router.push(`payment/${tier.id}`);}else{
+                   window.location.href="mailto:greenteamappoficial@gmail.com"
+                  }
                 }}
                 className={styles.planButton}
                 style={{
@@ -91,7 +94,11 @@ const PaymentPlan = () => {
               >
                 {currentPlan?.tier.id === tier.id
                   ? t('currentPlan')
-                  : t('selectPlan')}
+                  : tier.id === 3?
+                    t('contactGreenTeam')
+                    : t('selectPlan')} 
+                  
+                  
               </button>
               <div className={styles.line}></div>
               <ul className={styles.planFeatures}>
