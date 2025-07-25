@@ -9,8 +9,9 @@ import SubHeaderRes from "./Body/Responsive/SubHeaderRes";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import AddNewModal from './doChallenges/myChallenges/modal/addNew/AddNewModal';
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 function SubHeader() {
+  const t = useTranslations("web.subHeader")
   const token = getToken();
   const accessToken = token ? token.accessToken : null;
   const locale = useLocale()
@@ -70,6 +71,7 @@ function SubHeader() {
           userReactions={userReactions}
           setAddNew={setAddNew}
         />
+        <p  className={styles.title}>{t("title")}</p>
       </div>
       {/* responsive */}
       <div className={styles.ResponsiveContainer}>

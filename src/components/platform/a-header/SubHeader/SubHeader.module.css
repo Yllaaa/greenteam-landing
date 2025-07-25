@@ -4,7 +4,7 @@
 	position: relative;
 	width: 100%;
 	height: fit-content;
-	min-height: 150px;
+	min-height: 40px;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
@@ -14,6 +14,16 @@
 	padding: 0px 21px 21px 21px;
 	margin-top: 21px;
 }
+.title {
+		font-family: Montserrat;
+		font-weight: 600;
+		font-size: 24px;
+		line-height: 29.26px;
+		letter-spacing: 0%;
+		text-align: center;
+		color: #fefefe;
+		margin: 50px 0px 0px 0px;
+	}
 
 .cardsContainer {
 	width: fit-content;

@@ -16,7 +16,7 @@ import { FaX } from "react-icons/fa6";
 import AddNew from "./AddNew";
 import Modal from "./modal/newAdd/Modal";
 import { useRouter } from 'next/navigation';
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 
 function Header(props: {
   user: ProfileResponse;
@@ -136,102 +136,103 @@ function Header(props: {
   };
 
   const handleChat = () => {
-    router.push(`/${locale}/chat?chatId=${user.userData.id}`);
+    router.push(`/${locale}/chat?chatId=${user.userData.id}&chatType=user&chatName=${user.userData.username}&chatFullName=${user.userData.fullName}`);
   };
+
+  const t = useTranslations("web.profile.section")
 
   return (
     <>
       <div className={styles.container}>
-        <div className={styles.cover}>
-          <Image
-            src={user.userData.cover ? user.userData.cover : cover}
-            alt={user.userData.username}
-            width={1000}
-            height={1000}
-            className={styles.coverImg}
-          />
-        </div>
-        <div className={styles.userInfo}>
-          <div className={styles.user}>
-            <div className={styles.avatar}>
-              <Image
-                src={user.userData.avatar ? user.userData.avatar : noAvatar}
-                alt={user.userData.username}
-                width={200}
-                height={200}
-                className={styles.avatarImg}
-              />
-            </div>
-
-            <div className={styles.name}>
-              <p>{user.userData.fullName&&user.userData.fullName.length>10?`${user.userData.fullName.slice(0 , 10)} ... `:user.userData.fullName}</p>
-            </div>
-            {user.isMyProfile ? null : (
-              <div className={styles.visitor}>
-                <button onClick={handleFollow} className={styles.message}>
-                  {isFollowed ? "Following" : "Unfollow"}
-                </button>
-                <button onClick={handleChat} className={styles.follow}>Send Message</button>
-              </div>
-            )}
-
-            <div className={styles.bio}>
-              <p>{user.userData.bio ? user.userData.bio : "No bio yet!"}</p>
-            </div>
-            <div className={styles.location}>
-              <p>{user.userData.location ? `${user.userData.location.country.name}, ${user.userData.location.city.nameEn}` : "No location!"}</p>
-              
-            </div>
-          </div>
-          <div className={styles.userActions}>
-            {user.isMyProfile ? (
-              <>
-                <div
-                  onClick={handleSettingNavigation}
-                  className={styles.settings}
-                >
-                  {settings ? <FaX /> : <IoMdSettings />}
-                </div>
-                <div
-                  onClick={() => setIsAddNewModalOpen(true)}
-                  className={`${styles.settings} ${styles.addNewButton}`}
-                >
-                  <FaPlus />
-                </div>
-              </>
-            ) : (
-              <div className={styles.droplist}>
-                <div onClick={handleClick} className={styles.options}>
-                  <HiDotsVertical />
-                </div>
-                {open && (
-                  <div className={styles.dropDown}>
-                    <div className={styles.dropDownHeader}>
-                      <span>Actions</span>
-                      <button onClick={handleClick} className={styles.closeDropdown}>
-                        <FaX size={12} />
-                      </button>
-                    </div>
-                    <div className={styles.dropDownOption} onClick={handleReport}>
-                      <IoIosFlag className={styles.actionIcon} />
-                      <span>Report this user</span>
-                    </div>
-                    <div className={styles.dropDownOption} onClick={handleBlock}>
-                      <IoIosRemoveCircle
-                        className={styles.actionIcon}
-                        style={{ color: isBlocked ? "#6ab04c" : "#e74c3c" }}
-                      />
-                      <span style={{ color: isBlocked ? "#6ab04c" : "#e74c3c" }}>
-                        {isBlocked ? "Unblock user" : "Block user"}
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
-        </div>
+  <div className={styles.cover}>
+    <Image
+      src={user.userData.cover ? user.userData.cover : cover}
+      alt={user.userData.username}
+      width={1000}
+      height={1000}
+      className={styles.coverImg}
+    />
+  </div>
+  <div className={styles.userInfo}>
+    <div className={styles.user}>
+      <div className={styles.avatar}>
+        <Image
+          src={user.userData.avatar ? user.userData.avatar : noAvatar}
+          alt={user.userData.username}
+          width={200}
+          height={200}
+          className={styles.avatarImg}
+        />
       </div>
+
+      <div className={styles.name}>
+        <p>{user.userData.fullName&&user.userData.fullName.length>10?`${user.userData.fullName.slice(0 , 10)} ... `:user.userData.fullName}</p>
+      </div>
+      {user.isMyProfile ? null : (
+        <div className={styles.visitor}>
+          <button onClick={handleFollow} className={styles.message}>
+            {isFollowed ? t("following") : t("unfollow")}
+          </button>
+          <button onClick={handleChat} className={styles.follow}>{t("sendMessage")}</button>
+        </div>
+      )}
+
+      <div className={styles.bio}>
+        <p>{user.userData.bio ? user.userData.bio : t("noBioYet")}</p>
+      </div>
+      <div className={styles.location}>
+        <p>{user.userData.location ? `${user.userData.location.country.name}, ${user.userData.location.city.nameEn}` : t("noLocation")}</p>
+      </div>
+    </div>
+    <div className={styles.userActions}>
+      {user.isMyProfile ? (
+        <>
+          <div
+            onClick={handleSettingNavigation}
+            className={styles.settings}
+          >
+            {settings ? <FaX /> : <IoMdSettings />}
+          </div>
+          <div
+            onClick={() => setIsAddNewModalOpen(true)}
+            className={`${styles.settings} ${styles.addNewButton}`}
+          >
+            <FaPlus />
+          </div>
+        </>
+      ) : (
+        <div className={styles.droplist}>
+          <div onClick={handleClick} className={styles.options}>
+            <HiDotsVertical />
+          </div>
+          {open && (
+            <div className={styles.dropDown}>
+              <div className={styles.dropDownHeader}>
+                <span>{t("actions")}</span>
+                <button onClick={handleClick} className={styles.closeDropdown}>
+                  <FaX size={12} />
+                </button>
+              </div>
+              <div className={styles.dropDownOption} onClick={handleReport}>
+                <IoIosFlag className={styles.actionIcon} />
+                <span>{t("reportThisUser")}</span>
+              </div>
+              <div className={styles.dropDownOption} onClick={handleBlock}>
+                <IoIosRemoveCircle
+                  className={styles.actionIcon}
+                  style={{ color: isBlocked ? "#6ab04c" : "#e74c3c" }}
+                />
+                <span style={{ color: isBlocked ? "#6ab04c" : "#e74c3c" }}>
+                  {isBlocked ? t("unblockUser") : t("blockUser")}
+                </span>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</div>
 
       {/* Modal for AddNew component */}
       <Modal

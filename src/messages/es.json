@@ -966,6 +966,7 @@
 			}
 		},
 		"subHeader": {
+			"title": "Explora el bienestar en 6 dimensiones",
 			"actions": {
 				"likes": "Me gusta",
 				"comments": "Comentarios",
@@ -1409,6 +1410,19 @@
 			"errorFetchingCities": "Error al obtener ciudades",
 			"locationNotFound": "Ubicación no encontrada. Por favor intenta otra selección.",
 			"errorFetchingLocation": "Error al obtener datos de ubicación. Por favor intenta más tarde."
+		},
+		"profile": {
+			"section": {
+				"following": "Siguiendo",
+				"unfollow": "Dejar de seguir",
+				"sendMessage": "Enviar mensaje",
+				"noBioYet": "¡Sin biografía aún!",
+				"noLocation": "¡Sin ubicación!",
+				"actions": "Acciones",
+				"reportThisUser": "Reportar este usuario",
+				"blockUser": "Bloquear usuario",
+				"unblockUser": "Desbloquear usuario"
+			}
 		},
 		"pages": {
 			"page": "Páginas",

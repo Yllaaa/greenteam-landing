@@ -969,6 +969,7 @@
 			}
 		},
 		"subHeader": {
+			"title": "Explore Wellbeing in 6 Dimensions",
 			"actions": {
 				"likes": "Likes",
 				"comments": "Comments",
@@ -1414,6 +1415,19 @@
 			"errorFetchingCities": "Error fetching cities",
 			"locationNotFound": "Location not found. Please try another selection.",
 			"errorFetchingLocation": "Error fetching location data. Please try again later."
+		},
+		"profile": {
+			"section": {
+				"following": "Following",
+				"unfollow": "Unfollow",
+				"sendMessage": "Send Message",
+				"noBioYet": "No bio yet!",
+				"noLocation": "No location!",
+				"actions": "Actions",
+				"reportThisUser": "Report this user",
+				"blockUser": "Block user",
+				"unblockUser": "Unblock user"
+			}
 		},
 		"pages": {
 			"page": "Pages",

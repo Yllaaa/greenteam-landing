@@ -2,37 +2,37 @@
 
 // Mixins for cross-browser compatibility
 @mixin transform($transform) {
-  -webkit-transform: $transform;
-  -moz-transform: $transform;
-  -ms-transform: $transform;
-  -o-transform: $transform;
-  transform: $transform;
+	-webkit-transform: $transform;
+	-moz-transform: $transform;
+	-ms-transform: $transform;
+	-o-transform: $transform;
+	transform: $transform;
 }
 
 @mixin transition($transition...) {
-  -webkit-transition: $transition;
-  -moz-transition: $transition;
-  -o-transition: $transition;
-  transition: $transition;
+	-webkit-transition: $transition;
+	-moz-transition: $transition;
+	-o-transition: $transition;
+	transition: $transition;
 }
 
 @mixin animation($animation) {
-  -webkit-animation: $animation;
-  -moz-animation: $animation;
-  -o-animation: $animation;
-  animation: $animation;
+	-webkit-animation: $animation;
+	-moz-animation: $animation;
+	-o-animation: $animation;
+	animation: $animation;
 }
 
 @mixin backdrop-filter($filter) {
-  -webkit-backdrop-filter: $filter;
-  backdrop-filter: $filter;
+	-webkit-backdrop-filter: $filter;
+	backdrop-filter: $filter;
 }
 
 @mixin user-select($select) {
-  -webkit-user-select: $select;
-  -moz-user-select: $select;
-  -ms-user-select: $select;
-  user-select: $select;
+	-webkit-user-select: $select;
+	-moz-user-select: $select;
+	-ms-user-select: $select;
+	user-select: $select;
 }
 
 .container {
@@ -51,7 +51,10 @@
 		#031e09 99.2%
 	);
 	will-change: transform, opacity;
-	@include transition(transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease);
+	@include transition(
+		transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+		opacity 0.3s ease
+	);
 	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 	contain: layout style;
 
@@ -71,6 +74,7 @@
 		display: flex;
 		flex-direction: column;
 	}
+	
 }
 
 .breifContainer {
@@ -168,7 +172,7 @@
 .scoreNumber {
 	font-size: 32px;
 	font-weight: 700;
-		color: #4ade80;
+	color: #4ade80;
 	@include animation(countUp 1s ease-out);
 	// Prevent text selection during animation
 	@include user-select(none);
@@ -194,7 +198,7 @@
 	padding: 0;
 	// Improve touch target size
 	position: relative;
-	
+
 	// Touch target enhancement
 	&::after {
 		content: '';
@@ -560,18 +564,6 @@
 
 	.children::-webkit-scrollbar-thumb {
 		background: #fff;
-	}
-}
-
-// Dark mode support
-@media (prefers-color-scheme: dark) {
-	.container {
-		background: linear-gradient(
-			127.36deg,
-			#0a1f0d 0.8%,
-			#071208 50%,
-			#020d04 99.2%
-		);
 	}
 }
 

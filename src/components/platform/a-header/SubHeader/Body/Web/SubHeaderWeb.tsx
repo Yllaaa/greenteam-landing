@@ -176,7 +176,7 @@ function SubHeaderWeb(props: Props) {
                 }
               >
                 <Image unoptimized src={action.icon} alt={action.title} loading="lazy" />
-                <span>{action.title}</span>
+                <span style={locale==="es"?{fontSize:"14px"}:{}} >{action.title}</span>
               </Link>
             </div>
           ))}

@@ -2,44 +2,54 @@
 "use client"
 import { useEffect, useState, useRef, MouseEvent } from 'react';
 import io from 'socket.io-client';
-// import { useLocale } from 'next-intl';
-// import { useRouter } from 'next/navigation';
 import styles from './NotificationIcon.module.scss';
-import Notifications from './notifications/Notifications'; // Import the Notifications component
+import Notifications from './notifications/Notifications';
+import { getToken } from '@/Utils/userToken/LocalToken';
 
 const NotificationIcon = () => {
     const [notificationCount, setNotificationCount] = useState(0);
     const [isShaking, setIsShaking] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-    // const router = useRouter();
-    // const locale = useLocale();
     const dropdownRef = useRef<HTMLDivElement | null>(null);
 
     useEffect(() => {
-        // Get the correct backend URL
-        const backendUrl = process.env.NEXT_PUBLIC_BACKENDAPI || '';
-        const socketUrl = `${backendUrl}/api/v1/notifications`;
-
+        // Get the correct backend URL - matching your Postman URL
+        const backendUrl = process.env.NEXT_PUBLIC_BACKENDAPI || 'https://greenteam.yllaaa.com';
+        const token = getToken()
+        console.log("token",token.accessToken)
         try {
-            // Initialize socket connection with error handling
-            const socketInstance = io(socketUrl, {
+            // Initialize socket connection
+            const socketInstance = io(backendUrl, {
+                path: '/api/v1/notifications',
                 reconnectionAttempts: 5,
                 reconnectionDelay: 1000,
-                transports: ['websocket', 'polling']
+                transports: ['websocket', 'polling'],
+                auth: {
+                    token: `Bearer ${token ? token.accessToken : ''}`,
+                },
+
             });
+            console.log('Socket initialized:', socketInstance);
 
             // Connection event handlers
             socketInstance.on('connect', () => {
                 console.log('Socket connected successfully');
+                console.log('Socket ID:', socketInstance.id);
             });
 
             socketInstance.on('connect_error', (error) => {
                 console.error('Socket connection error:', error);
             });
 
-            // Notification event handler
+            socketInstance.on('disconnect', (reason) => {
+                console.log('Socket disconnected:', reason);
+            });
+
+            // Listen for the "notification" event
             socketInstance.on('notification', (data) => {
                 console.log('Received notification:', data);
+
+                // Increment notification count
                 setNotificationCount(prevCount => prevCount + 1);
 
                 // Add shake animation when new notification arrives
@@ -70,22 +80,17 @@ const NotificationIcon = () => {
         return () => {
             document.removeEventListener('mousedown', handleClickOutside);
         };
-    }, [dropdownRef]);
+    }, []);
 
     const handleIconClick = (e: React.MouseEvent<HTMLDivElement>) => {
         e.stopPropagation();
         setIsDropdownOpen(prevState => !prevState);
 
-        // Optionally reset the notification count when opened
+        // Reset the notification count when opened
         if (!isDropdownOpen) {
             setNotificationCount(0);
         }
     };
-
-    // const handleViewAllClick = () => {
-    //     router.push(`/${locale}/personal_menu`);
-    //     setIsDropdownOpen(false);
-    // };
 
     return (
         <div className={styles['notification-wrapper']} ref={dropdownRef}>
@@ -111,9 +116,6 @@ const NotificationIcon = () => {
                 <div className={styles['notification-dropdown']}>
                     <div className={styles['dropdown-header']}>
                         <h3>Notifications</h3>
-                        {/* <button onClick={handleViewAllClick} className={styles['view-all-btn']}>
-                            View All
-                        </button> */}
                     </div>
                     <div className={styles['dropdown-content']}>
                         <Notifications />
