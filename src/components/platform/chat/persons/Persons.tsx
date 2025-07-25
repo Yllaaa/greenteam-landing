@@ -6,7 +6,7 @@ import { Chat } from "./search/persons.data";
 import Item from "./Item";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useInView } from "react-intersection-observer";
 import { useLocale } from "next-intl";
 
@@ -29,7 +29,9 @@ export default function Persons({
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
-
+  const params = useSearchParams()
+  const extraPerson = params && params.get("chatFullName") || "";; // Get extra person from URL params
+  const extraPersonId = params && params.get("chatId") || "";; // Get extra person from URL params
   const token = getToken();
   const router = useRouter();
 
@@ -111,7 +113,28 @@ export default function Persons({
   return (
     <div className={styles.persons}>
       {/* <Search setFilteredPersons={setFilteredPersons} /> */}
-
+      {extraPerson !== "" && (
+        <Item
+          key={extraPerson}
+          id={extraPerson}
+          contactType="user"
+          unreadCount={0}
+          selected={true}
+          onClick={() => {
+            setChatId(extraPersonId);
+            setSelectedUser(extraPersonId);
+            router.push(`/${locale}/chat?chatId=${extraPersonId}`);
+          }}
+          contact={{
+            id: "",
+            fullName: extraPerson,
+            username: "",
+            avatar: null,
+            type: "user",
+          }} // Assuming no avatar for extra person
+          lastMessage={{ content: "", id: "", sentAt: "" }} // Placeholder for last message
+        />
+      )}
       {filteredPersons.map((chat, index) => (
         <Item
           selected={selectedUser == chat.contact.id}
