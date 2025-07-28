@@ -375,7 +375,8 @@
 			"big": "EL OBJETIVO DE"
 		},
 		"imagine": {
-			"imagine": "Valores y técnicas a difundir",
+			"imagine": "Imagina un mundo en armonía",
+			"title2": " Valores y técnicas a difundir",
 			"small": "El equipo de Greenteam proponemos un modelo alternativo de producción, distribución y consumo, para orientar el camino hacia la sostenibilidad.",
 			"objective": "Objetivos:",
 			"unificar": "Unificar",
@@ -390,7 +391,15 @@
 			"pueblos": "Pueblos",
 			"pueblosT": "Aglomeraciones de población en áreas rurales con un ambiente familiar y cooperativo. Espacios adecuados para el uso responsable de los recursos naturales y la construcción de ecosistemas abundantes. También, experimentando en la producción de artesanías y oficios.",
 			"comunidades": "Comunidades",
-			"comunidadesT": "Pequeño grupo de personas viviendo en un ambiente natural, simple, resiliente, biodiverso y autosuficiente. Espacio preservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquiera podría moverse de un espacio a otro llevando consigo conocimientos, experiencias y colaboración, disfrutando de lo que cada uno de ellos ofrece.",
+			"comunidadesT": [
+				"Regístrate gratis y comparte el camino hacia la sostenibilidad",
+				"Destaca tu proyecto o negocio ofreciendo tus soluciones",
+				"Apoya e interactúa con proyectos y negocios conscientes cerca de ti",
+				"Puedes hacer pequeñas donaciones voluntarias anuales (miembros)",
+				"Compromiso del equipo en usar los recursos de manera responsable",
+				"Mejora de herramientas de comunicación para facilitar la transición ecológica y la interacción humana",
+				"Trabajamos juntos hacia un equilibrio personal, ambiental y social"
+			],
 			"category": {
 				"salud": "Alimentación y salud",
 				"saludT": "Fomentamos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en la venta de proximidad. También se incluye la producción responsable de carne, leche y huevos con un consumo moderado. Impulsamos el procesamiento artesanal de alimentos: panadería, derivados lácteos, embutidos, conservas y comidas preparadas.",
@@ -735,7 +744,7 @@
 			"currentPlan": "Plan Actual",
 			"selectPlan": "Seleccionar Plan",
 			"features": "Características",
-			"contactGreenTeam":"Contacta a Greenteam para más información",
+			"contactGreenTeam": "Contacta a Greenteam para más información",
 			"tier1": {
 				"title": "JUNTOS PODEMOS TOMAR CONTROL DE NUESTRAS VIDAS",
 				"subtitle1": "Todos Somos Greenteam",
@@ -989,7 +998,7 @@
 			},
 			"green": {
 				"challenges": "Desafíos Verdes",
-				"share": "Comparte 3 campañas impactantes para crear conciencia y amplificar el mensaje de sostenibilidad",
+				"share": "Ahora es el momento de actuar. ¡Elige un desafío e inspira a otros compartiendo tu experiencia!",
 				"todo": "Por Hacer",
 				"done": "Hecho",
 				"doit": "Hazlo",

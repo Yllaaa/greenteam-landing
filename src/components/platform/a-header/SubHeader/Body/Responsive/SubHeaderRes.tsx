@@ -15,6 +15,7 @@ import { useLocale, useTranslations } from "next-intl";
 import post from "@/../public/ZPLATFORM/header/posts.svg";
 import { useAppSelector } from "@/store/hooks";
 import Breif from "../../../breif/Breif";
+import Bar from "./Bar/Bar";
 
 type Props = {
   setCommentModal: React.Dispatch<React.SetStateAction<boolean>>;
@@ -88,6 +89,7 @@ function SubHeaderRes(props: Props) {
 
   return (
     <>
+      <Bar>
       <div className={styles.diamond}>
         <Suspense
           fallback={
@@ -157,7 +159,8 @@ function SubHeaderRes(props: Props) {
             setAddNew={setAddNew}
           />
         </Suspense>
-      </div>
+        </div>
+      </Bar>
     </>
   );
 }

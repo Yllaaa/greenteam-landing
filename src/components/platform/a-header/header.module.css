@@ -469,9 +469,9 @@
 
 @media screen and (max-width: 768px) {
   /* Hide the icons container on mobile */
-  .container .profile .icons {
+  /* .container .profile .icons {
     display: none;
-  }
+  } */
 
   /* Ensure community and favorites logos are visible and properly sized on mobile */
   .container .logos .handsLogo,

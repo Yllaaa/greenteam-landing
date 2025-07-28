@@ -23,6 +23,8 @@ import know from '@/../public/ZPLATFORM/categories/physical.svg'
 
 // API service
 import { useGetTopicScoresQuery, useGetSubTopicScoresQuery } from '@/services/api'
+import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { setOpenBar } from '@/store/features/baropen/useOpenBar'
 
 interface TopicScore {
   topicId: number
@@ -41,34 +43,34 @@ interface CategoryInfo {
 // Define category colors
 const CATEGORY_COLORS = {
   know: {
-    primary: '#4F46E5',
-    border: '#6366F1',
-    fill: 'rgba(79, 70, 229, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   },
   food: {
-    primary: '#059669',
-    border: '#10B981',
-    fill: 'rgba(5, 150, 105, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   },
   physical: {
-    primary: '#DC2626',
-    border: '#EF4444',
-    fill: 'rgba(220, 38, 38, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   },
   community: {
-    primary: '#7C3AED',
-    border: '#8B5CF6',
-    fill: 'rgba(124, 58, 237, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   },
   art: {
-    primary: '#EA580C',
-    border: '#F97316',
-    fill: 'rgba(234, 88, 12, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   },
   eco: {
-    primary: '#0891B2',
-    border: '#06B6D4',
-    fill: 'rgba(8, 145, 178, 0.2)'
+    primary: '#000',
+    border: '#000',
+    fill: '#000'
   }
 }
 
@@ -88,6 +90,8 @@ const CATEGORY_ORDER = ['know', 'food', 'physical', 'community', 'art', 'eco'];
 const Categories: React.FC = () => {
   const router = useRouter()
   const t = useTranslations('web.subHeader.diamond')
+  const dispatch = useAppDispatch()
+  const isOpen = useAppSelector(state => state.openBar.isOpen)
 
   const locale = useLocale()
 
@@ -167,13 +171,8 @@ const Categories: React.FC = () => {
   }), [t])
 
   const handleCategoryClick = useCallback((category: string) => {
-    console.log('Category clicked:', category)
-    console.log('Available topic scores:', topicScores)
-
     // Get possible topic names for this category
     const possibleTopicNames = CATEGORY_TO_TOPIC_MAPPING[category] || [categoryMapping[category].name]
-
-    console.log('Looking for topic names:', possibleTopicNames)
 
     // Try to find a matching topic
     let foundTopic: TopicScore | undefined
@@ -195,15 +194,11 @@ const Categories: React.FC = () => {
       if (foundTopic) break
     }
 
-    console.log('Found topic:', foundTopic)
-
     if (foundTopic) {
       setSelectedCategoryId(foundTopic.topicId)
       setSelectedCategory(category)
       setIsModalOpen(true)
     } else {
-      console.error('No matching topic found for category:', category)
-      console.error('Available topics:', topicScores.map(t => t.topicName))
 
       // You might want to show an error message to the user
       alert(`Topic not found for ${categoryMapping[category].value}. Please check the console for more details.`)
@@ -219,9 +214,10 @@ const Categories: React.FC = () => {
   const handleSubCategoryClick = useCallback((subTopicId: number) => {
     if (selectedCategoryId) {
       closeModal()
+      dispatch(setOpenBar(!isOpen)) // Dispatch action to update openBar state
       router.push(`?category=${selectedCategoryId}&subcategory=${subTopicId}`)
     }
-  }, [selectedCategoryId, closeModal, router])
+  }, [selectedCategoryId, closeModal, dispatch, isOpen, router])
 
   // Click outside handler
   useEffect(() => {
@@ -296,7 +292,7 @@ const Categories: React.FC = () => {
           ))}
         </div>
 
-        <div  className={styles.text}>
+        <div className={styles.text}>
           <p>{t('sustainability')} <span>{t('personalG')}</span></p>
         </div>
       </div>

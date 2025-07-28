@@ -12,8 +12,8 @@ import drop from "@/../public/ZPLATFORM/A-Header/navIcons/dropArrow.svg";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 import { IoIosAddCircle } from "react-icons/io";
-import { FaBars, FaTimes } from "react-icons/fa";
-import { BsChatDots, BsBell } from "react-icons/bs";
+// import { FaBars, FaTimes } from "react-icons/fa";
+// import { BsChatDots, BsBell } from "react-icons/bs";
 // import { MdRestartAlt } from "react-icons/md";
 import {
   clearUserLoginData,
@@ -44,7 +44,7 @@ function Header() {
   const [windowWidth, setWindowWidth] = useState(
     typeof window !== "undefined" ? window.innerWidth : 768
   );
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Header visibility states
   const [showHeader, setShowHeader] = useState(true);
@@ -109,7 +109,7 @@ function Header() {
     const handleResize = () => {
       setWindowWidth(window.innerWidth);
       if (window.innerWidth > 768) {
-        setMobileMenuOpen(false);
+        // setMobileMenuOpen(false);
       }
     };
 
@@ -133,7 +133,7 @@ function Header() {
     dispatch(clearUserLoginData());
     removeToken();
     localStorage.removeItem("user");
-    setMobileMenuOpen(false);
+    // setMobileMenuOpen(false);
     router.replace(`/${locale}`);
   }, [dispatch, router, locale]);
 
@@ -194,7 +194,7 @@ function Header() {
 
   const handleAddPost = () => {
     setAddPost(!addPost);
-    setMobileMenuOpen(false);
+    // setMobileMenuOpen(false);
 
     if (!addPost) {
       document.body.classList.add('modal-open');
@@ -213,17 +213,17 @@ function Header() {
   //   setMobileMenuOpen(false);
   // };
 
-  const handleChatClick = () => {
-    setMobileMenuOpen(false);
-    // Navigate to chat or open chat modal
-    router.push(`/${locale}/chat`);
-  };
+  // const handleChatClick = () => {
+  //   setMobileMenuOpen(false);
+  //   // Navigate to chat or open chat modal
+  //   router.push(`/${locale}/chat`);
+  // };
 
-  const handleNotificationClick = () => {
-    setMobileMenuOpen(false);
-    // Navigate to notifications or open notifications modal
-    router.push(`/${locale}/notifications`);
-  };
+  // const handleNotificationClick = () => {
+  //   setMobileMenuOpen(false);
+  //   // Navigate to notifications or open notifications modal
+  //   router.push(`/${locale}/notifications`);
+  // };
 
   return (
     <>
@@ -270,46 +270,40 @@ function Header() {
         </div>
 
         <div className={styles.profile}>
-          {windowWidth <= 768 && (
+          {/* {windowWidth <= 768 && (
             <div
               className={styles.mobileMenuToggle}
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
               {mobileMenuOpen ? <FaTimes /> : <FaBars />}
             </div>
-          )}
+          )} */}
 
           {/* Only show icons on desktop */}
-          {windowWidth > 768 && (
-            <div className={styles.icons}>
-              {/* <div
-                onClick={handleRestartTour}
-                className={styles.notification}
-                title={isTourActive ? "Restart Tour" : "Start Tour"}
-              >
-                <MdRestartAlt />
-              </div> */}
-              <div
+          <div className={styles.icons}>
+            {windowWidth > 768 && (
+
+              < div
                 onClick={handleAddPost}
                 className={styles.notification}
                 data-tour="add-post"
               >
                 <IoIosAddCircle />
               </div>
-              <div
-                className={styles.notification}
-                data-tour="notifications"
-              >
-                <NotificationIcon />
-              </div>
-              <div
-                className={styles.notification}
-                data-tour="chat"
-              >
-                <ChatIcon />
-              </div>
+            )}
+            <div
+              className={styles.notification}
+              data-tour="notifications"
+            >
+              <NotificationIcon />
             </div>
-          )}
+            <div
+              className={styles.notification}
+              data-tour="chat"
+            >
+              <ChatIcon />
+            </div>
+          </div>
 
           <div
             className={`${styles.headerMenu} ${isDropdownOpen ? styles.open : ""}`}
@@ -355,64 +349,56 @@ function Header() {
             )}
           </div>
         </div>
-      </div>
+      </div >
 
       {/* Mobile Menu Overlay */}
-      {mobileMenuOpen && windowWidth <= 768 && (
-        <div className={styles.mobileMenuOverlay}>
-          <div className={styles.mobileMenuContent}>
-            <div
-              className={styles.mobileMenuItem}
-              onClick={handleAddPost}
-            >
-              <IoIosAddCircle size={24} />
-              <p>{t("addPost")}</p>
-            </div>
-            <div
-              className={styles.mobileMenuItem}
-              onClick={handleChatClick}
-            >
-              <BsChatDots size={24} />
-              <p>{t("chat")}</p>
-            </div>
-            <div
-              className={styles.mobileMenuItem}
-              onClick={handleNotificationClick}
-            >
-              <BsBell size={24} />
-              <p>{t("notifications")}</p>
-            </div>
-            <div
-              className={styles.mobileMenuItem}
-              onClick={handleLogout}
-            >
-              <span className={styles.logoutIcon}>🚪</span>
-              <p>{t("logout")}</p>
+      {/* {
+        mobileMenuOpen && windowWidth <= 768 && (
+          <div className={styles.mobileMenuOverlay}>
+            <div className={styles.mobileMenuContent}>
+
+              <div
+                className={styles.mobileMenuItem}
+                onClick={handleChatClick}
+              >
+                <BsChatDots size={24} />
+                <p>{t("chat")}</p>
+              </div>
+              <div
+                className={styles.mobileMenuItem}
+                onClick={handleNotificationClick}
+              >
+                <BsBell size={24} />
+                <p>{t("notifications")}</p>
+              </div>
+
             </div>
           </div>
-        </div>
-      )}
+        )
+      } */}
 
       {/* Add Post Modal */}
-      {addPost && (
-        <div
-          className={modalStyles.modalOverlay}
-          onClick={closeModal}
-        >
+      {
+        addPost && (
           <div
-            className={modalStyles.modalContent}
-            onClick={(e) => e.stopPropagation()}
+            className={modalStyles.modalOverlay}
+            onClick={closeModal}
           >
-            <button
-              className={modalStyles.closeButton}
-              onClick={closeModal}
+            <div
+              className={modalStyles.modalContent}
+              onClick={(e) => e.stopPropagation()}
             >
-              &times;
-            </button>
-            <AddNew setAddPost={setAddPost} />
+              <button
+                className={modalStyles.closeButton}
+                onClick={closeModal}
+              >
+                &times;
+              </button>
+              <AddNew setAddPost={setAddPost} />
+            </div>
           </div>
-        </div>
-      )}
+        )
+      }
     </>
   );
 }

@@ -14,6 +14,7 @@ import groupEdit from './features/groupState/editGroupSettings';
 import pageFilterSlice from './features/pageFilter/pageFillterSlice';
 import categoryReducer from './features/posts/categorySlice';
 import forumReducer from './features/forum/forumSlice'; // Add this
+import openBar from './features/baropen/useOpenBar';
 
 export const store = () => {
 	const storeInstance = configureStore({
@@ -31,6 +32,7 @@ export const store = () => {
 			pageFilter: pageFilterSlice,
 			category: categoryReducer,
 			forum: forumReducer, // Add this
+			openBar: openBar, // Add this
 		},
 		// Add the RTK Query middleware
 		middleware: (getDefaultMiddleware) =>

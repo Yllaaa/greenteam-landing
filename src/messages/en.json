@@ -370,7 +370,8 @@
 			"team": "GREENTEAM"
 		},
 		"imagine": {
-			"imagine": "Values and techniques to spread",
+			"imagine": "Imagine a world of harmony",
+			"title2": "Values and techniques to promote",
 			"small": "The Greenteam team proposes an alternative model of production, distribution, and consumption to guide the path toward sustainability.",
 			"objective": "Objectives:",
 			"unificar": "Unify",
@@ -386,7 +387,15 @@
 			"pueblos": "Towns",
 			"pueblosT": "Population agglomerations in rural areas with a family and cooperative environment. Suitable spaces for the responsible use of natural resources and the construction of abundant ecosystems. Also, experimenting in the production of crafts and trades.",
 			"comunidades": "Communities",
-			"comunidadesT": "Small group of people living in a natural, simple, resilient, biodiverse and self-sufficient environment. Preserved space characterized by harmony in contact with nature and humility. Anyone could move from one space to another bringing with them knowledge, experiences and collaboration, enjoying what each of them offers.",
+			"comunidadesT": [
+				"Register for free and share the journey toward sustainability",
+				"Showcase your project or business by offering your solutions",
+				"Support and engage with conscious projects and businesses near you",
+				"You can make small voluntary annual donations (members)",
+				"Team commitment to using resources responsibly",
+				"Improvement of communication tools to facilitate the ecological transition and human interaction",
+				"We work together toward personal, environmental, and social balance"
+			],
 			"category": {
 				"salud": "Food and health",
 				"saludT": "We promote food self-sufficiency through sustainable production of fruits, vegetables and herbs, with emphasis on proximity sales. It also includes responsible production of meat, milk and eggs with moderate consumption. We promote artisanal food processing: bakery, dairy products, sausages, preserves and prepared meals.",
@@ -725,8 +734,8 @@
 			"select": "Select a conversation to start messaging",
 			"message": "Message",
 			"back": "Back",
-			"yourMessage":"Your Messages",
-			"chatWith":"Chat with"
+			"yourMessage": "Your Messages",
+			"chatWith": "Chat with"
 		},
 		"plans": {
 			"title": "Help us to make sustainable culture",
@@ -992,7 +1001,7 @@
 			},
 			"green": {
 				"challenges": "Green Challenges",
-				"share": "Share 3 impactful campaigns to raise awareness and amplify the message of sustainability",
+				"share": "Now is the time to act. Pick a challenge and inspire others by sharing your experience!",
 				"todo": "To Do",
 				"done": "Done",
 				"doit": "Do it",

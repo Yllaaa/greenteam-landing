@@ -43,7 +43,7 @@
 	top: 100px;
 	left: 0;
 	z-index: 999;
-	padding: 12px 26px;
+	padding: 12px;
 	background: linear-gradient(
 		127.36deg,
 		#0f3b18 0.8%,
@@ -68,7 +68,7 @@
 		top: 0;
 		z-index: 1000;
 		height: 100vh;
-		height: 100dvh; // Dynamic viewport height for mobile
+		height: 100vh; // Dynamic viewport height for mobile
 		overflow: hidden;
 		@include transition(height 0.3s ease);
 		display: flex;
@@ -265,7 +265,7 @@
 	&.active {
 		max-height: none;
 		height: calc(100vh - 120px);
-		height: calc(100dvh - 120px); // Dynamic viewport height
+		// height: calc(100dvh - 120px); // Dynamic viewport height
 		opacity: 1;
 		@include transform(translateY(0));
 		margin-top: 20px;
@@ -319,20 +319,16 @@
 
 	padding: 20px 0 80px 0;
 	width: 100%;
-	min-height: 100%;
+	// min-height: 100%;
 	display: flex;
 	flex-direction: column;
+	gap: 40px;
 	// Prevent margin collapse
 	&::before,
 	&::after {
 		content: '';
 		display: table;
 	}
-	transform: scaleY(0.85) ;
-	-webkit-transform: scaleY(0.85) ;
-	-moz-transform: scaleY(0.85) ;
-	-ms-transform: scaleY(0.85) ;
-	-o-transform: scaleY(0.85) ;
 }
 
 // Loading state with skeleton animation
@@ -431,8 +427,8 @@
 		top: 80px; // Adjust for mobile header
 
 		&.expanded {
-			height: calc(100vh - 80px);
-			height: calc(100dvh - 80px);
+			height: 100vh;
+			// height: calc(100dvh - 80px);
 		}
 	}
 
@@ -528,15 +524,3 @@
 		padding: 10px 0 40px 0;
 	}
 }
-
-// Accessibility Improvements
-// @media (prefers-reduced-motion: reduce) {
-// 	*,
-// 	*::before,
-// 	*::after {
-// 		animation-duration: 0.01ms !important;
-// 		animation-iteration-count: 1 !important;
-// 		transition-duration: 0.01ms !important;
-// 		scroll-behavior: auto !important;
-// 	}
-// }

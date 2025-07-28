@@ -15,8 +15,25 @@ import physical from "@/../public/ZPLATFORM/categories/eco.svg";
 import eco from "@/../public/ZPLATFORM/categories/know.svg";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
 
+interface SectionProps {
+  title: string;
+  points: string[];
+}
+
 function Imagine() {
   const t = useTranslations("landing.imagine");
+  const Section: React.FC<SectionProps> = ({ title, points }) => (
+    <div className={styles.section}>
+      <h3 className={styles.sectionTitle}>{title}</h3>
+      <ul className={styles.pointsList}>
+        {points.map((point, index) => (
+          <li key={index} className={styles.point}>
+            {point}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
   return (
     <>
       <div className={styles.container}>
@@ -25,7 +42,7 @@ function Imagine() {
         </div>
         <div className={`${styles.imgRight} ${styles.imgfirst}`}>
           <div className={styles.text}>
-          <p>{t("small")} </p>
+            <p>{t("small")} </p>
             <p>{t("objective")}</p>
             <ul>
               {/* <li><span>{t("unificar")}:{" "}</span>{t("unificarText")}</li>
@@ -33,7 +50,8 @@ function Imagine() {
               <li><span>{t("fomentar")}:{" "}</span>{t("fomentarText")}</li> */}
               <li><span>{t("ciudades")}:{" "}</span>{t("ciudadesT")}</li>
               <li><span>{t("pueblos")}:{" "}</span>{t("pueblosT")}</li>
-              <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li>
+              <li><Section title={t("comunidades")} points={t.raw("comunidadesT") as string[]} /></li>
+              {/* <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li> */}
             </ul>
             {/* <p>
               {t("paragraph")}
@@ -110,7 +128,7 @@ function Imagine() {
         {/* <Image src={categories} alt="categories" /> */}
         <div className={styles.text}>
           <div className={styles.header}>
-            <h2>{t("imagine")}</h2>
+            <h2>{t("title2")}</h2>
           </div>
           <ul>
             {/* <li>
@@ -146,64 +164,64 @@ function Imagine() {
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={food} alt="hello"/>{t("category.salud")}:{" "}</span>
+                  <span><Image src={food} alt="hello" />{t("category.salud")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.saludT")}
+                  {t("category.saludT")}
                 </p>
               </div>
             </li>
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={physical} alt="hello"/>{t("category.mental")}:{" "}</span>
+                  <span><Image src={physical} alt="hello" />{t("category.mental")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.mentalT")}
+                  {t("category.mentalT")}
                 </p>
               </div>
             </li>
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={art} alt="hello"/>{t("category.arte")}:{" "}</span>
+                  <span><Image src={art} alt="hello" />{t("category.arte")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.arteT")}
+                  {t("category.arteT")}
                 </p>
               </div>
             </li>
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={eco} alt="hello"/>{t("category.bio")}:{" "}</span>
+                  <span><Image src={eco} alt="hello" />{t("category.bio")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.bioT")}
+                  {t("category.bioT")}
                 </p>
               </div>
             </li>
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={know} alt="hello"/>{t("category.valores")}:{" "}</span>
+                  <span><Image src={know} alt="hello" />{t("category.valores")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.valoresT")}
+                  {t("category.valoresT")}
                 </p>
               </div>
             </li>
             <li>
               <div className={styles.category}>
                 <p>
-                  <span><Image src={community} alt="hello"/>{t("category.naturaleza")}:{" "}</span>
+                  <span><Image src={community} alt="hello" />{t("category.naturaleza")}:{" "}</span>
                 </p>
                 <p>
-                {t("category.naturalezaT")}
+                  {t("category.naturalezaT")}
                 </p>
               </div>
             </li>
-           
+
           </ul>
           {/* <p>
             {t("paragraph")}
