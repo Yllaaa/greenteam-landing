@@ -30,7 +30,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Navega por Greenteam'
                         : 'Navigate Greenteam',
-                    placement: 'bottom',
+                    placement: 'center',
                     disableBeacon: true,
                 },
                 {
@@ -71,7 +71,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Si lo ves lo puedes hacer'
                         : 'If you see it, you can do it',
-                    placement: 'left',
+                    placement: 'center',
                 },
                 {
                     target: '[data-tour="points"]',
@@ -81,7 +81,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Crecimiento personal, social y ambiental'
                         : 'Personal, social, and environmental growth',
-                    placement: 'bottom',
+                    placement: 'top',
                 },
                 {
                     target: '[data-tour="invite"]',
@@ -91,7 +91,7 @@ export default function TourInitializer() {
                     title: isSpanish
                         ? 'Si te gusta la iniciativa'
                         : 'If you like the initiative',
-                    placement: 'bottom',
+                    placement: 'top',
                 },
             ];
         };
