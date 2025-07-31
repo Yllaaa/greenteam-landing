@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
+import React, { useCallback, useEffect, useMemo, useState, useRef } from "react";
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import styles from "./PostSlider.module.css";
@@ -20,6 +20,7 @@ import foot from "@/../public/logo/foot.png";
 import { useTranslations } from "next-intl";
 // Define better types for better type safety
 import CommentButton from "@/Utils/commentButton/CommentButton";
+
 function PostSlider(props: Props) {
   const router = useRouter();
   const locale = useLocale();
@@ -44,19 +45,6 @@ function PostSlider(props: Props) {
   // slider handler
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
-  // const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-  //   initial: 0,
-  //   loop: false,
-  //   slides: { perView: 1 },
-
-  //   slideChanged(slider) {
-  //     setCurrentSlide(slider.track.details.rel);
-  //   },
-  //   created() {
-  //     setLoaded(true);
-  //   },
-  // });
-
 
   const navigateToPost = useCallback(
     (postId: string) => {
@@ -86,6 +74,7 @@ function PostSlider(props: Props) {
         : [],
     [media]
   );
+
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     uniqueMedia.length > 1 ? {
       initial: 0,
@@ -105,10 +94,14 @@ function PostSlider(props: Props) {
       },
     }
   );
+
   // Add this wrapper class conditionally
   const sliderWrapperClass = uniqueMedia.length > 1
     ? "keen-slider"
     : `keen-slider ${styles.singleMediaSlider}`;
+
+  // Create ref for reactions container
+  const reactionsRef = useRef<HTMLDivElement>(null);
 
   // Fetch comments with error handling and loading state
   const fetchComments = useCallback(
@@ -195,8 +188,9 @@ function PostSlider(props: Props) {
     ]
   );
 
-  // Handle like button click with optimistic UI update
-  const handleLike = () => {
+  // Handle like button click with optimistic UI update and prevent navigation
+  const handleLike = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event bubbling
     handleToggleReaction("like");
     // If already liked, remove like
     if (userLiked) {
@@ -217,8 +211,9 @@ function PostSlider(props: Props) {
     }
   };
 
-  // Handle dislike button click with optimistic UI update
-  const handleDislike = () => {
+  // Handle dislike button click with optimistic UI update and prevent navigation
+  const handleDislike = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event bubbling
     handleToggleReaction("dislike");
     // If already disliked, remove dislike
     if (userDisliked) {
@@ -238,11 +233,11 @@ function PostSlider(props: Props) {
       setUserDisliked(true);
     }
   };
-  // /////////////////
-  // Handle dislike button click with optimistic UI update
-  const dispatch = useAppDispatch();
 
-  const handleDo = () => {
+  // Handle do button click with optimistic UI update and prevent navigation
+  const dispatch = useAppDispatch();
+  const handleDo = (e: React.MouseEvent) => {
+    e.stopPropagation(); // Prevent event bubbling
     dispatch(setUpdateState());
     handleToggleReaction("do");
     // If already do
@@ -258,21 +253,30 @@ function PostSlider(props: Props) {
       setUserDo(true);
     }
   };
-  /////////////////
+
   // Navigate to full post
   const handleNavigatePost = (postId: string) => {
     router.push(`/${locale}/feeds/posts/${postId}`);
   };
 
-  // Filter out duplicate media entries by ID
+  // Handle navigation with event checking
+  const handleNavigate = (e: React.MouseEvent, postId: string) => {
+    // Check if the click target is within the reactions container
+    if (reactionsRef.current && reactionsRef.current.contains(e.target as Node)) {
+      return; // Don't navigate if clicking on reactions
+    }
+    navigateToPost(postId);
+  };
 
   // Render media slider or text content
   const renderContent = () => {
     if (uniqueMedia.length > 0) {
       return (
         <div className={styles.navigationWrapper}>
-          <div ref={sliderRef}
+          <div
+            ref={sliderRef}
             className={sliderWrapperClass}
+            onClick={(e) => handleNavigate(e, postId)}
           >
             {uniqueMedia.map((imageUrl, index) => (
               <div
@@ -322,12 +326,15 @@ function PostSlider(props: Props) {
     }
 
     return (
-      <div onClick={() => navigateToPost(postId)} className={styles.textPost}>
+      <div onClick={(e) => handleNavigate(e, postId)} className={styles.textPost}>
         <p>
           {content.slice(0, 100)}
           {content.length > 100 && (
             <span
-              onClick={() => handleNavigatePost(postId)}
+              onClick={(e) => {
+                e.stopPropagation();
+                handleNavigatePost(postId);
+              }}
               className={styles.readMore}
             >
               {" "}{t("readMore")}
@@ -340,7 +347,7 @@ function PostSlider(props: Props) {
 
   // Render reaction buttons
   const renderReactionButtons = () => (
-    <div data-tour={"post-actions"} className={styles.reactionBtns}>
+    <div ref={reactionsRef} data-tour={"post-actions"} className={styles.reactionBtns}>
       <button onClick={handleDo} className={styles.btn} aria-label="Do It">
         <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
         <p>
@@ -369,13 +376,13 @@ function PostSlider(props: Props) {
           </span>
         </p>
       </button>
-
-
-      <CommentButton
-        postId={postId}
-        commentsCount={comments}
-        post={post}
-      />
+      <div onClick={(e) => e.stopPropagation()}>
+        <CommentButton
+          postId={postId}
+          commentsCount={comments}
+          post={post}
+        />
+      </div>
     </div>
   );
 
