@@ -57,7 +57,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
@@ -228,7 +228,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
       >
         <FaStar fill={isFavorite ? "#FFD700" : "#FFF"} />
       </div>
-      
+
     </div>
   );
 };

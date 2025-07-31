@@ -49,7 +49,7 @@ function PostSlider(props: Props) {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
 
     slideChanged(slider) {
@@ -379,7 +379,7 @@ function PostSlider(props: Props) {
         postId={postId}
         commentsCount={comments}
         post={post}
-        />
+      />
     </div>
   );
 

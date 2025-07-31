@@ -28,8 +28,6 @@ function PostSlider(props: Props) {
     media,
     content,
     commentPage,
-    // setCommentPage,
-    // setCommentModal,
     setPostComments,
     likes,
     comments,
@@ -37,7 +35,6 @@ function PostSlider(props: Props) {
     userReactionType,
     hasDoReaction,
     postId,
-    // setPostId,
     setPostMedia,
   } = props;
   const t = useTranslations("web.main.feeds");
@@ -47,18 +44,19 @@ function PostSlider(props: Props) {
   // slider handler
   const [currentSlide, setCurrentSlide] = React.useState(0);
   const [loaded, setLoaded] = useState(false);
-  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
-    initial: 0,
-    loop: true,
-    slides: { perView: 1 },
+  // const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
+  //   initial: 0,
+  //   loop: false,
+  //   slides: { perView: 1 },
 
-    slideChanged(slider) {
-      setCurrentSlide(slider.track.details.rel);
-    },
-    created() {
-      setLoaded(true);
-    },
-  });
+  //   slideChanged(slider) {
+  //     setCurrentSlide(slider.track.details.rel);
+  //   },
+  //   created() {
+  //     setLoaded(true);
+  //   },
+  // });
+
 
   const navigateToPost = useCallback(
     (postId: string) => {
@@ -88,6 +86,30 @@ function PostSlider(props: Props) {
         : [],
     [media]
   );
+  const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
+    uniqueMedia.length > 1 ? {
+      initial: 0,
+      loop: false,
+      slides: { perView: 1 },
+      slideChanged(slider) {
+        setCurrentSlide(slider.track.details.rel);
+      },
+      created() {
+        setLoaded(true);
+      },
+    } : {
+      // Disable slider for single media
+      disabled: true,
+      created() {
+        setLoaded(true);
+      },
+    }
+  );
+  // Add this wrapper class conditionally
+  const sliderWrapperClass = uniqueMedia.length > 1
+    ? "keen-slider"
+    : `keen-slider ${styles.singleMediaSlider}`;
+
   // Fetch comments with error handling and loading state
   const fetchComments = useCallback(
     async (postId: string, page: number) => {
@@ -126,23 +148,6 @@ function PostSlider(props: Props) {
       fetchComments(postId, commentPage);
     }
   }, [commentPage, postId, fetchComments]);
-
-  // // Handle comment button click
-  // const handleComment = async (postId: string) => {
-  //   if (!setPostId || !setCommentModal || !setPostComments) return;
-  //   setPostComments([]);
-  //   setPostId(postId);
-  //   setCommentPage(1);
-
-  //   try {
-  //     const comments = await fetchComments(postId, 1);
-  //     if (comments) {
-  //       setCommentModal(true);
-  //     }
-  //   } catch (error) {
-  //     console.error("Error handling comment:", error);
-  //   }
-  // };
 
   // Handle reaction API calls
   const handleToggleReaction = useCallback(
@@ -266,7 +271,9 @@ function PostSlider(props: Props) {
     if (uniqueMedia.length > 0) {
       return (
         <div className={styles.navigationWrapper}>
-          <div ref={sliderRef} className="keen-slider">
+          <div ref={sliderRef}
+            className={sliderWrapperClass}
+          >
             {uniqueMedia.map((imageUrl, index) => (
               <div
                 key={imageUrl.id || index}
@@ -363,23 +370,12 @@ function PostSlider(props: Props) {
         </p>
       </button>
 
-      {/* <button
-        onClick={() => handleComment(postId)}
-        className={styles.btn}
-        aria-label="Comment"
-      >
-        <FaComment style={{ fill: "#97B00F" }} />
-        <p>
-          <span>
-            {comments}
-          </span>
-        </p>
-      </button> */}
+
       <CommentButton
         postId={postId}
         commentsCount={comments}
         post={post}
-        />
+      />
     </div>
   );
 

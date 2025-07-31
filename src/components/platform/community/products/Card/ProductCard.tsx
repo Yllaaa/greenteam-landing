@@ -55,7 +55,7 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
     slideChanged(slider) {
       setCurrentSlide(slider.track.details.rel);
@@ -168,8 +168,8 @@ const ProductCard: React.FC<ProductCardProps> = (props: ProductCardProps) => {
             loading="lazy"
             width={1000}
             height={1000}
-              className={styles.singleImage}
-              style={{ objectFit: "contain" }}
+            className={styles.singleImage}
+            style={{ objectFit: "contain" }}
           />
         )}
         {loaded && instanceRef.current && product?.images?.length > 1 && (

@@ -78,7 +78,7 @@ function PostComments(passProps: Props) {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
 
     slideChanged(slider) {
@@ -550,9 +550,8 @@ export function CommentModal(props: Props) {
                         onClick={() => {
                           instanceRef.current?.moveToIdx(idx);
                         }}
-                        className={` ${styles.dot} ${
-                          currentSlide === idx ? styles.active : ""
-                        }`}
+                        className={` ${styles.dot} ${currentSlide === idx ? styles.active : ""
+                          }`}
                       ></button>
                     );
                   })}
@@ -635,7 +634,7 @@ export function CommentModal(props: Props) {
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (
@@ -849,7 +848,7 @@ export function CommentSection(props: Props) {
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (
@@ -1066,7 +1065,7 @@ export function PostCommentSection(props: Props) {
                     </div>
                   </div>
                   {openReplies[comment.id] &&
-                  postCommentReply[comment.id]?.length > 0 ? (
+                    postCommentReply[comment.id]?.length > 0 ? (
                     <div key={Math.random()} className={styles.repliesSection}>
                       {postCommentReply[comment.id].map(
                         (reply: Reply, index: number) => (

@@ -21,7 +21,7 @@ function SingleProduct(props: { prodId: string }) {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
 
     slideChanged(slider) {
@@ -110,9 +110,8 @@ function SingleProduct(props: { prodId: string }) {
                     <button
                       key={idx}
                       onClick={() => instanceRef.current?.moveToIdx(idx)}
-                      className={`${styles.dot} ${
-                        currentSlide === idx ? styles.active : ""
-                      }`}
+                      className={`${styles.dot} ${currentSlide === idx ? styles.active : ""
+                        }`}
                       aria-label={`Go to slide ${idx + 1}`}
                     />
                   ))}

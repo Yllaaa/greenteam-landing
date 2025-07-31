@@ -19,8 +19,8 @@ function SingleProduct(props: { prodId: string }) {
   const locale = useLocale();
   const token = getToken();
   const t = useTranslations("web.products.single")
-    const tt = useTranslations("web.header.topics");
-  
+  const tt = useTranslations("web.header.topics");
+
   // const tf = useTranslations("web.products.filter")
   const accessToken = token ? token.accessToken : null;
 
@@ -28,7 +28,7 @@ function SingleProduct(props: { prodId: string }) {
   const [loaded, setLoaded] = useState(false);
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,
-    loop: true,
+    loop: false,
     slides: { perView: 1 },
 
     slideChanged(slider) {
@@ -67,7 +67,7 @@ function SingleProduct(props: { prodId: string }) {
       router.push(`/${locale}/profile/${product.seller.name}`);
     } else {
       router.push(`/${locale}/pages/${product.seller.name}`);
-      
+
     }
   }
 
@@ -114,7 +114,7 @@ function SingleProduct(props: { prodId: string }) {
                   width={1000}
                   height={1000}
                   className={styles.singleImage}
-                        style={{ objectFit: "contain" }}
+                  style={{ objectFit: "contain" }}
                 />
               )}
               {loaded && instanceRef.current && product.images.length > 1 && (
