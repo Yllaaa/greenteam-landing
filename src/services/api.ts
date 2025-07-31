@@ -144,9 +144,9 @@ const createPostFormData = (data: PublishPostBody): FormData => {
 
 		// Validate each image
 		data.images.forEach((image) => {
-			// Check file size (2MB = 2 * 1024 * 1024 bytes)
-			if (image.size > 2 * 1024 * 1024) {
-				throw new Error(`Image "${image.name}" exceeds 2MB limit`);
+			// Check file size (10MB = 2 * 1024 * 1024 bytes)
+			if (image.size > 10 * 1024 * 1024) {
+				throw new Error(`Image "${image.name}" exceeds 10MB limit`);
 			}
 			// Check file type
 			if (!image.type.startsWith('image/')) {
@@ -439,7 +439,7 @@ export const api = createApi({
 
 					images.forEach((image) => {
 						if (image.size > 2 * 1024 * 1024) {
-							throw new Error(`Image "${image.name}" exceeds 2MB limit`);
+							throw new Error(`Image "${image.name}" exceeds 10MB limit`);
 						}
 						if (!image.type.startsWith('image/')) {
 							throw new Error(`File "${image.name}" is not an image`);

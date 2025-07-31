@@ -12,6 +12,7 @@ import FileUpload from "@/Utils/imageUploadComponent/clickToUpload/ImageUpload";
 import useOutsideClick from "@/hooks/clickoutside/useOutsideClick";
 import { FaChevronDown } from 'react-icons/fa';
 import { Topics } from "@/components/Assets/topics/Topics.data";
+import { useTranslations } from "next-intl";
 
 function AddNew(props: {
   onPostComplete?: () => void;
@@ -20,6 +21,7 @@ function AddNew(props: {
 }) {
   const { onPostComplete, isOpen, onClose } = props;
 
+  const t = useTranslations("web.header");
   // Get user info
   const userInfo1 = getToken();
   const userInfo = userInfo1 ? userInfo1.accessToken : null;
@@ -46,6 +48,7 @@ function AddNew(props: {
   const [selectedMainTopic, setSelectedMainTopic] = useState<number | null>(null);
   const [selectedSubtopics, setSelectedSubtopics] = useState<number[]>([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [posting, setPosting] = useState(false);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -122,13 +125,42 @@ function AddNew(props: {
     return topic ? topic.name : "- Select a Category -";
   };
 
+  // Validation function
+  const validateForm = (formData: any): string | null => {
+    // Check if content is empty
+    if (!formData.content || formData.content.trim().length === 0) {
+      return "post content is empty";
+    }
+
+    // Check if category is selected
+    if (!selectedMainTopic) {
+      return "please select category";
+    }
+
+    // Check if subcategory is required and selected (only if subtopics exist for the selected topic)
+    if (selectedTopicData && subtopics.length > 0 && selectedSubtopics.length === 0) {
+      return "please select subcategory";
+    }
+
+    return null; // No errors
+  };
+
   const onSubmit = async (formData: any) => {
+    // Validate form
+    const validationError = validateForm(formData);
+    if (validationError) {
+      ToastNot(validationError);
+      return;
+    }
+
+    setPosting(true);
+
     try {
       // Create FormData object
       const formDataToSend = new FormData();
 
       // Append text fields
-      formDataToSend.append("content", formData.content);
+      formDataToSend.append("content", formData.content.trim());
       formDataToSend.append("creatorType", "user");
 
       // Append mainTopicId if selected
@@ -162,7 +194,7 @@ function AddNew(props: {
       );
 
       console.log(response.data);
-      ToastNot(`Post added successfully`);
+      ToastNot("Post added successfully");
 
       // Reset form and state
       reset();
@@ -179,9 +211,68 @@ function AddNew(props: {
 
       // Close modal
       onClose();
-    } catch (err) {
+    } catch (err: any) {
       console.log(err);
-      ToastNot("Error occurred while adding post");
+
+      // Handle different types of errors with specific messages
+      let errorMessage = "Error occurred while adding post";
+
+      if (err.response) {
+        // Server responded with error status
+        const { status, data } = err.response;
+
+        switch (status) {
+          case 400:
+            // Check for specific validation errors from server
+            if (data.errors) {
+              if (data.errors.content) {
+                errorMessage = "post content is empty";
+              } else if (data.errors.mainTopicId) {
+                errorMessage = "please select category";
+              } else if (data.errors.subtopicIds) {
+                errorMessage = "please select subcategory";
+              } else {
+                errorMessage = data.message || "Invalid form data";
+              }
+            } else {
+              errorMessage = data.message || "Invalid form data";
+            }
+            break;
+
+          case 401:
+            errorMessage = "Authentication failed. Please login again";
+            break;
+
+          case 403:
+            errorMessage = "You don't have permission to create posts";
+            break;
+
+          case 413:
+            errorMessage = "Files are too large. Please reduce file sizes";
+            break;
+
+          case 422:
+            errorMessage = "Invalid file format or content";
+            break;
+
+          case 500:
+            errorMessage = "Server error. Please try again later";
+            break;
+
+          default:
+            errorMessage = data.message || "Server error occurred";
+        }
+      } else if (err.request) {
+        // Network error
+        errorMessage = "Network error. Please check your connection";
+      } else {
+        // Other error
+        errorMessage = "An unexpected error occurred";
+      }
+
+      ToastNot(errorMessage);
+    } finally {
+      setPosting(false);
     }
   };
 
@@ -201,6 +292,7 @@ function AddNew(props: {
             />
             Build sustainable culture Sharing your experience
           </h2>
+
           {/* Text Area */}
           <textarea
             placeholder="Add your experiences and tips to make a better future."
@@ -232,7 +324,7 @@ function AddNew(props: {
                             handleTopicSelect(topic.id);
                           }}
                         >
-                          {topic.name}
+                          {t(`topics.${topic.name}`)}
                         </div>
                       ))}
                     </div>
@@ -252,7 +344,7 @@ function AddNew(props: {
                           }`}
                         onClick={() => handleSubtopicChange(subtopic.id)}
                       >
-                        {subtopic.name}
+                        {t(`topics.${subtopic.name}`)}
                       </div>
                     ))}
                   </div>
@@ -266,13 +358,15 @@ function AddNew(props: {
             <FileUpload
               onFilesSelected={handleFilesSelected}
               maxImages={4}
-              maxSizeInMB={2}
+              maxSizeInMB={10}
             />
             {/* Submit Button */}
             <input
               type="submit"
               className={styles.submit}
-              value="Post"
+              value={posting ? "Posting..." : "Post"}
+              disabled={posting}
+              style={{ cursor: posting ? "not-allowed" : "pointer" }}
             />
           </div>
         </form>

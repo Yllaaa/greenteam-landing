@@ -2,15 +2,16 @@ import React from "react";
 import styles from "./EventFilter.module.css";
 import { eventFilterProps } from "./eventFilterTypes.data";
 import { useTranslations } from "next-intl";
-
+import events from "@/../public/icons/events.svg";
+import Image from "next/image";
 function EventFilter(props: eventFilterProps) {
   const t = useTranslations("web.event.header");
   const { section, setPage, setSection, setAddNew } = props;
-  
+
   const handleAddNew = () => {
     setAddNew(true);
   };
-  
+
   // Filter options array for cleaner rendering
   const filterOptions = [
     { id: "all", label: t("all") },
@@ -18,14 +19,15 @@ function EventFilter(props: eventFilterProps) {
     { id: "volunteering%26work", label: t("volunteering") },
     { id: "talks%26workshops", label: t("talks") }
   ];
-  
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.titleWrapper}>
+          <Image src={events} alt="events" width={32} height={32} />
           <h3 className={styles.title}>{t("event")}</h3>
         </div>
-        
+
         <div className={styles.filterSection}>
           <ul className={styles.filterList}>
             {filterOptions.map((option) => (
@@ -42,9 +44,9 @@ function EventFilter(props: eventFilterProps) {
             ))}
           </ul>
         </div>
-        
+
         <div className={styles.addBtnWrapper}>
-          <button 
+          <button
             className={styles.addBtn}
             onClick={handleAddNew}
           >

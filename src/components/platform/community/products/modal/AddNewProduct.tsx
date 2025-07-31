@@ -48,7 +48,7 @@ type addProductProps = {
   userType: string;
 };
 
-const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_IMAGES = 4; // Maximum number of images allowed
 
 const AddNewProduct = (props: addProductProps) => {
@@ -228,7 +228,7 @@ const AddNewProduct = (props: addProductProps) => {
     filesToProcess.forEach(file => {
       // Check file size
       if (file.size > MAX_FILE_SIZE) {
-        setFileError(`File "${file.name}" exceeds 2MB size limit`);
+        setFileError(`File "${file.name}" exceeds 10MB size limit`);
         // errors = true;
         return;
       }
@@ -612,7 +612,7 @@ const AddNewProduct = (props: addProductProps) => {
                   <label className={styles.label}>
                     <span className={styles.labelText}>Product Images</span>
                     <span className={styles.requiredField}>*</span>
-                    <span className={styles.labelHint}>(Up to 4, max 2MB each)</span>
+                    <span className={styles.labelHint}>(Up to 4, max 10MB each)</span>
                   </label>
                   <div className={styles.inputWrapper}>
                     <div
@@ -673,7 +673,7 @@ const AddNewProduct = (props: addProductProps) => {
                             {isDragging ? "Drop images here" : "Click or drag images here"}
                           </p>
                           <p className={styles.smallText}>
-                            Upload up to {MAX_IMAGES} images (max 2MB each)
+                            Upload up to {MAX_IMAGES} images (max 10MB each)
                           </p>
                         </div>
                       )}

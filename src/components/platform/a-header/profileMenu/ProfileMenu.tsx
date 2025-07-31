@@ -31,6 +31,7 @@ function ProfileMenu(props: Props) {
 
   // Add handler for restarting tour
   const handleRestartTour = () => {
+    router.push(`/${locale}/feeds`);
     if (isTourActive) {
       stopTour();
     }

@@ -5,6 +5,7 @@ import { Topics } from "@/components/Assets/topics/Topics.data";
 import add from "@/../public/icons/add.svg";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import products from "@/../public/icons/products.svg";
 // import AddNewEvent from "@/components/platform/community-modals/AddNewEvent";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
@@ -18,6 +19,7 @@ const t = useTranslations("web.products.filter");
     <>
       <div className={styles.header}>
         <div className={styles.title}>
+          <Image src={products} alt="products" width={32} height={32} />
           <h3>{t("products")}</h3>
         </div>
         <div className={styles.filterSection}>

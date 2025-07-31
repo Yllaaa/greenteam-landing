@@ -22,9 +22,9 @@ interface ImageUploadOneProps {
 
 const ImageUploadOne: React.FC<ImageUploadOneProps> = ({
   onImageSelected,
-  maxSizeInMB = 2,
+  maxSizeInMB = 10,
   buttonLabel = "Add profile image",
-  infoText = "JPEG, PNG or GIF, max 2MB",
+  infoText = "JPEG, PNG or GIF, max 10MB",
 }) => {
   const [image, setImage] = useState<UploadedImage | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);

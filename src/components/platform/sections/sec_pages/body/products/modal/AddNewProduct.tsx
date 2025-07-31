@@ -40,7 +40,7 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
   const router = useRouter()
   const locale = useLocale()
   const MAX_IMAGES = 4;
-  const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB
+  const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
   // Form state
   const [formData, setFormData] = useState<FormData>({
@@ -203,14 +203,14 @@ const AddNewProduct = ({ setAddNew }: AddProductProps) => {
     // First, filter out any files that are too large
     const validSizeFiles = Array.from(files).filter(file => {
       if (file.size > MAX_FILE_SIZE) {
-        ToastNot(`File "${file.name}" exceeds 2MB size limit and won't be uploaded`);
+        ToastNot(`File "${file.name}" exceeds 10MB size limit and won't be uploaded`);
         return false;
       }
       return true;
     });
 
     if (validSizeFiles.length === 0) {
-      ToastNot("All files exceed the 2MB size limit");
+      ToastNot("All files exceed the 10MB size limit");
       return;
     }
 

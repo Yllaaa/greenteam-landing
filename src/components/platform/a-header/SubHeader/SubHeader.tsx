@@ -71,7 +71,7 @@ function SubHeader() {
           userReactions={userReactions}
           setAddNew={setAddNew}
         />
-        <p  className={styles.title}>{t("title")}</p>
+        <p className={styles.title}>{t("title")}</p>
       </div>
       {/* responsive */}
       <div className={styles.ResponsiveContainer}>
@@ -92,8 +92,9 @@ function SubHeader() {
           setPostId={setPostId}
           setAddNew={setAddNew}
         />
+        <p className={styles.title}>{t("title")}</p>
       </div>
-      
+
       {/* {commentModal && (
         <CommentModal
           setCommentModal={setCommentModal}

@@ -463,7 +463,7 @@ function Forums() {
                       selectAll={false}
                       onFilesSelected={handleFilesSelected}
                       maxImages={1}
-                      maxSizeInMB={2}
+                      maxSizeInMB={10}
                     />
                     {/* <div className={styles.customUploadButton}>
                       <FaImage />

@@ -24,7 +24,7 @@ interface ImageUploadProps {
 const FileUpload: React.FC<ImageUploadProps> = ({
   onFilesSelected,
   maxImages = 4,
-  maxSizeInMB = 2,
+  maxSizeInMB = 10,
   selectAll = true,
 }) => {
   const [files, setFiles] = useState<UploadedFile[]>([]);
@@ -41,8 +41,8 @@ const FileUpload: React.FC<ImageUploadProps> = ({
       ? selectedFiles[0].type.startsWith("image/")
         ? "image"
         : selectedFiles[0].type === "application/pdf"
-        ? "pdf"
-        : null
+          ? "pdf"
+          : null
       : "image";
 
     // If type is not supported or mixed types, show error
@@ -68,8 +68,7 @@ const FileUpload: React.FC<ImageUploadProps> = ({
     // If we already have files uploaded and trying to upload a different type
     if (files.length > 0 && files[0].type !== firstFileType) {
       alert(
-        `You already have ${
-          files[0].type === "image" ? "images" : "a PDF"
+        `You already have ${files[0].type === "image" ? "images" : "a PDF"
         } uploaded. Please remove them first.`
       );
       return;
@@ -200,45 +199,45 @@ const FileUpload: React.FC<ImageUploadProps> = ({
         {((uploadMode === "image" && files.length < maxImages) ||
           (uploadMode === "pdf" && files.length < 1) ||
           uploadMode === null) && (
-          <>
-            <input
-              type="file"
-              accept={
-                uploadMode === "pdf"
-                  ? "application/pdf"
-                  : uploadMode === "image"
-                  ? "image/*"
-                  : "image/*,application/pdf"
-              }
-              multiple={uploadMode !== "pdf"}
-              onChange={handleFileChange}
-              ref={fileInputRef}
-              className={styles.fileInput}
-              id="file-upload"
-            />
-            <label htmlFor="file-upload" className={styles.uploadButton}>
-              <Image src={imageIcon} alt={"icon"} />
-              <div>
-                <p className={styles.uploadLabel}>
-                  {uploadMode === null ? "Add images or PDF" : getUploadLabel()}
-                </p>
-                <div className={styles.uploadInfo}>
-                  {uploadMode === null ? (
-                    <>
-                      Max {maxImages} images or 1 PDF, {maxSizeInMB}MB each
-                    </>
-                  ) : uploadMode === "image" ? (
-                    <>
-                      Max {maxImages} images, {maxSizeInMB}MB each
-                    </>
-                  ) : (
-                    <>1 PDF document, max {maxSizeInMB}MB</>
-                  )}
+            <>
+              <input
+                type="file"
+                accept={
+                  uploadMode === "pdf"
+                    ? "application/pdf"
+                    : uploadMode === "image"
+                      ? "image/*"
+                      : "image/*,application/pdf"
+                }
+                multiple={uploadMode !== "pdf"}
+                onChange={handleFileChange}
+                ref={fileInputRef}
+                className={styles.fileInput}
+                id="file-upload"
+              />
+              <label htmlFor="file-upload" className={styles.uploadButton}>
+                <Image src={imageIcon} alt={"icon"} />
+                <div>
+                  <p className={styles.uploadLabel}>
+                    {uploadMode === null ? "Add images or PDF" : getUploadLabel()}
+                  </p>
+                  <div className={styles.uploadInfo}>
+                    {uploadMode === null ? (
+                      <>
+                        Max {maxImages} images or 1 PDF, {maxSizeInMB}MB each
+                      </>
+                    ) : uploadMode === "image" ? (
+                      <>
+                        Max {maxImages} images, {maxSizeInMB}MB each
+                      </>
+                    ) : (
+                      <>1 PDF document, max {maxSizeInMB}MB</>
+                    )}
+                  </div>
                 </div>
-              </div>
-            </label>
-          </>
-        )}
+              </label>
+            </>
+          )}
 
         <div className={styles.imagesPreview}>
           {files.map((file) => (

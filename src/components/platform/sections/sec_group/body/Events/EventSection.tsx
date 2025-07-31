@@ -231,9 +231,9 @@ function EventSection() {
       return (
         <div className={styles.noPosts}>
           <p>No events found</p>
-          <button onClick={() => setAddNew(true)} className={styles.createButton}>
+          {/* <button onClick={() => setAddNew(true)} className={styles.createButton}>
             Create First Event
-          </button>
+          </button> */}
         </div>
       );
     }

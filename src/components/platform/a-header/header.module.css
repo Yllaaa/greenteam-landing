@@ -322,21 +322,24 @@
 	}
 
 	.container .profile {
-		gap: 10px;
+		gap: 0px;
 	}
 
 	.container .profile .icons {
-		gap: 8px;
+		gap: 4px;
 	}
 
 	.container .profile .icons .notification {
-		width: 36px;
-		height: 36px;
+		min-width: 30px;
+		min-height: 30px;
+		max-width: 30px;
+		max-height: 30px;
+		padding: 0;
 	}
 
 	.container .profile .icons .notification svg {
-		width: 20px;
-		height: 20px;
+		width: 14px;
+		height: 14px;
 	}
 
 	.container .profile .headerMenu {
@@ -468,37 +471,37 @@
 }
 
 @media screen and (max-width: 768px) {
-  /* Hide the icons container on mobile */
-  /* .container .profile .icons {
+	/* Hide the icons container on mobile */
+	/* .container .profile .icons {
     display: none;
   } */
 
-  /* Ensure community and favorites logos are visible and properly sized on mobile */
-  .container .logos .handsLogo,
-  .container .logos .starFav {
-    display: flex;
-    width: 40px;
-    height: 50px;
-  }
+	/* Ensure community and favorites logos are visible and properly sized on mobile */
+	.container .logos .handsLogo,
+	.container .logos .starFav {
+		display: flex;
+		width: 40px;
+		height: 50px;
+	}
 
-  .container .logos .handsLogo img {
-    width: 40px;
-    height: 40px;
-  }
+	.container .logos .handsLogo img {
+		width: 40px;
+		height: 40px;
+	}
 
-  .container .logos .starFav svg {
-    width: 30px;
-    height: 50px;
-  }
+	.container .logos .starFav svg {
+		width: 30px;
+		height: 50px;
+	}
 
-  .container .logos .handsLogo p,
-  .container .logos .starFav p {
-    font-size: 10px;
-    line-height: 12px;
-  }
+	.container .logos .handsLogo p,
+	.container .logos .starFav p {
+		font-size: 10px;
+		line-height: 12px;
+	}
 
-  /* Adjust mobile menu items to have consistent styling */
-  .mobileMenuItem svg {
-    color: #97b00f;
-  }
+	/* Adjust mobile menu items to have consistent styling */
+	.mobileMenuItem svg {
+		color: #97b00f;
+	}
 }

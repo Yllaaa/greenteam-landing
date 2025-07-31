@@ -51,7 +51,7 @@ function AddNewModal(props: {
     },
   });
 
-  
+
 
   const handleFilesSelected = (files: File[], type: "image" | "pdf") => {
     setSelectedFiles((prev) => [...prev, ...files]);
@@ -147,15 +147,15 @@ function AddNewModal(props: {
                 <FileUpload
                   onFilesSelected={handleFilesSelected}
                   maxImages={4}
-                  maxSizeInMB={2}
+                  maxSizeInMB={10}
                   selectAll={false}
                 />
               </div>
               {topicDetails && (
                 <div className={styles.selectSubCategory}>
                   {topicDetails &&
-                  topicDetails.subtopics &&
-                  topicDetails?.subtopics?.length > 0 ? (
+                    topicDetails.subtopics &&
+                    topicDetails?.subtopics?.length > 0 ? (
                     topicDetails?.subtopics?.map((subtopic) => (
                       <label
                         style={

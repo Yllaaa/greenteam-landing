@@ -241,6 +241,11 @@
 		height: fit-content;
 		min-height: 100px;
 	}
+	.title{
+		grid-row: 5 / 6;
+		grid-column: 1 / 13;
+		margin-top: 10px;
+	}
 	.container {
 		display: none;
 	}

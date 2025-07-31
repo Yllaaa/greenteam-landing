@@ -642,7 +642,7 @@
 				"errorCreating": "Error al crear la página",
 				"errorCountries": "Error al obtener países",
 				"errorCities": "Error al obtener ciudades",
-				"imageTooLarge": "La imagen debe ser menor a 2MB",
+				"imageTooLarge": "La imagen debe ser menor a 10MB",
 				"invalidImageType": "Por favor sube un archivo de imagen válido",
 				"slugAvailable": "El slug está disponible",
 				"checkingSlug": "Verificando...",
@@ -721,7 +721,7 @@
 				"errorCreating": "Error al crear el grupo",
 				"errorCountries": "Error al obtener países",
 				"errorCities": "Error al obtener ciudades",
-				"imageTooLarge": "La imagen debe ser menor a 2MB",
+				"imageTooLarge": "La imagen debe ser menor a 10MB",
 				"invalidImageType": "Por favor sube un archivo de imagen válido",
 				"unauthorized": "No estás autorizado para realizar esta acción",
 				"fileTooLarge": "El archivo es demasiado grande",
@@ -1128,16 +1128,16 @@
 						},
 						"images": {
 							"label": "Imágenes del Producto",
-							"hint": "(Hasta 4, máx 2MB cada una)",
+							"hint": "(Hasta 4, máx 10MB cada una)",
 							"dragActive": "Suelta las imágenes aquí",
 							"dragInactive": "Haz clic o arrastra imágenes aquí",
-							"uploadHint": "Sube hasta {{max}} imágenes (máx 2MB cada una)",
+							"uploadHint": "Sube hasta {{max}} imágenes (máx 10MB cada una)",
 							"addMore": "Agregar más imágenes",
 							"remaining": "{{count}} restantes",
 							"removeImage": "Eliminar imagen",
 							"error": {
 								"required": "Se requiere al menos una imagen del producto",
-								"sizeLimit": "El archivo \"{{name}}\" excede el límite de 2MB",
+								"sizeLimit": "El archivo \"{{name}}\" excede el límite de 10MB",
 								"notImage": "El archivo \"{{name}}\" no es una imagen"
 							}
 						},

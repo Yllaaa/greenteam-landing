@@ -6,7 +6,7 @@
 import React, { useEffect, useState, useMemo, useCallback } from 'react'
 import styles from './categories.module.css'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+// import { useRouter } from 'next/navigation'
 import { useTranslations, useLocale } from 'next-intl'
 import { StaticImageData } from 'next/image'
 import clsx from 'clsx'
@@ -23,7 +23,7 @@ import know from '@/../public/ZPLATFORM/categories/physical.svg'
 
 // API service
 import { useGetTopicScoresQuery, useGetSubTopicScoresQuery } from '@/services/api'
-import { useAppDispatch, useAppSelector } from '@/store/hooks'
+import { useAppDispatch } from '@/store/hooks'
 import { setOpenBar } from '@/store/features/baropen/useOpenBar'
 
 interface TopicScore {
@@ -88,10 +88,10 @@ const CATEGORY_TO_TOPIC_MAPPING: Record<string, string[]> = {
 const CATEGORY_ORDER = ['know', 'food', 'physical', 'community', 'art', 'eco'];
 
 const Categories: React.FC = () => {
-  const router = useRouter()
+  // const router = useRouter()
   const t = useTranslations('web.subHeader.diamond')
   const dispatch = useAppDispatch()
-  const isOpen = useAppSelector(state => state.openBar.isOpen)
+  // const isOpen = useAppSelector(state => state.openBar.isOpen)
 
   const locale = useLocale()
 
@@ -214,10 +214,10 @@ const Categories: React.FC = () => {
   const handleSubCategoryClick = useCallback((subTopicId: number) => {
     if (selectedCategoryId) {
       closeModal()
-      dispatch(setOpenBar(!isOpen)) // Dispatch action to update openBar state
-      router.push(`?category=${selectedCategoryId}&subcategory=${subTopicId}`)
+      dispatch(setOpenBar(false)) // Dispatch action to update openBar state
+      window.location.assign(`?category=${selectedCategoryId}&subcategory=${subTopicId}`)
     }
-  }, [selectedCategoryId, closeModal, dispatch, isOpen, router])
+  }, [selectedCategoryId, closeModal, dispatch])
 
   // Click outside handler
   useEffect(() => {

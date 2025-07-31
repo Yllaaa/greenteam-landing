@@ -643,7 +643,7 @@
 				"errorCreating": "Error creating page",
 				"errorCountries": "Error fetching countries",
 				"errorCities": "Error fetching cities",
-				"imageTooLarge": "Image must be less than 2MB",
+				"imageTooLarge": "Image must be less than 10MB",
 				"invalidImageType": "Please upload a valid image file",
 				"slugAvailable": "Slug is available",
 				"checkingSlug": "Checking...",
@@ -722,7 +722,7 @@
 				"errorCreating": "Error creating group",
 				"errorCountries": "Error fetching countries",
 				"errorCities": "Error fetching cities",
-				"imageTooLarge": "Image must be less than 2MB",
+				"imageTooLarge": "Image must be less than 10MB",
 				"invalidImageType": "Please upload a valid image file",
 				"unauthorized": "You are not authorized to perform this action",
 				"fileTooLarge": "File is too large",
@@ -1131,16 +1131,16 @@
 						},
 						"images": {
 							"label": "Product Images",
-							"hint": "(Up to 4, max 2MB each)",
+							"hint": "(Up to 4, max 10MB each)",
 							"dragActive": "Drop images here",
 							"dragInactive": "Click or drag images here",
-							"uploadHint": "Upload up to {{max}} images (max 2MB each)",
+							"uploadHint": "Upload up to {{max}} images (max 10MB each)",
 							"addMore": "Add more images",
 							"remaining": "{{count}} remaining",
 							"removeImage": "Remove image",
 							"error": {
 								"required": "At least one product image is required",
-								"sizeLimit": "File \"{{name}}\" exceeds 2MB size limit",
+								"sizeLimit": "File \"{{name}}\" exceeds 10MB size limit",
 								"notImage": "File \"{{name}}\" is not an image"
 							}
 						},

@@ -104,8 +104,8 @@ export const AddPostModal: React.FC<AddPostModalProps> = ({
 
     const validFiles: File[] = []
     for (const file of files) {
-      if (file.size > 2 * 1024 * 1024) {
-        setApiError(t("imageSizeError", { size: "2MB" }))
+      if (file.size > 10 * 1024 * 1024) {
+        setApiError(t("imageSizeError", { size: "10MB" }))
         return
       }
       if (!file.type.startsWith("image/")) {

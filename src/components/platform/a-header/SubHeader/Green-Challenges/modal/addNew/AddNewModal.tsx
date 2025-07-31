@@ -91,12 +91,12 @@ function AddNewModal(props: {
         reset();
         setAddNew(false);
       }
-    } catch (err : any) {
+    } catch (err: any) {
       console.log(err);
       ToastNot(err.response.data.message);
     }
   };
-const t = useTranslations("web.subHeader.green");
+  const t = useTranslations("web.subHeader.green");
   return (
     <>
       <div className={styles.modal}>
@@ -123,7 +123,7 @@ const t = useTranslations("web.subHeader.green");
               <FileUpload
                 onFilesSelected={handleFilesSelected}
                 maxImages={4}
-                maxSizeInMB={2}
+                maxSizeInMB={10}
               />
               {/* Submit Button */}
               <input type="submit" className={styles.submit} value={t("post")} />

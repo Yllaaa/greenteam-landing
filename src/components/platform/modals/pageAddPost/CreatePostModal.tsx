@@ -215,7 +215,7 @@ function CreatePostModal({
                             <FileUpload
                                 onFilesSelected={handleFilesSelected}
                                 maxImages={maxImages}
-                                maxSizeInMB={2}
+                                maxSizeInMB={10}
                                 selectAll={false}
                             />
                         </div>

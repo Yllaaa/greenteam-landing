@@ -301,7 +301,7 @@ function PostCard(props: Props) {
                   style={{ cursor: "pointer" }}
                 >
                   <p>
-                    {post.author.name || post.author.username} <span>@{post.author.username&&post.author.username.length>8?`${post.author.username.slice(0, 8)}...`:post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
+                    {post.author.name || post.author.username} <span>@{post.author.username && post.author.username.length > 8 ? `${post.author.username.slice(0, 8)}...` : post.author.username} . {formatTimeDifference(post.post.createdAt)}</span>
 
                   </p>
                 </div>
@@ -332,7 +332,7 @@ function PostCard(props: Props) {
               </div>
             </div>
 
-            <div className={styles.media}>
+            <div onClick={() => navigateToPost(post.post.id)} className={styles.media}>
               <div className={styles.postslider}>
                 <PostSlider
                   post={post}

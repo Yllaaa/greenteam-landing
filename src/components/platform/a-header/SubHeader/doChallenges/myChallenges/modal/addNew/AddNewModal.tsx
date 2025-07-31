@@ -22,7 +22,7 @@ function AddNewModal(props: {
   console.log(params);
 
   const accessToken = useAppSelector((state) => state.login.accessToken);
-  const { setAddNew , endpoint} = props;
+  const { setAddNew, endpoint } = props;
   const closeModal = useCallback(() => {
     setAddNew(false);
   }, [setAddNew]);
@@ -96,7 +96,7 @@ function AddNewModal(props: {
       ToastNot("Error occurred while adding post");
     }
   };
-const t = useTranslations("web.subHeader.green");
+  const t = useTranslations("web.subHeader.green");
   return (
     <>
       <div className={styles.modal}>
@@ -123,7 +123,7 @@ const t = useTranslations("web.subHeader.green");
               <FileUpload
                 onFilesSelected={handleFilesSelected}
                 maxImages={4}
-                maxSizeInMB={2}
+                maxSizeInMB={10}
               />
               {/* Submit Button */}
               <input type="submit" className={styles.submit} value={t("post")} />

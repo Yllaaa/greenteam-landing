@@ -41,9 +41,9 @@ function Header() {
   const [userToken, setUserToken] = useState("");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [addPost, setAddPost] = useState(false);
-  const [windowWidth, setWindowWidth] = useState(
-    typeof window !== "undefined" ? window.innerWidth : 768
-  );
+  // const [windowWidth, setWindowWidth] = useState(
+  //   typeof window !== "undefined" ? window.innerWidth : 768
+  // );
   // const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Header visibility states
@@ -107,10 +107,11 @@ function Header() {
   // Handle window resize
   useEffect(() => {
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-      if (window.innerWidth > 768) {
-        // setMobileMenuOpen(false);
-      }
+      return
+      // setWindowWidth(window.innerWidth);
+      // if (window.innerWidth > 768) {
+      //   // setMobileMenuOpen(false);
+      // }
     };
 
     window.addEventListener("resize", handleResize);
@@ -281,16 +282,17 @@ function Header() {
 
           {/* Only show icons on desktop */}
           <div className={styles.icons}>
-            {windowWidth > 768 && (
+            {/* {windowWidth > 768 && ( */}
 
-              < div
-                onClick={handleAddPost}
-                className={styles.notification}
-                data-tour="add-post"
-              >
-                <IoIosAddCircle />
-              </div>
-            )}
+            < div
+              onClick={handleAddPost}
+              className={styles.notification}
+              data-tour="add-post"
+              style={{ backgroundColor: 'rgb(151, 176, 15)'}}
+            >
+              <IoIosAddCircle fill="#063"/>
+            </div>
+            {/* )} */}
             <div
               className={styles.notification}
               data-tour="notifications"

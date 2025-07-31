@@ -39,7 +39,7 @@ interface City {
     name: string;
 }
 
-const MAX_FILE_SIZE = 2 * 1024 * 1024; // 2MB in bytes
+const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB in bytes
 const ACCEPTED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
 
 const AddNewGroup = ({ setAddNew }: AddEventProps) => {

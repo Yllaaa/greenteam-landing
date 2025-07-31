@@ -115,6 +115,7 @@ function Bar({ children }: { children: React.ReactNode }) {
     if (isTourActive && currentTourId === 'header-tour') {
       const shouldExpand = currentStepIndex === 3 || currentStepIndex === 4 || currentStepIndex === 5
 
+
       if (shouldExpand !== isOpen) {
         // setIsExpanded(shouldExpand)
         dispatch(setOpenBar(!isOpen))

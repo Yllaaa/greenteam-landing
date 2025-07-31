@@ -32,6 +32,7 @@ export default function TourInitializer() {
                         : 'Navigate Greenteam',
                     placement: 'center',
                     disableBeacon: true,
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="community"]',
@@ -42,6 +43,7 @@ export default function TourInitializer() {
                         ? 'Buscador de Comunidad'
                         : 'Community Finder',
                     placement: 'bottom',
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="favorites"]',
@@ -52,6 +54,7 @@ export default function TourInitializer() {
                         ? 'Favoritos'
                         : 'Favorites',
                     placement: 'bottom',
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="diamond"]',
@@ -62,6 +65,7 @@ export default function TourInitializer() {
                         ? 'Sumérgete ya en la sostenibilidad'
                         : 'Dive into sustainability now',
                     placement: 'right',
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="greenChallenges"]',
@@ -72,6 +76,7 @@ export default function TourInitializer() {
                         ? 'Si lo ves lo puedes hacer'
                         : 'If you see it, you can do it',
                     placement: 'center',
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="points"]',
@@ -82,6 +87,7 @@ export default function TourInitializer() {
                         ? 'Crecimiento personal, social y ambiental'
                         : 'Personal, social, and environmental growth',
                     placement: 'top',
+                    spotlightClicks: true,
                 },
                 {
                     target: '[data-tour="invite"]',
@@ -92,6 +98,7 @@ export default function TourInitializer() {
                         ? 'Si te gusta la iniciativa'
                         : 'If you like the initiative',
                     placement: 'top',
+                    spotlightClicks: true,
                 },
             ];
         };

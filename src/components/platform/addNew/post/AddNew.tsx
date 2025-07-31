@@ -178,7 +178,7 @@ function AddNew(props: { setAddPost?: React.Dispatch<React.SetStateAction<boolea
             <FileUpload
               onFilesSelected={handleFilesSelected}
               maxImages={4}
-              maxSizeInMB={2}
+              maxSizeInMB={10}
             />
             <div className={styles.addAndCategory}>
               {/* Enhanced Category Dropdown */}

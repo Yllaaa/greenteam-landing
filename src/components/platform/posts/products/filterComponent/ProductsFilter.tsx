@@ -3,6 +3,8 @@ import styles from "./ProductsFilter.module.css";
 import { ProductsFilterProps } from "./ProductsFilterTypes.data";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import { useTranslations } from "next-intl";
+import products from "@/../public/icons/products.svg";
+import Image from "next/image";
 function ProductsFilter(props: ProductsFilterProps) {
   const { section, setPage, setSection, setAddNew } = props;
   const topics = Topics;
@@ -20,11 +22,12 @@ function ProductsFilter(props: ProductsFilterProps) {
       scrollRef.current.scrollLeft += e.deltaY;
     }
   };
-const t = useTranslations("web.products.filter");
+  const t = useTranslations("web.products.filter");
   return (
     <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.titleSection}>
+          <Image src={products} alt="products" width={32} height={32} />
           <h3 className={styles.title}>{t("products")}</h3>
           <div className={styles.addBtnMobile}>
             <button onClick={handleAddNew}>{t("addNew")}</button>
