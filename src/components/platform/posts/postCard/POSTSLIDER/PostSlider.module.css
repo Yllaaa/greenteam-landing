@@ -12,6 +12,54 @@
 	-ms-border-radius: 16px;
 	-o-border-radius: 16px;
 }
+
+/* Navigation Arrows */
+.navArrow {
+	position: absolute;
+	top: 50%;
+	transform: translateY(-50%);
+	background: rgba(0, 0, 0, 0.5);
+	border: 2px solid #063;
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	cursor: pointer;
+	z-index: 15;
+	color: #063;
+	font-size: 16px;
+	transition: all 0.3s ease;
+	backdrop-filter: blur(4px);
+}
+
+.navArrow:hover {
+	background: rgba(0, 102, 51, 0.8);
+	color: white;
+	border-color: #063;
+	transform: translateY(-50%) scale(1.1);
+}
+
+.navArrowLeft {
+	left: 10px;
+}
+
+.navArrowRight {
+	right: 10px;
+}
+
+.navArrow.disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+	pointer-events: none;
+}
+
+.navArrow:disabled {
+	opacity: 0.3;
+	cursor: not-allowed;
+}
+
 .textPost {
 	overflow: hidden;
 	position: relative;
@@ -45,7 +93,7 @@
 	line-height: 140%;
 	letter-spacing: 0%;
 	text-align: center;
-word-break: break-all;
+	word-break: break-all;
 	color: #fefefe;
 	width: 100%;
 }
@@ -131,6 +179,39 @@ word-break: break-all;
 	-ms-transition: all 0.3s ease-in-out;
 	-o-transition: all 0.3s ease-in-out;
 }
+
+/* Dots styles */
+.dots {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	margin: 20px 0;
+	position: absolute;
+	bottom: 15%;
+	left: 50%;
+	transform: translateX(-50%);
+	z-index: 15;
+}
+
+.dot {
+	border: none;
+	width: 10px;
+	height: 10px;
+	background: rgba(255, 255, 255, 0.5);
+	border-radius: 50%;
+	margin: 0 5px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.dot.active {
+	background: #063;
+}
+
+.dot:hover {
+	background: rgba(255, 255, 255, 0.8);
+}
+
 @media screen and (max-width: 768px) {
 	.reactionBtns {
 		gap: 8px;
@@ -161,5 +242,30 @@ word-break: break-all;
 		-moz-border-radius: 8px;
 		-ms-border-radius: 8px;
 		-o-border-radius: 8px;
+	}
+
+	/* Mobile navigation arrows */
+	.navArrow {
+		width: 32px;
+		height: 32px;
+		font-size: 12px;
+	}
+
+	.navArrowLeft {
+		left: 5px;
+	}
+
+	.navArrowRight {
+		right: 5px;
+	}
+
+	.dots {
+		bottom: 20%;
+	}
+
+	.dot {
+		width: 8px;
+		height: 8px;
+		margin: 0 3px;
 	}
 }

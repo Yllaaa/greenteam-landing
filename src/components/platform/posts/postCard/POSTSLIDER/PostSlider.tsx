@@ -5,7 +5,7 @@ import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
 import styles from "./PostSlider.module.css";
 import Image from "next/image";
-import { FaCheckSquare } from "react-icons/fa";
+import { FaCheckSquare, FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { AiFillDislike, AiFillLike } from "react-icons/ai";
 // import { FaComment } from "react-icons/fa6";
 import axios from "axios";
@@ -80,6 +80,8 @@ function PostSlider(props: Props) {
       initial: 0,
       loop: false,
       slides: { perView: 1 },
+      // Disable drag/swipe functionality
+      drag: false,
       slideChanged(slider) {
         setCurrentSlide(slider.track.details.rel);
       },
@@ -102,6 +104,21 @@ function PostSlider(props: Props) {
 
   // Create ref for reactions container
   const reactionsRef = useRef<HTMLDivElement>(null);
+
+  // Navigation handlers
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (instanceRef.current) {
+      instanceRef.current.prev();
+    }
+  };
+
+  const goToNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (instanceRef.current) {
+      instanceRef.current.next();
+    }
+  };
 
   // Fetch comments with error handling and loading state
   const fetchComments = useCallback(
@@ -303,6 +320,28 @@ function PostSlider(props: Props) {
               </div>
             ))}
           </div>
+
+          {/* Navigation Arrows */}
+          {loaded && instanceRef.current && uniqueMedia.length > 1 && (
+            <>
+              <button
+                className={`${styles.navArrow} ${styles.navArrowLeft} ${currentSlide === 0 ? styles.disabled : ''}`}
+                onClick={goToPrevious}
+                disabled={currentSlide === 0}
+                aria-label="Previous slide"
+              >
+                <FaChevronLeft />
+              </button>
+              <button
+                className={`${styles.navArrow} ${styles.navArrowRight} ${currentSlide === uniqueMedia.length - 1 ? styles.disabled : ''}`}
+                onClick={goToNext}
+                disabled={currentSlide === uniqueMedia.length - 1}
+                aria-label="Next slide"
+              >
+                <FaChevronRight />
+              </button>
+            </>
+          )}
 
           {loaded && instanceRef.current && uniqueMedia.length > 1 && (
             <div className={styles.dots}>
