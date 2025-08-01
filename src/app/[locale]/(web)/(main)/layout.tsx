@@ -7,6 +7,8 @@ import ReactQueryProvider from "@/components/platform/Payment/Plans/providers/pl
 import Footer from "@/components/platform/zfooter/Footer";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import TourComponents from "@/components/AA-NEW/MODALS/A_GUIDE/TourComponents";
+import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
 
 export default async function RootLayout({
   children,
@@ -23,19 +25,23 @@ export default async function RootLayout({
   return (
     <section data-tour={"all"} className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
-        <header>
-          <div style={{ position: "relative", zIndex: "1000" }}>
-            <Header />
-            <div>
+        <TourProviderClient>
+          <TourComponents />
+          <header>
 
-              <BackButton shouldHideOnFeeds={true} />
+            <div style={{ position: "relative", zIndex: "1000" }}>
+              <Header />
+              <div>
+
+                <BackButton shouldHideOnFeeds={true} />
+              </div>
             </div>
+          </header>
+          <ReactQueryProvider>{children}</ReactQueryProvider>
+          <div>
+            <Footer />
           </div>
-        </header>
-        <ReactQueryProvider>{children}</ReactQueryProvider>
-        <div>
-          <Footer />
-        </div>
+        </TourProviderClient>
       </NextIntlClientProvider>
     </section>
   );
