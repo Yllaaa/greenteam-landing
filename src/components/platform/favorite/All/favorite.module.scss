@@ -1,10 +1,39 @@
+/** @format */
+
 .favoritePage {
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: 30px;
-  .allPages{
-   margin-top: 32px;
+	height: fit-content;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	margin-top: 30px;
+	.allPages {
+		margin-top: 32px;
+	}
+}
+.newTitle {
+  margin: 0 0 0 40px;
+	text-align: start;
+  width: fit-content;
+	font-size: 32px;
+	font-weight: 600;
+	color: #97b00f;
+	margin-bottom: 16px;
+	background: #063;
+	padding: 8px 16px;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+	@media screen and (max-width: 1024) {
+		font-size: 24px;
+    margin: 0 0 0 20px;
   }
+  @media screen and (max-width: 768) {
+    font-size: 20px;
+    margin: 0 0 0 10px;
+  }
+  @media screen and (max-width: 480) {
+    font-size: 16px;
+	}
 }

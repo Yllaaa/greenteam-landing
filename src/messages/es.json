@@ -1388,6 +1388,7 @@
 			}
 		},
 		"mapHeader": {
+			"mapHeaderTitle": "Buscador Comunitario",
 			"filters": "Filtros",
 			"toggleFilters": "Alternar filtros",
 			"country": "País",
@@ -1539,6 +1540,7 @@
 			}
 		},
 		"favourite": {
+			"favoriteTitle": "Mi Comunidad",
 			"post": {
 				"error": "Error",
 				"noPost": "No hay publicaciones disponibles"

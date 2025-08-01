@@ -3,6 +3,8 @@
 import CookieConsent from "@/components/AA-NEW/MODALS/COOKIES/CookieConsent";
 import { NextIntlClientProvider } from "next-intl";
 import { getMessages } from "next-intl/server";
+import TourComponents from "@/components/AA-NEW/MODALS/A_GUIDE/TourComponents";
+import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
 
 // import Navbar from "@/components/aaaNavbar/Navbar";
 
@@ -22,12 +24,14 @@ export default async function RootLayout({
     <section lang="en">
       <NextIntlClientProvider messages={messages}>
         {/* <GlobalTourProvider> */}
-
+<TourProviderClient>
+            <TourComponents />
         <div>
           {children}
           <CookieConsent
           />
-        </div>
+          </div>
+        </TourProviderClient>
         {/* </GlobalTourProvider> */}
 
       </NextIntlClientProvider>

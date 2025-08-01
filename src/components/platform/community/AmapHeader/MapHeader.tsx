@@ -392,35 +392,18 @@ export default function MapHeader() {
     verificationFilter !== "all";
 
   return (
-    <div data-tour="community-map-header" className={styles.container}>
-      <main className={styles.main}>
-        {/* Mobile Filter Toggle */}
-        <button
-          className={styles.mobileFilterToggle}
-          onClick={toggleMobileFilters}
-          aria-label={t('toggleFilters')}
-        >
-          <FaFilter className={styles.filterIcon} />
-          <span>{t('filters')}</span>
-          {hasActiveFilters && (
-            <div className={styles.activeFiltersCount}>
-              {(countryId ? 1 : 0) +
-                (selectedCityId ? 1 : 0) +
-                (selectedCategory ? 1 : 0) +
-                (verificationFilter !== "all" ? 1 : 0)}
-            </div>
-          )}
-          {mobileFiltersVisible ?
-            <FaChevronUp className={styles.chevronIcon} /> :
-            <FaChevronDown className={styles.chevronIcon} />
-          }
-        </button>
-
-        {/* Search Container with conditional class for mobile */}
-        <div className={`${styles.searchContainer} ${mobileFiltersVisible ? styles.mobileVisible : styles.mobileHidden}`}>
-          <div className={styles.filterHeader}>
+    <>
+      <p className={styles.newTitle}>{t('mapHeaderTitle')}</p>
+      <div data-tour="community-map-header" className={styles.container}>
+        <main className={styles.main}>
+          {/* Mobile Filter Toggle */}
+          <button
+            className={styles.mobileFilterToggle}
+            onClick={toggleMobileFilters}
+            aria-label={t('toggleFilters')}
+          >
             <FaFilter className={styles.filterIcon} />
-            <h2>{t('filters')}</h2>
+            <span>{t('filters')}</span>
             {hasActiveFilters && (
               <div className={styles.activeFiltersCount}>
                 {(countryId ? 1 : 0) +
@@ -429,216 +412,236 @@ export default function MapHeader() {
                   (verificationFilter !== "all" ? 1 : 0)}
               </div>
             )}
-          </div>
+            {mobileFiltersVisible ?
+              <FaChevronUp className={styles.chevronIcon} /> :
+              <FaChevronDown className={styles.chevronIcon} />
+            }
+          </button>
 
-          <div className={styles.searchBox}>
-            {/* COUNTRY */}
-            <div className={styles.formGroup}>
-              <label className={styles.filterLabel}>
-                <FaGlobe className={styles.labelIcon} />
-                <span>{t('country')}</span>
-              </label>
-              <div className={styles.selectWrapper}>
-                {isLoadingCountries ? (
-                  <div className={styles.loadingSelect}>
-                    <FaSpinner className={styles.spinnerIcon} />
-                    <span>{t('loadingCountries')}</span>
-                  </div>
-                ) : (
-                  <select
-                    className={`${styles.select} ${countryId ? styles.activeSelect : ''}`}
-                    onChange={handleCountryChange}
-                    value={countryId || ""}
-                    aria-label={t('selectCountryAriaLabel')}
+          {/* Search Container with conditional class for mobile */}
+          <div className={`${styles.searchContainer} ${mobileFiltersVisible ? styles.mobileVisible : styles.mobileHidden}`}>
+            <div className={styles.filterHeader}>
+              <FaFilter className={styles.filterIcon} />
+              <h2>{t('filters')}</h2>
+              {hasActiveFilters && (
+                <div className={styles.activeFiltersCount}>
+                  {(countryId ? 1 : 0) +
+                    (selectedCityId ? 1 : 0) +
+                    (selectedCategory ? 1 : 0) +
+                    (verificationFilter !== "all" ? 1 : 0)}
+                </div>
+              )}
+            </div>
+
+            <div className={styles.searchBox}>
+              {/* COUNTRY */}
+              <div className={styles.formGroup}>
+                <label className={styles.filterLabel}>
+                  <FaGlobe className={styles.labelIcon} />
+                  <span>{t('country')}</span>
+                </label>
+                <div className={styles.selectWrapper}>
+                  {isLoadingCountries ? (
+                    <div className={styles.loadingSelect}>
+                      <FaSpinner className={styles.spinnerIcon} />
+                      <span>{t('loadingCountries')}</span>
+                    </div>
+                  ) : (
+                    <select
+                      className={`${styles.select} ${countryId ? styles.activeSelect : ''}`}
+                      onChange={handleCountryChange}
+                      value={countryId || ""}
+                      aria-label={t('selectCountryAriaLabel')}
+                    >
+                      <option value="" disabled>{t('selectCountry')}</option>
+                      {countries.map((country) => (
+                        <option key={country.id} value={country.id}>
+                          {country.name}
+                        </option>
+                      ))}
+                    </select>
+                  )}
+                </div>
+              </div>
+
+              {/* CITY - With dropdown and search */}
+              <div className={styles.formGroup}>
+                <label className={styles.filterLabel}>
+                  <FaMapMarkerAlt className={styles.labelIcon} />
+                  <span>{t('city')}</span>
+                </label>
+                <div className={styles.citySearchWrapper} ref={dropdownRef}>
+                  <div
+                    className={`${styles.cityInputContainer} ${selectedCityId ? styles.activeInput : ''} ${!countryId ? styles.disabledInput : ''}`}
+                    onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
                   >
-                    <option value="" disabled>{t('selectCountry')}</option>
-                    {countries.map((country) => (
-                      <option key={country.id} value={country.id}>
-                        {country.name}
-                      </option>
-                    ))}
-                  </select>
-                )}
-              </div>
-            </div>
-
-            {/* CITY - With dropdown and search */}
-            <div className={styles.formGroup}>
-              <label className={styles.filterLabel}>
-                <FaMapMarkerAlt className={styles.labelIcon} />
-                <span>{t('city')}</span>
-              </label>
-              <div className={styles.citySearchWrapper} ref={dropdownRef}>
-                <div
-                  className={`${styles.cityInputContainer} ${selectedCityId ? styles.activeInput : ''} ${!countryId ? styles.disabledInput : ''}`}
-                  onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
-                >
-                  <input
-                    type="text"
-                    placeholder={countryId ? t('searchCities') : t('selectCountryFirst')}
-                    className={styles.cityInput}
-                    value={citySearchText}
-                    onChange={(e) => {
-                      setCitySearchText(e.target.value);
-                      if (!isDropdownOpen) setIsDropdownOpen(true);
-                    }}
-                    disabled={!countryId}
-                    aria-label={t('searchForCity')}
-                  />
-                  <div className={styles.inputIcon}>
-                    {isLoadingCities ? (
-                      <FaSpinner className={`${styles.icon} ${styles.spinnerIcon}`} />
-                    ) : isDropdownOpen ? (
-                      <FaSearch className={styles.icon} />
-                    ) : (
-                      <IoMdArrowDropdown className={styles.icon} />
-                    )}
+                    <input
+                      type="text"
+                      placeholder={countryId ? t('searchCities') : t('selectCountryFirst')}
+                      className={styles.cityInput}
+                      value={citySearchText}
+                      onChange={(e) => {
+                        setCitySearchText(e.target.value);
+                        if (!isDropdownOpen) setIsDropdownOpen(true);
+                      }}
+                      disabled={!countryId}
+                      aria-label={t('searchForCity')}
+                    />
+                    <div className={styles.inputIcon}>
+                      {isLoadingCities ? (
+                        <FaSpinner className={`${styles.icon} ${styles.spinnerIcon}`} />
+                      ) : isDropdownOpen ? (
+                        <FaSearch className={styles.icon} />
+                      ) : (
+                        <IoMdArrowDropdown className={styles.icon} />
+                      )}
+                    </div>
                   </div>
-                </div>
 
-                {isDropdownOpen && countryId && (
-                  <div className={styles.cityDropdown}>
-                    {cities.length > 0 ? (
-                      cities.map((city) => (
-                        <div
-                          key={city.id}
-                          className={`${styles.cityOption} ${selectedCityId === city.id ? styles.selectedOption : ""}`}
-                          onClick={() => handleCitySelect(city.id, city.name)}
-                          role="option"
-                          aria-selected={selectedCityId === city.id}
-                        >
-                          {city.name}
-                          {selectedCityId === city.id && <FaCheck className={styles.checkIcon} />}
+                  {isDropdownOpen && countryId && (
+                    <div className={styles.cityDropdown}>
+                      {cities.length > 0 ? (
+                        cities.map((city) => (
+                          <div
+                            key={city.id}
+                            className={`${styles.cityOption} ${selectedCityId === city.id ? styles.selectedOption : ""}`}
+                            onClick={() => handleCitySelect(city.id, city.name)}
+                            role="option"
+                            aria-selected={selectedCityId === city.id}
+                          >
+                            {city.name}
+                            {selectedCityId === city.id && <FaCheck className={styles.checkIcon} />}
+                          </div>
+                        ))
+                      ) : (
+                        <div className={styles.noResults}>
+                          {isLoadingCities ? (
+                            <>
+                              <FaSpinner className={`${styles.spinnerIcon} ${styles.dropdownSpinner}`} />
+                              <span>{t('loadingCities')}</span>
+                            </>
+                          ) : citySearchText ? (
+                            t('noCitiesFound')
+                          ) : (
+                            t('typeToSearchCities')
+                          )}
                         </div>
-                      ))
-                    ) : (
-                      <div className={styles.noResults}>
-                        {isLoadingCities ? (
-                          <>
-                            <FaSpinner className={`${styles.spinnerIcon} ${styles.dropdownSpinner}`} />
-                            <span>{t('loadingCities')}</span>
-                          </>
-                        ) : citySearchText ? (
-                          t('noCitiesFound')
-                        ) : (
-                          t('typeToSearchCities')
-                        )}
-                      </div>
-                    )}
-                  </div>
-                )}
-              </div>
-            </div>
-
-            {/* CATEGORY */}
-            <div className={styles.formGroup}>
-              <label className={styles.filterLabel}>
-                <FaTag className={styles.labelIcon} />
-                <span>{t('category')}</span>
-              </label>
-              <select
-                className={`${styles.select} ${selectedCategory ? styles.activeSelect : ''}`}
-                onChange={handleCategoryChange}
-                value={selectedCategory || ""}
-                aria-label={t('selectCategoryAriaLabel')}
-              >
-                <option value="" disabled>{t('selectCategory')}</option>
-                <option value="local">{t('categoryLocal')}</option>
-                <option value="online">{t('categoryOnline')}</option>
-              </select>
-            </div>
-
-            {/* VERIFICATION FILTER */}
-            <div className={styles.formGroup}>
-              <label className={styles.filterLabel}>
-                <FaShieldAlt className={styles.labelIcon} />
-                <span>{t('verification')}</span>
-                <FaInfoCircle
-                  className={styles.infoIcon}
-                  title={t('verificationTooltip')}
-                />
-              </label>
-              <div className={styles.toggleFilter}>
-                <button
-                  className={`${styles.toggleButton} ${verificationFilter === "all" ? styles.activeToggle : ''}`}
-                  onClick={() => handleVerificationFilterChange("all")}
-                  aria-pressed={verificationFilter === "all"}
-                >
-                  {t('allContent')}
-                </button>
-                <button
-                  className={`${styles.toggleButton} ${verificationFilter === "verified" ? styles.activeToggle : ''}`}
-                  onClick={() => handleVerificationFilterChange("verified")}
-                  aria-pressed={verificationFilter === "verified"}
-                >
-                  {t('verifiedOnly')}
-                </button>
-              </div>
-            </div>
-
-            {/* RESET FILTERS BUTTON */}
-            {hasActiveFilters && (
-              <button
-                className={styles.resetButton}
-                onClick={handleResetFilters}
-                title={t('resetAllFilters')}
-                aria-label={t('clearAllFiltersAriaLabel')}
-              >
-                <FaTimesCircle className={styles.resetIcon} />
-                <span>{t('clearAllFilters')}</span>
-              </button>
-            )}
-
-            {/* Styled Error Message */}
-            {error && (
-              <div className={styles.errorContainer}>
-                <div className={styles.errorContent}>
-                  <FaExclamationTriangle className={styles.errorIcon} />
-                  <span className={styles.errorText}>{error}</span>
+                      )}
+                    </div>
+                  )}
                 </div>
-                <button
-                  className={styles.errorDismiss}
-                  onClick={dismissError}
-                  title={t('dismiss')}
-                  aria-label={t('dismissError')}
+              </div>
+
+              {/* CATEGORY */}
+              <div className={styles.formGroup}>
+                <label className={styles.filterLabel}>
+                  <FaTag className={styles.labelIcon} />
+                  <span>{t('category')}</span>
+                </label>
+                <select
+                  className={`${styles.select} ${selectedCategory ? styles.activeSelect : ''}`}
+                  onChange={handleCategoryChange}
+                  value={selectedCategory || ""}
+                  aria-label={t('selectCategoryAriaLabel')}
                 >
-                  <FaTimesCircle />
+                  <option value="" disabled>{t('selectCategory')}</option>
+                  <option value="local">{t('categoryLocal')}</option>
+                  <option value="online">{t('categoryOnline')}</option>
+                </select>
+              </div>
+
+              {/* VERIFICATION FILTER */}
+              <div className={styles.formGroup}>
+                <label className={styles.filterLabel}>
+                  <FaShieldAlt className={styles.labelIcon} />
+                  <span>{t('verification')}</span>
+                  <FaInfoCircle
+                    className={styles.infoIcon}
+                    title={t('verificationTooltip')}
+                  />
+                </label>
+                <div className={styles.toggleFilter}>
+                  <button
+                    className={`${styles.toggleButton} ${verificationFilter === "all" ? styles.activeToggle : ''}`}
+                    onClick={() => handleVerificationFilterChange("all")}
+                    aria-pressed={verificationFilter === "all"}
+                  >
+                    {t('allContent')}
+                  </button>
+                  <button
+                    className={`${styles.toggleButton} ${verificationFilter === "verified" ? styles.activeToggle : ''}`}
+                    onClick={() => handleVerificationFilterChange("verified")}
+                    aria-pressed={verificationFilter === "verified"}
+                  >
+                    {t('verifiedOnly')}
+                  </button>
+                </div>
+              </div>
+
+              {/* RESET FILTERS BUTTON */}
+              {hasActiveFilters && (
+                <button
+                  className={styles.resetButton}
+                  onClick={handleResetFilters}
+                  title={t('resetAllFilters')}
+                  aria-label={t('clearAllFiltersAriaLabel')}
+                >
+                  <FaTimesCircle className={styles.resetIcon} />
+                  <span>{t('clearAllFilters')}</span>
                 </button>
+              )}
+
+              {/* Styled Error Message */}
+              {error && (
+                <div className={styles.errorContainer}>
+                  <div className={styles.errorContent}>
+                    <FaExclamationTriangle className={styles.errorIcon} />
+                    <span className={styles.errorText}>{error}</span>
+                  </div>
+                  <button
+                    className={styles.errorDismiss}
+                    onClick={dismissError}
+                    title={t('dismiss')}
+                    aria-label={t('dismissError')}
+                  >
+                    <FaTimesCircle />
+                  </button>
+                </div>
+              )}
+
+              {/* Apply Filters Button (Mobile) */}
+              <button
+                className={styles.applyFiltersButton}
+                onClick={() => setMobileFiltersVisible(false)}
+                aria-label={t('applyFiltersAriaLabel')}
+              >
+                {t('applyFilters')}
+              </button>
+            </div>
+          </div>
+
+          {/* Map Container with Loading State */}
+          <div className={styles.allMapContainer}>
+            {isMapLoading && (
+              <div className={styles.mapLoadingOverlay}>
+                <FaSpinner className={styles.mapLoadingSpinner} />
+                <span>{t('loadingMap')}</span>
               </div>
             )}
 
-            {/* Apply Filters Button (Mobile) */}
-            <button
-              className={styles.applyFiltersButton}
-              onClick={() => setMobileFiltersVisible(false)}
-              aria-label={t('applyFiltersAriaLabel')}
-            >
-              {t('applyFilters')}
-            </button>
-          </div>
-        </div>
-
-        {/* Map Container with Loading State */}
-        <div className={styles.allMapContainer}>
-          {isMapLoading && (
-            <div className={styles.mapLoadingOverlay}>
-              <FaSpinner className={styles.mapLoadingSpinner} />
-              <span>{t('loadingMap')}</span>
+            {/* This overlay prevents all map interactions */}
+            <div className={styles.mapInteractionBlocker}>
+              <div className={styles.mapMessage}>
+                <FaMapMarkerAlt className={styles.mapIcon} />
+                <span>{t('mapViewOnly')}</span>
+              </div>
             </div>
-          )}
 
-          {/* This overlay prevents all map interactions */}
-          <div className={styles.mapInteractionBlocker}>
-            <div className={styles.mapMessage}>
-              <FaMapMarkerAlt className={styles.mapIcon} />
-              <span>{t('mapViewOnly')}</span>
-            </div>
+            <div className={styles.mapOverlay}></div>
+            <div ref={mapRef} className={styles.mapContainer}></div>
           </div>
-
-          <div className={styles.mapOverlay}></div>
-          <div ref={mapRef} className={styles.mapContainer}></div>
-        </div>
-      </main>
-    </div>
+        </main>
+      </div>
+    </>
   );
 }

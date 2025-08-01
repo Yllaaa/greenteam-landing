@@ -1,3 +1,4 @@
+"use client"
 import React, { lazy, Suspense } from "react";
 import styles from "./page.module.css";
 import LoadingTree from "@/components/zaLoader/LoadingTree";

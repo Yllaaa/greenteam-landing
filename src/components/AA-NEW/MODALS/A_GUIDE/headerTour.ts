@@ -1,3 +1,4 @@
+"use client";
 /** @format */
 
 // config/tours/index.ts

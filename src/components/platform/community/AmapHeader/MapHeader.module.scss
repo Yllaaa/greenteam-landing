@@ -32,7 +32,24 @@ $disabled-color: rgba($secondary-color, 0.5);
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
-
+.newTitle{
+  text-align: start;
+  width: fit-content;
+  font-size: 32px;
+  font-weight: 600;
+  color: $primary-color;
+  margin-bottom: 16px;
+  background: #063;
+  padding: 8px 16px;
+  border-radius: 10px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  -ms-border-radius: 10px;
+  -o-border-radius: 10px;
+  @media screen and (max-width: $tablet-width) {
+    font-size: 24px;
+  }
+}
 .container {
   height: fit-content;
   min-height: 432px;

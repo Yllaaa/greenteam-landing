@@ -1393,6 +1393,7 @@
 		},
 
 		"mapHeader": {
+			"mapHeaderTitle":"Community Searcher",
 			"filters": "Filters",
 			"toggleFilters": "Toggle filters",
 			"country": "Country",
@@ -1545,6 +1546,7 @@
 			}
 		},
 		"favourite": {
+			"favoriteTitle":"Your Community",
 			"post": {
 				"error": "Error",
 				"noPost": "No posts available"

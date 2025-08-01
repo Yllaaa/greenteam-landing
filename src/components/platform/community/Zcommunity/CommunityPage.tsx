@@ -5,12 +5,15 @@ import MapHeader from "../AmapHeader/MapHeader";
 
 // import ProductSection from "../products/ProductSection";
 // import Groups from "../groups/Groups";
+// import {useTranslations} from "next-intl"
 const Pages = lazy(() => import("../pages/Pages"));
 const Groups = lazy(() => import("../groups/Groups"));
 const ProductSection = lazy(() => import("../products/ProductSection"));
 const EventCom = lazy(() => import("../events/EventCom"));
 
+
 function CommunityPage() {
+  
   return (
     <>
       <MapHeader />

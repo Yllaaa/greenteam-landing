@@ -1,7 +1,7 @@
 /** @format */
 
 .container {
-	z-index: 10000000;
+	z-index: 1000;
 	position: relative;
 	display: flex;
 	flex-direction: column;

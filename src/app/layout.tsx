@@ -1,14 +1,13 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import '@/components/AA-NEW/MODALS/A_GUIDE/headerTour'; // Import to register the tour
 import { Montserrat } from "next/font/google";
-import { ToastContainer, Bounce } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import StoreProvider from "@/store/StoreProvider";
-import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
-import TourInitializer from "@/components/AA-NEW/MODALS/A_GUIDE/tourInitializer";
-import TourChainManager from "@/components/AA-NEW/MODALS/A_GUIDE/TourChainManager";
-import Script from "next/script"
+import Script from "next/script";
+import ClientOnlyToast from "@/Utils/ToastNotification/ClientOnlyToast";
+// import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
+// import TourComponents from "@/components/AA-NEW/MODALS/A_GUIDE/TourComponents";
+
 const montserrat = Montserrat({
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   subsets: ["latin", "latin-ext"],
@@ -31,43 +30,25 @@ export default function RootLayout({
   return (
     <StoreProvider>
       <html lang="en" className={` ${montserrat.variable}`}>
-        <head>
-          {/* Google Tag Manager */}
-          <Script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-3KCMFBG4FN"
-          ></Script>
-          <script
-            dangerouslySetInnerHTML={{
-              __html: `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-3KCMFBG4FN');
-    `,
-            }}
-          />
-          {/* End Google Tag Manager */}
-        </head>
         <body>
-          <TourProviderClient>
-            <TourInitializer />
-            <TourChainManager />
+          <Script
+            src="https://www.googletagmanager.com/gtag/js?id=G-3KCMFBG4FN"
+            strategy="afterInteractive"
+          />
+          <Script id="google-analytics" strategy="afterInteractive">
+            {`
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-3KCMFBG4FN');
+            `}
+          </Script>
+
+          {/* <TourProviderClient>
+            <TourComponents /> */}
             {children}
-            <ToastContainer
-              position="top-center"
-              autoClose={5000}
-              hideProgressBar
-              newestOnTop={false}
-              closeOnClick
-              rtl={false}
-              pauseOnFocusLoss
-              draggable
-              pauseOnHover
-              theme="light"
-              transition={Bounce}
-            />
-          </TourProviderClient>
+            <ClientOnlyToast />
+          {/* </TourProviderClient> */}
         </body>
       </html>
     </StoreProvider>
