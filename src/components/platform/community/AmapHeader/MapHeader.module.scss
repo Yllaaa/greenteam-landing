@@ -776,3 +776,188 @@ $disabled-color: rgba($secondary-color, 0.5);
     background-color: rgba(255, 255, 255, 0.8) !important;
   }
 }
+
+// Country search wrapper styles - NEW
+.countrySearchWrapper {
+  position: relative;
+  width: 100%;
+  
+  .countryInputContainer {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+    
+    .countryInput {
+      width: 100%;
+      height: 50px;
+      padding: 0 40px 0 15px;
+      border: 2px solid transparent;
+      background-color: $secondary-color;
+      color: $text-on-dark;
+      border-radius: 10px;
+      font-size: 15px;
+      @include transition;
+      
+      &:focus {
+        border-color: $primary-color;
+        outline: none;
+      }
+      
+      &::placeholder {
+        color: rgba($text-on-dark, 0.5);
+      }
+    }
+    
+    .inputIcon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-on-dark;
+      
+      .icon {
+        width: 16px;
+        height: 16px;
+      }
+      
+      .spinnerIcon {
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+  
+  .countryDropdown {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    width: 100%;
+    max-height: 250px;
+    overflow-y: auto;
+    background-color: $secondary-color;
+    border-radius: 10px;
+    z-index: 20;
+    @include box-shadow;
+    animation: slideDown 0.2s ease-out;
+    
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: $secondary-color;
+      border-radius: 10px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background: $primary-color;
+      border-radius: 10px;
+    }
+    
+    .countryOption {
+      padding: 12px 15px;
+      cursor: pointer;
+      color: $text-on-dark;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      @include transition;
+      
+      &:hover {
+        background-color: rgba($primary-color, 0.1);
+      }
+      
+      .countryName {
+        flex: 1;
+        text-align: left;
+      }
+      
+      .countryIso {
+        font-size: 12px;
+        color: rgba($text-on-dark, 0.7);
+        margin-left: 8px;
+        margin-right: 8px;
+      }
+      
+      .checkIcon {
+        font-size: 14px;
+        color: $primary-color;
+      }
+    }
+    
+    .selectedOption {
+      background-color: rgba($primary-color, 0.2);
+      font-weight: 600;
+    }
+    
+    .noResults {
+      padding: 15px;
+      text-align: center;
+      color: rgba($text-on-dark, 0.7);
+      font-style: italic;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      .dropdownSpinner {
+        margin-right: 10px;
+        animation: spin 1s linear infinite;
+      }
+    }
+  }
+}
+
+// Enhanced mobile responsiveness for the new country search
+@media screen and (max-width: $tablet-width) {
+  .countrySearchWrapper {
+    .countryDropdown {
+      max-height: 200px;
+    }
+    
+    .countryOption {
+      padding: 10px 12px;
+      font-size: 14px;
+      
+      .countryIso {
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: $mobile-width) {
+  .countrySearchWrapper {
+    .countryInputContainer {
+      .countryInput {
+        height: 40px;
+        font-size: 14px;
+      }
+    }
+    
+    .countryDropdown {
+      max-height: 150px;
+      top: 45px;
+    }
+    
+    .countryOption {
+      padding: 8px 10px;
+      font-size: 13px;
+      
+      .countryName {
+        font-size: 13px;
+      }
+      
+      .countryIso {
+        font-size: 10px;
+      }
+      
+      .checkIcon {
+        font-size: 12px;
+      }
+    }
+    
+    .noResults {
+      padding: 12px;
+      font-size: 12px;
+    }
+  }
+}

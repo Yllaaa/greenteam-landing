@@ -22,6 +22,7 @@ import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 type Props = {
   postId: string;
 };
+
 function SinglePost(props: Props) {
   const localS = getToken();
   const accessToken = localS ? localS.accessToken : null;
@@ -51,7 +52,6 @@ function SinglePost(props: Props) {
       .then((response) => {
         setIsMounted(true);
         console.log(response.data);
-
         setPost(response.data);
       })
       .catch((error) => {
@@ -61,7 +61,7 @@ function SinglePost(props: Props) {
 
   const formatTimeDifference = useCallback(
     (targetDate: string): string => {
-      if (!isMounted) return ""; // Prevent SSR/CSR mismatch
+      if (!isMounted) return "";
 
       const target = new Date(targetDate);
       const now = new Date();
@@ -97,6 +97,7 @@ function SinglePost(props: Props) {
     },
     [router, locale]
   );
+
   const t = useTranslations("web.main.feeds");
   const [likeCount, setLikeCount] = useState(0);
   const [dislikeCount, setDislikeCount] = useState(0);
@@ -111,8 +112,6 @@ function SinglePost(props: Props) {
       setUserLiked(post?.userReactionType === "like");
       setUserDisliked(post?.userReactionType === "dislike");
       setUserDo(post?.hasDoReaction);
-      console.log(post.hasDoReaction);
-      console.log(post.userReactionType);
     }
   }, [isMounted, post]);
 
@@ -124,6 +123,7 @@ function SinglePost(props: Props) {
   }, [post]);
 
   const API_BASE_URL = process.env.NEXT_PUBLIC_BACKENDAPI;
+
   // Handle reaction API calls
   const handleToggleReaction = useCallback(
     async (reactionType: ReactionType) => {
@@ -151,7 +151,6 @@ function SinglePost(props: Props) {
           });
       } catch (error) {
         console.error("Error toggling reaction:", error);
-        // Revert UI state on error
         if (post)
           if (reactionType === "like") {
             setUserLiked(post?.userReactionType === "like");
@@ -170,20 +169,15 @@ function SinglePost(props: Props) {
   // Handle like button click with optimistic UI update
   const handleLike = () => {
     handleToggleReaction("like");
-    // If already liked, remove like
     if (userLiked) {
       setLikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserLiked(false);
-    }
-    // If disliked, remove dislike and add like
-    else if (userDisliked) {
+    } else if (userDisliked) {
       setDislikeCount((prevCount) => Math.max(0, prevCount - 1));
       setLikeCount((prevCount) => prevCount + 1);
       setUserDisliked(false);
       setUserLiked(true);
-    }
-    // Otherwise, add like
-    else {
+    } else {
       setLikeCount((prevCount) => prevCount + 1);
       setUserLiked(true);
     }
@@ -192,40 +186,31 @@ function SinglePost(props: Props) {
   // Handle dislike button click with optimistic UI update
   const handleDislike = () => {
     handleToggleReaction("dislike");
-    // If already disliked, remove dislike
     if (userDisliked) {
       setDislikeCount((prevCount) => Math.max(0, prevCount - 1));
       setUserDisliked(false);
-    }
-    // If liked, remove like and add dislike
-    else if (userLiked) {
+    } else if (userLiked) {
       setLikeCount((prevCount) => Math.max(0, prevCount - 1));
       setDislikeCount((prevCount) => prevCount + 1);
       setUserLiked(false);
       setUserDisliked(true);
-    }
-    // Otherwise, add dislike
-    else {
+    } else {
       setDislikeCount((prevCount) => prevCount + 1);
       setUserDisliked(true);
     }
   };
-  // /////////////////
-  // Handle dislike button click with optimistic UI update
+
+  // Handle do button click with optimistic UI update
   const handleDo = () => {
     handleToggleReaction("do");
-    // If liked, remove do
     if (userDo) {
       setUserDo(false);
-    }
-    // Otherwise, add do
-    else {
+    } else {
       setUserDo(true);
     }
   };
 
   // get comments
-
   useEffect(() => {
     axios
       .get(
@@ -250,17 +235,18 @@ function SinglePost(props: Props) {
   const [fullscreenImage, setFullscreenImage] = useState(null);
   const openFullscreen = (media: any) => {
     setFullscreenImage(media);
-    document.body.style.overflow = "hidden"; // Prevent scrolling when fullscreen is open
+    document.body.style.overflow = "hidden";
   };
 
   const closeFullscreen = () => {
     setFullscreenImage(null);
-    document.body.style.overflow = "auto"; // Restore scrolling
+    document.body.style.overflow = "auto";
   };
+
   const downloadPdf = (link: string) => {
-    // downloadPDF(link, name);
     window.open(link, "_blank");
   };
+
   return (
     <>
       {post && (
@@ -270,7 +256,6 @@ function SinglePost(props: Props) {
               onClick={() =>
                 navigateToProfile(post.author.username, post.author.type)
               }
-              style={{ cursor: "pointer" }}
               className={styles.userAvatar}
             >
               <Image
@@ -278,6 +263,7 @@ function SinglePost(props: Props) {
                 alt={`${post.author.username}'s avatar`}
                 width={40}
                 height={40}
+                className={styles.avatarImage}
               />
             </div>
             <div className={styles.details}>
@@ -285,23 +271,27 @@ function SinglePost(props: Props) {
                 onClick={() =>
                   navigateToProfile(post.author.username, post.author.type)
                 }
-                style={{ cursor: "pointer" }}
                 className={styles.userName}
               >
                 <p>
-                  {post.author.fullName || post.author.username} <span>@{post.author.username}  . {formatTimeDifference(post.post.createdAt)}</span>
-
+                  <span className={styles.fullName}>
+                    {post.author.fullName || post.author.username}
+                  </span>
+                  <span className={styles.usernameTime}>
+                    @{post.author.username} · {formatTimeDifference(post.post.createdAt)}
+                  </span>
                 </p>
               </div>
             </div>
           </div>
+
           <div className={styles.postContent}>
             <p>{linkifyText(post.post.content, {
               className: linkifyStyles['content-link'],
               target: "_blank",
-
             })}</p>
           </div>
+
           {post.media.length > 0 && (
             <div className={styles.postImages}>
               <div
@@ -315,36 +305,37 @@ function SinglePost(props: Props) {
               >
                 {uniqueImages &&
                   uniqueImages.map((media) => (
-                    <Image
-                      key={media.id}
-                      src={
-                        media.mediaType === "image"
-                          ? media.mediaUrl
-                          : media.mediaType === "document"
-                            ? attached
-                            : foot
-                      }
-                      alt="Post Media"
-                      width={300}
-                      height={300}
-                      loading="lazy"
-                      className={styles.image}
-                      onClick={() =>
-                        media.mediaType === "image"
-                          ? openFullscreen(media.mediaUrl)
-                          : media.mediaType === "document"
-                            ? downloadPdf(media.mediaUrl)
-                            : null
-                      }
-                    />
+                    <div key={media.id} className={styles.imageWrapper}>
+                      <Image
+                        src={
+                          media.mediaType === "image"
+                            ? media.mediaUrl
+                            : media.mediaType === "document"
+                              ? attached
+                              : foot
+                        }
+                        alt="Post Media"
+                        width={300}
+                        height={300}
+                        loading="lazy"
+                        className={styles.image}
+                        onClick={() =>
+                          media.mediaType === "image"
+                            ? openFullscreen(media.mediaUrl)
+                            : media.mediaType === "document"
+                              ? downloadPdf(media.mediaUrl)
+                              : null
+                        }
+                      />
+                    </div>
                   ))}
               </div>
             </div>
           )}
+
           {/* Fullscreen overlay */}
           <div
-            className={`${styles.fullscreenOverlay} ${fullscreenImage ? styles.active : ""
-              }`}
+            className={`${styles.fullscreenOverlay} ${fullscreenImage ? styles.active : ""}`}
             onClick={closeFullscreen}
           >
             {fullscreenImage && (
@@ -355,18 +346,19 @@ function SinglePost(props: Props) {
                   width={1200}
                   height={1200}
                   className={styles.fullscreenImage}
-                  onClick={(e) => e.stopPropagation()} // Prevent closing when clicking on the image itself
+                  onClick={(e) => e.stopPropagation()}
                 />
                 <button
                   className={styles.closeButton}
                   onClick={closeFullscreen}
+                  aria-label="Close fullscreen"
                 >
                   ✕
                 </button>
               </>
             )}
           </div>
-          {/*  */}
+
           <div className={styles.reactionBtns}>
             <button
               className={styles.btn}
@@ -374,9 +366,7 @@ function SinglePost(props: Props) {
               aria-label="Do It"
             >
               <FaCheckSquare style={{ fill: userDo ? "#006633" : "#97B00F" }} />
-              <p>
-                <span>{t("do")}</span>
-              </p>
+              <span className={styles.btnText}>{t("do")}</span>
             </button>
 
             <button
@@ -385,11 +375,7 @@ function SinglePost(props: Props) {
               aria-label="Like"
             >
               <AiFillLike style={{ fill: userLiked ? "#006633" : "#97B00F" }} />
-              <p>
-                <span>
-                  {likeCount && likeCount}
-                </span>
-              </p>
+              <span className={styles.btnText}>{likeCount || 0}</span>
             </button>
 
             <button
@@ -400,24 +386,15 @@ function SinglePost(props: Props) {
               <AiFillDislike
                 style={{ fill: userDisliked ? "#006633" : "#97B00F" }}
               />
-              <p>
-                <span>
-                  {dislikeCount}
-                </span>
-              </p>
+              <span className={styles.btnText}>{dislikeCount || 0}</span>
             </button>
 
             <button className={styles.btn} aria-label="Comment">
               <FaComment style={{ fill: "#97B00F" }} />
-              <p>
-                <span>
-                  {post.commentCount}
-                </span>
-              </p>
+              <span className={styles.btnText}>{post.commentCount || 0}</span>
             </button>
           </div>
-          {/*  */}
-          {post.post.mediaUrl && <div className={styles.postImages}></div>}
+
           <div className={styles.postComments}>
             {postId && (
               <PostCommentSection

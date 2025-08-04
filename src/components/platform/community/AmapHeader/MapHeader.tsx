@@ -63,9 +63,16 @@ export default function MapHeader() {
   const mapRef = useRef<HTMLDivElement>(null);
   const mapInstanceRef = useRef<any>(null);
   const markerRef = useRef<any>(null);
+
+  // City search states
   const [citySearchText, setCitySearchText] = useState<string>("");
-  const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
+  const [isCityDropdownOpen, setIsCityDropdownOpen] = useState<boolean>(false);
+  const cityDropdownRef = useRef<HTMLDivElement>(null);
+
+  // Country search states - NEW
+  const [countrySearchText, setCountrySearchText] = useState<string>("");
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState<boolean>(false);
+  const countryDropdownRef = useRef<HTMLDivElement>(null);
 
   // New state variables for enhanced UX
   const [mobileFiltersVisible, setMobileFiltersVisible] = useState<boolean>(true);
@@ -76,16 +83,25 @@ export default function MapHeader() {
   // Flag to track if we should update the map
   const shouldUpdateMap = useRef<boolean>(false);
 
+  // Filtered countries based on search text - NEW
+  const filteredCountries = countries.filter(country =>
+    country.name.toLowerCase().includes(countrySearchText.toLowerCase()) ||
+    country.iso.toLowerCase().includes(countrySearchText.toLowerCase())
+  );
+
   // Toggle mobile filters
   const toggleMobileFilters = () => {
     setMobileFiltersVisible(!mobileFiltersVisible);
   };
 
-  // Handle clicks outside the dropdown to close it
+  // Handle clicks outside the dropdowns to close them
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsDropdownOpen(false);
+      if (cityDropdownRef.current && !cityDropdownRef.current.contains(event.target as Node)) {
+        setIsCityDropdownOpen(false);
+      }
+      if (countryDropdownRef.current && !countryDropdownRef.current.contains(event.target as Node)) {
+        setIsCountryDropdownOpen(false);
       }
     };
 
@@ -140,12 +156,17 @@ export default function MapHeader() {
     // Reset local state
     setCountryId(undefined);
     setSelectedCountryName("");
+    setCountrySearchText("");
     setSelectedCityId(undefined);
     setSelectedCityName("");
     setCitySearchText("");
     setSelectedCategory(undefined);
     setError(null);
     setVerificationFilter("all");
+
+    // Close dropdowns
+    setIsCountryDropdownOpen(false);
+    setIsCityDropdownOpen(false);
 
     // Reset Redux state
     dispatch(resetDestination());
@@ -175,14 +196,14 @@ export default function MapHeader() {
         if (!mapInstanceRef.current && mapRef.current) {
           // Create the map with dragging and other interactions disabled
           mapInstanceRef.current = L.map(mapRef.current, {
-            dragging: false,      // Disable dragging
-            touchZoom: false,     // Disable touch zoom
-            scrollWheelZoom: false, // Disable scroll wheel zoom
-            doubleClickZoom: false, // Disable double click zoom
-            boxZoom: false,       // Disable box zooming
-            keyboard: false,      // Disable keyboard navigation
-            zoomControl: false,   // Remove zoom control
-            attributionControl: true // Keep attribution
+            dragging: false,
+            touchZoom: false,
+            scrollWheelZoom: false,
+            doubleClickZoom: false,
+            boxZoom: false,
+            keyboard: false,
+            zoomControl: false,
+            attributionControl: true
           }).setView([0, 0], 2);
 
           // Use OpenStreetMap tiles which don't require authentication
@@ -194,7 +215,6 @@ export default function MapHeader() {
           // Apply dark mode styling to the map
           const mapContainer = mapRef.current;
           if (mapContainer) {
-            // Add a class to help with styling
             mapContainer.classList.add(styles.darkModeMap);
           }
 
@@ -319,36 +339,25 @@ export default function MapHeader() {
       });
   }, [accessToken, countryId, citySearchText, t]);
 
-  // Handle country selection
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
+  // Handle country selection - NEW
+  const handleCountrySelect = (countryId: number, countryName: string) => {
+    // Reset city state first
+    setSelectedCityId(undefined);
+    setSelectedCityName("");
+    setCitySearchText("");
 
-    if (!value) {
-      setCountryId(undefined);
-      setSelectedCountryName("");
-      return;
-    }
+    // Update Redux state
+    dispatch(setCurrentDestination({ selectedCountry: countryId }));
+    dispatch(clearSelectedCity());
 
-    const newCountryId = parseInt(value);
-    const selectedCountry = countries.find((c) => c.id === newCountryId);
+    // Update country state
+    setCountryId(countryId);
+    setSelectedCountryName(countryName);
+    setCountrySearchText(countryName);
+    setIsCountryDropdownOpen(false);
 
-    if (selectedCountry) {
-      // Reset city state first
-      setSelectedCityId(undefined);
-      setSelectedCityName("");
-      setCitySearchText("");
-
-      // Update Redux state
-      dispatch(setCurrentDestination({ selectedCountry: newCountryId }));
-      dispatch(clearSelectedCity());
-
-      // Update country state
-      setCountryId(newCountryId);
-      setSelectedCountryName(selectedCountry.name);
-
-      // Set flag to update map on next render
-      shouldUpdateMap.current = true;
-    }
+    // Set flag to update map on next render
+    shouldUpdateMap.current = true;
   };
 
   // Handle city selection
@@ -356,7 +365,7 @@ export default function MapHeader() {
     setSelectedCityId(cityId);
     setSelectedCityName(cityName);
     setCitySearchText(cityName);
-    setIsDropdownOpen(false);
+    setIsCityDropdownOpen(false);
 
     // Update Redux state
     dispatch(setCurrentDestination({ selectedCity: cityId }));
@@ -434,32 +443,70 @@ export default function MapHeader() {
             </div>
 
             <div className={styles.searchBox}>
-              {/* COUNTRY */}
+              {/* COUNTRY - With searchable dropdown */}
               <div className={styles.formGroup}>
                 <label className={styles.filterLabel}>
                   <FaGlobe className={styles.labelIcon} />
                   <span>{t('country')}</span>
                 </label>
-                <div className={styles.selectWrapper}>
-                  {isLoadingCountries ? (
-                    <div className={styles.loadingSelect}>
-                      <FaSpinner className={styles.spinnerIcon} />
-                      <span>{t('loadingCountries')}</span>
+                <div className={styles.countrySearchWrapper} ref={countryDropdownRef}>
+                  <div
+                    className={`${styles.countryInputContainer} ${countryId ? styles.activeInput : ''}`}
+                    onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                  >
+                    <input
+                      type="text"
+                      placeholder={t('searchCountries')}
+                      className={styles.countryInput}
+                      value={countrySearchText}
+                      onChange={(e) => {
+                        setCountrySearchText(e.target.value);
+                        if (!isCountryDropdownOpen) setIsCountryDropdownOpen(true);
+                      }}
+                      aria-label={t('searchForCountry')}
+                    />
+                    <div className={styles.inputIcon}>
+                      {isLoadingCountries ? (
+                        <FaSpinner className={`${styles.icon} ${styles.spinnerIcon}`} />
+                      ) : isCountryDropdownOpen ? (
+                        <FaSearch className={styles.icon} />
+                      ) : (
+                        <IoMdArrowDropdown className={styles.icon} />
+                      )}
                     </div>
-                  ) : (
-                    <select
-                      className={`${styles.select} ${countryId ? styles.activeSelect : ''}`}
-                      onChange={handleCountryChange}
-                      value={countryId || ""}
-                      aria-label={t('selectCountryAriaLabel')}
-                    >
-                      <option value="" disabled>{t('selectCountry')}</option>
-                      {countries.map((country) => (
-                        <option key={country.id} value={country.id}>
-                          {country.name}
-                        </option>
-                      ))}
-                    </select>
+                  </div>
+
+                  {isCountryDropdownOpen && (
+                    <div className={styles.countryDropdown}>
+                      {filteredCountries.length > 0 ? (
+                        filteredCountries.map((country) => (
+                          <div
+                            key={country.id}
+                            className={`${styles.countryOption} ${countryId === country.id ? styles.selectedOption : ""}`}
+                            onClick={() => handleCountrySelect(country.id, country.name)}
+                            role="option"
+                            aria-selected={countryId === country.id}
+                          >
+                            <span className={styles.countryName}>{country.name}</span>
+                            <span className={styles.countryIso}>({country.iso})</span>
+                            {countryId === country.id && <FaCheck className={styles.checkIcon} />}
+                          </div>
+                        ))
+                      ) : (
+                        <div className={styles.noResults}>
+                          {isLoadingCountries ? (
+                            <>
+                              <FaSpinner className={`${styles.spinnerIcon} ${styles.dropdownSpinner}`} />
+                              <span>{t('loadingCountries')}</span>
+                            </>
+                          ) : countrySearchText ? (
+                            t('noCountriesFound')
+                          ) : (
+                            t('typeToSearchCountries')
+                          )}
+                        </div>
+                      )}
+                    </div>
                   )}
                 </div>
               </div>
@@ -470,10 +517,10 @@ export default function MapHeader() {
                   <FaMapMarkerAlt className={styles.labelIcon} />
                   <span>{t('city')}</span>
                 </label>
-                <div className={styles.citySearchWrapper} ref={dropdownRef}>
+                <div className={styles.citySearchWrapper} ref={cityDropdownRef}>
                   <div
                     className={`${styles.cityInputContainer} ${selectedCityId ? styles.activeInput : ''} ${!countryId ? styles.disabledInput : ''}`}
-                    onClick={() => countryId && setIsDropdownOpen(!isDropdownOpen)}
+                    onClick={() => countryId && setIsCityDropdownOpen(!isCityDropdownOpen)}
                   >
                     <input
                       type="text"
@@ -482,7 +529,7 @@ export default function MapHeader() {
                       value={citySearchText}
                       onChange={(e) => {
                         setCitySearchText(e.target.value);
-                        if (!isDropdownOpen) setIsDropdownOpen(true);
+                        if (!isCityDropdownOpen) setIsCityDropdownOpen(true);
                       }}
                       disabled={!countryId}
                       aria-label={t('searchForCity')}
@@ -490,7 +537,7 @@ export default function MapHeader() {
                     <div className={styles.inputIcon}>
                       {isLoadingCities ? (
                         <FaSpinner className={`${styles.icon} ${styles.spinnerIcon}`} />
-                      ) : isDropdownOpen ? (
+                      ) : isCityDropdownOpen ? (
                         <FaSearch className={styles.icon} />
                       ) : (
                         <IoMdArrowDropdown className={styles.icon} />
@@ -498,7 +545,7 @@ export default function MapHeader() {
                     </div>
                   </div>
 
-                  {isDropdownOpen && countryId && (
+                  {isCityDropdownOpen && countryId && (
                     <div className={styles.cityDropdown}>
                       {cities.length > 0 ? (
                         cities.map((city) => (

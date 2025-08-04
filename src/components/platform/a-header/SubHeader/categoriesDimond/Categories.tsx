@@ -143,7 +143,7 @@ const Categories: React.FC = () => {
     physical: {
       name: 'Physical And Mental Exercise',
       value: t("physical"),
-      icon: physical,
+      icon: eco,
       color: CATEGORY_COLORS.physical.primary,
       borderColor: CATEGORY_COLORS.physical.border
     },
@@ -164,7 +164,7 @@ const Categories: React.FC = () => {
     eco: {
       name: 'Ecotechnologies',
       value: t("eco"),
-      icon: eco,
+      icon: physical,
       color: CATEGORY_COLORS.eco.primary,
       borderColor: CATEGORY_COLORS.eco.border
     },
