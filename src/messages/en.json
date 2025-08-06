@@ -348,11 +348,13 @@
 				"support": {
 					"title": "Community Support",
 					"points": [
-						"Small personal donations from believers",
-						"Support from conscious projects and businesses",
-						"Voluntary user registrations",
-						"Team commitment to use resources responsibly",
-						"Working toward environmental and social balance"
+						"Register for free and share the journey toward sustainability",
+						"Showcase your project or business by offering your solutions",
+						"Support and engage with conscious projects and businesses near you",
+						"You can make small voluntary annual donations (members)",
+						"Team commitment to using resources responsibly",
+						"Improvement of communication tools to facilitate the ecological transition and human interaction",
+						"We work together toward personal, environmental, and social balance"
 					]
 				},
 				"closing": {
@@ -1549,7 +1551,7 @@
 			}
 		},
 		"favourite": {
-			"favoriteTitle":"Your Community",
+			"favoriteTitle": "Your Community",
 			"post": {
 				"error": "Error",
 				"noPost": "No posts available"
