@@ -193,7 +193,7 @@ function MyChallengeCard(props: Props) {
     setAddNew(true)
     setPostId(challenge.id)
     setEndPoint(`${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/challenges/do-posts/${challenge.id}/done-with-post`)
-
+ToastNot("ADDED TO MY CHALLENGES");
     // try {
     //   axios
     //     .put(

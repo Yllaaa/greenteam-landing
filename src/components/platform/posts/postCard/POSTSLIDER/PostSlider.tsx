@@ -635,11 +635,13 @@ function PostSlider(props: Props) {
         if (reactionType === "like") {
           setUserLiked(userReactionType === "like");
           setLikeCount(parseInt(likes) || 0);
+
         } else if (reactionType === "dislike") {
           setUserDisliked(userReactionType === "dislike");
           setDislikeCount(parseInt(dislikes) || 0);
         } else if (reactionType === "do") {
           setUserDo(hasDoReaction);
+          ToastNot(hasDoReaction ? "Removed from my challenges" : "Added to my challenges");
         }
       }
     },
