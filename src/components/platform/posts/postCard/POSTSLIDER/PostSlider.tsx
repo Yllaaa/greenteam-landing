@@ -485,6 +485,7 @@ import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
 import { useTranslations } from "next-intl";
 import CommentButton from "@/Utils/commentButton/CommentButton";
+import ToastNot from "@/Utils/ToastNotification/ToastNot"
 
 function PostSlider(props: Props) {
   const router = useRouter();
