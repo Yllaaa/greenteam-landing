@@ -76,6 +76,45 @@
 	margin: auto;
 	position: absolute;
 	right: 209px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	gap: 12px;
+}
+.containerDiscover .logoContainer button {
+	width: 272px;
+	height: 42px;
+	background: #97b00f;
+	border: none;
+	outline: none;
+	color: #fff;
+	font-family: Montserrat;
+	font-weight: 700;
+	font-size: 20px;
+	line-height: 150%;
+	letter-spacing: 0%;
+	text-align: center;
+	vertical-align: middle;
+	cursor: pointer;
+	border-radius: 20px;
+	-webkit-border-radius: 20px;
+	-moz-border-radius: 20px;
+	-ms-border-radius: 20px;
+	-o-border-radius: 20px;
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
+}
+.containerDiscover .logoContainer button:hover {
+	background: #005533;
+	transition: all 0.3s ease;
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	-ms-transition: all 0.3s ease;
+	-o-transition: all 0.3s ease;
 }
 .containerDiscover .logoContainer .logo {
 	width: 142px;
@@ -293,6 +332,11 @@
 		position: absolute;
 		right: 10px;
 		bottom: 10px;
+	}
+	.containerDiscover .logoContainer button {
+		width: 190px;
+		height: 42px;
+		font-size: 12px;
 	}
 	.containerDiscover .logoContainer .logo {
 		width: 100%;

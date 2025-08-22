@@ -53,10 +53,10 @@ function Footer() {
         <div className={styles.containerDiscover}>
           <div className={styles.textOneContainer}>
             <p>{t("sustainability")}</p>
-            <button data-tour={"app-store"} onClick={handleDownload}>{t("download")}</button>
           </div>
           <div className={styles.logoContainer}>
             <Image src={footLogo} alt="community" className={styles.logo} />
+            <button data-tour={"app-store"} onClick={handleDownload}>{t("download")}</button>
           </div>
         </div>
         <div className={styles.upper}>
@@ -76,7 +76,7 @@ function Footer() {
                 data-tour={"invite"}
                 onClick={handleInvite}
                 className={styles.button}
-                style={{ position: 'relative' }}
+                style={{ position: 'relative', fontSize: '18px' }}
               >
                 {copied ? "Link Copied!" : t("invite")}
               </button>
