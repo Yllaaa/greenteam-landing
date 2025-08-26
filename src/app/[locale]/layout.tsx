@@ -23,6 +23,7 @@ export default async function RootLayout({
   return (
     <section lang="en">
       <NextIntlClientProvider messages={messages}>
+        
         {/* <GlobalTourProvider> */}
         {/* <TourProviderClient>
           <TourComponents /> */}

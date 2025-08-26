@@ -6,6 +6,8 @@ import { getMessages } from "next-intl/server";
 import styles from "./groups.module.css";
 import Grpheader from "@/components/platform/sections/sec_group/header/GrpHeader";
 import BackButton from "@/components/platform/breadcrumb/BackButton";
+import TourComponents from "@/components/AA-NEW/MODALS/A_GUIDE/TourComponents";
+import { TourProviderClient } from "@/components/AA-NEW/MODALS/A_GUIDE/TourProviderClient";
 
 export default async function RootLayout({
   children,
@@ -22,6 +24,8 @@ export default async function RootLayout({
   return (
     <section className="platform" lang="en">
       <NextIntlClientProvider messages={messages}>
+       <TourProviderClient>
+                 <TourComponents />
         <header>
           <div style={{ position: "relative", zIndex: "10" }}>
             <Header />
@@ -36,7 +40,8 @@ export default async function RootLayout({
 
         <div>
           <Footer />
-        </div>
+          </div>
+          </TourProviderClient>
       </NextIntlClientProvider>
     </section>
   );
