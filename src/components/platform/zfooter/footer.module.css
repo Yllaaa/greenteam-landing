@@ -306,17 +306,18 @@
 		flex-direction: column;
 		padding: 10px;
 		min-height: fit-content;
+		min-height: 150px;
 	}
 	.containerDiscover .textOneContainer {
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		width: 100%;
+		width: 50%;
 		gap: 25px;
 	}
 	.containerDiscover .textOneContainer p {
-		font-size: 32px;
-		line-height: 30px;
+		font-size: 18px;
+		line-height: 22px;
 		text-align: start;
 	}
 	.containerDiscover .textOneContainer button {
@@ -327,12 +328,17 @@
 	}
 
 	.containerDiscover .logoContainer {
-		width: 79px;
-		height: 82px;
+		width: 59px;
+		height: 62px;
 		position: absolute;
-		right: 10px;
-		bottom: 10px;
-	}
+		right: 25%;
+		bottom: 40%;
+		transform: translateY(40%);
+		-webkit-transform: translateY(40%);
+		-moz-transform: translateY(40%);
+		-ms-transform: translateY(40%);
+		-o-transform: translateY(40%);
+}
 	.containerDiscover .logoContainer button {
 		width: 190px;
 		height: 42px;
