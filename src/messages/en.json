@@ -362,6 +362,16 @@
 					"message": "It is a pleasure to work for you and co-create freely with our conscious community.",
 					"slogan": "We are all GREENTEAM!",
 					"cta": "BECOME A MEMBER NOW!"
+				},
+				"childSafety": {
+					"title": "Child Safety Standards",
+					"content": "GreenTeam.app implements stringent safety measures to protect minors:",
+					"items": {
+						"1": "All users must be at least 16 years old to create an account",
+						"2": "Content filtering systems proactively scan for inappropriate material",
+						"3": "Reporting tools enable immediate flagging of concerning content",
+						"4": "Parental supervision features coming in Q4 2025"
+					}
 				}
 			},
 			"readMore": "Read more",

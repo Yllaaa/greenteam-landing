@@ -133,6 +133,20 @@ const PrivacyPolicy: React.FC = () => {
             contentKey: 'sections.age.content'
         },
         {
+            id: 'child-safety',
+            titleKey: 'sections.childSafety.title',
+            customContent: (t) => (
+                <>
+                    <p>{t('sections.childSafety.content')}</p>
+                    <ul>
+                        {[1, 2, 3, 4].map(i => (
+                            <li key={i}>{t(`sections.childSafety.items.${i}`)}</li>
+                        ))}
+                    </ul>
+                </>
+            )
+        },
+        {
             id: 'changes',
             titleKey: 'sections.changes.title',
             contentKey: 'sections.changes.content'

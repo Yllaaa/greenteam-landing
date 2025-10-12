@@ -188,6 +188,16 @@
 				"contact": {
 					"title": "Contacto",
 					"content": "Para cualquier pregunta, ejercicio de derechos o consultas sobre esta política, puedes escribirnos a:"
+				},
+				"childSafety": {
+					"title": "Normas de Seguridad Infantil",
+					"content": "GreenTeam.app implementa medidas estrictas de seguridad para proteger a los menores:",
+					"items": {
+						"1": "Todos los usuarios deben tener al menos 16 años para crear una cuenta",
+						"2": "Los sistemas de filtrado de contenido escanean proactivamente material inapropiado",
+						"3": "Las herramientas de denuncia permiten señalar inmediatamente contenido preocupante",
+						"4": "Funciones de supervisión parental llegarán en el cuarto trimestre de 2025"
+					}
 				}
 			},
 			"cookies": {
