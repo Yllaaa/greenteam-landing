@@ -5,7 +5,7 @@ import axios from "axios";
 import { useState } from "react";
 import { FieldValues, useForm } from "react-hook-form";
 // import ReCAPTCHA from "react-google-recaptcha";
-import "react-toastify/dist/ReactToastify.css";
+
 import { useRouter } from "next/navigation";
 import { useLocale, useTranslations } from "next-intl";
 
