@@ -20,6 +20,8 @@ import foot from "@/../public/logo/foot.png";
 import { useTranslations } from "next-intl";
 // Define better types for better type safety
 import CommentButton from "@/Utils/commentButton/CommentButton";
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 function PostSlider(props: Props) {
   const router = useRouter();
   const locale = useLocale();
@@ -316,17 +318,18 @@ function PostSlider(props: Props) {
 
     return (
       <div onClick={() => navigateToPost(postId)} className={styles.textPost}>
-        <p>
-          {content.slice(0, 100)}
-          {content.length > 100 && (
-            <span
-              onClick={() => handleNavigatePost(postId)}
-              className={styles.readMore}
-            >
-              {" "}{t("readMore")}
-            </span>
-          )}
-        </p>
+        <p onClick={() => handleNavigatePost(postId)} style={{ cursor: "pointer" }}>{
+          <LinkifyText
+            text={content}
+            options={{
+              className: linkifyStyles["content-link"],
+              target: "_blank",
+              readMoreText: "Read More...",
+              readLessText: " Read Less",
+              maxTextLength: 50
+            }}
+          />
+        }</p>
       </div>
     );
   };

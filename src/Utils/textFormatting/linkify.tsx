@@ -43,10 +43,52 @@ export const LinkifyText: React.FC<{ text: string; options?: LinkifyOptions }> =
 
     if (!text) return <span></span>;
 
-    // Determine if we need to truncate
-    const shouldTruncate = maxTextLength && text.length > maxTextLength;
+    /**
+     * Strips HTML tags (br, span, etc.) from text for accurate character counting
+     */
+    const stripHtmlTags = (str: string): string => {
+        return str
+            .replace(/<br\s*\/?>/gi, '') // Remove <br> tags
+            .replace(/<\/?span[^>]*>/gi, '') // Remove <span> and </span> tags
+            .replace(/<\/?[^>]+(>|$)/g, ''); // Remove any other HTML tags
+    };
+
+    /**
+     * Gets the truncated text while preserving HTML tags
+     */
+    const getTruncatedText = (inputText: string, maxLength: number): string => {
+        let cleanTextLength = 0;
+        let resultText = '';
+        let i = 0;
+
+        while (i < inputText.length && cleanTextLength < maxLength) {
+            // Check if we're at the start of an HTML tag
+            if (inputText[i] === '<') {
+                const tagEnd = inputText.indexOf('>', i);
+                if (tagEnd !== -1) {
+                    // Include the entire tag without counting it
+                    resultText += inputText.substring(i, tagEnd + 1);
+                    i = tagEnd + 1;
+                    continue;
+                }
+            }
+
+            // Regular character - count it and add it
+            resultText += inputText[i];
+            cleanTextLength++;
+            i++;
+        }
+
+        return resultText;
+    };
+
+    // Calculate text length without HTML tags
+    const cleanTextLength = stripHtmlTags(text).length;
+    const shouldTruncate = maxTextLength && cleanTextLength > maxTextLength;
+
+    // Get display text - truncate while preserving HTML tags
     const displayText = shouldTruncate && !isExpanded
-        ? text.substring(0, maxTextLength) + '...'
+        ? getTruncatedText(text, maxTextLength) + '...'
         : text;
 
     // Process the text to create linkified content
@@ -54,9 +96,11 @@ export const LinkifyText: React.FC<{ text: string; options?: LinkifyOptions }> =
         // Build regex based on whether we should detect <br/> tags
         const urlPattern = `(https?:\\/\\/[^\\s]+)|(www\\.[^\\s]+)`;
         const brPattern = `(<br\\s*\\/?>)`;
+        const spanPattern = `(<\\/?span[^>]*>)`;
+
         const urlRegex = detectBrTags
-            ? new RegExp(`${urlPattern}|${brPattern}`, 'gi')
-            : new RegExp(urlPattern, 'g');
+            ? new RegExp(`${urlPattern}|${brPattern}|${spanPattern}`, 'gi')
+            : new RegExp(`${urlPattern}|${spanPattern}`, 'gi');
 
         const result: React.ReactNode[] = [];
         let lastIndex = 0;
@@ -79,7 +123,12 @@ export const LinkifyText: React.FC<{ text: string; options?: LinkifyOptions }> =
             // Check if it's a <br/> tag
             if (detectBrTags && matchedText.toLowerCase().match(/<br\s*\/?>/)) {
                 result.push(<br key={`br-${index}`} />);
-            } else {
+            }
+            // Check if it's a <span> tag - skip it (don't render)
+            else if (matchedText.match(/<\/?span[^>]*>/i)) {
+                // Skip span tags, don't add them to result
+            }
+            else {
                 // It's a URL
                 const url = matchedText.startsWith('www.')
                     ? `https://${matchedText}`
