@@ -8,11 +8,11 @@ interface LinkifyOptions {
 }
 
 /**
- * Converts URLs in text into clickable links
+ * Converts URLs in text into clickable links and <br/> tags into line breaks
  * 
  * @param text - The text to process
  * @param options - Optional styling and behavior configuration
- * @returns JSX elements with clickable links
+ * @returns JSX elements with clickable links and line breaks
  */
 export const linkifyText = (
     text: string,
@@ -27,8 +27,8 @@ export const linkifyText = (
         onClick = (e) => e.stopPropagation()
     } = options;
 
-    // Regular expression to match URLs
-    const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)/g;
+    // Regular expression to match URLs and <br/> tags
+    const urlRegex = /(https?:\/\/[^\s]+)|(www\.[^\s]+)|(<br\s*\/?>)/gi;
 
     // Create a result array to hold all elements
     const result: React.ReactNode[] = [];
@@ -50,27 +50,35 @@ export const linkifyText = (
             index++;
         }
 
-        // Add the URL
-        const url = match[0].startsWith('www.')
-            ? `https://${match[0]}`
-            : match[0];
+        const matchedText = match[0];
 
-        result.push(
-            <a
-                key={`link-${index}`}
-                href={url}
-                target={target}
-                rel={rel}
-                className={className}
-                onClick={onClick}
-            >
-                {match[0]}
-            </a>
-        );
+        // Check if it's a <br/> tag
+        if (matchedText.toLowerCase().match(/<br\s*\/?>/)) {
+            result.push(<br key={`br-${index}`} />);
+        } else {
+            // It's a URL
+            const url = matchedText.startsWith('www.')
+                ? `https://${matchedText}`
+                : matchedText;
+
+            result.push(
+                <a
+                    key={`link-${index}`}
+                    href={url}
+                    target={target}
+                    rel={rel}
+                    className={className}
+                    onClick={onClick}
+                >
+                    {matchedText}
+                </a>
+            );
+        }
+
         index++;
 
         // Update the last index
-        lastIndex = match.index + match[0].length;
+        lastIndex = match.index + matchedText.length;
     }
 
     // Add any remaining text after the last match
