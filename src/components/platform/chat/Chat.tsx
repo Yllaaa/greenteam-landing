@@ -13,7 +13,8 @@ import { useSearchParams, useRouter } from "next/navigation";
 import axios from "axios";
 import { useLocale, useTranslations } from "next-intl";
 
-// const SOCKET_URL = process.env.NEXT_PUBLIC_SOCKET_URL;
+// const SOCKET_URL = "https://greenteam.yllaaa.com/api/v1/chat";
+const SOCKET_URL = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/chat`;
 
 export default function Chat() {
   const params = useSearchParams()
@@ -76,7 +77,7 @@ export default function Chat() {
 
     // Function to initialize WebSocket connection
     const connectSocket = () => {
-      socketRef.current = io(process.env.NEXT_PUBLIC_SOCKET_URL, {
+      socketRef.current = io(SOCKET_URL, {
         transports: ["websocket"],
         auth: { token: accessToken },
       });
