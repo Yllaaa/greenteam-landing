@@ -828,7 +828,7 @@ function PostSlider(props: Props) {
         <p>{linkifyText(post.post.content, {
           className: linkifyStyles['content-link'],
           target: "_blank",
-          maxLinkTextLength: 40,
+          maxLinkTextLength: 20,
           detectBrTags: true,
         })}</p>
       </div>
