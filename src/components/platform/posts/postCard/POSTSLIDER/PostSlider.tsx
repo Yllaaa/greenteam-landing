@@ -495,7 +495,7 @@ function PostSlider(props: Props) {
   const {
     post,
     media,
-    content,
+    // content,
     commentPage,
     setPostComments,
     likes,
@@ -711,9 +711,9 @@ function PostSlider(props: Props) {
   };
 
   // Navigate to full post
-  const handleNavigatePost = (postId: string) => {
-    router.push(`/${locale}/feeds/posts/${postId}`);
-  };
+  // const handleNavigatePost = (postId: string) => {
+  //   router.push(`/${locale}/feeds/posts/${postId}`);
+  // };
 
   // Handle navigation with event checking
   const handleNavigate = (e: React.MouseEvent, postId: string) => {
