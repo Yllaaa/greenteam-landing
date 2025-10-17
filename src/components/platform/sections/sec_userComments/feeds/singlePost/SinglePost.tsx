@@ -17,6 +17,8 @@ import { FaComment } from "react-icons/fa6";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
 // import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 type Props = {
   postId: string;
@@ -289,7 +291,20 @@ function SinglePost(props: Props) {
             </div>
           </div>
           <div className={styles.postContent}>
-            <p>{post.post.content}</p>
+            <p>
+              {
+                <LinkifyText
+                  text={post.post.content}
+                  options={{
+                    className: linkifyStyles["content-link"],
+                    target: "_blank",
+                    readMoreText: "Read More...",
+                    readLessText: " Read Less",
+                    maxTextLength: 50
+                  }}
+                />
+              }
+            </p>
           </div>
           {post.media.length > 0 && (
             <div className={styles.postImages}>

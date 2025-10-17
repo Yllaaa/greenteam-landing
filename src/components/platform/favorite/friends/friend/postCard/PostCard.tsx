@@ -19,8 +19,10 @@ import { getToken } from "@/Utils/userToken/LocalToken";
 import { PostsData, Props } from "./types/postTypes.data";
 import { fetchPosts } from "./functions/postFunc.data";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import {useTranslations} from "next-intl";
+import { useTranslations } from "next-intl";
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 function PostCard(props: Props) {
   const {
@@ -33,7 +35,7 @@ function PostCard(props: Props) {
     setPostId,
     setPostMedia,
   } = props;
-const t = useTranslations("web.favourite.post");
+  const t = useTranslations("web.favourite.post");
   const router = useRouter();
   const locale = useLocale();
 
@@ -232,14 +234,29 @@ const t = useTranslations("web.favourite.post");
                     style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
-                    {post.post.content.length > 50 ? (
+                    {/* {post.post.content.length > 50 ? (
                       <p style={{ cursor: "pointer" }}>
                         {post.post.content.slice(0, 40)}{" "}
                         <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
                       <p style={{ cursor: "pointer" }}>{post.post.content}</p>
-                    )}
+                    )} */}
+                    <p>
+
+                      {
+                        <LinkifyText
+                          text={post.post.content}
+                          options={{
+                            className: linkifyStyles["content-link"],
+                            target: "_blank",
+                            readMoreText: "Read More...",
+                            readLessText: " Read Less",
+                            maxTextLength: 50
+                          }}
+                        />
+                      }
+                    </p>
                   </div>
                 )}
               </div>
@@ -248,24 +265,24 @@ const t = useTranslations("web.favourite.post");
               <div className={styles.postslider}>
                 {isMounted && (
                   <PostSlider
-                  post={post}
-                  media={post.media}
-                  content={post.post.content}
-                  commentPage={commentsPage}
-                  setCommentPage={setCommentsPage}
-                  likes={post.likeCount}
-                  dislikes={post.dislikeCount}
-                  comments={post.commentCount}
-                  userReactionType={post.userReactionType}
-                  hasDoReaction={post.hasDoReaction}
-                  setDoItModal={setDoItModal}
-                  setCommentModal={setCommentModal}
-                  setPostComments={setPostComments}
-                  postId={post.post.id}
-                  rerender={rerender}
-                  setPostId={setPostId}
-                  setPostMedia={setPostMedia}
-                />
+                    post={post}
+                    media={post.media}
+                    content={post.post.content}
+                    commentPage={commentsPage}
+                    setCommentPage={setCommentsPage}
+                    likes={post.likeCount}
+                    dislikes={post.dislikeCount}
+                    comments={post.commentCount}
+                    userReactionType={post.userReactionType}
+                    hasDoReaction={post.hasDoReaction}
+                    setDoItModal={setDoItModal}
+                    setCommentModal={setCommentModal}
+                    setPostComments={setPostComments}
+                    postId={post.post.id}
+                    rerender={rerender}
+                    setPostId={setPostId}
+                    setPostMedia={setPostMedia}
+                  />
                 )}
               </div>
             </div>

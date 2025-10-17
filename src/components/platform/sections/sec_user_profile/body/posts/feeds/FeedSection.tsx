@@ -66,7 +66,7 @@ function FeedSection() {
       );
       
       if (response) {
-        ToastNot("Post deleted successfully");
+        // ToastNot("Post deleted successfully");
         // Trigger a rerender to refresh the post list
         setRerender(prev => !prev);
         // window.location.reload();

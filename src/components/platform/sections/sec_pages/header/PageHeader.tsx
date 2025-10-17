@@ -22,7 +22,7 @@ import ToastNot from "@/Utils/ToastNotification/ToastNot";
 import axios from "axios";
 import { getToken } from "@/Utils/userToken/LocalToken";
 import { useRouter } from "next/navigation";
-import linkifyText from "@/Utils/textFormatting/linkify";
+import LinkifyText from "@/Utils/textFormatting/linkify";
 import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 import { useLocale, useTranslations } from "next-intl";
 import PageContactButton from "./pageContactBtn/PageContactButton";
@@ -336,12 +336,20 @@ function Pageheader(props: {
           <div className={styles.infoItem}>
             <h5>{t('website')}:</h5>
             {data.websiteUrl ? (
+              
               <h6>
-                {linkifyText(data.websiteUrl, {
+                <LinkifyText
+                  text={data.websiteUrl}
+                  options= {{
                   className: linkifyStyles['content-link'],
                   target: "_blank",
                   rel: "noopener noreferrer"
-                })}
+                }}/>
+                {/* {linkifyText(data.websiteUrl, {
+                  className: linkifyStyles['content-link'],
+                  target: "_blank",
+                  rel: "noopener noreferrer"
+                })} */}
               </h6>
             ) : (
               <h6>{t('noWebsite')}</h6>

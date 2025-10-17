@@ -5,6 +5,7 @@
 @import 'shepherd.js/dist/css/shepherd.css';
 @import 'react-quill-new/dist/quill.snow.css';
 @import 'react-toastify/dist/ReactToastify.css';
+@import 'keen-slider/keen-slider.min.css';
 :root {
 	--white: #fefefe;
 	--textSec: #b5b5b5;
@@ -92,8 +93,8 @@ a {
 		#031e09 99.2%
 	);
 }
-input{
-  color: #74b243 !important;
+input {
+	color: #74b243 !important;
 }
 textarea {
 	color: #006633 !important;

@@ -22,7 +22,7 @@ import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
-import linkifyText from "@/Utils/textFormatting/linkify";
+import LinkifyText from "@/Utils/textFormatting/linkify";
 import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 import { useTranslations } from "next-intl";
 
@@ -311,12 +311,24 @@ function PostCard(props: Props) {
                     onClick={() => navigateToPost(post.post.id)}
                     className={styles.post}
                   >
-                    <p>{linkifyText(post.post.content, {
+                    {/* <p>{linkifyText(post.post.content, {
                       className: linkifyStyles['content-link'],
                       target: "_blank",
                       maxLinkTextLength: 20,
                       detectBrTags: true,
-                    })}</p>
+                    })}</p> */}
+                    <p>{
+                      <LinkifyText
+                        text={post.post.content}
+                        options={{
+                          className: linkifyStyles["content-link"],
+                          target: "_blank",
+                          readMoreText: "Read More...",
+                          readLessText: " Read Less",
+                          maxTextLength: 50
+                        }}
+                      />
+                    }</p>
                     {/* {post.post.content.length > 50 ? (
                       <p style={{ wordBreak: "break-all", cursor: "pointer" }}>
                         {linkifyText(post.post.content.slice(0, 40), {

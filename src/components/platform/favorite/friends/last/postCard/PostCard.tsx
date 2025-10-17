@@ -21,6 +21,8 @@ import { fetchPosts } from "./functions/postFunc.data";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import { FaTrash } from "react-icons/fa6";
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 function PostCard(props: Props) {
   const {
@@ -246,14 +248,29 @@ function PostCard(props: Props) {
                     style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
-                    {post.post.content.length > 50 ? (
+                    {/* {post.post.content.length > 50 ? (
                       <p style={{ cursor: "pointer" }}>
                         {post.post.content.slice(0, 40)}{" "}
                         <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
                       <p style={{ cursor: "pointer" }}>{post.post.content}</p>
-                    )}
+                    )} */}
+                    <p>
+
+                      {
+                        <LinkifyText
+                          text={post.post.content}
+                          options={{
+                            className: linkifyStyles["content-link"],
+                            target: "_blank",
+                            readMoreText: "Read More...",
+                            readLessText: " Read Less",
+                            maxTextLength: 50
+                          }}
+                        />
+                      }
+                    </p>
                   </div>
                 )}
               </div>

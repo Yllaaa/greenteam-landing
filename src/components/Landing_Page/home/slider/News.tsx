@@ -3,12 +3,14 @@
 import React, { useEffect, useState } from "react";
 import styles from "./news.module.css";
 import { useKeenSlider } from "keen-slider/react";
-import "keen-slider/keen-slider.min.css";
+
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa6";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import axios from "axios";
 import Image from "next/image";
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 function News() {
   const t = useTranslations('landing.news');
@@ -85,14 +87,26 @@ function News() {
 
         {/* Display post title */}
         <div className={styles.context}>
-          <h5>
+          {/* <h5>
             {post.post?.content ?
               (post.post.content.length > 100 ?
                 post.post.content.slice(0, 100) + "..." :
                 post.post.content) :
               t('ultimate')
             }
-          </h5>
+          </h5> */}
+          <h5>{
+            <LinkifyText
+              text={post.post.content}
+              options={{
+                className: linkifyStyles["content-link"],
+                target: "_blank",
+                readMoreText: "Read More...",
+                readLessText: " Read Less",
+                maxTextLength: 50
+              }}
+            />
+          }</h5>
         </div>
 
         {/* Display post excerpt/description */}

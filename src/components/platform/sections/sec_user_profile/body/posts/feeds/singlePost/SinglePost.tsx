@@ -17,6 +17,8 @@ import { FaComment } from "react-icons/fa6";
 import attached from "@/../public/ZPLATFORM/post/attach.jpg";
 import foot from "@/../public/logo/foot.png";
 // import { downloadPDF } from "@/Utils/downloadPdf/DownloadPdf";
+import LinkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 type Props = {
   postId: string;

@@ -9,3 +9,28 @@
   .content-link:hover {
     text-decoration: underline;
   }
+
+  .read-more-btn {
+    background: none;
+    border: none;
+    color: #74b243;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    font-weight: 600;
+    font: inherit;
+    transition: color 0.2s;
+}
+
+.read-more-btn:hover {
+    color: #5a8c35;
+}
+
+.content-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.content-link:hover {
+    text-decoration: underline;
+}
