@@ -69,6 +69,7 @@ function FeedSection() {
         ToastNot("Post deleted successfully");
         // Trigger a rerender to refresh the post list
         setRerender(prev => !prev);
+        // window.location.reload();
       }
     } catch (error) {
       console.error("Failed to delete post:", error);

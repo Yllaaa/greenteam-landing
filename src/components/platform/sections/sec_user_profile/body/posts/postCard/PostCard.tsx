@@ -146,7 +146,7 @@ function PostCard(props: Props) {
       accessToken,
       setIsLoading
     );
-  }, [page, mainTopic, isLoading, accessToken, isMounted, params?.username]);
+  }, [page, mainTopic, isLoading, accessToken, isMounted, params?.username, deleteModal]);
 
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({
@@ -272,13 +272,13 @@ function PostCard(props: Props) {
                     </div>
                   )}
                   {post.author.id !== user && (
-                  <div
-                    onClick={() => handleActionReport(post.post.id)}
-                    className={`${styles.optionItem} ${styles.reportOption}`}
-                  >
-                    <MdOutlineReportProblem /> <span>Report Post</span>
-                  </div>
-              )}
+                    <div
+                      onClick={() => handleActionReport(post.post.id)}
+                      className={`${styles.optionItem} ${styles.reportOption}`}
+                    >
+                      <MdOutlineReportProblem /> <span>Report Post</span>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
