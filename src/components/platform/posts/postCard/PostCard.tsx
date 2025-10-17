@@ -311,7 +311,13 @@ function PostCard(props: Props) {
                     onClick={() => navigateToPost(post.post.id)}
                     className={styles.post}
                   >
-                    {post.post.content.length > 50 ? (
+                    <p>{linkifyText(post.post.content, {
+                      className: linkifyStyles['content-link'],
+                      target: "_blank",
+                      maxLinkTextLength: 40,
+                      detectBrTags: true,
+                    })}</p>
+                    {/* {post.post.content.length > 50 ? (
                       <p style={{ wordBreak: "break-all", cursor: "pointer" }}>
                         {linkifyText(post.post.content.slice(0, 40), {
                           className: linkifyStyles['content-link'],
@@ -326,7 +332,7 @@ function PostCard(props: Props) {
                           target: "_blank"
                         })}
                       </p>
-                    )}
+                    )} */}
                   </div>
                 )}
               </div>

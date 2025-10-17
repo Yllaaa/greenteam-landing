@@ -22,6 +22,9 @@ import { FaTrash } from "react-icons/fa6";
 import { MdOutlineReportProblem } from "react-icons/md";
 import { PiDotsThreeCircleLight } from "react-icons/pi";
 import { useAppSelector } from "@/store/hooks";
+import linkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
+
 
 const PostSlider = lazy(() => import("./POSTSLIDER/PostSlider"));
 
@@ -318,14 +321,20 @@ function PostCard(props: Props) {
                     style={{ cursor: "pointer" }}
                     className={styles.post}
                   >
-                    {post.post.content.length > 50 ? (
+                    <p>{linkifyText(post.post.content, {
+                      className: linkifyStyles['content-link'],
+                      target: "_blank",
+                      maxLinkTextLength: 40,
+                      detectBrTags: true,
+                    })}</p>
+                    {/* {post.post.content.length > 50 ? (
                       <p style={{ cursor: "pointer" }}>
                         {post.post.content.slice(0, 40)}{" "}
                         <span style={{ cursor: "pointer" }}>Read More... </span>
                       </p>
                     ) : (
                       <p style={{ cursor: "pointer" }}>{post.post.content}</p>
-                    )}
+                    )} */}
                   </div>
                 )}
               </div>

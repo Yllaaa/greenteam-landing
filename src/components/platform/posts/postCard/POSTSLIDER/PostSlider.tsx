@@ -486,6 +486,8 @@ import foot from "@/../public/logo/foot.png";
 import { useTranslations } from "next-intl";
 import CommentButton from "@/Utils/commentButton/CommentButton";
 import ToastNot from "@/Utils/ToastNotification/ToastNot"
+import linkifyText from "@/Utils/textFormatting/linkify";
+import linkifyStyles from "@/Utils/textFormatting/linkify.module.css";
 
 function PostSlider(props: Props) {
   const router = useRouter();
@@ -809,7 +811,7 @@ function PostSlider(props: Props) {
 
     return (
       <div onClick={(e) => handleNavigate(e, postId)} className={styles.textPost}>
-        <p>
+        {/* <p>
           {content.slice(0, 100)}
           {content.length > 100 && (
             <span
@@ -822,7 +824,13 @@ function PostSlider(props: Props) {
               {" "}{t("readMore")}
             </span>
           )}
-        </p>
+        </p> */}
+        <p>{linkifyText(post.post.content, {
+          className: linkifyStyles['content-link'],
+          target: "_blank",
+          maxLinkTextLength: 40,
+          detectBrTags: true,
+        })}</p>
       </div>
     );
   };
