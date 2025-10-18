@@ -22,8 +22,13 @@ export const metadata: Metadata = {
   title: "GREEN TEAM",
   description: "Life not only life",
   icons: {
-    icon: '/favicon.ico', // or '/favicon.png'
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+    ],
     shortcut: '/favicon.ico',
+    apple: '/favicon.ico',
   },
 };
 
