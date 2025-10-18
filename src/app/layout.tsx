@@ -18,8 +18,14 @@ const montserrat = Montserrat({
 });
 
 export const metadata: Metadata = {
+  
   title: "GREEN TEAM",
   description: "Life not only life",
+  icons: {
+    icon: '/favicon.png', // or '/favicon.png'
+    shortcut: '/favicon.png',
+    apple: '/apple-touch-icon.png',
+  },
 };
 
 export default function RootLayout({
