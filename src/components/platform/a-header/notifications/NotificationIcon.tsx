@@ -14,13 +14,13 @@ const NotificationIcon = () => {
 
     useEffect(() => {
         // Get the correct backend URL - matching your Postman URL
-        const backendUrl = process.env.NEXT_PUBLIC_BACKENDAPI || 'https://greenteam.yllaaa.com';
+        const backendUrl = `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/notification`|| 'https://api.greenteam.app/api/v1/notification';
         const token = getToken()
         console.log("token",token.accessToken)
         try {
             // Initialize socket connection
             const socketInstance = io(backendUrl, {
-                path: '/api/v1/notifications',
+                // path: '/api/v1/notifications',
                 reconnectionAttempts: 5,
                 reconnectionDelay: 1000,
                 transports: ['websocket', 'polling'],
