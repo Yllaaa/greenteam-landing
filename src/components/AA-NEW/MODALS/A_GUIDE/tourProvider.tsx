@@ -111,7 +111,7 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     const [run, setRun] = useState(false);
     const [steps, setSteps] = useState<Step[]>([]);
     const [currentTourId, setCurrentTourId] = useState<string | null>(null);
-    console.log('currentTourId', currentTourId);
+    // console.log('currentTourId', currentTourId);
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
     const [tourConfig, setTourConfig] = useState<Partial<TourConfig>>({});
     const pathname = usePathname();
@@ -128,6 +128,8 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
             // Mark tour as completed
             if (currentTourId) {
                 localStorage.setItem(`tour_completed_${currentTourId}`, 'true');
+                //scroll to top on skip
+                window.scrollTo(0, 0);
             }
 
             // Clean up all tour state
@@ -176,6 +178,8 @@ export const GlobalTourProvider: React.FC<{ children: React.ReactNode }> = ({ ch
         if (finishedStatuses.includes(status) && action !== ACTIONS.SKIP) {
             if (currentTourId) {
                 localStorage.setItem(`tour_completed_${currentTourId}`, 'true');
+                //scroll to top on skip
+                window.scrollTo(0, 0);
             }
             setRun(false);
             setSteps([]);

@@ -8,8 +8,8 @@ import artIcon from "@/../public/ZPLATFORM/categories/art.svg";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
 import eco from "@/../public/ZPLATFORM/categories/eco.svg";
 import food from "@/../public/ZPLATFORM/categories/food.svg";
-import know from "@/../public/ZPLATFORM/categories/know.svg";
-import physical from "@/../public/ZPLATFORM/categories/physical.svg";
+import physical from "@/../public/ZPLATFORM/categories/know.svg";
+import know from "@/../public/ZPLATFORM/categories/physical.svg";
 import { Topics } from "@/components/Assets/topics/Topics.data";
 import { useAppSelector } from "@/store/hooks";
 

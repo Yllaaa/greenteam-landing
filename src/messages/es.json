@@ -17,7 +17,7 @@
 			"wayOfLife": "es una forma de vida",
 			"bePart": "Sé parte de la comunidad sostenible.",
 			"theConscient": "La red social",
-			"socialNet": "consciente.",
+			"socialNet": "consciente",
 			"downloadApp": "Descargar app",
 			"loginWithGoogle": "Iniciar sesión con Google",
 			"register": "Registrarse"
@@ -403,15 +403,7 @@
 			"pueblos": "Pueblos",
 			"pueblosT": "Aglomeraciones de población en áreas rurales con un ambiente familiar y cooperativo. Espacios adecuados para el uso responsable de los recursos naturales y la construcción de ecosistemas abundantes. También, experimentando en la producción de artesanías y oficios.",
 			"comunidades": "Comunidades",
-			"comunidadesT": [
-				"Regístrate gratis y comparte el camino hacia la sostenibilidad",
-				"Destaca tu proyecto o negocio ofreciendo tus soluciones",
-				"Apoya e interactúa con proyectos y negocios conscientes cerca de ti",
-				"Puedes hacer pequeñas donaciones voluntarias anuales (miembros)",
-				"Compromiso del equipo en usar los recursos de manera responsable",
-				"Mejora de herramientas de comunicación para facilitar la transición ecológica y la interacción humana",
-				"Trabajamos juntos hacia un equilibrio personal, ambiental y social"
-			],
+			"comunidadesT": "Grupo de personas reducido que viven en un ambiente natural, simple, resiliente, biodiverso y autosuficientes. Espacio conservado caracterizado por la armonía en contacto con la naturaleza y la humildad. Cualquier persona podría transitar de un espacio a otro llevando consigo saberes, experiencias y colaboración, gozando de lo que te ofrecen cada uno de ellos.",
 			"category": {
 				"salud": "Alimentación y salud",
 				"saludT": "Fomentamos la autosuficiencia alimentaria mediante la producción sostenible de frutas, verduras y hierbas, con énfasis en la venta de proximidad. También se incluye la producción responsable de carne, leche y huevos con un consumo moderado. Impulsamos el procesamiento artesanal de alimentos: panadería, derivados lácteos, embutidos, conservas y comidas preparadas.",
@@ -1029,7 +1021,7 @@
 			},
 			"breif": {
 				"yourPoints": "Tus Puntos",
-				"track": "¡Rastrea Tu Impacto!",
+				"track": "Tu Impacto!",
 				"points": "Puntos"
 			},
 			"breif2": {
@@ -1445,7 +1437,7 @@
 				"following": "Siguiendo",
 				"unfollow": "Dejar de seguir",
 				"sendMessage": "Enviar mensaje",
-				"noBioYet": "¡Sin biografía aún!",
+				"noBioYet": "COMPLETA TU PERFIL",
 				"noLocation": "¡Sin ubicación!",
 				"actions": "Acciones",
 				"reportThisUser": "Reportar este usuario",

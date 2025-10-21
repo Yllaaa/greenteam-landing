@@ -17,7 +17,7 @@
 			"wayOfLife": "is a way of life",
 			"bePart": "Be part of the sustainable community.",
 			"theConscient": "The conscious",
-			"socialNet": "social network.",
+			"socialNet": "social network",
 			"downloadApp": "Download app",
 			"loginWithGoogle": "Login with Google",
 			"register": "Sign Up"
@@ -399,15 +399,7 @@
 			"pueblos": "Towns",
 			"pueblosT": "Population agglomerations in rural areas with a family and cooperative environment. Suitable spaces for the responsible use of natural resources and the construction of abundant ecosystems. Also, experimenting in the production of crafts and trades.",
 			"comunidades": "Communities",
-			"comunidadesT": [
-				"Register for free and share the journey toward sustainability",
-				"Showcase your project or business by offering your solutions",
-				"Support and engage with conscious projects and businesses near you",
-				"You can make small voluntary annual donations (members)",
-				"Team commitment to using resources responsibly",
-				"Improvement of communication tools to facilitate the ecological transition and human interaction",
-				"We work together toward personal, environmental, and social balance"
-			],
+			"comunidadesT":"A small group of people living in a natural, simple, resilient, biodiverse, and self-sufficient environment. A preserved space characterized by harmony in contact with nature and humility. Any person could transit from one space to another, carrying with them knowledge, experiences, and collaboration, enjoying what each one of them offers you.",
 			"category": {
 				"salud": "Food and health",
 				"saludT": "We promote food self-sufficiency through sustainable production of fruits, vegetables and herbs, with emphasis on proximity sales. It also includes responsible production of meat, milk and eggs with moderate consumption. We promote artisanal food processing: bakery, dairy products, sausages, preserves and prepared meals.",
@@ -1032,7 +1024,7 @@
 			},
 			"breif": {
 				"yourPoints": "Your Points",
-				"track": "Track Your Impact!",
+				"track": "Your Impact!",
 				"points": "Points"
 			},
 			"breif2": {
@@ -1450,7 +1442,7 @@
 				"following": "Following",
 				"unfollow": "Unfollow",
 				"sendMessage": "Send Message",
-				"noBioYet": "No bio yet!",
+				"noBioYet": "FILL YOUR PROFILE",
 				"noLocation": "No location!",
 				"actions": "Actions",
 				"reportThisUser": "Report this user",

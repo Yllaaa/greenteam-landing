@@ -15,25 +15,25 @@ import physical from "@/../public/ZPLATFORM/categories/eco.svg";
 import eco from "@/../public/ZPLATFORM/categories/know.svg";
 import community from "@/../public/ZPLATFORM/categories/community.svg";
 
-interface SectionProps {
-  title: string;
-  points: string[];
-}
+// interface SectionProps {
+//   title: string;
+//   points: string[];
+// }
 
 function Imagine() {
   const t = useTranslations("landing.imagine");
-  const Section: React.FC<SectionProps> = ({ title, points }) => (
-    <div className={styles.section}>
-      <h3 className={styles.sectionTitle}>{title}</h3>
-      <ul className={styles.pointsList}>
-        {points.map((point, index) => (
-          <li key={index} className={styles.point}>
-            {point}
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
+  // const Section: React.FC<SectionProps> = ({ title, points }) => (
+  //   <div className={styles.section}>
+  //     <h3 className={styles.sectionTitle}>{title}</h3>
+  //     <ul className={styles.pointsList}>
+  //       {points.map((point, index) => (
+  //         <li key={index} className={styles.point}>
+  //           {point}
+  //         </li>
+  //       ))}
+  //     </ul>
+  //   </div>
+  // );
   return (
     <>
       <div className={styles.container}>
@@ -50,7 +50,8 @@ function Imagine() {
               <li><span>{t("fomentar")}:{" "}</span>{t("fomentarText")}</li> */}
               <li><span>{t("ciudades")}:{" "}</span>{t("ciudadesT")}</li>
               <li><span>{t("pueblos")}:{" "}</span>{t("pueblosT")}</li>
-              <li><Section title={t("comunidades")} points={t.raw("comunidadesT") as string[]} /></li>
+              <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li>
+              {/* <li><Section title={t("comunidades")} points={t.raw("comunidadesT") as string[]} /></li> */}
               {/* <li><span>{t("comunidades")}:{" "}</span>{t("comunidadesT")}</li> */}
             </ul>
             {/* <p>

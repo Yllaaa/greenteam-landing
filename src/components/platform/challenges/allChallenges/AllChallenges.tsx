@@ -7,6 +7,8 @@ import styles from './AllChallenges.module.scss'
 import logo from '@/../public/personal/menu/notifications/logo.png'
 import Image from 'next/image'
 import ToastNot from '@/Utils/ToastNotification/ToastNot'
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl'
 
 function AllChallenges(props: {
   setChallengeId: React.Dispatch<React.SetStateAction<string>>,
@@ -156,6 +158,11 @@ function AllChallenges(props: {
       setActionInProgress(null);
     }
   }
+const locale = useLocale();
+  const router = useRouter();
+  const handleNoChallengesClick = () => {
+    router.push(`/${locale}/feeds`);
+  }
 
   return (
     <div className={styles.container}>
@@ -230,7 +237,7 @@ function AllChallenges(props: {
       {loading && <p className={styles.loading}>Loading more challenges...</p>}
 
       {!hasMore && allChallenges.length > 0 && (
-        <p className={styles.noMore}>No more challenges to load</p>
+        <p className={styles.noMore} style={{cursor:"pointer"}} onClick={handleNoChallengesClick}>SEE CHALLENGES</p>
       )}
     </div>
   )

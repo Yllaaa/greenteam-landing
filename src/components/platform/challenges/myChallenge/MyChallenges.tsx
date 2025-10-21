@@ -89,6 +89,13 @@ function MyChallenges(props: DoMainProps) {
 
   if (isError) return <p>Error: {(error as Error).message}</p>
 
+const locale = useLocale();
+  const router = useRouter();
+  const handleNoChallengesClick = () => {
+    router.push(`/${locale}/feeds`);
+  }
+
+
   return (
     <div className={styles.MyContainer}>
       {challenges.length > 0 &&
@@ -132,8 +139,8 @@ function MyChallenges(props: DoMainProps) {
       )}
 
       {!isLoading && challenges.length === 0 && (
-        <div className={styles.loaderContainer}>
-          <p>No challenges found</p>
+        <div className={styles.loaderContainer} style={{cursor:"pointer"}} onClick={handleNoChallengesClick}>
+          <p>SEE CHALLENGES</p>
         </div>
       )}
     </div>

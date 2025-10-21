@@ -172,101 +172,101 @@ const AddNewPage = ({ setAddNew }: AddEventProps) => {
 
         return url;
     };
-  // Form submission handler
-const onSubmit = async (data: FormData) => {
-    // Check if slug is still being checked
-    if (slugStatus.checking) {
-        ToastNot(t('errors.waitForSlugCheck'));
-        return;
-    }
-
-    // Check if slug is available
-    if (slugStatus.available === false) {
-        ToastNot(t('errors.slugTaken'));
-        return;
-    }
-
-    // Check all required fields
-    if (!data.name || !data.description || !data.slug || !data.cityId || !data.countryId) {
-        ToastNot(t('errors.fillAllFields'));
-        return;
-    }
-
-    try {
-        const formData = new FormData();
-
-        // Normalize the website URL
-        const normalizedData = {
-            ...data,
-            websiteUrl: normalizeWebsiteUrl(data.websiteUrl)
-        };
-
-        // Append all text fields
-        Object.keys(normalizedData).forEach((key) => {
-            if (key !== 'avatar' && key !== 'cover' && normalizedData[key as keyof FormData]) {
-                formData.append(key, String(normalizedData[key as keyof FormData]));
-            }
-        });
-
-        // Append files if they exist
-        if (data.avatar) {
-            formData.append('avatar', data.avatar);
-        }
-        if (data.cover) {
-            formData.append('cover', data.cover);
+    // Form submission handler
+    const onSubmit = async (data: FormData) => {
+        // Check if slug is still being checked
+        if (slugStatus.checking) {
+            ToastNot(t('errors.waitForSlugCheck'));
+            return;
         }
 
-        const response = await axios.post(
-            `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/create-page`,
-            formData,
-            {
-                headers: {
-                    "Content-Type": "multipart/form-data",
-                    Authorization: `Bearer ${accessToken}`,
-                    "Access-Control-Allow-Origin": "*",
-                },
-            }
-        );
-
-        if (response.data) {
-            ToastNot(t('errors.pageCreated'));
-            reset();
-            setTimeout(() => {
-                window.location.reload();
-            }, 1000);
-        }
-    } catch (error: any) {
-        console.error("Error creating page:", error);
-        
-        // Check if the error is due to slug being taken
-        if (error.response?.status === 409 || 
-            error.response?.data?.message?.toLowerCase().includes('slug') ||
-            error.response?.data?.error?.toLowerCase().includes('slug')) {
-            
-            // Update slug status to show it's taken
-            setSlugStatus({
-                checking: false,
-                available: false,
-                message: t('errors.slugTaken')
-            });
-            
+        // Check if slug is available
+        if (slugStatus.available === false) {
             ToastNot(t('errors.slugTaken'));
-        } else if (error.response?.status === 400) {
-            // Bad request - might be validation error
-            const errorMessage = error.response?.data?.message || error.response?.data?.error;
-            ToastNot(errorMessage || t('errors.validationError'));
-        } else if (error.response?.status === 401) {
-            // Unauthorized
-            ToastNot(t('errors.unauthorized'));
-        } else if (error.response?.status === 413) {
-            // Payload too large (file size)
-            ToastNot(t('errors.fileTooLarge'));
-        } else {
-            // Generic error
-            ToastNot(t('errors.errorCreating'));
+            return;
         }
-    }
-};
+
+        // Check all required fields
+        if (!data.name || !data.description || !data.slug || !data.cityId || !data.countryId) {
+            ToastNot(t('errors.fillAllFields'));
+            return;
+        }
+
+        try {
+            const formData = new FormData();
+
+            // Normalize the website URL
+            const normalizedData = {
+                ...data,
+                websiteUrl: normalizeWebsiteUrl(data.websiteUrl)
+            };
+
+            // Append all text fields
+            Object.keys(normalizedData).forEach((key) => {
+                if (key !== 'avatar' && key !== 'cover' && normalizedData[key as keyof FormData]) {
+                    formData.append(key, String(normalizedData[key as keyof FormData]));
+                }
+            });
+
+            // Append files if they exist
+            if (data.avatar) {
+                formData.append('avatar', data.avatar);
+            }
+            if (data.cover) {
+                formData.append('cover', data.cover);
+            }
+
+            const response = await axios.post(
+                `${process.env.NEXT_PUBLIC_BACKENDAPI}/api/v1/pages/create-page`,
+                formData,
+                {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                        Authorization: `Bearer ${accessToken}`,
+                        "Access-Control-Allow-Origin": "*",
+                    },
+                }
+            );
+
+            if (response.data) {
+                ToastNot(t('errors.pageCreated'));
+                reset();
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        } catch (error: any) {
+            console.error("Error creating page:", error);
+
+            // Check if the error is due to slug being taken
+            if (error.response?.status === 409 ||
+                error.response?.data?.message?.toLowerCase().includes('slug') ||
+                error.response?.data?.error?.toLowerCase().includes('slug')) {
+
+                // Update slug status to show it's taken
+                setSlugStatus({
+                    checking: false,
+                    available: false,
+                    message: t('errors.slugTaken')
+                });
+
+                ToastNot(t('errors.slugTaken'));
+            } else if (error.response?.status === 400) {
+                // Bad request - might be validation error
+                const errorMessage = error.response?.data?.message || error.response?.data?.error;
+                ToastNot(errorMessage || t('errors.validationError'));
+            } else if (error.response?.status === 401) {
+                // Unauthorized
+                ToastNot(t('errors.unauthorized'));
+            } else if (error.response?.status === 413) {
+                // Payload too large (file size)
+                ToastNot(t('errors.fileTooLarge'));
+            } else {
+                // Generic error
+                ToastNot(t('errors.errorCreating'));
+            }
+        }
+    };
 
     // Image handling states
     const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -816,7 +816,21 @@ const onSubmit = async (data: FormData) => {
                                     )}
                                 </div>
                             </div>
-
+                            <div className={styles.formGroup}>
+                                <label className={styles.label}>{t('form.how')}</label>
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        type="text"
+                                        className={`${styles.input} ${errors.how ? styles.inputError : ""}`}
+                                        {...register("how", {
+                                            required: t('errors.required', { field: t('form.how') }),
+                                        })}
+                                    />
+                                    {errors.how && (
+                                        <p className={styles.errorText}>{errors.how.message}</p>
+                                    )}
+                                </div>
+                            </div>
                             <div className={styles.formGroup}>
                                 <label className={styles.label}>{t('form.what')}</label>
                                 <div className={styles.inputWrapper}>
@@ -837,21 +851,7 @@ const onSubmit = async (data: FormData) => {
                                 </div>
                             </div>
 
-                            <div className={styles.formGroup}>
-                                <label className={styles.label}>{t('form.how')}</label>
-                                <div className={styles.inputWrapper}>
-                                    <input
-                                        type="text"
-                                        className={`${styles.input} ${errors.how ? styles.inputError : ""}`}
-                                        {...register("how", {
-                                            required: t('errors.required', { field: t('form.how') }),
-                                        })}
-                                    />
-                                    {errors.how && (
-                                        <p className={styles.errorText}>{errors.how.message}</p>
-                                    )}
-                                </div>
-                            </div>
+
                         </div>
                     </div>
 

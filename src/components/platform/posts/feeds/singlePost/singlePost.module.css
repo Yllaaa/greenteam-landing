@@ -108,7 +108,7 @@
 	display: grid;
 	place-items: center;
 	width: 100%;
-	aspect-ratio: 1 / 1;
+	/* aspect-ratio: 1 / 1; */
 }
 
 .imageWrapper {
@@ -117,12 +117,16 @@
 	position: relative;
 	overflow: hidden;
 	border-radius: 12px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .image {
 	width: 100%;
-	height: 100%;
-	object-fit: cover;
+	
+	aspect-ratio: 1 / 1;
+	object-fit: contain;
 	cursor: pointer;
 	transition: transform 0.2s ease-in-out;
 	border-radius: 12px;
@@ -329,6 +333,7 @@
 
 	.image {
 		border-radius: 8px;
+
 	}
 
 	.reactionBtns {
