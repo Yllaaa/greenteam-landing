@@ -24,6 +24,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
+            set -e  # <-- stop on first error
             cd /var/www/frontend
             git pull origin main
             npm install
