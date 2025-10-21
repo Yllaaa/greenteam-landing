@@ -9,6 +9,8 @@ import { useInView } from 'react-intersection-observer'
 import { useAppSelector } from '@/store/hooks'
 import LoadingTree from '@/components/zaLoader/LoadingTree'
 import { useInfiniteQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl'
 
 function MyChallenges(props: DoMainProps) {
   const {
@@ -89,7 +91,7 @@ function MyChallenges(props: DoMainProps) {
 
   if (isError) return <p>Error: {(error as Error).message}</p>
 
-const locale = useLocale();
+  const locale = useLocale();
   const router = useRouter();
   const handleNoChallengesClick = () => {
     router.push(`/${locale}/feeds`);
@@ -139,7 +141,7 @@ const locale = useLocale();
       )}
 
       {!isLoading && challenges.length === 0 && (
-        <div className={styles.loaderContainer} style={{cursor:"pointer"}} onClick={handleNoChallengesClick}>
+        <div className={styles.loaderContainer} style={{ cursor: "pointer" }} onClick={handleNoChallengesClick}>
           <p>SEE CHALLENGES</p>
         </div>
       )}
