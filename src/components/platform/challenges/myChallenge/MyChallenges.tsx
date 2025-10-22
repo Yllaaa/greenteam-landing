@@ -27,7 +27,11 @@ function MyChallenges(props: DoMainProps) {
   const token = getToken()
   const accessToken = token ? token.accessToken : null
   const updateState = useAppSelector((state) => state.updateState.updated)
-
+  const locale = useLocale();
+  const router = useRouter();
+  const handleNoChallengesClick = () => {
+    router.push(`/${locale}/feeds`);
+  }
   // IntersectionObserver for infinite scroll
   const { ref, inView } = useInView({
     threshold: 0.5,
@@ -91,11 +95,7 @@ function MyChallenges(props: DoMainProps) {
 
   if (isError) return <p>Error: {(error as Error).message}</p>
 
-  const locale = useLocale();
-  const router = useRouter();
-  const handleNoChallengesClick = () => {
-    router.push(`/${locale}/feeds`);
-  }
+
 
 
   return (
